@@ -1,6 +1,6 @@
-import { CHAIN } from "@hey/data/constants";
 import { ERRORS } from "@hey/data/errors";
 import { immutable } from "@lens-chain/storage-client";
+import { mainnet } from "viem/chains";
 import { storageClient } from "./storageClient";
 
 interface MetadataPayload {
@@ -12,7 +12,7 @@ const uploadMetadata = async (
 ): Promise<string> => {
   try {
     const { uri } = await storageClient.uploadAsJson(data, {
-      acl: immutable(CHAIN.id)
+      acl: immutable(mainnet.id)
     });
 
     return uri;

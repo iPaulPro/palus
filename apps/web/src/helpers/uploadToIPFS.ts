@@ -1,8 +1,9 @@
 import { S3 } from "@aws-sdk/client-s3";
 import { Upload } from "@aws-sdk/lib-storage";
-import { CHAIN, EVER_API, EVER_BUCKET, EVER_REGION } from "@hey/data/constants";
+import { EVER_API, EVER_BUCKET, EVER_REGION } from "@hey/data/constants";
 import generateUUID from "@hey/helpers/generateUUID";
 import { immutable } from "@lens-chain/storage-client";
+import { mainnet } from "viem/chains";
 import { hono } from "./fetcher";
 import { storageClient } from "./storageClient";
 
@@ -50,7 +51,7 @@ const uploadToIPFS = async (
         // If the file is less than FILE_SIZE_LIMIT_MB, upload it to the Grove
         if (file.size <= FILE_SIZE_LIMIT_MB) {
           const storageNodeResponse = await storageClient.uploadFile(file, {
-            acl: immutable(CHAIN.id)
+            acl: immutable(mainnet.id)
           });
 
           return {
