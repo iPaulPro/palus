@@ -1,4 +1,4 @@
-import { PLACEHOLDER_IMAGE } from "@hey/data/constants";
+import { PLACEHOLDER_IMAGE } from "@palus/data/constants";
 import type {
   DetailedHTMLProps,
   ImgHTMLAttributes,

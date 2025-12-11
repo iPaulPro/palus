@@ -1,4 +1,4 @@
-import { DEFAULT_AVATAR, TRANSFORMS } from "@hey/data/constants";
+import { DEFAULT_AVATAR, TRANSFORMS } from "@palus/data/constants";
 import imageKit from "./imageKit";
 import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
 

@@ -4,8 +4,8 @@ import {
   UsersIcon,
   XCircleIcon
 } from "@heroicons/react/24/outline";
-import { ADDRESS_PLACEHOLDER } from "@hey/data/constants";
-import type { CollectActionType } from "@hey/types/hey";
+import { ADDRESS_PLACEHOLDER } from "@palus/data/constants";
+import type { CollectActionType } from "@palus/types/palus";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { isAddress } from "viem";

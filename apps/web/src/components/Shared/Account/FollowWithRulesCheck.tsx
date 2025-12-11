@@ -1,4 +1,4 @@
-import type { AccountFollowRules, AccountFragment } from "@hey/indexer";
+import type { AccountFollowRules, AccountFragment } from "@palus/indexer";
 import { Button } from "@/components/Shared/UI";
 import { getSimplePaymentDetails } from "@/helpers/rules";
 import { useSuperFollowModalStore } from "@/store/non-persisted/modal/useSuperFollowModalStore";

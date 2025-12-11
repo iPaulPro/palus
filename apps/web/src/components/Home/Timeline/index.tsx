@@ -3,7 +3,7 @@ import {
   TimelineEventItemType,
   type TimelineRequest,
   useTimelineQuery
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { memo, useCallback, useMemo } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";

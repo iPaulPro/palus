@@ -1,14 +1,14 @@
 import type { ApolloCache, NormalizedCacheObject } from "@apollo/client";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
-import { ERRORS } from "@hey/data/errors";
+import { ERRORS } from "@palus/data/errors";
 import {
   type PostFragment,
   PostReactionType,
   useAddReactionMutation,
   useUndoReactionMutation
-} from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+} from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useCounter, useToggle } from "@uidotdev/usehooks";
 import { AnimateNumber } from "motion-plus-react";
 import { useCallback } from "react";

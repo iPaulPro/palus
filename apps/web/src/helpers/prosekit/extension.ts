@@ -1,4 +1,4 @@
-import { LENS_NAMESPACE } from "@hey/data/constants";
+import { LENS_NAMESPACE } from "@palus/data/constants";
 import {
   defineBaseCommands,
   defineBaseKeymap,

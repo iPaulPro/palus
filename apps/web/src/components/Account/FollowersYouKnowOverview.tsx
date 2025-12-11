@@ -1,7 +1,7 @@
-import { TRANSFORMS } from "@hey/data/constants";
-import getAccount from "@hey/helpers/getAccount";
-import getAvatar from "@hey/helpers/getAvatar";
-import { useFollowersYouKnowQuery } from "@hey/indexer";
+import { TRANSFORMS } from "@palus/data/constants";
+import getAccount from "@palus/helpers/getAccount";
+import getAvatar from "@palus/helpers/getAvatar";
+import { useFollowersYouKnowQuery } from "@palus/indexer";
 import { type ReactNode, useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router";
 import FollowersYouKnow from "@/components/Shared/Modal/FollowersYouKnow";

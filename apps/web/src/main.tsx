@@ -6,7 +6,7 @@ import { createRoot } from "react-dom/client";
 import Providers from "@/components/Common/Providers";
 import Routes from "./routes";
 
-createRoot(document.getElementById("_hey_") as HTMLElement).render(
+createRoot(document.getElementById("_palus_") as HTMLElement).render(
   <StrictMode>
     <Providers>
       <Routes />

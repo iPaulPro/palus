@@ -1,4 +1,4 @@
-import getAvatar from "@hey/helpers/getAvatar";
+import getAvatar from "@palus/helpers/getAvatar";
 import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router";
 import { Card, Image } from "@/components/Shared/UI";

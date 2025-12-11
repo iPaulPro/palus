@@ -1,4 +1,4 @@
-import type { PostFragment } from "@hey/indexer";
+import type { PostFragment } from "@palus/indexer";
 import { AnimateNumber } from "motion-plus-react";
 import plur from "plur";
 import { memo, useCallback, useState } from "react";

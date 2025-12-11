@@ -1,8 +1,8 @@
-import { TRANSFORMS } from "@hey/data/constants";
-import imageKit from "@hey/helpers/imageKit";
-import type { MetadataAsset } from "@hey/types/misc";
 import type { VideoSrc } from "@livepeer/react";
 import { getSrc } from "@livepeer/react/external";
+import { TRANSFORMS } from "@palus/data/constants";
+import imageKit from "@palus/helpers/imageKit";
+import type { MetadataAsset } from "@palus/types/misc";
 import { memo, useState } from "react";
 import Audio from "@/components/Shared/Audio";
 import { Image, LightBox } from "@/components/Shared/UI";

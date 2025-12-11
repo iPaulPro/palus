@@ -1,5 +1,5 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import type { PostFragment } from "@hey/indexer";
+import type { PostFragment } from "@palus/indexer";
 import { AnimateNumber } from "motion-plus-react";
 import { TipIcon } from "@/components/Shared/Icons/TipIcon";
 import MenuTransition from "@/components/Shared/MenuTransition";

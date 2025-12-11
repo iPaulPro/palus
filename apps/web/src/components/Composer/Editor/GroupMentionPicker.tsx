@@ -1,6 +1,6 @@
 import { UserGroupIcon, UsersIcon } from "@heroicons/react/24/solid";
-import { EditorRegex } from "@hey/data/regex";
-import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
+import { EditorRegex } from "@palus/data/regex";
+import sanitizeDStorageUrl from "@palus/helpers/sanitizeDStorageUrl";
 import { useEditor } from "prosekit/react";
 import {
   AutocompleteItem,

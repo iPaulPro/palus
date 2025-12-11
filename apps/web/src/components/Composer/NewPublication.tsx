@@ -1,8 +1,8 @@
-import { ERRORS } from "@hey/data/errors";
-import getAccount from "@hey/helpers/getAccount";
-import type { PostFragment } from "@hey/indexer";
-import type { IGif } from "@hey/types/giphy";
-import type { NewAttachment } from "@hey/types/misc";
+import { ERRORS } from "@palus/data/errors";
+import getAccount from "@palus/helpers/getAccount";
+import type { PostFragment } from "@palus/indexer";
+import type { IGif } from "@palus/types/giphy";
+import type { NewAttachment } from "@palus/types/misc";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import Attachment from "@/components/Composer/Actions/Attachment";

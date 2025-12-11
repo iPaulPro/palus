@@ -1,4 +1,4 @@
-import { MetadataLicenseType } from "@hey/indexer";
+import { MetadataLicenseType } from "@palus/indexer";
 import { Link } from "react-router";
 import { Select, Tooltip } from "@/components/Shared/UI";
 import getAssetLicense from "@/helpers/getAssetLicense";

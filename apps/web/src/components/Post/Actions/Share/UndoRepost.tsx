@@ -1,9 +1,9 @@
 import { useApolloClient } from "@apollo/client";
 import { MenuItem } from "@headlessui/react";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { ERRORS } from "@hey/data/errors";
-import { isRepost } from "@hey/helpers/postHelpers";
-import { type AnyPostFragment, useDeletePostMutation } from "@hey/indexer";
+import { ERRORS } from "@palus/data/errors";
+import { isRepost } from "@palus/helpers/postHelpers";
+import { type AnyPostFragment, useDeletePostMutation } from "@palus/indexer";
 import { type Dispatch, type SetStateAction, useCallback } from "react";
 import { toast } from "sonner";
 import cn from "@/helpers/cn";

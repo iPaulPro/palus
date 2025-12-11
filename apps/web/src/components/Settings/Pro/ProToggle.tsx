@@ -1,6 +1,6 @@
-import type { AccountFragment } from "@hey/indexer";
-import { useJoinGroupMutation, useLeaveGroupMutation } from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+import type { AccountFragment } from "@palus/indexer";
+import { useJoinGroupMutation, useLeaveGroupMutation } from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import errorToast from "@/helpers/errorToast";

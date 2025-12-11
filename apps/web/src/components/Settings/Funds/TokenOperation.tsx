@@ -1,4 +1,4 @@
-import type { ApolloClientError } from "@hey/types/errors";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button, Input, Modal } from "@/components/Shared/UI";

@@ -1,17 +1,17 @@
-import { HEY_ENS_NAMESPACE } from "@hey/data/constants";
-import getAccount from "@hey/helpers/getAccount";
-import getAvatar from "@hey/helpers/getAvatar";
+import { HEY_ENS_NAMESPACE } from "@palus/data/constants";
+import getAccount from "@palus/helpers/getAccount";
+import getAvatar from "@palus/helpers/getAvatar";
 import type {
   Maybe,
   MetadataAttributeFragment,
   UsernameFragment
-} from "@hey/indexer";
+} from "@palus/indexer";
 import {
   AccountDocument,
   type AccountFragment,
   UsernameDocument
-} from "@hey/indexer";
-import apolloClient from "@hey/indexer/apollo/client";
+} from "@palus/indexer";
+import apolloClient from "@palus/indexer/apollo/client";
 import { type Hex, zeroAddress } from "viem";
 
 const getAccountAttribute = (
@@ -90,7 +90,7 @@ const getLensAccount = async (handle: string): Promise<LensAccount> => {
           data.account?.metadata?.attributes
         ),
         name: getAccount(data.account).name,
-        url: `https://hey.xyz${getAccount(data.account).link}`
+        url: `https://palus.xyz${getAccount(data.account).link}`
       },
       username: getAccount(data.account).username
     };

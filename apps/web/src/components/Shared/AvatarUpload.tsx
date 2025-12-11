@@ -1,5 +1,5 @@
-import { TRANSFORMS } from "@hey/data/constants";
-import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
+import { TRANSFORMS } from "@palus/data/constants";
+import sanitizeDStorageUrl from "@palus/helpers/sanitizeDStorageUrl";
 import type { SyntheticEvent } from "react";
 import Cropper from "react-easy-crop";
 import ChooseFile from "@/components/Shared/ChooseFile";

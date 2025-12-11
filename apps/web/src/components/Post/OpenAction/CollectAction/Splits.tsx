@@ -1,8 +1,8 @@
-import { BLOCK_EXPLORER_URL, TRANSFORMS } from "@hey/data/constants";
-import formatAddress from "@hey/helpers/formatAddress";
-import getAccount from "@hey/helpers/getAccount";
-import getAvatar from "@hey/helpers/getAvatar";
-import { type RecipientPercent, useAccountsBulkQuery } from "@hey/indexer";
+import { BLOCK_EXPLORER_URL, TRANSFORMS } from "@palus/data/constants";
+import formatAddress from "@palus/helpers/formatAddress";
+import getAccount from "@palus/helpers/getAccount";
+import getAvatar from "@palus/helpers/getAvatar";
+import { type RecipientPercent, useAccountsBulkQuery } from "@palus/indexer";
 import { Link } from "react-router";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import Skeleton from "@/components/Shared/Skeleton";

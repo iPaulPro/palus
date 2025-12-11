@@ -1,6 +1,6 @@
-import getAvatar from "@hey/helpers/getAvatar";
-import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPostFragment, TimelineItemFragment } from "@hey/indexer";
+import getAvatar from "@palus/helpers/getAvatar";
+import { isRepost } from "@palus/helpers/postHelpers";
+import type { AnyPostFragment, TimelineItemFragment } from "@palus/indexer";
 import { memo } from "react";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import { Image } from "@/components/Shared/UI";

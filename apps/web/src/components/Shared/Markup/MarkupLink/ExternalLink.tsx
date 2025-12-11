@@ -1,4 +1,4 @@
-import type { MarkupLinkProps } from "@hey/types/misc";
+import type { MarkupLinkProps } from "@palus/types/misc";
 import { Link } from "react-router";
 import injectReferrerToUrl from "@/helpers/injectReferrerToUrl";
 import stopEventPropagation from "@/helpers/stopEventPropagation";

@@ -1,8 +1,8 @@
-import { ERRORS } from "@hey/data/errors";
-import { Regex } from "@hey/data/regex";
-import { useMeLazyQuery, useSetAccountMetadataMutation } from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
 import { account as accountMetadata } from "@lens-protocol/metadata";
+import { ERRORS } from "@palus/data/errors";
+import { Regex } from "@palus/data/regex";
+import { useMeLazyQuery, useSetAccountMetadataMutation } from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";

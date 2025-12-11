@@ -1,5 +1,5 @@
 import { GifIcon } from "@heroicons/react/24/outline";
-import type { IGif } from "@hey/types/giphy";
+import type { IGif } from "@palus/types/giphy";
 import { useState } from "react";
 import { Modal, Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";

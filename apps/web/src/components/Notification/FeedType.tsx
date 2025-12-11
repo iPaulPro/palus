@@ -1,4 +1,4 @@
-import { NotificationFeedType } from "@hey/data/enums";
+import { NotificationFeedType } from "@palus/data/enums";
 import type { Dispatch, SetStateAction } from "react";
 import { Tabs } from "@/components/Shared/UI";
 

@@ -1,5 +1,5 @@
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
-import { AccountFeedType } from "@hey/data/enums";
+import { AccountFeedType } from "@palus/data/enums";
 import {
   type AnyPostFragment,
   MainContentFocus,
@@ -7,7 +7,7 @@ import {
   type PostsRequest,
   PostType,
   usePostsQuery
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { useCallback, useMemo } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";

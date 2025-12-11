@@ -1,12 +1,12 @@
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
-import getAvatar from "@hey/helpers/getAvatar";
+import getAvatar from "@palus/helpers/getAvatar";
 import {
   type GroupFragment,
   GroupsOrderBy,
   type GroupsRequest,
   PageSize,
   useGroupsQuery
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { useMemo, useState } from "react";
 import { Modal, Tooltip } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";

@@ -1,5 +1,5 @@
-import { CHAIN } from "@hey/data/constants";
-import logger from "@hey/helpers/logger";
+import { CHAIN } from "@palus/data/constants";
+import logger from "@palus/helpers/logger";
 import { useConnections, useSwitchChain } from "wagmi";
 
 interface HandleWrongNetworkParams {

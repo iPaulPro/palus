@@ -26,9 +26,9 @@ const Privacy = () => {
                 </p>
                 <p className="leading-7">
                   This Privacy Policy (the “Privacy Policy”) provides a
-                  comprehensive description of how Hey (“we,” “our,” or “us”)
+                  comprehensive description of how Palus (“we,” “our,” or “us”)
                   collects, uses, and shares information about you in connection
-                  with the website at "hey.xyz", as well as your rights and
+                  with the website at "palus.app", as well as your rights and
                   choices regarding such information.
                 </p>
                 <p className="leading-7">
@@ -195,7 +195,7 @@ const Privacy = () => {
               <p className="leading-7">
                 If you have any questions or comments about this Privacy Policy,
                 our data practices, or our compliance with applicable law,
-                please contact us at support@hey.xyz
+                please contact us at support@palus.app
               </p>
               {/* 10. Contact ends */}
             </div>

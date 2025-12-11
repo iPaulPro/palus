@@ -1,7 +1,7 @@
-import { Regex } from "@hey/data/regex";
-import { useCreateGroupMutation } from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
 import { group } from "@lens-protocol/metadata";
+import { Regex } from "@palus/data/regex";
+import { useCreateGroupMutation } from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { z } from "zod";
 import AvatarUpload from "@/components/Shared/AvatarUpload";

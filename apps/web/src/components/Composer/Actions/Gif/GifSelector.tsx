@@ -1,5 +1,5 @@
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import type { IGif } from "@hey/types/giphy";
+import { STATIC_IMAGES_URL } from "@palus/data/constants";
+import type { IGif } from "@palus/types/giphy";
 import { useDebounce } from "@uidotdev/usehooks";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";

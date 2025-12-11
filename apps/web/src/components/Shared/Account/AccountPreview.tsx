@@ -1,7 +1,7 @@
 import { BeakerIcon, CheckBadgeIcon } from "@heroicons/react/24/solid";
-import getAccount from "@hey/helpers/getAccount";
-import getAvatar from "@hey/helpers/getAvatar";
-import { type AccountStats, useFullAccountLazyQuery } from "@hey/indexer";
+import getAccount from "@palus/helpers/getAccount";
+import getAvatar from "@palus/helpers/getAvatar";
+import { type AccountStats, useFullAccountLazyQuery } from "@palus/indexer";
 import * as HoverCard from "@radix-ui/react-hover-card";
 import plur from "plur";
 import type { ReactNode } from "react";

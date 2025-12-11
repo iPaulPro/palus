@@ -1,7 +1,7 @@
 import type {
   Eip712TransactionRequest,
   Eip1559TransactionRequest
-} from "@hey/indexer";
+} from "@palus/indexer";
 import type { Address, Hex } from "viem";
 
 interface GetTransactionDataOptions {

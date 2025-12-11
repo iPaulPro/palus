@@ -1,4 +1,4 @@
-import { HomeFeedType } from "@hey/data/enums";
+import { HomeFeedType } from "@palus/data/enums";
 import NewPost from "@/components/Composer/NewPost";
 import ExploreFeed from "@/components/Explore/ExploreFeed";
 import PageLayout from "@/components/Shared/PageLayout";

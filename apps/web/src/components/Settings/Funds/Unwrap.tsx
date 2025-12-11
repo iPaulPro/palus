@@ -1,5 +1,5 @@
-import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
-import { useUnwrapTokensMutation } from "@hey/indexer";
+import { NATIVE_TOKEN_SYMBOL } from "@palus/data/constants";
+import { useUnwrapTokensMutation } from "@palus/indexer";
 import TokenOperation from "./TokenOperation";
 
 interface UnwrapProps {

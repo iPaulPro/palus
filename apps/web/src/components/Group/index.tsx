@@ -1,5 +1,5 @@
-import { PERMISSIONS, STATIC_IMAGES_URL } from "@hey/data/constants";
-import { useGroupQuery } from "@hey/indexer";
+import { PERMISSIONS, STATIC_IMAGES_URL } from "@palus/data/constants";
+import { useGroupQuery } from "@palus/indexer";
 import { useParams } from "react-router";
 import NewPost from "@/components/Composer/NewPost";
 import Custom404 from "@/components/Shared/404";

@@ -1,5 +1,5 @@
-import { LENS_API_URL } from "@hey/data/constants";
-import { withPrefix } from "@hey/helpers/logger";
+import { LENS_API_URL } from "@palus/data/constants";
+import { withPrefix } from "@palus/helpers/logger";
 import type { Context, Next } from "hono";
 import { createRemoteJWKSet, jwtVerify } from "jose";
 

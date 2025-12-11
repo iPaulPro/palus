@@ -1,4 +1,4 @@
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { STATIC_IMAGES_URL } from "@palus/data/constants";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { H4, Image } from "@/components/Shared/UI";
@@ -19,7 +19,7 @@ const Success = () => {
 
   return (
     <div className="m-8 flex flex-col items-center justify-center">
-      <H4>Waaa-hey! You got your group!</H4>
+      <H4>You got your group!</H4>
       <div className="mt-3 text-center font-semibold text-gray-500 dark:text-gray-200">
         Welcome to decentralised social where everything is sooooooooooooo much
         better! 🎉

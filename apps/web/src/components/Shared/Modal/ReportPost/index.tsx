@@ -1,5 +1,5 @@
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
-import { PostReportReason, useReportPostMutation } from "@hey/indexer";
+import { PostReportReason, useReportPostMutation } from "@palus/indexer";
 import { useState } from "react";
 import { z } from "zod";
 import {

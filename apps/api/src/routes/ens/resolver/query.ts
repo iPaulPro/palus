@@ -6,7 +6,7 @@ export async function getRecord(name: string, query: ResolverQuery) {
   const { functionName, args } = query;
 
   let res: string;
-  const account = await getLensAccount(name.replace(".hey.xyz", ""));
+  const account = await getLensAccount(name.replace(".palus.app", ""));
 
   switch (functionName) {
     case "addr": {

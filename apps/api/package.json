@@ -1,5 +1,5 @@
 {
-  "name": "@hey/api",
+  "name": "@palus/api",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -10,9 +10,9 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@hey/data": "workspace:*",
-    "@hey/helpers": "workspace:*",
-    "@hey/indexer": "workspace:*",
+    "@palus/data": "workspace:*",
+    "@palus/helpers": "workspace:*",
+    "@palus/indexer": "workspace:*",
     "@hono/node-server": "^1.19.5",
     "@hono/zod-validator": "^0.7.4",
     "@lens-chain/sdk": "^1.0.3",
@@ -25,8 +25,8 @@
     "zod": "4.1.11"
   },
   "devDependencies": {
-    "@hey/config": "workspace:*",
-    "@hey/types": "workspace:*",
+    "@palus/config": "workspace:*",
+    "@palus/types": "workspace:*",
     "@types/node": "^24.9.1",
     "typescript": "^5.9.3"
   }

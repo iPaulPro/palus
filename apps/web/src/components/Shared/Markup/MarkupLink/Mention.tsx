@@ -1,5 +1,5 @@
-import type { PostMentionFragment } from "@hey/indexer";
-import type { MarkupLinkProps } from "@hey/types/misc";
+import type { PostMentionFragment } from "@palus/indexer";
+import type { MarkupLinkProps } from "@palus/types/misc";
 import { Link } from "react-router";
 import AccountPreview from "@/components/Shared/Account/AccountPreview";
 import Slug from "@/components/Shared/Slug";

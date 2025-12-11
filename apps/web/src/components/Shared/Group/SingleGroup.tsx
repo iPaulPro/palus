@@ -1,6 +1,6 @@
-import { TRANSFORMS } from "@hey/data/constants";
-import getAvatar from "@hey/helpers/getAvatar";
-import type { GroupFragment } from "@hey/indexer";
+import { TRANSFORMS } from "@palus/data/constants";
+import getAvatar from "@palus/helpers/getAvatar";
+import type { GroupFragment } from "@palus/indexer";
 import { memo } from "react";
 import { Link } from "react-router";
 import Markup from "@/components/Shared/Markup";

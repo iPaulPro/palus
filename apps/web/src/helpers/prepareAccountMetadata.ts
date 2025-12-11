@@ -1,9 +1,9 @@
-import trimify from "@hey/helpers/trimify";
 import type {
   AccountOptions,
   MetadataAttribute
 } from "@lens-protocol/metadata";
 import { MetadataAttributeType } from "@lens-protocol/metadata";
+import trimify from "@palus/helpers/trimify";
 
 type ExistingAttribute = {
   key: string;

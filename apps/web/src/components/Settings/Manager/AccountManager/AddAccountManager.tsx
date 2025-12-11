@@ -1,7 +1,7 @@
-import { ADDRESS_PLACEHOLDER } from "@hey/data/constants";
-import { ERRORS } from "@hey/data/errors";
-import { useAddAccountManagerMutation } from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+import { ADDRESS_PLACEHOLDER } from "@palus/data/constants";
+import { ERRORS } from "@palus/data/errors";
+import { useAddAccountManagerMutation } from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import type { Dispatch, SetStateAction } from "react";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";

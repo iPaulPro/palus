@@ -1,7 +1,7 @@
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
-import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
-import { useBalancesBulkQuery, useDepositMutation } from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+import { NATIVE_TOKEN_SYMBOL } from "@palus/data/constants";
+import { useBalancesBulkQuery, useDepositMutation } from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import {
   type ChangeEvent,
   type RefObject,

@@ -1,5 +1,5 @@
-import { WRAPPED_NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
-import { useWrapTokensMutation } from "@hey/indexer";
+import { WRAPPED_NATIVE_TOKEN_SYMBOL } from "@palus/data/constants";
+import { useWrapTokensMutation } from "@palus/indexer";
 import TokenOperation from "./TokenOperation";
 
 interface WrapProps {

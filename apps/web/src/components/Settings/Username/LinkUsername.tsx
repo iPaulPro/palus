@@ -2,8 +2,8 @@ import { AtSymbolIcon } from "@heroicons/react/24/outline";
 import {
   useAssignUsernameToAccountMutation,
   useUsernamesQuery
-} from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+} from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import LazySmallSingleAccount from "@/components/Shared/Account/LazySmallSingleAccount";

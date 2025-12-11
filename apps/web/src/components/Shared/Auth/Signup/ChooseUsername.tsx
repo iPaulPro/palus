@@ -4,16 +4,16 @@ import {
   FaceFrownIcon,
   FaceSmileIcon
 } from "@heroicons/react/24/outline";
-import { HEY_APP } from "@hey/data/constants";
-import { ERRORS } from "@hey/data/errors";
-import { Regex } from "@hey/data/regex";
+import { account as accountMetadata } from "@lens-protocol/metadata";
+import { HEY_APP } from "@palus/data/constants";
+import { ERRORS } from "@palus/data/errors";
+import { Regex } from "@palus/data/regex";
 import {
   useAccountQuery,
   useAuthenticateMutation,
   useChallengeMutation,
   useCreateAccountWithUsernameMutation
-} from "@hey/indexer";
-import { account as accountMetadata } from "@lens-protocol/metadata";
+} from "@palus/indexer";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { useAccount, useSignMessage } from "wagmi";
@@ -29,7 +29,7 @@ import { useSignupStore } from ".";
 export const SignupMessage = () => (
   <AuthMessage
     description="Let's start by buying your username for you. Buying you say? Yep - usernames cost a little bit of money to support the network and keep bots away"
-    title="Welcome to Hey!"
+    title="Welcome to Palus!"
   />
 );
 

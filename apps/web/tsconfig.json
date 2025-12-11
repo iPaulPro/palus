@@ -4,6 +4,6 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext", "webworker"],
     "paths": { "@/*": ["./src/*"] }
   },
-  "extends": "@hey/config/react.tsconfig.json",
+  "extends": "@palus/config/react.tsconfig.json",
   "include": ["**/*.ts", "**/*.tsx", "vite.config.mjs"]
 }

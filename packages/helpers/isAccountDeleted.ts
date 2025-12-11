@@ -1,4 +1,4 @@
-import type { AccountFragment } from "@hey/indexer";
+import type { AccountFragment } from "@palus/indexer";
 import { zeroAddress } from "viem";
 
 const isAccountDeleted = (account: AccountFragment): boolean =>

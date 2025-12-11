@@ -4,7 +4,7 @@ import {
   PostReferenceType,
   useWhoReferencedPostQuery,
   type WhoReferencedPostRequest
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { motion } from "motion/react";
 import { useCallback } from "react";
 import { Virtualizer } from "virtua";

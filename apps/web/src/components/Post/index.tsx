@@ -1,12 +1,12 @@
-import getAccount from "@hey/helpers/getAccount";
-import { isRepost } from "@hey/helpers/postHelpers";
+import getAccount from "@palus/helpers/getAccount";
+import { isRepost } from "@palus/helpers/postHelpers";
 import {
   PageSize,
   PostReferenceType,
   PostVisibilityFilter,
   useHiddenCommentsQuery,
   usePostQuery
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { useLocation, useParams } from "react-router";
 import { createTrackedSelector } from "react-tracked";
 import { create } from "zustand";
@@ -111,7 +111,7 @@ const ViewPost = () => {
       }
       title={`${targetPost.__typename} by ${
         getAccount(targetPost.author).username
-      } • Hey`}
+      } • Palus`}
       zeroTopMargin
     >
       <div className="space-y-5">

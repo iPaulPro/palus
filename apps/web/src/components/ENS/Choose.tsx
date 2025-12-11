@@ -6,12 +6,12 @@ import {
   HEY_ENS_NAMESPACE,
   NATIVE_TOKEN_SYMBOL,
   STATIC_IMAGES_URL
-} from "@hey/data/constants";
+} from "@palus/data/constants";
 import {
   useBalancesBulkQuery,
   useCreateUsernameMutation,
   useUsernameQuery
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { useCallback, useState } from "react";
 import z from "zod";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
@@ -176,7 +176,7 @@ const Choose = () => {
       >
         <Input
           iconLeft={<MagnifyingGlassIcon />}
-          iconRight={<span>hey.xyz</span>}
+          iconRight={<span>palus.app</span>}
           placeholder="Search for a name"
           {...form.register("username")}
           hideError
@@ -184,12 +184,12 @@ const Choose = () => {
         {canCheck && !isInvalid ? (
           isAvailable === false ? (
             <Card className="p-5">
-              <b>{username}.hey.xyz</b> is already taken.
+              <b>{username}.palus.app</b> is already taken.
             </Card>
           ) : isAvailable === true ? (
             <Card className="space-y-5 p-5">
               <div>
-                Register <b>{username}.hey.xyz</b> for{" "}
+                Register <b>{username}.palus.app</b> for{" "}
                 <span className="inline-flex items-center gap-x-1">
                   {price}{" "}
                   <Tooltip content={NATIVE_TOKEN_SYMBOL} placement="top">

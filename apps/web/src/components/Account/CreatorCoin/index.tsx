@@ -1,5 +1,5 @@
-import { ZORA_API_KEY } from "@hey/data/constants";
-import type { AccountFragment } from "@hey/indexer";
+import { ZORA_API_KEY } from "@palus/data/constants";
+import type { AccountFragment } from "@palus/indexer";
 import { useQuery } from "@tanstack/react-query";
 import { type GetCoinResponse, getCoin, setApiKey } from "@zoralabs/coins-sdk";
 import { useState } from "react";

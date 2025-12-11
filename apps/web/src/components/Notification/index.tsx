@@ -1,4 +1,4 @@
-import { NotificationFeedType } from "@hey/data/enums";
+import { NotificationFeedType } from "@palus/data/enums";
 import { useState } from "react";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
 import PageLayout from "@/components/Shared/PageLayout";

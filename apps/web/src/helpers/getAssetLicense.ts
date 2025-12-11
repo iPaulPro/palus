@@ -1,4 +1,4 @@
-import { type Maybe, MetadataLicenseType } from "@hey/indexer";
+import { type Maybe, MetadataLicenseType } from "@palus/indexer";
 
 const getAssetLicense = (
   licenseId: Maybe<MetadataLicenseType> | undefined

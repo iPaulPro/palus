@@ -1,9 +1,9 @@
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import { AccountFeedType } from "@hey/data/enums";
-import getAccount from "@hey/helpers/getAccount";
-import isAccountDeleted from "@hey/helpers/isAccountDeleted";
-import { useAccountQuery } from "@hey/indexer";
+import { STATIC_IMAGES_URL } from "@palus/data/constants";
+import { AccountFeedType } from "@palus/data/enums";
+import getAccount from "@palus/helpers/getAccount";
+import isAccountDeleted from "@palus/helpers/isAccountDeleted";
+import { useAccountQuery } from "@palus/indexer";
 import { useState } from "react";
 import { useParams } from "react-router";
 import NewPost from "@/components/Composer/NewPost";
@@ -103,7 +103,7 @@ const ViewAccount = () => {
 
   return (
     <PageLayout
-      title={`${accountInfo.name} (${accountInfo.username}) • Hey`}
+      title={`${accountInfo.name} (${accountInfo.username}) • Palus`}
       zeroTopMargin
     >
       <Cover

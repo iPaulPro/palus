@@ -1,6 +1,6 @@
 # Web
 
-This workspace contains the Vite-powered React frontend for Hey.
+This workspace contains the Vite-powered React frontend for Palus.
 
 ## Commands
 

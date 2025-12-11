@@ -1,4 +1,4 @@
-import type { PostFragment } from "@hey/indexer";
+import type { PostFragment } from "@palus/indexer";
 import { useState } from "react";
 import { Button, Modal } from "@/components/Shared/UI";
 import CollectActionBody from "./CollectActionBody";

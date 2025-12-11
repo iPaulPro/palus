@@ -1,9 +1,9 @@
 import { MapPinIcon } from "@heroicons/react/24/outline";
 import { BeakerIcon, CheckBadgeIcon } from "@heroicons/react/24/solid";
-import { STATIC_IMAGES_URL, TRANSFORMS } from "@hey/data/constants";
-import getAccount from "@hey/helpers/getAccount";
-import getAvatar from "@hey/helpers/getAvatar";
-import type { AccountFragment } from "@hey/indexer";
+import { STATIC_IMAGES_URL, TRANSFORMS } from "@palus/data/constants";
+import getAccount from "@palus/helpers/getAccount";
+import getAvatar from "@palus/helpers/getAvatar";
+import type { AccountFragment } from "@palus/indexer";
 import type { ReactNode } from "react";
 import { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router";

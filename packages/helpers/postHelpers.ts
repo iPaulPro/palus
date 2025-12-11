@@ -1,4 +1,4 @@
-import type { AnyPostFragment } from "@hey/indexer";
+import type { AnyPostFragment } from "@palus/indexer";
 
 type Typename<T = string> = { [key in "__typename"]?: T };
 

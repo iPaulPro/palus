@@ -1,4 +1,4 @@
-import { PERMISSIONS } from "@hey/data/constants";
+import { PERMISSIONS } from "@palus/data/constants";
 import ProToggle from "./ProToggle";
 
 const DefaultToNameToggle = () => (

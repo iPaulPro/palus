@@ -14,9 +14,9 @@ const Guidelines = () => {
             <div className="!p-8 max-w-none text-gray-500 dark:text-gray-200">
               <div className="space-y-5">
                 <p className="leading-7">
-                  To protect all users on Hey and to prevent spam, we put some
+                  To protect all users on Palus and to prevent spam, we put some
                   rules in place. Please read them carefully and remember them
-                  whenever you post something on Hey or change your account.
+                  whenever you post something on Palus or change your account.
                 </p>
               </div>
               {/* Safety begins */}
@@ -42,7 +42,7 @@ const Guidelines = () => {
               <H4 className="mt-8 mb-5">Nudity</H4>
               <div className="space-y-5">
                 <p className="leading-7">
-                  Hey is not a place to display, share or promote any form of
+                  Palus is not a place to display, share or promote any form of
                   the following types of content:
                 </p>
                 <ul className="list-inside list-disc space-y-2">
@@ -50,8 +50,8 @@ const Guidelines = () => {
                   <li>Sexual content</li>
                 </ul>
                 <p className="leading-7">
-                  Please try to keep Hey family-friendly (especially considering
-                  all images, videos, audio, and links).
+                  Please try to keep Palus family-friendly (especially
+                  considering all images, videos, audio, and links).
                 </p>
               </div>
               {/* Nudity ends */}
@@ -59,7 +59,7 @@ const Guidelines = () => {
               <H4 className="mt-8 mb-5">Spam</H4>
               <div className="space-y-5">
                 <p className="leading-7">
-                  You are not allowed to use Hey as a platform to
+                  You are not allowed to use Palus as a platform to
                 </p>
                 <ul className="list-inside list-disc space-y-2">
                   <li>Manipulate other users</li>
@@ -79,7 +79,7 @@ const Guidelines = () => {
               <H4 className="mt-8 mb-5">Impersonation</H4>
               <div className="space-y-5">
                 <p className="leading-7">
-                  You are not allowed to impersonate other people on Hey.
+                  You are not allowed to impersonate other people on Palus.
                 </p>
                 <p className="leading-7">
                   We understand that some of you like to create Accounts with
@@ -91,8 +91,8 @@ const Guidelines = () => {
                 </p>
                 <H4 className="mt-8 mb-5">Suspension</H4>
                 <p className="leading-7">
-                  Account suspension applies only to Hey and not to Lens.
-                  Decisions to suspend an account are made by the Hey team and
+                  Account suspension applies only to Palus and not to Lens.
+                  Decisions to suspend an account are made by the Palus team and
                   are not automated.
                 </p>
                 <p className="leading-7">
@@ -100,7 +100,7 @@ const Guidelines = () => {
                   these guidelines, with or without prior notice.
                 </p>
                 <p className="font-bold leading-7">
-                  This is a Hey-specific decision / feature and not a
+                  This is a Palus-specific decision / feature and not a
                   protocol-level decision / feature.
                 </p>
               </div>
@@ -117,7 +117,7 @@ const Guidelines = () => {
               <p className="linkify leading-7">
                 If you have any feedback on these rules or if you have any
                 questions, please{" "}
-                <Link to="mailto:support@hey.xyz">contact us</Link>.
+                <Link to="mailto:support@palus.xyz">contact us</Link>.
               </p>
               {/* Feedback ends */}
             </div>

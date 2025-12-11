@@ -1,4 +1,4 @@
-import type { AccountFragment } from "@hey/indexer";
+import type { AccountFragment } from "@palus/indexer";
 import { motion } from "motion/react";
 import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";

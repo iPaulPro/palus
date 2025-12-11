@@ -1,7 +1,7 @@
 import { serve } from "@hono/node-server";
 import "dotenv/config";
-import { Status } from "@hey/data/enums";
-import { withPrefix } from "@hey/helpers/logger";
+import { Status } from "@palus/data/enums";
+import { withPrefix } from "@palus/helpers/logger";
 import { Hono } from "hono";
 import authContext from "./context/authContext";
 import cors from "./middlewares/cors";

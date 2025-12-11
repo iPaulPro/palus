@@ -1,6 +1,6 @@
-import { CHAIN } from "@hey/data/constants";
-import { ERRORS } from "@hey/data/errors";
 import { immutable } from "@lens-chain/storage-client";
+import { CHAIN } from "@palus/data/constants";
+import { ERRORS } from "@palus/data/errors";
 import { storageClient } from "./storageClient";
 
 interface MetadataPayload {

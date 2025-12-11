@@ -1,6 +1,6 @@
 import { QueueListIcon } from "@heroicons/react/24/outline";
-import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPostFragment } from "@hey/indexer";
+import { isRepost } from "@palus/helpers/postHelpers";
+import type { AnyPostFragment } from "@palus/indexer";
 import dayjs from "dayjs";
 import PostWarning from "@/components/Shared/Post/PostWarning";
 import { Tooltip } from "@/components/Shared/UI";

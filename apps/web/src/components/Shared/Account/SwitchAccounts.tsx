@@ -1,10 +1,10 @@
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
-import { ERRORS } from "@hey/data/errors";
+import { ERRORS } from "@palus/data/errors";
 import {
   ManagedAccountsVisibility,
   useAccountsAvailableQuery,
   useSwitchAccountMutation
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { useCallback, useState } from "react";
 import { useAccount } from "wagmi";
 import Loader from "@/components/Shared/Loader";

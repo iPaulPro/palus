@@ -1,5 +1,5 @@
 {
-  "name": "@hey/indexer",
+  "name": "@palus/indexer",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "3.14.0",
-    "@hey/data": "workspace:*",
+    "@palus/data": "workspace:*",
     "graphql": "^16.11.0"
   },
   "devDependencies": {
@@ -19,7 +19,7 @@
     "@graphql-codegen/typescript": "^5.0.2",
     "@graphql-codegen/typescript-operations": "^5.0.2",
     "@graphql-codegen/typescript-react-apollo": "^4.3.3",
-    "@hey/config": "workspace:*",
+    "@palus/config": "workspace:*",
     "@types/node": "^24.9.1",
     "typescript": "^5.9.3"
   }

@@ -1,7 +1,10 @@
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
-import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@hey/data/constants";
-import { tokens } from "@hey/data/tokens";
-import type { CollectActionType } from "@hey/types/hey";
+import {
+  DEFAULT_COLLECT_TOKEN,
+  STATIC_IMAGES_URL
+} from "@palus/data/constants";
+import { tokens } from "@palus/data/tokens";
+import type { CollectActionType } from "@palus/types/palus";
 import { motion } from "motion/react";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Input, Select } from "@/components/Shared/UI";
@@ -34,7 +37,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
                   erc20: { currency: DEFAULT_COLLECT_TOKEN, value: "1" },
                   recipients: [
                     { address: currentAccount?.address, percent: 100 }
-                  ], // 2.45% for the Hey platform fees after the 1.5% lens fees cut
+                  ], // 2.45% for the Palus platform fees after the 1.5% lens fees cut
                   referralShare: 3
                 }
           });

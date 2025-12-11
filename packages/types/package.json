@@ -1,5 +1,5 @@
 {
-  "name": "@hey/types",
+  "name": "@palus/types",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -8,11 +8,11 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@hey/indexer": "workspace:*",
+    "@palus/indexer": "workspace:*",
     "@lens-protocol/metadata": "^2.1.0"
   },
   "devDependencies": {
-    "@hey/config": "workspace:*",
+    "@palus/config": "workspace:*",
     "typescript": "^5.9.3"
   }
 }

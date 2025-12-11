@@ -1,5 +1,5 @@
 import { SparklesIcon } from "@heroicons/react/24/outline";
-import type { TimelineItemFragment } from "@hey/indexer";
+import type { TimelineItemFragment } from "@palus/indexer";
 import { Fragment, useMemo } from "react";
 import Accounts from "@/components/Shared/Account/Accounts";
 

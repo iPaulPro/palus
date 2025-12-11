@@ -3,8 +3,8 @@ import {
   type GroupFragment,
   GroupRuleType,
   useUpdateGroupRulesMutation
-} from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+} from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";

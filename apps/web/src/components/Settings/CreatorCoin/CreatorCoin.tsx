@@ -1,8 +1,8 @@
-import { ZORA_API_KEY } from "@hey/data/constants";
-import { Regex } from "@hey/data/regex";
-import { useMeLazyQuery, useSetAccountMetadataMutation } from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
 import { account as accountMetadata } from "@lens-protocol/metadata";
+import { ZORA_API_KEY } from "@palus/data/constants";
+import { Regex } from "@palus/data/regex";
+import { useMeLazyQuery, useSetAccountMetadataMutation } from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useQuery } from "@tanstack/react-query";
 import {
   type GetCoinResponse,

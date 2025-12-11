@@ -1,5 +1,5 @@
 {
-  "name": "@hey/data",
+  "name": "@palus/data",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -10,7 +10,7 @@
     "@lens-chain/sdk": "^1.0.3"
   },
   "devDependencies": {
-    "@hey/config": "workspace:*",
+    "@palus/config": "workspace:*",
     "@types/node": "^24.9.1",
     "typescript": "^5.9.3"
   }

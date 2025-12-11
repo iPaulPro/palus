@@ -20,13 +20,13 @@ importers:
 
   apps/api:
     dependencies:
-      '@hey/data':
+      '@palus/data':
         specifier: workspace:*
         version: link:../../packages/data
-      '@hey/helpers':
+      '@palus/helpers':
         specifier: workspace:*
         version: link:../../packages/helpers
-      '@hey/indexer':
+      '@palus/indexer':
         specifier: workspace:*
         version: link:../../packages/indexer
       '@hono/node-server':
@@ -60,10 +60,10 @@ importers:
         specifier: 4.1.11
         version: 4.1.11
     devDependencies:
-      '@hey/config':
+      '@palus/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@hey/types':
+      '@palus/types':
         specifier: workspace:*
         version: link:../../packages/types
       '@types/node':
@@ -84,13 +84,13 @@ importers:
       '@heroicons/react':
         specifier: ^2.2.0
         version: 2.2.0(react@19.2.0)
-      '@hey/data':
+      '@palus/data':
         specifier: workspace:*
         version: link:../../packages/data
-      '@hey/helpers':
+      '@palus/helpers':
         specifier: workspace:*
         version: link:../../packages/helpers
-      '@hey/indexer':
+      '@palus/indexer':
         specifier: workspace:*
         version: link:../../packages/indexer
       '@hookform/resolvers':
@@ -247,10 +247,10 @@ importers:
         specifier: ^5.0.8
         version: 5.0.8(@types/react@19.2.2)(immer@10.1.3)(react@19.2.0)(use-sync-external-store@1.4.0(react@19.2.0))
     devDependencies:
-      '@hey/config':
+      '@palus/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@hey/types':
+      '@palus/types':
         specifier: workspace:*
         version: link:../../packages/types
       '@tailwindcss/aspect-ratio':
@@ -292,7 +292,7 @@ importers:
         specifier: ^1.0.3
         version: 1.0.3(ethers@6.15.0(bufferutil@4.0.9)(utf-8-validate@5.0.10))(viem@2.38.3(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.12))
     devDependencies:
-      '@hey/config':
+      '@palus/config':
         specifier: workspace:*
         version: link:../config
       '@types/node':
@@ -304,20 +304,20 @@ importers:
 
   packages/helpers:
     dependencies:
-      '@hey/data':
+      '@palus/data':
         specifier: workspace:*
         version: link:../data
-      '@hey/indexer':
+      '@palus/indexer':
         specifier: workspace:*
         version: link:../indexer
-      '@hey/types':
+      '@palus/types':
         specifier: workspace:*
         version: link:../types
       viem:
         specifier: ^2.38.3
         version: 2.38.3(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.12)
     devDependencies:
-      '@hey/config':
+      '@palus/config':
         specifier: workspace:*
         version: link:../config
       '@types/node':
@@ -332,7 +332,7 @@ importers:
       '@apollo/client':
         specifier: 3.14.0
         version: 3.14.0(@types/react@19.2.2)(graphql-ws@6.0.6(crossws@0.3.5)(graphql@16.11.0)(ws@8.18.3(bufferutil@4.0.9)(utf-8-validate@5.0.10)))(graphql@16.11.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@hey/data':
+      '@palus/data':
         specifier: workspace:*
         version: link:../data
       graphql:
@@ -354,7 +354,7 @@ importers:
       '@graphql-codegen/typescript-react-apollo':
         specifier: ^4.3.3
         version: 4.3.3(graphql@16.11.0)
-      '@hey/config':
+      '@palus/config':
         specifier: workspace:*
         version: link:../config
       '@types/node':
@@ -366,14 +366,14 @@ importers:
 
   packages/types:
     dependencies:
-      '@hey/indexer':
+      '@palus/indexer':
         specifier: workspace:*
         version: link:../indexer
       '@lens-protocol/metadata':
         specifier: ^2.1.0
         version: 2.1.0(typescript@5.9.3)(zod@3.25.76)
     devDependencies:
-      '@hey/config':
+      '@palus/config':
         specifier: workspace:*
         version: link:../config
       typescript:

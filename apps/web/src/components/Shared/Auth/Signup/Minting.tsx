@@ -1,4 +1,4 @@
-import { useAccountQuery } from "@hey/indexer";
+import { useAccountQuery } from "@palus/indexer";
 import { H4, Spinner } from "@/components/Shared/UI";
 import { useSignupStore } from ".";
 

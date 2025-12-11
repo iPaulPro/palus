@@ -1,4 +1,4 @@
-import { RPCS } from "@hey/data/rpcs";
+import { RPCS } from "@palus/data/rpcs";
 import type { FallbackTransport } from "viem";
 import { fallback, http } from "viem";
 

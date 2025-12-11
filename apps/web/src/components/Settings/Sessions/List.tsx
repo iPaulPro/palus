@@ -4,8 +4,8 @@ import {
   PageSize,
   useAuthenticatedSessionsQuery,
   useRevokeAuthenticationMutation
-} from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+} from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import dayjs from "dayjs";
 import { memo, useCallback, useState } from "react";
 import { toast } from "sonner";

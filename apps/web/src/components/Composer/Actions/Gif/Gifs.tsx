@@ -1,5 +1,5 @@
-import { GIPHY_KEY } from "@hey/data/constants";
-import type { IGif } from "@hey/types/giphy";
+import { GIPHY_KEY } from "@palus/data/constants";
+import type { IGif } from "@palus/types/giphy";
 import { useQuery } from "@tanstack/react-query";
 import type { Dispatch, SetStateAction } from "react";
 import Skeleton from "@/components/Shared/Skeleton";

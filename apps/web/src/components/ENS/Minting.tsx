@@ -1,5 +1,5 @@
-import { HEY_ENS_NAMESPACE } from "@hey/data/constants";
-import { useUsernameQuery } from "@hey/indexer";
+import { HEY_ENS_NAMESPACE } from "@palus/data/constants";
+import { useUsernameQuery } from "@palus/indexer";
 import { Card, H4, Spinner } from "@/components/Shared/UI";
 import { useENSCreateStore } from ".";
 

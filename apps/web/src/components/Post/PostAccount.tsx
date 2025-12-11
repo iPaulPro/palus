@@ -1,13 +1,13 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
-import { TRANSFORMS } from "@hey/data/constants";
-import getAccount from "@hey/helpers/getAccount";
-import getAvatar from "@hey/helpers/getAvatar";
+import { TRANSFORMS } from "@palus/data/constants";
+import getAccount from "@palus/helpers/getAccount";
+import getAvatar from "@palus/helpers/getAvatar";
 import type {
   AccountFragment,
   AnyPostFragment,
   PostGroupInfoFragment
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { memo } from "react";
 import { Link } from "react-router";
 import AccountLink from "@/components/Shared/Account/AccountLink";

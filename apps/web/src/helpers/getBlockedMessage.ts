@@ -1,5 +1,5 @@
-import getAccount from "@hey/helpers/getAccount";
-import type { AccountFragment } from "@hey/indexer";
+import getAccount from "@palus/helpers/getAccount";
+import type { AccountFragment } from "@palus/indexer";
 
 const formatMessage = (
   account: AccountFragment,

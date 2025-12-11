@@ -35,7 +35,7 @@ const CreateGroup = () => {
       <Card as="aside" className="space-y-4 p-5">
         <div className="space-y-1">
           <H5>Create a group</H5>
-          <div>Create a new group on Hey</div>
+          <div>Create a new group on Palus</div>
         </div>
         <Button onClick={() => setShowModal(true)}>Create group</Button>
       </Card>

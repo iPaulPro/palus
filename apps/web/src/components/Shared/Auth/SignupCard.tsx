@@ -1,4 +1,4 @@
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { STATIC_IMAGES_URL } from "@palus/data/constants";
 import { Button, Card, Image } from "@/components/Shared/UI";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useSignupStore } from "./Signup";
@@ -22,7 +22,7 @@ const SignupCard = () => {
         width={56}
       />
       <div className="space-y-3 text-center">
-        <div className="font-bold">Get your Hey account now!</div>
+        <div className="font-bold">Get your Palus account now!</div>
         <div>
           <Button onClick={handleSignupClick}>Signup now</Button>
         </div>

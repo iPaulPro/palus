@@ -1,5 +1,5 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import type { RepostFragment } from "@hey/indexer";
+import type { RepostFragment } from "@palus/indexer";
 import { useMemo } from "react";
 import Accounts from "@/components/Shared/Account/Accounts";
 

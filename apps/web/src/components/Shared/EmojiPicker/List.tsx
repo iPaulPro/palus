@@ -1,6 +1,6 @@
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { ERRORS } from "@hey/data/errors";
-import type { Emoji } from "@hey/types/misc";
+import { ERRORS } from "@palus/data/errors";
+import type { Emoji } from "@palus/types/misc";
 import type { ChangeEvent, MouseEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 import Loader from "@/components/Shared/Loader";

@@ -6,16 +6,16 @@ import {
   PuzzlePieceIcon,
   UsersIcon
 } from "@heroicons/react/24/outline";
-import { BLOCK_EXPLORER_URL } from "@hey/data/constants";
-import { tokens } from "@hey/data/tokens";
-import formatAddress from "@hey/helpers/formatAddress";
-import getAccount from "@hey/helpers/getAccount";
-import { isRepost } from "@hey/helpers/postHelpers";
+import { BLOCK_EXPLORER_URL } from "@palus/data/constants";
+import { tokens } from "@palus/data/tokens";
+import formatAddress from "@palus/helpers/formatAddress";
+import getAccount from "@palus/helpers/getAccount";
+import { isRepost } from "@palus/helpers/postHelpers";
 import {
   type AnyPostFragment,
   type SimpleCollectActionFragment,
   useCollectActionQuery
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { useCounter } from "@uidotdev/usehooks";
 import dayjs from "dayjs";
 import plur from "plur";
@@ -109,7 +109,7 @@ const CollectActionBody = ({
     return amount * collects;
   }, [amount, collects]);
 
-  const heyFee = useMemo(() => {
+  const palusFee = useMemo(() => {
     return (amount * 0.025).toFixed(2);
   }, [amount]);
 
@@ -182,9 +182,9 @@ const CollectActionBody = ({
               <HelpTooltip>
                 <div className="py-1">
                   <div className="flex items-start justify-between space-x-10">
-                    <div>Hey</div>
+                    <div>Palus</div>
                     <b>
-                      ~{heyFee} {currency} (2.5%)
+                      ~{palusFee} {currency} (2.5%)
                     </b>
                   </div>
                 </div>

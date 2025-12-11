@@ -3,7 +3,7 @@ import {
   type AccountsBlockedRequest,
   PageSize,
   useAccountsBlockedQuery
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { useCallback } from "react";
 import { WindowVirtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";

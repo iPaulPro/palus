@@ -1,5 +1,5 @@
-import { EditorRegex } from "@hey/data/regex";
-import type { Emoji } from "@hey/types/misc";
+import { EditorRegex } from "@palus/data/regex";
+import type { Emoji } from "@palus/types/misc";
 import { useEditor } from "prosekit/react";
 import {
   AutocompleteItem,

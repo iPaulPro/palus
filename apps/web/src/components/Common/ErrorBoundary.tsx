@@ -1,4 +1,4 @@
-import logger from "@hey/helpers/logger";
+import logger from "@palus/helpers/logger";
 import type { ErrorInfo, ReactNode } from "react";
 import { Component } from "react";
 import SiteError from "@/components/Shared/SiteError";

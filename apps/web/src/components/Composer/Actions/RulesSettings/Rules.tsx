@@ -1,4 +1,4 @@
-import type { FollowersOnlyPostRuleConfig } from "@hey/indexer";
+import type { FollowersOnlyPostRuleConfig } from "@palus/indexer";
 import type { Dispatch, SetStateAction } from "react";
 import ProFeatureNotice from "@/components/Shared/ProFeatureNotice";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";

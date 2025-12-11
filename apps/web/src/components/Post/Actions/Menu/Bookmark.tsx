@@ -6,8 +6,8 @@ import {
   type PostFragment,
   useBookmarkPostMutation,
   useUndoBookmarkPostMutation
-} from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+} from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback } from "react";
 import { useLocation } from "react-router";
 import { toast } from "sonner";

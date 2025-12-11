@@ -1,7 +1,7 @@
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
-import { ERRORS } from "@hey/data/errors";
-import { useSwitchAccountMutation } from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+import { STATIC_IMAGES_URL } from "@palus/data/constants";
+import { ERRORS } from "@palus/data/errors";
+import { useSwitchAccountMutation } from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useEffect } from "react";
 import { H4, Image } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
@@ -58,7 +58,7 @@ const Success = () => {
         width={56}
       />
       <i className="mt-8 text-gray-500 dark:text-gray-200">
-        We are taking you to Hey...
+        We are taking you to Palus...
       </i>
     </div>
   );

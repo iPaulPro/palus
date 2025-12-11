@@ -1,7 +1,7 @@
 import { MenuItem } from "@headlessui/react";
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
-import { ERRORS } from "@hey/data/errors";
-import type { PostFragment } from "@hey/indexer";
+import { ERRORS } from "@palus/data/errors";
+import type { PostFragment } from "@palus/indexer";
 import { toast } from "sonner";
 import cn from "@/helpers/cn";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";

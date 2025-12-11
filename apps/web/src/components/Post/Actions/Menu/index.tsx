@@ -1,6 +1,6 @@
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
-import type { PostFragment } from "@hey/indexer";
+import type { PostFragment } from "@palus/indexer";
 import { Fragment } from "react";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import cn from "@/helpers/cn";

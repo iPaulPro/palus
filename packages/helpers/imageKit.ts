@@ -1,4 +1,4 @@
-import { LENS_MEDIA_SNAPSHOT_URL } from "@hey/data/constants";
+import { LENS_MEDIA_SNAPSHOT_URL } from "@palus/data/constants";
 
 const imageKit = (url: string, name?: string): string => {
   if (!url) {

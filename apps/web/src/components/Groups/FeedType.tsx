@@ -1,4 +1,4 @@
-import { GroupsFeedType } from "@hey/data/enums";
+import { GroupsFeedType } from "@palus/data/enums";
 import type { Dispatch, SetStateAction } from "react";
 import { Tabs } from "@/components/Shared/UI";
 

@@ -1,5 +1,5 @@
-import { CHAIN } from "@hey/data/constants";
 import { immutable } from "@lens-chain/storage-client";
+import { CHAIN } from "@palus/data/constants";
 import { storageClient } from "./storageClient";
 
 interface UploadResult {

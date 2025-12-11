@@ -1,4 +1,4 @@
-import type { AnyPostFragment, TimelineItemFragment } from "@hey/indexer";
+import type { AnyPostFragment, TimelineItemFragment } from "@palus/indexer";
 import { memo } from "react";
 import ActionType from "@/components/Home/Timeline/EventType";
 import PostWrapper from "@/components/Shared/Post/PostWrapper";

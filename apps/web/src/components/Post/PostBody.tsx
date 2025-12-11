@@ -1,8 +1,8 @@
 import { EyeIcon } from "@heroicons/react/24/outline";
-import getPostData from "@hey/helpers/getPostData";
-import { isRepost } from "@hey/helpers/postHelpers";
-import { type AnyPostFragment, ContentWarning } from "@hey/indexer";
 import { getSrc } from "@livepeer/react/external";
+import getPostData from "@palus/helpers/getPostData";
+import { isRepost } from "@palus/helpers/postHelpers";
+import { type AnyPostFragment, ContentWarning } from "@palus/indexer";
 import { memo, useState } from "react";
 import Quote from "@/components/Shared/Embed/Quote";
 import Markup from "@/components/Shared/Markup";

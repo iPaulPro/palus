@@ -1,14 +1,14 @@
 import { useApolloClient } from "@apollo/client";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
-import { ERRORS } from "@hey/data/errors";
+import { ERRORS } from "@palus/data/errors";
 import {
   type AccountManagerFragment,
   type AccountManagersRequest,
   PageSize,
   useAccountManagersQuery,
   useRemoveAccountManagerMutation
-} from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+} from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { WindowVirtualizer } from "virtua";

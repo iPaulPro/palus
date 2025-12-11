@@ -1,4 +1,4 @@
-import { GroupsOrderBy, useGroupsLazyQuery } from "@hey/indexer";
+import { GroupsOrderBy, useGroupsLazyQuery } from "@palus/indexer";
 import { useEffect, useState } from "react";
 
 const SUGGESTION_LIST_LENGTH_LIMIT = 5;

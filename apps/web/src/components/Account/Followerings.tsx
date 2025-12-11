@@ -1,5 +1,5 @@
-import getAccount from "@hey/helpers/getAccount";
-import { type AccountFragment, useAccountStatsQuery } from "@hey/indexer";
+import getAccount from "@palus/helpers/getAccount";
+import { type AccountFragment, useAccountStatsQuery } from "@palus/indexer";
 import plur from "plur";
 import { type FC, useEffect, useState } from "react";
 import { useLocation } from "react-router";

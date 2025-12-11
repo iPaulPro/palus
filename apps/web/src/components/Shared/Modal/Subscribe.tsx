@@ -5,13 +5,13 @@ import {
   STATIC_IMAGES_URL,
   SUBSCRIPTION_AMOUNT,
   WRAPPED_NATIVE_TOKEN_SYMBOL
-} from "@hey/data/constants";
+} from "@palus/data/constants";
 import {
   type AccountFragment,
   useBalancesBulkQuery,
   useJoinGroupMutation
-} from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+} from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import TopUpButton from "@/components/Shared/Account/TopUp/Button";
@@ -89,11 +89,11 @@ const Subscribe = () => {
       <div className="max-w-md text-center text-gray-500">
         {hasSubscribed ? (
           <div className="text-gray-500">
-            Thanks for being a valuable <b>Hey Pro</b> member!
+            Thanks for being a valuable <b>Palus Pro</b> member!
           </div>
         ) : (
           <>
-            Join Hey Pro for{" "}
+            Join Palus Pro for{" "}
             <b className="inline-flex items-center gap-x-1">
               {SUBSCRIPTION_AMOUNT}{" "}
               <Tooltip content={WRAPPED_NATIVE_TOKEN_SYMBOL} placement="top">
@@ -124,7 +124,7 @@ const Subscribe = () => {
             </div>
             <div className="flex items-center gap-x-1">
               <CheckCircleIcon className="size-4.5" />
-              <span className="text-sm">Exclusive Hey features</span>
+              <span className="text-sm">Exclusive Palus features</span>
             </div>
             <div className="flex items-center gap-x-1">
               <CheckCircleIcon className="size-4.5" />
@@ -132,7 +132,7 @@ const Subscribe = () => {
             </div>
             <div className="flex items-center gap-x-1">
               <CheckCircleIcon className="size-4.5" />
-              <span className="text-sm">Contribute to Hey's growth</span>
+              <span className="text-sm">Contribute to Palus's growth</span>
             </div>
           </div>
           {balanceLoading ? (

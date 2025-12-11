@@ -6,8 +6,8 @@ import {
   type PostNotInterestedRequest,
   useAddPostNotInterestedMutation,
   useUndoPostNotInterestedMutation
-} from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+} from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback } from "react";
 import { toast } from "sonner";
 import cn from "@/helpers/cn";

@@ -1,4 +1,4 @@
-import type { AccountFragment } from "@hey/indexer";
+import type { AccountFragment } from "@palus/indexer";
 import type { ReactNode } from "react";
 import { memo } from "react";
 import FallbackAccountName from "@/components/Shared/FallbackAccountName";

@@ -4,7 +4,7 @@ import {
   PageSize,
   type PostBookmarksRequest,
   usePostBookmarksQuery
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { useCallback } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";

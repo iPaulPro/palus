@@ -1,5 +1,5 @@
-import { AccountFeedType } from "@hey/data/enums";
-import generateUUID from "@hey/helpers/generateUUID";
+import { AccountFeedType } from "@palus/data/enums";
+import generateUUID from "@palus/helpers/generateUUID";
 import type { Dispatch, SetStateAction } from "react";
 import { Tabs } from "@/components/Shared/UI";
 

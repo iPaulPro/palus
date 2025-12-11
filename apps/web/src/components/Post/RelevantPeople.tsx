@@ -2,7 +2,7 @@ import {
   type AccountFragment,
   type PostMentionFragment,
   useAccountsBulkQuery
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { useState } from "react";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import SingleAccountShimmer from "@/components/Shared/Shimmer/SingleAccountShimmer";

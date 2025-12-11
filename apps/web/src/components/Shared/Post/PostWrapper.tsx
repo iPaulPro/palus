@@ -1,4 +1,4 @@
-import type { AnyPostFragment } from "@hey/indexer";
+import type { AnyPostFragment } from "@palus/indexer";
 import type { ReactNode } from "react";
 import { memo, useRef } from "react";
 import { useNavigate } from "react-router";

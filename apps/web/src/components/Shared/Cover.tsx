@@ -2,9 +2,9 @@ import {
   BRAND_COLOR,
   STATIC_IMAGES_URL,
   TRANSFORMS
-} from "@hey/data/constants";
-import imageKit from "@hey/helpers/imageKit";
-import sanitizeDStorageUrl from "@hey/helpers/sanitizeDStorageUrl";
+} from "@palus/data/constants";
+import imageKit from "@palus/helpers/imageKit";
+import sanitizeDStorageUrl from "@palus/helpers/sanitizeDStorageUrl";
 
 interface CoverProps {
   cover: string;

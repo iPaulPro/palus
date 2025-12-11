@@ -1,4 +1,4 @@
-import { GroupsFeedType } from "@hey/data/enums";
+import { GroupsFeedType } from "@palus/data/enums";
 import { useState } from "react";
 import CreateGroup from "@/components/Groups/Sidebar/Create/CreateGroup";
 import Footer from "@/components/Shared/Footer";

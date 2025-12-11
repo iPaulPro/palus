@@ -1,4 +1,4 @@
-import { MAX_IMAGE_UPLOAD } from "@hey/data/constants";
+import { MAX_IMAGE_UPLOAD } from "@palus/data/constants";
 import { defineDOMEventHandler, type Editor, union } from "prosekit/core";
 import { useExtension } from "prosekit/react";
 import { useCallback, useEffect, useMemo, useRef } from "react";

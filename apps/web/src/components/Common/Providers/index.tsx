@@ -1,5 +1,5 @@
 import { ApolloProvider } from "@apollo/client";
-import { createApolloClient } from "@hey/indexer/apollo/client";
+import { createApolloClient } from "@palus/indexer/apollo/client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { HelmetProvider } from "react-helmet-async";

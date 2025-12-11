@@ -1,4 +1,4 @@
-import type { CollectActionType } from "@hey/types/hey";
+import type { CollectActionType } from "@palus/types/palus";
 import { create } from "zustand";
 
 const INITIAL_COLLECT_ACTION: CollectActionType = {

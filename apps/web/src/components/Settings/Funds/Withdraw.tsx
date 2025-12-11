@@ -1,4 +1,4 @@
-import { useWithdrawMutation } from "@hey/indexer";
+import { useWithdrawMutation } from "@palus/indexer";
 import type { Address } from "viem";
 import TokenOperation from "./TokenOperation";
 

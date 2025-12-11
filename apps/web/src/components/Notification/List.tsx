@@ -1,10 +1,10 @@
 import { BellIcon } from "@heroicons/react/24/outline";
-import { NotificationFeedType } from "@hey/data/enums";
+import { NotificationFeedType } from "@palus/data/enums";
 import {
   type NotificationRequest,
   NotificationType,
   useNotificationsQuery
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { memo, useCallback, useEffect } from "react";
 import { WindowVirtualizer } from "virtua";
 import AccountActionExecutedNotification from "@/components/Notification/Type/AccountActionExecutedNotification";

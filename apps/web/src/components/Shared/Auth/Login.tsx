@@ -1,13 +1,13 @@
 import { KeyIcon } from "@heroicons/react/24/outline";
-import { HEY_APP } from "@hey/data/constants";
-import { ERRORS } from "@hey/data/errors";
+import { HEY_APP } from "@palus/data/constants";
+import { ERRORS } from "@palus/data/errors";
 import {
   type ChallengeRequest,
   ManagedAccountsVisibility,
   useAccountsAvailableQuery,
   useAuthenticateMutation,
   useChallengeMutation
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { AnimatePresence, motion } from "motion/react";
 import type { Dispatch, SetStateAction } from "react";
 import { useCallback, useState } from "react";

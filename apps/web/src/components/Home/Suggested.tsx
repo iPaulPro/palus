@@ -1,5 +1,5 @@
 import { UsersIcon } from "@heroicons/react/24/outline";
-import type { AccountFragment } from "@hey/indexer";
+import type { AccountFragment } from "@palus/indexer";
 import { motion } from "motion/react";
 import { Virtualizer } from "virtua";
 import DismissRecommendedAccount from "@/components/Shared/Account/DismissRecommendedAccount";

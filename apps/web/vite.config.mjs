@@ -15,7 +15,7 @@ const dependenciesToChunk = {
     "remark-stringify",
     "strip-markdown"
   ],
-  indexer: ["@hey/indexer"],
+  indexer: ["@palus/indexer"],
   media: ["plyr-react", "@livepeer/react", "browser-image-compression"],
   misc: [
     "@lens-chain/storage-client",
@@ -66,8 +66,8 @@ export default defineConfig({
     sourcemap: true,
     target: "esnext"
   },
+  plugins: [tsconfigPaths(), react(), tailwindcss()],
   preview: {
-    allowedHosts: ["hey.xyz", "www.hey.xyz"]
-  },
-  plugins: [tsconfigPaths(), react(), tailwindcss()]
+    allowedHosts: ["palus.app", "www.palus.app"]
+  }
 });

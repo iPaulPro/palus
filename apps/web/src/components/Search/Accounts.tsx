@@ -4,7 +4,7 @@ import {
   type AccountsRequest,
   PageSize,
   useAccountsQuery
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { useCallback } from "react";
 import { WindowVirtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";

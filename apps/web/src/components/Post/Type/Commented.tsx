@@ -1,4 +1,4 @@
-import type { PostFragment } from "@hey/indexer";
+import type { PostFragment } from "@palus/indexer";
 import ThreadBody from "@/components/Post/ThreadBody";
 
 interface CommentedProps {

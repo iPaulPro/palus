@@ -1,5 +1,5 @@
-import { NATIVE_TOKEN_SYMBOL } from "@hey/data/constants";
-import { useBalancesBulkQuery } from "@hey/indexer";
+import { NATIVE_TOKEN_SYMBOL } from "@palus/data/constants";
+import { useBalancesBulkQuery } from "@palus/indexer";
 import Loader from "@/components/Shared/Loader";
 import { Image } from "@/components/Shared/UI";
 import getTokenImage from "@/helpers/getTokenImage";

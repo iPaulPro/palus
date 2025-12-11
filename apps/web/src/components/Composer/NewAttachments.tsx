@@ -1,6 +1,6 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { MAX_IMAGE_UPLOAD } from "@hey/data/constants";
-import type { NewAttachment } from "@hey/types/misc";
+import { MAX_IMAGE_UPLOAD } from "@palus/data/constants";
+import type { NewAttachment } from "@palus/types/misc";
 import { memo, useEffect, useRef } from "react";
 import ChooseThumbnail from "@/components/Composer/ChooseThumbnail";
 import Audio from "@/components/Shared/Audio";

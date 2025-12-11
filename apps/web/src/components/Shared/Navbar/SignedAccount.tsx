@@ -1,6 +1,6 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import getAvatar from "@hey/helpers/getAvatar";
-import type { AccountFragment } from "@hey/indexer";
+import getAvatar from "@palus/helpers/getAvatar";
+import type { AccountFragment } from "@palus/indexer";
 import { Link } from "react-router";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import MenuTransition from "@/components/Shared/MenuTransition";

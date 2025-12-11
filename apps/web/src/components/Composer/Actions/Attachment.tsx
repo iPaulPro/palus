@@ -4,11 +4,11 @@ import {
   PhotoIcon,
   VideoCameraIcon
 } from "@heroicons/react/24/outline";
-import { MAX_IMAGE_UPLOAD } from "@hey/data/constants";
 import {
   MediaAudioMimeType,
   MediaImageMimeType
 } from "@lens-protocol/metadata";
+import { MAX_IMAGE_UPLOAD } from "@palus/data/constants";
 import { useClickAway } from "@uidotdev/usehooks";
 import type { ChangeEvent, JSX, MutableRefObject } from "react";
 import { memo, useId, useState } from "react";

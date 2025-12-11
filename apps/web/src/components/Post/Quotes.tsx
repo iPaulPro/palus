@@ -5,7 +5,7 @@ import {
   type PostReferencesRequest,
   PostReferenceType,
   usePostReferencesQuery
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { useCallback } from "react";
 import { WindowVirtualizer } from "virtua";
 import BackButton from "@/components/Shared/BackButton";

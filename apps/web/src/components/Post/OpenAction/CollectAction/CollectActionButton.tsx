@@ -1,12 +1,12 @@
 import { useApolloClient } from "@apollo/client";
-import { HEY_TREASURY } from "@hey/data/constants";
+import { HEY_TREASURY } from "@palus/data/constants";
 import {
   type PostFragment,
   type SimpleCollectActionFragment,
   useBalancesBulkQuery,
   useExecutePostActionMutation
-} from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+} from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import type { Address } from "viem";

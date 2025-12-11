@@ -1,4 +1,4 @@
-import type { JwtPayload } from "@hey/types/jwt";
+import type { JwtPayload } from "@palus/types/jwt";
 
 const decoded = (str: string): string =>
   atob(str.replace(/-/g, "+").replace(/_/g, "/"));

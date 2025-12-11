@@ -2,15 +2,15 @@ import {
   DEFAULT_COLLECT_TOKEN,
   STATIC_IMAGES_URL,
   WRAPPED_NATIVE_TOKEN_SYMBOL
-} from "@hey/data/constants";
+} from "@palus/data/constants";
 import {
   type AccountFollowRules,
   AccountFollowRuleType,
   type AccountFragment,
   useMeLazyQuery,
   useUpdateAccountFollowRulesMutation
-} from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+} from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import {
   type RefObject,
   useCallback,

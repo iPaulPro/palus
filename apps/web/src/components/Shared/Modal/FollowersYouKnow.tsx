@@ -2,7 +2,7 @@ import { UsersIcon } from "@heroicons/react/24/outline";
 import {
   type FollowersYouKnowRequest,
   useFollowersYouKnowQuery
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { motion } from "motion/react";
 import { useCallback } from "react";
 import { Virtualizer } from "virtua";

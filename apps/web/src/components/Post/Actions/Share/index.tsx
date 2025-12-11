@@ -1,7 +1,7 @@
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { isRepost } from "@hey/helpers/postHelpers";
-import type { AnyPostFragment } from "@hey/indexer";
+import { isRepost } from "@palus/helpers/postHelpers";
+import type { AnyPostFragment } from "@palus/indexer";
 import { AnimateNumber } from "motion-plus-react";
 import { useState } from "react";
 import MenuTransition from "@/components/Shared/MenuTransition";

@@ -3,7 +3,7 @@ import type {
   AccountFollowRules,
   GroupRuleFragment,
   GroupRules
-} from "@hey/indexer";
+} from "@palus/indexer";
 import type { Address } from "viem";
 import getAnyKeyValue from "./getAnyKeyValue";
 

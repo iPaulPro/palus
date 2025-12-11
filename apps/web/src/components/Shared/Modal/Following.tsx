@@ -1,6 +1,6 @@
 import { UsersIcon } from "@heroicons/react/24/outline";
-import type { FollowingRequest } from "@hey/indexer";
-import { PageSize, useFollowingQuery } from "@hey/indexer";
+import type { FollowingRequest } from "@palus/indexer";
+import { PageSize, useFollowingQuery } from "@palus/indexer";
 import { motion } from "motion/react";
 import { useCallback } from "react";
 import { Virtualizer } from "virtua";

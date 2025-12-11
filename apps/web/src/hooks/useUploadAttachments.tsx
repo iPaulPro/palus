@@ -1,4 +1,4 @@
-import type { NewAttachment } from "@hey/types/misc";
+import type { NewAttachment } from "@palus/types/misc";
 import { useCallback } from "react";
 import { toast } from "sonner";
 import {

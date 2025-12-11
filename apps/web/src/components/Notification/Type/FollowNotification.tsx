@@ -1,6 +1,6 @@
 import { UserPlusIcon } from "@heroicons/react/24/outline";
-import getAccount from "@hey/helpers/getAccount";
-import type { FollowNotificationFragment } from "@hey/indexer";
+import getAccount from "@palus/helpers/getAccount";
+import type { FollowNotificationFragment } from "@palus/indexer";
 import plur from "plur";
 import { NotificationAccountAvatar } from "@/components/Notification/Account";
 import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";

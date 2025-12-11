@@ -1,10 +1,10 @@
 import { GiftIcon } from "@heroicons/react/24/outline";
-import { BLOCK_EXPLORER_URL } from "@hey/data/constants";
+import { BLOCK_EXPLORER_URL } from "@palus/data/constants";
 import {
   PageSize,
   type TokenDistributionsRequest,
   useTokenDistributionsQuery
-} from "@hey/indexer";
+} from "@palus/indexer";
 import dayjs from "dayjs";
 import { useCallback } from "react";
 import { Link } from "react-router";

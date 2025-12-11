@@ -1,4 +1,4 @@
-import type { AccountActionExecutedNotificationFragment } from "@hey/indexer";
+import type { AccountActionExecutedNotificationFragment } from "@palus/indexer";
 import plur from "plur";
 import { NotificationAccountAvatar } from "@/components/Notification/Account";
 import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";

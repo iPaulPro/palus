@@ -1,4 +1,4 @@
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { STATIC_IMAGES_URL } from "@palus/data/constants";
 import { Link } from "react-router";
 import { Card, H4, Image } from "@/components/Shared/UI";
 import { useENSCreateStore } from ".";
@@ -16,7 +16,7 @@ const Success = () => {
         Visit{" "}
         <Link
           target="_blank"
-          to={`https://app.ens.domains/${chosenUsername}.hey.xyz`}
+          to={`https://app.ens.domains/${chosenUsername}.palus.app`}
         >
           ENS Dashboard
         </Link>

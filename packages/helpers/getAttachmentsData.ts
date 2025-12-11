@@ -1,5 +1,5 @@
-import type { AnyMediaFragment, Maybe } from "@hey/indexer";
-import type { AttachmentData } from "@hey/types/misc";
+import type { AnyMediaFragment, Maybe } from "@palus/indexer";
+import type { AttachmentData } from "@palus/types/misc";
 import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
 
 const getAttachmentsData = (

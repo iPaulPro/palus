@@ -1,6 +1,6 @@
-import getAccount from "@hey/helpers/getAccount";
-import { useUnassignUsernameFromAccountMutation } from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+import getAccount from "@palus/helpers/getAccount";
+import { useUnassignUsernameFromAccountMutation } from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button, H6 } from "@/components/Shared/UI";

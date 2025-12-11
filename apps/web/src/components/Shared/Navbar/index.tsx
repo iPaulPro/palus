@@ -14,7 +14,7 @@ import {
   HomeIcon as HomeSolid,
   UserGroupIcon as UserGroupSolid
 } from "@heroicons/react/24/solid";
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { STATIC_IMAGES_URL } from "@palus/data/constants";
 import {
   GroupsDocument,
   NotificationIndicatorDocument,
@@ -24,7 +24,7 @@ import {
   PostsForYouDocument,
   TimelineDocument,
   TimelineHighlightsDocument
-} from "@hey/indexer";
+} from "@palus/indexer";
 import {
   type MouseEvent,
   memo,

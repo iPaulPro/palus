@@ -6,18 +6,16 @@ const links = [
   { href: "/terms", label: "Terms" },
   { href: "/privacy", label: "Privacy" },
   { href: "/guidelines", label: "Guidelines" },
-  { href: "https://hey.xyz/discord", label: "Discord" },
-  { href: "/u/hey", label: "Hey" },
-  { href: "https://github.com/heyverse/hey", label: "GitHub" },
-  { href: "/support", label: "Support" },
-  { href: "https://hey.xyz/status", label: "Status" }
+  { href: "/u/paulburke", label: "Paul Burke" },
+  { href: "https://github.com/ipaulpro/palus", label: "GitHub" },
+  { href: "/support", label: "Support" }
 ];
 
 const Footer = () => {
   return (
     <footer className="flex flex-wrap gap-x-[12px] gap-y-2 px-3 text-sm lg:px-0">
       <span className="font-bold text-gray-500 dark:text-gray-200">
-        &copy; {currentYear} Hey.xyz
+        &copy; {currentYear} Palus.app
       </span>
       {links.map(({ href, label }) => (
         <Link

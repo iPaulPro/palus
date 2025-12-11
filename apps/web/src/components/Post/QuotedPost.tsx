@@ -1,4 +1,4 @@
-import type { PostFragment } from "@hey/indexer";
+import type { PostFragment } from "@palus/indexer";
 import { memo } from "react";
 import PostWarning from "@/components/Shared/Post/PostWarning";
 import PostWrapper from "@/components/Shared/Post/PostWrapper";

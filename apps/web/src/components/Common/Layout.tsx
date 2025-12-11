@@ -1,5 +1,5 @@
 import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
-import { useMeQuery } from "@hey/indexer";
+import { useMeQuery } from "@palus/indexer";
 import { useIsClient } from "@uidotdev/usehooks";
 import { memo, useCallback, useEffect } from "react";
 import { Outlet, useLocation } from "react-router";

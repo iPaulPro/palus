@@ -12,8 +12,8 @@
 
 - Root dev: `pnpm dev` — run all workspaces in watch mode.
 - Root build: `pnpm build` — build all workspaces in parallel.
-- Web app: `pnpm -F @hey/web dev` (preview: `pnpm -F @hey/web start`, build: `pnpm -F @hey/web build`).
-- API: `pnpm -F @hey/api dev` (typecheck: `pnpm -F @hey/api typecheck`).
+- Web app: `pnpm -F @palus/web dev` (preview: `pnpm -F @palus/web start`, build: `pnpm -F @palus/web build`).
+- API: `pnpm -F @palus/api dev` (typecheck: `pnpm -F @palus/api typecheck`).
 - Lint/format: `pnpm biome:check` (auto-fix: `pnpm biome:fix`).
 - Types: `pnpm typecheck` — TypeScript across the monorepo.
 - Node & PM: Node 20 (`.nvmrc`), PNPM 10 (see `package.json#packageManager`).
@@ -22,7 +22,7 @@
 
 - Language: TypeScript (strict, shared configs in `packages/config`).
 - Formatting: Biome controls style; no trailing commas; spaces for indentation.
-- Imports: Use workspace packages (`@hey/*`) and web alias `@/*` to `apps/web/src`.
+- Imports: Use workspace packages (`@palus/*`) and web alias `@/*` to `apps/web/src`.
 - Files: React components `PascalCase.tsx`; helpers/stores `camelCase.ts`.
 - Keep modules small, colocate domain helpers with their feature when practical.
 

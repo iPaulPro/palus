@@ -1,4 +1,4 @@
-import { useGroupQuery } from "@hey/indexer";
+import { useGroupQuery } from "@palus/indexer";
 import { useParams } from "react-router";
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";

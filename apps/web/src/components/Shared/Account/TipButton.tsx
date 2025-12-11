@@ -1,5 +1,5 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import type { AccountFragment } from "@hey/indexer";
+import type { AccountFragment } from "@palus/indexer";
 import { TipIcon } from "@/components/Shared/Icons/TipIcon";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import TipMenu from "@/components/Shared/TipMenu";

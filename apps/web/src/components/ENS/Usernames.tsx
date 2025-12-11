@@ -1,5 +1,5 @@
-import { HEY_ENS_NAMESPACE } from "@hey/data/constants";
-import { useUsernamesQuery } from "@hey/indexer";
+import { HEY_ENS_NAMESPACE } from "@palus/data/constants";
+import { useUsernamesQuery } from "@palus/indexer";
 import { Card, Image } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
@@ -30,7 +30,7 @@ const Usernames = () => {
               src="https://ens.domains/assets/brand/mark/ens-mark-Blue.svg"
             />
             <div>
-              <b>{username.localName}</b>.hey.xyz
+              <b>{username.localName}</b>.palus.app
             </div>
           </div>
         </div>

@@ -6,7 +6,7 @@ import {
   useAccountsAvailableQuery,
   useHideManagedAccountMutation,
   useUnhideManagedAccountMutation
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { WindowVirtualizer } from "virtua";

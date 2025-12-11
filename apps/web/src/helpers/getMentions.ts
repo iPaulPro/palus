@@ -1,5 +1,8 @@
-import { Regex } from "@hey/data/regex";
-import type { AccountMentionFragment, PostMentionFragment } from "@hey/indexer";
+import { Regex } from "@palus/data/regex";
+import type {
+  AccountMentionFragment,
+  PostMentionFragment
+} from "@palus/indexer";
 
 const getMentions = (text: string): PostMentionFragment[] => {
   if (!text) return [];

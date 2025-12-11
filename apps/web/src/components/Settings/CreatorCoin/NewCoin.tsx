@@ -1,4 +1,4 @@
-import { ZORA_API_KEY } from "@hey/data/constants";
+import { ZORA_API_KEY } from "@palus/data/constants";
 import { setApiKey } from "@zoralabs/coins-sdk";
 import { Card } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";

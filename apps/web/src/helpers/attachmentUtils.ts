@@ -1,5 +1,5 @@
-import generateUUID from "@hey/helpers/generateUUID";
-import type { NewAttachment } from "@hey/types/misc";
+import generateUUID from "@palus/helpers/generateUUID";
+import type { NewAttachment } from "@palus/types/misc";
 import { toast } from "sonner";
 import compressImage from "./compressImage";
 

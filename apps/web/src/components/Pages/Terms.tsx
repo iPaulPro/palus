@@ -290,7 +290,7 @@ const Terms = () => {
               <H4 className="mt-8 mb-5">13. Contact Information</H4>
               <p className="leading-7">
                 Questions about the Terms should be sent to us at
-                support@hey.xyz
+                support@palus.app
               </p>
               {/* 13. Contact Information ends */}
             </div>

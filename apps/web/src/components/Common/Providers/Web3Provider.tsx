@@ -2,7 +2,7 @@ import {
   BASE_RPC_URL,
   CHAIN,
   WALLETCONNECT_PROJECT_ID
-} from "@hey/data/constants";
+} from "@palus/data/constants";
 import { familyAccountsConnector } from "family";
 import type { ReactNode } from "react";
 import { http } from "viem";

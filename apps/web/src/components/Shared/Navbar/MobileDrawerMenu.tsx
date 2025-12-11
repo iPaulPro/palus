@@ -1,5 +1,5 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import type { AccountFragment } from "@hey/indexer";
+import type { AccountFragment } from "@palus/indexer";
 import { Link } from "react-router";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";

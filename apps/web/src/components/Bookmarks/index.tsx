@@ -1,4 +1,4 @@
-import type { MainContentFocus } from "@hey/indexer";
+import type { MainContentFocus } from "@palus/indexer";
 import { useState } from "react";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
 import PageLayout from "@/components/Shared/PageLayout";

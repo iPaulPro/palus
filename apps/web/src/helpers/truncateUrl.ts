@@ -7,7 +7,7 @@ const truncateUrl = (url: string, maxLength: number): string => {
         ""
       );
 
-    if (parsed.hostname.endsWith("hey.xyz")) return stripped;
+    if (parsed.hostname.endsWith("palus.app")) return stripped;
 
     return stripped.length > maxLength
       ? `${stripped.slice(0, maxLength - 1)}…`

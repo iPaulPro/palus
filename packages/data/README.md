@@ -1,6 +1,6 @@
 # Data
 
-This package contains constants, endpoints, and shared utilities consumed by the Hey apps.
+This package contains constants, endpoints, and shared utilities consumed by the Palus apps.
 
 ## Commands
 

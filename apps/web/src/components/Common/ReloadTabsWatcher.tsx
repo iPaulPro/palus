@@ -1,4 +1,4 @@
-import { Localstorage } from "@hey/data/storage";
+import { Localstorage } from "@palus/data/storage";
 import { useEffect } from "react";
 
 const ReloadTabsWatcher = () => {

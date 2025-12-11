@@ -11,7 +11,7 @@ import {
   PaintBrushIcon,
   SparklesIcon
 } from "@heroicons/react/24/outline";
-import type { AccountFragment } from "@hey/indexer";
+import type { AccountFragment } from "@palus/indexer";
 import { Link } from "react-router";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import BackButton from "@/components/Shared/BackButton";

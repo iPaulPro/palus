@@ -1,4 +1,4 @@
-import type { PayToCollectInput } from "@hey/indexer";
+import type { PayToCollectInput } from "@palus/indexer";
 
 export type CollectActionType = {
   enabled?: boolean;

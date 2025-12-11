@@ -1,4 +1,4 @@
-import { MainContentFocus } from "@hey/indexer";
+import { MainContentFocus } from "@palus/indexer";
 import type { Dispatch, SetStateAction } from "react";
 import { memo } from "react";
 import { Tabs } from "@/components/Shared/UI";

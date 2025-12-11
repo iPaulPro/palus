@@ -1,4 +1,4 @@
-import type { GroupFragment } from "@hey/indexer";
+import type { GroupFragment } from "@palus/indexer";
 import { createTrackedStore } from "@/store/createTrackedStore";
 
 interface State {

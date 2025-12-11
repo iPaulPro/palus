@@ -1,6 +1,6 @@
 import { useApolloClient } from "@apollo/client";
-import { useEditPostMutation, usePostLazyQuery } from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+import { useEditPostMutation, usePostLazyQuery } from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback } from "react";
 import { toast } from "sonner";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";

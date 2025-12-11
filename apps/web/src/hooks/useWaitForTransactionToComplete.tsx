@@ -1,4 +1,4 @@
-import { useTransactionStatusLazyQuery } from "@hey/indexer";
+import { useTransactionStatusLazyQuery } from "@palus/indexer";
 import { useCallback } from "react";
 
 const INITIAL_DELAY = 1000;

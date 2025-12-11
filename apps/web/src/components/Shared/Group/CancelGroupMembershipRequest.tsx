@@ -2,8 +2,8 @@ import { useApolloClient } from "@apollo/client";
 import {
   type GroupFragment,
   useCancelGroupMembershipRequestMutation
-} from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+} from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/Shared/UI";

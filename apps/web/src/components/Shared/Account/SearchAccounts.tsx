@@ -4,7 +4,7 @@ import {
   type AccountsRequest,
   PageSize,
   useAccountsLazyQuery
-} from "@hey/indexer";
+} from "@palus/indexer";
 import type { ChangeEvent } from "react";
 import Loader from "@/components/Shared/Loader";
 import { Card, Input } from "@/components/Shared/UI";

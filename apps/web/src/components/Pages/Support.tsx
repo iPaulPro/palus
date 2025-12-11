@@ -11,13 +11,13 @@ const Support = () => {
           <H3>Support</H3>
           <p className="mt-3">
             For assistance, please email us at{" "}
-            <Link to="mailto:support@hey.xyz">support@hey.xyz</Link> with a
+            <Link to="mailto:support@palus.app">support@palus.app</Link> with a
             detailed description of your issue and how we can assist you.
           </p>
           <div className="my-5 flex flex-col space-y-2">
             <Link to="/guidelines">Community Guidelines</Link>
             <Link to="/terms">Terms of Service</Link>
-            <Link to="/privacy">Hey Privacy Policy</Link>
+            <Link to="/privacy">Palus Privacy Policy</Link>
             <Link target="_blank" to="https://www.lens.xyz/privacy">
               Lens Privacy Policy
             </Link>
@@ -25,7 +25,7 @@ const Support = () => {
           </div>
           <p className="text-gray-500 text-sm">
             Send any legal requests to{" "}
-            <Link to="mailto:legal@hey.xyz">legal@hey.xyz</Link>
+            <Link to="mailto:legal@palus.app">legal@palus.app</Link>
           </p>
         </div>
       </Card>

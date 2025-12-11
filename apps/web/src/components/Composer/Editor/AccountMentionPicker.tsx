@@ -1,5 +1,5 @@
 import { CheckBadgeIcon } from "@heroicons/react/24/solid";
-import { EditorRegex } from "@hey/data/regex";
+import { EditorRegex } from "@palus/data/regex";
 import { useEditor } from "prosekit/react";
 import {
   AutocompleteItem,

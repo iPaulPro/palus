@@ -1,6 +1,6 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import getAccount from "@hey/helpers/getAccount";
-import { useAccountsBulkQuery } from "@hey/indexer";
+import getAccount from "@palus/helpers/getAccount";
+import { useAccountsBulkQuery } from "@palus/indexer";
 import { memo } from "react";
 import { useNavigate } from "react-router";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";

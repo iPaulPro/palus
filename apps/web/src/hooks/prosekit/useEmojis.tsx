@@ -1,5 +1,5 @@
-import { STATIC_ASSETS_URL } from "@hey/data/constants";
-import type { Emoji } from "@hey/types/misc";
+import { STATIC_ASSETS_URL } from "@palus/data/constants";
+import type { Emoji } from "@palus/types/misc";
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 

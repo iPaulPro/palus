@@ -4,7 +4,7 @@ import {
   type GroupsRequest,
   PageSize,
   useGroupsQuery
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { useCallback } from "react";
 import { WindowVirtualizer } from "virtua";
 import SingleGroup from "@/components/Shared/Group/SingleGroup";

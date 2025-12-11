@@ -1,12 +1,12 @@
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import getAccount from "@hey/helpers/getAccount";
+import getAccount from "@palus/helpers/getAccount";
 import {
   type AccountFragment,
   AccountsOrderBy,
   type AccountsRequest,
   PageSize,
   useAccountsLazyQuery
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { useClickAway, useDebounce } from "@uidotdev/usehooks";
 import type { MutableRefObject } from "react";
 import { useCallback, useEffect, useState } from "react";

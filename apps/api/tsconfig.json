@@ -8,6 +8,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "extends": "@hey/config/base.tsconfig.json",
+  "extends": "@palus/config/base.tsconfig.json",
   "include": ["**/*.ts", "src"]
 }

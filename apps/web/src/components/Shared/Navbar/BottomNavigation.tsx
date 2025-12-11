@@ -9,7 +9,7 @@ import {
   GlobeAltIcon as GlobeSolid,
   HomeIcon as HomeIconSolid
 } from "@heroicons/react/24/solid";
-import getAvatar from "@hey/helpers/getAvatar";
+import getAvatar from "@palus/helpers/getAvatar";
 import type { MouseEvent, ReactNode } from "react";
 import { Link, useLocation } from "react-router";
 import { Image } from "@/components/Shared/UI";

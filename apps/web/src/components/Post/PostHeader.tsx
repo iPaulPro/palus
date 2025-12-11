@@ -1,10 +1,10 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { isRepost } from "@hey/helpers/postHelpers";
+import { isRepost } from "@palus/helpers/postHelpers";
 import type {
   AnyPostFragment,
   PostGroupInfoFragment,
   TimelineItemFragment
-} from "@hey/indexer";
+} from "@palus/indexer";
 import { memo } from "react";
 import PostMenu from "@/components/Post/Actions/Menu";
 import stopEventPropagation from "@/helpers/stopEventPropagation";

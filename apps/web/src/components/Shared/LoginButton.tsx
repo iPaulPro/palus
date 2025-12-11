@@ -1,4 +1,4 @@
-import { STATIC_IMAGES_URL } from "@hey/data/constants";
+import { STATIC_IMAGES_URL } from "@palus/data/constants";
 import { type MouseEvent, useCallback } from "react";
 import { Button } from "@/components/Shared/UI";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";

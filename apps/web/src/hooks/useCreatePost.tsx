@@ -4,8 +4,8 @@ import {
   type PostFragment,
   useCreatePostMutation,
   usePostLazyQuery
-} from "@hey/indexer";
-import type { ApolloClientError } from "@hey/types/errors";
+} from "@palus/indexer";
+import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback } from "react";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";

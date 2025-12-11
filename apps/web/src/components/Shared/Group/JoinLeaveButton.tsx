@@ -1,5 +1,5 @@
-import { PERMISSIONS } from "@hey/data/constants";
-import type { GroupFragment } from "@hey/indexer";
+import { PERMISSIONS } from "@palus/data/constants";
+import type { GroupFragment } from "@palus/indexer";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import CancelGroupMembershipRequest from "./CancelGroupMembershipRequest";
