@@ -1,12 +1,6 @@
-import {
-  BASE_RPC_URL,
-  CHAIN,
-  WALLETCONNECT_PROJECT_ID
-} from "@palus/data/constants";
+import { CHAIN, WALLETCONNECT_PROJECT_ID } from "@palus/data/constants";
 import { familyAccountsConnector } from "family";
 import type { ReactNode } from "react";
-import { http } from "viem";
-import { base } from "viem/chains";
 import { createConfig, WagmiProvider } from "wagmi";
 import { injected, walletConnect } from "wagmi/connectors";
 import getRpc from "@/helpers/getRpc";
@@ -18,11 +12,10 @@ const connectors = [
 ];
 
 const config = createConfig({
-  chains: [CHAIN, base],
+  chains: [CHAIN],
   connectors,
   transports: {
-    [CHAIN.id]: getRpc(),
-    [base.id]: http(BASE_RPC_URL, { batch: { batchSize: 30 } })
+    [CHAIN.id]: getRpc()
   }
 });
 

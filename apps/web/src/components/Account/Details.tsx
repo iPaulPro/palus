@@ -16,7 +16,6 @@ import getFavicon from "@/helpers/getFavicon";
 import getMentions from "@/helpers/getMentions";
 import { useTheme } from "@/hooks/useTheme";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import CreatorCoin from "./CreatorCoin";
 import Followerings from "./Followerings";
 import FollowersYouKnowOverview from "./FollowersYouKnowOverview";
 import AccountMenu from "./Menu";
@@ -163,7 +162,6 @@ const Details = ({
               width={16}
             />
           )}
-          <CreatorCoin account={account} />
         </div>
       </div>
     </div>
