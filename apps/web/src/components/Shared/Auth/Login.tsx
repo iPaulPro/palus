@@ -18,6 +18,7 @@ import Loader from "@/components/Shared/Loader";
 import { Button, Card, ErrorMessage } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import reloadAllTabs from "@/helpers/reloadAllTabs";
+import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
 import { signIn } from "@/store/persisted/useAuthStore";
 import { EXPANSION_EASE } from "@/variants";
 import SignupCard from "./SignupCard";
@@ -80,6 +81,8 @@ const Login = ({ setHasAccounts }: LoginProps) => {
     ? [lastLogin, ...remainingAccounts]
     : remainingAccounts;
 
+  const handleWrongNetwork = useHandleWrongNetwork();
+
   const handleSign = async (account: string) => {
     const isManager = allAccounts.some(
       ({ account: a, __typename }) =>
@@ -94,6 +97,8 @@ const Login = ({ setHasAccounts }: LoginProps) => {
     try {
       setLoggingInAccountId(account || null);
       setIsSubmitting(true);
+      await handleWrongNetwork();
+
       // Get challenge
       const challenge = await loadChallenge({
         variables: { request }
