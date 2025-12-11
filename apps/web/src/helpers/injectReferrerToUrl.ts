@@ -1,4 +1,4 @@
-import { HEY_TREASURY } from "@palus/data/constants";
+import { PALUS_TREASURY } from "@palus/data/constants";
 
 interface DomainParamConfig {
   name: string;
@@ -6,8 +6,8 @@ interface DomainParamConfig {
 }
 
 const DOMAIN_PARAM_MAP: Record<string, DomainParamConfig> = {
-  "highlight.xyz": { name: "referrer", value: HEY_TREASURY },
-  "zora.co": { name: "referrer", value: HEY_TREASURY }
+  "highlight.xyz": { name: "referrer", value: PALUS_TREASURY },
+  "zora.co": { name: "referrer", value: PALUS_TREASURY }
 };
 
 const injectReferrerToUrl = (url: string): string => {

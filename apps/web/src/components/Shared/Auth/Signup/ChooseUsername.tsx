@@ -5,7 +5,7 @@ import {
   FaceSmileIcon
 } from "@heroicons/react/24/outline";
 import { account as accountMetadata } from "@lens-protocol/metadata";
-import { HEY_APP } from "@palus/data/constants";
+import { PALUS_APP } from "@palus/data/constants";
 import { ERRORS } from "@palus/data/errors";
 import { Regex } from "@palus/data/regex";
 import {
@@ -115,7 +115,7 @@ const ChooseUsername = () => {
 
       const challenge = await loadChallenge({
         variables: {
-          request: { onboardingUser: { app: HEY_APP, wallet: address } }
+          request: { onboardingUser: { app: PALUS_APP, wallet: address } }
         }
       });
 

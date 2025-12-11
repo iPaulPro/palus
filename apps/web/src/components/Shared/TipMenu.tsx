@@ -1,5 +1,5 @@
 import { useApolloClient } from "@apollo/client";
-import { HEY_TREASURY, NATIVE_TOKEN_SYMBOL } from "@palus/data/constants";
+import { NATIVE_TOKEN_SYMBOL, PALUS_TREASURY } from "@palus/data/constants";
 import {
   type AccountFragment,
   type PostFragment,
@@ -136,7 +136,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     const tipping: TippingAmountInput = {
       native: cryptoRate.toString(),
       // 11 is a calculated value based on the referral pool of 20% and the Lens fee of 2.1% after the 1.5% lens fees cut
-      referrals: [{ address: HEY_TREASURY, percent: 11 }]
+      referrals: [{ address: PALUS_TREASURY, percent: 11 }]
     };
 
     if (post) {

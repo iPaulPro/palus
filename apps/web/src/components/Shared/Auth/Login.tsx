@@ -1,5 +1,5 @@
 import { KeyIcon } from "@heroicons/react/24/outline";
-import { HEY_APP } from "@palus/data/constants";
+import { PALUS_APP } from "@palus/data/constants";
 import { ERRORS } from "@palus/data/errors";
 import {
   type ChallengeRequest,
@@ -86,7 +86,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
         __typename === "AccountManaged" && a.address === account
     );
 
-    const meta = { account, app: HEY_APP };
+    const meta = { account, app: PALUS_APP };
     const request: ChallengeRequest = isManager
       ? { accountManager: { manager: address, ...meta } }
       : { accountOwner: { owner: address, ...meta } };

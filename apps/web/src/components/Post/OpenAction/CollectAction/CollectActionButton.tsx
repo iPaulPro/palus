@@ -1,5 +1,5 @@
 import { useApolloClient } from "@apollo/client";
-import { HEY_TREASURY } from "@palus/data/constants";
+import { PALUS_TREASURY } from "@palus/data/constants";
 import {
   type PostFragment,
   type SimpleCollectActionFragment,
@@ -129,7 +129,7 @@ const CollectActionButton = ({
         request: {
           action: {
             simpleCollect: {
-              referrals: [{ address: HEY_TREASURY, percent: 100 }],
+              referrals: [{ address: PALUS_TREASURY, percent: 100 }],
               selected: true
             }
           },
