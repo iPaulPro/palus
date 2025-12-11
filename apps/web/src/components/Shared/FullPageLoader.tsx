@@ -1,4 +1,3 @@
-import { STATIC_IMAGES_URL } from "@palus/data/constants";
 import { Image } from "@/components/Shared/UI";
 
 const FullPageLoader = () => {
@@ -8,7 +7,7 @@ const FullPageLoader = () => {
         alt="Logo"
         className="size-28"
         height={112}
-        src={`${STATIC_IMAGES_URL}/app-icon/0.png`}
+        src="/favicon.svg"
         width={112}
       />
     </div>

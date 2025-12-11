@@ -14,7 +14,6 @@ import {
   HomeIcon as HomeSolid,
   UserGroupIcon as UserGroupSolid
 } from "@heroicons/react/24/solid";
-import { STATIC_IMAGES_URL } from "@palus/data/constants";
 import {
   GroupsDocument,
   NotificationIndicatorDocument,
@@ -180,7 +179,7 @@ const Navbar = () => {
           alt="Logo"
           className="size-8"
           height={32}
-          src={`${STATIC_IMAGES_URL}/app-icon/0.png`}
+          src="/favicon.svg"
           width={32}
         />
       </Link>
