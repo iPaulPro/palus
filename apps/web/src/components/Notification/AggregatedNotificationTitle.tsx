@@ -1,4 +1,4 @@
-import type { AccountFragment } from "@palus/indexer";
+import type { AccountFragment, PayableAmount } from "@palus/indexer";
 import { Link } from "react-router";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { NotificationAccountName } from "./Account";
@@ -8,13 +8,15 @@ interface AggregatedNotificationTitleProps {
   linkToType: string;
   text: string;
   type?: string;
+  amount?: PayableAmount;
 }
 
 const AggregatedNotificationTitle = ({
   firstAccount,
   linkToType,
   text,
-  type
+  type,
+  amount
 }: AggregatedNotificationTitleProps) => {
   return (
     <div>
@@ -28,6 +30,12 @@ const AggregatedNotificationTitle = ({
         >
           {type.toLowerCase()}
         </Link>
+      )}
+      {amount && (
+        <span className="font-bold">
+          {" "}
+          {amount.value} {amount.asset.symbol}
+        </span>
       )}
     </div>
   );
