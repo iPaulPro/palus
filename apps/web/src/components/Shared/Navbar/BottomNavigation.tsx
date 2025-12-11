@@ -13,6 +13,7 @@ import getAvatar from "@palus/helpers/getAvatar";
 import type { MouseEvent, ReactNode } from "react";
 import { Link, useLocation } from "react-router";
 import { Image } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
 import useHasNewNotifications from "@/hooks/useHasNewNotifications";
 import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -45,7 +46,7 @@ const NavigationItem = ({
   >
     {isActive ? solid : outline}
     {showIndicator && (
-      <span className="-right-1 -top-1 absolute size-2 rounded-full bg-red-500" />
+      <span className="-right-1 -top-1 absolute size-2 rounded-full bg-brand-500" />
     )}
   </Link>
 );
@@ -93,8 +94,18 @@ const BottomNavigation = () => {
     }
   ];
 
+  const isStandalone = window.matchMedia("(display-mode: standalone)").matches;
+
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-[5] border-gray-200 border-t bg-white pb-safe md:hidden dark:border-gray-800 dark:bg-black">
+    <nav
+      className={cn(
+        "fixed inset-x-0 bottom-0 z-[5] border-gray-200 border-t bg-white md:hidden dark:border-gray-800 dark:bg-black",
+        {
+          "pb-6":
+            isStandalone || ("standalone" in navigator && navigator.standalone)
+        }
+      )}
+    >
       {showMobileDrawer && <MobileDrawerMenu />}
       <div className="flex justify-between">
         {navigationItems.map(({ path, label, outline, solid }) => (
