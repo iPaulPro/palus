@@ -36,7 +36,7 @@ export const STORAGE_NODE_URL = "https://api.grove.storage";
 export const IPFS_GATEWAY = "https://gw.ipfs-lens.dev/ipfs";
 
 // Tokens / Keys
-export const WALLETCONNECT_PROJECT_ID = "cd542acc70c2b548030f9901a52e70c8";
+export const WALLETCONNECT_PROJECT_ID = "d7a861c7ee210977faf27c35c9156ca0";
 export const GIPHY_KEY = "yNwCXMKkiBrxyyFduF56xCbSuJJM8cMd"; // Read only safe key
 export const ZORA_API_KEY =
   "zora_api_2b019182fe376a45b4495c89bbb18393d6d529ef9e9d0c799321116a8bfb8f47";
