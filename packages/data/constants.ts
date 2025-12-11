@@ -19,11 +19,8 @@ export const HEY_TREASURY = IS_TESTNET
   : "0x03Ba34f6Ea1496fa316873CF8350A3f7eaD317EF";
 export const ADDRESS_PLACEHOLDER = "0x03Ba3...7EF";
 
-// Subscription
-export const SUBSCRIPTION_AMOUNT = 20;
-
 // Application
-export const BRAND_COLOR = "#FB3A5D";
+export const BRAND_COLOR = "#0170a3";
 
 // URLs
 export const STATIC_ASSETS_URL = "https://static.palus.app";

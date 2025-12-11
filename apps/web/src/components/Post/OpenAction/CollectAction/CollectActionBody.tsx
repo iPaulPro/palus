@@ -157,7 +157,7 @@ const CollectActionBody = ({
         <div className="mb-4">
           <H4>
             {targetPost.__typename} by{" "}
-            <Slug slug={getAccount(targetPost.author).username} />
+            <Slug prefix="@" slug={getAccount(targetPost.author).username} />
           </H4>
         </div>
         {amount ? (

@@ -107,7 +107,7 @@ const LinkUsername = () => {
           key={username.value}
         >
           <div className="flex items-center space-x-2">
-            <Slug className="font-bold" slug={username.value} />
+            <Slug className="font-bold" prefix="@" slug={username.value} />
             {username.linkedTo ? (
               <div className="flex items-center space-x-2">
                 <span>·</span>

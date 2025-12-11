@@ -2,11 +2,8 @@ import { useGroupQuery } from "@palus/indexer";
 import { useParams } from "react-router";
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
-import BackButton from "@/components/Shared/BackButton";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
 import PageLayout from "@/components/Shared/PageLayout";
-import ProFeatureNotice from "@/components/Shared/ProFeatureNotice";
-import { Card, CardHeader } from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import SuperJoin from "./SuperJoin";
 
@@ -39,17 +36,7 @@ const MonetizeSettings = () => {
 
   return (
     <PageLayout title="Monetize settings">
-      {currentAccount?.hasSubscribed ? (
-        <SuperJoin group={group} />
-      ) : (
-        <Card>
-          <CardHeader
-            icon={<BackButton path={`/g/${group.address}/settings`} />}
-            title="Super Join"
-          />
-          <ProFeatureNotice className="m-5" feature="super join settings" />
-        </Card>
-      )}
+      <SuperJoin group={group} />
     </PageLayout>
   );
 };

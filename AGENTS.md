@@ -3,7 +3,6 @@
 ## Project Structure & Modules
 
 - `apps/web`: Vite + React 19 frontend (sources under `src/`, static assets in `public/`).
-- `apps/api`: Hono-based API server (entry `src/index.ts`, routes in `src/routes/`).
 - `packages/*`: Shared code (`helpers`, `data`, `types`, `indexer`, `config`).
 - `script/*`: Maintenance utilities (e.g., sorting `package.json`, cleaning branches).
 - Tooling: PNPM workspaces (`pnpm-workspace.yaml`), Biome config (`biome.json`), Husky hooks (`.husky/`).
@@ -13,7 +12,6 @@
 - Root dev: `pnpm dev` — run all workspaces in watch mode.
 - Root build: `pnpm build` — build all workspaces in parallel.
 - Web app: `pnpm -F @palus/web dev` (preview: `pnpm -F @palus/web start`, build: `pnpm -F @palus/web build`).
-- API: `pnpm -F @palus/api dev` (typecheck: `pnpm -F @palus/api typecheck`).
 - Lint/format: `pnpm biome:check` (auto-fix: `pnpm biome:fix`).
 - Types: `pnpm typecheck` — TypeScript across the monorepo.
 - Node & PM: Node 20 (`.nvmrc`), PNPM 10 (see `package.json#packageManager`).

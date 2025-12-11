@@ -1,4 +1,3 @@
-import { BeakerIcon, CheckBadgeIcon } from "@heroicons/react/24/solid";
 import getAccount from "@palus/helpers/getAccount";
 import getAvatar from "@palus/helpers/getAvatar";
 import { type AccountStats, useFullAccountLazyQuery } from "@palus/indexer";
@@ -11,7 +10,6 @@ import { Card, Image } from "@/components/Shared/UI";
 import getMentions from "@/helpers/getMentions";
 import nFormatter from "@/helpers/nFormatter";
 import truncateByWords from "@/helpers/truncateByWords";
-import ENSBadge from "./ENSBadge";
 import FollowUnfollowButton from "./FollowUnfollowButton";
 
 interface AccountPreviewProps {
@@ -88,14 +86,13 @@ const AccountPreview = ({
       <div>
         <div className="flex max-w-sm items-center gap-1 truncate">
           <div>{getAccount(account).name}</div>
-          {account.hasSubscribed && (
-            <CheckBadgeIcon className="size-4 text-brand-500" />
-          )}
-          {account.isBeta && <BeakerIcon className="size-4 text-green-500" />}
-          <ENSBadge account={account} className="size-4" />
         </div>
         <span>
-          <Slug className="text-sm" slug={getAccount(account).username} />
+          <Slug
+            className="text-sm"
+            prefix="@"
+            slug={getAccount(account).username}
+          />
           {account.operations?.isFollowingMe && (
             <span className="ml-2 rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
               Follows you

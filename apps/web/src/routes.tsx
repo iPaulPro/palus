@@ -2,7 +2,6 @@ import { BrowserRouter, Route, Routes as RouterRoutes } from "react-router";
 import ViewAccount from "@/components/Account";
 import Bookmarks from "@/components/Bookmarks";
 import Layout from "@/components/Common/Layout";
-import ENS from "@/components/ENS";
 import Explore from "@/components/Explore";
 import ViewGroup from "@/components/Group";
 import GroupSettings from "@/components/Group/Settings";
@@ -27,7 +26,6 @@ import FundsSettings from "@/components/Settings/Funds";
 import ManagerSettings from "@/components/Settings/Manager";
 import { default as AccountMonetizeSettings } from "@/components/Settings/Monetize";
 import { default as AccountPersonalizeSettings } from "@/components/Settings/Personalize";
-import ProSettings from "@/components/Settings/Pro";
 import SessionsSettings from "@/components/Settings/Sessions";
 import UsernameSettings from "@/components/Settings/Username";
 import Custom404 from "@/components/Shared/404";
@@ -44,7 +42,6 @@ const Routes = () => {
           <Route element={<Search />} path="search" />
           <Route element={<Groups />} path="groups" />
           <Route element={<Bookmarks />} path="bookmarks" />
-          <Route element={<ENS />} path="ens" />
           <Route element={<Notification />} path="notifications" />
           <Route element={<ViewAccount />} path="account/:address" />
           <Route element={<ViewAccount />} path="u/:username" />
@@ -72,7 +69,6 @@ const Routes = () => {
             />
             <Route element={<AccountMonetizeSettings />} path="monetize" />
             <Route element={<CreatorCoinSettings />} path="creatorcoin" />
-            <Route element={<ProSettings />} path="pro" />
             <Route element={<RewardsSettings />} path="rewards" />
             <Route element={<BlockedSettings />} path="blocked" />
             <Route element={<DeveloperSettings />} path="developer" />

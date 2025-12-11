@@ -6,12 +6,10 @@ import { useSignupStore } from "@/components/Shared/Auth/Signup";
 import SuperJoin from "@/components/Shared/Group/SuperJoin";
 import ReportAccount from "@/components/Shared/Modal/ReportAccount";
 import ReportPost from "@/components/Shared/Modal/ReportPost";
-import Subscribe from "@/components/Shared/Modal/Subscribe";
 import { Modal } from "@/components/Shared/UI";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useFundModalStore } from "@/store/non-persisted/modal/useFundModalStore";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
-import { useProModalStore } from "@/store/non-persisted/modal/useProModalStore";
 import { useReportAccountModalStore } from "@/store/non-persisted/modal/useReportAccountModalStore";
 import { useReportPostModalStore } from "@/store/non-persisted/modal/useReportPostModalStore";
 import { useSuperFollowModalStore } from "@/store/non-persisted/modal/useSuperFollowModalStore";
@@ -46,7 +44,6 @@ const GlobalModals = () => {
     setShowSuperFollowModal,
     superFollowingAccount
   } = useSuperFollowModalStore();
-  const { show: showProModal, setShow: setShowProModal } = useProModalStore();
   const { screen: signupScreen } = useSignupStore();
 
   const authModalTitle =
@@ -121,13 +118,6 @@ const GlobalModals = () => {
         title="Super Follow"
       >
         <SuperFollow />
-      </Modal>
-      <Modal
-        onClose={() => setShowProModal(false)}
-        show={showProModal}
-        size="md"
-      >
-        <Subscribe />
       </Modal>
     </>
   );

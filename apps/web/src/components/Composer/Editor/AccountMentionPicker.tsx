@@ -1,4 +1,3 @@
-import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import { EditorRegex } from "@palus/data/regex";
 import { useEditor } from "prosekit/react";
 import {
@@ -36,9 +35,6 @@ const MentionItem = ({ onSelect, account }: MentionItemProps) => {
         <div className="flex flex-col truncate">
           <div className="flex items-center gap-1">
             <div>{account.name}</div>
-            {account.subscribed && (
-              <CheckBadgeIcon className="size-4 text-brand-500" />
-            )}
           </div>
           <span className="text-gray-500 text-xs dark:text-gray-200">
             {account.username}

@@ -25,7 +25,7 @@ const DeletedDetails = ({ account }: DeletedDetailsProps) => {
       <div className="space-y-1 py-2">
         <H3 className="truncate">{name}</H3>
         <div>
-          <Slug className="text-sm sm:text-base" slug={username} />
+          <Slug className="text-sm sm:text-base" prefix="@" slug={username} />
         </div>
       </div>
     </div>

@@ -1,4 +1,3 @@
-import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import getAccount from "@palus/helpers/getAccount";
 import getAvatar from "@palus/helpers/getAvatar";
 import type { AccountFragment } from "@palus/indexer";
@@ -50,9 +49,6 @@ export const NotificationAccountName = memo(
           onClick={stopEventPropagation}
         >
           <span>{getAccount(account).name}</span>
-          {account.hasSubscribed && (
-            <CheckBadgeIcon className="size-4 text-brand-500" />
-          )}
         </AccountLink>
       </AccountPreview>
     );

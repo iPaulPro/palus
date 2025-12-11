@@ -1,4 +1,3 @@
-import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import getAccount from "@palus/helpers/getAccount";
 import getAvatar from "@palus/helpers/getAvatar";
 import type { AccountFragment } from "@palus/indexer";
@@ -47,12 +46,13 @@ const SmallSingleAccount = ({
         )}
       >
         {getAccount(account).name}
-        {account.hasSubscribed ? (
-          <CheckBadgeIcon className="size-4 text-brand-500" />
-        ) : null}
       </div>
       {!hideSlug && (
-        <Slug className="text-sm" slug={getAccount(account).username} />
+        <Slug
+          className="text-sm"
+          prefix="@"
+          slug={getAccount(account).username}
+        />
       )}
       {timestamp && (
         <span className="text-gray-500 dark:text-gray-200">

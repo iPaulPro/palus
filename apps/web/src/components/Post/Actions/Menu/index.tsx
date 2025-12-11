@@ -58,9 +58,7 @@ const PostMenu = ({ post }: PostMenuProps) => {
           <div className="divider" />
           {currentAccount?.address === post?.author?.address ? (
             <>
-              {canEdit && currentAccount?.hasSubscribed ? (
-                <Edit post={post} />
-              ) : null}
+              {canEdit ? <Edit post={post} /> : null}
               <Delete post={post} />
             </>
           ) : (

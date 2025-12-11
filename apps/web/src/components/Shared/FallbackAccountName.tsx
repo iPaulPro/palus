@@ -22,7 +22,9 @@ const FallbackAccountName = ({
   }
 
   const { name, username } = getAccount(account);
-  const accountName = account?.metadata?.name || <Slug slug={username} />;
+  const accountName = account?.metadata?.name || (
+    <Slug prefix="@" slug={username} />
+  );
 
   return (
     <>

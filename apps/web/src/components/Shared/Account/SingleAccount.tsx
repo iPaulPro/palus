@@ -1,4 +1,3 @@
-import { CheckBadgeIcon } from "@heroicons/react/24/solid";
 import getAccount from "@palus/helpers/getAccount";
 import getAvatar from "@palus/helpers/getAvatar";
 import type { AccountFragment } from "@palus/indexer";
@@ -27,7 +26,6 @@ const SingleAccount = ({
   hideFollowButton = false,
   hideUnfollowButton = false,
   isBig = false,
-  isVerified = false,
   linkToAccount = true,
   account,
   showBio = false,
@@ -56,17 +54,12 @@ const SingleAccount = ({
         )}
       >
         <div className="truncate font-semibold">{getAccount(account).name}</div>
-        {(isVerified || account.hasSubscribed) && (
-          <CheckBadgeIcon className="size-4 text-brand-500" />
-        )}
-        {account.heyEns?.localName && (
-          <Image
-            className="size-4"
-            src="https://ens.domains/assets/brand/mark/ens-mark-Blue.svg"
-          />
-        )}
       </div>
-      <Slug className="text-sm" slug={getAccount(account).username} />
+      <Slug
+        className="text-sm"
+        prefix="@"
+        slug={getAccount(account).username}
+      />
     </div>
   );
 
