@@ -25,7 +25,7 @@ interface PostAccountProps {
 const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
   return (
     <div className="flex flex-col">
-      <div className="flex flex-wrap items-center gap-x-1">
+      <div className="flex flex-wrap items-center gap-x-1.5">
         <AccountLink
           account={account}
           className="outline-hidden hover:underline focus:underline"
@@ -35,10 +35,21 @@ const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
             showUserPreview
             username={account.username?.localName}
           >
-            <span className="font-semibold">{getAccount(account).name}</span>
-            <span className="ml-1.5 text-gray-500 dark:text-gray-400">
-              @{getAccount(account).username}
-            </span>
+            <div className="flex min-w-0 flex-wrap gap-x-1">
+              <span className="line-clamp-1 font-semibold">
+                {getAccount(account).name}
+              </span>
+              <span className="text-gray-500 dark:text-gray-400">
+                @{getAccount(account).username}
+              </span>
+              {timestamp ? (
+                <span className="text-gray-500 dark:text-gray-200">
+                  <PostLink className="text-sm hover:underline" post={post}>
+                    &bull; {formatRelativeOrAbsolute(timestamp)}
+                  </PostLink>
+                </span>
+              ) : null}
+            </div>
           </AccountPreview>
         </AccountLink>
         {group?.metadata ? (
@@ -56,13 +67,6 @@ const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
               <span className="truncate text-sm">{group.metadata.name}</span>
             </Link>
           </>
-        ) : null}
-        {timestamp ? (
-          <span className="ml-1 text-gray-500 dark:text-gray-200">
-            <PostLink className="text-sm hover:underline" post={post}>
-              {formatRelativeOrAbsolute(timestamp)}
-            </PostLink>
-          </span>
         ) : null}
       </div>
     </div>

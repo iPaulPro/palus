@@ -1,11 +1,9 @@
-import { STATIC_IMAGES_URL } from "@palus/data/constants";
-
 const Hero = () => {
   return (
     <div
       className="relative h-64 w-full gap-y-5 rounded-none bg-black md:rounded-xl"
       style={{
-        backgroundImage: `url(${STATIC_IMAGES_URL}/hero.webp)`,
+        backgroundImage: "url(images/hero.webp)",
         backgroundPosition: "center",
         backgroundSize: "cover"
       }}

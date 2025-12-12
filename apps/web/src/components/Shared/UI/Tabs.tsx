@@ -14,7 +14,7 @@ const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
   return (
     <MotionConfig transition={{ bounce: 0, duration: 0.4, type: "spring" }}>
       <motion.ul
-        className={cn("mb-0 flex list-none flex-wrap gap-3", className)}
+        className={cn("mb-0 flex list-none flex-wrap gap-2", className)}
         layout
       >
         {tabs.map((tab) => (
