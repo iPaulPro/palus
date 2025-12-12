@@ -42,13 +42,6 @@ const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
               <span className="text-gray-500 dark:text-gray-400">
                 @{getAccount(account).username}
               </span>
-              {timestamp ? (
-                <span className="text-gray-500 dark:text-gray-200">
-                  <PostLink className="text-sm hover:underline" post={post}>
-                    &bull; {formatRelativeOrAbsolute(timestamp)}
-                  </PostLink>
-                </span>
-              ) : null}
             </div>
           </AccountPreview>
         </AccountLink>
@@ -67,6 +60,13 @@ const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
               <span className="truncate text-sm">{group.metadata.name}</span>
             </Link>
           </>
+        ) : null}
+        {timestamp ? (
+          <span className="text-gray-500 dark:text-gray-200">
+            <PostLink className="text-sm hover:underline" post={post}>
+              &bull; {formatRelativeOrAbsolute(timestamp)}
+            </PostLink>
+          </span>
         ) : null}
       </div>
     </div>
