@@ -7,6 +7,7 @@
     "biome:check": "biome check .",
     "biome:fix": "biome check --write .",
     "build": "pnpm --recursive --parallel run build",
+    "clean": "node ./script/clean.mjs",
     "codegen": "pnpm --recursive --parallel run codegen",
     "dep:check": "pnpm dlx sherif@latest",
     "dep:fix": "pnpm dlx sherif@latest --fix",
@@ -17,8 +18,9 @@
     "typecheck": "pnpm --recursive --parallel run typecheck"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.2.7",
-    "husky": "^9.1.7"
+    "@biomejs/biome": "2.2.7",
+    "husky": "^9.1.7",
+    "vite": "^7.1.12"
   },
   "packageManager": "pnpm@10.17.1",
   "engines": {
