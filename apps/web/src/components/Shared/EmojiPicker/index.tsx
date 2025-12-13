@@ -27,7 +27,7 @@ const EmojiPicker = ({
       <div className="relative" ref={listRef}>
         <button
           aria-label="Emoji"
-          className="rounded-full outline-offset-8"
+          className="flex items-center rounded-full outline-offset-8"
           onClick={(e) => {
             e.preventDefault();
             stopEventPropagation(e);

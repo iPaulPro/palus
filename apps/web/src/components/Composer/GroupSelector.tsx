@@ -1,3 +1,4 @@
+import { GlobeAltIcon } from "@heroicons/react/24/outline";
 import getAvatar from "@palus/helpers/getAvatar";
 import {
   type GroupFragment,
@@ -7,7 +8,13 @@ import {
   useGroupsQuery
 } from "@palus/indexer";
 import { useMemo } from "react";
-import { Select } from "@/components/Shared/UI";
+import {
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectUI,
+  SelectValue
+} from "@/components/Shared/UI";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface GroupSelectorProps {
@@ -44,13 +51,34 @@ const GroupSelector = ({ selected, onChange }: GroupSelectorProps) => {
   }
 
   return (
-    <Select
-      className="w-full"
-      iconClassName="size-5 rounded-md"
-      onChange={(value) => onChange(value as string)}
-      options={options as any}
-      showSearch
-    />
+    <SelectUI defaultValue="global" onValueChange={onChange}>
+      <SelectTrigger
+        className="!h-6 w-fit border-none px-0 py-0 opacity-75 shadow-none"
+        size="sm"
+      >
+        <SelectValue placeholder="Global Feed" />
+      </SelectTrigger>
+      <SelectContent>
+        <SelectItem className="gap-1" key="global" value="global">
+          <GlobeAltIcon className="size-5" />
+          Global Feed
+        </SelectItem>
+        {options.map((option) => (
+          <SelectItem
+            className="min-w-48"
+            key={option.value}
+            value={option.value}
+          >
+            <img
+              alt={option.label}
+              className="h-5 w-5 rounded-full object-cover"
+              src={option.icon}
+            />
+            {option.label}
+          </SelectItem>
+        ))}
+      </SelectContent>
+    </SelectUI>
   );
 };
 

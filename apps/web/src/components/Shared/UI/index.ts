@@ -14,6 +14,18 @@ export { default as LightBox } from "./LightBox";
 export { default as Modal } from "./Modal";
 export { default as RangeSlider } from "./RangeSlider";
 export { default as Select } from "./Select";
+export {
+  Select as SelectUI,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue
+} from "./SelectUI";
 export { default as Spinner } from "./Spinner";
 export { default as StackedAvatars } from "./StackedAvatars";
 export { default as Tabs } from "./Tabs";

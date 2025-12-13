@@ -109,7 +109,7 @@ const Attachment = () => {
 
   return (
     <Tooltip content="Media" placement="top" withDelay>
-      <Menu as="div">
+      <Menu as="div" className="flex items-center">
         <MenuButton
           aria-label="More"
           className="rounded-full outline-offset-8"

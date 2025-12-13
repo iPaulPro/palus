@@ -37,7 +37,6 @@ import {
   usePostVideoStore
 } from "@/store/non-persisted/post/usePostVideoStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import GroupFeedSelector from "./Actions/GroupFeedSelector";
 import { Editor, useEditorContext, withEditorContext } from "./Editor";
 import LinkPreviews from "./LinkPreviews";
 
@@ -211,7 +210,9 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
         variables: {
           request: {
             contentUri,
-            ...((feed || selectedFeed) && { feed: feed || selectedFeed }),
+            ...((feed || (selectedFeed && selectedFeed !== "global")) && {
+              feed: feed || selectedFeed
+            }),
             ...(isComment && { commentOn: { post: post?.id } }),
             ...(isQuote && { quoteOf: { post: quotedPost?.id } }),
             ...(collectAction.enabled && {
@@ -242,7 +243,12 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
 
   return (
     <Card className={className} onClick={() => setShowEmojiPicker(false)}>
-      <Editor isComment={isComment} />
+      <Editor
+        feed={feed}
+        isComment={isComment}
+        selectedFeed={selectedFeed}
+        setSelectedFeed={setSelectedFeed}
+      />
       {postContentError ? (
         <H6 className="mt-1 px-5 pb-3 text-red-500">{postContentError}</H6>
       ) : null}
@@ -253,9 +259,9 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
           <QuotedPost isNew post={quotedPost} />
         </Wrapper>
       ) : null}
-      <div className="divider mx-5" />
+      <div className="divider md:mx-5" />
       <div className="block items-center px-5 py-3 sm:flex">
-        <div className="flex items-center space-x-4">
+        <div className="flex w-full items-center space-x-6 md:space-x-4">
           <Attachment />
           <EmojiPicker
             setEmoji={(emoji: string) => {
@@ -269,18 +275,13 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
           {editingPost ? null : (
             <>
               <CollectSettings />
-              <RulesSettings />
-              {isComment ? null : !currentAccount?.isStaff && feed ? null : (
-                <GroupFeedSelector
-                  onChange={setSelectedFeed}
-                  selected={selectedFeed}
-                />
-              )}
+              <div className="flex w-full justify-end">
+                <RulesSettings />
+              </div>
             </>
           )}
-        </div>
-        <div className="mt-2 ml-auto sm:mt-0">
           <Button
+            className="flex-none"
             disabled={
               isSubmitting ||
               isUploading ||

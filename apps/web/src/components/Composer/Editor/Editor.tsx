@@ -11,14 +11,23 @@ import "prosekit/basic/style.css";
 import { createEditor } from "prosekit/core";
 import { ProseKit } from "prosekit/react";
 import { useMemo, useRef } from "react";
+import GroupSelector from "@/components/Composer/GroupSelector";
 import { useEditorHandle } from "./EditorHandle";
 import EditorMenus from "./EditorMenus";
 
 interface EditorProps {
   isComment: boolean;
+  feed?: string;
+  selectedFeed: string;
+  setSelectedFeed: (feed: string) => void;
 }
 
-const Editor = ({ isComment }: EditorProps) => {
+const Editor = ({
+  isComment,
+  feed,
+  selectedFeed,
+  setSelectedFeed
+}: EditorProps) => {
   const { currentAccount } = useAccountStore();
   const { postContent } = usePostStore();
   const defaultMarkdownRef = useRef(postContent);
@@ -47,9 +56,12 @@ const Editor = ({ isComment }: EditorProps) => {
           src={getAvatar(currentAccount)}
         />
         <div className="flex flex-1 flex-col overflow-x-hidden">
+          {isComment || feed ? null : (
+            <GroupSelector onChange={setSelectedFeed} selected={selectedFeed} />
+          )}
           <EditorMenus />
           <div
-            className="relative mt-[8.5px] box-border h-full min-h-[80px] flex-1 overflow-auto leading-6 outline-0 sm:leading-[26px]"
+            className="relative mt-1 box-border h-full min-h-[80px] flex-1 overflow-auto leading-6 outline-0 sm:leading-[26px]"
             ref={editor.mount}
           />
         </div>

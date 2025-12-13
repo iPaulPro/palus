@@ -15,7 +15,7 @@ const CollectSettings = () => {
       <Tooltip content="Collect" placement="top" withDelay>
         <button
           aria-label="Collect Module"
-          className="rounded-full outline-offset-8"
+          className="flex items-center rounded-full outline-offset-8"
           onClick={() => setShowModal(!showModal)}
           type="button"
         >

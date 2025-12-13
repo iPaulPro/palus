@@ -24,7 +24,7 @@ const Gif = ({ setGifAttachment }: GifProps) => {
       <Tooltip content="GIF" placement="top" withDelay>
         <button
           aria-label="GIF"
-          className={cn("rounded-full outline-offset-8", {
+          className={cn("flex items-center rounded-full outline-offset-8", {
             "opacity-50": disable
           })}
           disabled={disable}
