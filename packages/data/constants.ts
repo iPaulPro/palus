@@ -1,7 +1,7 @@
 import { chains } from "@lens-chain/sdk/viem";
 import { CONTRACTS } from "./contracts";
 
-export const CHAIN = chains.testnet;
+export const CHAIN = chains.mainnet;
 const IS_TESTNET = CHAIN === chains.testnet;
 
 // Lens and Palus Env Config
