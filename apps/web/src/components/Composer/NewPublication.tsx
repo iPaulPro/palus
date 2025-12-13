@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
 import Attachment from "@/components/Composer/Actions/Attachment";
 import CollectSettings from "@/components/Composer/Actions/CollectSettings";
+import ContentWarning from "@/components/Composer/Actions/ContentWarning";
 import Gif from "@/components/Composer/Actions/Gif";
 import RulesSettings from "@/components/Composer/Actions/RulesSettings";
 import NewAttachments from "@/components/Composer/NewAttachments";
@@ -29,6 +30,7 @@ import {
   DEFAULT_AUDIO_POST,
   usePostAudioStore
 } from "@/store/non-persisted/post/usePostAudioStore";
+import { usePostContentWarningStore } from "@/store/non-persisted/post/usePostContentWarningStore";
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
 import { usePostRulesStore } from "@/store/non-persisted/post/usePostRulesStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
@@ -81,6 +83,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
   );
 
   const { rules, setRules } = usePostRulesStore();
+  const { setContentWarning } = usePostContentWarningStore();
 
   // States
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -104,6 +107,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
     setQuotedPost(undefined);
     setEditingPost(undefined);
     setRules(undefined);
+    setContentWarning(undefined);
     setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
     setAudioPost(DEFAULT_AUDIO_POST);
     setLicense(null);
@@ -272,6 +276,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
             showEmojiPicker={showEmojiPicker}
           />
           <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
+          <ContentWarning />
           {editingPost ? null : (
             <>
               <CollectSettings />

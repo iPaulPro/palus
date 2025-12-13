@@ -7,6 +7,7 @@ import {
 } from "@lens-protocol/metadata";
 import { useCallback } from "react";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
+import { usePostContentWarningStore } from "@/store/non-persisted/post/usePostContentWarningStore";
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
 import { usePostVideoStore } from "@/store/non-persisted/post/usePostVideoStore";
 import { usePostAudioStore } from "../store/non-persisted/post/usePostAudioStore";
@@ -20,6 +21,7 @@ const usePostMetadata = () => {
   const { audioPost } = usePostAudioStore();
   const { license } = usePostLicenseStore();
   const { attachments } = usePostAttachmentStore();
+  const { contentWarning } = usePostContentWarningStore();
 
   const formatAttachments = () =>
     attachments.slice(1).map(({ mimeType, uri }) => ({
@@ -37,8 +39,14 @@ const usePostMetadata = () => {
 
       if (!hasAttachments) {
         return baseMetadata.content?.length > 2000
-          ? article(baseMetadata)
-          : textOnly(baseMetadata);
+          ? article({
+              ...baseMetadata,
+              ...(contentWarning && { contentWarning })
+            })
+          : textOnly({
+              ...baseMetadata,
+              ...(contentWarning && { contentWarning })
+            });
       }
 
       const attachmentsToBeUploaded = formatAttachments();
@@ -49,6 +57,7 @@ const usePostMetadata = () => {
           ...(attachmentsToBeUploaded.length > 0 && {
             attachments: attachmentsToBeUploaded
           }),
+          ...(contentWarning && { contentWarning }),
           image: {
             ...(license && { license }),
             item: primaryAttachment.uri,
@@ -63,6 +72,7 @@ const usePostMetadata = () => {
           ...(attachmentsToBeUploaded.length > 0 && {
             attachments: attachmentsToBeUploaded
           }),
+          ...(contentWarning && { contentWarning }),
           audio: {
             ...(audioPost.artist && {
               artist: audioPost.artist
@@ -81,6 +91,7 @@ const usePostMetadata = () => {
           ...(attachmentsToBeUploaded.length > 0 && {
             attachments: attachmentsToBeUploaded
           }),
+          ...(contentWarning && { contentWarning }),
           video: {
             cover: videoThumbnail.url,
             duration: Number.parseInt(videoDurationInSeconds, 10),
@@ -93,7 +104,14 @@ const usePostMetadata = () => {
 
       return null;
     },
-    [attachments, videoDurationInSeconds, audioPost, videoThumbnail, license]
+    [
+      attachments,
+      videoDurationInSeconds,
+      audioPost,
+      videoThumbnail,
+      license,
+      contentWarning
+    ]
   );
 
   return getMetadata;
