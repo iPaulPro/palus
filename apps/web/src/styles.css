@@ -11,7 +11,14 @@
   --color-brand-50: #f0faff;
   --color-brand-300: #7cd9fd;
   --color-brand-500: #0170a3;
-  --color-brand-600: #0170a3;
+  --color-brand-600: #055e87;
+}
+
+.dark {
+  --color-brand-50: #f0faff;
+  --color-brand-300: #7bd9fe;
+  --color-brand-500: #0bafec;
+  --color-brand-600: #008dc9;
 }
 
 @keyframes shimmer {
