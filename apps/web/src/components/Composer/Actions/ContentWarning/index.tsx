@@ -42,9 +42,9 @@ const ContentWarning = () => {
           type="button"
         >
           {contentWarning ? (
-            <ExclamationTriangleIconSolid className="size-5" />
+            <ExclamationTriangleIconSolid className="mt-0.5 size-5" />
           ) : (
-            <ExclamationTriangleIcon className="size-5" />
+            <ExclamationTriangleIcon className="mt-0.5 size-5" />
           )}
         </button>
       </Tooltip>

@@ -19,7 +19,7 @@ const CollectSettings = () => {
           onClick={() => setShowModal(!showModal)}
           type="button"
         >
-          <ShoppingBagIcon className="size-5" />
+          <ShoppingBagIcon className="-mt-0.5 size-5" />
         </button>
       </Tooltip>
       <Modal
