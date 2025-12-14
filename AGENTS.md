@@ -33,12 +33,11 @@
 
 ## Commit & Pull Requests
 
-- Commits: imperative mood, concise subject; optional scope like `web:`, `api:`, `helpers:`.
+- Commits: imperative mood, concise subject; optional scope like `web:`, `helpers:`.
 - Include rationale and references (e.g., `Closes #123`).
 - PRs: clear description, screenshots for UI changes, reproduction steps for fixes, and env notes.
 - CI hooks: pre-commit runs `biome` and type checks; ensure both pass locally before pushing.
 
 ## Security & Configuration
 
-- Copy `.env.example` to `.env` in `apps/web` and `apps/api`. Never commit secrets.
-- Validate envs at startup; keep keys minimal and documented near usage.
+- Never touch .env files or commit secrets.
