@@ -5,8 +5,12 @@ import {
   PageSize,
   useGroupsQuery
 } from "@palus/indexer";
-import { useCallback } from "react";
-import { WindowVirtualizer } from "virtua";
+import { useCallback, useLayoutEffect, useMemo, useRef } from "react";
+import {
+  type CacheSnapshot,
+  WindowVirtualizer,
+  type WindowVirtualizerHandle
+} from "virtua";
 import SingleGroup from "@/components/Shared/Group/SingleGroup";
 import SingleGroupShimmer from "@/components/Shared/Shimmer/SingleGroupShimmer";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
@@ -31,6 +35,39 @@ const Groups = ({ query }: GroupsProps) => {
   const groups = data?.groups?.items;
   const pageInfo = data?.groups?.pageInfo;
   const hasMore = pageInfo?.next;
+
+  const cacheKey = "window-list-cache-group-search";
+  const ref = useRef<WindowVirtualizerHandle>(null);
+
+  const [offset, cache] = useMemo(() => {
+    const serialized = sessionStorage.getItem(cacheKey);
+    if (!serialized) return [];
+    try {
+      return JSON.parse(serialized) as [number, CacheSnapshot];
+    } catch {
+      return [];
+    }
+  }, []);
+
+  useLayoutEffect(() => {
+    if (!ref.current) return;
+    const handle = ref.current;
+
+    window.scrollTo(0, offset ?? 0);
+
+    let scrollY = 0;
+    const onScroll = () => {
+      scrollY = window.scrollY;
+    };
+    window.addEventListener("scroll", onScroll);
+    onScroll();
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      // Use stored window.scrollY because it may return 0 in useEffect cleanup
+      sessionStorage.setItem(cacheKey, JSON.stringify([scrollY, handle.cache]));
+    };
+  }, []);
 
   const handleEndReached = useCallback(async () => {
     if (hasMore) {
@@ -64,7 +101,7 @@ const Groups = ({ query }: GroupsProps) => {
   }
 
   return (
-    <WindowVirtualizer>
+    <WindowVirtualizer cache={cache} ref={ref}>
       {groups.map((group) => (
         <Card className="mb-5 p-5" key={group.address}>
           <SingleGroup group={group} isBig showDescription />

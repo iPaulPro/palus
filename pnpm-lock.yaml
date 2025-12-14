@@ -74,9 +74,6 @@ importers:
       '@uidotdev/usehooks':
         specifier: ^2.4.1
         version: 2.4.1(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      '@zoralabs/coins-sdk':
-        specifier: ^0.3.2
-        version: 0.3.3(abitype@1.2.2(typescript@5.9.3)(zod@4.1.11))(viem@2.41.2(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
       browser-image-compression:
         specifier: ^2.0.2
         version: 2.0.2
@@ -1325,10 +1322,6 @@ packages:
     resolution: {integrity: sha512-LMcepvRaS9LYHJGsF0zzmgKCUim/X3N/DQKc4jepAXJ7l8QxJ1PmxJzqplF2Z3FE4PqBAIGyJAQ/w4B5dsqbtQ==}
     peerDependencies:
       react: '>= 16 || ^19.0.0-rc'
-
-  '@hey-api/client-fetch@0.8.4':
-    resolution: {integrity: sha512-SWtUjVEFIUdiJGR2NiuF0njsSrSdTe7WHWkp3BLH3DEl2bRhiflOnBo29NSDdrY90hjtTQiTQkBxUgGOF29Xzg==}
-    deprecated: Starting with v0.73.0, this package is bundled directly inside @hey-api/openapi-ts.
 
   '@hookform/resolvers@5.2.2':
     resolution: {integrity: sha512-A/IxlMLShx3KjV/HeTcTfaMxdwy690+L/ZADoeaTltLx+CVuzkeVIPuybK3jrRfw7YZnmdKsVVHAlEPIAEUNlA==}
@@ -3069,16 +3062,6 @@ packages:
 
   '@zag-js/utils@1.31.1':
     resolution: {integrity: sha512-KLm0pmOtf4ydALbaVLboL7W98TDVxwVVLvSuvtRgV53XTjlsVopTRA5/Xmzq2NhWujDZAXv7bRV603NDgDcjSw==}
-
-  '@zoralabs/coins-sdk@0.3.3':
-    resolution: {integrity: sha512-C6rHMgZnK5dfUs4/i6OCJhBzF6Uj4KsuYpfoIyFSvgj2iZbZ7SIICGhS0lKbLdxvb8xbSwv2Fn7Xnqylf/BuEg==}
-    engines: {node: '>=22'}
-    peerDependencies:
-      abitype: ^1.0.8
-      viem: ^2.21.55
-
-  '@zoralabs/protocol-deployments@0.6.4':
-    resolution: {integrity: sha512-ecgdCAF1zskmsztG+tP+qJ9GvTdm8unGg/D/mJ3eQEHTqkS7UmH8hJ7zOX8GbUyTUW4xWl/2p8CtxGxc8FHAOw==}
 
   abitype@1.0.6:
     resolution: {integrity: sha512-MMSqYh4+C/aVqI2RQaWqbvI4Kxo5cQV40WQ4QFtDnNzCkqChm8MuENhElmynZlO0qUy/ObkEUaXtKqYnx1Kp3A==}
@@ -7519,8 +7502,6 @@ snapshots:
     dependencies:
       react: 19.2.3
 
-  '@hey-api/client-fetch@0.8.4': {}
-
   '@hookform/resolvers@5.2.2(react-hook-form@7.68.0(react@19.2.3))':
     dependencies:
       '@standard-schema/utils': 0.3.0
@@ -10419,15 +10400,6 @@ snapshots:
       csstype: 3.2.3
 
   '@zag-js/utils@1.31.1': {}
-
-  '@zoralabs/coins-sdk@0.3.3(abitype@1.2.2(typescript@5.9.3)(zod@4.1.11))(viem@2.41.2(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))':
-    dependencies:
-      '@hey-api/client-fetch': 0.8.4
-      '@zoralabs/protocol-deployments': 0.6.4
-      abitype: 1.2.2(typescript@5.9.3)(zod@4.1.11)
-      viem: 2.41.2(bufferutil@4.0.9)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
-
-  '@zoralabs/protocol-deployments@0.6.4': {}
 
   abitype@1.0.6(typescript@5.9.3)(zod@3.25.76):
     optionalDependencies:
