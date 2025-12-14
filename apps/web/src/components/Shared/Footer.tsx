@@ -6,7 +6,7 @@ const links = [
   { href: "/terms", label: "Terms" },
   { href: "/privacy", label: "Privacy" },
   { href: "/guidelines", label: "Guidelines" },
-  { href: "/u/paulburke", label: "Paul Burke" },
+  { href: "/u/palus", label: "@palus" },
   { href: "https://github.com/ipaulpro/palus", label: "GitHub" },
   { href: "/support", label: "Support" }
 ];
