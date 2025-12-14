@@ -1,12 +1,13 @@
 # Palus Monorepo
 
+Palus is a fork of [Hey](https://github.com/bigint/hey) maintained by [Paul Burke](https://github.com/iPaulPro/).
+
 ## Requirements
 
 To start working with the Palus monorepo, ensure the following tools are installed:
 
-- [Node.js](https://nodejs.org/en/download/) (v18 or higher) – the JavaScript runtime used in this project.
+- [Node.js](https://nodejs.org/en/download/) (>=18.x <=22.x) – the JavaScript runtime used in this project.
 - [pnpm](https://pnpm.io/installation) – the package manager used throughout this repository.
-- [Postgres App](https://postgresapp.com/) – the Postgres database used in development.
 
 ## Installation
 
@@ -41,25 +42,6 @@ From the repository root, install dependencies with pnpm:
 ```bash
 pnpm install
 ```
-
-### Set up Environment Variables
-
-Copy the `.env.example` file to `.env` for each package or application that requires configuration:
-
-```bash
-cp .env.example .env
-```
-
-Repeat this process for all relevant packages and applications in the monorepo.
-
-### Environment Variables
-
-The example environment files define the following variables:
-
-#### API (`apps/api/.env.example`)
-
-- `PRIVATE_KEY` – Private key used to sign Lens requests.
-- `SHARED_SECRET` – Token for internal API authorization.
 
 ### Start the Development Server
 
@@ -115,5 +97,3 @@ Convenient Node.js helpers are in the `script` directory:
 ## License
 
 This project is released under the **GNU AGPL-3.0** license. See the [LICENSE](./LICENSE) file for details.
-
-🌸
