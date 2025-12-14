@@ -29,7 +29,6 @@ export const LENS_MEDIA_SNAPSHOT_URL = "https://ik.imagekit.io/lens";
 export const DEFAULT_AVATAR = `${STATIC_IMAGES_URL}/default.png`;
 export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
 export const BLOCK_EXPLORER_URL = "https://lenscan.io";
-export const BASE_RPC_URL = "https://base.llamarpc.com";
 
 // Storage
 export const STORAGE_NODE_URL = "https://api.grove.storage";

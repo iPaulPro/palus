@@ -265,7 +265,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
       ) : null}
       <div className="divider md:mx-5" />
       <div className="block items-center px-5 py-3 sm:flex">
-        <div className="flex w-full items-center space-x-6 md:space-x-4">
+        <div className="flex w-full items-center space-x-5 md:space-x-4">
           <Attachment />
           <EmojiPicker
             setEmoji={(emoji: string) => {
