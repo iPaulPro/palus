@@ -38,12 +38,14 @@ const GroupSelector = ({ selected, onChange }: GroupSelectorProps) => {
 
   const options = useMemo(() => {
     const groups = data?.groups?.items ?? [];
-    return groups.map((group: GroupFragment) => ({
-      icon: getAvatar(group),
-      label: group.metadata?.name ?? group.address,
-      selected: group.feed?.address === selected,
-      value: group.feed?.address ?? ""
-    }));
+    return groups
+      .map((group: GroupFragment) => ({
+        icon: getAvatar(group),
+        label: group.metadata?.name ?? group.address,
+        selected: group.feed?.address === selected,
+        value: group.feed?.address ?? ""
+      }))
+      .filter((option) => option.value !== "");
   }, [data?.groups?.items, selected]);
 
   if (!options.length) {
