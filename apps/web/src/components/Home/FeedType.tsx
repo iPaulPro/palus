@@ -6,8 +6,8 @@ const FeedType = () => {
   const { feedType, setFeedType } = useHomeTabStore();
 
   const tabs = [
+    { name: "Timeline", type: HomeFeedType.TIMELINE },
     { name: "Following", type: HomeFeedType.FOLLOWING },
-    { name: "Highlights", type: HomeFeedType.HIGHLIGHTS },
     { name: "For You", type: HomeFeedType.FORYOU }
   ];
 

@@ -1,7 +1,7 @@
 export enum HomeFeedType {
   FOLLOWING = "FOLLOWING",
   FORYOU = "FORYOU",
-  HIGHLIGHTS = "HIGHLIGHTS"
+  TIMELINE = "TIMELINE"
 }
 
 export enum AccountFeedType {

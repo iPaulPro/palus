@@ -9,7 +9,7 @@ interface State {
 
 const { useStore: useHomeTabStore } = createPersistedTrackedStore<State>(
   (set) => ({
-    feedType: HomeFeedType.FOLLOWING,
+    feedType: HomeFeedType.TIMELINE,
     setFeedType: (feedType) => set(() => ({ feedType }))
   }),
   { name: Localstorage.HomeTabStore }

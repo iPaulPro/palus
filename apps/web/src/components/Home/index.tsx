@@ -7,7 +7,6 @@ import { useHomeTabStore } from "@/store/persisted/useHomeTabStore";
 import FeedType from "./FeedType";
 import ForYou from "./ForYou";
 import Hero from "./Hero";
-import Highlights from "./Highlights";
 import Timeline from "./Timeline";
 
 const Home = () => {
@@ -21,10 +20,10 @@ const Home = () => {
         <>
           <FeedType />
           <NewPost />
-          {feedType === HomeFeedType.FOLLOWING ? (
-            <Timeline />
-          ) : feedType === HomeFeedType.HIGHLIGHTS ? (
-            <Highlights />
+          {feedType === HomeFeedType.TIMELINE ? (
+            <Timeline followingOnly={false} />
+          ) : feedType === HomeFeedType.FOLLOWING ? (
+            <Timeline followingOnly={true} />
           ) : feedType === HomeFeedType.FORYOU ? (
             <ForYou />
           ) : null}
