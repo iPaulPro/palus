@@ -244,7 +244,6 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
   };
 
 // Re-added keyboard shortcut for create post (Cmd/Ctrl + Enter) for the keyboard warriors :)
-// The shortcut only triggers when focus is in an editable field (contenteditable/textarea/input).
 useHotkeys("mod+enter", () => handleCreatePost(), {
   enableOnContentEditable: true
 });
