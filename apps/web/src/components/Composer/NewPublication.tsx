@@ -4,6 +4,7 @@ import type { PostFragment } from "@palus/indexer";
 import type { IGif } from "@palus/types/giphy";
 import type { NewAttachment } from "@palus/types/misc";
 import { useCallback, useEffect, useState } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 import { toast } from "sonner";
 import Attachment from "@/components/Composer/Actions/Attachment";
 import CollectSettings from "@/components/Composer/Actions/CollectSettings";
@@ -243,10 +244,9 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
     addAttachments([attachment]);
   };
 
-// Re-added keyboard shortcut for create post (Cmd/Ctrl + Enter) for the keyboard warriors :)
-useHotkeys("mod+enter", () => handleCreatePost(), {
-  enableOnContentEditable: true
-});
+  useHotkeys("mod+enter", () => handleCreatePost(), {
+    enableOnContentEditable: true
+  });
 
   return (
     <Card className={className} onClick={() => setShowEmojiPicker(false)}>
