@@ -245,35 +245,9 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
 
 // Re-added keyboard shortcut for create post (Cmd/Ctrl + Enter) for the keyboard warriors :)
 // The shortcut only triggers when focus is in an editable field (contenteditable/textarea/input).
-useEffect(() => {
-  const onKeyDown = (e: KeyboardEvent) => {
-    if ((e.metaKey || e.ctrlKey) && e.key === "Enter") {
-      const active = document.activeElement as HTMLElement | null;
-      const isEditable =
-        !!active &&
-        (active.isContentEditable ||
-          active.tagName === "TEXTAREA" ||
-          active.tagName === "INPUT");
-
-      if (!isEditable) return;
-
-      if (
-        isSubmitting ||
-        isUploading ||
-        videoThumbnail.uploading ||
-        postContentError.length > 0
-      ) {
-        return;
-      }
-
-      e.preventDefault();
-      void handleCreatePost();
-    }
-  };
-
-  window.addEventListener("keydown", onKeyDown);
-  return () => window.removeEventListener("keydown", onKeyDown);
-}, [isSubmitting, isUploading, videoThumbnail.uploading, postContentError, handleCreatePost]);
+useHotkeys("mod+enter", () => handleCreatePost(), {
+  enableOnContentEditable: true
+});
 
   return (
     <Card className={className} onClick={() => setShowEmojiPicker(false)}>
