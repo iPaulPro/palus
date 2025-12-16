@@ -6,6 +6,7 @@ import MenuTransition from "@/components/Shared/MenuTransition";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import Block from "./Block";
+import CopyAddress from "./CopyAddress";
 import CopyLink from "./CopyLink";
 import Mute from "./Mute";
 import Report from "./Report";
@@ -36,6 +37,7 @@ const AccountMenu = ({ account }: AccountMenuProps) => {
           static
         >
           <CopyLink account={account} />
+          <CopyAddress account={account} />
           {currentAccount && currentAccount?.address !== account.address ? (
             <>
               <Block account={account} />
