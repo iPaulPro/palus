@@ -1,0 +1,9 @@
+fragment ReferencedPostNotification on Post {
+  ...ReferencedPost
+  commentOn {
+    ...Post
+  }
+  quoteOf {
+    ...Post
+  }
+}

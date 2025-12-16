@@ -1,6 +1,6 @@
 fragment CommentNotification on CommentNotification {
   id
   comment {
-    ...Post
+    ...ReferencedPostNotification
   }
 }

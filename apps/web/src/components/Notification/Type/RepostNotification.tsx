@@ -22,7 +22,7 @@ const RepostNotification = ({ notification }: RepostNotificationProps) => {
   const text = moreThanOneAccount
     ? `and ${length} ${plur("other", length)} reposted your`
     : "reposted your";
-  const type = notification.post.__typename;
+  const type = notification.post.commentOn ? "comment" : "post";
 
   return (
     <div className="space-y-2">

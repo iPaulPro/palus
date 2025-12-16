@@ -16,7 +16,7 @@ const MentionNotification = ({ notification }: MentionNotificationProps) => {
   const firstAccount = notification.post.author;
 
   const text = "mentioned you in a";
-  const type = notification.post.__typename;
+  const type = notification.post.commentOn ? "comment" : "post";
 
   return (
     <div className="space-y-2">

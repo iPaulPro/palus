@@ -22,7 +22,7 @@ const ReactionNotification = ({ notification }: ReactionNotificationProps) => {
   const text = moreThanOneAccount
     ? `and ${length} ${plur("other", length)} liked your`
     : "liked your";
-  const type = notification.post.__typename;
+  const type = notification.post.commentOn ? "comment" : "post";
 
   return (
     <div className="space-y-2">

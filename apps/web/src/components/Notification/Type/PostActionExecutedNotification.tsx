@@ -36,7 +36,7 @@ const PostActionExecutedNotification = ({
       : undefined;
   const length = actions.length - 1;
   const moreThanOneAccount = length > 1;
-  const type =
+  const actionType =
     firstAction?.__typename === "SimpleCollectPostActionExecuted"
       ? "collected"
       : firstAction.__typename === "TippingPostActionExecuted"
@@ -44,8 +44,10 @@ const PostActionExecutedNotification = ({
         : undefined;
 
   const text = moreThanOneAccount
-    ? `and ${length} ${plur("other", length)} ${type} your`
-    : `${type} your`;
+    ? `and ${length} ${plur("other", length)} ${actionType} your`
+    : `${actionType} your`;
+
+  const type = notification.post.commentOn ? "comment" : "post";
 
   const amount =
     firstAction && !moreThanOneAccount && isTippingActionExecuted(firstAction)
@@ -55,8 +57,8 @@ const PostActionExecutedNotification = ({
   return (
     <div className="space-y-2">
       <div className="flex items-center space-x-3">
-        {type === "collected" && <ShoppingBagIcon className="size-6" />}
-        {type === "tipped" && <TipIcon className="size-6" />}
+        {actionType === "collected" && <ShoppingBagIcon className="size-6" />}
+        {actionType === "tipped" && <TipIcon className="size-6" />}
         <div className="flex items-center space-x-1">
           {actions.slice(0, 10).map((action, index: number) => {
             const account =
@@ -84,7 +86,7 @@ const PostActionExecutedNotification = ({
             firstAccount={firstAccount}
             linkToType={`/posts/${notification.post.slug}`}
             text={text}
-            type="Post"
+            type={type}
           />
         )}
         <PostLink

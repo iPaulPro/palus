@@ -16,7 +16,7 @@ const QuoteNotification = ({ notification }: QuoteNotificationProps) => {
   const firstAccount = notification.quote.author;
 
   const text = "quoted your";
-  const type = notification.quote.quoteOf?.__typename;
+  const type = notification.quote.quoteOf?.commentOn ? "comment" : "post";
 
   return (
     <div className="space-y-2">

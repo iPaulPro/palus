@@ -15,8 +15,8 @@ const CommentNotification = ({ notification }: CommentNotificationProps) => {
   const filteredContent = getPostData(metadata)?.content || "";
   const firstAccount = notification.comment.author;
 
-  const text = "commented on your";
-  const type = notification.comment.commentOn?.__typename;
+  const text = "replied to your";
+  const type = notification.comment.commentOn?.commentOn ? "comment" : "post";
 
   return (
     <div className="space-y-2">
