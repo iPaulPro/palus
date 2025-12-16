@@ -26,7 +26,7 @@ const useAccountMentionQuery = (query: string): MentionAccount[] => {
       variables: {
         request: {
           filter: { searchBy: { localNameQuery: query } },
-          orderBy: AccountsOrderBy.BestMatch
+          orderBy: AccountsOrderBy.AccountScore
         }
       }
     }).then(({ data }) => {

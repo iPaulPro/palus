@@ -83,7 +83,7 @@ const Search = ({ placeholder = "Search…" }: SearchProps) => {
     if (pathname !== "/search" && showDropdown && debouncedSearchText) {
       const request: AccountsRequest = {
         filter: { searchBy: { localNameQuery: debouncedSearchText } },
-        orderBy: AccountsOrderBy.BestMatch,
+        orderBy: AccountsOrderBy.AccountScore,
         pageSize: PageSize.Fifty
       };
 

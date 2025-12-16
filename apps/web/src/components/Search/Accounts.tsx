@@ -23,7 +23,7 @@ interface AccountsProps {
 const Accounts = ({ query }: AccountsProps) => {
   const request: AccountsRequest = {
     filter: { searchBy: { localNameQuery: query } },
-    orderBy: AccountsOrderBy.BestMatch,
+    orderBy: AccountsOrderBy.AccountScore,
     pageSize: PageSize.Fifty
   };
 

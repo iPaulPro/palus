@@ -35,7 +35,7 @@ const SearchAccounts = ({
     const keyword = event.target.value;
     const request: AccountsRequest = {
       filter: { searchBy: { localNameQuery: keyword } },
-      orderBy: AccountsOrderBy.BestMatch,
+      orderBy: AccountsOrderBy.AccountScore,
       pageSize: PageSize.Fifty
     };
 
