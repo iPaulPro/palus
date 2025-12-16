@@ -243,7 +243,10 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
     addAttachments([attachment]);
   };
 
-  // Removed keyboard shortcut for create post
+// Re-added keyboard shortcut for create post (Cmd/Ctrl + Enter) for the keyboard warriors :)
+useHotkeys("mod+enter", () => handleCreatePost(), {
+  enableOnContentEditable: true
+});
 
   return (
     <Card className={className} onClick={() => setShowEmojiPicker(false)}>
