@@ -17,6 +17,7 @@ import EditorMenus from "./EditorMenus";
 
 interface EditorProps {
   isComment: boolean;
+  isQuote?: boolean;
   feed?: string;
   selectedFeed: string;
   setSelectedFeed: (feed: string) => void;
@@ -24,6 +25,7 @@ interface EditorProps {
 
 const Editor = ({
   isComment,
+  isQuote,
   feed,
   selectedFeed,
   setSelectedFeed
@@ -56,7 +58,7 @@ const Editor = ({
           src={getAvatar(currentAccount)}
         />
         <div className="flex flex-1 flex-col overflow-x-hidden">
-          {isComment || feed ? null : (
+          {isComment || feed || isQuote ? null : (
             <GroupSelector onChange={setSelectedFeed} selected={selectedFeed} />
           )}
           <EditorMenus />

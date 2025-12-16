@@ -253,6 +253,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
       <Editor
         feed={feed}
         isComment={isComment}
+        isQuote={isQuote}
         selectedFeed={selectedFeed}
         setSelectedFeed={setSelectedFeed}
       />
