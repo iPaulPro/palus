@@ -15,7 +15,20 @@ const Mention = ({ mentions, title }: MarkupLinkProps) => {
   );
 
   if (!mention) {
-    return title;
+    const formattedMention = title.slice(1).replace("lens/", "");
+    return title.startsWith("@") ? (
+      <Link
+        className="outline-hidden focus:underline"
+        onClick={stopEventPropagation}
+        to={`/u/${formattedMention}`}
+      >
+        <AccountPreview username={formattedMention.replace("@", "")}>
+          <Slug prefix="@" slug={formattedMention} useBrandColor />
+        </AccountPreview>
+      </Link>
+    ) : (
+      title
+    );
   }
 
   const name =

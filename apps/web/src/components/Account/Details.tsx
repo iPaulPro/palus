@@ -119,13 +119,14 @@ const Details = ({
         </div>
       </div>
       {!isBlockedByMe && account?.metadata?.bio ? (
-        <div className="markup linkify">
-          <Markup mentions={getMentions(account?.metadata.bio)}>
-            {account?.metadata.bio}
-          </Markup>
-        </div>
+        <Markup
+          className="markup linkify"
+          mentions={getMentions(account?.metadata.bio)}
+        >
+          {account?.metadata.bio}
+        </Markup>
       ) : null}
-      <div className="space-y-5">
+      <div className="mt-4 space-y-5">
         <Followerings account={account} />
         {!isBlockedByMe && currentAccount?.address !== account.address ? (
           <FollowersYouKnowOverview

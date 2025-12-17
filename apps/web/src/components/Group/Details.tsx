@@ -58,11 +58,12 @@ const Details = ({ group }: DetailsProps) => {
       </div>
       <H3 className="truncate py-2">{group.metadata?.name}</H3>
       {group.metadata?.description ? (
-        <div className="markup linkify mr-0 break-words sm:mr-10">
-          <Markup mentions={getMentions(group.metadata?.description)}>
-            {group.metadata?.description}
-          </Markup>
-        </div>
+        <Markup
+          className="markup linkify mr-0 break-words sm:mr-10"
+          mentions={getMentions(group.metadata?.description)}
+        >
+          {group.metadata?.description}
+        </Markup>
       ) : null}
       <MembersCount group={group} />
     </div>

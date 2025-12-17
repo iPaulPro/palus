@@ -41,7 +41,11 @@ const AccountPreview = ({
             ? { address }
             : { username: { localName: username as string } })
         },
-        accountStatsRequest: { account: address }
+        accountStatsRequest: {
+          ...(address
+            ? { account: address }
+            : { username: { localName: username as string } })
+        }
       }
     });
   };
@@ -110,13 +114,14 @@ const AccountPreview = ({
         </div>
         <UserName />
         {account.metadata?.bio && (
-          <div className="linkify mt-2 break-words text-sm leading-6">
-            <Markup mentions={getMentions(account.metadata.bio)}>
-              {truncateByWords(account.metadata.bio, 20)}
-            </Markup>
-          </div>
+          <Markup
+            className="linkify markup mt-2 break-words text-sm leading-6"
+            mentions={getMentions(account.metadata.bio)}
+          >
+            {truncateByWords(account.metadata.bio, 20)}
+          </Markup>
         )}
-        <div className="flex items-center space-x-3">
+        <div className="mt-4 flex items-center space-x-3">
           <div className="flex items-center space-x-1">
             <div className="text-base">
               {nFormatter(stats.graphFollowStats?.following)}
