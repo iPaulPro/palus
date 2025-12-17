@@ -2,7 +2,6 @@ import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { isRepost } from "@palus/helpers/postHelpers";
 import type { AnyPostFragment } from "@palus/indexer";
-import { AnimateNumber } from "motion-plus-react";
 import { useState } from "react";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import { Spinner, Tooltip } from "@/components/Shared/UI";
@@ -97,17 +96,14 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
         </MenuTransition>
       </Menu>
       {shares > 0 && !showCount ? (
-        <AnimateNumber
+        <span
           className={cn(
             hasShared ? "text-brand-500" : "text-gray-500 dark:text-gray-200",
             "w-3 text-[11px] sm:text-xs"
           )}
-          format={{ notation: "compact" }}
-          key={`share-count-${post.id}`}
-          transition={{ type: "tween" }}
         >
           {shares}
-        </AnimateNumber>
+        </span>
       ) : null}
     </div>
   );

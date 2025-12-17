@@ -10,7 +10,6 @@ import {
 } from "@palus/indexer";
 import type { ApolloClientError } from "@palus/types/errors";
 import { useCounter, useToggle } from "@uidotdev/usehooks";
-import { AnimateNumber } from "motion-plus-react";
 import { useCallback } from "react";
 import { toast } from "sonner";
 import { Tooltip } from "@/components/Shared/UI";
@@ -132,14 +131,7 @@ const Like = ({ post, showCount }: LikeProps) => {
         </Tooltip>
       </button>
       {reactions > 0 && !showCount ? (
-        <AnimateNumber
-          className="w-3 text-[11px] sm:text-xs"
-          format={{ notation: "compact" }}
-          key={`like-count-${post.id}`}
-          transition={{ type: "tween" }}
-        >
-          {reactions}
-        </AnimateNumber>
+        <span className="w-3 text-[11px] sm:text-xs">{reactions}</span>
       ) : null}
     </div>
   );

@@ -1,6 +1,5 @@
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import type { PostFragment } from "@palus/indexer";
-import { AnimateNumber } from "motion-plus-react";
 import plur from "plur";
 import { useState } from "react";
 import { Modal, Tooltip } from "@/components/Shared/UI";
@@ -32,14 +31,7 @@ const CollectAction = ({ post }: CollectActionProps) => {
         </Tooltip>
       </button>
       {collects > 0 ? (
-        <AnimateNumber
-          className="text-[11px] sm:text-xs"
-          format={{ notation: "compact" }}
-          key={`collect-count-${post.id}`}
-          transition={{ type: "tween" }}
-        >
-          {collects}
-        </AnimateNumber>
+        <span className="text-[11px] sm:text-xs">{collects}</span>
       ) : null}
       <Modal
         onClose={() => setShowCollectModal(false)}

@@ -1,6 +1,5 @@
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import type { PostFragment } from "@palus/indexer";
-import { AnimateNumber } from "motion-plus-react";
 import { memo } from "react";
 import { useNavigate } from "react-router";
 import { Tooltip } from "@/components/Shared/UI";
@@ -35,14 +34,7 @@ const Comment = ({ post, showCount }: CommentProps) => {
         </Tooltip>
       </button>
       {count > 0 && !showCount ? (
-        <AnimateNumber
-          className="w-3 text-[11px] sm:text-xs"
-          format={{ notation: "compact" }}
-          key={`comment-count-${post.id}`}
-          transition={{ type: "tween" }}
-        >
-          {count}
-        </AnimateNumber>
+        <span className="w-3 text-[11px] sm:text-xs">{count}</span>
       ) : null}
     </div>
   );

@@ -1,6 +1,5 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import type { PostFragment } from "@palus/indexer";
-import { AnimateNumber } from "motion-plus-react";
 import { TipIcon } from "@/components/Shared/Icons/TipIcon";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import TipMenu from "@/components/Shared/TipMenu";
@@ -53,17 +52,14 @@ const TipAction = ({ post, showCount }: TipActionProps) => {
         </MenuTransition>
       </Menu>
       {(tips || 0) > 0 && !showCount && (
-        <AnimateNumber
+        <span
           className={cn(
             hasTipped ? "text-brand-500" : "text-gray-500 dark:text-gray-200",
             "w-3 text-[11px] sm:text-xs"
           )}
-          format={{ notation: "compact" }}
-          key={`tip-count-${post.id}`}
-          transition={{ type: "tween" }}
         >
           {tips || 0}
-        </AnimateNumber>
+        </span>
       )}
     </div>
   );

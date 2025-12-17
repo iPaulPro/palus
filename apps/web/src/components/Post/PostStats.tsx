@@ -1,5 +1,4 @@
 import type { PostFragment } from "@palus/indexer";
-import { AnimateNumber } from "motion-plus-react";
 import plur from "plur";
 import { memo, useCallback, useState } from "react";
 import { Link } from "react-router";
@@ -8,25 +7,10 @@ import PostExecutors from "@/components/Shared/Modal/PostExecutors";
 import Reposts from "@/components/Shared/Modal/Reposts";
 import { Modal } from "@/components/Shared/UI";
 
-const AnimatedNumber = ({
-  key,
-  name,
-  value
-}: {
-  key: string;
-  name: string;
-  value: number;
-}) => {
+const AnimatedNumber = ({ name, value }: { name: string; value: number }) => {
   return (
     <span className="flex items-center gap-x-1">
-      <AnimateNumber
-        className="font-bold text-black dark:text-white"
-        format={{ notation: "compact" }}
-        key={key}
-        transition={{ type: "tween" }}
-      >
-        {value}
-      </AnimateNumber>
+      <span className="font-bold text-black dark:text-white">{value}</span>
       {plur(name, value)}
     </span>
   );
