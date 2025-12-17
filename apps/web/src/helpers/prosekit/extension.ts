@@ -8,6 +8,7 @@ import {
 } from "prosekit/core";
 import { defineBold } from "prosekit/extensions/bold";
 import { defineDoc } from "prosekit/extensions/doc";
+import { defineHardBreak } from "prosekit/extensions/hard-break";
 import { defineItalic } from "prosekit/extensions/italic";
 import { defineLinkMarkRule, defineLinkSpec } from "prosekit/extensions/link";
 import type { MentionAttrs } from "prosekit/extensions/mention";
@@ -81,6 +82,7 @@ export const defineEditorExtension = () => {
     defineDoc(),
     defineText(),
     defineParagraph(),
+    defineHardBreak(),
     defineHistory(),
     defineBaseKeymap(),
     defineBaseCommands(),

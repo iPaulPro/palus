@@ -1,12 +1,12 @@
 import rehypeParse from "rehype-parse";
 import rehypeRemark from "rehype-remark";
+import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
 import remarkHtml from "remark-html";
 import remarkParse from "remark-parse";
 import remarkStringify from "remark-stringify";
 import { unified } from "unified";
 import { rehypeMentionToMarkdown } from "@/helpers/prosekit/rehypeMentionToMarkdown";
-import { rehypeJoinParagraph } from "./rehypeJoinParagraph";
 import { customBreakHandler } from "./remarkBreakHandler";
 import { remarkLinkProtocol } from "./remarkLinkProtocol";
 
@@ -19,13 +19,12 @@ const unescapeUnderscore = (str: string) => {
 export const markdownFromHTML = (html: string): string => {
   const markdown = unified()
     .use(rehypeParse)
-    .use(rehypeJoinParagraph)
     .use(rehypeMentionToMarkdown)
     .use(rehypeRemark, { newlines: true })
     .use(remarkGfm)
     .use(remarkLinkProtocol)
     .use(remarkStringify, {
-      handlers: { break: customBreakHandler, hardBreak: customBreakHandler }
+      handlers: { break: customBreakHandler }
     })
     .processSync(html)
     .toString();
@@ -38,6 +37,7 @@ export const htmlFromMarkdown = (markdown: string): string => {
     .use(remarkParse)
     .use(remarkGfm)
     .use(remarkHtml)
+    .use(remarkBreaks)
     .processSync(markdown)
     .toString();
 };
