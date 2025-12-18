@@ -58,7 +58,7 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
   const ImageComponent = ({ uri, index }: { uri: string; index: number }) => (
     <Image
       alt={imageKit(uri, TRANSFORMS.ATTACHMENT)}
-      className="max-h-[300px] cursor-pointer rounded-lg border border-gray-200 bg-gray-100 object-cover md:max-h-[500px] dark:border-gray-700 dark:bg-gray-800"
+      className="max-h-[300px] cursor-pointer rounded-lg border border-gray-200 bg-gray-100 object-cover md:max-h-[500px] dark:border-gray-800 dark:bg-gray-800"
       height={1000}
       loading="lazy"
       onClick={() => {

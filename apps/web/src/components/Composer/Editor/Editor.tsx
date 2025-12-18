@@ -54,7 +54,7 @@ const Editor = ({
       <div className="box-border flex size-full justify-stretch overflow-y-auto overflow-x-hidden px-5 py-4">
         <Image
           alt={currentAccount?.address}
-          className="mr-3 size-11 rounded-full border border-gray-200 bg-gray-200 dark:border-gray-700"
+          className="mr-3 size-11 rounded-full border border-gray-200 bg-gray-200 dark:border-gray-800"
           src={getAvatar(currentAccount)}
         />
         <div className="flex flex-1 flex-col overflow-x-hidden">

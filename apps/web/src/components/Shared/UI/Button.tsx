@@ -28,7 +28,7 @@ const buttonVariants = cva(
           "text-gray-950 active:text-gray-500",
           "border border-gray-300 hover:border-gray-400",
           "dark:text-white dark:active:text-gray-700",
-          "dark:border-gray-700 dark:hover:border-gray-600"
+          "dark:border-gray-800 dark:hover:border-gray-600"
         ),
         outline: true,
         variant: "primary"

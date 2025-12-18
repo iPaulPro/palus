@@ -78,7 +78,7 @@ const AccountPreview = ({
     const UserAvatar = () => (
       <Image
         alt={account.address}
-        className="size-12 rounded-full border border-gray-200 bg-gray-200 dark:border-gray-700"
+        className="size-12 rounded-full border border-gray-200 bg-gray-200 dark:border-gray-800"
         height={48}
         loading="lazy"
         src={getAvatar(account)}

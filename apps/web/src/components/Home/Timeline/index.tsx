@@ -82,7 +82,7 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
                         "pb-5": i === timelineItem.comments.length - 1
                       })}
                     >
-                      <div className="h-full w-[1px] border-gray-200 border-l dark:border-gray-700" />
+                      <div className="h-full w-[1px] border-gray-200 border-l dark:border-gray-800" />
                     </div>
                     <SinglePost
                       embedded={true}

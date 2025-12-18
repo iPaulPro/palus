@@ -31,7 +31,7 @@ const SingleGroup = ({
       alt={group.address}
       className={cn(
         isBig ? "size-14" : "size-11",
-        "rounded-lg border border-gray-200 bg-gray-200 dark:border-gray-700"
+        "rounded-lg border border-gray-200 bg-gray-200 dark:border-gray-800"
       )}
       height={isBig ? 56 : 44}
       loading="lazy"

@@ -28,7 +28,7 @@ const SmallSingleAccount = ({
       alt={account.address}
       className={cn(
         smallAvatar ? "size-4" : "size-6",
-        "rounded-full border border-gray-200 bg-gray-200 dark:border-gray-700"
+        "rounded-full border border-gray-200 bg-gray-200 dark:border-gray-800"
       )}
       height={smallAvatar ? 16 : 24}
       loading="lazy"

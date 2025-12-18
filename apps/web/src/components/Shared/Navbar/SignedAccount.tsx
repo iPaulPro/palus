@@ -20,7 +20,7 @@ const SignedAccount = () => {
   const Avatar = () => (
     <Image
       alt={currentAccount?.address}
-      className="size-8 cursor-pointer rounded-full border border-gray-200 dark:border-gray-700"
+      className="size-8 cursor-pointer rounded-full border border-gray-200 dark:border-gray-800"
       src={getAvatar(currentAccount)}
     />
   );
@@ -33,7 +33,7 @@ const SignedAccount = () => {
       <MenuTransition>
         <MenuItems
           anchor="bottom start"
-          className="z-[5] mt-2 w-48 origin-top-left rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-black"
+          className="z-[5] mt-2 w-48 origin-top-left rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-black"
           static
         >
           <MenuItem

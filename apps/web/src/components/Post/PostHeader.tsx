@@ -50,7 +50,7 @@ const PostHeader = ({
       {quoted && isNew ? (
         <button
           aria-label="Remove Quote"
-          className="rounded-full border border-gray-200 p-1.5 hover:bg-gray-300/20 dark:border-gray-700"
+          className="rounded-full border border-gray-200 p-1.5 hover:bg-gray-300/20 dark:border-gray-800"
           onClick={() => setQuotedPost()}
           type="reset"
         >

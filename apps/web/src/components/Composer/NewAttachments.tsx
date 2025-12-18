@@ -104,7 +104,7 @@ const NewAttachments = ({
             ) : isImage ? (
               <Image
                 alt={attachment.previewUri}
-                className="cursor-pointer rounded-lg border border-gray-200 bg-gray-100 object-cover dark:border-gray-700 dark:bg-gray-800"
+                className="cursor-pointer rounded-lg border border-gray-200 bg-gray-100 object-cover dark:border-gray-800 dark:bg-gray-800"
                 height={1000}
                 loading="lazy"
                 onError={({ currentTarget }) => {

@@ -46,7 +46,7 @@ const SinglePost = ({
         <div className="flex flex-grow flex-col items-center">
           <PostAvatar post={rootPost} timelineItem={timelineItem} />
           {hasComments ? (
-            <div className="w-[1px] flex-grow border-gray-200 border-l dark:border-gray-700" />
+            <div className="w-[1px] flex-grow border-gray-200 border-l dark:border-gray-800" />
           ) : null}
         </div>
         <div className="w-[calc(100%-55px)]">

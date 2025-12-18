@@ -51,7 +51,7 @@ const WalletSelector: FC = () => {
                 "hover:bg-gray-100 dark:hover:bg-gray-700":
                   connector.id !== activeConnector?.id
               },
-              "flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border border-gray-200 px-4 py-3 outline-hidden dark:border-gray-700"
+              "flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border border-gray-200 px-4 py-3 outline-hidden dark:border-gray-800"
             )}
             disabled={connector.id === activeConnector?.id || isPending}
             key={connector.id}

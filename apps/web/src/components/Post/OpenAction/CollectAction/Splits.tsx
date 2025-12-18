@@ -54,7 +54,7 @@ const Splits = ({ recipients }: SplitsProps) => {
                 <>
                   <Image
                     alt="Avatar"
-                    className="size-5 rounded-full border border-gray-200 bg-gray-200 dark:border-gray-700"
+                    className="size-5 rounded-full border border-gray-200 bg-gray-200 dark:border-gray-800"
                     src={getAvatar(account, TRANSFORMS.AVATAR_TINY)}
                   />
                   {account ? (

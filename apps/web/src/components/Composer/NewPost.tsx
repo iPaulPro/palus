@@ -44,7 +44,7 @@ const NewPost = ({ feed }: NewPostProps) => {
       <div className="flex items-center space-x-3">
         <Image
           alt={currentAccount?.address}
-          className="size-11 cursor-pointer rounded-full border border-gray-200 bg-gray-200 dark:border-gray-700"
+          className="size-11 cursor-pointer rounded-full border border-gray-200 bg-gray-200 dark:border-gray-800"
           height={44}
           src={getAvatar(currentAccount)}
           width={44}

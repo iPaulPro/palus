@@ -143,7 +143,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
           />
         ) : null}
         {loading ? (
-          <Card className="w-full dark:divide-gray-700" forceRounded>
+          <Card className="w-full dark:divide-gray-800" forceRounded>
             <Loader
               className="my-4"
               message="Loading accounts managed by you..."
@@ -166,7 +166,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
                 }}
               >
                 <Card
-                  className="max-h-[50vh] w-full overflow-y-auto dark:divide-gray-700"
+                  className="max-h-[50vh] w-full overflow-y-auto dark:divide-gray-800"
                   forceRounded
                 >
                   {accounts.map((account, index) => (

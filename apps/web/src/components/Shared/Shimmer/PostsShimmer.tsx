@@ -12,7 +12,7 @@ const PostsShimmer = ({ hideCard = false }: PostsShimmerProps) => {
     <Card
       className={cn(
         { "!border-0": hideCard },
-        "divide-y divide-gray-200 dark:divide-gray-700"
+        "divide-y divide-gray-200 dark:divide-gray-800"
       )}
     >
       {Array.from({ length: 3 }).map((_, index) => (

@@ -63,8 +63,9 @@ const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
         ) : null}
         {timestamp ? (
           <span className="text-gray-500 dark:text-gray-200">
+            &bull;{" "}
             <PostLink className="text-sm hover:underline" post={post}>
-              &bull; {formatRelativeOrAbsolute(timestamp)}
+              {formatRelativeOrAbsolute(timestamp)}
             </PostLink>
           </span>
         ) : null}

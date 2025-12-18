@@ -33,7 +33,7 @@ const TipButton = ({ account }: TipButtonProps) => {
       <MenuTransition>
         <MenuItems
           anchor="bottom end"
-          className="z-[5] mt-2 w-max origin-top-right rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-700 dark:bg-gray-900"
+          className="z-[5] mt-2 w-max origin-top-right rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-gray-900"
           static
         >
           <MenuItem>

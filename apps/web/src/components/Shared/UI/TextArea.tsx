@@ -15,7 +15,7 @@ const textAreaVariants = cva(
     defaultVariants: { error: false },
     variants: {
       error: {
-        false: "border-gray-300 dark:border-gray-700",
+        false: "border-gray-300 dark:border-gray-800",
         true: "border-red-500 placeholder:text-red-500"
       }
     }

@@ -30,13 +30,13 @@ const MentionGroupItem = ({ onSelect, group }: MentionGroupItemProps) => {
         {group.icon ? (
           <Image
             alt={group.name}
-            className="aspect-square size-7 rounded-full border border-gray-200 bg-gray-200 object-cover dark:border-gray-700"
+            className="aspect-square size-7 rounded-full border border-gray-200 bg-gray-200 object-cover dark:border-gray-800"
             height="28"
             src={sanitizeDStorageUrl(group.icon)}
             width="28"
           />
         ) : (
-          <div className="flex aspect-square h-7 items-center justify-center rounded-full border border-gray-200 bg-gray-300 text-gray-700 dark:border-gray-700">
+          <div className="flex aspect-square h-7 items-center justify-center rounded-full border border-gray-200 bg-gray-300 text-gray-700 dark:border-gray-800">
             <UserGroupIcon className="size-5" />
           </div>
         )}
@@ -68,7 +68,7 @@ const GroupMentionPicker = () => {
   return (
     <AutocompletePopover
       className={cn(
-        "z-10 block w-52 rounded-xl border border-gray-200 bg-white p-0 shadow-xs dark:border-gray-700 dark:bg-gray-900",
+        "z-10 block w-52 rounded-xl border border-gray-200 bg-white p-0 shadow-xs dark:border-gray-800 dark:bg-gray-900",
         !results.length && "hidden"
       )}
       offset={10}
@@ -76,7 +76,7 @@ const GroupMentionPicker = () => {
       regex={EditorRegex.groupMention}
     >
       <AutocompleteList
-        className="divide-y divide-gray-200 dark:divide-gray-700"
+        className="divide-y divide-gray-200 dark:divide-gray-800"
         filter={null}
       >
         {results.map((group) => (

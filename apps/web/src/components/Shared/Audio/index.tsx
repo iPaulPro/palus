@@ -53,7 +53,7 @@ const Audio = ({ artist, isNew = false, poster, src, title }: AudioProps) => {
 
   return (
     <div
-      className="overflow-hidden rounded-xl border border-gray-200 bg-gray-500 p-0 dark:border-gray-700"
+      className="overflow-hidden rounded-xl border border-gray-200 bg-gray-500 p-0 dark:border-gray-800"
       onClick={stopEventPropagation}
       style={{ backgroundImage: `url(${isNew ? newPreviewUri : poster})` }}
     >

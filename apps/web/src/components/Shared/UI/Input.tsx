@@ -50,7 +50,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         ) : null}
         <div className="flex">
           {prefix ? (
-            <span className="inline-flex items-center rounded-l-xl border border-gray-300 border-r-0 bg-gray-100 px-3 text-gray-500 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-200">
+            <span className="inline-flex items-center rounded-l-xl border border-gray-300 border-r-0 bg-gray-100 px-3 text-gray-500 dark:border-gray-800 dark:bg-gray-900 dark:text-gray-200">
               {prefix}
             </span>
           ) : null}
@@ -59,7 +59,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               { "!bg-gray-500/20 opacity-50": props.disabled },
               { "!border-red-500": error },
               prefix ? "rounded-r-xl" : "rounded-xl",
-              "flex w-full items-center border border-gray-300 bg-white focus-within:border-gray-500 dark:border-gray-700 dark:bg-gray-900"
+              "flex w-full items-center border border-gray-300 bg-white focus-within:border-gray-500 dark:border-gray-800 dark:bg-gray-900"
             )}
           >
             <input
