@@ -1,6 +1,6 @@
 import { MainContentFocus } from "@palus/indexer";
-import type { Dispatch, SetStateAction } from "react";
-import { memo } from "react";
+import { type Dispatch, memo, type SetStateAction, useEffect } from "react";
+import { useSearchParams } from "react-router";
 import { Tabs } from "@/components/Shared/UI";
 
 interface ContentFeedTypeProps {
@@ -22,13 +22,22 @@ const ContentFeedType = ({
     { name: "Images", type: MainContentFocus.Image }
   ];
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tab = searchParams.get("type");
+
+  useEffect(() => {
+    if (!tab) return;
+    setFocus(tab.toUpperCase() as MainContentFocus);
+  }, [tab]);
+
   return (
     <Tabs
-      active={focus || ""}
+      active={focus ?? tab ?? ""}
       className="mx-5 mb-5 md:mx-0"
       layoutId={layoutId}
       setActive={(type) => {
         setFocus(type as MainContentFocus);
+        setSearchParams(type ? `type=${type.toLowerCase()}` : undefined);
       }}
       tabs={tabs}
     />
