@@ -74,13 +74,13 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
               post={timelineItem.primary}
               timelineItem={timelineItem}
             />
-            {timelineItem.comments.length === 0
-              ? null
-              : timelineItem.comments.map((comment, i) => (
-                  <div className="flex pl-5" key={comment.id}>
+            {timelineItem.comments.length === 0 ? null : (
+              <div className="mt-2">
+                {timelineItem.comments.map((comment, i) => (
+                  <div className="flex pl-5 last:mb-2" key={comment.id}>
                     <div
                       className={cn("flex w-11 flex-none justify-center", {
-                        "pb-5": i === timelineItem.comments.length - 1
+                        "pb-4": i === timelineItem.comments.length - 1
                       })}
                     >
                       <div className="h-full w-[1px] border-gray-200 border-l dark:border-gray-800" />
@@ -93,6 +93,8 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
                     />
                   </div>
                 ))}
+              </div>
+            )}
           </>
         );
       }}

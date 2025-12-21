@@ -50,13 +50,17 @@ const SinglePost = ({
           ) : null}
         </div>
         <div className="w-[calc(100%-55px)]">
-          <PostHeader post={rootPost} timelineItem={timelineItem} />
+          <PostHeader
+            embedded={embedded}
+            post={rootPost}
+            timelineItem={timelineItem}
+          />
           {post.isDeleted ? (
             <HiddenPost type={post.__typename} />
           ) : (
             <>
               <PostBody post={rootPost} showMore={showMore} />
-              <PostActions post={rootPost} />
+              {embedded ? null : <PostActions post={rootPost} />}
             </>
           )}
         </div>

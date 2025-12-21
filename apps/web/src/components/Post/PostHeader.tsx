@@ -16,13 +16,15 @@ interface PostHeaderProps {
   isNew?: boolean;
   post: AnyPostFragment;
   quoted?: boolean;
+  embedded?: boolean;
 }
 
 const PostHeader = ({
   timelineItem,
   isNew = false,
   post,
-  quoted = false
+  quoted = false,
+  embedded = false
 }: PostHeaderProps) => {
   const { setQuotedPost } = usePostStore();
 
@@ -38,7 +40,11 @@ const PostHeader = ({
     >
       <PostAccount
         account={account}
-        group={targetPost.feed?.group as PostGroupInfoFragment}
+        group={
+          embedded
+            ? undefined
+            : (targetPost.feed?.group as PostGroupInfoFragment)
+        }
         post={targetPost}
         timestamp={timestamp}
       />
