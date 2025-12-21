@@ -88,7 +88,7 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
                     <SinglePost
                       embedded={true}
                       post={comment}
-                      showMore={false}
+                      showMore={true}
                       showType={false}
                     />
                   </div>
