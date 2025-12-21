@@ -91,6 +91,7 @@ const NoneRelevantFeed = ({ postId }: NoneRelevantFeedProps) => {
           handleEndReached={handleEndReached}
           hasMore={hasMore}
           items={filteredComments}
+          kind="none-relevant"
           renderItem={(comment) => (
             <SinglePost key={comment.id} post={comment} showType={false} />
           )}

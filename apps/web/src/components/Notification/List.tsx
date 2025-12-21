@@ -5,19 +5,8 @@ import {
   NotificationType,
   useNotificationsQuery
 } from "@palus/indexer";
-import {
-  memo,
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef
-} from "react";
-import {
-  type CacheSnapshot,
-  WindowVirtualizer,
-  type WindowVirtualizerHandle
-} from "virtua";
+import { memo, useCallback, useEffect, useRef } from "react";
+import type { WindowVirtualizerHandle } from "virtua";
 import AccountActionExecutedNotification from "@/components/Notification/Type/AccountActionExecutedNotification";
 import CommentNotification from "@/components/Notification/Type/CommentNotification";
 import FollowNotification from "@/components/Notification/Type/FollowNotification";
@@ -26,6 +15,7 @@ import PostActionExecutedNotification from "@/components/Notification/Type/PostA
 import QuoteNotification from "@/components/Notification/Type/QuoteNotification";
 import ReactionNotification from "@/components/Notification/Type/ReactionNotification";
 import RepostNotification from "@/components/Notification/Type/RepostNotification";
+import CachedWindowVirtualizer from "@/components/Shared/CachedWindowVirtualizer";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
@@ -92,36 +82,6 @@ const List = ({ feedType }: ListProps) => {
   const cacheKey = "window-list-cache-notifications";
   const ref = useRef<WindowVirtualizerHandle>(null);
 
-  const [offset, cache] = useMemo(() => {
-    const serialized = sessionStorage.getItem(cacheKey);
-    if (!serialized) return [];
-    try {
-      return JSON.parse(serialized) as [number, CacheSnapshot];
-    } catch {
-      return [];
-    }
-  }, []);
-
-  useLayoutEffect(() => {
-    if (!ref.current) return;
-    const handle = ref.current;
-
-    window.scrollTo(0, offset ?? 0);
-
-    let scrollY = 0;
-    const onScroll = () => {
-      scrollY = window.scrollY;
-    };
-    window.addEventListener("scroll", onScroll);
-    onScroll();
-
-    return () => {
-      window.removeEventListener("scroll", onScroll);
-      // Use stored window.scrollY because it may return 0 in useEffect cleanup
-      sessionStorage.setItem(cacheKey, JSON.stringify([scrollY, handle.cache]));
-    };
-  }, []);
-
   useEffect(() => {
     const firstNotification = notifications?.[0];
     if (
@@ -173,7 +133,7 @@ const List = ({ feedType }: ListProps) => {
 
   return (
     <Card className="virtual-divider-list-window">
-      <WindowVirtualizer cache={cache} ref={ref}>
+      <CachedWindowVirtualizer cacheKey={cacheKey} ref={ref}>
         {notifications.map((notification) => {
           if (!("id" in notification)) {
             return null;
@@ -196,7 +156,7 @@ const List = ({ feedType }: ListProps) => {
           );
         })}
         {hasMore && <span ref={loadMoreRef} />}
-      </WindowVirtualizer>
+      </CachedWindowVirtualizer>
     </Card>
   );
 };

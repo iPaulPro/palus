@@ -108,6 +108,7 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
       handleEndReached={handleEndReached}
       hasMore={hasMore}
       items={safePosts}
+      kind="account"
       loading={loading}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />

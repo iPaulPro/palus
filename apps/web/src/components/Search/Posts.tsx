@@ -43,6 +43,7 @@ const Posts = ({ query }: PostsProps) => {
       handleEndReached={handleEndReached}
       hasMore={hasMore}
       items={posts ?? []}
+      kind="search"
       loading={loading}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />

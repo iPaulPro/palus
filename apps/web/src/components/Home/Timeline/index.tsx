@@ -64,6 +64,7 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
       handleEndReached={handleEndReached}
       hasMore={hasMore}
       items={filteredPosts}
+      kind="timeline"
       loading={loading}
       renderItem={(timelineItem) => {
         return (

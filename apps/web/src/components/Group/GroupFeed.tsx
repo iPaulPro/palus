@@ -46,6 +46,7 @@ const GroupFeed = ({ feed }: GroupFeedProps) => {
       handleEndReached={handleEndReached}
       hasMore={hasMore}
       items={filteredPosts}
+      kind="group"
       loading={loading}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />

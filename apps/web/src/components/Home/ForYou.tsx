@@ -56,6 +56,7 @@ const ForYou = () => {
       handleEndReached={handleEndReached}
       hasMore={hasMore}
       items={filteredPosts as PostFragment[]}
+      kind="for-you"
       loading={loading}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />

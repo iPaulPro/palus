@@ -44,6 +44,7 @@ const BookmarksFeed = ({ focus }: BookmarksFeedProps) => {
       handleEndReached={handleEndReached}
       hasMore={hasMore}
       items={posts}
+      kind="bookmarks"
       loading={loading}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />

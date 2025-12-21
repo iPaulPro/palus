@@ -56,6 +56,7 @@ const ExploreFeed = ({ focus }: ExploreFeedProps) => {
       handleEndReached={handleEndReached}
       hasMore={hasMore}
       items={filteredPosts}
+      kind="explore"
       loading={loading}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />
