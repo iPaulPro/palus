@@ -5,6 +5,7 @@ import { NotificationAccountAvatar } from "@/components/Notification/Account";
 import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
 import Markup from "@/components/Shared/Markup";
 import PostLink from "@/components/Shared/Post/PostLink";
+import truncateUrl from "@/helpers/truncateUrl";
 
 interface CommentNotificationProps {
   notification: CommentNotificationFragment;
@@ -12,7 +13,8 @@ interface CommentNotificationProps {
 
 const CommentNotification = ({ notification }: CommentNotificationProps) => {
   const metadata = notification.comment.metadata;
-  const filteredContent = getPostData(metadata)?.content || "";
+  const postData = getPostData(metadata);
+  const filteredContent = postData?.content || "";
   const firstAccount = notification.comment.author;
 
   const text = "replied to your";
@@ -37,9 +39,13 @@ const CommentNotification = ({ notification }: CommentNotificationProps) => {
           className="linkify mt-2 line-clamp-2 text-gray-500 dark:text-gray-200"
           post={notification.comment}
         >
-          <Markup mentions={notification.comment.mentions}>
-            {filteredContent}
-          </Markup>
+          {filteredContent ? (
+            <Markup mentions={notification.comment.mentions}>
+              {filteredContent}
+            </Markup>
+          ) : postData?.asset ? (
+            <span>{truncateUrl(postData.asset.uri, 30)}</span>
+          ) : null}
         </PostLink>
       </div>
     </div>

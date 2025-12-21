@@ -10,6 +10,7 @@ import AggregatedNotificationTitle from "@/components/Notification/AggregatedNot
 import { TipIcon } from "@/components/Shared/Icons/TipIcon";
 import Markup from "@/components/Shared/Markup";
 import PostLink from "@/components/Shared/Post/PostLink";
+import truncateUrl from "@/helpers/truncateUrl";
 
 interface PostActionExecutedNotificationProps {
   notification: PostActionExecutedNotificationFragment;
@@ -26,7 +27,8 @@ const PostActionExecutedNotification = ({
 }: PostActionExecutedNotificationProps) => {
   const post = notification.post;
   const { metadata } = post;
-  const filteredContent = getPostData(metadata)?.content || "";
+  const postData = getPostData(metadata);
+  const filteredContent = postData?.content || "";
   const actions = notification.actions;
   const firstAction = actions[0];
   const firstAccount =
@@ -93,7 +95,11 @@ const PostActionExecutedNotification = ({
           className="linkify mt-2 line-clamp-2 text-gray-500 dark:text-gray-200"
           post={post}
         >
-          <Markup mentions={post.mentions}>{filteredContent}</Markup>
+          {filteredContent ? (
+            <Markup mentions={post.mentions}>{filteredContent}</Markup>
+          ) : postData?.asset ? (
+            <span>{truncateUrl(postData.asset.uri, 30)}</span>
+          ) : null}
         </PostLink>
       </div>
     </div>

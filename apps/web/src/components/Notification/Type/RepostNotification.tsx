@@ -6,6 +6,7 @@ import { NotificationAccountAvatar } from "@/components/Notification/Account";
 import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
 import Markup from "@/components/Shared/Markup";
 import PostLink from "@/components/Shared/Post/PostLink";
+import truncateUrl from "@/helpers/truncateUrl";
 
 interface RepostNotificationProps {
   notification: RepostNotificationFragment;
@@ -13,7 +14,8 @@ interface RepostNotificationProps {
 
 const RepostNotification = ({ notification }: RepostNotificationProps) => {
   const metadata = notification.post.metadata;
-  const filteredContent = getPostData(metadata)?.content || "";
+  const postData = getPostData(metadata);
+  const filteredContent = postData?.content || "";
   const reposts = notification.reposts;
   const firstAccount = reposts?.[0]?.account;
   const length = reposts.length - 1;
@@ -47,9 +49,13 @@ const RepostNotification = ({ notification }: RepostNotificationProps) => {
           className="linkify mt-2 line-clamp-2 text-gray-500 dark:text-gray-200"
           post={notification.post}
         >
-          <Markup mentions={notification.post.mentions}>
-            {filteredContent}
-          </Markup>
+          {filteredContent ? (
+            <Markup mentions={notification.post.mentions}>
+              {filteredContent}
+            </Markup>
+          ) : postData?.asset ? (
+            <span>{truncateUrl(postData.asset.uri, 30)}</span>
+          ) : null}
         </PostLink>
       </div>
     </div>

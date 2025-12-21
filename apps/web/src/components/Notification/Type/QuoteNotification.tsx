@@ -5,6 +5,7 @@ import { NotificationAccountAvatar } from "@/components/Notification/Account";
 import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
 import Markup from "@/components/Shared/Markup";
 import PostLink from "@/components/Shared/Post/PostLink";
+import truncateUrl from "@/helpers/truncateUrl";
 
 interface QuoteNotificationProps {
   notification: QuoteNotificationFragment;
@@ -12,7 +13,8 @@ interface QuoteNotificationProps {
 
 const QuoteNotification = ({ notification }: QuoteNotificationProps) => {
   const metadata = notification.quote.metadata;
-  const filteredContent = getPostData(metadata)?.content || "";
+  const postData = getPostData(metadata);
+  const filteredContent = postData?.content || "";
   const firstAccount = notification.quote.author;
 
   const text = "quoted your";
@@ -37,9 +39,13 @@ const QuoteNotification = ({ notification }: QuoteNotificationProps) => {
           className="linkify mt-2 line-clamp-2 text-gray-500 dark:text-gray-200"
           post={notification.quote}
         >
-          <Markup mentions={notification.quote.mentions}>
-            {filteredContent}
-          </Markup>
+          {filteredContent ? (
+            <Markup mentions={notification.quote.mentions}>
+              {filteredContent}
+            </Markup>
+          ) : postData?.asset ? (
+            <span>{truncateUrl(postData.asset.uri, 30)}</span>
+          ) : null}
         </PostLink>
       </div>
     </div>
