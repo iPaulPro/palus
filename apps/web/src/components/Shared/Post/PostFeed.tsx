@@ -7,17 +7,7 @@ import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 
 interface PostFeedProps<T extends { id: string }> {
   items: T[];
-  kind:
-    | "account"
-    | "bookmarks"
-    | "comment"
-    | "none-relevant"
-    | "explore"
-    | "group"
-    | "for-you"
-    | "highlights"
-    | "timeline"
-    | "search";
+  kind: string;
   loading?: boolean;
   error?: { message?: string };
   hasMore?: boolean;

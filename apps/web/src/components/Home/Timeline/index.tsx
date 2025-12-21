@@ -81,10 +81,10 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
               post={timelineItem.primary}
               timelineItem={timelineItem}
             />
-            {timelineItem.comments.length === 0 ? null : (
-              <div className="mt-2">
-                {commentsToShow.map((comment, i) => (
-                  <div className="flex pl-5 last:mb-2" key={comment.id}>
+            {timelineItem.comments.length === 0
+              ? null
+              : commentsToShow.map((comment, i) => (
+                  <div className="flex pl-5 last:pb-2" key={comment.id}>
                     <div
                       className={cn("flex w-11 flex-none justify-center", {
                         "pb-4":
@@ -92,7 +92,12 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
                           remainingCommentsCount === 0
                       })}
                     >
-                      <div className="h-full w-[1px] border-gray-200 border-l dark:border-gray-800" />
+                      <div
+                        className={cn(
+                          "h-full w-[1px] border-gray-200 border-l dark:border-gray-800",
+                          { "pt-2": i === 0 }
+                        )}
+                      />
                     </div>
                     <SinglePost
                       embedded={true}
@@ -102,23 +107,21 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
                     />
                   </div>
                 ))}
-                {remainingCommentsCount > 0 ? (
-                  <div className="mb-2 flex pl-5">
-                    <div className="flex w-11 flex-none justify-center pb-4">
-                      <div className="h-full w-[1px] border-gray-200 border-l dark:border-gray-800" />
-                    </div>
-                    <PostLink
-                      className="flex items-center gap-1 pt-2 pb-4 pl-3 font-bold text-gray-500 text-sm hover:underline dark:text-gray-200"
-                      post={timelineItem.primary}
-                    >
-                      <EyeIcon className="size-4" />
-                      Show {remainingCommentsCount} other{" "}
-                      {remainingCommentsCount === 1 ? "comment" : "comments"}
-                    </PostLink>
-                  </div>
-                ) : null}
+            {remainingCommentsCount > 0 ? (
+              <div className="flex pb-2 pl-5">
+                <div className="flex w-11 flex-none justify-center pb-4">
+                  <div className="h-full w-[1px] border-gray-200 border-l dark:border-gray-800" />
+                </div>
+                <PostLink
+                  className="flex items-center gap-1 pt-2 pb-4 pl-3 font-bold text-gray-500 text-sm hover:underline dark:text-gray-200"
+                  post={timelineItem.primary}
+                >
+                  <EyeIcon className="size-4" />
+                  Show {remainingCommentsCount} other{" "}
+                  {remainingCommentsCount === 1 ? "comment" : "comments"}
+                </PostLink>
               </div>
-            )}
+            ) : null}
           </>
         );
       }}
