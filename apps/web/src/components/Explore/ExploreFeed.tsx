@@ -5,6 +5,7 @@ import {
   type PostsExploreRequest,
   usePostsExploreQuery
 } from "@palus/indexer";
+import dayjs from "dayjs";
 import { useCallback, useMemo } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
@@ -16,7 +17,10 @@ interface ExploreFeedProps {
 const ExploreFeed = ({ focus }: ExploreFeedProps) => {
   const request: PostsExploreRequest = {
     filter: {
-      metadata: { ...(focus && { mainContentFocus: [focus] }) }
+      metadata: { ...(focus && { mainContentFocus: [focus] }) },
+      ...(focus && {
+        since: dayjs().subtract(2, "week").unix()
+      })
     },
     pageSize: PageSize.Fifty
   };
