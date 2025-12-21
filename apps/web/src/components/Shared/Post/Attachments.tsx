@@ -82,7 +82,7 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
               className={cn(
                 getClass(displayDecision.length)?.aspect,
                 { "row-span-2": displayDecision.length === 3 && index === 0 },
-                { "w-2/3": displayDecision.length === 1 }
+                { "w-full md:w-2/3": displayDecision.length === 1 }
               )}
               key={attachment}
               onClick={stopEventPropagation}

@@ -103,7 +103,7 @@ const PostBody = ({
           </H6>
         ) : null}
         {unknownActions?.length === 0 ? null : (
-          <div className="mt-3 flex w-3/4 items-center gap-1 rounded-xl border border-gray-200 px-4 py-2 text-gray-700 text-sm dark:bg-gray-700 dark:text-gray-200">
+          <div className="mt-3 flex items-center gap-x-2 rounded-xl border border-gray-200 px-4 py-2 text-gray-700 text-sm md:w-3/4 dark:bg-gray-700 dark:text-gray-200">
             <ExclamationCircleIcon className="size-4" />
             Includes unsupported actions
           </div>

@@ -48,11 +48,14 @@ const CoverImage = ({
   };
 
   return (
-    <div className="group relative flex-none overflow-hidden">
-      <button className="flex focus:outline-hidden" type="button">
+    <div className="group relative w-full flex-none overflow-hidden md:w-fit">
+      <button
+        className="flex w-full justify-center focus:outline-hidden md:w-fit"
+        type="button"
+      >
         <Image
           alt={`attachment-audio-cover-${cover}`}
-          className="size-24 rounded-xl object-cover md:size-40 md:rounded-none"
+          className="aspect-square w-56 max-w-full rounded-xl object-cover md:size-40 md:rounded-none"
           draggable={false}
           onError={({ currentTarget }) => {
             currentTarget.src = cover ? sanitizeDStorageUrl(cover) : cover;
