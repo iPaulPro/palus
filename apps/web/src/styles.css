@@ -98,8 +98,8 @@
 
   .ProseMirror {
     p {
-      margin-bottom: calc(var(--spacing) * 4);
       word-break: break-word;
+      @apply not-last:mb-4;
     }
 
     & a,
