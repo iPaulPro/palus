@@ -1,4 +1,4 @@
-import { EyeIcon } from "@heroicons/react/24/outline";
+import { ExclamationCircleIcon, EyeIcon } from "@heroicons/react/24/outline";
 import { getSrc } from "@livepeer/react/external";
 import getPostData from "@palus/helpers/getPostData";
 import { isRepost } from "@palus/helpers/postHelpers";
@@ -32,6 +32,13 @@ const PostBody = ({
   const filteredAsset = getPostData(metadata)?.asset;
 
   const canShowMore = filteredContent?.length > 450 && showMore;
+
+  const unknownActions =
+    post.__typename === "Post"
+      ? post.actions.filter(
+          (action) => action.__typename === "UnknownPostAction"
+        )
+      : null;
 
   let content = filteredContent;
 
@@ -95,6 +102,12 @@ const PostBody = ({
             <PostLink post={post}>Show more</PostLink>
           </H6>
         ) : null}
+        {unknownActions?.length === 0 ? null : (
+          <div className="mt-3 flex w-3/4 items-center gap-1 rounded-xl border border-gray-200 px-4 py-2 text-gray-700 text-sm dark:bg-gray-700 dark:text-gray-200">
+            <ExclamationCircleIcon className="size-4" />
+            Includes unsupported actions
+          </div>
+        )}
         {/* Attachments and Quotes */}
         {showAttachments ? (
           <Attachments
