@@ -1,4 +1,4 @@
-import { UserGroupIcon } from "@heroicons/react/24/outline";
+import { EyeIcon, UserGroupIcon } from "@heroicons/react/24/outline";
 import {
   TimelineEventItemType,
   type TimelineRequest,
@@ -7,6 +7,7 @@ import {
 import { memo, useCallback, useMemo } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
+import PostLink from "@/components/Shared/Post/PostLink";
 import cn from "@/helpers/cn";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
@@ -67,6 +68,12 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
       kind="timeline"
       loading={loading}
       renderItem={(timelineItem) => {
+        const commentsToShow = timelineItem.comments.slice(0, 3);
+        const remainingCommentsCount = Math.max(
+          0,
+          timelineItem.comments.length - 3
+        );
+
         return (
           <>
             <SinglePost
@@ -76,11 +83,13 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
             />
             {timelineItem.comments.length === 0 ? null : (
               <div className="mt-2">
-                {timelineItem.comments.map((comment, i) => (
+                {commentsToShow.map((comment, i) => (
                   <div className="flex pl-5 last:mb-2" key={comment.id}>
                     <div
                       className={cn("flex w-11 flex-none justify-center", {
-                        "pb-4": i === timelineItem.comments.length - 1
+                        "pb-4":
+                          i === commentsToShow.length - 1 &&
+                          remainingCommentsCount === 0
                       })}
                     >
                       <div className="h-full w-[1px] border-gray-200 border-l dark:border-gray-800" />
@@ -93,6 +102,21 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
                     />
                   </div>
                 ))}
+                {remainingCommentsCount > 0 ? (
+                  <div className="mb-2 flex pl-5">
+                    <div className="flex w-11 flex-none justify-center pb-4">
+                      <div className="h-full w-[1px] border-gray-200 border-l dark:border-gray-800" />
+                    </div>
+                    <PostLink
+                      className="flex items-center gap-1 pt-2 pb-4 pl-3 font-bold text-gray-500 text-sm hover:underline dark:text-gray-200"
+                      post={timelineItem.primary}
+                    >
+                      <EyeIcon className="size-4" />
+                      Show {remainingCommentsCount} other{" "}
+                      {remainingCommentsCount === 1 ? "comment" : "comments"}
+                    </PostLink>
+                  </div>
+                ) : null}
               </div>
             )}
           </>
