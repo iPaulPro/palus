@@ -1,6 +1,7 @@
 import { AccountFeedType } from "@palus/data/enums";
 import generateUUID from "@palus/helpers/generateUUID";
-import type { Dispatch, SetStateAction } from "react";
+import { type Dispatch, type SetStateAction, useEffect } from "react";
+import { useSearchParams } from "react-router";
 import { Tabs } from "@/components/Shared/UI";
 
 interface FeedTypeProps {
@@ -16,6 +17,14 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
     { name: "Collected", type: AccountFeedType.Collects }
   ];
 
+  const [searchParams, setSearchParams] = useSearchParams();
+  const tab = searchParams.get("tab");
+
+  useEffect(() => {
+    if (!tab) return;
+    setFeedType(tab.toUpperCase() as AccountFeedType);
+  }, [tab]);
+
   return (
     <Tabs
       active={feedType}
@@ -23,8 +32,12 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
       key={generateUUID()}
       layoutId="account_tab"
       setActive={(type) => {
-        const nextType = type as AccountFeedType;
-        setFeedType(nextType);
+        setFeedType(type as AccountFeedType);
+        setSearchParams(
+          type !== AccountFeedType.Feed
+            ? `tab=${type.toLowerCase()}`
+            : undefined
+        );
       }}
       tabs={tabs}
     />
