@@ -15,7 +15,7 @@ export const AudioPostSchema = z.object({
 });
 
 interface AudioProps {
-  artist?: string;
+  artist?: string | null;
   isNew?: boolean;
   poster: string;
   src: string;
@@ -57,7 +57,7 @@ const Audio = ({ artist, isNew = false, poster, src, title }: AudioProps) => {
       onClick={stopEventPropagation}
       style={{ backgroundImage: `url(${isNew ? newPreviewUri : poster})` }}
     >
-      <div className="flex flex-wrap p-5 backdrop-blur-2xl backdrop-brightness-50 md:flex-nowrap md:space-x-2 md:p-0">
+      <div className="flex flex-wrap px-3 pt-5 pb-1 backdrop-blur-2xl backdrop-brightness-50 md:flex-nowrap md:space-x-2 md:p-0">
         <CoverImage
           cover={isNew ? (newPreviewUri as string) : poster}
           imageRef={imageRef}
@@ -68,7 +68,7 @@ const Audio = ({ artist, isNew = false, poster, src, title }: AudioProps) => {
           }}
         />
         <div className="flex w-full flex-col justify-between truncate py-1 md:px-2">
-          <div className="mt-3 flex justify-between md:mt-7">
+          <div className="mt-3 flex justify-between md:mt-5">
             <div className="flex w-full items-center space-x-2.5 truncate">
               <button onClick={handlePlayPause} type="button">
                 {playing && !playerRef.current?.plyr.paused ? (
@@ -106,7 +106,7 @@ const Audio = ({ artist, isNew = false, poster, src, title }: AudioProps) => {
               </div>
             </div>
           </div>
-          <div className="md:pb-3">
+          <div className="md:pb-1">
             <Player playerRef={playerRef} src={src} />
           </div>
         </div>

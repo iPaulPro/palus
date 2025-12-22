@@ -55,7 +55,7 @@ const CoverImage = ({
       >
         <Image
           alt={`attachment-audio-cover-${cover}`}
-          className="aspect-square w-56 max-w-full rounded-xl object-cover md:size-40 md:rounded-none"
+          className="aspect-square w-64 max-w-[calc(100%-1rem)] rounded-lg object-cover md:size-36 md:max-w-full md:rounded-none"
           draggable={false}
           onError={({ currentTarget }) => {
             currentTarget.src = cover ? sanitizeDStorageUrl(cover) : cover;

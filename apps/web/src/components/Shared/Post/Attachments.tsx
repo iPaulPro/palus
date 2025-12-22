@@ -2,7 +2,7 @@ import type { VideoSrc } from "@livepeer/react";
 import { getSrc } from "@livepeer/react/external";
 import { TRANSFORMS } from "@palus/data/constants";
 import imageKit from "@palus/helpers/imageKit";
-import type { MetadataAsset } from "@palus/types/misc";
+import type { AttachmentData } from "@palus/types/misc";
 import { memo, useState } from "react";
 import Audio from "@/components/Shared/Audio";
 import { Image, LightBox } from "@/components/Shared/UI";
@@ -20,14 +20,9 @@ const getClass = (attachments: number) => {
   return { aspect, row: "grid-cols-5 grid-rows-2" };
 };
 
-interface MetadataAttachment {
-  type: "Audio" | "Image" | "Video";
-  uri: string;
-}
-
 interface AttachmentsProps {
-  asset?: MetadataAsset;
-  attachments: MetadataAttachment[];
+  asset?: AttachmentData;
+  attachments: AttachmentData[];
 }
 
 const Attachments = ({ asset, attachments }: AttachmentsProps) => {
@@ -44,10 +39,11 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
     if (assetType === "Video") return "displayVideoAsset";
     if (assetType === "Audio") return "displayAudioAsset";
     if (hasImageAttachment) {
-      const imageAttachments = processedAttachments
-        .filter((attachment) => attachment.type === "Image")
-        .map((attachment) => attachment.uri);
-      if (asset?.uri) imageAttachments.unshift(asset.uri);
+      const imageAttachments = processedAttachments.filter(
+        (attachment) =>
+          attachment.type === "Image" && attachment.uri !== asset?.uri
+      );
+      if (asset?.uri) imageAttachments.unshift(asset);
       return [...new Set(imageAttachments)];
     }
     return null;
@@ -84,14 +80,14 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
                 { "row-span-2": displayDecision.length === 3 && index === 0 },
                 { "w-full md:w-2/3": displayDecision.length === 1 }
               )}
-              key={attachment}
+              key={attachment.uri}
               onClick={stopEventPropagation}
             >
-              <ImageComponent index={index} uri={attachment} />
+              <ImageComponent index={index} uri={attachment.uri} />
             </div>
           ))}
           <LightBox
-            images={displayDecision?.map((attachment) => attachment)}
+            images={displayDecision?.map((attachment) => attachment.uri)}
             initialIndex={expandedImageIndex}
             onClose={() => {
               setShowLightBox(false);
@@ -103,7 +99,7 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
       )}
       {displayDecision === "displayVideoAsset" && (
         <Video
-          poster={asset?.cover as string}
+          poster={asset?.coverUri as string}
           src={
             getSrc(asset?.uri) || [
               { src: asset?.uri as string, type: "video" } as VideoSrc
@@ -114,7 +110,7 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
       {displayDecision === "displayAudioAsset" && (
         <Audio
           artist={asset?.artist}
-          poster={asset?.cover as string}
+          poster={asset?.coverUri as string}
           src={asset?.uri as string}
           title={asset?.title}
         />

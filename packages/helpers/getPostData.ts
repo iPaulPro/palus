@@ -1,13 +1,13 @@
 import { PLACEHOLDER_IMAGE } from "@palus/data/constants";
 import type { PostMetadataFragment } from "@palus/indexer";
-import type { AttachmentData, MetadataAsset } from "@palus/types/misc";
+import type { AttachmentData } from "@palus/types/misc";
 import getAttachmentsData from "./getAttachmentsData";
 import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
 
 const getPostData = (
   metadata: PostMetadataFragment
 ): {
-  asset?: MetadataAsset;
+  asset?: AttachmentData;
   attachments?: AttachmentData[];
   content?: string;
 } | null => {
@@ -45,7 +45,7 @@ const getPostData = (
         asset: {
           artist:
             metadata.audio.artist ?? audioAttachments?.artist ?? undefined,
-          cover: sanitizeDStorageUrl(
+          coverUri: sanitizeDStorageUrl(
             metadata.audio.cover ||
               audioAttachments?.coverUri ||
               PLACEHOLDER_IMAGE
@@ -62,7 +62,7 @@ const getPostData = (
 
       return {
         asset: {
-          cover: sanitizeDStorageUrl(
+          coverUri: sanitizeDStorageUrl(
             metadata.video.cover || videoAttachments?.coverUri
           ),
           type: "Video",

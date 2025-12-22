@@ -1,8 +1,4 @@
-import type {
-  Maybe,
-  MetadataLicenseType,
-  PostMentionFragment
-} from "@palus/indexer";
+import type { PostMentionFragment } from "@palus/indexer";
 
 export interface NewAttachment {
   file?: File;
@@ -26,18 +22,10 @@ export interface MarkupLinkProps {
   title?: string;
 }
 
-export interface MetadataAsset {
-  artist?: string;
-  cover?: string;
-  license?: Maybe<MetadataLicenseType>;
-  title?: string;
-  type: "Audio" | "Image" | "Video";
-  uri: string;
-}
-
 export interface AttachmentData {
   artist?: string | null;
   coverUri?: string;
   type: "Audio" | "Image" | "Video";
   uri: string;
+  title?: string;
 }
