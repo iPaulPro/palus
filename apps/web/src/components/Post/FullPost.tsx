@@ -2,7 +2,7 @@ import { QueueListIcon } from "@heroicons/react/24/outline";
 import { isRepost } from "@palus/helpers/postHelpers";
 import type { AnyPostFragment } from "@palus/indexer";
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import PostWarning from "@/components/Shared/Post/PostWarning";
 import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
@@ -25,12 +25,20 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
   const { setShowHiddenComments, showHiddenComments } =
     useHiddenCommentFeedStore();
 
+  const headerRef = useRef<HTMLDivElement>(null);
   const [ignoreBlock, setIgnoreBlock] = useState(false);
 
   const targetPost = isRepost(post) ? post?.repostOf : post;
   const { timestamp } = targetPost;
 
   const isBlockedByMe = post.author.operations?.isBlockedByMe;
+  const isComment = post.__typename === "Post" && post.commentOn;
+
+  useLayoutEffect(() => {
+    if (isComment && headerRef.current) {
+      headerRef.current.scrollIntoView();
+    }
+  }, [isComment, headerRef.current]);
 
   if (isBlockedByMe && !ignoreBlock) {
     return (
@@ -43,7 +51,7 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
   return (
     <article className="p-5">
       <PostType post={post} showType />
-      <div className="flex items-start gap-x-3">
+      <div className="flex items-start gap-x-3" ref={headerRef}>
         <PostAvatar post={post} />
         <div className="w-[calc(100%-55px)]">
           <PostHeader post={targetPost} />
