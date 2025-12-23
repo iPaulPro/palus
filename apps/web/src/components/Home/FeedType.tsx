@@ -1,4 +1,5 @@
 import { HomeFeedType } from "@palus/data/enums";
+import New from "@/components/Shared/Badges/New";
 import { Tabs } from "@/components/Shared/UI";
 import { useHomeTabStore } from "@/store/persisted/useHomeTabStore";
 
@@ -8,7 +9,8 @@ const FeedType = () => {
   const tabs = [
     { name: "Timeline", type: HomeFeedType.TIMELINE },
     { name: "Following", type: HomeFeedType.FOLLOWING },
-    { name: "For You", type: HomeFeedType.FORYOU }
+    { name: "For You", type: HomeFeedType.FORYOU },
+    { name: "Top Accounts", suffix: <New />, type: HomeFeedType.TOP_ACCOUNTS }
   ];
 
   return (
