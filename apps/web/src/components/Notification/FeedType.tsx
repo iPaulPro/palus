@@ -29,7 +29,7 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
   return (
     <Tabs
       active={feedType}
-      className="mx-5 mb-5 md:mx-0"
+      className="mx-5 mb-0 md:mx-0"
       layoutId="notification_tab"
       setActive={(type) => {
         setFeedType(type as NotificationFeedType);
