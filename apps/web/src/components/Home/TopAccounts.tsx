@@ -21,7 +21,7 @@ const TopAccounts = () => {
     pageSize: PageSize.Fifty
   };
 
-  const { data, error, fetchMore, loading } = usePostsQuery({
+  const { data, error, fetchMore, loading, refetch } = usePostsQuery({
     variables: { request }
   });
 
@@ -59,6 +59,7 @@ const TopAccounts = () => {
       items={filteredPosts}
       kind="top-accounts"
       loading={loading}
+      refetch={refetch}
       renderItem={(post) => (
         <SinglePost key={post.id} post={post as PostFragment} />
       )}

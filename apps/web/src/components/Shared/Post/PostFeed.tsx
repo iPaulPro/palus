@@ -16,6 +16,7 @@ interface PostFeedProps<T extends { id: string }> {
   emptyMessage: ReactNode;
   errorTitle: string;
   renderItem: (item: T) => ReactNode;
+  refetch: () => Promise<any>;
 }
 
 const PostFeed = <T extends { id: string }>({
@@ -28,7 +29,8 @@ const PostFeed = <T extends { id: string }>({
   emptyIcon,
   emptyMessage,
   errorTitle,
-  renderItem
+  renderItem,
+  refetch
 }: PostFeedProps<T>) => {
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 
@@ -49,7 +51,11 @@ const PostFeed = <T extends { id: string }>({
 
   return (
     <Card className="virtual-divider-list-window">
-      <CachedWindowVirtualizer cacheKey={cacheKey} ref={ref}>
+      <CachedWindowVirtualizer
+        cacheKey={cacheKey}
+        onRefresh={refetch}
+        ref={ref}
+      >
         {items.map((item) => renderItem(item))}
         {hasMore && <span ref={loadMoreRef} />}
       </CachedWindowVirtualizer>

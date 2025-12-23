@@ -14,7 +14,7 @@ const Posts = ({ query }: PostsProps) => {
     pageSize: PageSize.Fifty
   };
 
-  const { data, error, fetchMore, loading } = usePostsQuery({
+  const { data, error, fetchMore, loading, refetch } = usePostsQuery({
     variables: { request }
   });
 
@@ -45,6 +45,7 @@ const Posts = ({ query }: PostsProps) => {
       items={posts ?? []}
       kind="search"
       loading={loading}
+      refetch={refetch}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />
   );

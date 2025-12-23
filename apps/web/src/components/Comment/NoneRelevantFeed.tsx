@@ -34,7 +34,7 @@ const NoneRelevantFeed = ({ postId }: NoneRelevantFeedProps) => {
       : PostVisibilityFilter.Visible
   };
 
-  const { data, fetchMore } = usePostReferencesQuery({
+  const { data, fetchMore, loading, refetch } = usePostReferencesQuery({
     skip: !postId,
     variables: { request }
   });
@@ -92,6 +92,8 @@ const NoneRelevantFeed = ({ postId }: NoneRelevantFeedProps) => {
           hasMore={hasMore}
           items={filteredComments}
           kind="none-relevant"
+          loading={loading}
+          refetch={refetch}
           renderItem={(comment) => (
             <SinglePost key={comment.id} post={comment} showType={false} />
           )}

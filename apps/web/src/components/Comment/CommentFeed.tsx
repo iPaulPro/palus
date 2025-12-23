@@ -30,7 +30,7 @@ const CommentFeed = ({ postId }: CommentFeedProps) => {
       : PostVisibilityFilter.Visible
   };
 
-  const { data, error, fetchMore, loading } = usePostReferencesQuery({
+  const { data, error, fetchMore, loading, refetch } = usePostReferencesQuery({
     skip: !postId,
     variables: { request }
   });
@@ -66,6 +66,7 @@ const CommentFeed = ({ postId }: CommentFeedProps) => {
       items={filteredComments}
       kind={`comment-${postId}`}
       loading={loading}
+      refetch={refetch}
       renderItem={(comment) => (
         <SinglePost key={comment.id} post={comment} showType={false} />
       )}

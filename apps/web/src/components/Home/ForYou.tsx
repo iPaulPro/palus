@@ -19,7 +19,7 @@ const ForYou = () => {
     shuffle: true
   };
 
-  const { data, error, fetchMore, loading } = usePostsForYouQuery({
+  const { data, error, fetchMore, loading, refetch } = usePostsForYouQuery({
     variables: { request }
   });
 
@@ -58,6 +58,7 @@ const ForYou = () => {
       items={filteredPosts as PostFragment[]}
       kind="for-you"
       loading={loading}
+      refetch={refetch}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />
   );

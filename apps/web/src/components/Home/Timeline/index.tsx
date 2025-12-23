@@ -30,7 +30,7 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
     })
   };
 
-  const { data, error, fetchMore, loading } = useTimelineQuery({
+  const { data, error, fetchMore, refetch, loading } = useTimelineQuery({
     variables: { request }
   });
 
@@ -67,6 +67,7 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
       items={filteredPosts}
       kind="timeline"
       loading={loading}
+      refetch={refetch}
       renderItem={(timelineItem) => {
         const commentsToShow = timelineItem.comments.slice(0, 3);
         const remainingCommentsCount = Math.max(

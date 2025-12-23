@@ -19,7 +19,7 @@ const BookmarksFeed = ({ focus }: BookmarksFeedProps) => {
     ...(focus && { filter: { metadata: { mainContentFocus: [focus] } } })
   };
 
-  const { data, error, fetchMore, loading } = usePostBookmarksQuery({
+  const { data, error, fetchMore, loading, refetch } = usePostBookmarksQuery({
     variables: { request }
   });
 
@@ -46,6 +46,7 @@ const BookmarksFeed = ({ focus }: BookmarksFeedProps) => {
       items={posts}
       kind="bookmarks"
       loading={loading}
+      refetch={refetch}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />
   );

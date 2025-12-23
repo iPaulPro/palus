@@ -25,7 +25,7 @@ const ExploreFeed = ({ focus }: ExploreFeedProps) => {
     pageSize: PageSize.Fifty
   };
 
-  const { data, error, fetchMore, loading } = usePostsExploreQuery({
+  const { data, error, fetchMore, loading, refetch } = usePostsExploreQuery({
     variables: { request }
   });
 
@@ -62,6 +62,7 @@ const ExploreFeed = ({ focus }: ExploreFeedProps) => {
       items={filteredPosts}
       kind="explore"
       loading={loading}
+      refetch={refetch}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />
   );

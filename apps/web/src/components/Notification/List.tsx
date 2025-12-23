@@ -71,7 +71,7 @@ const List = ({ feedType }: ListProps) => {
     }
   };
 
-  const { data, error, fetchMore, loading } = useNotificationsQuery({
+  const { data, error, fetchMore, loading, refetch } = useNotificationsQuery({
     variables: { request }
   });
 
@@ -133,7 +133,11 @@ const List = ({ feedType }: ListProps) => {
 
   return (
     <Card className="virtual-divider-list-window">
-      <CachedWindowVirtualizer cacheKey={cacheKey} ref={ref}>
+      <CachedWindowVirtualizer
+        cacheKey={cacheKey}
+        onRefresh={refetch}
+        ref={ref}
+      >
         {notifications.map((notification) => {
           if (!("id" in notification)) {
             return null;

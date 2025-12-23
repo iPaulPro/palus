@@ -75,7 +75,7 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
     [address, postTypes, type]
   );
 
-  const { data, error, fetchMore, loading } = usePostsQuery({
+  const { data, error, fetchMore, loading, refetch } = usePostsQuery({
     skip: !address,
     variables: { request }
   });
@@ -110,6 +110,7 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
       items={safePosts}
       kind="account"
       loading={loading}
+      refetch={refetch}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />
   );

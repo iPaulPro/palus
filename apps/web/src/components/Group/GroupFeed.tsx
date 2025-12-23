@@ -14,7 +14,7 @@ const GroupFeed = ({ feed }: GroupFeedProps) => {
     pageSize: PageSize.Fifty
   };
 
-  const { data, error, fetchMore, loading } = usePostsQuery({
+  const { data, error, fetchMore, loading, refetch } = usePostsQuery({
     skip: !feed,
     variables: { request }
   });
@@ -48,6 +48,7 @@ const GroupFeed = ({ feed }: GroupFeedProps) => {
       items={filteredPosts}
       kind="group"
       loading={loading}
+      refetch={refetch}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />
   );

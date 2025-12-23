@@ -1,3 +1,4 @@
+import { useMediaQuery } from "@uidotdev/usehooks";
 import {
   forwardRef,
   type ReactNode,
@@ -6,15 +7,18 @@ import {
   useMemo,
   useRef
 } from "react";
+import PullToRefresh from "react-simple-pull-to-refresh";
 import {
   type CacheSnapshot,
   WindowVirtualizer,
   type WindowVirtualizerHandle
 } from "virtua";
+import Loader from "@/components/Shared/Loader";
 
 interface CachedWindowVirtualizerProps {
   cacheKey: string;
   children: ReactNode;
+  onRefresh?: () => Promise<any>;
 }
 
 // Track which keys have been "cleared" during this JS session to allow
@@ -24,9 +28,10 @@ const sessionHandledKeys = new Set<string>();
 const CachedWindowVirtualizer = forwardRef<
   WindowVirtualizerHandle,
   CachedWindowVirtualizerProps
->(({ cacheKey, children }, ref) => {
+>(({ cacheKey, children, onRefresh }, ref) => {
   const innerRef = useRef<WindowVirtualizerHandle>(null);
   const isRestored = useRef(false);
+  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
 
   useImperativeHandle(ref, () => innerRef.current as WindowVirtualizerHandle);
 
@@ -83,10 +88,37 @@ const CachedWindowVirtualizer = forwardRef<
     };
   }, [cacheKey, offset]);
 
+  const PullingContent = () => {
+    return (
+      <div className="flex h-24 w-full items-center justify-center">
+        <span className="text-sm">Pull to refresh</span>
+      </div>
+    );
+  };
+
+  const RefreshingContent = () => {
+    return (
+      <div className="flex h-24 w-full items-center justify-center">
+        <Loader />
+      </div>
+    );
+  };
+
+  const Noop = async () => {};
+
   return (
-    <WindowVirtualizer cache={cache} ref={innerRef}>
-      {children}
-    </WindowVirtualizer>
+    <PullToRefresh
+      isPullable={isSmallDevice && Boolean(onRefresh)}
+      maxPullDownDistance={128}
+      onRefresh={onRefresh ?? Noop}
+      pullDownThreshold={96}
+      pullingContent={<PullingContent />}
+      refreshingContent={<RefreshingContent />}
+    >
+      <WindowVirtualizer cache={cache} ref={innerRef}>
+        {children}
+      </WindowVirtualizer>
+    </PullToRefresh>
   );
 });
 
