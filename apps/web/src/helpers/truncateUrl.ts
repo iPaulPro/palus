@@ -2,10 +2,9 @@ const truncateUrl = (url: string, maxLength: number): string => {
   try {
     const parsed = new URL(url);
     const stripped =
-      `${parsed.host}${parsed.pathname}${parsed.search}${parsed.hash}`.replace(
-        /^www\./,
-        ""
-      );
+      `${parsed.host}${parsed.pathname}${parsed.search}${parsed.hash}`
+        .replace(/^www\./, "")
+        .replace(/\/$/, "");
 
     if (parsed.hostname.endsWith("palus.app")) return stripped;
 
@@ -14,7 +13,9 @@ const truncateUrl = (url: string, maxLength: number): string => {
       : stripped;
   } catch {
     // fallback: remove protocol/www, truncate if needed
-    const stripped = `${url.replace(/^(https?:\/\/)?(www\.)?/, "")}`;
+    const stripped = url
+      .replace(/^(https?:\/\/)?(www\.)?/, "")
+      .replace(/\/$/, "");
     return stripped.length > maxLength
       ? `${stripped.slice(0, maxLength - 1)}…`
       : stripped;
