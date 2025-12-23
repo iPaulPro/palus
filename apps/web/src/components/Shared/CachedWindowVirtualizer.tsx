@@ -115,9 +115,11 @@ const CachedWindowVirtualizer = forwardRef<
       pullingContent={<PullingContent />}
       refreshingContent={<RefreshingContent />}
     >
-      <WindowVirtualizer cache={cache} ref={innerRef}>
-        {children}
-      </WindowVirtualizer>
+      <div className="virtual-divider-list-window">
+        <WindowVirtualizer cache={cache} ref={innerRef}>
+          {children}
+        </WindowVirtualizer>
+      </div>
     </PullToRefresh>
   );
 });
