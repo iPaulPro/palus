@@ -19,10 +19,10 @@ import {
   NotificationIndicatorDocument,
   NotificationsDocument,
   PostBookmarksDocument,
+  PostsDocument,
   PostsExploreDocument,
   PostsForYouDocument,
-  TimelineDocument,
-  TimelineHighlightsDocument
+  TimelineDocument
 } from "@palus/indexer";
 import {
   type MouseEvent,
@@ -41,11 +41,7 @@ import SignedAccount from "./SignedAccount";
 const navigationItems = {
   "/": {
     outline: <HomeOutline className="size-6" />,
-    refreshDocs: [
-      TimelineDocument,
-      TimelineHighlightsDocument,
-      PostsForYouDocument
-    ],
+    refreshDocs: [TimelineDocument, PostsForYouDocument, PostsDocument],
     solid: <HomeSolid className="size-6" />,
     title: "Home"
   },
