@@ -11,10 +11,7 @@ const TopAccount = ({ className }: TopAccountProps) => {
   return (
     <Tooltip content="Top account" placement={"top"}>
       <CheckBadgeIcon
-        className={cn(
-          "size-5 flex-none text-green-600 dark:text-green-400",
-          className
-        )}
+        className={cn("size-5 flex-none text-[#0071A4]", className)}
       />
     </Tooltip>
   );
