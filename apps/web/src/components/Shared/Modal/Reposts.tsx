@@ -3,6 +3,7 @@ import {
   PageSize,
   PostReferenceType,
   useWhoReferencedPostQuery,
+  WhoReferencedPostOrderBy,
   type WhoReferencedPostRequest
 } from "@palus/indexer";
 import { motion } from "motion/react";
@@ -24,6 +25,7 @@ const Reposts = ({ postId }: RepostsProps) => {
   const { currentAccount } = useAccountStore();
 
   const request: WhoReferencedPostRequest = {
+    orderBy: WhoReferencedPostOrderBy.AccountScore,
     pageSize: PageSize.Fifty,
     post: postId,
     referenceTypes: [PostReferenceType.RepostOf]

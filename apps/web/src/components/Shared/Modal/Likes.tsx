@@ -1,6 +1,7 @@
 import { HeartIcon } from "@heroicons/react/24/outline";
 import {
   PageSize,
+  PostReactionOrderBy,
   type PostReactionsRequest,
   usePostReactionsQuery
 } from "@palus/indexer";
@@ -23,6 +24,7 @@ const Likes = ({ postId }: LikesProps) => {
   const { currentAccount } = useAccountStore();
 
   const request: PostReactionsRequest = {
+    orderBy: PostReactionOrderBy.AccountScore,
     pageSize: PageSize.Fifty,
     post: postId
   };

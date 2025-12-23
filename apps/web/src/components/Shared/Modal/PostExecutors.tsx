@@ -2,6 +2,7 @@ import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import {
   type PostActionFilter,
   useWhoExecutedActionOnPostQuery,
+  WhoExecutedActionOnPostOrderBy,
   type WhoExecutedActionOnPostRequest
 } from "@palus/indexer";
 import { motion } from "motion/react";
@@ -25,6 +26,7 @@ const PostExecutors = ({ postId, filter }: PostExecutorsProps) => {
 
   const request: WhoExecutedActionOnPostRequest = {
     filter: { anyOf: [filter] },
+    orderBy: WhoExecutedActionOnPostOrderBy.AccountScore,
     post: postId
   };
 
