@@ -13,6 +13,7 @@ const Logout = ({ className = "", onClick }: LogoutProps) => {
   const handleLogout = async () => {
     try {
       signOut();
+      sessionStorage.clear();
       reloadAllTabs();
     } catch (error) {
       errorToast(error);

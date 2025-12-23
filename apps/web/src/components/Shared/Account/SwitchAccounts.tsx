@@ -70,6 +70,8 @@ const SwitchAccounts = () => {
         const refreshToken = auth.data?.switchAccount.refreshToken;
         // Preserve theme and other local UI state by not signing out completely.
         signIn({ accessToken, refreshToken });
+        // clear cached window scroll positions
+        sessionStorage.clear();
         reloadAllTabs();
         return;
       }
