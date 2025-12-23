@@ -17,7 +17,7 @@ const Report = ({ account }: ReportProps) => {
       className={({ focus }) =>
         cn(
           { "dropdown-active": focus },
-          "m-2 flex cursor-pointer items-center space-x-2 rounded-lg px-2 py-1.5 text-sm"
+          "m-2 flex cursor-pointer items-center space-x-2 rounded-lg px-2 py-1.5 text-red-500 text-sm"
         )
       }
       onClick={() => setShowReportAccountModal(true, account)}

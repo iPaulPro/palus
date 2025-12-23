@@ -40,8 +40,10 @@ const AccountMenu = ({ account }: AccountMenuProps) => {
           <CopyAddress account={account} />
           {currentAccount && currentAccount?.address !== account.address ? (
             <>
+              <div className="divider" />
               <Block account={account} />
               <Mute account={account} />
+              <div className="divider" />
               <Report account={account} />
             </>
           ) : null}
