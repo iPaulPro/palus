@@ -8,6 +8,7 @@ import { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import FollowUnfollowButton from "@/components/Shared/Account/FollowUnfollowButton";
 import TipButton from "@/components/Shared/Account/TipButton";
+import TopAccount from "@/components/Shared/Badges/TopAccount";
 import Markup from "@/components/Shared/Markup";
 import Slug from "@/components/Shared/Slug";
 import { Button, H3, Image, LightBox } from "@/components/Shared/UI";
@@ -104,6 +105,7 @@ const Details = ({
       <div className="space-y-1 py-2">
         <div className="flex items-center gap-1.5">
           <H3 className="truncate">{getAccount(account).name}</H3>
+          {account.score < 9000 ? null : <TopAccount className="size-6" />}
         </div>
         <div className="flex items-center space-x-3">
           <Slug

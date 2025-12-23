@@ -6,6 +6,7 @@ import {
   AutocompletePopover
 } from "prosekit/react/autocomplete";
 import { useState } from "react";
+import TopAccount from "@/components/Shared/Badges/TopAccount";
 import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import type { EditorExtension } from "@/helpers/prosekit/extension";
@@ -33,8 +34,9 @@ const MentionItem = ({ onSelect, account }: MentionItemProps) => {
           width="28"
         />
         <div className="flex flex-col truncate">
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-0.5">
             <div>{account.name}</div>
+            {account.score < 9000 ? null : <TopAccount />}
           </div>
           <span className="text-gray-500 text-xs dark:text-gray-200">
             {account.username}

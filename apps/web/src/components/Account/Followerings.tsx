@@ -80,6 +80,10 @@ const Followerings = ({ account }: FolloweringsProps) => {
           {plur("Follower", stats?.followers)}
         </span>
       </button>
+      <div className="flex gap-x-1">
+        <span className="font-bold">{account.score}</span>
+        <span className="text-gray-500 dark:text-gray-200">Account Score</span>
+      </div>
       {renderModal(
         showFollowingModal,
         setShowFollowingModal,

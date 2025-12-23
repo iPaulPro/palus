@@ -4,6 +4,7 @@ import type { AccountFragment } from "@palus/indexer";
 import { memo } from "react";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import AccountPreview from "@/components/Shared/Account/AccountPreview";
+import TopAccount from "@/components/Shared/Badges/TopAccount";
 import { Image } from "@/components/Shared/UI";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 
@@ -45,10 +46,11 @@ export const NotificationAccountName = memo(
       >
         <AccountLink
           account={account}
-          className="inline-flex items-center gap-1 font-bold outline-hidden hover:underline focus:underline"
+          className="inline-flex items-center gap-0.5 font-bold outline-hidden hover:underline focus:underline"
           onClick={stopEventPropagation}
         >
           <span>{getAccount(account).name}</span>
+          {account.score < 9000 ? null : <TopAccount />}
         </AccountLink>
       </AccountPreview>
     );

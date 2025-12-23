@@ -2,6 +2,7 @@ import getAccount from "@palus/helpers/getAccount";
 import getAvatar from "@palus/helpers/getAvatar";
 import type { AccountFragment } from "@palus/indexer";
 import { memo } from "react";
+import TopAccount from "@/components/Shared/Badges/TopAccount";
 import Markup from "@/components/Shared/Markup";
 import Slug from "@/components/Shared/Slug";
 import { Image } from "@/components/Shared/UI";
@@ -50,10 +51,11 @@ const SingleAccount = ({
       <div
         className={cn(
           { "font-bold": isBig },
-          "flex max-w-sm items-center gap-x-1.5"
+          "flex max-w-sm items-center gap-x-0.5"
         )}
       >
         <div className="truncate font-semibold">{getAccount(account).name}</div>
+        {account.score < 9000 ? null : <TopAccount />}
       </div>
       <Slug
         className="text-sm"

@@ -4,6 +4,7 @@ import { type AccountStats, useFullAccountLazyQuery } from "@palus/indexer";
 import * as HoverCard from "@radix-ui/react-hover-card";
 import plur from "plur";
 import type { ReactNode } from "react";
+import TopAccount from "@/components/Shared/Badges/TopAccount";
 import Markup from "@/components/Shared/Markup";
 import Slug from "@/components/Shared/Slug";
 import { Card, Image } from "@/components/Shared/UI";
@@ -90,6 +91,7 @@ const AccountPreview = ({
       <div>
         <div className="flex max-w-sm items-center gap-1 truncate">
           <div>{getAccount(account).name}</div>
+          {account.score < 9000 ? null : <TopAccount />}
         </div>
         <span>
           <Slug

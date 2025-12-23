@@ -11,6 +11,7 @@ import { memo } from "react";
 import { Link } from "react-router";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import AccountPreview from "@/components/Shared/Account/AccountPreview";
+import TopAccount from "@/components/Shared/Badges/TopAccount";
 import PostLink from "@/components/Shared/Post/PostLink";
 import { Image } from "@/components/Shared/UI";
 import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
@@ -35,10 +36,13 @@ const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
             showUserPreview
             username={account.username?.localName}
           >
-            <div className="flex min-w-0 flex-wrap gap-x-1">
-              <span className="line-clamp-1 font-semibold">
-                {getAccount(account).name}
-              </span>
+            <div className="flex min-w-0 flex-wrap items-center gap-x-1">
+              <div className="flex items-center gap-x-0.5">
+                <span className="line-clamp-1 font-semibold">
+                  {getAccount(account).name}
+                </span>
+                {account.score < 9000 ? null : <TopAccount />}
+              </div>
               <span className="text-gray-500 dark:text-gray-400">
                 @{getAccount(account).username}
               </span>
