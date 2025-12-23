@@ -1,8 +1,10 @@
+import { CalendarIcon } from "@heroicons/react/20/solid";
 import { MapPinIcon } from "@heroicons/react/24/outline";
 import { STATIC_IMAGES_URL, TRANSFORMS } from "@palus/data/constants";
 import getAccount from "@palus/helpers/getAccount";
 import getAvatar from "@palus/helpers/getAvatar";
 import type { AccountFragment } from "@palus/indexer";
+import dayjs from "dayjs";
 import type { ReactNode } from "react";
 import { useCallback, useState } from "react";
 import { Link, useNavigate } from "react-router";
@@ -11,7 +13,7 @@ import TipButton from "@/components/Shared/Account/TipButton";
 import TopAccount from "@/components/Shared/Badges/TopAccount";
 import Markup from "@/components/Shared/Markup";
 import Slug from "@/components/Shared/Slug";
-import { Button, H3, Image, LightBox } from "@/components/Shared/UI";
+import { Button, H3, Image, LightBox, Tooltip } from "@/components/Shared/UI";
 import getAccountAttribute from "@/helpers/getAccountAttribute";
 import getFavicon from "@/helpers/getFavicon";
 import getMentions from "@/helpers/getMentions";
@@ -165,6 +167,17 @@ const Details = ({
               width={16}
             />
           )}
+          <div className="flex items-center gap-x-1 text-sm">
+            <CalendarIcon className="mr-1 size-4" />
+            <span className="text-gray-500 dark:text-gray-200">Joined</span>
+            <Tooltip
+              content={dayjs(account.createdAt).format("MMM D, YYYY, h:mm A")}
+            >
+              <span className="text-gray-500 dark:text-gray-200">
+                {dayjs(account.createdAt).format("MMM YYYY")}
+              </span>
+            </Tooltip>
+          </div>
         </div>
       </div>
     </div>

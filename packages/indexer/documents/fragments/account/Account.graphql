@@ -20,4 +20,5 @@ fragment Account on Account {
   }
   ...Permissions
   score
+  createdAt
 }
