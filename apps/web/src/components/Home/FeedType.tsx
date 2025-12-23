@@ -14,7 +14,6 @@ const FeedType = () => {
   return (
     <Tabs
       active={feedType}
-      className="mx-5 mb-0 gap-2 md:mx-0"
       layoutId="home_tab"
       setActive={(type) => {
         const nextType = type as HomeFeedType;

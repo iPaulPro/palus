@@ -16,7 +16,6 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
   return (
     <Tabs
       active={feedType}
-      className="mx-5 mb-0 md:mx-0"
       layoutId="groups_tab"
       setActive={(type) => {
         const nextType = type as GroupsFeedType;

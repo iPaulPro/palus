@@ -32,7 +32,6 @@ const FeedType = ({ feedType }: FeedTypeProps) => {
   return (
     <Tabs
       active={feedType}
-      className="mx-5 mb-0 md:mx-0"
       layoutId="search_tab"
       setActive={updateQuery}
       tabs={tabs}
