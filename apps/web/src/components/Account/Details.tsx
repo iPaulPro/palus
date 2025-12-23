@@ -167,7 +167,7 @@ const Details = ({
               width={16}
             />
           )}
-          <div className="flex items-center gap-x-1 text-sm">
+          <div className="flex items-center gap-x-1">
             <CalendarIcon className="mr-1 size-4" />
             <span className="text-gray-500 dark:text-gray-200">Joined</span>
             <Tooltip

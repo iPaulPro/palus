@@ -61,7 +61,7 @@ const Followerings = ({ account }: FolloweringsProps) => {
   );
 
   return (
-    <div className="flex gap-8">
+    <div className="flex flex-wrap gap-x-8 gap-y-2">
       <button
         className="flex gap-x-1"
         onClick={() => setShowFollowingModal(true)}
