@@ -8,8 +8,7 @@ import {
   GiftIcon,
   GlobeAltIcon,
   NoSymbolIcon,
-  PaintBrushIcon,
-  SparklesIcon
+  PaintBrushIcon
 } from "@heroicons/react/24/outline";
 import type { AccountFragment } from "@palus/indexer";
 import { Link } from "react-router";
@@ -37,16 +36,6 @@ const AccountSettings = () => {
       icon: <CurrencyDollarIcon className="size-5" />,
       title: "Monetize",
       url: "/settings/monetize"
-    },
-    {
-      icon: <CurrencyDollarIcon className="size-5" />,
-      title: "Creator Coin",
-      url: "/settings/creatorcoin"
-    },
-    {
-      icon: <SparklesIcon className="size-5" />,
-      title: "Pro",
-      url: "/settings/pro"
     },
     {
       icon: <GiftIcon className="size-5" />,

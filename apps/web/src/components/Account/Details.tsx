@@ -169,13 +169,11 @@ const Details = ({
           )}
           <div className="flex items-center gap-x-1">
             <CalendarIcon className="mr-1 size-4" />
-            <span className="text-gray-500 dark:text-gray-200">Joined</span>
+            <span>Joined</span>
             <Tooltip
               content={dayjs(account.createdAt).format("MMM D, YYYY, h:mm A")}
             >
-              <span className="text-gray-500 dark:text-gray-200">
-                {dayjs(account.createdAt).format("MMM YYYY")}
-              </span>
+              <span>{dayjs(account.createdAt).format("MMM YYYY")}</span>
             </Tooltip>
           </div>
         </div>
