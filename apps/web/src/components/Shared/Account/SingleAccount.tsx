@@ -1,3 +1,5 @@
+import { Square2StackIcon } from "@heroicons/react/24/outline";
+import formatAddress from "@palus/helpers/formatAddress";
 import getAccount from "@palus/helpers/getAccount";
 import getAvatar from "@palus/helpers/getAvatar";
 import type { AccountFragment } from "@palus/indexer";
@@ -8,6 +10,7 @@ import Slug from "@/components/Shared/Slug";
 import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import getMentions from "@/helpers/getMentions";
+import useCopyToClipboard from "@/hooks/useCopyToClipboard";
 import AccountLink from "./AccountLink";
 import AccountPreview from "./AccountPreview";
 import FollowUnfollowButton from "./FollowUnfollowButton";
@@ -21,6 +24,7 @@ interface SingleAccountProps {
   account: AccountFragment;
   showBio?: boolean;
   showUserPreview?: boolean;
+  showAddress?: boolean;
 }
 
 const SingleAccount = ({
@@ -30,7 +34,8 @@ const SingleAccount = ({
   linkToAccount = true,
   account,
   showBio = false,
-  showUserPreview = true
+  showUserPreview = true,
+  showAddress = false
 }: SingleAccountProps) => {
   const UserAvatar = () => (
     <Image
@@ -46,22 +51,40 @@ const SingleAccount = ({
     />
   );
 
+  const copyAddress = useCopyToClipboard(
+    account.address,
+    "Address copied to clipboard!"
+  );
+
   const UserName = () => (
     <div>
-      <div
-        className={cn(
-          { "font-bold": isBig },
-          "flex max-w-sm items-center gap-x-0.5"
-        )}
-      >
-        <div className="truncate font-semibold">{getAccount(account).name}</div>
-        {account.score < 9000 ? null : <TopAccount />}
+      <div className={cn({ "flex items-center gap-x-1": showAddress })}>
+        <div
+          className={cn(
+            { "font-bold": isBig },
+            "flex max-w-sm items-center gap-x-0.5"
+          )}
+        >
+          <div className="truncate font-semibold">
+            {getAccount(account).name}
+          </div>
+          {account.score < 9000 ? null : <TopAccount />}
+        </div>
+        <Slug
+          className="text-sm"
+          prefix="@"
+          slug={getAccount(account).username}
+        />
       </div>
-      <Slug
-        className="text-sm"
-        prefix="@"
-        slug={getAccount(account).username}
-      />
+      {showAddress && (
+        <div className="flex items-center gap-x-1 text-sm">
+          {formatAddress(account.address)}
+          <Square2StackIcon
+            className="size-4 cursor-pointer hover:text-brand-500"
+            onClick={copyAddress}
+          />
+        </div>
+      )}
     </div>
   );
 

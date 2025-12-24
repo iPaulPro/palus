@@ -156,12 +156,6 @@ const PersonalizeSettingsForm = () => {
         onSubmit={(data) => updateAccount(data, avatarUrl, coverUrl)}
       >
         <Input
-          disabled
-          label="Account Address"
-          type="text"
-          value={currentAccount?.address}
-        />
-        <Input
           label="Name"
           placeholder="Gavin"
           type="text"

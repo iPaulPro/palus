@@ -82,6 +82,8 @@ const AccountSettings = () => {
           <SingleAccount
             account={currentAccount as AccountFragment}
             isBig
+            linkToAccount={false}
+            showAddress
             showUserPreview={false}
           />
         </div>
