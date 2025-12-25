@@ -1,4 +1,3 @@
-import { useMediaQuery } from "@uidotdev/usehooks";
 import {
   forwardRef,
   type ReactNode,
@@ -7,13 +6,12 @@ import {
   useMemo,
   useRef
 } from "react";
-import PullToRefresh from "react-simple-pull-to-refresh";
+import { useNavigationType } from "react-router";
 import {
   type CacheSnapshot,
   WindowVirtualizer,
   type WindowVirtualizerHandle
 } from "virtua";
-import Loader from "@/components/Shared/Loader";
 
 interface CachedWindowVirtualizerProps {
   cacheKey: string;
@@ -31,7 +29,8 @@ const CachedWindowVirtualizer = forwardRef<
 >(({ cacheKey, children, onRefresh }, ref) => {
   const innerRef = useRef<WindowVirtualizerHandle>(null);
   const isRestored = useRef(false);
-  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
+  const navType = useNavigationType();
+  const shouldRestore = navType === "POP";
 
   useImperativeHandle(ref, () => innerRef.current as WindowVirtualizerHandle);
 
@@ -71,7 +70,7 @@ const CachedWindowVirtualizer = forwardRef<
     const handle = innerRef.current;
     if (!handle) return;
 
-    if (!isRestored.current) {
+    if (!isRestored.current && shouldRestore) {
       window.scrollTo(0, offset);
       isRestored.current = true;
     }
@@ -86,41 +85,14 @@ const CachedWindowVirtualizer = forwardRef<
       window.removeEventListener("scroll", onScroll);
       sessionStorage.setItem(cacheKey, JSON.stringify([scrollY, handle.cache]));
     };
-  }, [cacheKey, offset]);
-
-  const PullingContent = () => {
-    return (
-      <div className="flex h-24 w-full items-center justify-center">
-        <span className="text-sm">Pull to refresh</span>
-      </div>
-    );
-  };
-
-  const RefreshingContent = () => {
-    return (
-      <div className="flex h-24 w-full items-center justify-center">
-        <Loader />
-      </div>
-    );
-  };
-
-  const Noop = async () => {};
+  }, [cacheKey, offset, shouldRestore]);
 
   return (
-    <PullToRefresh
-      isPullable={isSmallDevice && Boolean(onRefresh)}
-      maxPullDownDistance={128}
-      onRefresh={onRefresh ?? Noop}
-      pullDownThreshold={96}
-      pullingContent={<PullingContent />}
-      refreshingContent={<RefreshingContent />}
-    >
-      <div className="virtual-divider-list-window">
-        <WindowVirtualizer cache={cache} ref={innerRef}>
-          {children}
-        </WindowVirtualizer>
-      </div>
-    </PullToRefresh>
+    <div className="virtual-divider-list-window">
+      <WindowVirtualizer cache={cache} ref={innerRef}>
+        {children}
+      </WindowVirtualizer>
+    </div>
   );
 });
 

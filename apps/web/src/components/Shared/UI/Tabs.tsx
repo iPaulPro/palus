@@ -4,7 +4,7 @@ import {
   type MouseEvent,
   memo,
   type ReactNode,
-  useEffect,
+  useLayoutEffect,
   useRef
 } from "react";
 import { ScrollArea } from "@/components/Shared/UI/ScrollArea";
@@ -21,14 +21,26 @@ interface TabsProps {
 const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
   const tabRefs = useRef<Map<string, HTMLLIElement>>(new Map());
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const activeTab = tabRefs.current.get(active);
     if (activeTab) {
-      activeTab.scrollIntoView({
-        behavior: "smooth",
-        block: "nearest",
-        inline: "center"
-      });
+      const viewport = activeTab.closest('[data-slot="scroll-area-viewport"]');
+      if (viewport) {
+        const viewportRect = viewport.getBoundingClientRect();
+        const tabRect = activeTab.getBoundingClientRect();
+
+        const scrollLeft =
+          tabRect.left -
+          viewportRect.left +
+          viewport.scrollLeft -
+          viewportRect.width / 2 +
+          tabRect.width / 2;
+
+        viewport.scrollTo({
+          behavior: "smooth",
+          left: scrollLeft
+        });
+      }
     }
   }, [active]);
 
