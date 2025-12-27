@@ -71,6 +71,7 @@ const NewPublication = ({
     parentPost,
     setPostContent,
     setEditingPost,
+    setParentPost,
     setQuotedPost
   } = usePostStore();
 
@@ -116,6 +117,7 @@ const NewPublication = ({
     setAttachments([]);
     setQuotedPost(undefined);
     setEditingPost(undefined);
+    setParentPost(undefined);
     setRules(undefined);
     setContentWarning(undefined);
     setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);

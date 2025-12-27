@@ -16,12 +16,12 @@ interface ExploreFeedProps {
 
 const ExploreFeed = ({ focus }: ExploreFeedProps) => {
   const request: PostsExploreRequest = {
-    filter: {
-      metadata: { ...(focus && { mainContentFocus: [focus] }) },
-      ...(focus && {
+    ...(focus && {
+      filter: {
+        metadata: { mainContentFocus: [focus] },
         since: dayjs().subtract(2, "week").unix()
-      })
-    },
+      }
+    }),
     pageSize: PageSize.Fifty
   };
 
