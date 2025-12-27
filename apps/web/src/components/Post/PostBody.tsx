@@ -33,7 +33,7 @@ const PostBody = ({
   const filteredAttachments = getPostData(metadata)?.attachments || [];
   const filteredAsset = getPostData(metadata)?.asset;
 
-  const canShowMore = filteredContent?.length > 450 && (showMore || embedded);
+  const canShowMore = filteredContent?.length > 450 && showMore;
 
   const unknownActions =
     post.__typename === "Post"
@@ -90,7 +90,7 @@ const PostBody = ({
       >
         <Markup
           className={cn(
-            { "line-clamp-5": canShowMore },
+            { "line-clamp-2": embedded, "line-clamp-5": canShowMore },
             "markup linkify break-words",
             contentClassName
           )}
@@ -98,7 +98,7 @@ const PostBody = ({
         >
           {content}
         </Markup>
-        {canShowMore && !embedded ? (
+        {canShowMore ? (
           <H6 className="mt-4 flex items-center space-x-1 text-gray-500 dark:text-gray-200">
             <EyeIcon className="size-4" />
             <PostLink post={post}>Show more</PostLink>

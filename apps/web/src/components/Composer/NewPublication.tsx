@@ -258,9 +258,12 @@ const NewPublication = ({
   });
 
   return (
-    <Card className={className} onClick={() => setShowEmojiPicker(false)}>
+    <Card
+      className={cn({ "pt-5": isModal }, className)}
+      onClick={() => setShowEmojiPicker(false)}
+    >
       {parentPost && isModal ? (
-        <div className="mx-5 mt-5">
+        <div className="mx-5">
           <ThreadBody embedded post={parentPost} />
         </div>
       ) : null}
@@ -270,7 +273,7 @@ const NewPublication = ({
         isQuote={isQuote}
         selectedFeed={selectedFeed}
         setSelectedFeed={setSelectedFeed}
-        zeroPadding={Boolean(parentPost) && isModal}
+        zeroPadding={isModal}
       />
       {postContentError ? (
         <H6 className="mt-1 px-5 pb-3 text-red-500">{postContentError}</H6>

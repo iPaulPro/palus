@@ -16,7 +16,7 @@ interface ThreadBodyProps {
 
 const ThreadBody = ({ post, isRoot, embedded }: ThreadBodyProps) => {
   return (
-    <PostWrapper post={post}>
+    <PostWrapper disableClick={embedded} post={post}>
       <div className="relative flex items-start gap-x-3 pb-3">
         <PostAvatar post={post} />
         <div

@@ -8,14 +8,21 @@ interface PostWrapperProps {
   children: ReactNode | ReactNode[];
   className?: string;
   post: AnyPostFragment;
+  disableClick?: boolean;
 }
 
-const PostWrapper = ({ children, className = "", post }: PostWrapperProps) => {
+const PostWrapper = ({
+  children,
+  className = "",
+  post,
+  disableClick
+}: PostWrapperProps) => {
   const navigate = useNavigate();
   const { setCachedPost } = usePostLinkStore();
   const rootRef = useRef<HTMLElement>(null);
 
   const handleClick = () => {
+    if (disableClick) return;
     const selection = window.getSelection();
     if (!selection || !selection.toString().length) {
       setCachedPost(post);
