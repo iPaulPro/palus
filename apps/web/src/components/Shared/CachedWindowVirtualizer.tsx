@@ -16,7 +16,6 @@ import {
 interface CachedWindowVirtualizerProps {
   cacheKey: string;
   children: ReactNode;
-  onRefresh?: () => Promise<any>;
 }
 
 // Track which keys have been "cleared" during this JS session to allow
@@ -26,7 +25,7 @@ const sessionHandledKeys = new Set<string>();
 const CachedWindowVirtualizer = forwardRef<
   WindowVirtualizerHandle,
   CachedWindowVirtualizerProps
->(({ cacheKey, children, onRefresh }, ref) => {
+>(({ cacheKey, children }, ref) => {
   const innerRef = useRef<WindowVirtualizerHandle>(null);
   const isRestored = useRef(false);
   const navType = useNavigationType();

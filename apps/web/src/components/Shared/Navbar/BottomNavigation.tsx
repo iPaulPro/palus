@@ -99,7 +99,7 @@ const BottomNavigation = () => {
   return (
     <nav
       className={cn(
-        "fixed inset-x-0 bottom-0 z-[5] border-gray-200 border-t bg-white md:hidden dark:border-gray-800 dark:bg-black",
+        "fixed inset-x-0 bottom-0 z-[5] border-gray-200 border-t bg-surface md:hidden dark:border-gray-800",
         {
           "pb-6":
             isStandalone || ("standalone" in navigator && navigator.standalone)

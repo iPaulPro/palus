@@ -1,6 +1,7 @@
 import { memo, type ReactNode, useRef } from "react";
 import type { WindowVirtualizerHandle } from "virtua";
 import CachedWindowVirtualizer from "@/components/Shared/CachedWindowVirtualizer";
+import PullToRefresh from "@/components/Shared/PullToRefresh";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
@@ -50,16 +51,14 @@ const PostFeed = <T extends { id: string }>({
   }
 
   return (
-    <Card className="virtual-divider-list-window">
-      <CachedWindowVirtualizer
-        cacheKey={cacheKey}
-        onRefresh={refetch}
-        ref={ref}
-      >
-        {items.map((item) => renderItem(item))}
-        {hasMore && <span ref={loadMoreRef} />}
-      </CachedWindowVirtualizer>
-    </Card>
+    <PullToRefresh onRefresh={refetch}>
+      <Card className="virtual-divider-list-window">
+        <CachedWindowVirtualizer cacheKey={cacheKey} ref={ref}>
+          {items.map((item) => renderItem(item))}
+          {hasMore && <span ref={loadMoreRef} />}
+        </CachedWindowVirtualizer>
+      </Card>
+    </PullToRefresh>
   );
 };
 

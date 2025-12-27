@@ -16,6 +16,7 @@ import QuoteNotification from "@/components/Notification/Type/QuoteNotification"
 import ReactionNotification from "@/components/Notification/Type/ReactionNotification";
 import RepostNotification from "@/components/Notification/Type/RepostNotification";
 import CachedWindowVirtualizer from "@/components/Shared/CachedWindowVirtualizer";
+import PullToRefresh from "@/components/Shared/PullToRefresh";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
@@ -132,36 +133,36 @@ const List = ({ feedType }: ListProps) => {
   }
 
   return (
-    <Card className="virtual-divider-list-window">
-      <CachedWindowVirtualizer
-        cacheKey={cacheKey}
-        onRefresh={refetch}
-        ref={ref}
-      >
-        {notifications.map((notification) => {
-          if (!("id" in notification)) {
-            return null;
-          }
+    <PullToRefresh onRefresh={refetch}>
+      <Card className="virtual-divider-list-window">
+        <CachedWindowVirtualizer cacheKey={cacheKey} ref={ref}>
+          {notifications.map((notification) => {
+            if (!("id" in notification)) {
+              return null;
+            }
 
-          const Component =
-            notificationComponentMap[
-              notification.__typename as keyof typeof notificationComponentMap
-            ];
+            const Component =
+              notificationComponentMap[
+                notification.__typename as keyof typeof notificationComponentMap
+              ];
 
-          return (
-            <div
-              className={cn({
-                "p-5": notification.__typename !== "FollowNotification"
-              })}
-              key={notification.id}
-            >
-              {Component && <Component notification={notification as never} />}
-            </div>
-          );
-        })}
-        {hasMore && <span ref={loadMoreRef} />}
-      </CachedWindowVirtualizer>
-    </Card>
+            return (
+              <div
+                className={cn({
+                  "p-5": notification.__typename !== "FollowNotification"
+                })}
+                key={notification.id}
+              >
+                {Component && (
+                  <Component notification={notification as never} />
+                )}
+              </div>
+            );
+          })}
+          {hasMore && <span ref={loadMoreRef} />}
+        </CachedWindowVirtualizer>
+      </Card>
+    </PullToRefresh>
   );
 };
 
