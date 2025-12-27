@@ -4,7 +4,7 @@ import { toast } from "sonner";
 import compressImage from "./compressImage";
 
 const BYTES_IN_MB = 1_000_000;
-const MAX_UPLOAD_LIMIT = 8 * BYTES_IN_MB;
+const MAX_UPLOAD_LIMIT = 125 * BYTES_IN_MB;
 
 export const validateFileSize = (file: File): boolean => {
   const isImage = file.type.includes("image");
