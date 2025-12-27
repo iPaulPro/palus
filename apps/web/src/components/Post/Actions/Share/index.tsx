@@ -36,7 +36,7 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
     targetPost.operations?.canQuote.__typename ===
     "PostOperationValidationPassed";
 
-  const iconClassName = "w-[15px] sm:w-[18px]";
+  const iconClassName = "w-[20px]";
 
   if (!canRepost && !canQuote) {
     return null;
@@ -99,7 +99,7 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
         <span
           className={cn(
             hasShared ? "text-brand-500" : "text-gray-500 dark:text-gray-200",
-            "w-3 text-[11px] sm:text-xs"
+            "w-3 text-sm sm:text-xs"
           )}
         >
           {shares}

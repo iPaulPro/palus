@@ -2,7 +2,6 @@ import { isRepost } from "@palus/helpers/postHelpers";
 import type { AnyPostFragment } from "@palus/indexer";
 import { memo } from "react";
 import CollectAction from "@/components/Post/OpenAction/CollectAction";
-import SmallCollectButton from "@/components/Post/OpenAction/CollectAction/SmallCollectButton";
 import TipAction from "@/components/Post/OpenAction/TipAction";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import Comment from "./Comment";
@@ -28,14 +27,13 @@ const PostActions = ({ post, showCount = false }: PostActionsProps) => {
       className="mt-3 flex w-full flex-wrap items-center justify-between gap-3"
       onClick={stopEventPropagation}
     >
-      <span className="flex items-center gap-x-6">
+      <span className="flex items-center gap-x-7 md:gap-x-6">
         <Comment post={targetPost} showCount={showCount} />
         <ShareMenu post={post} showCount={showCount} />
         <Like post={targetPost} showCount={showCount} />
-        {canAct && !showCount ? <CollectAction post={targetPost} /> : null}
         <TipAction post={targetPost} showCount={showCount} />
+        {canAct && !showCount ? <CollectAction post={targetPost} /> : null}
       </span>
-      {canAct ? <SmallCollectButton post={targetPost} /> : null}
     </span>
   );
 };

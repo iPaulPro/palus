@@ -98,9 +98,7 @@ const Like = ({ post, showCount }: LikeProps) => {
     });
   };
 
-  const iconClassName = showCount
-    ? "w-[17px] sm:w-[20px]"
-    : "w-[15px] sm:w-[18px]";
+  const iconClassName = showCount ? "w-[20px]" : "w-[20px] sm:w-[18px]";
 
   return (
     <div
@@ -131,7 +129,7 @@ const Like = ({ post, showCount }: LikeProps) => {
         </Tooltip>
       </button>
       {reactions > 0 && !showCount ? (
-        <span className="w-3 text-[11px] sm:text-xs">{reactions}</span>
+        <span className="w-3 text-sm sm:text-xs">{reactions}</span>
       ) : null}
     </div>
   );

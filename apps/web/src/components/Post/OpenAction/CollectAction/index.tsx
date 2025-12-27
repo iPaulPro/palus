@@ -27,11 +27,11 @@ const CollectAction = ({ post }: CollectActionProps) => {
           placement="top"
           withDelay
         >
-          <ShoppingBagIcon className="w-[15px] sm:w-[18px]" />
+          <ShoppingBagIcon className="w-[20px]" />
         </Tooltip>
       </button>
       {collects > 0 ? (
-        <span className="text-[11px] sm:text-xs">{collects}</span>
+        <span className="text-sm sm:text-xs">{collects}</span>
       ) : null}
       <Modal
         onClose={() => setShowCollectModal(false)}

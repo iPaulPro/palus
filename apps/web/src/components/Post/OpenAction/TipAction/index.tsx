@@ -16,9 +16,7 @@ const TipAction = ({ post, showCount }: TipActionProps) => {
   const hasTipped = post.operations?.hasTipped;
   const { tips } = post.stats;
 
-  const iconClassName = showCount
-    ? "w-[17px] sm:w-[20px]"
-    : "w-[15px] sm:w-[18px]";
+  const iconClassName = showCount ? "w-[20px]" : "w-[20px] sm:w-[18px]";
 
   return (
     <div className="flex items-center space-x-1 text-gray-500 dark:text-gray-200">
@@ -55,7 +53,7 @@ const TipAction = ({ post, showCount }: TipActionProps) => {
         <span
           className={cn(
             hasTipped ? "text-brand-500" : "text-gray-500 dark:text-gray-200",
-            "w-3 text-[11px] sm:text-xs"
+            "w-3 text-sm sm:text-xs"
           )}
         >
           {tips || 0}
