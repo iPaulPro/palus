@@ -49,7 +49,7 @@ const NewPost = ({ feed }: NewPostProps) => {
           src={getAvatar(currentAccount)}
           width={44}
         />
-        <span className="text-gray-500 dark:text-gray-200">What's new?!</span>
+        <span className="text-gray-500 dark:text-gray-200">What's new?</span>
       </div>
     </Card>
   );

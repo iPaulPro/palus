@@ -12,6 +12,7 @@ import { createEditor } from "prosekit/core";
 import { ProseKit } from "prosekit/react";
 import { useMemo, useRef } from "react";
 import GroupSelector from "@/components/Composer/GroupSelector";
+import cn from "@/helpers/cn";
 import { useEditorHandle } from "./EditorHandle";
 import EditorMenus from "./EditorMenus";
 
@@ -21,6 +22,7 @@ interface EditorProps {
   feed?: string;
   selectedFeed: string;
   setSelectedFeed: (feed: string) => void;
+  zeroPadding?: boolean;
 }
 
 const Editor = ({
@@ -28,7 +30,8 @@ const Editor = ({
   isQuote,
   feed,
   selectedFeed,
-  setSelectedFeed
+  setSelectedFeed,
+  zeroPadding
 }: EditorProps) => {
   const { currentAccount } = useAccountStore();
   const { postContent } = usePostStore();
@@ -51,7 +54,14 @@ const Editor = ({
 
   return (
     <ProseKit editor={editor}>
-      <div className="box-border flex size-full justify-stretch overflow-y-auto overflow-x-hidden px-5 py-4">
+      <div
+        className={cn(
+          "box-border flex size-full justify-stretch overflow-y-auto overflow-x-hidden px-5",
+          {
+            "py-4": !zeroPadding
+          }
+        )}
+      >
         <Image
           alt={currentAccount?.address}
           className="mr-3 size-11 rounded-full border border-gray-200 bg-gray-200 dark:border-gray-800"

@@ -93,7 +93,7 @@ export const defineEditorExtension = () => {
     defineVirtualSelection(),
     defineMention(),
     defineModClickPrevention(),
-    definePlaceholder({ placeholder: "What's new?!", strategy: "doc" })
+    definePlaceholder({ placeholder: "What's new?", strategy: "doc" })
   ]);
 };
 

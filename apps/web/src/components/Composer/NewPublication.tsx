@@ -13,10 +13,12 @@ import Gif from "@/components/Composer/Actions/Gif";
 import RulesSettings from "@/components/Composer/Actions/RulesSettings";
 import NewAttachments from "@/components/Composer/NewAttachments";
 import QuotedPost from "@/components/Post/QuotedPost";
+import ThreadBody from "@/components/Post/ThreadBody";
 import { AudioPostSchema } from "@/components/Shared/Audio";
 import Wrapper from "@/components/Shared/Embed/Wrapper";
 import EmojiPicker from "@/components/Shared/EmojiPicker";
 import { Button, Card, H6 } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
 import collectActionParams from "@/helpers/collectActionParams";
 import errorToast from "@/helpers/errorToast";
 import getMentions from "@/helpers/getMentions";
@@ -47,9 +49,15 @@ interface NewPublicationProps {
   className?: string;
   post?: PostFragment;
   feed?: string;
+  isModal?: boolean;
 }
 
-const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
+const NewPublication = ({
+  className,
+  post,
+  feed,
+  isModal
+}: NewPublicationProps) => {
   const { currentAccount } = useAccountStore();
 
   // New post modal store
@@ -60,6 +68,7 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
     postContent,
     editingPost,
     quotedPost,
+    parentPost,
     setPostContent,
     setEditingPost,
     setQuotedPost
@@ -250,12 +259,18 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
 
   return (
     <Card className={className} onClick={() => setShowEmojiPicker(false)}>
+      {parentPost && isModal ? (
+        <div className="mx-5 mt-5">
+          <ThreadBody embedded post={parentPost} />
+        </div>
+      ) : null}
       <Editor
         feed={feed}
         isComment={isComment}
         isQuote={isQuote}
         selectedFeed={selectedFeed}
         setSelectedFeed={setSelectedFeed}
+        zeroPadding={Boolean(parentPost) && isModal}
       />
       {postContentError ? (
         <H6 className="mt-1 px-5 pb-3 text-red-500">{postContentError}</H6>
@@ -269,7 +284,11 @@ const NewPublication = ({ className, post, feed }: NewPublicationProps) => {
       ) : null}
       <div className="divider md:mx-5" />
       <div className="block items-center px-5 py-3 sm:flex">
-        <div className="flex w-full items-center space-x-5 md:space-x-4">
+        <div
+          className={cn("flex w-full items-center space-x-4", {
+            "space-x-5": !isModal
+          })}
+        >
           <Attachment />
           <EmojiPicker
             setEmoji={(emoji: string) => {

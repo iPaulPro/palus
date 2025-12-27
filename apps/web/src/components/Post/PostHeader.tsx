@@ -48,7 +48,7 @@ const PostHeader = ({
         post={targetPost}
         timestamp={timestamp}
       />
-      {!post.isDeleted && !quoted ? (
+      {!post.isDeleted && !quoted && !embedded ? (
         <PostMenu post={targetPost} />
       ) : (
         <div className="size-[30px]" />

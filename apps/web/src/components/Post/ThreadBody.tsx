@@ -11,9 +11,10 @@ import PostHeader from "./PostHeader";
 interface ThreadBodyProps {
   post: PostFragment;
   isRoot?: boolean;
+  embedded?: boolean;
 }
 
-const ThreadBody = ({ post, isRoot }: ThreadBodyProps) => {
+const ThreadBody = ({ post, isRoot, embedded }: ThreadBodyProps) => {
   return (
     <PostWrapper post={post}>
       <div className="relative flex items-start gap-x-3 pb-3">
@@ -26,13 +27,13 @@ const ThreadBody = ({ post, isRoot }: ThreadBodyProps) => {
           })}
         />
         <div className="w-[calc(100%-55px)]">
-          <PostHeader post={post} />
+          <PostHeader embedded={embedded} post={post} />
           {post.isDeleted ? (
             <HiddenPost type={post.__typename} />
           ) : (
             <>
-              <PostBody post={post} />
-              <PostActions post={post} />
+              <PostBody embedded={embedded} post={post} />
+              {embedded ? null : <PostActions post={post} />}
             </>
           )}
         </div>

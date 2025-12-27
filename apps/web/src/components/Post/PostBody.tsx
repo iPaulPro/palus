@@ -17,12 +17,14 @@ interface PostBodyProps {
   post: AnyPostFragment;
   quoted?: boolean;
   showMore?: boolean;
+  embedded?: boolean;
 }
 
 const PostBody = ({
   contentClassName = "",
   post,
-  showMore = false
+  showMore = false,
+  embedded = false
 }: PostBodyProps) => {
   const targetPost = isRepost(post) ? post.repostOf : post;
   const { metadata } = targetPost;
@@ -31,7 +33,7 @@ const PostBody = ({
   const filteredAttachments = getPostData(metadata)?.attachments || [];
   const filteredAsset = getPostData(metadata)?.asset;
 
-  const canShowMore = filteredContent?.length > 450 && showMore;
+  const canShowMore = filteredContent?.length > 450 && (showMore || embedded);
 
   const unknownActions =
     post.__typename === "Post"
@@ -96,31 +98,33 @@ const PostBody = ({
         >
           {content}
         </Markup>
-        {canShowMore ? (
+        {canShowMore && !embedded ? (
           <H6 className="mt-4 flex items-center space-x-1 text-gray-500 dark:text-gray-200">
             <EyeIcon className="size-4" />
             <PostLink post={post}>Show more</PostLink>
           </H6>
         ) : null}
-        {unknownActions?.length ? (
+        {unknownActions?.length && !embedded ? (
           <div className="mt-3 flex items-center gap-x-2 rounded-xl border border-gray-200 px-4 py-2 text-gray-700 text-sm md:w-3/4 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200">
             <ExclamationCircleIcon className="size-4" />
             Includes unsupported actions
           </div>
         ) : null}
         {/* Attachments and Quotes */}
-        {showAttachments ? (
+        {showAttachments && !embedded ? (
           <Attachments
             asset={filteredAsset}
             attachments={filteredAttachments}
           />
         ) : null}
-        {showLive ? (
+        {showLive && !embedded ? (
           <div className="mt-3">
             <Video src={getSrc(metadata.liveUrl || metadata.playbackUrl)} />
           </div>
         ) : null}
-        {targetPost.quoteOf ? <Quote post={targetPost.quoteOf} /> : null}
+        {targetPost.quoteOf && !embedded ? (
+          <Quote post={targetPost.quoteOf} />
+        ) : null}
       </div>
     </div>
   );

@@ -1,3 +1,4 @@
+import getAccount from "@palus/helpers/getAccount";
 import NewPublication from "@/components/Composer/NewPublication";
 import SuperFollow from "@/components/Shared/Account/SuperFollow";
 import SwitchAccounts from "@/components/Shared/Account/SwitchAccounts";
@@ -24,8 +25,14 @@ const GlobalModals = () => {
     useSwitchAccountModalStore();
   const { show: showNewPostModal, setShow: setShowNewPostModal } =
     useNewPostModalStore();
-  const { editingPost, setEditingPost, setQuotedPost, setPostContent } =
-    usePostStore();
+  const {
+    editingPost,
+    parentPost,
+    setEditingPost,
+    setQuotedPost,
+    setPostContent,
+    setParentPost
+  } = usePostStore();
   const { setAttachments } = usePostAttachmentStore();
   const { authModalType, showAuthModal, setShowAuthModal } =
     useAuthModalStore();
@@ -90,13 +97,24 @@ const GlobalModals = () => {
           setPostContent("");
           setEditingPost(undefined);
           setQuotedPost(undefined);
+          setParentPost(undefined);
           setAttachments([]);
         }}
         show={showNewPostModal}
-        size="md"
-        title={editingPost ? "Edit post" : "Create post"}
+        size="sm"
+        title={
+          editingPost
+            ? "Edit post"
+            : parentPost
+              ? `Reply to @${getAccount(parentPost.author).username}`
+              : "Create post"
+        }
       >
-        <NewPublication className="!rounded-b-xl !rounded-t-none border-none" />
+        <NewPublication
+          className="!rounded-b-xl !rounded-t-none border-none"
+          isModal
+          post={parentPost}
+        />
       </Modal>
       <Modal
         onClose={() => setShowFundModal({ showFundModal: false })}

@@ -1,9 +1,10 @@
 import { ChatBubbleLeftIcon } from "@heroicons/react/24/outline";
 import type { PostFragment } from "@palus/indexer";
 import { memo } from "react";
-import { useNavigate } from "react-router";
 import { Tooltip } from "@/components/Shared/UI";
 import humanize from "@/helpers/humanize";
+import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
+import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 
 interface CommentProps {
   post: PostFragment;
@@ -11,16 +12,20 @@ interface CommentProps {
 }
 
 const Comment = ({ post, showCount }: CommentProps) => {
-  const navigate = useNavigate();
   const count = post.stats.comments;
   const iconClassName = showCount ? "w-[20px]" : "w-[20px] sm:w-[18px]";
+  const { setShow: setShowNewPostModal } = useNewPostModalStore();
+  const { setParentPost } = usePostStore();
 
   return (
     <div className="flex items-center space-x-1 text-gray-500 dark:text-gray-200">
       <button
         aria-label="Comment"
         className="rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"
-        onClick={() => navigate(`/posts/${post.slug}`)}
+        onClick={() => {
+          setParentPost(post);
+          setShowNewPostModal(true);
+        }}
         type="button"
       >
         <Tooltip
