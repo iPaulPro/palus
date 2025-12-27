@@ -92,14 +92,14 @@ const GlobalModals = () => {
         <Auth />
       </Modal>
       <Modal
-        onClose={() => {
-          setShowNewPostModal(false);
+        afterLeave={() => {
           setPostContent("");
           setEditingPost(undefined);
           setQuotedPost(undefined);
           setParentPost(undefined);
           setAttachments([]);
         }}
+        onClose={() => setShowNewPostModal(false)}
         show={showNewPostModal}
         size="sm"
         title={

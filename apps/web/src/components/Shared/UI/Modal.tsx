@@ -26,20 +26,28 @@ const modalVariants = cva(
 );
 
 interface ModalProps extends VariantProps<typeof modalVariants> {
+  afterLeave?: () => void;
   children: ReactNode | ReactNode[];
   onClose?: () => void;
   show: boolean;
   title?: ReactNode;
 }
 
-const Modal = ({ children, onClose, show, size = "sm", title }: ModalProps) => {
+const Modal = ({
+  afterLeave,
+  children,
+  onClose,
+  show,
+  size = "sm",
+  title
+}: ModalProps) => {
   const handleClose = (event: SyntheticEvent) => {
     event.stopPropagation(); // This stops the event from propagating further
     onClose?.();
   };
 
   return (
-    <Transition as={Fragment} show={show}>
+    <Transition afterLeave={afterLeave} as={Fragment} show={show}>
       <Dialog
         as="div"
         className="fixed inset-0 z-10 flex min-h-screen items-center justify-center overflow-y-auto p-4 text-center sm:block sm:p-0"
