@@ -8,8 +8,8 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@palus/indexer": "workspace:*",
-    "@lens-protocol/metadata": "^2.1.0"
+    "@lens-protocol/metadata": "^2.1.0",
+    "@palus/indexer": "workspace:*"
   },
   "devDependencies": {
     "@palus/config": "workspace:*",
