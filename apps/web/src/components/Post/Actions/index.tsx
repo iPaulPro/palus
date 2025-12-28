@@ -3,6 +3,7 @@ import type { AnyPostFragment } from "@palus/indexer";
 import { memo } from "react";
 import CollectAction from "@/components/Post/OpenAction/CollectAction";
 import TipAction from "@/components/Post/OpenAction/TipAction";
+import cn from "@/helpers/cn";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import Comment from "./Comment";
 import Like from "./Like";
@@ -27,7 +28,12 @@ const PostActions = ({ post, showCount = false }: PostActionsProps) => {
       className="mt-3 flex w-full flex-wrap items-center justify-between gap-3"
       onClick={stopEventPropagation}
     >
-      <span className="flex items-center gap-x-7 md:gap-x-6">
+      <span
+        className={cn("flex items-center md:gap-x-6", {
+          "gap-x-5": canAct,
+          "gap-x-6": !canAct
+        })}
+      >
         <Comment post={targetPost} showCount={showCount} />
         <ShareMenu post={post} showCount={showCount} />
         <Like post={targetPost} showCount={showCount} />

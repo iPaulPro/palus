@@ -49,11 +49,11 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
     );
   }
   return (
-    <article className="p-5">
+    <article className="py-5 pr-5 pl-3 md:p-5">
       <PostType post={post} showType />
       <div className="flex items-start gap-x-3" ref={headerRef}>
         <PostAvatar post={post} />
-        <div className="w-[calc(100%-55px)]">
+        <div>
           <PostHeader post={targetPost} />
           {targetPost.isDeleted ? (
             <HiddenPost type={targetPost.__typename} />

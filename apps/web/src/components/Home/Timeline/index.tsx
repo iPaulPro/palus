@@ -85,9 +85,9 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
             {timelineItem.comments.length === 0
               ? null
               : commentsToShow.map((comment, i) => (
-                  <div className="flex pl-5 last:pb-2" key={comment.id}>
+                  <div className="flex pl-4 last:pb-2" key={comment.id}>
                     <div
-                      className={cn("flex w-11 flex-none justify-center", {
+                      className={cn("flex w-9 flex-none justify-center", {
                         "pb-4":
                           i === commentsToShow.length - 1 &&
                           remainingCommentsCount === 0
@@ -109,12 +109,12 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
                   </div>
                 ))}
             {remainingCommentsCount > 0 ? (
-              <div className="flex pb-2 pl-5">
+              <div className="flex pb-2 pl-3">
                 <div className="flex w-11 flex-none justify-center pb-4">
                   <div className="h-full w-[1px] border-gray-200 border-l dark:border-gray-800" />
                 </div>
                 <PostLink
-                  className="flex items-center gap-1 pt-2 pb-4 pl-3 font-bold text-gray-500 text-sm hover:underline dark:text-gray-200"
+                  className="flex items-center gap-1 pt-2 pb-4 pl-2 font-bold text-gray-500 text-sm hover:underline dark:text-gray-200"
                   post={timelineItem.primary}
                 >
                   <EyeIcon className="size-4" />

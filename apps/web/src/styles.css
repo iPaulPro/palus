@@ -147,7 +147,7 @@
   .markup > p,
   ul {
     word-break: break-word;
-    @apply leading-[26px] list-disc list-inside;
+    @apply leading-[26px] list-disc;
     @apply [&:not(:last-child)]:mb-3;
   }
 

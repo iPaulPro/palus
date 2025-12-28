@@ -33,7 +33,7 @@ const SinglePost = ({
       className={cn("w-full cursor-pointer pt-4 pr-5", {
         "pb-3": !hasComments,
         "pl-2.5": embedded,
-        "pl-5": !embedded
+        "pl-3": !embedded
       })}
       post={rootPost}
     >
@@ -42,14 +42,18 @@ const SinglePost = ({
       ) : (
         <PostType post={post} showType={showType} />
       )}
-      <div className="flex gap-x-3">
-        <div className="flex flex-grow flex-col items-center">
-          <PostAvatar post={rootPost} timelineItem={timelineItem} />
+      <div className="flex w-full gap-x-2">
+        <div className="flex flex-none flex-col items-center">
+          <PostAvatar
+            post={rootPost}
+            quoted={embedded}
+            timelineItem={timelineItem}
+          />
           {hasComments ? (
             <div className="w-[1px] flex-grow border-gray-200 border-l dark:border-gray-800" />
           ) : null}
         </div>
-        <div className="w-[calc(100%-55px)]">
+        <div className="w-full">
           <PostHeader
             embedded={embedded}
             post={rootPost}

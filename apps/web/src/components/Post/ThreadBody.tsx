@@ -16,7 +16,11 @@ interface ThreadBodyProps {
 
 const ThreadBody = ({ post, isRoot, embedded }: ThreadBodyProps) => {
   return (
-    <PostWrapper disableClick={embedded} post={post}>
+    <PostWrapper
+      className="w-full cursor-pointer pr-4"
+      disableClick={embedded}
+      post={post}
+    >
       <div className="relative flex items-start gap-x-3 pb-3">
         <PostAvatar post={post} />
         <div
@@ -26,7 +30,7 @@ const ThreadBody = ({ post, isRoot, embedded }: ThreadBodyProps) => {
             "left-dash text-gray-300 dark:text-gray-800": isRoot
           })}
         />
-        <div className="w-[calc(100%-55px)]">
+        <div>
           <PostHeader embedded={embedded} post={post} />
           {post.isDeleted ? (
             <HiddenPost type={post.__typename} />

@@ -50,9 +50,7 @@ const PostHeader = ({
       />
       {!post.isDeleted && !quoted && !embedded ? (
         <PostMenu post={targetPost} />
-      ) : (
-        <div className="size-[30px]" />
-      )}
+      ) : null}
       {quoted && isNew ? (
         <button
           aria-label="Remove Quote"

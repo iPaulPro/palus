@@ -16,6 +16,10 @@ const ActionType = ({ timelineItem }: ActionTypeProps) => {
   const { reposts } = timelineItem;
   const canCombined = getCanCombined([reposts?.length || 0]);
 
+  if (!canCombined && !reposts?.length) {
+    return null;
+  }
+
   return (
     <span onClick={stopEventPropagation}>
       {canCombined ? (

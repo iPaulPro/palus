@@ -32,7 +32,7 @@ const QuotedPost = ({ isNew = false, post }: QuotedPostProps) => {
       className="cursor-pointer p-4 first:rounded-t-xl last:rounded-b-xl"
       post={post}
     >
-      <div className="flex items-center gap-x-2">
+      <div className="flex gap-x-2">
         <PostAvatar post={post} quoted />
         <PostHeader isNew={isNew} post={post} quoted />
       </div>
