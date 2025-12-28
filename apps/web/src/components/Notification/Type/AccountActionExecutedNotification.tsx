@@ -64,7 +64,7 @@ const AccountActionExecutedNotification = ({
               }
 
               return (
-                <div key={index}>
+                <div className="not-first:-ml-2" key={index}>
                   <NotificationAccountAvatar account={account} />
                 </div>
               );

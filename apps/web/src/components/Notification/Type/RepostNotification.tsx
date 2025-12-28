@@ -37,7 +37,7 @@ const RepostNotification = ({ notification }: RepostNotificationProps) => {
           <ArrowsRightLeftIcon className="size-6" />
           <div className="flex items-center space-x-1">
             {reposts.slice(0, 10).map((repost) => (
-              <div key={repost.account.address}>
+              <div className="not-first:-ml-2" key={repost.account.address}>
                 <NotificationAccountAvatar account={repost.account} />
               </div>
             ))}

@@ -33,7 +33,7 @@ const FollowNotification = ({ notification }: FollowNotificationProps) => {
           <UserPlusIcon className="size-6" />
           <div className="flex items-center space-x-1">
             {followers.slice(0, 10).map((follower) => (
-              <div key={follower.account.address}>
+              <div className="not-first:-ml-2" key={follower.account.address}>
                 <NotificationAccountAvatar account={follower.account} />
               </div>
             ))}
@@ -43,7 +43,7 @@ const FollowNotification = ({ notification }: FollowNotificationProps) => {
           content={dayjs(timestamp).format("MMM D, YYYY h:mm A")}
           placement="left"
         >
-          <div className="text-secondary text-sm">
+          <div className="pl-4 text-secondary text-sm">
             {formatRelativeOrAbsolute(timestamp)}
           </div>
         </Tooltip>

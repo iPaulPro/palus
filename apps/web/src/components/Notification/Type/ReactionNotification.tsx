@@ -37,7 +37,7 @@ const ReactionNotification = ({ notification }: ReactionNotificationProps) => {
           <HeartIcon className="size-6" />
           <div className="flex items-center space-x-1">
             {reactions.slice(0, 10).map((reaction) => (
-              <div key={reaction.account.address}>
+              <div className="not-first:-ml-2" key={reaction.account.address}>
                 <NotificationAccountAvatar account={reaction.account} />
               </div>
             ))}
