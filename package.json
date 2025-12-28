@@ -25,10 +25,5 @@
   "packageManager": "pnpm@10.17.1",
   "engines": {
     "node": ">=18.x <=22.x"
-  },
-  "pnpm": {
-    "overrides": {
-      "ox": "0.9.6"
-    }
   }
 }
