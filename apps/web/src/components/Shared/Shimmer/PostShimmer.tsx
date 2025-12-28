@@ -3,7 +3,7 @@ import Skeleton from "@/components/Shared/Skeleton";
 
 const PostShimmer = () => {
   return (
-    <div className="flex items-start space-x-3 px-5 py-4">
+    <div className="flex items-start space-x-3 py-4 pr-5 pl-3">
       <div>
         <Skeleton className="size-11 rounded-full" />
       </div>
