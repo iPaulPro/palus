@@ -2,7 +2,7 @@
   "name": "palus",
   "version": "0.0.0",
   "private": true,
-  "license": "AGPL-3.0",
+  "license": "GPL-3.0",
   "scripts": {
     "biome:check": "biome check .",
     "biome:fix": "biome check --write .",
