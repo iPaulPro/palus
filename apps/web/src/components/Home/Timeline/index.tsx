@@ -109,12 +109,12 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
                   </div>
                 ))}
             {remainingCommentsCount > 0 ? (
-              <div className="flex pb-2 pl-3">
-                <div className="flex w-11 flex-none justify-center pb-4">
+              <div className="flex pb-2 pl-4 md:pl-6">
+                <div className="flex w-9 flex-none justify-center pb-4">
                   <div className="h-full w-[1px] border-gray-200 border-l dark:border-gray-800" />
                 </div>
                 <PostLink
-                  className="flex items-center gap-1 pt-2 pb-4 pl-2 font-bold text-gray-500 text-sm hover:underline dark:text-gray-200"
+                  className="flex items-center gap-1 pt-2 pb-4 pl-3 font-bold text-gray-500 text-sm hover:underline dark:text-gray-200"
                   post={timelineItem.primary}
                 >
                   <EyeIcon className="size-4" />

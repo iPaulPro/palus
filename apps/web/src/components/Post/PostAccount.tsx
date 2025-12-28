@@ -51,7 +51,10 @@ const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
         </AccountLink>
         {group?.metadata ? (
           <>
-            <ChevronRightIcon className="size-4 text-gray-500" />
+            <ChevronRightIcon
+              className="size-3 text-secondary"
+              strokeWidth={3}
+            />
             <Link
               className="flex items-center gap-x-1 hover:underline focus:underline"
               to={`/g/${group.address}`}
@@ -67,7 +70,7 @@ const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
         ) : null}
         {timestamp ? (
           <span className="text-gray-500 dark:text-gray-200">
-            &bull;{" "}
+            &#8729;{" "}
             <PostLink className="text-sm hover:underline" post={post}>
               {formatRelativeOrAbsolute(timestamp)}
             </PostLink>

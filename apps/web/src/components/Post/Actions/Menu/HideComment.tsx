@@ -49,7 +49,8 @@ const HideComment = ({ post }: HideCommentProps) => {
     variables: { request: { post: post.id } }
   });
 
-  const canHideComment = currentAccount?.address !== post?.author?.address;
+  const canHideComment =
+    currentAccount?.address === post.commentOn?.author?.address;
 
   if (!canHideComment) {
     return null;
