@@ -96,4 +96,5 @@ Convenient Node.js helpers are in the `script` directory:
 
 ## License
 
-This project is released under the **GNU AGPL-3.0** license. See the [LICENSE](./LICENSE) file for details.
+This project is licensed under GPLv3, as provided in the original repository’s LICENSE file.
+The original README references AGPLv3, but no AGPL license text is included upstream.
