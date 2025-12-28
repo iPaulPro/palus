@@ -1,10 +1,13 @@
 import { AtSymbolIcon } from "@heroicons/react/24/outline";
 import getPostData from "@palus/helpers/getPostData";
 import type { MentionNotificationFragment } from "@palus/indexer";
+import dayjs from "dayjs";
 import { NotificationAccountAvatar } from "@/components/Notification/Account";
 import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
 import Markup from "@/components/Shared/Markup";
 import PostLink from "@/components/Shared/Post/PostLink";
+import { Tooltip } from "@/components/Shared/UI";
+import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
 
 interface MentionNotificationProps {
   notification: MentionNotificationFragment;
@@ -17,14 +20,25 @@ const MentionNotification = ({ notification }: MentionNotificationProps) => {
 
   const text = "mentioned you in a";
   const type = notification.post.commentOn ? "comment" : "post";
+  const timestamp = notification.post.timestamp;
 
   return (
     <div className="space-y-2">
-      <div className="flex items-center space-x-3">
-        <AtSymbolIcon className="size-6" />
-        <div className="flex items-center space-x-1">
-          <NotificationAccountAvatar account={firstAccount} />
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-3">
+          <AtSymbolIcon className="size-6" />
+          <div className="flex items-center space-x-1">
+            <NotificationAccountAvatar account={firstAccount} />
+          </div>
         </div>
+        <Tooltip
+          content={dayjs(timestamp).format("MMM D, YYYY h:mm A")}
+          placement="left"
+        >
+          <div className="text-secondary text-sm">
+            {formatRelativeOrAbsolute(timestamp)}
+          </div>
+        </Tooltip>
       </div>
       <div className="ml-9">
         <AggregatedNotificationTitle

@@ -14,6 +14,7 @@
   --color-brand-600: #055e87;
 
   --color-surface: #f9fafb;
+  --color-secondary: #6a7282;
 }
 
 .dark {
@@ -23,6 +24,7 @@
   --color-brand-600: #008dc9;
 
   --color-surface: #030712;
+  --color-secondary: #e5e7eb;
 }
 
 @keyframes shimmer {

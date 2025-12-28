@@ -1,9 +1,12 @@
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 import getAccount from "@palus/helpers/getAccount";
 import type { FollowNotificationFragment } from "@palus/indexer";
+import dayjs from "dayjs";
 import plur from "plur";
 import { NotificationAccountAvatar } from "@/components/Notification/Account";
 import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
+import { Tooltip } from "@/components/Shared/UI";
+import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface FollowNotificationProps {
@@ -21,18 +24,29 @@ const FollowNotification = ({ notification }: FollowNotificationProps) => {
     ? `and ${length} ${plur("other", length)} followed`
     : "followed";
   const type = "you";
+  const timestamp = notification.followers[0].followedAt;
 
   return (
     <div className="space-y-2 p-5">
-      <div className="flex items-center space-x-3">
-        <UserPlusIcon className="size-6" />
-        <div className="flex items-center space-x-1">
-          {followers.slice(0, 10).map((follower) => (
-            <div key={follower.account.address}>
-              <NotificationAccountAvatar account={follower.account} />
-            </div>
-          ))}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-3">
+          <UserPlusIcon className="size-6" />
+          <div className="flex items-center space-x-1">
+            {followers.slice(0, 10).map((follower) => (
+              <div key={follower.account.address}>
+                <NotificationAccountAvatar account={follower.account} />
+              </div>
+            ))}
+          </div>
         </div>
+        <Tooltip
+          content={dayjs(timestamp).format("MMM D, YYYY h:mm A")}
+          placement="left"
+        >
+          <div className="text-secondary text-sm">
+            {formatRelativeOrAbsolute(timestamp)}
+          </div>
+        </Tooltip>
       </div>
       <div className="ml-9">
         <AggregatedNotificationTitle

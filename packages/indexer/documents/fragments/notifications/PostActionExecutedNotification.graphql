@@ -10,6 +10,7 @@ fragment PostActionExecutedNotification on PostActionExecutedNotification {
           ...PayToCollectConfig
         }
       }
+      executedAt
     }
     ... on TippingPostActionExecuted {
       executedBy {
@@ -18,6 +19,13 @@ fragment PostActionExecutedNotification on PostActionExecutedNotification {
       tipAmount {
         ...PayableAmount
       }
+      executedAt
+    }
+    ... on UnknownPostActionExecuted {
+      executedBy {
+        ...Account
+      }
+      executedAt
     }
   }
   post {

@@ -2,10 +2,13 @@ import type {
   AccountActionExecutedNotificationFragment,
   TippingAccountActionExecuted
 } from "@palus/indexer";
+import dayjs from "dayjs";
 import plur from "plur";
 import { NotificationAccountAvatar } from "@/components/Notification/Account";
 import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
 import { TipIcon } from "@/components/Shared/Icons/TipIcon";
+import { Tooltip } from "@/components/Shared/UI";
+import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
 
 interface AccountActionExecutedNotificationProps {
   notification: AccountActionExecutedNotificationFragment;
@@ -42,28 +45,40 @@ const AccountActionExecutedNotification = ({
       ? firstAction.tipAmount
       : undefined;
 
+  const timestamp = notification.actions[0].executedAt;
+
   return (
     <div className="space-y-2">
-      <div className="flex items-center space-x-3">
-        <TipIcon className="size-6" />
-        <div className="flex items-center space-x-1">
-          {actions.slice(0, 10).map((action, index: number) => {
-            const account =
-              action.__typename === "TippingAccountActionExecuted"
-                ? action.executedBy
-                : undefined;
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-3">
+          <TipIcon className="size-6" />
+          <div className="flex items-center space-x-1">
+            {actions.slice(0, 10).map((action, index: number) => {
+              const account =
+                action.__typename === "TippingAccountActionExecuted"
+                  ? action.executedBy
+                  : undefined;
 
-            if (!account) {
-              return null;
-            }
+              if (!account) {
+                return null;
+              }
 
-            return (
-              <div key={index}>
-                <NotificationAccountAvatar account={account} />
-              </div>
-            );
-          })}
+              return (
+                <div key={index}>
+                  <NotificationAccountAvatar account={account} />
+                </div>
+              );
+            })}
+          </div>
         </div>
+        <Tooltip
+          content={dayjs(timestamp).format("MMM D, YYYY h:mm A")}
+          placement="left"
+        >
+          <div className="text-secondary text-sm">
+            {formatRelativeOrAbsolute(timestamp)}
+          </div>
+        </Tooltip>
       </div>
       <div className="ml-9">
         {firstAccount && (

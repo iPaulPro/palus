@@ -8,6 +8,13 @@ fragment AccountActionExecutedNotification on AccountActionExecutedNotification 
       tipAmount {
         ...PayableAmount
       }
+      executedAt
+    }
+    ... on UnknownAccountActionExecuted {
+      executedBy {
+        ...Account
+      }
+      executedAt
     }
   }
 }

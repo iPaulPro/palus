@@ -1,11 +1,14 @@
 import { HeartIcon } from "@heroicons/react/24/outline";
 import getPostData from "@palus/helpers/getPostData";
 import type { ReactionNotificationFragment } from "@palus/indexer";
+import dayjs from "dayjs";
 import plur from "plur";
 import { NotificationAccountAvatar } from "@/components/Notification/Account";
 import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
 import Markup from "@/components/Shared/Markup";
 import PostLink from "@/components/Shared/Post/PostLink";
+import { Tooltip } from "@/components/Shared/UI";
+import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
 import truncateUrl from "@/helpers/truncateUrl";
 
 interface ReactionNotificationProps {
@@ -25,18 +28,29 @@ const ReactionNotification = ({ notification }: ReactionNotificationProps) => {
     ? `and ${length} ${plur("other", length)} liked your`
     : "liked your";
   const type = notification.post.commentOn ? "comment" : "post";
+  const timestamp = notification.reactions[0].reactions[0].reactedAt;
 
   return (
     <div className="space-y-2">
-      <div className="flex items-center space-x-3">
-        <HeartIcon className="size-6" />
-        <div className="flex items-center space-x-1">
-          {reactions.slice(0, 10).map((reaction) => (
-            <div key={reaction.account.address}>
-              <NotificationAccountAvatar account={reaction.account} />
-            </div>
-          ))}
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-3">
+          <HeartIcon className="size-6" />
+          <div className="flex items-center space-x-1">
+            {reactions.slice(0, 10).map((reaction) => (
+              <div key={reaction.account.address}>
+                <NotificationAccountAvatar account={reaction.account} />
+              </div>
+            ))}
+          </div>
         </div>
+        <Tooltip
+          content={dayjs(timestamp).format("MMM D, YYYY h:mm A")}
+          placement="left"
+        >
+          <div className="text-secondary text-sm">
+            {formatRelativeOrAbsolute(timestamp)}
+          </div>
+        </Tooltip>
       </div>
       <div className="ml-9">
         <AggregatedNotificationTitle

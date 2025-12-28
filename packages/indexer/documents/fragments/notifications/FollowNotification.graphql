@@ -4,5 +4,6 @@ fragment FollowNotification on FollowNotification {
     account {
       ...Account
     }
+    followedAt
   }
 }
