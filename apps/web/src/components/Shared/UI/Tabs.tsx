@@ -57,7 +57,7 @@ const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
       <MotionConfig transition={{ bounce: 0, duration: 0.4, type: "spring" }}>
         <motion.ul
           className={cn(
-            "mb-0 grid min-w-full list-none auto-cols-max grid-flow-col gap-2 px-5 md:px-0",
+            "mb-0 grid min-w-full list-none auto-cols-max grid-flow-col gap-2 px-4 md:px-0",
             className
           )}
           layout

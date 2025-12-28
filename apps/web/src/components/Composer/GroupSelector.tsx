@@ -7,7 +7,7 @@ import {
   PageSize,
   useGroupsQuery
 } from "@palus/indexer";
-import { useMemo } from "react";
+import { memo, useMemo } from "react";
 import {
   SelectContent,
   SelectItem,
@@ -58,11 +58,11 @@ const GroupSelector = ({ selected, onChange }: GroupSelectorProps) => {
         className="!h-6 w-fit border-none px-0 py-0 opacity-75 shadow-none"
         size="sm"
       >
-        <SelectValue placeholder="Global Feed" />
+        <SelectValue />
       </SelectTrigger>
       <SelectContent>
         <SelectItem className="gap-1" key="global" value="global">
-          <GlobeAltIcon className="size-5" />
+          <GlobeAltIcon className="size-5 rounded-full bg-brand-600 p-0.5 text-white" />
           Global Feed
         </SelectItem>
         {options.map((option) => (
@@ -73,7 +73,7 @@ const GroupSelector = ({ selected, onChange }: GroupSelectorProps) => {
           >
             <img
               alt={option.label}
-              className="h-5 w-5 rounded-full object-cover"
+              className="size-5 rounded-full object-cover"
               src={option.icon}
             />
             {option.label}
@@ -84,4 +84,4 @@ const GroupSelector = ({ selected, onChange }: GroupSelectorProps) => {
   );
 };
 
-export default GroupSelector;
+export default memo(GroupSelector);

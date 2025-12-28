@@ -75,9 +75,9 @@ const Details = ({
   };
 
   return (
-    <div className="mb-4 space-y-3 px-5 md:px-0">
+    <div className="mb-4 space-y-2 px-4 md:space-y-3 md:px-0">
       <div className="flex items-start justify-between">
-        <div className="-mt-14 sm:-mt-24 relative ml-5 size-20 sm:size-36">
+        <div className="-mt-14 sm:-mt-24 relative ml-4 size-20 sm:size-36 md:ml-5">
           <Image
             alt={account.address}
             className="size-20 cursor-pointer rounded-full bg-gray-200 ring-3 ring-gray-50 sm:size-36 dark:bg-gray-700 dark:ring-black"
@@ -104,7 +104,7 @@ const Details = ({
           <AccountMenu account={account} />
         </div>
       </div>
-      <div className="space-y-1 py-2">
+      <div className="space-y-1 md:py-2">
         <div className="flex items-center gap-1.5">
           <H3 className="truncate">{getAccount(account).name}</H3>
           {account.score < 9000 ? null : <TopAccount className="size-6" />}

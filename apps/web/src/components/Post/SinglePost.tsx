@@ -33,7 +33,7 @@ const SinglePost = ({
       className={cn("w-full cursor-pointer pt-4 pr-5", {
         "pb-3": !hasComments,
         "pl-2.5": embedded,
-        "pl-3": !embedded
+        "pl-3 md:pl-5": !embedded
       })}
       post={rootPost}
     >

@@ -38,7 +38,7 @@ const NewPost = ({ feed }: NewPostProps) => {
 
   return (
     <Card
-      className="cursor-pointer space-y-3 px-5 py-4"
+      className="cursor-pointer space-y-3 px-3 py-4 md:px-5"
       onClick={handleOpenComposer}
     >
       <div className="flex items-center space-x-3">

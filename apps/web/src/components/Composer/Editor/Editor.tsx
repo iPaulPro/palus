@@ -56,7 +56,7 @@ const Editor = ({
     <ProseKit editor={editor}>
       <div
         className={cn(
-          "box-border flex size-full justify-stretch overflow-y-auto overflow-x-hidden px-5",
+          "box-border flex size-full justify-stretch overflow-y-auto overflow-x-hidden px-3 md:px-5",
           {
             "py-4": !zeroPadding
           }

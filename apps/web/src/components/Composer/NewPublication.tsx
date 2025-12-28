@@ -265,7 +265,7 @@ const NewPublication = ({
       onClick={() => setShowEmojiPicker(false)}
     >
       {parentPost && isModal ? (
-        <div className="mx-5">
+        <div className="mx-3 md:mx-5">
           <ThreadBody embedded post={parentPost} />
         </div>
       ) : null}

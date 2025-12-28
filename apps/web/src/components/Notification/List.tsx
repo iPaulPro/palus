@@ -149,7 +149,8 @@ const List = ({ feedType }: ListProps) => {
             return (
               <div
                 className={cn({
-                  "p-5": notification.__typename !== "FollowNotification"
+                  "px-4 py-5 md:p-5":
+                    notification.__typename !== "FollowNotification"
                 })}
                 key={notification.id}
               >

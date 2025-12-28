@@ -27,7 +27,7 @@ const FollowNotification = ({ notification }: FollowNotificationProps) => {
   const timestamp = notification.followers[0].followedAt;
 
   return (
-    <div className="space-y-2 p-5">
+    <div className="space-y-2 px-4 py-5 md:p-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <UserPlusIcon className="size-6" />
