@@ -85,7 +85,7 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
             {timelineItem.comments.length === 0
               ? null
               : commentsToShow.map((comment, i) => (
-                  <div className="flex pl-4 last:pb-2" key={comment.id}>
+                  <div className="flex pl-6 last:pb-2" key={comment.id}>
                     <div
                       className={cn("flex w-9 flex-none justify-center", {
                         "pb-4":

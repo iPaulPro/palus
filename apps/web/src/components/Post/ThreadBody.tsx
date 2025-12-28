@@ -27,7 +27,7 @@ const ThreadBody = ({ post, isRoot, embedded }: ThreadBodyProps) => {
           className={cn("absolute bottom-0 left-[21px] h-full", {
             "border-[0.9px] border-gray-300 border-solid dark:border-gray-800":
               !isRoot,
-            "left-dash text-gray-300 dark:text-gray-800": isRoot
+            "left-dash text-gray-400 dark:text-gray-700": isRoot
           })}
         />
         <div className="w-full">
