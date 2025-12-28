@@ -21,6 +21,7 @@ import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useNotificationStore } from "@/store/persisted/useNotificationStore";
+import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import NotificationShimmer from "./Shimmer";
 import TokenDistributedNotification from "./Type/TokenDistributedNotification";
 
@@ -42,6 +43,7 @@ interface ListProps {
 
 const List = ({ feedType }: ListProps) => {
   const { setLastSeenNotificationId } = useNotificationStore();
+  const { includeLowScore } = usePreferencesStore();
 
   const getNotificationType = useCallback(() => {
     switch (feedType) {
@@ -67,7 +69,7 @@ const List = ({ feedType }: ListProps) => {
 
   const request: NotificationRequest = {
     filter: {
-      includeLowScore: false,
+      includeLowScore,
       notificationTypes: getNotificationType()
     }
   };

@@ -2,6 +2,7 @@ import { NotificationFeedType } from "@palus/data/enums";
 import { type Dispatch, type SetStateAction, useEffect } from "react";
 import { useSearchParams } from "react-router";
 import { Tabs } from "@/components/Shared/UI";
+import Settings from "./Settings";
 
 interface FeedTypeProps {
   feedType: NotificationFeedType;
@@ -27,19 +28,22 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
   }, [tab]);
 
   return (
-    <Tabs
-      active={feedType}
-      layoutId="notification_tab"
-      setActive={(type) => {
-        setFeedType(type as NotificationFeedType);
-        setSearchParams(
-          type !== NotificationFeedType.All
-            ? `type=${type.toLowerCase()}`
-            : undefined
-        );
-      }}
-      tabs={tabs}
-    />
+    <div className="flex items-center justify-between">
+      <Tabs
+        active={feedType}
+        layoutId="notification_tab"
+        setActive={(type) => {
+          setFeedType(type as NotificationFeedType);
+          setSearchParams(
+            type !== NotificationFeedType.All
+              ? `type=${type.toLowerCase()}`
+              : undefined
+          );
+        }}
+        tabs={tabs}
+      />
+      <Settings />
+    </div>
   );
 };
 
