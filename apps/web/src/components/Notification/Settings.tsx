@@ -33,8 +33,8 @@ const Settings: FC = () => {
       >
         <div className="p-5">
           <ToggleWithHelper
-            description="Show low-signal notifications"
-            heading="Notification Signal filter"
+            description="Include notifications from Accounts with a low score"
+            heading="Low-signal notifications"
             icon={<SwatchIcon className="size-5" />}
             on={includeLowScore}
             setOn={setIncludeLowScore}
