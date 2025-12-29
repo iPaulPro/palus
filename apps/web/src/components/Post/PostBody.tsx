@@ -1,12 +1,14 @@
 import { ExclamationCircleIcon, EyeIcon } from "@heroicons/react/24/outline";
 import { getSrc } from "@livepeer/react/external";
 import getPostData from "@palus/helpers/getPostData";
+import getURLs from "@palus/helpers/getURLs";
 import { isRepost } from "@palus/helpers/postHelpers";
 import { type AnyPostFragment, ContentWarning } from "@palus/indexer";
 import { memo, useState } from "react";
 import Quote from "@/components/Shared/Embed/Quote";
 import Markup from "@/components/Shared/Markup";
 import Attachments from "@/components/Shared/Post/Attachments";
+import OEmbed from "@/components/Shared/Post/OEmbed";
 import PostLink from "@/components/Shared/Post/PostLink";
 import Video from "@/components/Shared/Post/Video";
 import { Button, H6 } from "@/components/Shared/UI";
@@ -23,6 +25,7 @@ interface PostBodyProps {
 const PostBody = ({
   contentClassName = "",
   post,
+  quoted,
   showMore = false,
   embedded = false
 }: PostBodyProps) => {
@@ -34,6 +37,8 @@ const PostBody = ({
   const filteredAsset = getPostData(metadata)?.asset;
 
   const canShowMore = filteredContent?.length > 450 && showMore;
+  const urls = getURLs(filteredContent);
+  const hasURLs = urls.length > 0;
 
   const unknownActions =
     post.__typename === "Post"
@@ -55,6 +60,14 @@ const PostBody = ({
   const showLive = metadata.__typename === "LivestreamMetadata";
   // Show attachments if they're there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
+  const showSharingLink = metadata.__typename === "LinkMetadata";
+  const showOembed =
+    !showSharingLink &&
+    hasURLs &&
+    !showLive &&
+    !showAttachments &&
+    !quoted &&
+    !targetPost.quoteOf;
 
   const [showCensored, setShowCensored] = useState(false);
   const contentWarning =
@@ -122,6 +135,7 @@ const PostBody = ({
             <Video src={getSrc(metadata.liveUrl || metadata.playbackUrl)} />
           </div>
         ) : null}
+        {showOembed ? <OEmbed url={urls[0]} /> : null}
         {targetPost.quoteOf && !embedded ? (
           <Quote post={targetPost.quoteOf} />
         ) : null}

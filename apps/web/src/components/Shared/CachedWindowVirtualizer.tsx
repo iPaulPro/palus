@@ -88,7 +88,7 @@ const CachedWindowVirtualizer = forwardRef<
 
   return (
     <div className="virtual-divider-list-window">
-      <WindowVirtualizer cache={cache} ref={innerRef}>
+      <WindowVirtualizer bufferSize={1200} cache={cache} ref={innerRef}>
         {children}
       </WindowVirtualizer>
     </div>
