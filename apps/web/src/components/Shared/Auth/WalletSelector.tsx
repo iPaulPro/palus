@@ -19,7 +19,17 @@ const WalletSelector: FC = () => {
   ];
 
   const filteredConnectors = connectors
-    .filter((connector: any) => allowedConnectors.includes(connector.id))
+    .filter((connector: any) => {
+      if (!allowedConnectors.includes(connector.id)) {
+        return false;
+      }
+      if (connector.id === "injected") {
+        return (
+          typeof window !== "undefined" && Boolean((window as any).ethereum)
+        );
+      }
+      return true;
+    })
     .sort(
       (a: Connector, b: Connector) =>
         allowedConnectors.indexOf(a.id) - allowedConnectors.indexOf(b.id)
