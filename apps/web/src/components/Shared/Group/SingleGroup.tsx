@@ -41,13 +41,13 @@ const SingleGroup = ({
   );
 
   const GroupInfo = () => (
-    <div className="mr-8 flex items-center space-x-3">
+    <div className="flex items-center space-x-3">
       <GroupAvatar />
       <div>
-        <div className="truncate font-semibold">{group.metadata?.name}</div>
+        <div className="truncate font-bold">{group.metadata?.name}</div>
         {showDescription && group.metadata?.description && (
           <div
-            className="linkify mt-2 text-base leading-6"
+            className="linkify mt-1 text-base leading-6"
             style={{ wordBreak: "break-word" }}
           >
             <Markup mentions={getMentions(group.metadata.description)}>
@@ -60,7 +60,7 @@ const SingleGroup = ({
   );
 
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between gap-x-4">
       {linkToGroup ? (
         <Link to={`/g/${group.address}`}>
           <GroupInfo />

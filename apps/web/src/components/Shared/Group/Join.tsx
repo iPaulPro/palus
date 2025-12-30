@@ -22,7 +22,7 @@ interface JoinProps {
 const Join = ({
   group,
   small,
-  className = "",
+  className = "flex-none",
   title = "Join",
   onSuccess
 }: JoinProps) => {

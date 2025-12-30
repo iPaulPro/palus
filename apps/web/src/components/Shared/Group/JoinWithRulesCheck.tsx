@@ -19,6 +19,7 @@ const JoinWithRulesCheck = ({ group, small }: JoinWithRulesCheckProps) => {
     return (
       <Button
         aria-label="Super Join"
+        className="flex-none"
         onClick={() => setShowSuperJoinModal(true, group)}
         outline
         size={small ? "sm" : "md"}

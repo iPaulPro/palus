@@ -75,6 +75,7 @@ const CancelGroupMembershipRequest = ({
   return (
     <Button
       aria-label="Cancel Request"
+      className="flex-none"
       disabled={isSubmitting}
       loading={isSubmitting}
       onClick={handleCancelGroupMembershipRequest}

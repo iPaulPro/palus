@@ -69,6 +69,7 @@ const Leave = ({ group, small }: LeaveProps) => {
   return (
     <Button
       aria-label="Leave"
+      className="flex-none"
       disabled={isSubmitting}
       loading={isSubmitting}
       onClick={handleLeave}

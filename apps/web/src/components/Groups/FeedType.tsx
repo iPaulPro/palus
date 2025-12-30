@@ -9,8 +9,8 @@ interface FeedTypeProps {
 
 const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
   const tabs = [
-    { name: "Managed groups", type: GroupsFeedType.Managed },
-    { name: "Your groups", type: GroupsFeedType.Member }
+    { name: "Your groups", type: GroupsFeedType.Member },
+    { name: "Managed groups", type: GroupsFeedType.Managed }
   ];
 
   return (

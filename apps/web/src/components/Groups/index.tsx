@@ -12,7 +12,7 @@ import List from "./List";
 const Groups = () => {
   const { currentAccount } = useAccountStore();
   const [feedType, setFeedType] = useState<GroupsFeedType>(
-    GroupsFeedType.Managed
+    GroupsFeedType.Member
   );
 
   if (!currentAccount) {
