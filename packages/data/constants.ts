@@ -36,6 +36,7 @@ export const IPFS_GATEWAY = "https://gw.ipfs-lens.dev/ipfs";
 // Tokens / Keys
 export const WALLETCONNECT_PROJECT_ID = "3f7a1aceea44f6ca49f43842e86107a8";
 export const GIPHY_KEY = "yNwCXMKkiBrxyyFduF56xCbSuJJM8cMd"; // Read only safe key
+export const INFURA_API_KEY = "7a63a964ef5c4c228b02b387e1a8d74f";
 
 export const LENS_NAMESPACE = "lens/";
 export const NATIVE_TOKEN_SYMBOL = IS_TESTNET ? "GRASS" : "GHO";

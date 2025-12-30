@@ -25,5 +25,10 @@
   "packageManager": "pnpm@10.17.1",
   "engines": {
     "node": ">=18.x <=22.x"
+  },
+  "pnpm": {
+    "overrides": {
+      "@walletconnect/logger>pino": "10.0.0"
+    }
   }
 }

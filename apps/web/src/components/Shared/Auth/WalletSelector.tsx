@@ -10,11 +10,13 @@ const WalletSelector: FC = () => {
   const { connectAsync, connectors, isPending } = useConnect();
   const { disconnect } = useDisconnect();
   const { connector: activeConnector } = useAccount();
+  console.log("WalletSelector: connectors=", connectors);
 
   const allowedConnectors = [
-    "familyAccountsProvider",
+    "metaMaskSDK",
     "injected",
-    "walletConnect"
+    "walletConnect",
+    "familyAccountsProvider"
   ];
 
   const filteredConnectors = connectors

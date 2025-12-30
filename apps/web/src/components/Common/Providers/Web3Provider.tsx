@@ -1,11 +1,16 @@
-import { CHAIN, WALLETCONNECT_PROJECT_ID } from "@palus/data/constants";
+import {
+  CHAIN,
+  INFURA_API_KEY,
+  WALLETCONNECT_PROJECT_ID
+} from "@palus/data/constants";
 import { familyAccountsConnector } from "family";
 import type { ReactNode } from "react";
 import { createConfig, WagmiProvider } from "wagmi";
-import { injected, walletConnect } from "wagmi/connectors";
+import { injected, metaMask, walletConnect } from "wagmi/connectors";
 import getRpc from "@/helpers/getRpc";
 
 const connectors = [
+  metaMask({ infuraAPIKey: INFURA_API_KEY }),
   familyAccountsConnector(),
   walletConnect({ projectId: WALLETCONNECT_PROJECT_ID }),
   injected()

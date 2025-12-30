@@ -17,6 +17,7 @@
     "@lens-chain/storage-client": "^1.0.6",
     "@lens-protocol/metadata": "^2.1.0",
     "@livepeer/react": "^4.3.6",
+    "@metamask/sdk": "^0.34.0",
     "@palus/data": "workspace:*",
     "@palus/helpers": "workspace:*",
     "@palus/indexer": "workspace:*",
