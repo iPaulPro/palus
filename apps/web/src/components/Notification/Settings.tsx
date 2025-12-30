@@ -1,9 +1,8 @@
-import { Cog6ToothIcon, SwatchIcon } from "@heroicons/react/24/outline";
+import { Cog6ToothIcon } from "@heroicons/react/24/outline";
 import type { FC } from "react";
 import { useState } from "react";
-import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
+import LowSignalNotificationToggle from "@/components/Shared/Settings/LowSignalNotificationToggle";
 import { Modal, Tooltip } from "@/components/Shared/UI";
-import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 
 const Settings: FC = () => {
   const [showNotificationSettings, setShowNotificationSettings] =
@@ -11,8 +10,6 @@ const Settings: FC = () => {
 
   const handleOpenSettings = () => setShowNotificationSettings(true);
   const handleCloseSettings = () => setShowNotificationSettings(false);
-
-  const { includeLowScore, setIncludeLowScore } = usePreferencesStore();
 
   return (
     <>
@@ -32,13 +29,7 @@ const Settings: FC = () => {
         title="Notification settings"
       >
         <div className="p-5">
-          <ToggleWithHelper
-            description="Include notifications from Accounts with a low score"
-            heading="Low-signal notifications"
-            icon={<SwatchIcon className="size-5" />}
-            on={includeLowScore}
-            setOn={setIncludeLowScore}
-          />
+          <LowSignalNotificationToggle />
         </div>
       </Modal>
     </>

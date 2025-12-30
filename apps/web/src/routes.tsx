@@ -25,6 +25,7 @@ import FundsSettings from "@/components/Settings/Funds";
 import ManagerSettings from "@/components/Settings/Manager";
 import { default as AccountMonetizeSettings } from "@/components/Settings/Monetize";
 import { default as AccountPersonalizeSettings } from "@/components/Settings/Personalize";
+import PreferencesSettings from "@/components/Settings/Preferences";
 import SessionsSettings from "@/components/Settings/Sessions";
 import UsernameSettings from "@/components/Settings/Username";
 import Custom404 from "@/components/Shared/404";
@@ -66,6 +67,7 @@ const Routes = () => {
               element={<AccountPersonalizeSettings />}
               path="personalize"
             />
+            <Route element={<PreferencesSettings />} path="preferences" />
             <Route element={<AccountMonetizeSettings />} path="monetize" />
             <Route element={<RewardsSettings />} path="rewards" />
             <Route element={<BlockedSettings />} path="blocked" />

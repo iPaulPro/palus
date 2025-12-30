@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { H6, Toggle } from "@/components/Shared/UI";
+import { Toggle } from "@/components/Shared/UI";
 
 interface ToggleWithHelperProps {
   description?: ReactNode;
@@ -19,15 +19,15 @@ const ToggleWithHelper = ({
   setOn
 }: ToggleWithHelperProps) => {
   return (
-    <div className="flex items-center justify-between">
+    <div className="flex items-center justify-between gap-x-4">
       <div className="flex items-start space-x-3">
         {icon && <span className="mt-1">{icon}</span>}
         <div>
           {heading && <b>{heading}</b>}
           {description && (
-            <H6 className="font-normal text-gray-500 dark:text-gray-200">
+            <div className="text-gray-500 text-sm dark:text-gray-200">
               {description}
-            </H6>
+            </div>
           )}
         </div>
       </div>

@@ -1,4 +1,5 @@
 import {
+  AdjustmentsHorizontalIcon,
   ArrowRightIcon,
   AtSymbolIcon,
   CodeBracketIcon,
@@ -31,6 +32,11 @@ const AccountSettings = () => {
       icon: <PaintBrushIcon className="size-5" />,
       title: "Personalize",
       url: "/settings/personalize"
+    },
+    {
+      icon: <AdjustmentsHorizontalIcon className="size-5" />,
+      title: "Preferences",
+      url: "/settings/preferences"
     },
     {
       icon: <CurrencyDollarIcon className="size-5" />,
