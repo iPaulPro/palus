@@ -82,13 +82,13 @@ const WalletSelector: FC = () => {
         );
       })}
       <div className="linkify text-gray-500 text-sm">
-        By connecting wallet, you agree to our{" "}
+        By connecting a wallet, you agree to our{" "}
         <Link target="_blank" to="/terms">
-          Terms
+          Terms of Use
         </Link>{" "}
         and{" "}
         <Link target="_blank" to="/privacy">
-          Policy
+          Privacy Policy
         </Link>
         .
       </div>

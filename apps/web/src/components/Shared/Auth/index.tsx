@@ -8,7 +8,7 @@ import Signup from "./Signup";
 
 const NotConnected = ({ isLogin }: { isLogin?: boolean }) => (
   <AuthMessage
-    description="Connect with our wallet provider to access your account."
+    description="Connect with a wallet provider to access your account."
     title={`${isLogin ? "Login" : "Signup"} to Palus.`}
   />
 );
