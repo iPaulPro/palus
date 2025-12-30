@@ -11,6 +11,11 @@ import { defineDoc } from "prosekit/extensions/doc";
 import { defineHardBreak } from "prosekit/extensions/hard-break";
 import { defineItalic } from "prosekit/extensions/italic";
 import { defineLinkMarkRule, defineLinkSpec } from "prosekit/extensions/link";
+import {
+  defineList,
+  defineListInputRules,
+  defineListKeymap
+} from "prosekit/extensions/list";
 import type { MentionAttrs } from "prosekit/extensions/mention";
 import { defineMentionCommands } from "prosekit/extensions/mention";
 import { defineModClickPrevention } from "prosekit/extensions/mod-click-prevention";
@@ -93,7 +98,10 @@ export const defineEditorExtension = () => {
     defineVirtualSelection(),
     defineMention(),
     defineModClickPrevention(),
-    definePlaceholder({ placeholder: "What's new?", strategy: "doc" })
+    definePlaceholder({ placeholder: "What's new?", strategy: "doc" }),
+    defineList(),
+    defineListInputRules(),
+    defineListKeymap()
   ]);
 };
 

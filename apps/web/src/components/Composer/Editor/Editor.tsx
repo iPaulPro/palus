@@ -19,6 +19,7 @@ import EditorMenus from "./EditorMenus";
 interface EditorProps {
   isComment: boolean;
   isQuote?: boolean;
+  isEditing?: boolean;
   feed?: string;
   selectedFeed: string;
   setSelectedFeed: (feed: string) => void;
@@ -28,6 +29,7 @@ interface EditorProps {
 const Editor = ({
   isComment,
   isQuote,
+  isEditing,
   feed,
   selectedFeed,
   setSelectedFeed,
@@ -58,6 +60,7 @@ const Editor = ({
         className={cn(
           "box-border flex size-full justify-stretch overflow-y-auto overflow-x-hidden px-3 md:px-5",
           {
+            "pb-4": isEditing,
             "py-4": !zeroPadding
           }
         )}
@@ -68,7 +71,7 @@ const Editor = ({
           src={getAvatar(currentAccount)}
         />
         <div className="flex flex-1 flex-col overflow-x-hidden">
-          {isComment || feed || isQuote ? null : (
+          {isComment || feed || isQuote || isEditing ? null : (
             <GroupSelector onChange={setSelectedFeed} selected={selectedFeed} />
           )}
           <EditorMenus />

@@ -272,6 +272,7 @@ const NewPublication = ({
       <Editor
         feed={feed}
         isComment={isComment}
+        isEditing={Boolean(editingPost)}
         isQuote={isQuote}
         selectedFeed={selectedFeed}
         setSelectedFeed={setSelectedFeed}
@@ -287,7 +288,7 @@ const NewPublication = ({
           <QuotedPost isNew post={quotedPost} />
         </Wrapper>
       ) : null}
-      <div className="divider md:mx-5" />
+      <div className="divider" />
       <div className="block items-center px-5 py-3 sm:flex">
         <div
           className={cn("flex w-full items-center space-x-4", {
@@ -305,27 +306,23 @@ const NewPublication = ({
           />
           <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           <ContentWarning />
-          {editingPost ? null : (
-            <>
-              <CollectSettings />
-              <div className="flex w-full justify-end">
-                <RulesSettings />
-              </div>
-            </>
-          )}
-          <Button
-            className="flex-none"
-            disabled={
-              isSubmitting ||
-              isUploading ||
-              videoThumbnail.uploading ||
-              postContentError.length > 0
-            }
-            loading={isSubmitting}
-            onClick={handleCreatePost}
-          >
-            {editingPost ? "Update" : isComment ? "Comment" : "Post"}
-          </Button>
+          {editingPost ? null : <CollectSettings />}
+          <div className="flex w-full items-center justify-end gap-x-4">
+            {editingPost ? null : <RulesSettings />}
+            <Button
+              className="flex-none"
+              disabled={
+                isSubmitting ||
+                isUploading ||
+                videoThumbnail.uploading ||
+                postContentError.length > 0
+              }
+              loading={isSubmitting}
+              onClick={handleCreatePost}
+            >
+              {editingPost ? "Update" : isComment ? "Comment" : "Post"}
+            </Button>
+          </div>
         </div>
       </div>
     </Card>

@@ -122,6 +122,10 @@
       content: attr(data-placeholder);
       @apply absolute top-[0.5px] pointer-events-none opacity-50;
     }
+
+    & .prosemirror-flat-list {
+      @apply last-of-type:!mb-4;
+    }
   }
 
   /** CSS overrides for plyr audio **/
@@ -147,10 +151,25 @@
 
   /* Markup styles */
   .markup > p,
-  ul {
+  .markup > ul {
     word-break: break-word;
-    @apply leading-[26px] list-disc;
+    @apply leading-[26px];
     @apply [&:not(:last-child)]:mb-3;
+  }
+
+  .markup ul,
+  .full-page-post-markup ul {
+    @apply list-none pl-0;
+  }
+
+  .markup li,
+  .full-page-post-markup li {
+    @apply flex gap-x-2;
+  }
+
+  .markup li:before,
+  .full-page-post-markup li:before {
+    content: "•";
   }
 
   .markup > hr {
@@ -159,7 +178,7 @@
   }
 
   .full-page-post-markup > p,
-  ul {
+  .full-page-post-markup ul {
     @apply text-[15px] sm:text-[17px];
     @apply !leading-7 sm:leading-[26px];
     @apply [&:not(:last-child)]:mb-3 sm:[&:not(:last-child)]:mb-4;
