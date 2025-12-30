@@ -23,7 +23,8 @@
       "!**/cache",
       "!**/generated.ts",
       "!**/expo-env.d.ts",
-      "!**/package.json"
+      "!**/package.json",
+      "!apps/web/src/assets/**/*"
     ]
   },
   "formatter": {

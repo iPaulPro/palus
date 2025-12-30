@@ -93,7 +93,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
                   });
                 }}
                 options={tokens.map((token) => ({
-                  icon: `${STATIC_IMAGES_URL}/tokens/${token.symbol.toLowerCase()}.svg`,
+                  icon: `${STATIC_IMAGES_URL}/${token.symbol.toLowerCase()}.svg`,
                   label: token.name,
                   selected:
                     token.contractAddress ===

@@ -101,10 +101,7 @@ const ViewAccount = () => {
       zeroTopMargin
     >
       <Cover
-        cover={
-          account?.metadata?.coverPicture ||
-          `${STATIC_IMAGES_URL}/patterns/2.svg`
-        }
+        cover={account?.metadata?.coverPicture || `${STATIC_IMAGES_URL}/2.svg`}
       />
       {renderAccountDetails()}
       {isDeleted || isBlockedByMe ? (

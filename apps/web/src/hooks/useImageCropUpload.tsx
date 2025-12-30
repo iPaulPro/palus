@@ -81,9 +81,7 @@ const useImageCropUpload = ({
 
   const pictureUrl =
     pictureSrc ||
-    (label === "avatar"
-      ? DEFAULT_AVATAR
-      : `${STATIC_IMAGES_URL}/patterns/2.svg`);
+    (label === "avatar" ? DEFAULT_AVATAR : `${STATIC_IMAGES_URL}/2.svg`);
   const renderPictureUrl = pictureUrl
     ? imageKit(sanitizeDStorageUrl(pictureUrl), transform)
     : "";

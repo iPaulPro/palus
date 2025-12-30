@@ -1,9 +1,7 @@
-import { STATIC_ASSETS_URL } from "@palus/data/constants";
 import type { Emoji } from "@palus/types/misc";
-import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
+import allEmojis from "../../assets/emoji.json";
 
-const GET_EMOJIS_QUERY_KEY = "getEmojis";
 const DEFAULT_MAX_EMOJI_COUNT = 5;
 
 interface UseEmojisOptions {
@@ -14,8 +12,6 @@ interface UseEmojisOptions {
 
 interface UseEmojisResult {
   emojis: Emoji[];
-  error: Error | null;
-  isLoading: boolean;
   allEmojis: Emoji[] | undefined;
 }
 
@@ -24,21 +20,6 @@ const useEmojis = ({
   query = "",
   minQueryLength = 0
 }: UseEmojisOptions = {}): UseEmojisResult => {
-  const {
-    data: allEmojis,
-    error,
-    isLoading
-  } = useQuery<Emoji[]>({
-    queryFn: async () => {
-      const response = await fetch(`${STATIC_ASSETS_URL}/emoji.json`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      return response.json();
-    },
-    queryKey: [GET_EMOJIS_QUERY_KEY]
-  });
-
   const emojis = useMemo(() => {
     if (!allEmojis) {
       return [];
@@ -66,9 +47,7 @@ const useEmojis = ({
 
   return {
     allEmojis,
-    emojis,
-    error: error as Error | null,
-    isLoading
+    emojis
   };
 };
 

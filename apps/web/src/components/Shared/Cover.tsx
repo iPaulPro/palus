@@ -13,7 +13,7 @@ interface CoverProps {
 const Cover = ({ cover }: CoverProps) => {
   const isDefaultCover = cover.includes(STATIC_IMAGES_URL);
   const backgroundImage = isDefaultCover
-    ? `${STATIC_IMAGES_URL}/patterns/2.svg`
+    ? `${STATIC_IMAGES_URL}/2.svg`
     : imageKit(sanitizeDStorageUrl(cover), TRANSFORMS.COVER);
 
   const backgroundStyles = {

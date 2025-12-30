@@ -133,7 +133,7 @@ const SuperJoin = ({ group }: SuperJoinProps) => {
               <Image
                 alt={WRAPPED_NATIVE_TOKEN_SYMBOL}
                 className="size-5 rounded-full"
-                src={`${STATIC_IMAGES_URL}/tokens/gho.svg`}
+                src={`${STATIC_IMAGES_URL}/gho.svg`}
               />
             </Tooltip>
           }

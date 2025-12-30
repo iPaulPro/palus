@@ -18,7 +18,7 @@ const DeletedDetails = ({ account }: DeletedDetailsProps) => {
           alt={account.address}
           className="size-20 rounded-xl bg-gray-200 ring-3 ring-gray-50 sm:size-36 dark:bg-gray-700 dark:ring-black"
           height={128}
-          src={`${STATIC_IMAGES_URL}/suspended.png`}
+          src={`${STATIC_IMAGES_URL}/suspended.webp`}
           width={128}
         />
       </div>

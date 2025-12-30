@@ -7,7 +7,7 @@ interface WalletDetails {
 
 const WALLETS = {
   familyAccountsProvider: {
-    logo: `${STATIC_IMAGES_URL}/wallets/family.png`,
+    logo: `${STATIC_IMAGES_URL}/family.png`,
     name: "Login with Family"
   },
   injected: {
@@ -15,7 +15,7 @@ const WALLETS = {
     name: "Browser Wallet"
   },
   walletConnect: {
-    logo: `${STATIC_IMAGES_URL}/wallets/walletconnect.svg`,
+    logo: `${STATIC_IMAGES_URL}/walletconnect.svg`,
     name: "Wallet Connect"
   }
 };

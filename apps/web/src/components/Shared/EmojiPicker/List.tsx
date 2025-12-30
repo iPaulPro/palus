@@ -1,10 +1,8 @@
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import { ERRORS } from "@palus/data/errors";
 import type { Emoji } from "@palus/types/misc";
 import type { ChangeEvent, MouseEvent } from "react";
 import { useEffect, useRef, useState } from "react";
-import Loader from "@/components/Shared/Loader";
-import { ErrorMessage, Input } from "@/components/Shared/UI";
+import { Input } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import useEmojis from "@/hooks/prosekit/useEmojis";
@@ -16,7 +14,7 @@ interface ListProps {
 const List = ({ setEmoji }: ListProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [searchText, setSearchText] = useState("");
-  const { emojis, error, isLoading } = useEmojis({
+  const { emojis } = useEmojis({
     limit: 100, // Show more emojis in the picker
     minQueryLength: 2,
     query: searchText
@@ -35,20 +33,6 @@ const List = ({ setEmoji }: ListProps) => {
   useEffect(() => {
     inputRef.current?.focus();
   }, []);
-
-  if (error) {
-    return (
-      <ErrorMessage
-        className="m-5"
-        error={{ message: "Error while loading emojis" }}
-        title={ERRORS.SomethingWentWrong}
-      />
-    );
-  }
-
-  if (isLoading) {
-    return <Loader className="my-5" message="Loading emojis" />;
-  }
 
   return (
     <div>

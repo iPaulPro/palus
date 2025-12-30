@@ -29,7 +29,7 @@ const LoginButton = ({
           alt="Lens Logo"
           className="mr-0.5 h-3"
           height={12}
-          src={`${STATIC_IMAGES_URL}/brands/lens.svg`}
+          src={`${STATIC_IMAGES_URL}/lens.svg`}
           width={19}
         />
       }

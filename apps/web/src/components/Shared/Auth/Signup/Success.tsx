@@ -54,7 +54,7 @@ const Success = () => {
         alt="Dizzy emoji"
         className="mx-auto mt-8 size-14"
         height={56}
-        src={`${STATIC_IMAGES_URL}/emojis/dizzy.png`}
+        src={`${STATIC_IMAGES_URL}/dizzy.webp`}
         width={56}
       />
       <i className="mt-8 text-gray-500 dark:text-gray-200">

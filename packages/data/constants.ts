@@ -23,10 +23,9 @@ export const ADDRESS_PLACEHOLDER = "0x03Ba3...7EF";
 export const BRAND_COLOR = "#0170a3";
 
 // URLs
-export const STATIC_ASSETS_URL = "https://static.hey.xyz";
-export const STATIC_IMAGES_URL = `${STATIC_ASSETS_URL}/images`;
+export const STATIC_IMAGES_URL = "/images";
 export const LENS_MEDIA_SNAPSHOT_URL = "https://ik.imagekit.io/lens";
-export const DEFAULT_AVATAR = `${STATIC_IMAGES_URL}/default.png`;
+export const DEFAULT_AVATAR = `${STATIC_IMAGES_URL}/default.webp`;
 export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
 export const BLOCK_EXPLORER_URL = "https://lenscan.io";
 

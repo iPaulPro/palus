@@ -18,7 +18,7 @@ const SignupCard = () => {
         alt="Dizzy emoji"
         className="mx-auto size-14"
         height={56}
-        src={`${STATIC_IMAGES_URL}/emojis/dizzy.png`}
+        src={`${STATIC_IMAGES_URL}/dizzy.webp`}
         width={56}
       />
       <div className="space-y-3 text-center">

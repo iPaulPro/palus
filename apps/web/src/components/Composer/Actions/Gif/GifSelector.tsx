@@ -43,7 +43,7 @@ const GifSelector = ({ setGifAttachment, setShowModal }: GifSelectorProps) => {
         <img
           alt="Giphy"
           className="h-3"
-          src={`${STATIC_IMAGES_URL}/brands/giphy.png`}
+          src={`${STATIC_IMAGES_URL}/giphy.webp`}
         />
       </div>
     </>
