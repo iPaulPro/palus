@@ -30,7 +30,6 @@ import SessionsSettings from "@/components/Settings/Sessions";
 import UsernameSettings from "@/components/Settings/Username";
 import Custom404 from "@/components/Shared/404";
 import RewardsSettings from "./components/Settings/Rewards";
-import Staff from "./components/Staff";
 
 const Routes = () => {
   return (
@@ -76,9 +75,6 @@ const Routes = () => {
             <Route element={<ManagerSettings />} path="manager" />
             <Route element={<SessionsSettings />} path="sessions" />
             <Route element={<UsernameSettings />} path="username" />
-          </Route>
-          <Route path="staff">
-            <Route element={<Staff />} index />
           </Route>
           <Route element={<Support />} path="support" />
           <Route element={<Terms />} path="terms" />

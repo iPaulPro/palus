@@ -1,4 +1,4 @@
-import { PERMISSIONS, STATIC_IMAGES_URL } from "@palus/data/constants";
+import { STATIC_IMAGES_URL } from "@palus/data/constants";
 import { useGroupQuery } from "@palus/indexer";
 import { useParams } from "react-router";
 import NewPost from "@/components/Composer/NewPost";
@@ -17,7 +17,7 @@ const ViewGroup = () => {
   const { currentAccount } = useAccountStore();
 
   const { data, loading, error } = useGroupQuery({
-    skip: !address || Object.values(PERMISSIONS).includes(address as any),
+    skip: !address,
     variables: { request: { group: address } }
   });
 

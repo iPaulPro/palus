@@ -18,7 +18,6 @@ fragment Account on Account {
   username {
     ...Username
   }
-  ...Permissions
   score
   createdAt
 }
