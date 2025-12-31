@@ -12,9 +12,10 @@ import PostFeed from "@/components/Shared/Post/PostFeed";
 
 interface ExploreFeedProps {
   focus?: MainContentFocus;
+  onScroll?: (scrollOffset: number) => void;
 }
 
-const ExploreFeed = ({ focus }: ExploreFeedProps) => {
+const ExploreFeed = ({ focus, onScroll }: ExploreFeedProps) => {
   const request: PostsExploreRequest = {
     ...(focus && {
       filter: {
@@ -62,6 +63,7 @@ const ExploreFeed = ({ focus }: ExploreFeedProps) => {
       items={filteredPosts}
       kind="explore"
       loading={loading}
+      onScroll={onScroll}
       refetch={refetch}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />
