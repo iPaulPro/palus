@@ -3,6 +3,7 @@ import getAccount from "@palus/helpers/getAccount";
 import type { PostFragment } from "@palus/indexer";
 import type { IGif } from "@palus/types/giphy";
 import type { NewAttachment } from "@palus/types/misc";
+import { useMediaQuery } from "@uidotdev/usehooks";
 import { useCallback, useEffect, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { toast } from "sonner";
@@ -22,6 +23,7 @@ import cn from "@/helpers/cn";
 import collectActionParams from "@/helpers/collectActionParams";
 import errorToast from "@/helpers/errorToast";
 import getMentions from "@/helpers/getMentions";
+import { IS_STANDALONE } from "@/helpers/mediaQueries";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useCreatePost from "@/hooks/useCreatePost";
 import useEditPost from "@/hooks/useEditPost";
@@ -98,7 +100,6 @@ const NewPublication = ({
 
   // States
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [showEmojiPicker, setShowEmojiPicker] = useState<boolean>(false);
   const [postContentError, setPostContentError] = useState("");
   const [selectedFeed, setSelectedFeed] = useState<string>(feed || "");
 
@@ -109,6 +110,8 @@ const NewPublication = ({
   const isQuote = Boolean(quotedPost);
   const hasAudio = attachments[0]?.type === "Audio";
   const hasVideo = attachments[0]?.type === "Video";
+
+  const isStandalone = useMediaQuery(IS_STANDALONE);
 
   const reset = () => {
     editor?.setMarkdown("");
@@ -261,8 +264,7 @@ const NewPublication = ({
 
   return (
     <Card
-      className={cn({ "pt-5": isModal }, className)}
-      onClick={() => setShowEmojiPicker(false)}
+      className={cn({ "flex flex-grow flex-col pt-5": isModal }, className)}
     >
       {parentPost && isModal ? (
         <div className="mx-3 md:mx-5">
@@ -293,17 +295,16 @@ const NewPublication = ({
       <div className="block items-center px-5 py-3 sm:flex">
         <div
           className={cn("flex w-full items-center space-x-4", {
+            "pb-6": isStandalone && isModal,
             "space-x-5": !isModal
           })}
         >
-          <Attachment />
+          <Attachment anchor={isModal ? "top" : "bottom"} />
           <EmojiPicker
+            anchor={isModal ? "top start" : "bottom start"}
             setEmoji={(emoji: string) => {
-              setShowEmojiPicker(false);
               editor?.insertText(emoji);
             }}
-            setShowEmojiPicker={setShowEmojiPicker}
-            showEmojiPicker={showEmojiPicker}
           />
           <Gif setGifAttachment={(gif: IGif) => setGifAttachment(gif)} />
           <ContentWarning />

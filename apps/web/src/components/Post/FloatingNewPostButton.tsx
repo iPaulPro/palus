@@ -1,6 +1,8 @@
 import { PlusIcon } from "@heroicons/react/24/outline";
+import { useMediaQuery } from "@uidotdev/usehooks";
 import { motion } from "motion/react";
 import cn from "@/helpers/cn";
+import { IS_STANDALONE } from "@/helpers/mediaQueries";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
 
 interface FloatingNewPostButtonProps {
@@ -13,7 +15,7 @@ const FloatingNewPostButton = ({
   const { setShow: setShowNewPostModal } = useNewPostModalStore();
 
   const isVisible = scrollOffset >= 200;
-  const isStandalone = window.matchMedia("(display-mode: standalone)").matches;
+  const isStandalone = useMediaQuery(IS_STANDALONE);
 
   const onClick = () => {
     setShowNewPostModal(true);

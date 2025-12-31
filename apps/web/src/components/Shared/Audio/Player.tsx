@@ -4,6 +4,7 @@ import Plyr from "plyr-react";
 import "plyr-react/plyr.css";
 import type { Ref } from "react";
 import { memo } from "react";
+import { IS_MOBILE } from "@/helpers/mediaQueries";
 
 interface PlayerProps {
   playerRef: Ref<APITypes>;
@@ -11,7 +12,7 @@ interface PlayerProps {
 }
 
 const Player = ({ playerRef, src }: PlayerProps) => {
-  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
+  const isSmallDevice = useMediaQuery(IS_MOBILE);
 
   return (
     <Plyr

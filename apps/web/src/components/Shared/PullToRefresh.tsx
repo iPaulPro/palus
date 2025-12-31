@@ -3,6 +3,7 @@ import { useMediaQuery } from "@uidotdev/usehooks";
 import type { ReactNode } from "react";
 import SimplePullToRefresh from "react-simple-pull-to-refresh";
 import Loader from "@/components/Shared/Loader";
+import { IS_MOBILE } from "@/helpers/mediaQueries";
 
 interface PullToRefreshProps {
   children: ReactNode;
@@ -10,7 +11,7 @@ interface PullToRefreshProps {
 }
 
 const PullToRefresh = ({ children, onRefresh }: PullToRefreshProps) => {
-  const isSmallDevice = useMediaQuery("only screen and (max-width : 768px)");
+  const isSmallDevice = useMediaQuery(IS_MOBILE);
 
   const PullingContent = () => {
     return (

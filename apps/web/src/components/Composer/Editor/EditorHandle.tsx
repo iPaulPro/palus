@@ -49,6 +49,7 @@ export const useEditorHandle = (editor: Editor<EditorExtension>) => {
           return;
         }
 
+        editor.focus();
         editor.commands.insertText({ text });
       },
       setMarkdown: (markdown: string): void => {

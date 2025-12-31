@@ -62,6 +62,7 @@ const Editor = ({
         className={cn(
           "box-border flex size-full justify-stretch overflow-y-auto overflow-x-hidden px-3 md:px-5",
           {
+            "flex-grow": isInModal,
             "pb-4": isEditing,
             "py-4": !zeroPadding
           }
@@ -73,7 +74,7 @@ const Editor = ({
           src={getAvatar(currentAccount)}
         />
         <div className="flex flex-1 flex-col overflow-x-hidden">
-          {isComment || feed || isQuote || isEditing || isInModal ? null : (
+          {isComment || feed || isQuote || isEditing ? null : (
             <GroupSelector onChange={setSelectedFeed} selected={selectedFeed} />
           )}
           <EditorMenus />

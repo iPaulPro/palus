@@ -10,10 +10,12 @@ import {
   HomeIcon as HomeIconSolid
 } from "@heroicons/react/24/solid";
 import getAvatar from "@palus/helpers/getAvatar";
+import { useMediaQuery } from "@uidotdev/usehooks";
 import type { MouseEvent, ReactNode } from "react";
 import { Link, useLocation } from "react-router";
 import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import { IS_STANDALONE } from "@/helpers/mediaQueries";
 import useHasNewNotifications from "@/hooks/useHasNewNotifications";
 import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -94,7 +96,7 @@ const BottomNavigation = () => {
     }
   ];
 
-  const isStandalone = window.matchMedia("(display-mode: standalone)").matches;
+  const isStandalone = useMediaQuery(IS_STANDALONE);
 
   return (
     <nav

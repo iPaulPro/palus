@@ -1,3 +1,4 @@
+import { useClose } from "@headlessui/react";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import type { Emoji } from "@palus/types/misc";
 import type { ChangeEvent, MouseEvent } from "react";
@@ -19,6 +20,8 @@ const List = ({ setEmoji }: ListProps) => {
     minQueryLength: 2,
     query: searchText
   });
+
+  const close = useClose();
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSearchText(event.target.value);
@@ -66,7 +69,10 @@ const List = ({ setEmoji }: ListProps) => {
           <button
             className="rounded-lg py-1 hover:bg-gray-100 dark:hover:bg-gray-800"
             key={emoji.emoji}
-            onClick={() => setEmoji(emoji.emoji)}
+            onClick={() => {
+              setEmoji(emoji.emoji);
+              close();
+            }}
             type="button"
           >
             {emoji.emoji}

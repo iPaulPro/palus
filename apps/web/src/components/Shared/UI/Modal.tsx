@@ -12,15 +12,16 @@ import type { ReactNode } from "react";
 import { Fragment, memo } from "react";
 
 const modalVariants = cva(
-  "inline-block w-full scale-100 rounded-xl bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:align-middle dark:bg-gray-800",
+  "w-full scale-100 bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:align-middle dark:bg-gray-800",
   {
     defaultVariants: { size: "sm" },
     variants: {
       size: {
-        lg: "sm:max-w-5xl",
-        md: "sm:max-w-3xl",
-        sm: "sm:max-w-lg",
-        xs: "sm:max-w-sm"
+        full: "min-h-screen flex flex-col",
+        lg: "rounded-xl inline-block sm:max-w-5xl",
+        md: "rounded-xl inline-block sm:max-w-3xl",
+        sm: "rounded-xl inline-block sm:max-w-lg",
+        xs: "rounded-xl inline-block sm:max-w-sm"
       }
     }
   }
@@ -48,7 +49,9 @@ const Modal = ({
     <Transition afterLeave={afterLeave} as={Fragment} show={show}>
       <Dialog
         as="div"
-        className="fixed inset-0 z-10 flex min-h-screen items-center justify-center overflow-y-auto p-4 text-center sm:block sm:p-0"
+        className={`fixed inset-0 z-10 flex min-h-screen items-center justify-center overflow-y-auto text-center sm:block sm:p-0 ${
+          size === "full" ? "p-0" : "p-4"
+        }`}
         onClose={() => {
           if (!preventClose) {
             onClose?.();

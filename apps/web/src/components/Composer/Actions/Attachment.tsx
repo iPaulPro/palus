@@ -29,7 +29,11 @@ const VideoMimeType = [
   "video/quicktime"
 ];
 
-const Attachment = () => {
+interface AttachmentProps {
+  anchor?: "top" | "bottom";
+}
+
+const Attachment = ({ anchor = "bottom" }: AttachmentProps) => {
   const { attachments, isUploading } = usePostAttachmentStore();
   const { handleUploadAttachments } = useUploadAttachments();
   const [showMenu, setShowMenu] = useState(false);
@@ -123,6 +127,7 @@ const Attachment = () => {
         </MenuButton>
         <MenuTransition show={showMenu}>
           <MenuItems
+            anchor={anchor}
             className="absolute z-[5] mt-2 rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-gray-900"
             ref={dropdownRef}
             static
