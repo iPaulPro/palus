@@ -29,7 +29,7 @@ const FloatingNewPostButton = ({
       transition={{ damping: 20, stiffness: 260, type: "spring" }}
     >
       <button
-        className="center flex size-14 rounded-full bg-brand-500 text-white opacity-90 shadow-lg active:bg-brand-600"
+        className="center flex size-14 rounded-full bg-brand-500 text-white opacity-90 shadow-lg active:bg-brand-600 dark:bg-brand-700 dark:active:bg-brand-600"
         onClick={onClick}
         type="button"
       >
