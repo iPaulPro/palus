@@ -13,9 +13,10 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface TimelineProps {
   followingOnly: boolean;
+  onScroll?: (scrollOffset: number) => void;
 }
 
-const Timeline = ({ followingOnly }: TimelineProps) => {
+const Timeline = ({ followingOnly, onScroll }: TimelineProps) => {
   const { currentAccount } = useAccountStore();
   const request: TimelineRequest = {
     account: currentAccount?.address,
@@ -67,6 +68,7 @@ const Timeline = ({ followingOnly }: TimelineProps) => {
       items={filteredPosts}
       kind="timeline"
       loading={loading}
+      onScroll={onScroll}
       refetch={refetch}
       renderItem={(timelineItem) => {
         const commentsToShow = timelineItem.comments.slice(0, 3);

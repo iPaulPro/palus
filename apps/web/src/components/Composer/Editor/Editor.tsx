@@ -23,6 +23,7 @@ interface EditorProps {
   feed?: string;
   selectedFeed: string;
   setSelectedFeed: (feed: string) => void;
+  isInModal?: boolean;
   zeroPadding?: boolean;
 }
 
@@ -33,6 +34,7 @@ const Editor = ({
   feed,
   selectedFeed,
   setSelectedFeed,
+  isInModal,
   zeroPadding
 }: EditorProps) => {
   const { currentAccount } = useAccountStore();
@@ -49,7 +51,7 @@ const Editor = ({
     return createEditor({ defaultContent, extension });
   }, [defaultContent]);
 
-  useFocus(editor, isComment);
+  useFocus(editor, isComment || Boolean(isInModal));
   useContentChange(editor);
   usePaste(editor);
   useEditorHandle(editor);
@@ -71,7 +73,7 @@ const Editor = ({
           src={getAvatar(currentAccount)}
         />
         <div className="flex flex-1 flex-col overflow-x-hidden">
-          {isComment || feed || isQuote || isEditing ? null : (
+          {isComment || feed || isQuote || isEditing || isInModal ? null : (
             <GroupSelector onChange={setSelectedFeed} selected={selectedFeed} />
           )}
           <EditorMenus />

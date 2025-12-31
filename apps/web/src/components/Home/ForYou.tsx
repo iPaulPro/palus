@@ -10,7 +10,11 @@ import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
-const ForYou = () => {
+interface ForYouProps {
+  onScroll?: (scrollOffset: number) => void;
+}
+
+const ForYou = ({ onScroll }: ForYouProps) => {
   const { currentAccount } = useAccountStore();
 
   const request: PostsForYouRequest = {
@@ -58,6 +62,7 @@ const ForYou = () => {
       items={filteredPosts as PostFragment[]}
       kind="for-you"
       loading={loading}
+      onScroll={onScroll}
       refetch={refetch}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />

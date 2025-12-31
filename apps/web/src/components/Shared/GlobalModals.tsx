@@ -100,6 +100,7 @@ const GlobalModals = () => {
           setAttachments([]);
         }}
         onClose={() => setShowNewPostModal(false)}
+        preventClose={true}
         show={showNewPostModal}
         size="sm"
         title={

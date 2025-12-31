@@ -273,6 +273,7 @@ const NewPublication = ({
         feed={feed}
         isComment={isComment}
         isEditing={Boolean(editingPost)}
+        isInModal={isModal}
         isQuote={isQuote}
         selectedFeed={selectedFeed}
         setSelectedFeed={setSelectedFeed}

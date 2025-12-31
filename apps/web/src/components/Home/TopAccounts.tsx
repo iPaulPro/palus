@@ -10,7 +10,11 @@ import { useCallback, useMemo } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
 
-const TopAccounts = () => {
+interface TopAccountsProps {
+  onScroll?: (scrollOffset: number) => void;
+}
+
+const TopAccounts = ({ onScroll }: TopAccountsProps) => {
   const request: PostsRequest = {
     filter: {
       accountScore: {
@@ -59,6 +63,7 @@ const TopAccounts = () => {
       items={filteredPosts}
       kind="top-accounts"
       loading={loading}
+      onScroll={onScroll}
       refetch={refetch}
       renderItem={(post) => (
         <SinglePost key={post.id} post={post as PostFragment} />

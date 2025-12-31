@@ -16,6 +16,7 @@ import {
 interface CachedWindowVirtualizerProps {
   cacheKey: string;
   children: ReactNode;
+  onScroll?: (scrollOffset: number) => void;
 }
 
 // Track which keys have been "cleared" during this JS session to allow
@@ -25,7 +26,7 @@ const sessionHandledKeys = new Set<string>();
 const CachedWindowVirtualizer = forwardRef<
   WindowVirtualizerHandle,
   CachedWindowVirtualizerProps
->(({ cacheKey, children }, ref) => {
+>(({ cacheKey, children, onScroll }, ref) => {
   const innerRef = useRef<WindowVirtualizerHandle>(null);
   const isRestored = useRef(false);
   const navType = useNavigationType();
@@ -88,7 +89,11 @@ const CachedWindowVirtualizer = forwardRef<
 
   return (
     <div className="virtual-divider-list-window">
-      <WindowVirtualizer cache={cache} ref={innerRef}>
+      <WindowVirtualizer
+        cache={cache}
+        onScroll={() => onScroll?.(innerRef.current?.scrollOffset ?? 0)}
+        ref={innerRef}
+      >
         {children}
       </WindowVirtualizer>
     </div>

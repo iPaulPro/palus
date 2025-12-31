@@ -1,5 +1,6 @@
 import {
   Dialog,
+  DialogBackdrop,
   DialogPanel,
   DialogTitle,
   Transition,
@@ -7,7 +8,7 @@ import {
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ReactNode, SyntheticEvent } from "react";
+import type { ReactNode } from "react";
 import { Fragment, memo } from "react";
 
 const modalVariants = cva(
@@ -30,6 +31,7 @@ interface ModalProps extends VariantProps<typeof modalVariants> {
   children: ReactNode | ReactNode[];
   onClose?: () => void;
   show: boolean;
+  preventClose?: boolean;
   title?: ReactNode;
 }
 
@@ -38,27 +40,23 @@ const Modal = ({
   children,
   onClose,
   show,
+  preventClose = false,
   size = "sm",
   title
 }: ModalProps) => {
-  const handleClose = (event: SyntheticEvent) => {
-    event.stopPropagation(); // This stops the event from propagating further
-    onClose?.();
-  };
-
   return (
     <Transition afterLeave={afterLeave} as={Fragment} show={show}>
       <Dialog
         as="div"
         className="fixed inset-0 z-10 flex min-h-screen items-center justify-center overflow-y-auto p-4 text-center sm:block sm:p-0"
-        onClose={() => onClose?.()}
+        onClose={() => {
+          if (!preventClose) {
+            onClose?.();
+          }
+        }}
       >
         <span className="hidden sm:inline-block sm:h-screen sm:align-middle" />
-        <div
-          aria-hidden="true"
-          className="fixed inset-0 bg-gray-500/75 dark:bg-gray-900/80"
-          onClick={handleClose}
-        />
+        <DialogBackdrop className="fixed inset-0 bg-gray-500/75 dark:bg-gray-900/80" />
         <TransitionChild
           as={Fragment}
           enter="ease-out duration-100"

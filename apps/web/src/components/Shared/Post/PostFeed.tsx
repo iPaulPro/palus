@@ -18,6 +18,7 @@ interface PostFeedProps<T extends { id: string }> {
   errorTitle: string;
   renderItem: (item: T) => ReactNode;
   refetch: () => Promise<any>;
+  onScroll?: (scrollOffset: number) => void;
 }
 
 const PostFeed = <T extends { id: string }>({
@@ -31,7 +32,8 @@ const PostFeed = <T extends { id: string }>({
   emptyMessage,
   errorTitle,
   renderItem,
-  refetch
+  refetch,
+  onScroll
 }: PostFeedProps<T>) => {
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 
@@ -53,7 +55,11 @@ const PostFeed = <T extends { id: string }>({
   return (
     <PullToRefresh onRefresh={refetch}>
       <Card className="virtual-divider-list-window">
-        <CachedWindowVirtualizer cacheKey={cacheKey} ref={ref}>
+        <CachedWindowVirtualizer
+          cacheKey={cacheKey}
+          onScroll={onScroll}
+          ref={ref}
+        >
           {items.map((item) => renderItem(item))}
           {hasMore && <span ref={loadMoreRef} />}
         </CachedWindowVirtualizer>
