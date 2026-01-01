@@ -8,20 +8,19 @@ import {
 } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ReactNode } from "react";
-import { Fragment, memo } from "react";
+import { Fragment, memo, type ReactNode } from "react";
 
 const modalVariants = cva(
-  "w-full scale-100 bg-white text-left align-bottom shadow-xl transition-all sm:my-8 sm:align-middle dark:bg-gray-800",
+  "w-full scale-100 bg-white text-left shadow-xl dark:bg-gray-800",
   {
     defaultVariants: { size: "sm" },
     variants: {
       size: {
         full: "h-full flex flex-col",
-        lg: "rounded-xl inline-block sm:max-w-5xl",
-        md: "rounded-xl inline-block sm:max-w-3xl",
-        sm: "rounded-xl inline-block sm:max-w-lg",
-        xs: "rounded-xl inline-block sm:max-w-sm"
+        lg: "flex max-h-[90vh] flex-col rounded-xl sm:max-w-5xl",
+        md: "flex max-h-[90vh] flex-col rounded-xl sm:max-w-3xl",
+        sm: "flex max-h-[90vh] flex-col rounded-xl sm:max-w-lg",
+        xs: "flex max-h-[90vh] flex-col rounded-xl sm:max-w-sm"
       }
     }
   }
@@ -49,7 +48,7 @@ const Modal = ({
     <Transition afterLeave={afterLeave} as={Fragment} show={show}>
       <Dialog
         as="div"
-        className={`fixed inset-0 z-10 flex min-h-screen items-center justify-center overflow-y-auto text-center sm:block sm:p-0 ${
+        className={`fixed top-[var(--vvt)] left-0 z-10 flex h-[var(--vvh)] w-full items-center justify-center overflow-hidden ${
           size === "full" ? "p-0" : "p-4"
         }`}
         onClose={() => {
@@ -57,8 +56,8 @@ const Modal = ({
             onClose?.();
           }
         }}
+        open={show}
       >
-        <span className="hidden sm:inline-block sm:h-screen sm:align-middle" />
         <DialogBackdrop className="fixed inset-0 bg-gray-500/75 dark:bg-gray-900/80" />
         <TransitionChild
           as={Fragment}

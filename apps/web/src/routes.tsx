@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { BrowserRouter, Route, Routes as RouterRoutes } from "react-router";
 import ViewAccount from "@/components/Account";
 import Bookmarks from "@/components/Bookmarks";
@@ -32,6 +33,27 @@ import Custom404 from "@/components/Shared/404";
 import RewardsSettings from "./components/Settings/Rewards";
 
 const Routes = () => {
+  useEffect(() => {
+    function setVvh() {
+      const vv = window.visualViewport;
+      const h = vv ? vv.height : window.innerHeight;
+      const t = vv ? vv.offsetTop : 0;
+      document.documentElement.style.setProperty("--vvh", `${h}px`);
+      document.documentElement.style.setProperty("--vvt", `${t}px`);
+    }
+
+    setVvh();
+    window.addEventListener("resize", setVvh);
+    window.visualViewport?.addEventListener("resize", setVvh);
+    window.visualViewport?.addEventListener("scroll", setVvh);
+
+    return () => {
+      window.removeEventListener("resize", setVvh);
+      window.visualViewport?.removeEventListener("resize", setVvh);
+      window.visualViewport?.removeEventListener("scroll", setVvh);
+    };
+  }, []);
+
   return (
     <BrowserRouter>
       <RouterRoutes>

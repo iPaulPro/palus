@@ -274,7 +274,7 @@ const NewPublication = ({
           <ThreadBody embedded post={parentPost} />
         </div>
       ) : null}
-      <div className={"min-h-0 flex-1 overflow-y-auto"}>
+      <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain">
         <Editor
           feed={feed}
           isComment={isComment}
@@ -298,9 +298,8 @@ const NewPublication = ({
       </div>
       <div className="block shrink-0 items-center border-border border-t px-5 py-3 sm:flex">
         <div
-          className={cn("flex w-full items-center space-x-4", {
-            "pb-6": isStandalone && isModal,
-            "space-x-5": !isModal
+          className={cn("flex w-full items-center space-x-5", {
+            "pb-6": isStandalone && isModal
           })}
         >
           <Attachment anchor={isModal ? "top" : "bottom"} />

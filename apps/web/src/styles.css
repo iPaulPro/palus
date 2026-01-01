@@ -41,6 +41,10 @@
   }
 }
 
+:root {
+  --vvh: 100vh;
+}
+
 @layer base {
   :root {
     @apply font-sofia-pro text-black dark:text-gray-50;

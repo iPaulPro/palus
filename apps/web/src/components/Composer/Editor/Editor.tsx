@@ -10,7 +10,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import "prosekit/basic/style.css";
 import { createEditor } from "prosekit/core";
 import { ProseKit } from "prosekit/react";
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef } from "react";
 import GroupSelector from "@/components/Composer/GroupSelector";
 import cn from "@/helpers/cn";
 import { useEditorHandle } from "./EditorHandle";
@@ -56,13 +56,26 @@ const Editor = ({
   usePaste(editor);
   useEditorHandle(editor);
 
+  useEffect(() => {
+    const handleResize = () => {
+      if (editor.view && editor.view.hasFocus()) {
+        editor.view.dispatch(editor.view.state.tr.scrollIntoView());
+      }
+    };
+
+    window.visualViewport?.addEventListener("resize", handleResize);
+    return () => {
+      window.visualViewport?.removeEventListener("resize", handleResize);
+    };
+  }, [editor]);
+
   return (
     <ProseKit editor={editor}>
       <div
         className={cn(
           "box-border flex w-full justify-stretch overflow-x-hidden px-3 md:px-5",
           {
-            "flex-grow": isInModal,
+            "h-full flex-grow pb-4": isInModal,
             "pb-4": isEditing,
             "py-4": !zeroPadding
           }
@@ -79,7 +92,7 @@ const Editor = ({
           )}
           <EditorMenus />
           <div
-            className="relative mt-1 box-border h-full min-h-[80px] flex-1 overflow-auto leading-6 outline-0 sm:leading-[26px]"
+            className="relative mt-1 box-border h-full min-h-[80px] flex-1 leading-6 outline-0 sm:leading-[26px]"
             ref={editor.mount}
           />
         </div>
