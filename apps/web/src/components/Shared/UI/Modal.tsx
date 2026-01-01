@@ -17,7 +17,7 @@ const modalVariants = cva(
     defaultVariants: { size: "sm" },
     variants: {
       size: {
-        full: "min-h-screen flex flex-col",
+        full: "h-full flex flex-col",
         lg: "rounded-xl inline-block sm:max-w-5xl",
         md: "rounded-xl inline-block sm:max-w-3xl",
         sm: "rounded-xl inline-block sm:max-w-lg",

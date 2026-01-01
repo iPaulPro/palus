@@ -264,35 +264,39 @@ const NewPublication = ({
 
   return (
     <Card
-      className={cn({ "flex flex-grow flex-col pt-5": isModal }, className)}
+      className={cn(
+        { "flex h-full flex-col overflow-hidden pt-5": isModal },
+        className
+      )}
     >
       {parentPost && isModal ? (
-        <div className="mx-3 md:mx-5">
+        <div className="mx-3 shrink-0 md:mx-5">
           <ThreadBody embedded post={parentPost} />
         </div>
       ) : null}
-      <Editor
-        feed={feed}
-        isComment={isComment}
-        isEditing={Boolean(editingPost)}
-        isInModal={isModal}
-        isQuote={isQuote}
-        selectedFeed={selectedFeed}
-        setSelectedFeed={setSelectedFeed}
-        zeroPadding={isModal}
-      />
-      {postContentError ? (
-        <H6 className="mt-1 px-5 pb-3 text-red-500">{postContentError}</H6>
-      ) : null}
-      <LinkPreviews />
-      <NewAttachments attachments={attachments} />
-      {quotedPost ? (
-        <Wrapper className="m-5" zeroPadding>
-          <QuotedPost isNew post={quotedPost} />
-        </Wrapper>
-      ) : null}
-      <div className="divider" />
-      <div className="block items-center px-5 py-3 sm:flex">
+      <div className={"min-h-0 flex-1 overflow-y-auto"}>
+        <Editor
+          feed={feed}
+          isComment={isComment}
+          isEditing={Boolean(editingPost)}
+          isInModal={isModal}
+          isQuote={isQuote}
+          selectedFeed={selectedFeed}
+          setSelectedFeed={setSelectedFeed}
+          zeroPadding={isModal}
+        />
+        {postContentError ? (
+          <H6 className="mt-1 px-5 pb-3 text-red-500">{postContentError}</H6>
+        ) : null}
+        <LinkPreviews />
+        <NewAttachments attachments={attachments} />
+        {quotedPost ? (
+          <Wrapper className="m-5" zeroPadding>
+            <QuotedPost isNew post={quotedPost} />
+          </Wrapper>
+        ) : null}
+      </div>
+      <div className="block shrink-0 items-center border-border border-t px-5 py-3 sm:flex">
         <div
           className={cn("flex w-full items-center space-x-4", {
             "pb-6": isStandalone && isModal,

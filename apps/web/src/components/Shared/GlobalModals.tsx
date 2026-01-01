@@ -115,7 +115,7 @@ const GlobalModals = () => {
               ? `Reply to @${getAccount(parentPost.author).username}`
               : quotedPost
                 ? "Quote post"
-                : "Create post"
+                : "New post"
         }
       >
         <NewPublication

@@ -51,7 +51,7 @@ const Editor = ({
     return createEditor({ defaultContent, extension });
   }, [defaultContent]);
 
-  useFocus(editor, isComment || Boolean(isInModal));
+  useFocus(editor, isComment && !isInModal);
   useContentChange(editor);
   usePaste(editor);
   useEditorHandle(editor);
@@ -60,7 +60,7 @@ const Editor = ({
     <ProseKit editor={editor}>
       <div
         className={cn(
-          "box-border flex size-full justify-stretch overflow-y-auto overflow-x-hidden px-3 md:px-5",
+          "box-border flex w-full justify-stretch overflow-x-hidden px-3 md:px-5",
           {
             "flex-grow": isInModal,
             "pb-4": isEditing,
