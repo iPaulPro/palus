@@ -1,4 +1,4 @@
-import { PlusIcon } from "@heroicons/react/24/outline";
+import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { motion } from "motion/react";
 import cn from "@/helpers/cn";
@@ -35,7 +35,7 @@ const FloatingNewPostButton = ({
         onClick={onClick}
         type="button"
       >
-        <PlusIcon className="size-6" />
+        <PencilSquareIcon className="mb-0.5 ml-0.5 size-6" />
       </button>
     </motion.div>
   );

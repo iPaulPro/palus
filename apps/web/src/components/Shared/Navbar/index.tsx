@@ -4,6 +4,7 @@ import {
   BookmarkIcon as BookmarkOutline,
   GlobeAltIcon as GlobeOutline,
   HomeIcon as HomeOutline,
+  PencilSquareIcon,
   UserCircleIcon,
   UserGroupIcon as UserGroupOutline
 } from "@heroicons/react/24/outline";
@@ -35,6 +36,7 @@ import { Link, useLocation } from "react-router";
 import { Image, Spinner, Tooltip } from "@/components/Shared/UI";
 import useHasNewNotifications from "@/hooks/useHasNewNotifications";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
+import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import SignedAccount from "./SignedAccount";
 
@@ -153,6 +155,7 @@ const Navbar = () => {
   const { pathname } = useLocation();
   const { currentAccount } = useAccountStore();
   const { setShowAuthModal } = useAuthModalStore();
+  const { setShow: setShowNewPostModal } = useNewPostModalStore();
 
   const handleLogoClick = useCallback(
     (e: MouseEvent<HTMLAnchorElement>) => {
@@ -168,8 +171,12 @@ const Navbar = () => {
     setShowAuthModal(true);
   }, []);
 
+  const handleNewPostClick = () => {
+    setShowNewPostModal(true);
+  };
+
   return (
-    <aside className="sticky top-5 mt-5 hidden w-10 shrink-0 flex-col items-center gap-y-5 md:flex">
+    <aside className="sticky top-0 hidden h-screen w-10 shrink-0 flex-col items-center gap-y-5 py-5 md:flex">
       <Link onClick={handleLogoClick} to="/">
         <Image
           alt="Logo"
@@ -181,10 +188,16 @@ const Navbar = () => {
       </Link>
       <NavItems isLoggedIn={!!currentAccount} />
       {currentAccount ? (
-        <>
-          {/* <Pro /> */}
+        <div className="flex flex-1 flex-col items-center justify-between">
+          <button
+            className="center flex size-10 rounded-full bg-brand-500 text-white active:bg-brand-600 dark:bg-brand-700 dark:active:bg-brand-600"
+            onClick={handleNewPostClick}
+            type="button"
+          >
+            <PencilSquareIcon className="mb-0.5 ml-0.5 size-5" />
+          </button>
           <SignedAccount />
-        </>
+        </div>
       ) : (
         <button onClick={handleAuthClick} type="button">
           <Tooltip content="Login">
