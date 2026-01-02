@@ -77,8 +77,7 @@ const Editor = ({
         className={cn(
           "box-border flex w-full justify-stretch overflow-x-hidden px-3 md:px-5",
           {
-            "h-full pb-4": isInModal && !isQuote && attachments.length === 0,
-            "pb-4": isEditing,
+            "h-full": isInModal && !isQuote && attachments.length === 0,
             "py-4": !zeroPadding
           }
         )}

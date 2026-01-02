@@ -7,6 +7,8 @@
   --font-sofia-pro: "Sofia Pro", sans-serif;
   --animate-shimmer: shimmer 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 
+  --vvh: 100vh;
+
   /* Brand Colors */
   --color-brand-50: #f0faff;
   --color-brand-300: #7cd9fd;
@@ -41,23 +43,18 @@
   }
 }
 
-:root {
-  --vvh: 100vh;
-}
-
 @layer base {
-  :root {
-    @apply font-sofia-pro text-black dark:text-gray-50;
-  }
-
   html {
+    @apply font-sofia-pro text-black dark:text-gray-50;
     @apply overflow-y-scroll;
   }
 
   body {
     @apply bg-surface;
   }
+}
 
+@layer components {
   .shimmer {
     @apply animate-shimmer;
     @apply bg-gray-300;
@@ -110,14 +107,14 @@
   }
 
   .ProseMirror {
-    p {
+    & p {
       word-break: break-word;
-      @apply not-last:mb-4;
+      @apply mb-4;
     }
 
     & a,
-    span[data-mention="account"],
-    span[data-mention="group"] {
+    & span[data-mention="account"],
+    & span[data-mention="group"] {
       @apply text-brand-500;
     }
 
