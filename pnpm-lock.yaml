@@ -98,9 +98,6 @@ importers:
       motion:
         specifier: ^12.23.24
         version: 12.23.26(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      motion-plus-react:
-        specifier: ^1.5.4
-        version: 1.5.4(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
       plur:
         specifier: ^5.1.0
         version: 5.1.0
@@ -4510,21 +4507,6 @@ packages:
 
   motion-dom@12.23.23:
     resolution: {integrity: sha512-n5yolOs0TQQBRUFImrRfs/+6X4p3Q4n1dUEqt/H58Vx7OW6RF+foWEgmTVDhIWJIMXOuNNL0apKH2S16en9eiA==}
-
-  motion-plus-dom@1.6.0:
-    resolution: {integrity: sha512-A4uGFtMG8rl+wQCXBt6h6+G9PK7ZCF2yB4n6RTvmm2kXuSZaXz6LmK9hBWH86RWY2uQUrLTuLypqTZxW1fIM5Q==}
-
-  motion-plus-react@1.5.4:
-    resolution: {integrity: sha512-uOqiUhZH00N+Y81f6zY+v5CMCeH4J4FGiz2fOY/F7/gkL8yAXE/G6tB66NVuvoOXKtLoPF4Er1PnzHOAZkAxBw==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
-    peerDependencies:
-      react: ^18.0.0 || ^19.0.0
-      react-dom: ^18.0.0 || ^19.0.0
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
 
   motion-utils@12.23.6:
     resolution: {integrity: sha512-eAWoPgr4eFEOFfg2WjIsMoqJTW6Z8MTUCgn/GZ3VRpClWBdnbjryiA3ZSNLyxCTmCQx4RmYX6jX1iWHbenUPNQ==}
@@ -12149,28 +12131,6 @@ snapshots:
   motion-dom@12.23.23:
     dependencies:
       motion-utils: 12.23.6
-
-  motion-plus-dom@1.6.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
-    dependencies:
-      motion: 12.23.26(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      motion-dom: 12.23.23
-      motion-utils: 12.23.6
-    transitivePeerDependencies:
-      - '@emotion/is-prop-valid'
-      - react
-      - react-dom
-
-  motion-plus-react@1.5.4(react-dom@19.2.3(react@19.2.3))(react@19.2.3):
-    dependencies:
-      motion: 12.23.26(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      motion-dom: 12.23.23
-      motion-plus-dom: 1.6.0(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      motion-utils: 12.23.6
-    optionalDependencies:
-      react: 19.2.3
-      react-dom: 19.2.3(react@19.2.3)
-    transitivePeerDependencies:
-      - '@emotion/is-prop-valid'
 
   motion-utils@12.23.6: {}
 

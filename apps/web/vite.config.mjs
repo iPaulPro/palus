@@ -42,10 +42,9 @@ const dependenciesToChunk = {
     "@radix-ui/react-tooltip",
     "@uidotdev/usehooks",
     "sonner",
-    "motion",
-    "motion-plus-react"
+    "motion"
   ],
-  wevm: ["wagmi", "family", "viem", "viem/zksync"]
+  wevm: ["wagmi", "family", "@metamask/sdk", "viem", "viem/zksync"]
 };
 
 export default defineConfig({
