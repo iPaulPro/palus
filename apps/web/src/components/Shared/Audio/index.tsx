@@ -67,43 +67,45 @@ const Audio = ({ artist, isNew = false, poster, src, title }: AudioProps) => {
             setAudioPost({ ...audioPost, cover, mimeType });
           }}
         />
-        <div className="flex w-full flex-col justify-between truncate py-1 md:px-2">
-          <div className="mt-3 flex justify-between md:mt-5">
-            <div className="flex w-full items-center space-x-2.5 truncate">
-              <button onClick={handlePlayPause} type="button">
-                {playing && !playerRef.current?.plyr.paused ? (
-                  <PauseIcon className="size-12 text-gray-100 hover:text-white" />
-                ) : (
-                  <PlayIcon className="size-12 text-gray-100 hover:text-white" />
-                )}
-              </button>
-              <div className="w-full truncate pr-3">
-                {isNew ? (
-                  <div className="flex w-full flex-col space-y-1">
-                    <input
-                      autoComplete="off"
-                      className="border-none bg-transparent p-0 text-lg text-white placeholder:text-white focus:ring-0"
-                      name="title"
-                      onChange={handleChange}
-                      placeholder="Add title"
-                      value={audioPost.title}
-                    />
-                    <input
-                      autoComplete="off"
-                      className="border-none bg-transparent p-0 text-white/70 placeholder:text-white/70 focus:ring-0"
-                      name="artist"
-                      onChange={handleChange}
-                      placeholder="Add artist"
-                      value={audioPost.artist}
-                    />
-                  </div>
-                ) : (
-                  <>
-                    <h5 className="truncate text-lg text-white">{title}</h5>
-                    <h6 className="truncate text-white/70">{artist}</h6>
-                  </>
-                )}
-              </div>
+        <div className="flex w-full flex-col justify-between py-1 md:px-2">
+          <div className="mt-3 flex items-center gap-x-2.5 md:mt-5">
+            <button
+              className="flex-none"
+              onClick={handlePlayPause}
+              type="button"
+            >
+              {playing && !playerRef.current?.plyr.paused ? (
+                <PauseIcon className="size-12 text-gray-100 hover:text-white" />
+              ) : (
+                <PlayIcon className="size-12 text-gray-100 hover:text-white" />
+              )}
+            </button>
+            <div className="w-0 min-w-0 flex-1 overflow-hidden pr-3">
+              {isNew ? (
+                <div className="flex w-full flex-col space-y-1">
+                  <input
+                    autoComplete="off"
+                    className="border-none bg-transparent p-0 text-lg text-white placeholder:text-white focus:ring-0"
+                    name="title"
+                    onChange={handleChange}
+                    placeholder="Add title"
+                    value={audioPost.title}
+                  />
+                  <input
+                    autoComplete="off"
+                    className="border-none bg-transparent p-0 text-white/70 placeholder:text-white/70 focus:ring-0"
+                    name="artist"
+                    onChange={handleChange}
+                    placeholder="Add artist"
+                    value={audioPost.artist}
+                  />
+                </div>
+              ) : (
+                <>
+                  <div className="truncate text-lg text-white">{title}</div>
+                  <div className="truncate text-white/70">{artist}</div>
+                </>
+              )}
             </div>
           </div>
           <div className="md:pb-1">
