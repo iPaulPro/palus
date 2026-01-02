@@ -1,8 +1,8 @@
 import { GIPHY_KEY } from "@palus/data/constants";
-import type { Category } from "@palus/types/giphy";
 import { useQuery } from "@tanstack/react-query";
 import type { Dispatch, SetStateAction } from "react";
 import { H5 } from "@/components/Shared/UI";
+import type { Category } from "@/types/giphy";
 
 const GET_GIPHY_CATEGORIES_QUERY_KEY = "getGiphyCategories";
 

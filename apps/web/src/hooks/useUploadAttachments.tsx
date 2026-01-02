@@ -1,4 +1,3 @@
-import type { NewAttachment } from "@palus/types/misc";
 import { useCallback } from "react";
 import { toast } from "sonner";
 import {
@@ -8,6 +7,7 @@ import {
 } from "@/helpers/attachmentUtils";
 import uploadToIPFS from "@/helpers/uploadToIPFS";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
+import type { NewAttachment } from "@/types/misc";
 
 const useUploadAttachments = () => {
   const {

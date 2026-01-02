@@ -201,9 +201,6 @@ importers:
       '@palus/config':
         specifier: workspace:*
         version: link:../../packages/config
-      '@palus/types':
-        specifier: workspace:*
-        version: link:../../packages/types
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
         version: 0.4.2(tailwindcss@4.1.18)
@@ -289,22 +286,6 @@ importers:
       '@types/node':
         specifier: ^24.9.1
         version: 24.10.4
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/types:
-    dependencies:
-      '@lens-protocol/metadata':
-        specifier: ^2.1.0
-        version: 2.1.0(typescript@5.9.3)(zod@3.25.76)
-      '@palus/indexer':
-        specifier: workspace:*
-        version: link:../indexer
-    devDependencies:
-      '@palus/config':
-        specifier: workspace:*
-        version: link:../config
       typescript:
         specifier: ^5.9.3
         version: 5.9.3
@@ -7654,16 +7635,6 @@ snapshots:
       viem: 2.43.3(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
 
   '@lens-chain/storage-client@1.0.6': {}
-
-  '@lens-protocol/metadata@2.1.0(typescript@5.9.3)(zod@3.25.76)':
-    dependencies:
-      abitype: 1.2.3(typescript@5.9.3)(zod@3.25.76)
-      json-stable-stringify: 1.3.0
-      uuid: 9.0.1
-    optionalDependencies:
-      zod: 3.25.76
-    transitivePeerDependencies:
-      - typescript
 
   '@lens-protocol/metadata@2.1.0(typescript@5.9.3)(zod@4.1.11)':
     dependencies:

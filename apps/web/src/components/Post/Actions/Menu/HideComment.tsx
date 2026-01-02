@@ -6,7 +6,6 @@ import {
   useHideReplyMutation,
   useUnhideReplyMutation
 } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback } from "react";
 import { toast } from "sonner";
 import { useHiddenCommentFeedStore } from "@/components/Post";
@@ -14,6 +13,7 @@ import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { ApolloClientError } from "@/types/errors";
 
 interface HideCommentProps {
   post: PostFragment;

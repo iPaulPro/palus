@@ -3,12 +3,12 @@ import {
   type GroupFragment,
   useCancelGroupMembershipRequestMutation
 } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import type { ApolloClientError } from "@/types/errors";
 
 interface CancelGroupMembershipRequestProps {
   group: GroupFragment;

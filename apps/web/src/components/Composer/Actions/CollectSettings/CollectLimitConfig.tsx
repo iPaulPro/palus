@@ -1,9 +1,9 @@
 import { StarIcon } from "@heroicons/react/24/outline";
-import type { CollectActionType } from "@palus/types/palus";
 import { motion } from "motion/react";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Input } from "@/components/Shared/UI";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
+import type { CollectActionType } from "@/types/palus";
 import { EXPANSION_EASE } from "@/variants";
 
 interface CollectLimitConfigProps {

@@ -1,5 +1,5 @@
-import type { NewAttachment } from "@palus/types/misc";
 import { createTrackedStore } from "@/store/createTrackedStore";
+import type { NewAttachment } from "@/types/misc";
 
 interface State {
   addAttachments: (attachments: NewAttachment[]) => void;

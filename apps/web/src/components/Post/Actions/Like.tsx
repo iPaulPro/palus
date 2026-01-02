@@ -8,7 +8,6 @@ import {
   useAddReactionMutation,
   useUndoReactionMutation
 } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import { useCounter, useToggle } from "@uidotdev/usehooks";
 import { useCallback } from "react";
 import { toast } from "sonner";
@@ -16,6 +15,7 @@ import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { ApolloClientError } from "@/types/errors";
 
 interface LikeProps {
   post: PostFragment;

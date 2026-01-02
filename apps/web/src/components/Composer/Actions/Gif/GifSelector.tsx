@@ -1,9 +1,9 @@
 import { STATIC_IMAGES_URL } from "@palus/data/constants";
-import type { IGif } from "@palus/types/giphy";
 import { useDebounce } from "@uidotdev/usehooks";
 import type { Dispatch, SetStateAction } from "react";
 import { useState } from "react";
 import { Input } from "@/components/Shared/UI";
+import type { IGif } from "@/types/giphy";
 import Categories from "./Categories";
 import Gifs from "./Gifs";
 

@@ -1,6 +1,5 @@
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import { TRANSFORMS } from "@palus/data/constants";
-import type { ApolloClientError } from "@palus/types/errors";
 import type { ChangeEvent, Ref } from "react";
 import { useCallback, useState } from "react";
 import { Image, Spinner } from "@/components/Shared/UI";
@@ -9,6 +8,7 @@ import errorToast from "@/helpers/errorToast";
 import imageKit from "@/helpers/imageKit";
 import sanitizeDStorageUrl from "@/helpers/sanitizeDStorageUrl";
 import { uploadFileToIPFS } from "@/helpers/uploadToIPFS";
+import type { ApolloClientError } from "@/types/errors";
 
 interface CoverImageProps {
   cover: string;
@@ -42,7 +42,7 @@ const CoverImage = ({
           file.type || "image/jpeg"
         );
       } catch (error) {
-        onError(error);
+        onError(error as ApolloClientError);
       }
     }
   };

@@ -8,7 +8,6 @@ import {
   useAccountManagersQuery,
   useRemoveAccountManagerMutation
 } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { WindowVirtualizer } from "virtua";
@@ -19,6 +18,7 @@ import errorToast from "@/helpers/errorToast";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { ApolloClientError } from "@/types/errors";
 import Permission from "./Permission";
 
 const List = () => {

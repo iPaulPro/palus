@@ -1,13 +1,13 @@
-import { ERRORS } from "@palus/data/errors";
+import { ERROR_NAMES, ERRORS } from "@palus/data/errors";
 import type {
   SelfFundedTransactionRequestFragment,
   SponsoredTransactionRequestFragment,
   TransactionWillFailFragment
 } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 import getTransactionData from "@/helpers/getTransactionData";
+import type { ApolloClientError } from "@/types/errors";
 import useHandleWrongNetwork from "./useHandleWrongNetwork";
 
 type AnyTransactionRequestFragment =
@@ -74,7 +74,10 @@ const useTransactionLifecycle = () => {
   }) => {
     try {
       if (typeof transactionData === "function") {
-        return onError({ message: ERRORS.SomethingWentWrong });
+        return onError({
+          message: ERRORS.SomethingWentWrong,
+          name: ERROR_NAMES.UnknownError
+        });
       }
       switch (transactionData.__typename) {
         case "SponsoredTransactionRequest":
@@ -86,15 +89,24 @@ const useTransactionLifecycle = () => {
           );
         case "TransactionWillFail":
           if ("reason" in transactionData) {
-            return onError({ message: transactionData.reason });
+            return onError({
+              message: transactionData.reason,
+              name: transactionData.__typename
+            });
           }
-          return onError({ message: ERRORS.SomethingWentWrong });
+          return onError({
+            message: ERRORS.SomethingWentWrong,
+            name: ERROR_NAMES.UnknownError
+          });
         default:
-          onError({ message: ERRORS.SomethingWentWrong });
+          onError({
+            message: ERRORS.SomethingWentWrong,
+            name: ERROR_NAMES.UnknownError
+          });
           return;
       }
     } catch (error) {
-      return onError(error);
+      return onError(error as ApolloClientError);
     }
   };
 

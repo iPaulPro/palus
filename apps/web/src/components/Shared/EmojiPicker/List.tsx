@@ -1,12 +1,12 @@
 import { useClose } from "@headlessui/react";
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import type { Emoji } from "@palus/types/misc";
 import type { ChangeEvent, MouseEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 import { Input } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import useEmojis from "@/hooks/prosekit/useEmojis";
+import type { Emoji } from "@/types/misc";
 
 interface ListProps {
   setEmoji: (emoji: string) => void;

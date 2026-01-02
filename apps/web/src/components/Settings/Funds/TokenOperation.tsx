@@ -1,10 +1,10 @@
-import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button, Input, Modal } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
+import type { ApolloClientError } from "@/types/errors";
 
 interface TokenOperationProps {
   useMutationHook: any;
@@ -50,7 +50,10 @@ const TokenOperation = ({
     onCompleted: async (data: any) => {
       const result = data?.[resultKey];
       if (result?.__typename === "InsufficientFunds") {
-        return onError({ message: "Insufficient funds" });
+        return onError({
+          message: "Insufficient funds",
+          name: "InsufficientFunds"
+        });
       }
 
       return await handleTransactionLifecycle({

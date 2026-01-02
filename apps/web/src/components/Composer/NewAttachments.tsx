@@ -1,6 +1,5 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { MAX_IMAGE_UPLOAD } from "@palus/data/constants";
-import type { NewAttachment } from "@palus/types/misc";
 import { memo, useEffect, useRef } from "react";
 import ChooseThumbnail from "@/components/Composer/ChooseThumbnail";
 import Audio from "@/components/Shared/Audio";
@@ -9,6 +8,7 @@ import cn from "@/helpers/cn";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import { usePostVideoStore } from "@/store/non-persisted/post/usePostVideoStore";
+import type { NewAttachment } from "@/types/misc";
 
 const getClass = (attachments: number) => {
   const aspect = "aspect-w-16 aspect-h-12";

@@ -1,12 +1,12 @@
 import { useApolloClient } from "@apollo/client";
 import { type AccountFragment, useUnfollowMutation } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { Button } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { ApolloClientError } from "@/types/errors";
 
 interface UnfollowProps {
   buttonClassName: string;
@@ -55,7 +55,10 @@ const Unfollow = ({
       }
 
       if (unfollow.__typename === "AccountFollowOperationValidationFailed") {
-        return onError({ message: unfollow.reason });
+        return onError({
+          message: unfollow.reason,
+          name: "AccountFollowOperationValidationFailed"
+        });
       }
 
       return await handleTransactionLifecycle({

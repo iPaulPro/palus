@@ -1,7 +1,6 @@
 import { ADDRESS_PLACEHOLDER } from "@palus/data/constants";
 import { ERRORS } from "@palus/data/errors";
 import { useAddAccountManagerMutation } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import type { Dispatch, SetStateAction } from "react";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
@@ -12,6 +11,7 @@ import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { ApolloClientError } from "@/types/errors";
 
 interface AddAccountManagerProps {
   setShowAddManagerModal: Dispatch<SetStateAction<boolean>>;

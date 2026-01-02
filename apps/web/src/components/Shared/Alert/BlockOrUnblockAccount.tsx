@@ -1,7 +1,6 @@
 import { useApolloClient } from "@apollo/client";
 import { ERRORS } from "@palus/data/errors";
 import { useBlockMutation, useUnblockMutation } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Alert } from "@/components/Shared/UI";
@@ -10,6 +9,7 @@ import getAccount from "@/helpers/getAccount";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useBlockAlertStore } from "@/store/non-persisted/alert/useBlockAlertStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { ApolloClientError } from "@/types/errors";
 
 const BlockOrUnblockAccount = () => {
   const { currentAccount } = useAccountStore();

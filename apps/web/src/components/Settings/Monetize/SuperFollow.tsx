@@ -10,7 +10,6 @@ import {
   useMeLazyQuery,
   useUpdateAccountFollowRulesMutation
 } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import {
   type RefObject,
   useCallback,
@@ -33,6 +32,7 @@ import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { ApolloClientError } from "@/types/errors";
 
 const SuperFollow = () => {
   const { currentAccount, setCurrentAccount } = useAccountStore();

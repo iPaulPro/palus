@@ -4,12 +4,12 @@ import {
   GroupRuleType,
   useUpdateGroupRulesMutation
 } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import type { ApolloClientError } from "@/types/errors";
 
 interface ApprovalRuleProps {
   group: GroupFragment;

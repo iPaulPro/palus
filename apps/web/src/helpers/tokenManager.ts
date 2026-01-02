@@ -1,8 +1,8 @@
 import { RefreshDocument, type RefreshMutation } from "@palus/indexer";
 import apolloClient from "@palus/indexer/apollo/client";
-import type { JwtPayload } from "@palus/types/jwt";
 import parseJwt from "@/helpers/parseJwt";
 import { signIn, signOut } from "@/store/persisted/useAuthStore";
+import type { JwtPayload } from "@/types/jwt";
 
 let refreshPromise: Promise<string> | null = null;
 const MAX_RETRIES = 5;

@@ -6,7 +6,6 @@ import {
   useBalancesBulkQuery,
   useExecutePostActionMutation
 } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import type { Address } from "viem";
@@ -17,6 +16,7 @@ import errorToast from "@/helpers/errorToast";
 import getCollectActionData from "@/helpers/getCollectActionData";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { ApolloClientError } from "@/types/errors";
 
 interface CollectActionButtonProps {
   collects: number;

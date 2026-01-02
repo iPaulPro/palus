@@ -1,9 +1,9 @@
 import type { PostMentionFragment } from "@palus/indexer";
-import type { MarkupLinkProps } from "@palus/types/misc";
 import { Link } from "react-router";
 import AccountPreview from "@/components/Shared/Account/AccountPreview";
 import Slug from "@/components/Shared/Slug";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
+import type { MarkupLinkProps } from "@/types/misc";
 
 const Mention = ({ mentions, title }: MarkupLinkProps) => {
   if (!title) {

@@ -1,5 +1,5 @@
-import type { Emoji } from "@palus/types/misc";
 import { useMemo } from "react";
+import type { Emoji } from "@/types/misc";
 import allEmojis from "../../assets/emoji.json";
 
 const DEFAULT_MAX_EMOJI_COUNT = 5;

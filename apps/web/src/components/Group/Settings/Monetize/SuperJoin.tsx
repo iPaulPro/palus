@@ -9,7 +9,6 @@ import {
   GroupRuleType,
   useUpdateGroupRulesMutation
 } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import {
   type RefObject,
   useCallback,
@@ -31,6 +30,7 @@ import { getSimplePaymentDetails } from "@/helpers/rules";
 import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
+import type { ApolloClientError } from "@/types/errors";
 
 interface SuperJoinProps {
   group: GroupFragment;

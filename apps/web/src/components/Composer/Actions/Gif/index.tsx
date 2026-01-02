@@ -1,9 +1,9 @@
 import { GifIcon } from "@heroicons/react/24/outline";
-import type { IGif } from "@palus/types/giphy";
 import { useState } from "react";
 import { Modal, Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
+import type { IGif } from "@/types/giphy";
 import GifSelector from "./GifSelector";
 
 interface GifProps {

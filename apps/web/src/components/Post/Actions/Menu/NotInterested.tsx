@@ -7,12 +7,12 @@ import {
   useAddPostNotInterestedMutation,
   useUndoPostNotInterestedMutation
 } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback } from "react";
 import { toast } from "sonner";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
+import type { ApolloClientError } from "@/types/errors";
 
 interface NotInterestedProps {
   post: PostFragment;

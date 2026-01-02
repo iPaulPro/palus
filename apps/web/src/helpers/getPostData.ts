@@ -1,6 +1,6 @@
 import { PLACEHOLDER_IMAGE } from "@palus/data/constants";
 import type { PostMetadataFragment } from "@palus/indexer";
-import type { AttachmentData } from "@palus/types/misc";
+import type { AttachmentData } from "@/types/misc";
 import getAttachmentsData from "./getAttachmentsData";
 import sanitizeDStorageUrl from "./sanitizeDStorageUrl";
 

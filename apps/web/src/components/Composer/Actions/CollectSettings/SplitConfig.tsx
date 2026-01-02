@@ -5,7 +5,6 @@ import {
   XCircleIcon
 } from "@heroicons/react/24/outline";
 import { ADDRESS_PLACEHOLDER } from "@palus/data/constants";
-import type { CollectActionType } from "@palus/types/palus";
 import { motion } from "motion/react";
 import { useState } from "react";
 import { isAddress } from "viem";
@@ -15,6 +14,7 @@ import { Button, H6, Input } from "@/components/Shared/UI";
 import splitNumber from "@/helpers/splitNumber";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { CollectActionType } from "@/types/palus";
 import { EXPANSION_EASE } from "@/variants";
 
 interface SplitConfigProps {

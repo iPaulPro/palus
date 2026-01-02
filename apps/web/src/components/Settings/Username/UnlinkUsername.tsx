@@ -1,5 +1,4 @@
 import { useUnassignUsernameFromAccountMutation } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button, H6 } from "@/components/Shared/UI";
@@ -7,6 +6,7 @@ import errorToast from "@/helpers/errorToast";
 import getAccount from "@/helpers/getAccount";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { ApolloClientError } from "@/types/errors";
 
 const UnlinkUsername = () => {
   const { currentAccount } = useAccountStore();

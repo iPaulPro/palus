@@ -1,7 +1,5 @@
 import { ERRORS } from "@palus/data/errors";
 import type { PostFragment } from "@palus/indexer";
-import type { IGif } from "@palus/types/giphy";
-import type { NewAttachment } from "@palus/types/misc";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { useCallback, useEffect, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
@@ -44,6 +42,8 @@ import {
   usePostVideoStore
 } from "@/store/non-persisted/post/usePostVideoStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { IGif } from "@/types/giphy";
+import type { NewAttachment } from "@/types/misc";
 import { Editor, useEditorContext, withEditorContext } from "./Editor";
 import LinkPreviews from "./LinkPreviews";
 

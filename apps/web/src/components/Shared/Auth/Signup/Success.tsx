@@ -1,12 +1,12 @@
 import { STATIC_IMAGES_URL } from "@palus/data/constants";
-import { ERRORS } from "@palus/data/errors";
+import { ERROR_NAMES, ERRORS } from "@palus/data/errors";
 import { useSwitchAccountMutation } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useEffect } from "react";
 import { H4, Image } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import reloadAllTabs from "@/helpers/reloadAllTabs";
 import { signIn } from "@/store/persisted/useAuthStore";
+import type { ApolloClientError } from "@/types/errors";
 import { useSignupStore } from ".";
 
 const Success = () => {
@@ -33,9 +33,15 @@ const Success = () => {
         return;
       }
 
-      return onError({ message: ERRORS.SomethingWentWrong });
+      return onError({
+        message: ERRORS.SomethingWentWrong,
+        name: ERROR_NAMES.UnknownError
+      });
     } catch {
-      onError({ message: ERRORS.SomethingWentWrong });
+      onError({
+        message: ERRORS.SomethingWentWrong,
+        name: ERROR_NAMES.UnknownError
+      });
     }
   };
 

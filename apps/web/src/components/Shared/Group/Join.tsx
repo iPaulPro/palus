@@ -4,12 +4,12 @@ import {
   useJoinGroupMutation,
   useRequestGroupMembershipMutation
 } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import type { ApolloClientError } from "@/types/errors";
 
 interface JoinProps {
   group: GroupFragment;
@@ -64,7 +64,10 @@ const Join = ({
       }
 
       if (joinGroup.__typename === "GroupOperationValidationFailed") {
-        return onError({ message: joinGroup.reason });
+        return onError({
+          message: joinGroup.reason,
+          name: "GroupOperationValidationFailed"
+        });
       }
 
       return await handleTransactionLifecycle({

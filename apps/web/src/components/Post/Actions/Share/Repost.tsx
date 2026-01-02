@@ -3,7 +3,6 @@ import { MenuItem } from "@headlessui/react";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import { ERRORS } from "@palus/data/errors";
 import { type PostFragment, useRepostMutation } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import { useCounter } from "@uidotdev/usehooks";
 import { type Dispatch, type SetStateAction, useCallback } from "react";
 import { toast } from "sonner";
@@ -11,6 +10,7 @@ import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { ApolloClientError } from "@/types/errors";
 
 interface RepostProps {
   isSubmitting: boolean;

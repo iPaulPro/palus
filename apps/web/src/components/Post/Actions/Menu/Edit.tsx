@@ -1,7 +1,6 @@
 import { MenuItem } from "@headlessui/react";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import type { PostFragment } from "@palus/indexer";
-import type { NewAttachment } from "@palus/types/misc";
 import cn from "@/helpers/cn";
 import generateUUID from "@/helpers/generateUUID";
 import getPostData from "@/helpers/getPostData";
@@ -9,6 +8,7 @@ import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
+import type { NewAttachment } from "@/types/misc";
 
 interface EditProps {
   post: PostFragment;

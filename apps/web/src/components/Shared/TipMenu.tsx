@@ -8,7 +8,6 @@ import {
   useExecuteAccountActionMutation,
   useExecutePostActionMutation
 } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import type { ChangeEvent, RefObject } from "react";
 import { memo, useCallback, useRef, useState } from "react";
 import { toast } from "sonner";
@@ -21,6 +20,7 @@ import errorToast from "@/helpers/errorToast";
 import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { ApolloClientError } from "@/types/errors";
 
 const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
 

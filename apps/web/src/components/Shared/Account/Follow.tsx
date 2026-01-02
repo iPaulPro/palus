@@ -1,12 +1,12 @@
 import { useApolloClient } from "@apollo/client";
 import { type AccountFragment, useFollowMutation } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { Button } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { ApolloClientError } from "@/types/errors";
 
 interface FollowProps {
   onFollow?: () => void;
@@ -58,7 +58,10 @@ const Follow = ({
       }
 
       if (follow.__typename === "AccountFollowOperationValidationFailed") {
-        return onError({ message: follow.reason });
+        return onError({
+          message: follow.reason,
+          name: "AccountFollowOperationValidationFailed"
+        });
       }
 
       return await handleTransactionLifecycle({

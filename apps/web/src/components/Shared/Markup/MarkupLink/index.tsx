@@ -1,4 +1,4 @@
-import type { MarkupLinkProps } from "@palus/types/misc";
+import type { MarkupLinkProps } from "@/types/misc";
 import ExternalLink from "./ExternalLink";
 import Mention from "./Mention";
 

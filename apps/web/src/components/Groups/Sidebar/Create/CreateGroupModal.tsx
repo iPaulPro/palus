@@ -1,7 +1,6 @@
 import { group } from "@lens-protocol/metadata";
 import { Regex } from "@palus/data/regex";
 import { useCreateGroupMutation } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { z } from "zod";
 import AvatarUpload from "@/components/Shared/AvatarUpload";
@@ -15,6 +14,7 @@ import {
 import errorToast from "@/helpers/errorToast";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import type { ApolloClientError } from "@/types/errors";
 import { useCreateGroupStore } from "./CreateGroup";
 
 const ValidationSchema = z.object({

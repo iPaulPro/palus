@@ -1,5 +1,5 @@
 import type { PostActionConfigInput } from "@palus/indexer";
-import type { CollectActionType } from "@palus/types/palus";
+import type { CollectActionType } from "@/types/palus";
 
 const collectActionParams = (
   collectAction: CollectActionType

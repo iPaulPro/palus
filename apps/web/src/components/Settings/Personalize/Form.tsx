@@ -2,7 +2,6 @@ import { account as accountMetadata } from "@lens-protocol/metadata";
 import { ERRORS } from "@palus/data/errors";
 import { Regex } from "@palus/data/regex";
 import { useMeLazyQuery, useSetAccountMetadataMutation } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
@@ -25,6 +24,7 @@ import uploadMetadata from "@/helpers/uploadMetadata";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { ApolloClientError } from "@/types/errors";
 
 const ValidationSchema = z.object({
   bio: z.string().max(260, { message: "Bio should not exceed 260 characters" }),

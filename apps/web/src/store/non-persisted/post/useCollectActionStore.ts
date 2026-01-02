@@ -1,5 +1,5 @@
-import type { CollectActionType } from "@palus/types/palus";
 import { create } from "zustand";
+import type { CollectActionType } from "@/types/palus";
 
 const INITIAL_COLLECT_ACTION: CollectActionType = {
   collectLimit: null,

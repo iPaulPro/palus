@@ -4,12 +4,12 @@ import {
   STATIC_IMAGES_URL
 } from "@palus/data/constants";
 import { tokens } from "@palus/data/tokens";
-import type { CollectActionType } from "@palus/types/palus";
 import { motion } from "motion/react";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Input, Select } from "@/components/Shared/UI";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { CollectActionType } from "@/types/palus";
 import { EXPANSION_EASE } from "@/variants";
 
 interface AmountConfigProps {

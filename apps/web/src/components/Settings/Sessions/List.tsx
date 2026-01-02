@@ -5,7 +5,6 @@ import {
   useAuthenticatedSessionsQuery,
   useRevokeAuthenticationMutation
 } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import dayjs from "dayjs";
 import { memo, useCallback, useState } from "react";
 import { toast } from "sonner";
@@ -15,6 +14,7 @@ import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { ApolloClientError } from "@/types/errors";
 
 const List = () => {
   const { currentAccount } = useAccountStore();

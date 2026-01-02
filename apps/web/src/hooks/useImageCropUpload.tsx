@@ -4,7 +4,6 @@ import {
   type TRANSFORMS
 } from "@palus/data/constants";
 import { ERRORS } from "@palus/data/errors";
-import type { ApolloClientError } from "@palus/types/errors";
 import type { ChangeEvent } from "react";
 import { useCallback, useState } from "react";
 import type { Area } from "react-easy-crop";
@@ -14,6 +13,7 @@ import getCroppedImg from "@/helpers/cropUtils";
 import errorToast from "@/helpers/errorToast";
 import imageKit from "@/helpers/imageKit";
 import sanitizeDStorageUrl from "@/helpers/sanitizeDStorageUrl";
+import type { ApolloClientError } from "@/types/errors";
 
 interface UseImageCropUploadProps {
   src: string;
@@ -57,7 +57,7 @@ const useImageCropUpload = ({
       setSrc(decentralizedUrl);
       setUploadedPicture(dataUrl);
     } catch (error) {
-      onError(error);
+      onError(error as ApolloClientError);
     } finally {
       setArea(null);
       setCrop({ x: 0, y: 0 });

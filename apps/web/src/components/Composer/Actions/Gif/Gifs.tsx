@@ -1,8 +1,8 @@
 import { GIPHY_KEY } from "@palus/data/constants";
-import type { IGif } from "@palus/types/giphy";
 import { useQuery } from "@tanstack/react-query";
 import type { Dispatch, SetStateAction } from "react";
 import Skeleton from "@/components/Shared/Skeleton";
+import type { IGif } from "@/types/giphy";
 
 const GET_GIFS_QUERY_KEY = "getGifs";
 

@@ -1,4 +1,3 @@
-import type { CollectActionType } from "@palus/types/palus";
 import { motion } from "motion/react";
 import type { Dispatch, SetStateAction } from "react";
 import { isAddress } from "viem";
@@ -7,6 +6,7 @@ import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Button } from "@/components/Shared/UI";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
+import type { CollectActionType } from "@/types/palus";
 import { EXPANSION_EASE } from "@/variants";
 import AmountConfig from "./AmountConfig";
 import CollectLimitConfig from "./CollectLimitConfig";

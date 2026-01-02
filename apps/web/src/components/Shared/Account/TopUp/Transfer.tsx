@@ -1,7 +1,6 @@
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
 import { NATIVE_TOKEN_SYMBOL } from "@palus/data/constants";
 import { useBalancesBulkQuery, useDepositMutation } from "@palus/indexer";
-import type { ApolloClientError } from "@palus/types/errors";
 import {
   type ChangeEvent,
   type RefObject,
@@ -22,6 +21,7 @@ import {
   type FundingToken,
   useFundModalStore
 } from "@/store/non-persisted/modal/useFundModalStore";
+import type { ApolloClientError } from "@/types/errors";
 
 interface TransferProps {
   token?: FundingToken;
@@ -81,7 +81,10 @@ const Transfer = ({ token }: TransferProps) => {
   const [deposit] = useDepositMutation({
     onCompleted: async ({ deposit }) => {
       if (deposit.__typename === "InsufficientFunds") {
-        return onError({ message: "Insufficient funds" });
+        return onError({
+          message: "Insufficient funds",
+          name: deposit.__typename
+        });
       }
 
       return await handleTransactionLifecycle({

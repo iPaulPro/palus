@@ -1,9 +1,9 @@
-import type { MarkupLinkProps } from "@palus/types/misc";
 import { Link } from "react-router";
 import injectReferrerToUrl from "@/helpers/injectReferrerToUrl";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import truncateUrl from "@/helpers/truncateUrl";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
+import type { MarkupLinkProps } from "@/types/misc";
 
 const ExternalLink = ({ title }: MarkupLinkProps) => {
   const { replaceLensLinks } = usePreferencesStore();
