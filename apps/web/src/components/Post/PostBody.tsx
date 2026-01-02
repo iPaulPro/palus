@@ -1,7 +1,5 @@
 import { ExclamationCircleIcon, EyeIcon } from "@heroicons/react/24/outline";
 import { getSrc } from "@livepeer/react/external";
-import getPostData from "@palus/helpers/getPostData";
-import { isRepost } from "@palus/helpers/postHelpers";
 import { type AnyPostFragment, ContentWarning } from "@palus/indexer";
 import { memo, useState } from "react";
 import Quote from "@/components/Shared/Embed/Quote";
@@ -11,6 +9,8 @@ import PostLink from "@/components/Shared/Post/PostLink";
 import Video from "@/components/Shared/Post/Video";
 import { Button, H6 } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import getPostData from "@/helpers/getPostData";
+import { isRepost } from "@/helpers/postHelpers";
 
 interface PostBodyProps {
   contentClassName?: string;

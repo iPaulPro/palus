@@ -1,12 +1,12 @@
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import { isRepost } from "@palus/helpers/postHelpers";
 import type { AnyPostFragment } from "@palus/indexer";
 import { useState } from "react";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import { Spinner, Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import humanize from "@/helpers/humanize";
+import { isRepost } from "@/helpers/postHelpers";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import Quote from "./Quote";
 import Repost from "./Repost";

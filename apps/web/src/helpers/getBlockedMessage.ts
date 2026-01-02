@@ -1,5 +1,5 @@
-import getAccount from "@palus/helpers/getAccount";
 import type { AccountFragment } from "@palus/indexer";
+import getAccount from "@/helpers/getAccount";
 
 const formatMessage = (
   account: AccountFragment,

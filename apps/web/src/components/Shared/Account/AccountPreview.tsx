@@ -1,5 +1,3 @@
-import getAccount from "@palus/helpers/getAccount";
-import getAvatar from "@palus/helpers/getAvatar";
 import { type AccountStats, useFullAccountLazyQuery } from "@palus/indexer";
 import * as HoverCard from "@radix-ui/react-hover-card";
 import plur from "plur";
@@ -8,6 +6,8 @@ import TopAccount from "@/components/Shared/Badges/TopAccount";
 import Markup from "@/components/Shared/Markup";
 import Slug from "@/components/Shared/Slug";
 import { Card, Image } from "@/components/Shared/UI";
+import getAccount from "@/helpers/getAccount";
+import getAvatar from "@/helpers/getAvatar";
 import getMentions from "@/helpers/getMentions";
 import nFormatter from "@/helpers/nFormatter";
 import truncateByWords from "@/helpers/truncateByWords";

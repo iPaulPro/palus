@@ -1,8 +1,6 @@
 import { CalendarIcon } from "@heroicons/react/20/solid";
 import { MapPinIcon } from "@heroicons/react/24/outline";
 import { TRANSFORMS } from "@palus/data/constants";
-import getAccount from "@palus/helpers/getAccount";
-import getAvatar from "@palus/helpers/getAvatar";
 import type { AccountFragment } from "@palus/indexer";
 import dayjs from "dayjs";
 import type { ReactNode } from "react";
@@ -14,7 +12,9 @@ import TopAccount from "@/components/Shared/Badges/TopAccount";
 import Markup from "@/components/Shared/Markup";
 import Slug from "@/components/Shared/Slug";
 import { Button, H3, Image, LightBox, Tooltip } from "@/components/Shared/UI";
+import getAccount from "@/helpers/getAccount";
 import getAccountAttribute from "@/helpers/getAccountAttribute";
+import getAvatar from "@/helpers/getAvatar";
 import getFavicon from "@/helpers/getFavicon";
 import getMentions from "@/helpers/getMentions";
 import { useTheme } from "@/hooks/useTheme";

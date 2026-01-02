@@ -1,11 +1,11 @@
 import { TRANSFORMS } from "@palus/data/constants";
-import getAvatar from "@palus/helpers/getAvatar";
 import type { GroupFragment } from "@palus/indexer";
 import { useCallback, useState } from "react";
 import { useNavigate } from "react-router";
 import JoinLeaveButton from "@/components/Shared/Group/JoinLeaveButton";
 import Markup from "@/components/Shared/Markup";
 import { Button, H3, Image, LightBox } from "@/components/Shared/UI";
+import getAvatar from "@/helpers/getAvatar";
 import getMentions from "@/helpers/getMentions";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import MembersCount from "./MembersCount";

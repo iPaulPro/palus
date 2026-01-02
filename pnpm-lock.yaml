@@ -50,9 +50,6 @@ importers:
       '@palus/data':
         specifier: workspace:*
         version: link:../../packages/data
-      '@palus/helpers':
-        specifier: workspace:*
-        version: link:../../packages/helpers
       '@palus/indexer':
         specifier: workspace:*
         version: link:../../packages/indexer
@@ -248,31 +245,6 @@ importers:
       '@lens-chain/sdk':
         specifier: ^1.0.3
         version: 1.0.3(viem@2.43.3(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11))
-    devDependencies:
-      '@palus/config':
-        specifier: workspace:*
-        version: link:../config
-      '@types/node':
-        specifier: ^24.9.1
-        version: 24.10.4
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/helpers:
-    dependencies:
-      '@palus/data':
-        specifier: workspace:*
-        version: link:../data
-      '@palus/indexer':
-        specifier: workspace:*
-        version: link:../indexer
-      '@palus/types':
-        specifier: workspace:*
-        version: link:../types
-      viem:
-        specifier: ^2.38.3
-        version: 2.43.3(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@5.0.10)(zod@4.1.11)
     devDependencies:
       '@palus/config':
         specifier: workspace:*

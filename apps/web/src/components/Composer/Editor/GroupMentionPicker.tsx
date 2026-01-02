@@ -1,6 +1,5 @@
 import { UserGroupIcon, UsersIcon } from "@heroicons/react/24/solid";
 import { EditorRegex } from "@palus/data/regex";
-import sanitizeDStorageUrl from "@palus/helpers/sanitizeDStorageUrl";
 import { useEditor } from "prosekit/react";
 import {
   AutocompleteItem,
@@ -11,6 +10,7 @@ import { useState } from "react";
 import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import type { EditorExtension } from "@/helpers/prosekit/extension";
+import sanitizeDStorageUrl from "@/helpers/sanitizeDStorageUrl";
 import type { MentionGroup } from "@/hooks/prosekit/useGroupMentionQuery";
 import useGroupMentionQuery from "@/hooks/prosekit/useGroupMentionQuery";
 

@@ -1,11 +1,11 @@
 import { TRANSFORMS } from "@palus/data/constants";
-import getAvatar from "@palus/helpers/getAvatar";
 import type { GroupFragment } from "@palus/indexer";
 import { memo } from "react";
 import { Link } from "react-router";
 import Markup from "@/components/Shared/Markup";
 import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import getAvatar from "@/helpers/getAvatar";
 import getMentions from "@/helpers/getMentions";
 import JoinLeaveButton from "./JoinLeaveButton";
 

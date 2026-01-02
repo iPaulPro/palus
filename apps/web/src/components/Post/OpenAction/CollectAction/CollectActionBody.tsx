@@ -8,9 +8,6 @@ import {
 } from "@heroicons/react/24/outline";
 import { BLOCK_EXPLORER_URL } from "@palus/data/constants";
 import { tokens } from "@palus/data/tokens";
-import formatAddress from "@palus/helpers/formatAddress";
-import getAccount from "@palus/helpers/getAccount";
-import { isRepost } from "@palus/helpers/postHelpers";
 import {
   type AnyPostFragment,
   type SimpleCollectActionFragment,
@@ -33,9 +30,12 @@ import {
   Tooltip,
   WarningMessage
 } from "@/components/Shared/UI";
+import formatAddress from "@/helpers/formatAddress";
+import getAccount from "@/helpers/getAccount";
 import getTokenImage from "@/helpers/getTokenImage";
 import humanize from "@/helpers/humanize";
 import nFormatter from "@/helpers/nFormatter";
+import { isRepost } from "@/helpers/postHelpers";
 import CollectActionButton from "./CollectActionButton";
 import Splits from "./Splits";
 

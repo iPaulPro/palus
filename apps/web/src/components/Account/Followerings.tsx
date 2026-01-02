@@ -1,4 +1,3 @@
-import getAccount from "@palus/helpers/getAccount";
 import { type AccountFragment, useAccountStatsQuery } from "@palus/indexer";
 import plur from "plur";
 import { type FC, useEffect, useState } from "react";
@@ -7,6 +6,7 @@ import Followers from "@/components/Shared/Modal/Followers";
 import Following from "@/components/Shared/Modal/Following";
 import GraphStatsShimmer from "@/components/Shared/Shimmer/GraphStatsShimmer";
 import { Modal } from "@/components/Shared/UI";
+import getAccount from "@/helpers/getAccount";
 import humanize from "@/helpers/humanize";
 
 interface FolloweringsProps {

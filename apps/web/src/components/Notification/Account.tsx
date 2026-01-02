@@ -1,11 +1,11 @@
-import getAccount from "@palus/helpers/getAccount";
-import getAvatar from "@palus/helpers/getAvatar";
 import type { AccountFragment } from "@palus/indexer";
 import { memo } from "react";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import AccountPreview from "@/components/Shared/Account/AccountPreview";
 import TopAccount from "@/components/Shared/Badges/TopAccount";
 import { Image } from "@/components/Shared/UI";
+import getAccount from "@/helpers/getAccount";
+import getAvatar from "@/helpers/getAvatar";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 
 interface NotificationAccountProps {

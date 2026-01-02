@@ -3,8 +3,8 @@ import {
   STATIC_IMAGES_URL,
   TRANSFORMS
 } from "@palus/data/constants";
-import imageKit from "@palus/helpers/imageKit";
-import sanitizeDStorageUrl from "@palus/helpers/sanitizeDStorageUrl";
+import imageKit from "@/helpers/imageKit";
+import sanitizeDStorageUrl from "@/helpers/sanitizeDStorageUrl";
 
 interface CoverProps {
   cover: string;

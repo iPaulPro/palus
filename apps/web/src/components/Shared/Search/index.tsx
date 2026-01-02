@@ -1,5 +1,4 @@
 import { MagnifyingGlassIcon, XMarkIcon } from "@heroicons/react/24/outline";
-import getAccount from "@palus/helpers/getAccount";
 import {
   type AccountFragment,
   AccountsOrderBy,
@@ -16,6 +15,7 @@ import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
 import { Card, Form, Input, useZodForm } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import getAccount from "@/helpers/getAccount";
 import { useAccountLinkStore } from "@/store/non-persisted/navigation/useAccountLinkStore";
 import { useSearchStore } from "@/store/persisted/useSearchStore";
 import RecentAccounts from "./RecentAccounts";

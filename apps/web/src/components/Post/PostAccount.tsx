@@ -1,7 +1,5 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { TRANSFORMS } from "@palus/data/constants";
-import getAccount from "@palus/helpers/getAccount";
-import getAvatar from "@palus/helpers/getAvatar";
 import type {
   AccountFragment,
   AnyPostFragment,
@@ -15,6 +13,8 @@ import TopAccount from "@/components/Shared/Badges/TopAccount";
 import PostLink from "@/components/Shared/Post/PostLink";
 import { Image } from "@/components/Shared/UI";
 import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
+import getAccount from "@/helpers/getAccount";
+import getAvatar from "@/helpers/getAvatar";
 
 interface PostAccountProps {
   account: AccountFragment;

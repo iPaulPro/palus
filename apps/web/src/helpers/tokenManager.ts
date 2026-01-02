@@ -1,7 +1,7 @@
-import parseJwt from "@palus/helpers/parseJwt";
 import { RefreshDocument, type RefreshMutation } from "@palus/indexer";
 import apolloClient from "@palus/indexer/apollo/client";
 import type { JwtPayload } from "@palus/types/jwt";
+import parseJwt from "@/helpers/parseJwt";
 import { signIn, signOut } from "@/store/persisted/useAuthStore";
 
 let refreshPromise: Promise<string> | null = null;

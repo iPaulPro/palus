@@ -1,6 +1,5 @@
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { tokens } from "@palus/data/tokens";
-import getAccount from "@palus/helpers/getAccount";
 import {
   type AccountFollowRules,
   type AccountFragment,
@@ -11,6 +10,7 @@ import Loader from "@/components/Shared/Loader";
 import LoginButton from "@/components/Shared/LoginButton";
 import Slug from "@/components/Shared/Slug";
 import { H3, H5 } from "@/components/Shared/UI";
+import getAccount from "@/helpers/getAccount";
 import getTokenImage from "@/helpers/getTokenImage";
 import { getSimplePaymentDetails } from "@/helpers/rules";
 import { useSuperFollowModalStore } from "@/store/non-persisted/modal/useSuperFollowModalStore";

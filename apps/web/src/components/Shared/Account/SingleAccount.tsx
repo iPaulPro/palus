@@ -1,7 +1,4 @@
 import { Square2StackIcon } from "@heroicons/react/24/outline";
-import formatAddress from "@palus/helpers/formatAddress";
-import getAccount from "@palus/helpers/getAccount";
-import getAvatar from "@palus/helpers/getAvatar";
 import type { AccountFragment } from "@palus/indexer";
 import { memo } from "react";
 import TopAccount from "@/components/Shared/Badges/TopAccount";
@@ -9,6 +6,9 @@ import Markup from "@/components/Shared/Markup";
 import Slug from "@/components/Shared/Slug";
 import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import formatAddress from "@/helpers/formatAddress";
+import getAccount from "@/helpers/getAccount";
+import getAvatar from "@/helpers/getAvatar";
 import getMentions from "@/helpers/getMentions";
 import useCopyToClipboard from "@/hooks/useCopyToClipboard";
 import AccountLink from "./AccountLink";

@@ -1,5 +1,4 @@
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
-import getAvatar from "@palus/helpers/getAvatar";
 import {
   type GroupFragment,
   GroupsOrderBy,
@@ -15,6 +14,7 @@ import {
   SelectUI,
   SelectValue
 } from "@/components/Shared/UI";
+import getAvatar from "@/helpers/getAvatar";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface GroupSelectorProps {

@@ -1,11 +1,11 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import getAccount from "@palus/helpers/getAccount";
 import { useAccountsBulkQuery } from "@palus/indexer";
 import { memo } from "react";
 import { useNavigate } from "react-router";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
 import { H6 } from "@/components/Shared/UI";
+import getAccount from "@/helpers/getAccount";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useAccountLinkStore } from "@/store/non-persisted/navigation/useAccountLinkStore";
 import { useSearchStore } from "@/store/persisted/useSearchStore";

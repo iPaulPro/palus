@@ -1,5 +1,4 @@
 import { UserPlusIcon } from "@heroicons/react/24/outline";
-import getAccount from "@palus/helpers/getAccount";
 import type { FollowNotificationFragment } from "@palus/indexer";
 import dayjs from "dayjs";
 import plur from "plur";
@@ -7,6 +6,7 @@ import { NotificationAccountAvatar } from "@/components/Notification/Account";
 import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
 import { Tooltip } from "@/components/Shared/UI";
 import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
+import getAccount from "@/helpers/getAccount";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface FollowNotificationProps {

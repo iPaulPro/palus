@@ -1,5 +1,4 @@
 import { ERRORS } from "@palus/data/errors";
-import getAccount from "@palus/helpers/getAccount";
 import type { PostFragment } from "@palus/indexer";
 import type { IGif } from "@palus/types/giphy";
 import type { NewAttachment } from "@palus/types/misc";
@@ -22,6 +21,7 @@ import { Button, Card, H6 } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import collectActionParams from "@/helpers/collectActionParams";
 import errorToast from "@/helpers/errorToast";
+import getAccount from "@/helpers/getAccount";
 import getMentions from "@/helpers/getMentions";
 import { IS_STANDALONE } from "@/helpers/mediaQueries";
 import uploadMetadata from "@/helpers/uploadMetadata";

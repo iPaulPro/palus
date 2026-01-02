@@ -1,5 +1,4 @@
 import { QueueListIcon } from "@heroicons/react/24/outline";
-import { isRepost } from "@palus/helpers/postHelpers";
 import type { AnyPostFragment } from "@palus/indexer";
 import dayjs from "dayjs";
 import { useLayoutEffect, useRef, useState } from "react";
@@ -7,6 +6,7 @@ import PostWarning from "@/components/Shared/Post/PostWarning";
 import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import { getBlockedByMeMessage } from "@/helpers/getBlockedMessage";
+import { isRepost } from "@/helpers/postHelpers";
 import { useHiddenCommentFeedStore } from ".";
 import PostActions from "./Actions";
 import HiddenPost from "./HiddenPost";

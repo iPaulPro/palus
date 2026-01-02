@@ -1,5 +1,4 @@
 import { ERRORS } from "@palus/data/errors";
-import getTransactionData from "@palus/helpers/getTransactionData";
 import type {
   SelfFundedTransactionRequestFragment,
   SponsoredTransactionRequestFragment,
@@ -8,6 +7,7 @@ import type {
 import type { ApolloClientError } from "@palus/types/errors";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
+import getTransactionData from "@/helpers/getTransactionData";
 import useHandleWrongNetwork from "./useHandleWrongNetwork";
 
 type AnyTransactionRequestFragment =

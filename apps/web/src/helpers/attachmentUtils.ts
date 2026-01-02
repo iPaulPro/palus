@@ -1,6 +1,6 @@
-import generateUUID from "@palus/helpers/generateUUID";
 import type { NewAttachment } from "@palus/types/misc";
 import { toast } from "sonner";
+import generateUUID from "@/helpers/generateUUID";
 import compressImage from "./compressImage";
 
 const BYTES_IN_MB = 1_000_000;

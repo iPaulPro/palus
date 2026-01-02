@@ -1,12 +1,12 @@
 import { TRANSFORMS } from "@palus/data/constants";
-import getAccount from "@palus/helpers/getAccount";
-import getAvatar from "@palus/helpers/getAvatar";
 import { useFollowersYouKnowQuery } from "@palus/indexer";
 import { type ReactNode, useEffect, useMemo, useState } from "react";
 import { useLocation } from "react-router";
 import FollowersYouKnow from "@/components/Shared/Modal/FollowersYouKnow";
 import FollowersYouKnowShimmer from "@/components/Shared/Shimmer/FollowersYouKnowShimmer";
 import { Modal, StackedAvatars } from "@/components/Shared/UI";
+import getAccount from "@/helpers/getAccount";
+import getAvatar from "@/helpers/getAvatar";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface FollowersYouKnowOverviewProps {

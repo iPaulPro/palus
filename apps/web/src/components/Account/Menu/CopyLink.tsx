@@ -1,8 +1,8 @@
 import { MenuItem } from "@headlessui/react";
 import { LinkIcon } from "@heroicons/react/24/outline";
-import getAccount from "@palus/helpers/getAccount";
 import type { AccountFragment } from "@palus/indexer";
 import cn from "@/helpers/cn";
+import getAccount from "@/helpers/getAccount";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import useCopyToClipboard from "@/hooks/useCopyToClipboard";
 

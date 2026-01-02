@@ -1,8 +1,6 @@
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import { STATIC_IMAGES_URL } from "@palus/data/constants";
 import { AccountFeedType } from "@palus/data/enums";
-import getAccount from "@palus/helpers/getAccount";
-import isAccountDeleted from "@palus/helpers/isAccountDeleted";
 import { useAccountQuery } from "@palus/indexer";
 import { useState } from "react";
 import { useParams } from "react-router";
@@ -12,7 +10,9 @@ import Custom500 from "@/components/Shared/500";
 import Cover from "@/components/Shared/Cover";
 import PageLayout from "@/components/Shared/PageLayout";
 import { EmptyState } from "@/components/Shared/UI";
+import getAccount from "@/helpers/getAccount";
 import { getBlockedByMeMessage } from "@/helpers/getBlockedMessage";
+import isAccountDeleted from "@/helpers/isAccountDeleted";
 import { useAccountLinkStore } from "@/store/non-persisted/navigation/useAccountLinkStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import AccountFeed from "./AccountFeed";

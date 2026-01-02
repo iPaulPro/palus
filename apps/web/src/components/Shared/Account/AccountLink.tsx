@@ -1,7 +1,7 @@
-import getAccount from "@palus/helpers/getAccount";
 import type { AccountFragment } from "@palus/indexer";
 import type { ComponentProps, ReactNode } from "react";
 import { Link } from "react-router";
+import getAccount from "@/helpers/getAccount";
 import { useAccountLinkStore } from "@/store/non-persisted/navigation/useAccountLinkStore";
 
 interface AccountLinkProps extends Omit<ComponentProps<typeof Link>, "to"> {

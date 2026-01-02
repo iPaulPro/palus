@@ -1,4 +1,3 @@
-import getAccount from "@palus/helpers/getAccount";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import NewPublication from "@/components/Composer/NewPublication";
 import SuperFollow from "@/components/Shared/Account/SuperFollow";
@@ -9,6 +8,7 @@ import SuperJoin from "@/components/Shared/Group/SuperJoin";
 import ReportAccount from "@/components/Shared/Modal/ReportAccount";
 import ReportPost from "@/components/Shared/Modal/ReportPost";
 import { Modal } from "@/components/Shared/UI";
+import getAccount from "@/helpers/getAccount";
 import { IS_MOBILE } from "@/helpers/mediaQueries";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useFundModalStore } from "@/store/non-persisted/modal/useFundModalStore";

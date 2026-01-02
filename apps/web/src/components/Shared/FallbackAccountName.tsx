@@ -1,9 +1,9 @@
-import getAccount from "@palus/helpers/getAccount";
 import type { AccountFragment } from "@palus/indexer";
 import type { ReactNode } from "react";
 import { memo } from "react";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import cn from "@/helpers/cn";
+import getAccount from "@/helpers/getAccount";
 import Slug from "./Slug";
 
 interface FallbackAccountNameProps {

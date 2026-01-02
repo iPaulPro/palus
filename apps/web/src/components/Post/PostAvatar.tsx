@@ -1,10 +1,10 @@
-import getAvatar from "@palus/helpers/getAvatar";
-import { isRepost } from "@palus/helpers/postHelpers";
 import type { AnyPostFragment, TimelineItemFragment } from "@palus/indexer";
 import { memo } from "react";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import getAvatar from "@/helpers/getAvatar";
+import { isRepost } from "@/helpers/postHelpers";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 
 interface PostAvatarProps {

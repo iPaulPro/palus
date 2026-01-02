@@ -1,5 +1,4 @@
 import { HeartIcon } from "@heroicons/react/24/outline";
-import getPostData from "@palus/helpers/getPostData";
 import type { ReactionNotificationFragment } from "@palus/indexer";
 import dayjs from "dayjs";
 import plur from "plur";
@@ -9,6 +8,7 @@ import Markup from "@/components/Shared/Markup";
 import PostLink from "@/components/Shared/Post/PostLink";
 import { Tooltip } from "@/components/Shared/UI";
 import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
+import getPostData from "@/helpers/getPostData";
 import truncateUrl from "@/helpers/truncateUrl";
 
 interface ReactionNotificationProps {

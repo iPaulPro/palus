@@ -1,13 +1,13 @@
 import { BLOCK_EXPLORER_URL, TRANSFORMS } from "@palus/data/constants";
-import formatAddress from "@palus/helpers/formatAddress";
-import getAccount from "@palus/helpers/getAccount";
-import getAvatar from "@palus/helpers/getAvatar";
 import { type RecipientPercent, useAccountsBulkQuery } from "@palus/indexer";
 import { Link } from "react-router";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import Skeleton from "@/components/Shared/Skeleton";
 import Slug from "@/components/Shared/Slug";
 import { Image } from "@/components/Shared/UI";
+import formatAddress from "@/helpers/formatAddress";
+import getAccount from "@/helpers/getAccount";
+import getAvatar from "@/helpers/getAvatar";
 
 interface SplitsProps {
   recipients: RecipientPercent[];

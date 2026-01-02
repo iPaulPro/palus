@@ -1,5 +1,3 @@
-import getAccount from "@palus/helpers/getAccount";
-import { isRepost } from "@palus/helpers/postHelpers";
 import {
   PageSize,
   PostReferenceType,
@@ -20,6 +18,8 @@ import BackButton from "@/components/Shared/BackButton";
 import Footer from "@/components/Shared/Footer";
 import PageLayout from "@/components/Shared/PageLayout";
 import { Card, CardHeader, WarningMessage } from "@/components/Shared/UI";
+import getAccount from "@/helpers/getAccount";
+import { isRepost } from "@/helpers/postHelpers";
 import { usePostLinkStore } from "@/store/non-persisted/navigation/usePostLinkStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import FullPost from "./FullPost";

@@ -1,5 +1,4 @@
 import { AtSymbolIcon } from "@heroicons/react/24/outline";
-import getPostData from "@palus/helpers/getPostData";
 import type { MentionNotificationFragment } from "@palus/indexer";
 import dayjs from "dayjs";
 import { NotificationAccountAvatar } from "@/components/Notification/Account";
@@ -8,6 +7,7 @@ import Markup from "@/components/Shared/Markup";
 import PostLink from "@/components/Shared/Post/PostLink";
 import { Tooltip } from "@/components/Shared/UI";
 import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
+import getPostData from "@/helpers/getPostData";
 
 interface MentionNotificationProps {
   notification: MentionNotificationFragment;

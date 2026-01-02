@@ -1,9 +1,9 @@
-import { isRepost } from "@palus/helpers/postHelpers";
 import type { AnyPostFragment } from "@palus/indexer";
 import { memo } from "react";
 import CollectAction from "@/components/Post/OpenAction/CollectAction";
 import TipAction from "@/components/Post/OpenAction/TipAction";
 import cn from "@/helpers/cn";
+import { isRepost } from "@/helpers/postHelpers";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import Comment from "./Comment";
 import Like from "./Like";

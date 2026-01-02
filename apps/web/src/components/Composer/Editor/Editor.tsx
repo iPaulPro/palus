@@ -1,5 +1,5 @@
-import getAvatar from "@palus/helpers/getAvatar";
 import { Image } from "@/components/Shared/UI";
+import getAvatar from "@/helpers/getAvatar";
 import { defineEditorExtension } from "@/helpers/prosekit/extension";
 import { htmlFromMarkdown } from "@/helpers/prosekit/markdown";
 import useContentChange from "@/hooks/prosekit/useContentChange";
@@ -60,7 +60,7 @@ const Editor = ({
 
   useEffect(() => {
     const handleResize = () => {
-      if (editor.view && editor.view.hasFocus()) {
+      if (editor.view?.hasFocus()) {
         editor.view.dispatch(editor.view.state.tr.scrollIntoView());
       }
     };

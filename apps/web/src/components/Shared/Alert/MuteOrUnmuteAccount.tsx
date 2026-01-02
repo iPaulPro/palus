@@ -1,12 +1,12 @@
 import { useApolloClient } from "@apollo/client";
 import { ERRORS } from "@palus/data/errors";
-import getAccount from "@palus/helpers/getAccount";
 import { useMuteMutation, useUnmuteMutation } from "@palus/indexer";
 import type { ApolloClientError } from "@palus/types/errors";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Alert } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
+import getAccount from "@/helpers/getAccount";
 import { useMuteAlertStore } from "@/store/non-persisted/alert/useMuteAlertStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 

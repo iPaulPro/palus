@@ -1,5 +1,4 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { isRepost } from "@palus/helpers/postHelpers";
 import type {
   AnyPostFragment,
   PostGroupInfoFragment,
@@ -7,6 +6,7 @@ import type {
 } from "@palus/indexer";
 import { memo } from "react";
 import PostMenu from "@/components/Post/Actions/Menu";
+import { isRepost } from "@/helpers/postHelpers";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import PostAccount from "./PostAccount";

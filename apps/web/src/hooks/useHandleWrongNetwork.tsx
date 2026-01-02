@@ -1,6 +1,6 @@
 import { CHAIN } from "@palus/data/constants";
-import logger from "@palus/helpers/logger";
 import { useConnections, useSwitchChain } from "wagmi";
+import logger from "@/helpers/logger";
 
 interface HandleWrongNetworkParams {
   chainId?: number;
