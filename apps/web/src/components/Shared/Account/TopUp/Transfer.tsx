@@ -1,5 +1,4 @@
 import { ArrowUpRightIcon } from "@heroicons/react/24/outline";
-import { NATIVE_TOKEN_SYMBOL } from "@palus/data/constants";
 import { useBalancesBulkQuery, useDepositMutation } from "@palus/indexer";
 import {
   type ChangeEvent,
@@ -14,6 +13,7 @@ import type { Hex } from "viem";
 import { useAccount, useWaitForTransactionReceipt } from "wagmi";
 import Skeleton from "@/components/Shared/Skeleton";
 import { Button, Card, Input, Spinner } from "@/components/Shared/UI";
+import { NATIVE_TOKEN_SYMBOL } from "@/data/constants";
 import errorToast from "@/helpers/errorToast";
 import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";

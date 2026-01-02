@@ -1,4 +1,3 @@
-import { EditorRegex } from "@palus/data/regex";
 import { useEditor } from "prosekit/react";
 import {
   AutocompleteItem,
@@ -8,6 +7,7 @@ import {
 import { useState } from "react";
 import TopAccount from "@/components/Shared/Badges/TopAccount";
 import { Image } from "@/components/Shared/UI";
+import { EditorRegex } from "@/data/regex";
 import cn from "@/helpers/cn";
 import type { EditorExtension } from "@/helpers/prosekit/extension";
 import type { MentionAccount } from "@/hooks/prosekit/useAccountMentionQuery";

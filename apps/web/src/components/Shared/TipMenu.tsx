@@ -1,5 +1,4 @@
 import { useApolloClient } from "@apollo/client";
-import { NATIVE_TOKEN_SYMBOL, PALUS_TREASURY } from "@palus/data/constants";
 import {
   type AccountFragment,
   type PostFragment,
@@ -15,6 +14,7 @@ import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import LoginButton from "@/components/Shared/LoginButton";
 import Skeleton from "@/components/Shared/Skeleton";
 import { Button, Input, Spinner } from "@/components/Shared/UI";
+import { NATIVE_TOKEN_SYMBOL, PALUS_TREASURY } from "@/data/constants";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
 import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";

@@ -1,4 +1,4 @@
-import { Localstorage } from "@palus/data/storage";
+import { Localstorage } from "@/data/storage";
 import { createPersistedTrackedStore } from "@/store/createTrackedStore";
 
 interface State {

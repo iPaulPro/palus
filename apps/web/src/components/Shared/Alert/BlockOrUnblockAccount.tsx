@@ -1,9 +1,9 @@
 import { useApolloClient } from "@apollo/client";
-import { ERRORS } from "@palus/data/errors";
 import { useBlockMutation, useUnblockMutation } from "@palus/indexer";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { Alert } from "@/components/Shared/UI";
+import { ERRORS } from "@/data/errors";
 import errorToast from "@/helpers/errorToast";
 import getAccount from "@/helpers/getAccount";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";

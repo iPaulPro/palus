@@ -1,5 +1,4 @@
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/24/outline";
-import { TRANSFORMS } from "@palus/data/constants";
 import {
   PageSize,
   type PostReferencesRequest,
@@ -14,6 +13,7 @@ import { useHiddenCommentFeedStore } from "@/components/Post";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
 import { Card, StackedAvatars } from "@/components/Shared/UI";
+import { TRANSFORMS } from "@/data/constants";
 import getAvatar from "@/helpers/getAvatar";
 
 interface NoneRelevantFeedProps {

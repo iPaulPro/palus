@@ -1,7 +1,6 @@
 import type { ApolloCache, NormalizedCacheObject } from "@apollo/client";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartIconSolid } from "@heroicons/react/24/solid";
-import { ERRORS } from "@palus/data/errors";
 import {
   type PostFragment,
   PostReactionType,
@@ -12,6 +11,7 @@ import { useCounter, useToggle } from "@uidotdev/usehooks";
 import { useCallback } from "react";
 import { toast } from "sonner";
 import { Tooltip } from "@/components/Shared/UI";
+import { ERRORS } from "@/data/errors";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
 import { useAccountStore } from "@/store/persisted/useAccountStore";

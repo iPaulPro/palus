@@ -1,4 +1,4 @@
-import { STATIC_IMAGES_URL } from "@palus/data/constants";
+import { STATIC_IMAGES_URL } from "@/data/constants";
 
 const getTokenImage = (symbol?: string): string => {
   if (!symbol) {

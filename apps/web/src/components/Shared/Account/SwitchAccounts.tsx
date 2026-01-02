@@ -1,5 +1,4 @@
 import { CheckCircleIcon } from "@heroicons/react/24/solid";
-import { ERRORS } from "@palus/data/errors";
 import {
   ManagedAccountsVisibility,
   useAccountsAvailableQuery,
@@ -9,6 +8,7 @@ import { useCallback, useState } from "react";
 import { useAccount } from "wagmi";
 import Loader from "@/components/Shared/Loader";
 import { ErrorMessage, Spinner, WarningMessage } from "@/components/Shared/UI";
+import { ERRORS } from "@/data/errors";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
 import reloadAllTabs from "@/helpers/reloadAllTabs";

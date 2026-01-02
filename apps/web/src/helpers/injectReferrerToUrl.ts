@@ -1,4 +1,4 @@
-import { PALUS_TREASURY } from "@palus/data/constants";
+import { PALUS_TREASURY } from "@/data/constants";
 
 interface DomainParamConfig {
   name: string;

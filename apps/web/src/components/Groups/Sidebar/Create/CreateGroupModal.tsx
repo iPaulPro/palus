@@ -1,5 +1,4 @@
 import { group } from "@lens-protocol/metadata";
-import { Regex } from "@palus/data/regex";
 import { useCreateGroupMutation } from "@palus/indexer";
 import { useCallback, useState } from "react";
 import { z } from "zod";
@@ -11,6 +10,7 @@ import {
   TextArea,
   useZodForm
 } from "@/components/Shared/UI";
+import { Regex } from "@/data/regex";
 import errorToast from "@/helpers/errorToast";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";

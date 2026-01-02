@@ -1,13 +1,13 @@
-import {
-  DEFAULT_AVATAR,
-  STATIC_IMAGES_URL,
-  type TRANSFORMS
-} from "@palus/data/constants";
-import { ERRORS } from "@palus/data/errors";
 import type { ChangeEvent } from "react";
 import { useCallback, useState } from "react";
 import type { Area } from "react-easy-crop";
 import { toast } from "sonner";
+import {
+  DEFAULT_AVATAR,
+  STATIC_IMAGES_URL,
+  type TRANSFORMS
+} from "@/data/constants";
+import { ERRORS } from "@/data/errors";
 import uploadCroppedImage, { readFile } from "@/helpers/accountPictureUtils";
 import getCroppedImg from "@/helpers/cropUtils";
 import errorToast from "@/helpers/errorToast";

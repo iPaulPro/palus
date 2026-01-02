@@ -1,5 +1,5 @@
-import { STATIC_IMAGES_URL } from "@palus/data/constants";
 import { Button, Card, Image } from "@/components/Shared/UI";
+import { STATIC_IMAGES_URL } from "@/data/constants";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useSignupStore } from "./Signup";
 

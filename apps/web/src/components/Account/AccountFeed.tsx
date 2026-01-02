@@ -1,5 +1,4 @@
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
-import { AccountFeedType } from "@palus/data/enums";
 import {
   type AnyPostFragment,
   MainContentFocus,
@@ -11,6 +10,7 @@ import {
 import { useCallback, useMemo } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
+import { AccountFeedType } from "@/data/enums";
 
 interface AccountFeedProps {
   username: string;

@@ -1,4 +1,3 @@
-import { EditorRegex } from "@palus/data/regex";
 import { useEditor } from "prosekit/react";
 import {
   AutocompleteItem,
@@ -6,6 +5,7 @@ import {
   AutocompletePopover
 } from "prosekit/react/autocomplete";
 import { useState } from "react";
+import { EditorRegex } from "@/data/regex";
 import cn from "@/helpers/cn";
 import type { EditorExtension } from "@/helpers/prosekit/extension";
 import useEmojis from "@/hooks/prosekit/useEmojis";

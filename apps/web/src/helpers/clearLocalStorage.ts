@@ -1,4 +1,4 @@
-import { Localstorage } from "@palus/data/storage";
+import { Localstorage } from "@/data/storage";
 
 const clearLocalStorage = (): void => {
   const storesToClear = Object.values(Localstorage).filter(

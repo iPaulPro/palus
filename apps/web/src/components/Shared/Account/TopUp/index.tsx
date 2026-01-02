@@ -1,7 +1,7 @@
-import { NATIVE_TOKEN_SYMBOL } from "@palus/data/constants";
 import { useBalancesBulkQuery } from "@palus/indexer";
 import Loader from "@/components/Shared/Loader";
 import { Image } from "@/components/Shared/UI";
+import { NATIVE_TOKEN_SYMBOL } from "@/data/constants";
 import getTokenImage from "@/helpers/getTokenImage";
 import { useFundModalStore } from "@/store/non-persisted/modal/useFundModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";

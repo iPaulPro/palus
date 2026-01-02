@@ -1,4 +1,3 @@
-import { ERRORS } from "@palus/data/errors";
 import type { PostFragment } from "@palus/indexer";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { useCallback, useEffect, useState } from "react";
@@ -16,6 +15,7 @@ import { AudioPostSchema } from "@/components/Shared/Audio";
 import Wrapper from "@/components/Shared/Embed/Wrapper";
 import EmojiPicker from "@/components/Shared/EmojiPicker";
 import { Button, Card, H6 } from "@/components/Shared/UI";
+import { ERRORS } from "@/data/errors";
 import cn from "@/helpers/cn";
 import collectActionParams from "@/helpers/collectActionParams";
 import errorToast from "@/helpers/errorToast";

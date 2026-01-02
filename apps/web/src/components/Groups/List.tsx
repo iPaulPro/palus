@@ -1,5 +1,4 @@
 import { UserGroupIcon } from "@heroicons/react/24/outline";
-import { GroupsFeedType } from "@palus/data/enums";
 import {
   GroupsOrderBy,
   type GroupsRequest,
@@ -11,6 +10,7 @@ import { WindowVirtualizer } from "virtua";
 import SingleGroup from "@/components/Shared/Group/SingleGroup";
 import GroupListShimmer from "@/components/Shared/Shimmer/GroupListShimmer";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import { GroupsFeedType } from "@/data/enums";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 

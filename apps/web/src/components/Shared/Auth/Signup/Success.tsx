@@ -1,8 +1,8 @@
-import { STATIC_IMAGES_URL } from "@palus/data/constants";
-import { ERROR_NAMES, ERRORS } from "@palus/data/errors";
 import { useSwitchAccountMutation } from "@palus/indexer";
 import { useCallback, useEffect } from "react";
 import { H4, Image } from "@/components/Shared/UI";
+import { STATIC_IMAGES_URL } from "@/data/constants";
+import { ERROR_NAMES, ERRORS } from "@/data/errors";
 import errorToast from "@/helpers/errorToast";
 import reloadAllTabs from "@/helpers/reloadAllTabs";
 import { signIn } from "@/store/persisted/useAuthStore";

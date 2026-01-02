@@ -1,6 +1,4 @@
 import { KeyIcon } from "@heroicons/react/24/outline";
-import { PALUS_APP } from "@palus/data/constants";
-import { ERRORS } from "@palus/data/errors";
 import {
   type ChallengeRequest,
   ManagedAccountsVisibility,
@@ -16,6 +14,8 @@ import { useAccount, useDisconnect, useSignMessage } from "wagmi";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
 import { Button, Card, ErrorMessage } from "@/components/Shared/UI";
+import { PALUS_APP } from "@/data/constants";
+import { ERRORS } from "@/data/errors";
 import errorToast from "@/helpers/errorToast";
 import reloadAllTabs from "@/helpers/reloadAllTabs";
 import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";

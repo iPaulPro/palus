@@ -1,9 +1,9 @@
 import { InformationCircleIcon } from "@heroicons/react/24/outline";
-import { TRANSFORMS } from "@palus/data/constants";
 import type { SyntheticEvent } from "react";
 import Cropper from "react-easy-crop";
 import ChooseFile from "@/components/Shared/ChooseFile";
 import { Button, Image, Modal } from "@/components/Shared/UI";
+import { TRANSFORMS } from "@/data/constants";
 import sanitizeDStorageUrl from "@/helpers/sanitizeDStorageUrl";
 import useImageCropUpload from "@/hooks/useImageCropUpload";
 

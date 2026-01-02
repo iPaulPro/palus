@@ -1,5 +1,4 @@
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
-import { tokens } from "@palus/data/tokens";
 import {
   type GroupFragment,
   type GroupRules,
@@ -9,6 +8,7 @@ import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import Loader from "@/components/Shared/Loader";
 import LoginButton from "@/components/Shared/LoginButton";
 import { H3, H5 } from "@/components/Shared/UI";
+import { tokens } from "@/data/tokens";
 import getTokenImage from "@/helpers/getTokenImage";
 import { getSimplePaymentDetails } from "@/helpers/rules";
 import { useSuperJoinModalStore } from "@/store/non-persisted/modal/useSuperJoinModalStore";

@@ -1,6 +1,6 @@
-import { LENS_NAMESPACE } from "@palus/data/constants";
-import { Regex } from "@palus/data/regex";
 import type { AccountFragment } from "@palus/indexer";
+import { LENS_NAMESPACE } from "@/data/constants";
+import { Regex } from "@/data/regex";
 import formatAddress from "./formatAddress";
 import isAccountDeleted from "./isAccountDeleted";
 

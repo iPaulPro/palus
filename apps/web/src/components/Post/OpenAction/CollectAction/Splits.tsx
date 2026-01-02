@@ -1,10 +1,10 @@
-import { BLOCK_EXPLORER_URL, TRANSFORMS } from "@palus/data/constants";
 import { type RecipientPercent, useAccountsBulkQuery } from "@palus/indexer";
 import { Link } from "react-router";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import Skeleton from "@/components/Shared/Skeleton";
 import Slug from "@/components/Shared/Slug";
 import { Image } from "@/components/Shared/UI";
+import { BLOCK_EXPLORER_URL, TRANSFORMS } from "@/data/constants";
 import formatAddress from "@/helpers/formatAddress";
 import getAccount from "@/helpers/getAccount";
 import getAvatar from "@/helpers/getAvatar";

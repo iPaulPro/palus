@@ -1,5 +1,9 @@
 import { HttpLink } from "@apollo/client";
-import { LENS_API_URL } from "@palus/data/constants";
+
+export const IS_TESTNET = import.meta.env.VITE_USE_TESTNET === "true";
+export const LENS_API_URL = IS_TESTNET
+  ? "https://api.testnet.lens.xyz/graphql"
+  : "https://api.lens.xyz/graphql";
 
 const httpLink = new HttpLink({
   fetch,

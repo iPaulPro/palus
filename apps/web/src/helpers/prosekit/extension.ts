@@ -1,4 +1,3 @@
-import { LENS_NAMESPACE } from "@palus/data/constants";
 import {
   defineBaseCommands,
   defineBaseKeymap,
@@ -24,6 +23,7 @@ import { definePlaceholder } from "prosekit/extensions/placeholder";
 import { defineStrike } from "prosekit/extensions/strike";
 import { defineText } from "prosekit/extensions/text";
 import { defineVirtualSelection } from "prosekit/extensions/virtual-selection";
+import { LENS_NAMESPACE } from "@/data/constants";
 
 const defineAutoLink = () => {
   return union([defineLinkSpec(), defineLinkMarkRule()]);

@@ -1,4 +1,4 @@
-import { Localstorage } from "@palus/data/storage";
+import { Localstorage } from "@/data/storage";
 import clearLocalStorage from "@/helpers/clearLocalStorage";
 import { createPersistedTrackedStore } from "@/store/createTrackedStore";
 

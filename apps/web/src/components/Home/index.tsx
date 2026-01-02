@@ -1,10 +1,10 @@
-import { HomeFeedType } from "@palus/data/enums";
 import { useEffect, useState } from "react";
 import NewPost from "@/components/Composer/NewPost";
 import ExploreFeed from "@/components/Explore/ExploreFeed";
 import TopAccounts from "@/components/Home/TopAccounts";
 import FloatingNewPostButton from "@/components/Post/FloatingNewPostButton";
 import PageLayout from "@/components/Shared/PageLayout";
+import { HomeFeedType } from "@/data/enums";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useHomeTabStore } from "@/store/persisted/useHomeTabStore";
 import FeedType from "./FeedType";

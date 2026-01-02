@@ -1,8 +1,8 @@
 import { PhotoIcon } from "@heroicons/react/24/outline";
-import { TRANSFORMS } from "@palus/data/constants";
 import type { ChangeEvent, Ref } from "react";
 import { useCallback, useState } from "react";
 import { Image, Spinner } from "@/components/Shared/UI";
+import { TRANSFORMS } from "@/data/constants";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
 import imageKit from "@/helpers/imageKit";

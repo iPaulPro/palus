@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@apollo/client": "3.14.0",
-    "@palus/data": "workspace:*",
     "graphql": "^16.11.0"
   },
   "devDependencies": {

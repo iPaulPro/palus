@@ -1,4 +1,3 @@
-import { Localstorage } from "@palus/data/storage";
 import {
   createContext,
   type ReactNode,
@@ -8,6 +7,7 @@ import {
   useMemo,
   useState
 } from "react";
+import { Localstorage } from "@/data/storage";
 
 type Theme = "light" | "dark";
 interface ThemeContextValue {

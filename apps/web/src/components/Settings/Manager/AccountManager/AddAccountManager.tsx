@@ -1,5 +1,3 @@
-import { ADDRESS_PLACEHOLDER } from "@palus/data/constants";
-import { ERRORS } from "@palus/data/errors";
 import { useAddAccountManagerMutation } from "@palus/indexer";
 import type { Dispatch, SetStateAction } from "react";
 import { useCallback, useState } from "react";
@@ -7,6 +5,8 @@ import { toast } from "sonner";
 import { isAddress } from "viem";
 import SearchAccounts from "@/components/Shared/Account/SearchAccounts";
 import { Button } from "@/components/Shared/UI";
+import { ADDRESS_PLACEHOLDER } from "@/data/constants";
+import { ERRORS } from "@/data/errors";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToComplete from "@/hooks/useWaitForTransactionToComplete";

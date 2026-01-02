@@ -1,4 +1,4 @@
-import { Localstorage } from "@palus/data/storage";
+import { Localstorage } from "@/data/storage";
 
 const reloadAllTabs = (): void => {
   localStorage.setItem(Localstorage.ReloadTabs, Date.now().toString());

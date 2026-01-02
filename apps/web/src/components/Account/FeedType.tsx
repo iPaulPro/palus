@@ -1,7 +1,7 @@
-import { AccountFeedType } from "@palus/data/enums";
 import { type Dispatch, type SetStateAction, useEffect } from "react";
 import { useSearchParams } from "react-router";
 import { Tabs } from "@/components/Shared/UI";
+import { AccountFeedType } from "@/data/enums";
 import generateUUID from "@/helpers/generateUUID";
 
 interface FeedTypeProps {

@@ -1,5 +1,5 @@
-import { Localstorage } from "@palus/data/storage";
 import type { AccountFragment } from "@palus/indexer";
+import { Localstorage } from "@/data/storage";
 import { createPersistedTrackedStore } from "@/store/createTrackedStore";
 
 interface State {

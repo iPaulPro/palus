@@ -1,6 +1,6 @@
-import { GroupsFeedType } from "@palus/data/enums";
 import type { Dispatch, SetStateAction } from "react";
 import { Tabs } from "@/components/Shared/UI";
+import { GroupsFeedType } from "@/data/enums";
 
 interface FeedTypeProps {
   feedType: GroupsFeedType;

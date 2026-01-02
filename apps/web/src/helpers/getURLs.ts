@@ -1,4 +1,4 @@
-import { Regex } from "@palus/data/regex";
+import { Regex } from "@/data/regex";
 
 const getURLs = (text: string): string[] => {
   if (!text) {

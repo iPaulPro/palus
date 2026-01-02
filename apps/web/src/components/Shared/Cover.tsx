@@ -1,8 +1,4 @@
-import {
-  BRAND_COLOR,
-  STATIC_IMAGES_URL,
-  TRANSFORMS
-} from "@palus/data/constants";
+import { BRAND_COLOR, STATIC_IMAGES_URL, TRANSFORMS } from "@/data/constants";
 import imageKit from "@/helpers/imageKit";
 import sanitizeDStorageUrl from "@/helpers/sanitizeDStorageUrl";
 

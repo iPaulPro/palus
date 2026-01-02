@@ -1,4 +1,4 @@
-import { IPFS_GATEWAY, STORAGE_NODE_URL } from "@palus/data/constants";
+import { IPFS_GATEWAY, STORAGE_NODE_URL } from "@/data/constants";
 
 const sanitizeDStorageUrl = (url?: string): string => {
   if (!url) {

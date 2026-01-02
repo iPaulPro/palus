@@ -5,9 +5,6 @@ import {
   FaceSmileIcon
 } from "@heroicons/react/24/outline";
 import { account as accountMetadata } from "@lens-protocol/metadata";
-import { PALUS_APP } from "@palus/data/constants";
-import { ERRORS } from "@palus/data/errors";
-import { Regex } from "@palus/data/regex";
 import {
   useAccountQuery,
   useAuthenticateMutation,
@@ -20,6 +17,9 @@ import { useAccount, useSignMessage } from "wagmi";
 import { z } from "zod";
 import AuthMessage from "@/components/Shared/Auth/AuthMessage";
 import { Button, Form, Input, useZodForm } from "@/components/Shared/UI";
+import { PALUS_APP } from "@/data/constants";
+import { ERRORS } from "@/data/errors";
+import { Regex } from "@/data/regex";
 import errorToast from "@/helpers/errorToast";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";

@@ -1,5 +1,5 @@
-import { ERRORS } from "@palus/data/errors";
 import { toast } from "sonner";
+import { ERRORS } from "@/data/errors";
 
 const FORBIDDEN_ERROR_PREFIX =
   "Forbidden - Failed to generate source stamp: App rejected verification request:";

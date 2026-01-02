@@ -5,9 +5,6 @@ export const IS_TESTNET = import.meta.env.VITE_USE_TESTNET === "true";
 export const CHAIN = IS_TESTNET ? chains.testnet : chains.mainnet;
 
 // Lens and Palus Env Config
-export const LENS_API_URL = IS_TESTNET
-  ? "https://api.testnet.lens.xyz/graphql"
-  : "https://api.lens.xyz/graphql";
 export const DEFAULT_COLLECT_TOKEN = IS_TESTNET
   ? "0xeee5a340Cdc9c179Db25dea45AcfD5FE8d4d3eB8"
   : CONTRACTS.defaultToken;

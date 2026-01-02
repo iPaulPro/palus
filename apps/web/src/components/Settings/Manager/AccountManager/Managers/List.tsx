@@ -1,6 +1,5 @@
 import { useApolloClient } from "@apollo/client";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
-import { ERRORS } from "@palus/data/errors";
 import {
   type AccountManagerFragment,
   type AccountManagersRequest,
@@ -14,6 +13,7 @@ import { WindowVirtualizer } from "virtua";
 import WalletAccount from "@/components/Shared/Account/WalletAccount";
 import Loader from "@/components/Shared/Loader";
 import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import { ERRORS } from "@/data/errors";
 import errorToast from "@/helpers/errorToast";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";

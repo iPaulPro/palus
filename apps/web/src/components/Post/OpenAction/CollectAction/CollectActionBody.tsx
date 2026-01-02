@@ -6,8 +6,6 @@ import {
   PuzzlePieceIcon,
   UsersIcon
 } from "@heroicons/react/24/outline";
-import { BLOCK_EXPLORER_URL } from "@palus/data/constants";
-import { tokens } from "@palus/data/tokens";
 import {
   type AnyPostFragment,
   type SimpleCollectActionFragment,
@@ -30,6 +28,8 @@ import {
   Tooltip,
   WarningMessage
 } from "@/components/Shared/UI";
+import { BLOCK_EXPLORER_URL } from "@/data/constants";
+import { tokens } from "@/data/tokens";
 import formatAddress from "@/helpers/formatAddress";
 import getAccount from "@/helpers/getAccount";
 import getTokenImage from "@/helpers/getTokenImage";

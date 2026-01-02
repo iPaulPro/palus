@@ -1,10 +1,10 @@
-import { GroupsFeedType } from "@palus/data/enums";
 import { useState } from "react";
 import CreateGroup from "@/components/Groups/Sidebar/Create/CreateGroup";
 import Footer from "@/components/Shared/Footer";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
 import PageLayout from "@/components/Shared/PageLayout";
 import { Card } from "@/components/Shared/UI";
+import { GroupsFeedType } from "@/data/enums";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import FeedType from "./FeedType";
 import List from "./List";

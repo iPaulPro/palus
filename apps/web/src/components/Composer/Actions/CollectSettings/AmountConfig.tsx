@@ -1,12 +1,9 @@
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
-import {
-  DEFAULT_COLLECT_TOKEN,
-  STATIC_IMAGES_URL
-} from "@palus/data/constants";
-import { tokens } from "@palus/data/tokens";
 import { motion } from "motion/react";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Input, Select } from "@/components/Shared/UI";
+import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@/data/constants";
+import { tokens } from "@/data/tokens";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { CollectActionType } from "@/types/palus";

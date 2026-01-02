@@ -1,9 +1,9 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
-import { MAX_IMAGE_UPLOAD } from "@palus/data/constants";
 import { memo, useEffect, useRef } from "react";
 import ChooseThumbnail from "@/components/Composer/ChooseThumbnail";
 import Audio from "@/components/Shared/Audio";
 import { Image } from "@/components/Shared/UI";
+import { MAX_IMAGE_UPLOAD } from "@/data/constants";
 import cn from "@/helpers/cn";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";

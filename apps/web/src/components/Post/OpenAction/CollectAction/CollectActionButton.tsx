@@ -1,5 +1,4 @@
 import { useApolloClient } from "@apollo/client";
-import { PALUS_TREASURY } from "@palus/data/constants";
 import {
   type PostFragment,
   type SimpleCollectActionFragment,
@@ -12,6 +11,7 @@ import type { Address } from "viem";
 import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import LoginButton from "@/components/Shared/LoginButton";
 import { Button, Spinner } from "@/components/Shared/UI";
+import { PALUS_TREASURY } from "@/data/constants";
 import errorToast from "@/helpers/errorToast";
 import getCollectActionData from "@/helpers/getCollectActionData";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";

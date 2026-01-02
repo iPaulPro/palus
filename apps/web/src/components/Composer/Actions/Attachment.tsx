@@ -8,13 +8,13 @@ import {
   MediaAudioMimeType,
   MediaImageMimeType
 } from "@lens-protocol/metadata";
-import { MAX_IMAGE_UPLOAD } from "@palus/data/constants";
 import { useClickAway } from "@uidotdev/usehooks";
 import type { ChangeEvent, JSX, MutableRefObject } from "react";
 import { memo, useId, useState } from "react";
 import { toast } from "sonner";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import { Spinner, Tooltip } from "@/components/Shared/UI";
+import { MAX_IMAGE_UPLOAD } from "@/data/constants";
 import cn from "@/helpers/cn";
 import useUploadAttachments from "@/hooks/useUploadAttachments";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";

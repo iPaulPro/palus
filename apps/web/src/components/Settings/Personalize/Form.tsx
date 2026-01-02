@@ -1,6 +1,4 @@
 import { account as accountMetadata } from "@lens-protocol/metadata";
-import { ERRORS } from "@palus/data/errors";
-import { Regex } from "@palus/data/regex";
 import { useMeLazyQuery, useSetAccountMetadataMutation } from "@palus/indexer";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
@@ -17,6 +15,8 @@ import {
   TextArea,
   useZodForm
 } from "@/components/Shared/UI";
+import { ERRORS } from "@/data/errors";
+import { Regex } from "@/data/regex";
 import errorToast from "@/helpers/errorToast";
 import getAccountAttribute from "@/helpers/getAccountAttribute";
 import prepareAccountMetadata from "@/helpers/prepareAccountMetadata";

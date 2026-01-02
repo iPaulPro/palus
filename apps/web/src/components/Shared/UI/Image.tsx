@@ -1,4 +1,3 @@
-import { PLACEHOLDER_IMAGE } from "@palus/data/constants";
 import type {
   DetailedHTMLProps,
   ImgHTMLAttributes,
@@ -6,6 +5,7 @@ import type {
   SyntheticEvent
 } from "react";
 import { forwardRef, memo, useCallback, useEffect, useState } from "react";
+import { PLACEHOLDER_IMAGE } from "@/data/constants";
 
 const Image = forwardRef(
   (

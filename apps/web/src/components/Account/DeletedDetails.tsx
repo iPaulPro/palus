@@ -1,7 +1,7 @@
-import { STATIC_IMAGES_URL } from "@palus/data/constants";
 import type { AccountFragment } from "@palus/indexer";
 import Slug from "@/components/Shared/Slug";
 import { H3, Image } from "@/components/Shared/UI";
+import { STATIC_IMAGES_URL } from "@/data/constants";
 import getAccount from "@/helpers/getAccount";
 
 interface DeletedDetailsProps {

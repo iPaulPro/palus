@@ -1,9 +1,9 @@
 import type { VideoSrc } from "@livepeer/react";
 import { getSrc } from "@livepeer/react/external";
-import { TRANSFORMS } from "@palus/data/constants";
 import { memo, useState } from "react";
 import Audio from "@/components/Shared/Audio";
 import { Image, LightBox } from "@/components/Shared/UI";
+import { TRANSFORMS } from "@/data/constants";
 import cn from "@/helpers/cn";
 import imageKit from "@/helpers/imageKit";
 import stopEventPropagation from "@/helpers/stopEventPropagation";

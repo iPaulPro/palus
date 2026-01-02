@@ -1,13 +1,10 @@
-import {
-  DEFAULT_COLLECT_TOKEN,
-  NATIVE_TOKEN_SYMBOL
-} from "@palus/data/constants";
-import { tokens } from "@palus/data/tokens";
 import { useBalancesBulkQuery } from "@palus/indexer";
 import type { Address } from "viem";
 import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import Loader from "@/components/Shared/Loader";
 import { ErrorMessage, Image } from "@/components/Shared/UI";
+import { DEFAULT_COLLECT_TOKEN, NATIVE_TOKEN_SYMBOL } from "@/data/constants";
+import { tokens } from "@/data/tokens";
 import getTokenImage from "@/helpers/getTokenImage";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import Unwrap from "./Unwrap";

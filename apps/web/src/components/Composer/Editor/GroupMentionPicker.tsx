@@ -1,5 +1,4 @@
 import { UserGroupIcon, UsersIcon } from "@heroicons/react/24/solid";
-import { EditorRegex } from "@palus/data/regex";
 import { useEditor } from "prosekit/react";
 import {
   AutocompleteItem,
@@ -8,6 +7,7 @@ import {
 } from "prosekit/react/autocomplete";
 import { useState } from "react";
 import { Image } from "@/components/Shared/UI";
+import { EditorRegex } from "@/data/regex";
 import cn from "@/helpers/cn";
 import type { EditorExtension } from "@/helpers/prosekit/extension";
 import sanitizeDStorageUrl from "@/helpers/sanitizeDStorageUrl";

@@ -1,9 +1,4 @@
 import {
-  DEFAULT_COLLECT_TOKEN,
-  STATIC_IMAGES_URL,
-  WRAPPED_NATIVE_TOKEN_SYMBOL
-} from "@palus/data/constants";
-import {
   type GroupFragment,
   type GroupRules,
   GroupRuleType,
@@ -25,6 +20,11 @@ import {
   Input,
   Tooltip
 } from "@/components/Shared/UI";
+import {
+  DEFAULT_COLLECT_TOKEN,
+  STATIC_IMAGES_URL,
+  WRAPPED_NATIVE_TOKEN_SYMBOL
+} from "@/data/constants";
 import errorToast from "@/helpers/errorToast";
 import { getSimplePaymentDetails } from "@/helpers/rules";
 import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";

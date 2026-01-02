@@ -1,5 +1,4 @@
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import { TRANSFORMS } from "@palus/data/constants";
 import type {
   AccountFragment,
   AnyPostFragment,
@@ -12,6 +11,7 @@ import AccountPreview from "@/components/Shared/Account/AccountPreview";
 import TopAccount from "@/components/Shared/Badges/TopAccount";
 import PostLink from "@/components/Shared/Post/PostLink";
 import { Image } from "@/components/Shared/UI";
+import { TRANSFORMS } from "@/data/constants";
 import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
 import getAccount from "@/helpers/getAccount";
 import getAvatar from "@/helpers/getAvatar";

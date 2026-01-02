@@ -1,5 +1,5 @@
-import { Localstorage } from "@palus/data/storage";
 import { useEffect } from "react";
+import { Localstorage } from "@/data/storage";
 
 const ReloadTabsWatcher = () => {
   useEffect(() => {

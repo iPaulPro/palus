@@ -1,4 +1,3 @@
-import { Regex } from "@palus/data/regex";
 import type { PostMentionFragment } from "@palus/indexer";
 import { memo } from "react";
 import ReactMarkdown from "react-markdown";
@@ -7,6 +6,7 @@ import remarkGfm from "remark-gfm";
 import linkifyRegex from "remark-linkify-regex";
 import stripMarkdown from "strip-markdown";
 import type { PluggableList } from "unified";
+import { Regex } from "@/data/regex";
 import trimify from "@/helpers/trimify";
 import MarkupLink from "./MarkupLink";
 

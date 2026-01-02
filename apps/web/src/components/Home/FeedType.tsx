@@ -1,6 +1,6 @@
-import { HomeFeedType } from "@palus/data/enums";
 import New from "@/components/Shared/Badges/New";
 import { Tabs } from "@/components/Shared/UI";
+import { HomeFeedType } from "@/data/enums";
 import { useHomeTabStore } from "@/store/persisted/useHomeTabStore";
 
 const FeedType = () => {

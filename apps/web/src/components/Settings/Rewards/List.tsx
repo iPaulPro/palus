@@ -1,5 +1,4 @@
 import { GiftIcon } from "@heroicons/react/24/outline";
-import { BLOCK_EXPLORER_URL } from "@palus/data/constants";
 import {
   PageSize,
   type TokenDistributionsRequest,
@@ -11,6 +10,7 @@ import { Link } from "react-router";
 import { WindowVirtualizer } from "virtua";
 import Loader from "@/components/Shared/Loader";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import { BLOCK_EXPLORER_URL } from "@/data/constants";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 
 const List = () => {

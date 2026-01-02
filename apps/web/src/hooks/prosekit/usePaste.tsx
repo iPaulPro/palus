@@ -1,8 +1,8 @@
-import { MAX_IMAGE_UPLOAD } from "@palus/data/constants";
 import { defineDOMEventHandler, type Editor, union } from "prosekit/core";
 import { useExtension } from "prosekit/react";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { toast } from "sonner";
+import { MAX_IMAGE_UPLOAD } from "@/data/constants";
 import type { EditorExtension } from "@/helpers/prosekit/extension";
 import useUploadAttachments from "@/hooks/useUploadAttachments";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";

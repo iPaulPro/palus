@@ -1,5 +1,4 @@
 import { BellIcon } from "@heroicons/react/24/outline";
-import { NotificationFeedType } from "@palus/data/enums";
 import {
   type NotificationRequest,
   NotificationType,
@@ -18,6 +17,7 @@ import RepostNotification from "@/components/Notification/Type/RepostNotificatio
 import CachedWindowVirtualizer from "@/components/Shared/CachedWindowVirtualizer";
 import PullToRefresh from "@/components/Shared/PullToRefresh";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import { NotificationFeedType } from "@/data/enums";
 import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useNotificationStore } from "@/store/persisted/useNotificationStore";

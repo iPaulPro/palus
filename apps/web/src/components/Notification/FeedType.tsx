@@ -1,7 +1,7 @@
-import { NotificationFeedType } from "@palus/data/enums";
 import { type Dispatch, type SetStateAction, useEffect } from "react";
 import { useSearchParams } from "react-router";
 import { Tabs } from "@/components/Shared/UI";
+import { NotificationFeedType } from "@/data/enums";
 import Settings from "./Settings";
 
 interface FeedTypeProps {

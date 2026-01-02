@@ -1,6 +1,6 @@
-import { RPCS } from "@palus/data/rpcs";
 import type { FallbackTransport } from "viem";
 import { fallback, http } from "viem";
+import { RPCS } from "@/data/rpcs";
 
 const BATCH_SIZE = 10;
 

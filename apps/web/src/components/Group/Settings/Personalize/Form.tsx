@@ -1,6 +1,4 @@
 import { group as groupMetadata } from "@lens-protocol/metadata";
-import { ERRORS } from "@palus/data/errors";
-import { Regex } from "@palus/data/regex";
 import {
   type GroupFragment,
   useSetGroupMetadataMutation
@@ -20,6 +18,8 @@ import {
   TextArea,
   useZodForm
 } from "@/components/Shared/UI";
+import { ERRORS } from "@/data/errors";
+import { Regex } from "@/data/regex";
 import errorToast from "@/helpers/errorToast";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
