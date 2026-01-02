@@ -3,7 +3,7 @@
 ## Project Structure & Modules
 
 - `apps/web`: Vite + React 19 frontend (sources under `src/`, static assets in `public/`).
-- `packages/*`: Shared code (`helpers`, `data`, `types`, `indexer`, `config`).
+- `packages/*`: Shared code (`indexer`, `config`).
 - `script/*`: Maintenance utilities (e.g., sorting `package.json`, cleaning branches).
 - Tooling: PNPM workspaces (`pnpm-workspace.yaml`), Biome config (`biome.json`), Husky hooks (`.husky/`).
 
