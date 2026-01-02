@@ -48,7 +48,7 @@ const Modal = ({
     <Transition afterLeave={afterLeave} as={Fragment} show={show}>
       <Dialog
         as="div"
-        className={`fixed top-[var(--vvt)] left-0 z-10 flex h-[var(--vvh)] w-full items-center justify-center overflow-hidden ${
+        className={`fixed top-[var(--vvt)] left-0 z-10 flex h-[var(--vvh)] w-full items-center justify-center overflow-hidden overscroll-contain ${
           size === "full" ? "p-0" : "p-4"
         }`}
         onClose={() => {
