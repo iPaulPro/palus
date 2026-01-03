@@ -6,8 +6,8 @@ import DismissRecommendedAccount from "@/components/Shared/Account/DismissRecomm
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import { EmptyState } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import { accountsList } from "@/helpers/variants";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { accountsList } from "@/variants";
 
 interface SuggestedProps {
   accounts: AccountFragment[];

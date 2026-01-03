@@ -3,9 +3,9 @@ import dayjs from "dayjs";
 import { motion } from "motion/react";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { RangeSlider } from "@/components/Shared/UI";
+import { EXPANSION_EASE } from "@/helpers/variants";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import type { CollectActionType } from "@/types/palus";
-import { EXPANSION_EASE } from "@/variants";
 
 interface TimeLimitConfigProps {
   setCollectType: (data: CollectActionType) => void;

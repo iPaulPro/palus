@@ -13,8 +13,8 @@
     "dep:fix": "pnpm dlx sherif@latest --fix",
     "dev": "pnpm --recursive --parallel run dev",
     "prepare": "husky install",
+    "sort": "node ./script/sort-package-json.mjs",
     "start": "pnpm --recursive --parallel run start",
-    "sync": "node ./script/sync-public.mjs",
     "typecheck": "pnpm --recursive --parallel run typecheck"
   },
   "devDependencies": {

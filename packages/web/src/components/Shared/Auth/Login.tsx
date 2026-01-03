@@ -18,9 +18,9 @@ import { PALUS_APP } from "@/data/constants";
 import { ERRORS } from "@/data/errors";
 import errorToast from "@/helpers/errorToast";
 import reloadAllTabs from "@/helpers/reloadAllTabs";
+import { EXPANSION_EASE } from "@/helpers/variants";
 import useHandleWrongNetwork from "@/hooks/useHandleWrongNetwork";
 import { signIn } from "@/store/persisted/useAuthStore";
-import { EXPANSION_EASE } from "@/variants";
 import SignupCard from "./SignupCard";
 import WalletSelector from "./WalletSelector";
 

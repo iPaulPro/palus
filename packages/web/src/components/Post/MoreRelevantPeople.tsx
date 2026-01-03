@@ -3,8 +3,8 @@ import { motion } from "motion/react";
 import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import cn from "@/helpers/cn";
+import { accountsList } from "@/helpers/variants";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { accountsList } from "@/variants";
 
 interface MoreRelevantPeopleProps {
   accounts: AccountFragment[];

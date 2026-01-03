@@ -12,10 +12,10 @@ import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Button, H6, Input } from "@/components/Shared/UI";
 import { ADDRESS_PLACEHOLDER } from "@/data/constants";
 import splitNumber from "@/helpers/splitNumber";
+import { EXPANSION_EASE } from "@/helpers/variants";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { CollectActionType } from "@/types/palus";
-import { EXPANSION_EASE } from "@/variants";
 
 interface SplitConfigProps {
   isRecipientsDuplicated: boolean;

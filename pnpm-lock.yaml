@@ -21,7 +21,43 @@ importers:
         specifier: ^7.1.12
         version: 7.3.0(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2)
 
-  apps/web:
+  packages/config: {}
+
+  packages/indexer:
+    dependencies:
+      '@apollo/client':
+        specifier: 3.14.0
+        version: 3.14.0(@types/react@19.2.7)(graphql-ws@6.0.6(crossws@0.3.5)(graphql@16.12.0)(ws@8.18.3(bufferutil@4.1.0)(utf-8-validate@5.0.10)))(graphql@16.12.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
+      graphql:
+        specifier: ^16.11.0
+        version: 16.12.0
+    devDependencies:
+      '@graphql-codegen/cli':
+        specifier: ^6.0.1
+        version: 6.1.0(@types/node@24.10.4)(bufferutil@4.1.0)(crossws@0.3.5)(graphql@16.12.0)(typescript@5.9.3)(utf-8-validate@5.0.10)
+      '@graphql-codegen/fragment-matcher':
+        specifier: ^6.0.0
+        version: 6.0.0(graphql@16.12.0)
+      '@graphql-codegen/typescript':
+        specifier: ^5.0.2
+        version: 5.0.7(graphql@16.12.0)
+      '@graphql-codegen/typescript-operations':
+        specifier: ^5.0.2
+        version: 5.0.7(graphql@16.12.0)
+      '@graphql-codegen/typescript-react-apollo':
+        specifier: ^4.3.3
+        version: 4.3.4(graphql@16.12.0)
+      '@palus/config':
+        specifier: workspace:*
+        version: link:../config
+      '@types/node':
+        specifier: ^24.9.1
+        version: 24.10.4
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/web:
     dependencies:
       '@apollo/client':
         specifier: 3.14.0
@@ -52,7 +88,7 @@ importers:
         version: 0.34.0(bufferutil@4.1.0)(utf-8-validate@5.0.10)
       '@palus/indexer':
         specifier: workspace:*
-        version: link:../../packages/indexer
+        version: link:../indexer
       '@radix-ui/react-hover-card':
         specifier: ^1.1.15
         version: 1.1.15(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -197,7 +233,7 @@ importers:
     devDependencies:
       '@palus/config':
         specifier: workspace:*
-        version: link:../../packages/config
+        version: link:../config
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
         version: 0.4.2(tailwindcss@4.1.18)
@@ -231,42 +267,6 @@ importers:
       vite-tsconfig-paths:
         specifier: ^5.1.4
         version: 5.1.4(typescript@5.9.3)(vite@7.3.0(@types/node@24.10.4)(jiti@2.6.1)(lightningcss@1.30.2)(yaml@2.8.2))
-
-  packages/config: {}
-
-  packages/indexer:
-    dependencies:
-      '@apollo/client':
-        specifier: 3.14.0
-        version: 3.14.0(@types/react@19.2.7)(graphql-ws@6.0.6(crossws@0.3.5)(graphql@16.12.0)(ws@8.18.3(bufferutil@4.1.0)(utf-8-validate@5.0.10)))(graphql@16.12.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
-      graphql:
-        specifier: ^16.11.0
-        version: 16.12.0
-    devDependencies:
-      '@graphql-codegen/cli':
-        specifier: ^6.0.1
-        version: 6.1.0(@types/node@24.10.4)(bufferutil@4.1.0)(crossws@0.3.5)(graphql@16.12.0)(typescript@5.9.3)(utf-8-validate@5.0.10)
-      '@graphql-codegen/fragment-matcher':
-        specifier: ^6.0.0
-        version: 6.0.0(graphql@16.12.0)
-      '@graphql-codegen/typescript':
-        specifier: ^5.0.2
-        version: 5.0.7(graphql@16.12.0)
-      '@graphql-codegen/typescript-operations':
-        specifier: ^5.0.2
-        version: 5.0.7(graphql@16.12.0)
-      '@graphql-codegen/typescript-react-apollo':
-        specifier: ^4.3.3
-        version: 4.3.4(graphql@16.12.0)
-      '@palus/config':
-        specifier: workspace:*
-        version: link:../config
-      '@types/node':
-        specifier: ^24.9.1
-        version: 24.10.4
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
 
 packages:
 
@@ -9040,7 +9040,7 @@ snapshots:
 
   '@scure/bip32@1.7.0':
     dependencies:
-      '@noble/curves': 1.9.1
+      '@noble/curves': 1.9.7
       '@noble/hashes': 1.8.0
       '@scure/base': 1.2.6
 

@@ -1,7 +1,9 @@
-import { UsersIcon } from "@heroicons/react/24/outline";
+import { HeartIcon } from "@heroicons/react/24/outline";
 import {
-  type FollowersYouKnowRequest,
-  useFollowersYouKnowQuery
+  PageSize,
+  PostReactionOrderBy,
+  type PostReactionsRequest,
+  usePostReactionsQuery
 } from "@palus/indexer";
 import { motion } from "motion/react";
 import { useCallback } from "react";
@@ -10,30 +12,30 @@ import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import { accountsList } from "@/helpers/variants";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { accountsList } from "@/variants";
 
-interface FollowersYouKnowProps {
-  username: string;
-  address: string;
+interface LikesProps {
+  postId: string;
 }
 
-const FollowersYouKnow = ({ username, address }: FollowersYouKnowProps) => {
+const Likes = ({ postId }: LikesProps) => {
   const { currentAccount } = useAccountStore();
 
-  const request: FollowersYouKnowRequest = {
-    observer: currentAccount?.address,
-    target: address
+  const request: PostReactionsRequest = {
+    orderBy: PostReactionOrderBy.AccountScore,
+    pageSize: PageSize.Fifty,
+    post: postId
   };
 
-  const { data, error, fetchMore, loading } = useFollowersYouKnowQuery({
-    skip: !address,
+  const { data, error, fetchMore, loading } = usePostReactionsQuery({
+    skip: !postId,
     variables: { request }
   });
 
-  const followersYouKnow = data?.followersYouKnow?.items;
-  const pageInfo = data?.followersYouKnow?.pageInfo;
+  const accounts = data?.postReactions?.items;
+  const pageInfo = data?.postReactions?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const handleEndReached = useCallback(async () => {
@@ -50,18 +52,15 @@ const FollowersYouKnow = ({ username, address }: FollowersYouKnowProps) => {
     return <AccountListShimmer />;
   }
 
-  if (!followersYouKnow?.length) {
+  if (!accounts?.length) {
     return (
-      <EmptyState
-        hideCard
-        icon={<UsersIcon className="size-8" />}
-        message={
-          <div>
-            <span className="mr-1 font-bold">{username}</span>
-            <span>doesn't have any mutual followers.</span>
-          </div>
-        }
-      />
+      <div className="p-5">
+        <EmptyState
+          hideCard
+          icon={<HeartIcon className="size-8" />}
+          message="No likes."
+        />
+      </div>
     );
   }
 
@@ -70,7 +69,7 @@ const FollowersYouKnow = ({ username, address }: FollowersYouKnowProps) => {
       <ErrorMessage
         className="m-5"
         error={error}
-        title="Failed to load mutual followers"
+        title="Failed to load likes"
       />
     );
   }
@@ -78,24 +77,24 @@ const FollowersYouKnow = ({ username, address }: FollowersYouKnowProps) => {
   return (
     <div className="max-h-[80vh] overflow-y-auto">
       <Virtualizer>
-        {followersYouKnow.map((follower, index) => (
+        {accounts.map((like, index) => (
           <motion.div
             animate="visible"
             className={cn(
               "divider p-5",
-              index === followersYouKnow.length - 1 && "border-b-0"
+              index === accounts.length - 1 && "border-b-0"
             )}
             initial="hidden"
-            key={follower.follower.address}
+            key={like.account.address}
             variants={accountsList}
           >
             <SingleAccount
-              account={follower.follower}
+              account={like.account}
               hideFollowButton={
-                currentAccount?.address === follower.follower.address
+                currentAccount?.address === like.account.address
               }
               hideUnfollowButton={
-                currentAccount?.address === follower.follower.address
+                currentAccount?.address === like.account.address
               }
               showBio
               showUserPreview={false}
@@ -108,4 +107,4 @@ const FollowersYouKnow = ({ username, address }: FollowersYouKnowProps) => {
   );
 };
 
-export default FollowersYouKnow;
+export default Likes;

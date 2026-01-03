@@ -1,10 +1,6 @@
 import { UsersIcon } from "@heroicons/react/24/outline";
-import {
-  type GroupFragment,
-  type GroupMembersRequest,
-  PageSize,
-  useGroupMembersQuery
-} from "@palus/indexer";
+import type { FollowingRequest } from "@palus/indexer";
+import { PageSize, useFollowingQuery } from "@palus/indexer";
 import { motion } from "motion/react";
 import { useCallback } from "react";
 import { Virtualizer } from "virtua";
@@ -12,29 +8,30 @@ import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import { accountsList } from "@/helpers/variants";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { accountsList } from "@/variants";
 
-interface MembersProps {
-  group: GroupFragment;
+interface FollowingProps {
+  username: string;
+  address: string;
 }
 
-const Members = ({ group }: MembersProps) => {
+const Following = ({ username, address }: FollowingProps) => {
   const { currentAccount } = useAccountStore();
 
-  const request: GroupMembersRequest = {
-    group: group.address,
+  const request: FollowingRequest = {
+    account: address,
     pageSize: PageSize.Fifty
   };
 
-  const { data, loading, error, fetchMore } = useGroupMembersQuery({
-    skip: !group.address,
+  const { data, error, fetchMore, loading } = useFollowingQuery({
+    skip: !address,
     variables: { request }
   });
 
-  const groupMembers = data?.groupMembers?.items;
-  const pageInfo = data?.groupMembers?.pageInfo;
+  const followings = data?.following?.items;
+  const pageInfo = data?.following?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const handleEndReached = useCallback(async () => {
@@ -51,12 +48,17 @@ const Members = ({ group }: MembersProps) => {
     return <AccountListShimmer />;
   }
 
-  if (!groupMembers?.length) {
+  if (!followings?.length) {
     return (
       <EmptyState
         hideCard
         icon={<UsersIcon className="size-8" />}
-        message="Group doesn't have any members."
+        message={
+          <div>
+            <span className="mr-1 font-bold">@{username}</span>
+            <span>doesn't follow anyone.</span>
+          </div>
+        }
       />
     );
   }
@@ -66,7 +68,7 @@ const Members = ({ group }: MembersProps) => {
       <ErrorMessage
         className="m-5"
         error={error}
-        title="Failed to load members"
+        title="Failed to load following"
       />
     );
   }
@@ -74,24 +76,24 @@ const Members = ({ group }: MembersProps) => {
   return (
     <div className="max-h-[80vh] overflow-y-auto">
       <Virtualizer>
-        {groupMembers.map((member, index) => (
+        {followings.map((following, index) => (
           <motion.div
             animate="visible"
             className={cn(
               "divider p-5",
-              index === groupMembers.length - 1 && "border-b-0"
+              index === followings.length - 1 && "border-b-0"
             )}
             initial="hidden"
-            key={member.account.address}
+            key={following.following.address}
             variants={accountsList}
           >
             <SingleAccount
-              account={member.account}
+              account={following.following}
               hideFollowButton={
-                currentAccount?.address === member.account.address
+                currentAccount?.address === following.following.address
               }
               hideUnfollowButton={
-                currentAccount?.address === member.account.address
+                currentAccount?.address === following.following.address
               }
               showBio
               showUserPreview={false}
@@ -104,4 +106,4 @@ const Members = ({ group }: MembersProps) => {
   );
 };
 
-export default Members;
+export default Following;

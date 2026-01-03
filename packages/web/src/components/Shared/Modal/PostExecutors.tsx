@@ -1,9 +1,9 @@
-import { HeartIcon } from "@heroicons/react/24/outline";
+import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import {
-  PageSize,
-  PostReactionOrderBy,
-  type PostReactionsRequest,
-  usePostReactionsQuery
+  type PostActionFilter,
+  useWhoExecutedActionOnPostQuery,
+  WhoExecutedActionOnPostOrderBy,
+  type WhoExecutedActionOnPostRequest
 } from "@palus/indexer";
 import { motion } from "motion/react";
 import { useCallback } from "react";
@@ -12,30 +12,31 @@ import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import { accountsList } from "@/helpers/variants";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { accountsList } from "@/variants";
 
-interface LikesProps {
+interface PostExecutorsProps {
   postId: string;
+  filter: PostActionFilter;
 }
 
-const Likes = ({ postId }: LikesProps) => {
+const PostExecutors = ({ postId, filter }: PostExecutorsProps) => {
   const { currentAccount } = useAccountStore();
 
-  const request: PostReactionsRequest = {
-    orderBy: PostReactionOrderBy.AccountScore,
-    pageSize: PageSize.Fifty,
+  const request: WhoExecutedActionOnPostRequest = {
+    filter: { anyOf: [filter] },
+    orderBy: WhoExecutedActionOnPostOrderBy.AccountScore,
     post: postId
   };
 
-  const { data, error, fetchMore, loading } = usePostReactionsQuery({
+  const { data, error, fetchMore, loading } = useWhoExecutedActionOnPostQuery({
     skip: !postId,
     variables: { request }
   });
 
-  const accounts = data?.postReactions?.items;
-  const pageInfo = data?.postReactions?.pageInfo;
+  const accounts = data?.whoExecutedActionOnPost?.items;
+  const pageInfo = data?.whoExecutedActionOnPost?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const handleEndReached = useCallback(async () => {
@@ -57,8 +58,8 @@ const Likes = ({ postId }: LikesProps) => {
       <div className="p-5">
         <EmptyState
           hideCard
-          icon={<HeartIcon className="size-8" />}
-          message="No likes."
+          icon={<ShoppingBagIcon className="size-8" />}
+          message="No actions."
         />
       </div>
     );
@@ -69,7 +70,7 @@ const Likes = ({ postId }: LikesProps) => {
       <ErrorMessage
         className="m-5"
         error={error}
-        title="Failed to load likes"
+        title="Failed to load actions"
       />
     );
   }
@@ -77,7 +78,7 @@ const Likes = ({ postId }: LikesProps) => {
   return (
     <div className="max-h-[80vh] overflow-y-auto">
       <Virtualizer>
-        {accounts.map((like, index) => (
+        {accounts.map((action, index) => (
           <motion.div
             animate="visible"
             className={cn(
@@ -85,16 +86,16 @@ const Likes = ({ postId }: LikesProps) => {
               index === accounts.length - 1 && "border-b-0"
             )}
             initial="hidden"
-            key={like.account.address}
+            key={action.account.address}
             variants={accountsList}
           >
             <SingleAccount
-              account={like.account}
+              account={action.account}
               hideFollowButton={
-                currentAccount?.address === like.account.address
+                currentAccount?.address === action.account.address
               }
               hideUnfollowButton={
-                currentAccount?.address === like.account.address
+                currentAccount?.address === action.account.address
               }
               showBio
               showUserPreview={false}
@@ -107,4 +108,4 @@ const Likes = ({ postId }: LikesProps) => {
   );
 };
 
-export default Likes;
+export default PostExecutors;

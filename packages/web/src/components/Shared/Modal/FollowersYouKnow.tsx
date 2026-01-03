@@ -1,9 +1,7 @@
-import { ShoppingBagIcon } from "@heroicons/react/24/outline";
+import { UsersIcon } from "@heroicons/react/24/outline";
 import {
-  type PostActionFilter,
-  useWhoExecutedActionOnPostQuery,
-  WhoExecutedActionOnPostOrderBy,
-  type WhoExecutedActionOnPostRequest
+  type FollowersYouKnowRequest,
+  useFollowersYouKnowQuery
 } from "@palus/indexer";
 import { motion } from "motion/react";
 import { useCallback } from "react";
@@ -12,31 +10,30 @@ import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import { accountsList } from "@/helpers/variants";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { accountsList } from "@/variants";
 
-interface PostExecutorsProps {
-  postId: string;
-  filter: PostActionFilter;
+interface FollowersYouKnowProps {
+  username: string;
+  address: string;
 }
 
-const PostExecutors = ({ postId, filter }: PostExecutorsProps) => {
+const FollowersYouKnow = ({ username, address }: FollowersYouKnowProps) => {
   const { currentAccount } = useAccountStore();
 
-  const request: WhoExecutedActionOnPostRequest = {
-    filter: { anyOf: [filter] },
-    orderBy: WhoExecutedActionOnPostOrderBy.AccountScore,
-    post: postId
+  const request: FollowersYouKnowRequest = {
+    observer: currentAccount?.address,
+    target: address
   };
 
-  const { data, error, fetchMore, loading } = useWhoExecutedActionOnPostQuery({
-    skip: !postId,
+  const { data, error, fetchMore, loading } = useFollowersYouKnowQuery({
+    skip: !address,
     variables: { request }
   });
 
-  const accounts = data?.whoExecutedActionOnPost?.items;
-  const pageInfo = data?.whoExecutedActionOnPost?.pageInfo;
+  const followersYouKnow = data?.followersYouKnow?.items;
+  const pageInfo = data?.followersYouKnow?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const handleEndReached = useCallback(async () => {
@@ -53,15 +50,18 @@ const PostExecutors = ({ postId, filter }: PostExecutorsProps) => {
     return <AccountListShimmer />;
   }
 
-  if (!accounts?.length) {
+  if (!followersYouKnow?.length) {
     return (
-      <div className="p-5">
-        <EmptyState
-          hideCard
-          icon={<ShoppingBagIcon className="size-8" />}
-          message="No actions."
-        />
-      </div>
+      <EmptyState
+        hideCard
+        icon={<UsersIcon className="size-8" />}
+        message={
+          <div>
+            <span className="mr-1 font-bold">{username}</span>
+            <span>doesn't have any mutual followers.</span>
+          </div>
+        }
+      />
     );
   }
 
@@ -70,7 +70,7 @@ const PostExecutors = ({ postId, filter }: PostExecutorsProps) => {
       <ErrorMessage
         className="m-5"
         error={error}
-        title="Failed to load actions"
+        title="Failed to load mutual followers"
       />
     );
   }
@@ -78,24 +78,24 @@ const PostExecutors = ({ postId, filter }: PostExecutorsProps) => {
   return (
     <div className="max-h-[80vh] overflow-y-auto">
       <Virtualizer>
-        {accounts.map((action, index) => (
+        {followersYouKnow.map((follower, index) => (
           <motion.div
             animate="visible"
             className={cn(
               "divider p-5",
-              index === accounts.length - 1 && "border-b-0"
+              index === followersYouKnow.length - 1 && "border-b-0"
             )}
             initial="hidden"
-            key={action.account.address}
+            key={follower.follower.address}
             variants={accountsList}
           >
             <SingleAccount
-              account={action.account}
+              account={follower.follower}
               hideFollowButton={
-                currentAccount?.address === action.account.address
+                currentAccount?.address === follower.follower.address
               }
               hideUnfollowButton={
-                currentAccount?.address === action.account.address
+                currentAccount?.address === follower.follower.address
               }
               showBio
               showUserPreview={false}
@@ -108,4 +108,4 @@ const PostExecutors = ({ postId, filter }: PostExecutorsProps) => {
   );
 };
 
-export default PostExecutors;
+export default FollowersYouKnow;

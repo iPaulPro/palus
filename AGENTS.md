@@ -2,8 +2,9 @@
 
 ## Project Structure & Modules
 
-- `apps/web`: Vite + React 19 frontend (sources under `src/`, static assets in `public/`).
-- `packages/*`: Shared code (`indexer`, `config`).
+- `packages/web`: Vite + React 19 frontend (sources under `src/`, static assets in `public/`).
+- `packages/config`: Shared TypeScript configuration files.
+- `packages/indexer`: GraphQL types and hooks generated from the Lens API and Apollo Client.
 - `script/*`: Maintenance utilities (e.g., sorting `package.json`, cleaning branches).
 - Tooling: PNPM workspaces (`pnpm-workspace.yaml`), Biome config (`biome.json`), Husky hooks (`.husky/`).
 
@@ -20,7 +21,7 @@
 
 - Language: TypeScript (strict, shared configs in `packages/config`).
 - Formatting: Biome controls style; no trailing commas; spaces for indentation.
-- Imports: Use workspace packages (`@palus/*`) and web alias `@/*` to `apps/web/src`.
+- Imports: Use workspace packages (`@palus/*`) and web alias `@/*` to `packages/web/src`.
 - Files: React components `PascalCase.tsx`; helpers/stores `camelCase.ts`.
 - Keep modules small, colocate domain helpers with their feature when practical.
 

@@ -1,6 +1,11 @@
-import { UsersIcon } from "@heroicons/react/24/outline";
-import type { FollowersRequest } from "@palus/indexer";
-import { PageSize, useFollowersQuery } from "@palus/indexer";
+import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import {
+  PageSize,
+  PostReferenceType,
+  useWhoReferencedPostQuery,
+  WhoReferencedPostOrderBy,
+  type WhoReferencedPostRequest
+} from "@palus/indexer";
 import { motion } from "motion/react";
 import { useCallback } from "react";
 import { Virtualizer } from "virtua";
@@ -8,30 +13,31 @@ import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
 import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import { accountsList } from "@/helpers/variants";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import { accountsList } from "@/variants";
 
-interface FollowersProps {
-  username: string;
-  address: string;
+interface RepostsProps {
+  postId: string;
 }
 
-const Followers = ({ username, address }: FollowersProps) => {
+const Reposts = ({ postId }: RepostsProps) => {
   const { currentAccount } = useAccountStore();
 
-  const request: FollowersRequest = {
-    account: address,
-    pageSize: PageSize.Fifty
+  const request: WhoReferencedPostRequest = {
+    orderBy: WhoReferencedPostOrderBy.AccountScore,
+    pageSize: PageSize.Fifty,
+    post: postId,
+    referenceTypes: [PostReferenceType.RepostOf]
   };
 
-  const { data, error, fetchMore, loading } = useFollowersQuery({
-    skip: !address,
+  const { data, error, fetchMore, loading } = useWhoReferencedPostQuery({
+    skip: !postId,
     variables: { request }
   });
 
-  const followers = data?.followers?.items;
-  const pageInfo = data?.followers?.pageInfo;
+  const accounts = data?.whoReferencedPost?.items;
+  const pageInfo = data?.whoReferencedPost?.pageInfo;
   const hasMore = pageInfo?.next;
 
   const handleEndReached = useCallback(async () => {
@@ -48,18 +54,15 @@ const Followers = ({ username, address }: FollowersProps) => {
     return <AccountListShimmer />;
   }
 
-  if (!followers?.length) {
+  if (!accounts?.length) {
     return (
-      <EmptyState
-        hideCard
-        icon={<UsersIcon className="size-8" />}
-        message={
-          <div>
-            <span className="mr-1 font-bold">@{username}</span>
-            <span>doesn't have any followers yet.</span>
-          </div>
-        }
-      />
+      <div className="p-5">
+        <EmptyState
+          hideCard
+          icon={<ArrowsRightLeftIcon className="size-8" />}
+          message="No reposts."
+        />
+      </div>
     );
   }
 
@@ -68,33 +71,29 @@ const Followers = ({ username, address }: FollowersProps) => {
       <ErrorMessage
         className="m-5"
         error={error}
-        title="Failed to load followers"
+        title="Failed to load reposts"
       />
     );
   }
 
   return (
-    <div className="!h-[80vh] overflow-y-auto">
+    <div className="max-h-[80vh] overflow-y-auto">
       <Virtualizer>
-        {followers.map((follower, index) => (
+        {accounts.map((account, index) => (
           <motion.div
             animate="visible"
             className={cn(
               "divider p-5",
-              index === followers.length - 1 && "border-b-0"
+              index === accounts.length - 1 && "border-b-0"
             )}
             initial="hidden"
-            key={follower.follower.address}
+            key={account.address}
             variants={accountsList}
           >
             <SingleAccount
-              account={follower.follower}
-              hideFollowButton={
-                currentAccount?.address === follower.follower.address
-              }
-              hideUnfollowButton={
-                currentAccount?.address === follower.follower.address
-              }
+              account={account}
+              hideFollowButton={currentAccount?.address === account.address}
+              hideUnfollowButton={currentAccount?.address === account.address}
               showBio
               showUserPreview={false}
             />
@@ -106,4 +105,4 @@ const Followers = ({ username, address }: FollowersProps) => {
   );
 };
 
-export default Followers;
+export default Reposts;
