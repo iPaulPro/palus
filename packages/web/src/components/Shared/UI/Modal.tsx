@@ -17,10 +17,10 @@ const modalVariants = cva(
     variants: {
       size: {
         full: "h-full flex flex-col",
-        lg: "flex max-h-[90vh] flex-col rounded-xl sm:max-w-5xl",
-        md: "flex max-h-[90vh] flex-col rounded-xl sm:max-w-3xl",
-        sm: "flex max-h-[90vh] flex-col rounded-xl sm:max-w-lg",
-        xs: "flex max-h-[90vh] flex-col rounded-xl sm:max-w-sm"
+        lg: "inline-block rounded-xl sm:max-w-5xl sm:my-8 sm:align-middle",
+        md: "inline-block rounded-xl sm:max-w-3xl sm:my-8 sm:align-middle",
+        sm: "inline-block rounded-xl sm:max-w-lg sm:my-8 sm:align-middle",
+        xs: "inline-block rounded-xl sm:max-w-sm sm:my-8 sm:align-middle"
       }
     }
   }
@@ -48,8 +48,10 @@ const Modal = ({
     <Transition afterLeave={afterLeave} as={Fragment} show={show}>
       <Dialog
         as="div"
-        className={`fixed top-[var(--vvt)] left-0 z-10 flex h-[var(--vvh)] w-full items-center justify-center overflow-hidden overscroll-contain ${
-          size === "full" ? "p-0" : "p-4"
+        className={`fixed z-10 flex items-center justify-center ${
+          size === "full"
+            ? "top-[var(--vvt)] left-0 h-[var(--vvh)] w-full overflow-hidden overscroll-contain p-0"
+            : "inset-0 min-h-screen overflow-y-auto p-4 text-center sm:block sm:p-0"
         }`}
         onClose={() => {
           if (!preventClose) {
@@ -58,6 +60,7 @@ const Modal = ({
         }}
         open={show}
       >
+        <span className="hidden sm:inline-block sm:h-screen sm:align-middle" />
         <DialogBackdrop className="fixed inset-0 bg-gray-500/75 dark:bg-gray-900/80" />
         <TransitionChild
           as={Fragment}
