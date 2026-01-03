@@ -233,7 +233,7 @@ const CollectActionBody = ({
             <div className="flex items-center space-x-2">
               <PuzzlePieceIcon className="size-4 text-gray-500 dark:text-gray-200" />
               <div className="space-x-1.5">
-                <span>Token:</span>
+                <span>NFT:</span>
                 <Link
                   className="font-bold text-gray-600"
                   rel="noreferrer noopener"

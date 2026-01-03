@@ -8,9 +8,10 @@ import CollectActionBody from "./CollectActionBody";
 
 interface CollectActionProps {
   post: PostFragment;
+  showCount?: boolean;
 }
 
-const CollectAction = ({ post }: CollectActionProps) => {
+const CollectAction = ({ post, showCount }: CollectActionProps) => {
   const [showCollectModal, setShowCollectModal] = useState(false);
   const { collects } = post.stats;
 
@@ -30,7 +31,7 @@ const CollectAction = ({ post }: CollectActionProps) => {
           <ShoppingBagIcon className="w-[20px]" />
         </Tooltip>
       </button>
-      {collects > 0 ? (
+      {collects > 0 && !showCount ? (
         <span className="text-sm sm:text-xs">{collects}</span>
       ) : null}
       <Modal
