@@ -12,6 +12,7 @@ import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import LoginButton from "@/components/Shared/LoginButton";
 import { Button, Spinner } from "@/components/Shared/UI";
 import { PALUS_TREASURY } from "@/data/constants";
+import { CONTRACTS } from "@/data/contracts";
 import errorToast from "@/helpers/errorToast";
 import getCollectActionData from "@/helpers/getCollectActionData";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
@@ -182,10 +183,14 @@ const CollectActionButton = ({
       <TopUpButton
         amountToTopUp={Math.ceil((amount - Number(tokenBalance)) * 20) / 20}
         className="mt-5 w-full"
-        token={{
-          contractAddress: assetAddress as Address,
-          symbol: assetSymbol
-        }}
+        token={
+          assetAddress === CONTRACTS.nativeToken
+            ? undefined
+            : {
+                contractAddress: assetAddress as Address,
+                symbol: assetSymbol
+              }
+        }
       />
     );
   }

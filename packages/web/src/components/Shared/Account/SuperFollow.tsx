@@ -9,6 +9,7 @@ import Loader from "@/components/Shared/Loader";
 import LoginButton from "@/components/Shared/LoginButton";
 import Slug from "@/components/Shared/Slug";
 import { H3, H5 } from "@/components/Shared/UI";
+import { CONTRACTS } from "@/data/contracts";
 import { tokens } from "@/data/tokens";
 import getAccount from "@/helpers/getAccount";
 import getTokenImage from "@/helpers/getTokenImage";
@@ -109,7 +110,11 @@ const SuperFollow = () => {
                 Math.ceil((amount - Number(tokenBalance)) * 20) / 20
               }
               className="w-full"
-              token={{ contractAddress: assetAddress, symbol: assetSymbol }}
+              token={
+                assetAddress === CONTRACTS.nativeToken
+                  ? undefined
+                  : { contractAddress: assetAddress, symbol: assetSymbol }
+              }
             />
           )
         ) : (

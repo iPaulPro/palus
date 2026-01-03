@@ -138,7 +138,7 @@ const Transfer = ({ token }: TransferProps) => {
   return (
     <Card className="mt-5" forceRounded>
       <div className="mx-5 my-3 flex items-center justify-between">
-        <b>Purchase</b>
+        <b>Deposit</b>
         {balanceLoading ? (
           <Skeleton className="h-2.5 w-20 rounded-full" />
         ) : (
@@ -224,7 +224,7 @@ const Transfer = ({ token }: TransferProps) => {
             loading={isSubmitting}
             onClick={handleDeposit}
           >
-            Purchase {amount} {symbol}
+            Deposit {amount} {symbol}
           </Button>
         )}
       </div>
