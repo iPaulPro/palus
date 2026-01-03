@@ -58,7 +58,7 @@ const CollectActionBody = ({
 
   // Memoize expensive calculations to prevent unnecessary re-renders
   const enabledTokens = useMemo(() => {
-    return tokens.map((t) => t.symbol);
+    return tokens.map((t) => t.contractAddress);
   }, []);
 
   // Extract data safely with optional chaining
@@ -84,7 +84,8 @@ const CollectActionBody = ({
     () => Number.parseFloat(collectAction?.payToCollect?.price?.value || "0"),
     [collectAction]
   );
-  const currency = collectAction?.payToCollect?.price?.asset?.symbol;
+  const currency = collectAction?.payToCollect?.price?.asset?.contract.address;
+  const symbol = collectAction?.payToCollect?.price?.asset?.symbol;
   const recipients = collectAction?.payToCollect?.recipients || [];
 
   const percentageCollected = useMemo(() => {
@@ -164,11 +165,11 @@ const CollectActionBody = ({
           <div className="flex items-center space-x-1.5 py-2">
             {isTokenEnabled ? (
               <img
-                alt={currency}
+                alt={symbol}
                 className="size-7 rounded-full"
                 height={28}
-                src={getTokenImage(currency)}
-                title={currency}
+                src={getTokenImage(symbol)}
+                title={symbol}
                 width={28}
               />
             ) : (
@@ -176,7 +177,7 @@ const CollectActionBody = ({
             )}
             <span className="space-x-1">
               <H3 as="span">{amount}</H3>
-              <span className="text-xs">{currency}</span>
+              <span className="text-xs">{symbol}</span>
             </span>
             <div className="mt-2">
               <HelpTooltip>
@@ -184,7 +185,7 @@ const CollectActionBody = ({
                   <div className="flex items-start justify-between space-x-10">
                     <div>Palus</div>
                     <b>
-                      ~{palusFee} {currency} (2.5%)
+                      ~{palusFee} {symbol} (2.5%)
                     </b>
                   </div>
                 </div>
@@ -250,11 +251,11 @@ const CollectActionBody = ({
               <div className="space-x-1.5">
                 <span>Revenue:</span>
                 <Tooltip
-                  content={`${humanize(totalRevenue)} ${currency}`}
+                  content={`${humanize(totalRevenue)} ${symbol}`}
                   placement="top"
                 >
                   <span className="font-bold text-gray-600">
-                    {nFormatter(totalRevenue)} {currency}
+                    {nFormatter(totalRevenue)} {symbol}
                   </span>
                 </Tooltip>
               </div>

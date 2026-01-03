@@ -27,7 +27,7 @@ const SuperFollow = () => {
   const enabledTokens = tokens.map((t) => t.symbol);
   const isTokenEnabled = enabledTokens?.includes(assetSymbol || "");
 
-  const { data: balance, loading: balanceLoading } = useBalancesBulkQuery({
+  const { data: balances, loading: balanceLoading } = useBalancesBulkQuery({
     fetchPolicy: "no-cache",
     pollInterval: 3000,
     skip: !assetAddress || !currentAccount?.address,
@@ -48,11 +48,17 @@ const SuperFollow = () => {
     return <Loader className="my-10" message="Loading Super follow" />;
   }
 
-  const nativeBalance = balance?.balancesBulk?.find(
-    (token) => token.__typename === "NativeAmount"
+  const balance = balances?.balancesBulk?.find(
+    (token) =>
+      (token.__typename === "NativeAmount" ||
+        token.__typename === "Erc20Amount") &&
+      token.asset.contract.address === assetAddress
   );
   const tokenBalance =
-    nativeBalance?.__typename === "NativeAmount" ? nativeBalance.value : 0;
+    balance?.__typename === "NativeAmount" ||
+    balance?.__typename === "Erc20Amount"
+      ? balance.value
+      : 0;
 
   const hasEnoughBalance = Number(tokenBalance) >= Number(amount || 0);
 
