@@ -21,7 +21,6 @@ import {
   Tooltip
 } from "@/components/Shared/UI";
 import {
-  DEFAULT_COLLECT_TOKEN,
   STATIC_IMAGES_URL,
   WRAPPED_NATIVE_TOKEN_SYMBOL
 } from "@/data/constants";
@@ -98,10 +97,7 @@ const SuperJoin = ({ group }: SuperJoinProps) => {
                   required: [
                     {
                       simplePaymentRule: {
-                        erc20: {
-                          currency: DEFAULT_COLLECT_TOKEN,
-                          value: amount.toString()
-                        },
+                        native: amount.toString(),
                         recipient: group.owner
                       }
                     }

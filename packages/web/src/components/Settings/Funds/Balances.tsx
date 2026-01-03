@@ -3,8 +3,8 @@ import type { Address } from "viem";
 import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import Loader from "@/components/Shared/Loader";
 import { ErrorMessage, Image } from "@/components/Shared/UI";
-import { DEFAULT_COLLECT_TOKEN, NATIVE_TOKEN_SYMBOL } from "@/data/constants";
-import { tokens } from "@/data/tokens";
+import { NATIVE_TOKEN_SYMBOL } from "@/data/constants";
+import { CONTRACTS } from "@/data/contracts";
 import getTokenImage from "@/helpers/getTokenImage";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import Unwrap from "./Unwrap";
@@ -20,7 +20,7 @@ const Balances = () => {
       request: {
         address: currentAccount?.address,
         includeNative: true,
-        tokens: tokens.map((token) => token.contractAddress)
+        tokens: [CONTRACTS.wrappedNativeToken]
       }
     }
   });
@@ -46,7 +46,7 @@ const Balances = () => {
         <div className="flex flex-wrap items-center gap-2">
           <Withdraw currency={currency} refetch={refetch} value={value} />
           {!currency && <Wrap refetch={refetch} value={value} />}
-          {currency === DEFAULT_COLLECT_TOKEN && (
+          {currency === CONTRACTS.wrappedNativeToken && (
             <Unwrap refetch={refetch} value={value} />
           )}
           <TopUpButton

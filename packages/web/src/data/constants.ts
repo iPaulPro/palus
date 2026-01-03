@@ -1,16 +1,9 @@
 import { chains } from "@lens-chain/sdk/viem";
-import { CONTRACTS } from "./contracts";
 
 export const IS_TESTNET = import.meta.env.VITE_USE_TESTNET === "true";
 export const CHAIN = IS_TESTNET ? chains.testnet : chains.mainnet;
 
 // Lens and Palus Env Config
-export const DEFAULT_COLLECT_TOKEN = IS_TESTNET
-  ? "0xeee5a340Cdc9c179Db25dea45AcfD5FE8d4d3eB8"
-  : CONTRACTS.defaultToken;
-export const PALUS_APP = IS_TESTNET
-  ? "0xC75A89145d765c396fd75CbD16380Eb184Bd2ca7"
-  : CONTRACTS.app;
 export const PALUS_TREASURY = IS_TESTNET
   ? "0xdaA5EBe0d75cD16558baE6145644EDdFcbA1e868"
   : "0x8589d6dd8acc2c41b7ac8b247458fda18d4c20ae";

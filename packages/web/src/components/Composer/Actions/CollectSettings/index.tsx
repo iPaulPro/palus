@@ -1,4 +1,5 @@
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
+import { ShoppingBagIcon as ShoppingBagIconSolid } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import { Modal, Tooltip } from "@/components/Shared/UI";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
@@ -6,7 +7,7 @@ import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseSt
 import CollectForm from "./CollectForm";
 
 const CollectSettings = () => {
-  const { reset } = useCollectActionStore((state) => state);
+  const { reset, collectAction } = useCollectActionStore((state) => state);
   const { setLicense } = usePostLicenseStore();
   const [showModal, setShowModal] = useState(false);
 
@@ -19,7 +20,11 @@ const CollectSettings = () => {
           onClick={() => setShowModal(!showModal)}
           type="button"
         >
-          <ShoppingBagIcon className="-mt-0.5 size-5" />
+          {collectAction.enabled ? (
+            <ShoppingBagIconSolid className="-mt-0.5 size-5" />
+          ) : (
+            <ShoppingBagIcon className="-mt-0.5 size-5" />
+          )}
         </button>
       </Tooltip>
       <Modal

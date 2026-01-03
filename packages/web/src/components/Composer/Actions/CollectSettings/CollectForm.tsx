@@ -80,7 +80,7 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
             }}
           >
             <AmountConfig setCollectType={setCollectType} />
-            {collectAction.payToCollect?.erc20?.value && (
+            {collectAction.payToCollect?.native && (
               <SplitConfig
                 isRecipientsDuplicated={validationChecks.isRecipientsDuplicated}
                 setCollectType={setCollectType}
@@ -103,9 +103,7 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
         </Button>
         <Button
           disabled={
-            (Number.parseFloat(
-              collectAction.payToCollect?.erc20?.value as string
-            ) <= 0 &&
+            ((collectAction.payToCollect?.native ?? 0) <= 0 &&
               collectAction.enabled) ||
             Object.values(validationChecks).some(Boolean)
           }

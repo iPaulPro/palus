@@ -14,7 +14,7 @@ import { useAccount, useDisconnect, useSignMessage } from "wagmi";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
 import { Button, Card, ErrorMessage } from "@/components/Shared/UI";
-import { PALUS_APP } from "@/data/constants";
+import { CONTRACTS } from "@/data/contracts";
 import { ERRORS } from "@/data/errors";
 import errorToast from "@/helpers/errorToast";
 import reloadAllTabs from "@/helpers/reloadAllTabs";
@@ -89,7 +89,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
         __typename === "AccountManaged" && a.address === account
     );
 
-    const meta = { account, app: PALUS_APP };
+    const meta = { account, app: CONTRACTS.app };
     const request: ChallengeRequest = isManager
       ? { accountManager: { manager: address, ...meta } }
       : { accountOwner: { owner: address, ...meta } };

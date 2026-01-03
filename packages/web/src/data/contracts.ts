@@ -1,4 +1,11 @@
+export const IS_TESTNET = import.meta.env.VITE_USE_TESTNET === "true";
+
 export const CONTRACTS = {
-  app: "0xCa01Da446811d76aa7aD885e5fa39DF2031096cB",
-  defaultToken: "0x6bDc36E20D267Ff0dd6097799f82e78907105e2F"
+  app: IS_TESTNET
+    ? "0xC75A89145d765c396fd75CbD16380Eb184Bd2ca7"
+    : "0xCa01Da446811d76aa7aD885e5fa39DF2031096cB",
+  nativeToken: "0x000000000000000000000000000000000000800A",
+  wrappedNativeToken: IS_TESTNET
+    ? "0xeee5a340Cdc9c179Db25dea45AcfD5FE8d4d3eB8"
+    : "0x6bDc36E20D267Ff0dd6097799f82e78907105e2F"
 } as const;

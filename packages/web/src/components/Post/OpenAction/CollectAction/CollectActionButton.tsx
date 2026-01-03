@@ -90,14 +90,19 @@ const CollectActionButton = ({
     pollInterval: 3000,
     skip: !assetAddress || !currentAccount?.address,
     variables: {
-      request: { address: currentAccount?.address, tokens: [assetAddress] }
+      request: {
+        address: currentAccount?.address,
+        includeNative: true,
+        tokens: [assetAddress]
+      }
     }
   });
 
+  const nativeBalance = balance?.balancesBulk?.find(
+    (token) => token.__typename === "NativeAmount"
+  );
   const tokenBalance =
-    balance?.balancesBulk[0].__typename === "Erc20Amount"
-      ? balance.balancesBulk[0].value
-      : 0;
+    nativeBalance?.__typename === "NativeAmount" ? nativeBalance.value : 0;
 
   let hasAmount = false;
   if (Number.parseFloat(tokenBalance) < amount) {

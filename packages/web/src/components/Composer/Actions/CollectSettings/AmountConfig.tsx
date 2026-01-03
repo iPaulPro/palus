@@ -2,7 +2,8 @@ import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { motion } from "motion/react";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Input, Select } from "@/components/Shared/UI";
-import { DEFAULT_COLLECT_TOKEN, STATIC_IMAGES_URL } from "@/data/constants";
+import { STATIC_IMAGES_URL } from "@/data/constants";
+import { CONTRACTS } from "@/data/contracts";
 import { tokens } from "@/data/tokens";
 import { EXPANSION_EASE } from "@/helpers/variants";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
@@ -17,7 +18,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
   const { currentAccount } = useAccountStore();
   const { collectAction } = useCollectActionStore((state) => state);
 
-  const enabled = Boolean(collectAction.payToCollect?.erc20?.value);
+  const enabled = Boolean(collectAction.payToCollect?.native);
 
   return (
     <div>
@@ -31,7 +32,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
             payToCollect: enabled
               ? undefined
               : {
-                  erc20: { currency: DEFAULT_COLLECT_TOKEN, value: "1" },
+                  native: 1,
                   recipients: [
                     { address: currentAccount?.address, percent: 100 }
                   ], // 2.45% for the Palus platform fees after the 1.5% lens fees cut
@@ -40,7 +41,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
           });
         }}
       />
-      {collectAction.payToCollect?.erc20?.value ? (
+      {collectAction.payToCollect?.native ? (
         <motion.div
           animate="visible"
           className="mt-4 ml-8"
@@ -61,16 +62,13 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
                 setCollectType({
                   payToCollect: {
                     ...collectAction.payToCollect,
-                    erc20: {
-                      currency: collectAction.payToCollect?.erc20?.currency,
-                      value: event.target.value ? event.target.value : "0"
-                    }
+                    native: event.target.value ? event.target.value : "0"
                   }
                 });
               }}
               placeholder="0.5"
               type="number"
-              value={Number.parseFloat(collectAction.payToCollect?.erc20.value)}
+              value={Number.parseFloat(collectAction.payToCollect?.native)}
             />
             <div className="w-5/6">
               <div className="label">Select currency</div>
@@ -81,20 +79,14 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
                   setCollectType({
                     payToCollect: {
                       ...collectAction.payToCollect,
-                      erc20: {
-                        currency: value,
-                        value: collectAction.payToCollect?.erc20
-                          ?.value as string
-                      }
+                      native: collectAction.payToCollect?.native
                     }
                   });
                 }}
                 options={tokens.map((token) => ({
                   icon: `${STATIC_IMAGES_URL}/${token.symbol.toLowerCase()}.svg`,
                   label: token.name,
-                  selected:
-                    token.contractAddress ===
-                    collectAction.payToCollect?.erc20?.currency,
+                  selected: token.contractAddress === CONTRACTS.nativeToken,
                   value: token.contractAddress
                 }))}
               />

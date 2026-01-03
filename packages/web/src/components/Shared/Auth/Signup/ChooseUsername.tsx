@@ -17,7 +17,7 @@ import { useAccount, useSignMessage } from "wagmi";
 import { z } from "zod";
 import AuthMessage from "@/components/Shared/Auth/AuthMessage";
 import { Button, Form, Input, useZodForm } from "@/components/Shared/UI";
-import { PALUS_APP } from "@/data/constants";
+import { CONTRACTS } from "@/data/contracts";
 import { ERRORS } from "@/data/errors";
 import { Regex } from "@/data/regex";
 import errorToast from "@/helpers/errorToast";
@@ -115,7 +115,7 @@ const ChooseUsername = () => {
 
       const challenge = await loadChallenge({
         variables: {
-          request: { onboardingUser: { app: PALUS_APP, wallet: address } }
+          request: { onboardingUser: { app: CONTRACTS.app, wallet: address } }
         }
       });
 

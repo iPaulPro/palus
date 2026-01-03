@@ -110,7 +110,7 @@ const CollectActionBody = ({
   }, [amount, collects]);
 
   const palusFee = useMemo(() => {
-    return (amount * 0.025).toFixed(2);
+    return (amount * 0.025).toFixed(6);
   }, [amount]);
 
   if (loading) {

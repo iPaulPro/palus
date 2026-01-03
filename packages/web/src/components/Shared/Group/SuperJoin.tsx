@@ -29,7 +29,11 @@ const SuperJoin = () => {
     pollInterval: 3000,
     skip: !assetAddress || !currentAccount?.address,
     variables: {
-      request: { address: currentAccount?.address, tokens: [assetAddress] }
+      request: {
+        address: currentAccount?.address,
+        includeNative: true,
+        tokens: [assetAddress]
+      }
     }
   });
 
@@ -41,10 +45,11 @@ const SuperJoin = () => {
     return <Loader className="my-10" message="Loading Super join" />;
   }
 
+  const nativeBalance = balance?.balancesBulk?.find(
+    (token) => token.__typename === "NativeAmount"
+  );
   const tokenBalance =
-    balance?.balancesBulk[0].__typename === "Erc20Amount"
-      ? balance.balancesBulk[0].value
-      : 0;
+    nativeBalance?.__typename === "NativeAmount" ? nativeBalance.value : 0;
 
   const hasEnoughBalance = Number(tokenBalance) >= Number(amount || 0);
 
