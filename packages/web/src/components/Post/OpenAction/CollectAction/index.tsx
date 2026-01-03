@@ -16,7 +16,9 @@ const CollectAction = ({ post, showCount }: CollectActionProps) => {
   const { collects } = post.stats;
 
   return (
-    <div className="flex items-center space-x-1 text-gray-500 dark:text-gray-200">
+    <div
+      className={`items-center space-x-1 text-gray-500 dark:text-gray-200 ${showCount ? "sm:hidden" : "flex"}`}
+    >
       <button
         aria-label="Collect"
         className="rounded-full p-1.5 outline-offset-2 hover:bg-gray-300/20"

@@ -1,8 +1,8 @@
 import type { AnyPostFragment } from "@palus/indexer";
 import { memo } from "react";
 import CollectAction from "@/components/Post/OpenAction/CollectAction";
+import SmallCollectButton from "@/components/Post/OpenAction/CollectAction/SmallCollectButton";
 import TipAction from "@/components/Post/OpenAction/TipAction";
-import cn from "@/helpers/cn";
 import { isRepost } from "@/helpers/postHelpers";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import Comment from "./Comment";
@@ -16,12 +16,6 @@ interface PostActionsProps {
 
 const PostActions = ({ post, showCount = false }: PostActionsProps) => {
   const targetPost = isRepost(post) ? post.repostOf : post;
-  const hasPostAction = (targetPost.actions?.length || 0) > 0;
-  const canAct =
-    hasPostAction &&
-    targetPost.actions.some(
-      (action) => action.__typename === "SimpleCollectAction"
-    );
 
   return (
     <span
@@ -29,16 +23,18 @@ const PostActions = ({ post, showCount = false }: PostActionsProps) => {
       onClick={stopEventPropagation}
     >
       <span
-        className={cn("flex items-center md:gap-x-6", {
-          "gap-x-5": canAct,
-          "gap-x-6": !canAct
-        })}
+        className={`flex w-full items-center ${showCount ? "gap-x-6" : "gap-x-5"}`}
       >
         <Comment post={targetPost} showCount={showCount} />
         <ShareMenu post={post} showCount={showCount} />
         <Like post={targetPost} showCount={showCount} />
         <TipAction post={targetPost} showCount={showCount} />
         <CollectAction post={targetPost} showCount={showCount} />
+        {showCount ? (
+          <div className="hidden w-full justify-end pr-2 sm:flex">
+            <SmallCollectButton post={targetPost} />
+          </div>
+        ) : null}
       </span>
     </span>
   );
