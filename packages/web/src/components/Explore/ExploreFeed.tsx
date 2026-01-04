@@ -16,15 +16,18 @@ interface ExploreFeedProps {
 }
 
 const ExploreFeed = ({ focus, onScroll }: ExploreFeedProps) => {
-  const request: PostsExploreRequest = {
-    ...(focus && {
-      filter: {
-        metadata: { mainContentFocus: [focus] },
-        since: dayjs().subtract(2, "week").unix()
-      }
+  const request: PostsExploreRequest = useMemo(
+    () => ({
+      ...(focus && {
+        filter: {
+          metadata: { mainContentFocus: [focus] },
+          since: dayjs().subtract(2, "week").unix()
+        }
+      }),
+      pageSize: PageSize.Fifty
     }),
-    pageSize: PageSize.Fifty
-  };
+    [focus]
+  );
 
   const { data, error, fetchMore, loading, refetch } = usePostsExploreQuery({
     variables: { request }
