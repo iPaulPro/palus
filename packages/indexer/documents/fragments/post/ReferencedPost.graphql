@@ -25,6 +25,7 @@ fragment ReferencedPost on Post {
   }
   actions {
     __typename
+    ...UnknownPostAction
   }
   mentions {
     ...PostMention

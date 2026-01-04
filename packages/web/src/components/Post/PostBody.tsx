@@ -2,12 +2,14 @@ import { ExclamationCircleIcon, EyeIcon } from "@heroicons/react/24/outline";
 import { getSrc } from "@livepeer/react/external";
 import { type AnyPostFragment, ContentWarning } from "@palus/indexer";
 import { memo, useState } from "react";
+import PollAction from "@/components/Post/OpenAction/PollAction";
 import Quote from "@/components/Shared/Embed/Quote";
 import Markup from "@/components/Shared/Markup";
 import Attachments from "@/components/Shared/Post/Attachments";
 import PostLink from "@/components/Shared/Post/PostLink";
 import Video from "@/components/Shared/Post/Video";
 import { Button, H6 } from "@/components/Shared/UI";
+import { CONTRACTS } from "@/data/contracts";
 import cn from "@/helpers/cn";
 import getPostData from "@/helpers/getPostData";
 import { isRepost } from "@/helpers/postHelpers";
@@ -41,6 +43,9 @@ const PostBody = ({
           (action) => action.__typename === "UnknownPostAction"
         )
       : null;
+  const pollAction = unknownActions?.find(
+    (action) => action.address === CONTRACTS.pollVoteAction
+  );
 
   let content = filteredContent;
 
@@ -105,10 +110,16 @@ const PostBody = ({
           </H6>
         ) : null}
         {unknownActions?.length && !embedded ? (
-          <div className="mt-3 flex items-center gap-x-2 rounded-xl border border-gray-200 px-4 py-2 text-gray-700 text-sm md:w-3/4 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200">
-            <ExclamationCircleIcon className="size-4" />
-            Includes unsupported actions
-          </div>
+          pollAction && post.__typename === "Post" ? (
+            <div className="pt-3 pb-2">
+              <PollAction post={post} />
+            </div>
+          ) : (
+            <div className="mt-3 flex items-center gap-x-2 rounded-xl border border-gray-200 px-4 py-2 text-gray-700 text-sm md:w-3/4 dark:border-gray-600 dark:bg-gray-700 dark:text-gray-200">
+              <ExclamationCircleIcon className="size-4" />
+              Includes unsupported actions
+            </div>
+          )
         ) : null}
         {/* Attachments and Quotes */}
         {showAttachments && !embedded ? (

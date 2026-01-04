@@ -12,6 +12,7 @@
   /* Brand Colors */
   --color-brand-50: #f0faff;
   --color-brand-300: #7cd9fd;
+  --color-brand-400: #008dc9;
   --color-brand-500: #0170a3;
   --color-brand-600: #055e87;
   --color-brand-700: #0b4e6f;
@@ -22,14 +23,15 @@
 }
 
 .dark {
-  --color-brand-50: #f0faff;
+  --color-brand-50: #b9e9fe;
   --color-brand-300: #7bd9fe;
+  --color-brand-400: #36c6fa;
   --color-brand-500: #0bafec;
   --color-brand-600: #008dc9;
   --color-brand-700: #0170a3;
 
   --color-surface: #030712;
-  --color-secondary: #e5e7eb;
+  --color-secondary: #d1d5dc;
   --color-border: #1e2939;
 }
 
