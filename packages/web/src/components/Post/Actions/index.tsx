@@ -16,6 +16,12 @@ interface PostActionsProps {
 
 const PostActions = ({ post, showCount = false }: PostActionsProps) => {
   const targetPost = isRepost(post) ? post.repostOf : post;
+  const hasPostAction = (targetPost.actions?.length || 0) > 0;
+  const hasCollectAction =
+    hasPostAction &&
+    targetPost.actions.some(
+      (action) => action.__typename === "SimpleCollectAction"
+    );
 
   return (
     <span
@@ -29,8 +35,10 @@ const PostActions = ({ post, showCount = false }: PostActionsProps) => {
         <ShareMenu post={post} showCount={showCount} />
         <Like post={targetPost} showCount={showCount} />
         <TipAction post={targetPost} showCount={showCount} />
-        <CollectAction post={targetPost} showCount={showCount} />
-        {showCount ? (
+        {hasCollectAction ? (
+          <CollectAction post={targetPost} showCount={showCount} />
+        ) : null}
+        {showCount && hasCollectAction ? (
           <div className="hidden w-full justify-end pr-2 sm:flex">
             <SmallCollectButton post={targetPost} />
           </div>
