@@ -8,7 +8,7 @@ import type {
 } from "viem";
 import { createWalletClient, http } from "viem";
 import { generatePrivateKey, privateKeyToAccount } from "viem/accounts";
-import { CHAIN, IS_TESTNET } from "@/data/constants";
+import { CHAIN, RPC_URL } from "@/data/constants";
 
 // IndexedDB constants
 const DB_NAME = "palus-embedded";
@@ -170,9 +170,7 @@ const buildWalletClient = (
   return createWalletClient({
     account,
     chain: CHAIN,
-    transport: http(
-      IS_TESTNET ? "https://rpc.testnet.lens.xyz" : "https://rpc.lens.xyz"
-    )
+    transport: http(RPC_URL)
   });
 };
 

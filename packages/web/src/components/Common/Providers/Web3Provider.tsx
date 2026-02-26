@@ -7,7 +7,7 @@ import { injected, metaMask, walletConnect } from "wagmi/connectors";
 import {
   CHAIN,
   INFURA_API_KEY,
-  IS_TESTNET,
+  RPC_URL,
   WALLETCONNECT_PROJECT_ID
 } from "@/data/constants";
 
@@ -30,9 +30,7 @@ const config = createConfig({
   chains: [CHAIN, mainnet],
   connectors,
   transports: {
-    [CHAIN.id]: IS_TESTNET
-      ? http("https://rpc.testnet.lens.xyz")
-      : http("https://rpc.lens.xyz"),
+    [CHAIN.id]: http(RPC_URL),
     [mainnet.id]: http()
   }
 });
