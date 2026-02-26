@@ -3,6 +3,7 @@ import type {
   SponsoredTransactionRequestFragment,
   TransactionWillFailFragment
 } from "@palus/indexer";
+import type { WalletClient } from "viem";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useWalletClient } from "wagmi";
 import { ERROR_NAMES, ERRORS } from "@/data/errors";
@@ -23,7 +24,8 @@ const useTransactionLifecycle = () => {
 
   const handleSponsoredTransaction = async (
     transactionData: AnyTransactionRequestFragment,
-    onCompleted: (hash: string) => void
+    onCompleted: (hash: string) => void,
+    walletClient: WalletClient
   ) => {
     if (
       typeof transactionData === "function" ||
@@ -33,10 +35,10 @@ const useTransactionLifecycle = () => {
       return;
     }
     await handleWrongNetwork();
-    if (!data) return;
     return onCompleted(
-      await sendEip712Transaction(data, {
-        account: data.account,
+      await sendEip712Transaction(walletClient, {
+        account: walletClient.account!,
+        chain: walletClient.chain,
         ...getTransactionData(transactionData.raw, { sponsored: true })
       })
     );
@@ -44,7 +46,8 @@ const useTransactionLifecycle = () => {
 
   const handleSelfFundedTransaction = async (
     transactionData: AnyTransactionRequestFragment,
-    onCompleted: (hash: string) => void
+    onCompleted: (hash: string) => void,
+    walletClient: WalletClient
   ) => {
     if (
       typeof transactionData === "function" ||
@@ -54,20 +57,22 @@ const useTransactionLifecycle = () => {
       return;
     }
     await handleWrongNetwork();
-    if (!data) return;
     return onCompleted(
-      await sendTransaction(data, {
-        account: data.account,
+      await sendTransaction(walletClient, {
+        account: walletClient.account!,
+        chain: walletClient.chain,
         ...getTransactionData(transactionData.raw)
       })
     );
   };
 
   const handleTransactionLifecycle = async ({
+    client,
     transactionData,
     onCompleted,
     onError
   }: {
+    client?: WalletClient;
     transactionData: AnyTransactionRequestFragment;
     onCompleted: (hash: string) => void;
     onError: (error: ApolloClientError) => void;
@@ -79,13 +84,27 @@ const useTransactionLifecycle = () => {
           name: ERROR_NAMES.UnknownError
         });
       }
+
+      const walletClient = client ?? data;
+      if (!walletClient) {
+        return onError({
+          message: ERRORS.SomethingWentWrong,
+          name: ERROR_NAMES.UnknownError
+        });
+      }
+
       switch (transactionData.__typename) {
         case "SponsoredTransactionRequest":
-          return await handleSponsoredTransaction(transactionData, onCompleted);
+          return await handleSponsoredTransaction(
+            transactionData,
+            onCompleted,
+            walletClient
+          );
         case "SelfFundedTransactionRequest":
           return await handleSelfFundedTransaction(
             transactionData,
-            onCompleted
+            onCompleted,
+            walletClient
           );
         case "TransactionWillFail":
           if ("reason" in transactionData) {
