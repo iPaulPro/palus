@@ -1,5 +1,6 @@
 import { useMediaQuery } from "@uidotdev/usehooks";
 import NewPublication from "@/components/Composer/NewPublication";
+import EmbeddedWalletModal from "@/components/Shared/Account/EmbeddedWalletModal";
 import SuperFollow from "@/components/Shared/Account/SuperFollow";
 import SwitchAccounts from "@/components/Shared/Account/SwitchAccounts";
 import TopUp from "@/components/Shared/Account/TopUp";
@@ -15,6 +16,7 @@ import getAccount from "@/helpers/getAccount";
 import { IS_MOBILE } from "@/helpers/mediaQueries";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useCreateGroupStore } from "@/store/non-persisted/modal/useCreateGroupStore";
+import { useEmbeddedWalletModalStore } from "@/store/non-persisted/modal/useEmbeddedWalletModalStore";
 import { useFundModalStore } from "@/store/non-persisted/modal/useFundModalStore";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
 import { useReportAccountModalStore } from "@/store/non-persisted/modal/useReportAccountModalStore";
@@ -52,6 +54,11 @@ const GlobalModals = () => {
   const { reportingPostId, showReportPostModal, setShowReportPostModal } =
     useReportPostModalStore();
   const { showFundModal, setShowFundModal } = useFundModalStore();
+  const {
+    showEmbeddedWalletModal,
+    setShowEmbeddedWalletModal,
+    onError: showEmbeddedWalletError
+  } = useEmbeddedWalletModalStore();
   const { showSuperJoinModal, setShowSuperJoinModal, superJoiningGroup } =
     useSuperJoinModalStore();
   const {
@@ -117,7 +124,7 @@ const GlobalModals = () => {
           setAttachments([]);
         }}
         onClose={() => setShowNewPostModal(false)}
-        preventClose={true}
+        preventClose
         show={showNewPostModal}
         size={isSmallDevice ? "full" : "md"}
         title={
@@ -142,6 +149,17 @@ const GlobalModals = () => {
         title="Deposit"
       >
         <TopUp />
+      </Modal>
+      <Modal
+        onClose={() => {
+          showEmbeddedWalletError?.(new Error("Transaction cancelled"));
+          setShowEmbeddedWalletModal({ showEmbeddedWalletModal: false });
+        }}
+        preventClose
+        show={showEmbeddedWalletModal}
+        title="Embedded Wallet"
+      >
+        <EmbeddedWalletModal />
       </Modal>
       <Modal
         onClose={() => setShowSuperJoinModal(false, superJoiningGroup)}

@@ -6,6 +6,7 @@ import type {
   Transport,
   WalletClient
 } from "viem";
+import { useAccount } from "wagmi";
 import {
   generateAndStoreEmbeddedAccount,
   getEmbeddedAccountAddress,
@@ -14,11 +15,13 @@ import {
   isEmbeddedAccountUnlocked,
   removeEmbeddedAccount
 } from "@/helpers/embeddedAccount";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 export enum EmbeddedWalletError {
   AccountAlreadyExists = "AccountAlreadyExists",
   IncorrectPin = "IncorrectPin",
   NoAccountFound = "NoAccountFound",
+  OwnerOnly = "OwnerOnly",
   PinRequired = "PinRequired",
   Unknown = "Unknown"
 }
@@ -59,6 +62,9 @@ const useEmbeddedWalletClient = (): UseEmbeddedWalletClientReturn => {
   const [address, setAddress] = useState<Address | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<EmbeddedWalletError | null>(null);
+
+  const { currentAccount } = useAccountStore();
+  const { address: walletAddress } = useAccount();
 
   useEffect(() => {
     let cancelled = false;
@@ -132,6 +138,14 @@ const useEmbeddedWalletClient = (): UseEmbeddedWalletClientReturn => {
     if (exists) {
       setError(EmbeddedWalletError.AccountAlreadyExists);
       throw new Error(EmbeddedWalletError.AccountAlreadyExists);
+    }
+
+    if (!walletAddress || currentAccount?.owner !== walletAddress) {
+      setData(null);
+      setAddress(null);
+      setLoading(false);
+      setError(EmbeddedWalletError.OwnerOnly);
+      throw new Error(EmbeddedWalletError.OwnerOnly);
     }
 
     setLoading(true);
