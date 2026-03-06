@@ -42,3 +42,5 @@ yarn-error.log*
 # Node build artifacts
 dist
 node-compile-cache/
+
+.wrangler

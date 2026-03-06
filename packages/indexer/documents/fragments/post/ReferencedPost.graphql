@@ -1,4 +1,5 @@
 fragment ReferencedPost on Post {
+  __typename
   id
   slug
   isDeleted

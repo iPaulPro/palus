@@ -15,7 +15,8 @@
     "prepare": "husky install",
     "sort": "node ./script/sort-package-json.mjs",
     "start": "pnpm --recursive --parallel run start",
-    "typecheck": "pnpm --recursive --parallel run typecheck"
+    "typecheck": "pnpm --recursive --parallel run typecheck",
+    "typecheck:functions": "pnpm --recursive --parallel run typecheck:functions"
   },
   "devDependencies": {
     "@biomejs/biome": "2.2.7",

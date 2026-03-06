@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "lib": ["ES2021"],
+    "module": "ES2022",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "paths": {
+      "@palus/indexer": ["../../indexer/generated-raw.ts"]
+    },
+    "strict": true,
+    "target": "ES2021",
+    "types": ["@cloudflare/workers-types"]
+  },
+  "include": ["./**/*.ts"]
+}

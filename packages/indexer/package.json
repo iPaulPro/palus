@@ -16,10 +16,12 @@
     "@graphql-codegen/cli": "^6.0.1",
     "@graphql-codegen/fragment-matcher": "^6.0.0",
     "@graphql-codegen/typescript": "^5.0.2",
+    "@graphql-codegen/typescript-graphql-request": "^6.4.0",
     "@graphql-codegen/typescript-operations": "^5.0.2",
     "@graphql-codegen/typescript-react-apollo": "^4.3.3",
     "@palus/config": "workspace:*",
     "@types/node": "^24.9.1",
+    "graphql-request": "^7.4.0",
     "typescript": "^5.9.3"
   }
 }

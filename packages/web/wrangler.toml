@@ -1,0 +1,6 @@
+compatibility_date = "2026-03-05"
+pages_build_output_dir = "./dist"
+
+[dev]
+ip = "127.0.0.1"
+port =8787
