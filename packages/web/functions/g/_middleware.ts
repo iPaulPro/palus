@@ -40,7 +40,7 @@ export const onRequest: PagesFunction = async (context) => {
 async function fetchMetaForRoute(pathname: string): Promise<Metadata> {
   const defaultMeta = {
     description: "Palus is a Web3 social app built with Lens",
-    image: "https://palus.app/images/apple-touch-icon.png",
+    image: "https://palus.app/apple-touch-icon.png",
     title: "Group on Palus"
   };
 
