@@ -1,16 +1,13 @@
 import { MenuItem } from "@headlessui/react";
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
-import type { GroupFragment } from "@palus/indexer";
 import cn from "@/helpers/cn";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 
 interface Props {
-  group: GroupFragment;
-  showModal: boolean;
   setShowModal: (show: boolean) => void;
 }
 
-const Banned = ({ group, showModal, setShowModal }: Props) => {
+const Banned = ({ setShowModal }: Props) => {
   return (
     <MenuItem
       as="div"

@@ -59,11 +59,7 @@ const GroupMenu = ({ group }: Props) => {
                 <div>Group settings</div>
               </div>
             </MenuItem>
-            <Banned
-              group={group}
-              setShowModal={setShowBannedModal}
-              showModal={showBannedModal}
-            />
+            <Banned setShowModal={setShowBannedModal} />
           </MenuItems>
         </MenuTransition>
       </Menu>

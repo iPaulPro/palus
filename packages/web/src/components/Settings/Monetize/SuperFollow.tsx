@@ -31,7 +31,7 @@ const ValidationSchema = z.object({
   amount: z
     .string()
     .min(1, { message: "Amount is required" })
-    .refine((val) => !isNaN(Number(val)) && Number(val) > 0, {
+    .refine((val) => !Number.isNaN(Number(val)) && Number(val) > 0, {
       message: "Amount must be greater than zero"
     })
 });

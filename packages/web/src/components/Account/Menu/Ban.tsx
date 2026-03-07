@@ -36,7 +36,7 @@ const Ban = ({ account }: Props) => {
     errorToast(error);
   }, []);
 
-  const onCompleted = (hash: string) => {
+  const onCompleted = () => {
     setIsSubmitting(false);
     setBannedAccounts([...bannedAccounts, account.address]);
   };
@@ -44,7 +44,7 @@ const Ban = ({ account }: Props) => {
   const [banAccounts] = useBanGroupAccountsMutation({
     onCompleted: async ({ banGroupAccounts }) => {
       if (banGroupAccounts.__typename === "BanGroupAccountsResponse") {
-        return onCompleted(banGroupAccounts.hash);
+        return onCompleted();
       }
 
       return await handleTransactionLifecycle({

@@ -1,6 +1,6 @@
 export function parseLocaleNumber(value: string): number {
   const num = Number(value);
-  if (!isNaN(num)) {
+  if (!Number.isNaN(num)) {
     return num;
   }
 

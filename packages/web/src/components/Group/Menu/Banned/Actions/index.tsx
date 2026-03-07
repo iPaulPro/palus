@@ -11,10 +11,9 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 interface Props {
   account: AccountFragment;
   group: GroupFragment;
-  admins: AccountFragment[] | undefined;
 }
 
-const AdminActions = ({ account, group, admins }: Props) => {
+const AdminActions = ({ account, group }: Props) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { currentAccount } = useAccountStore();
 

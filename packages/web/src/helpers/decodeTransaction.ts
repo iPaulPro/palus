@@ -66,7 +66,7 @@ function addFunctionsToMap(
   abi: readonly ABIItem[],
   contractName: string
 ): void {
-  abi.forEach((item) => {
+  for (const item of abi) {
     if (item.type === "function" && item.name) {
       functionMap.set(item.name, {
         abi: [item],
@@ -74,7 +74,7 @@ function addFunctionsToMap(
         functionName: item.name
       });
     }
-  });
+  }
 }
 
 addFunctionsToMap([...accountAbi], "Account");
@@ -229,9 +229,10 @@ function decodeInnerAction(target: string, data: Hex): DecodedAction {
     ];
 
     for (const funcName of commonFunctions) {
-      if (functionMap.has(funcName)) {
+      const fun = functionMap.get(funcName);
+      if (fun) {
         try {
-          const { abi, contractName } = functionMap.get(funcName)!;
+          const { abi, contractName } = fun;
           const decoded = decodeFunctionData({
             abi,
             data
