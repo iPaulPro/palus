@@ -82,7 +82,7 @@ const defineMention = () => {
   return union([defineMentionSpec(), defineMentionCommands()]);
 };
 
-export const defineEditorExtension = () => {
+export const defineEditorExtension = (placeholder = "What's new?") => {
   return union([
     defineDoc(),
     defineText(),
@@ -98,7 +98,7 @@ export const defineEditorExtension = () => {
     defineVirtualSelection(),
     defineMention(),
     defineModClickPrevention(),
-    definePlaceholder({ placeholder: "What's new?", strategy: "doc" }),
+    definePlaceholder({ placeholder, strategy: "doc" }),
     defineList(),
     defineListInputRules(),
     defineListKeymap()

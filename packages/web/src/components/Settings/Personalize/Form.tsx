@@ -6,13 +6,13 @@ import { z } from "zod";
 import AvatarUpload from "@/components/Shared/AvatarUpload";
 import BackButton from "@/components/Shared/BackButton";
 import CoverUpload from "@/components/Shared/CoverUpload";
+import MarkdownEditor from "@/components/Shared/Editor/MarkdownEditor";
 import {
   Button,
   Card,
   CardHeader,
   Form,
   Input,
-  TextArea,
   useZodForm
 } from "@/components/Shared/UI";
 import { ERRORS } from "@/data/errors";
@@ -180,10 +180,17 @@ const PersonalizeSettingsForm = () => {
           type="text"
           {...form.register("x")}
         />
-        <TextArea
+        <MarkdownEditor
+          content={form.getValues("bio")}
           label="Bio"
+          name="bio"
+          onChange={(value) =>
+            form.setValue("bio", value, {
+              shouldDirty: true,
+              shouldValidate: true
+            })
+          }
           placeholder="Tell us something about you!"
-          {...form.register("bio")}
         />
         <AvatarUpload setSrc={onSetAvatar} src={avatarUrl || ""} />
         <CoverUpload setSrc={onSetCover} src={coverUrl || ""} />

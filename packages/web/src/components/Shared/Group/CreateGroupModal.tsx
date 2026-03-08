@@ -3,12 +3,12 @@ import { useCreateGroupMutation } from "@palus/indexer";
 import { useCallback, useState } from "react";
 import { z } from "zod";
 import AvatarUpload from "@/components/Shared/AvatarUpload";
+import MarkdownEditor from "@/components/Shared/Editor/MarkdownEditor";
 import {
   Button,
   Checkbox,
   Form,
   Input,
-  TextArea,
   useZodForm
 } from "@/components/Shared/UI";
 import { Regex } from "@/data/regex";
@@ -97,11 +97,17 @@ const CreateGroupModal = () => {
         placeholder="Name"
         {...form.register("name")}
       />
-      <TextArea
-        error={!!form.formState.errors.description}
+      <MarkdownEditor
+        content={form.getValues("description")}
         label="Description"
-        placeholder="Please provide additional details"
-        {...form.register("description")}
+        name="description"
+        onChange={(value) =>
+          form.setValue("description", value, {
+            shouldDirty: true,
+            shouldValidate: true
+          })
+        }
+        placeholder="Tell us something about your group!"
       />
       <Checkbox
         label="Restrict comments to group members"

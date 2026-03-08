@@ -9,13 +9,13 @@ import { z } from "zod";
 import AvatarUpload from "@/components/Shared/AvatarUpload";
 import BackButton from "@/components/Shared/BackButton";
 import CoverUpload from "@/components/Shared/CoverUpload";
+import MarkdownEditor from "@/components/Shared/Editor/MarkdownEditor";
 import {
   Button,
   Card,
   CardHeader,
   Form,
   Input,
-  TextArea,
   useZodForm
 } from "@/components/Shared/UI";
 import { ERRORS } from "@/data/errors";
@@ -32,9 +32,10 @@ const ValidationSchema = z.object({
   }),
   name: z
     .string()
-    .max(100, { message: "Name should not exceed 100 characters" })
-    .regex(Regex.username, {
-      message: "Name must not contain spaces or special characters"
+    .min(1, { message: "Name is required" })
+    .max(50, { message: "Name cannot exceed 50 characters" })
+    .regex(Regex.usernameValidator, {
+      message: "Name may contain only alphanumeric characters and hyphens"
     })
 });
 
@@ -144,10 +145,17 @@ const PersonalizeSettingsForm = ({ group }: PersonalizeSettingsFormProps) => {
           type="text"
           {...form.register("name")}
         />
-        <TextArea
+        <MarkdownEditor
+          content={form.getValues("description")}
           label="Description"
+          name="description"
+          onChange={(value) =>
+            form.setValue("description", value, {
+              shouldDirty: true,
+              shouldValidate: true
+            })
+          }
           placeholder="Tell us something about your group!"
-          {...form.register("description")}
         />
         <AvatarUpload setSrc={onSetAvatar} src={avatarUrl || ""} />
         <CoverUpload setSrc={onSetCover} src={coverUrl || ""} />

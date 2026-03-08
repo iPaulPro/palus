@@ -136,7 +136,7 @@
 
     & .prosekit-placeholder::before {
       content: attr(data-placeholder);
-      @apply absolute top-[0.5px] pointer-events-none opacity-50;
+      @apply absolute pointer-events-none opacity-50;
     }
 
     & .prosemirror-flat-list {
