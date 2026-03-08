@@ -50,7 +50,10 @@ const SingleGroup = ({
             className="linkify mt-1 text-base leading-6"
             style={{ wordBreak: "break-word" }}
           >
-            <Markup mentions={getMentions(group.metadata.description)}>
+            <Markup
+              className="line-clamp-1"
+              mentions={getMentions(group.metadata.description)}
+            >
               {group.metadata.description}
             </Markup>
           </div>
