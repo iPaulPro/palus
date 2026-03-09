@@ -2,7 +2,7 @@ import { useApolloClient } from "@apollo/client";
 import { type GroupFragment, useLeaveGroupMutation } from "@palus/indexer";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
-import { Button } from "@/components/Shared/UI";
+import { Button, Modal } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import type { ApolloClientError } from "@/types/errors";
@@ -13,6 +13,7 @@ interface LeaveProps {
 }
 
 const Leave = ({ group, small }: LeaveProps) => {
+  const [modalOpen, setModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
@@ -90,17 +91,45 @@ const Leave = ({ group, small }: LeaveProps) => {
   };
 
   return (
-    <Button
-      aria-label="Leave"
-      className="flex-none"
-      disabled={isSubmitting}
-      loading={isSubmitting}
-      onClick={handleLeave}
-      outline
-      size={small ? "sm" : "md"}
-    >
-      Leave
-    </Button>
+    <>
+      <Button
+        aria-label="Leave"
+        className="flex-none"
+        disabled={isSubmitting}
+        loading={isSubmitting}
+        onClick={() => setModalOpen(true)}
+        outline
+        size={small ? "sm" : "md"}
+      >
+        Leave
+      </Button>
+      <Modal
+        onClose={() => setModalOpen(false)}
+        show={modalOpen}
+        size="xs"
+        title="Are you sure?"
+      >
+        <div className="space-y-5 p-5">
+          <p>
+            Leaving this group will remove you from the member list and you will
+            lose access to any exclusive content or benefits associated with the
+            group.
+          </p>
+          <div className="flex justify-end gap-3">
+            <Button onClick={() => setModalOpen(false)} outline>
+              Cancel
+            </Button>
+            <Button
+              disabled={isSubmitting}
+              loading={isSubmitting}
+              onClick={handleLeave}
+            >
+              Leave Group
+            </Button>
+          </div>
+        </div>
+      </Modal>
+    </>
   );
 };
 
