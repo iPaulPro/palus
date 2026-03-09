@@ -1,7 +1,8 @@
 import { useApolloClient } from "@apollo/client";
 import { type AccountFragment, useUnfollowMutation } from "@palus/indexer";
 import { useCallback, useState } from "react";
-import { Button } from "@/components/Shared/UI";
+import { toast } from "sonner";
+import { Button, Modal } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
@@ -23,6 +24,7 @@ const Unfollow = ({
 }: UnfollowProps) => {
   const { currentAccount } = useAccountStore();
   const { setShowAuthModal } = useAuthModalStore();
+  const [modalOpen, setModalOpen] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { cache } = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
@@ -41,6 +43,7 @@ const Unfollow = ({
   const onCompleted = () => {
     updateCache();
     setIsSubmitting(false);
+    toast.success("Unfollowed successfully");
   };
 
   const onError = useCallback((error: ApolloClientError) => {
@@ -82,16 +85,43 @@ const Unfollow = ({
   };
 
   return (
-    <Button
-      aria-label={title}
-      className={buttonClassName}
-      disabled={isSubmitting}
-      loading={isSubmitting}
-      onClick={handleCreateUnfollow}
-      size={small ? "sm" : "md"}
-    >
-      {title}
-    </Button>
+    <>
+      <Button
+        aria-label={title}
+        className={buttonClassName}
+        disabled={isSubmitting}
+        loading={isSubmitting}
+        onClick={() => setModalOpen(true)}
+        size={small ? "sm" : "md"}
+      >
+        {title}
+      </Button>
+      <Modal
+        onClose={() => setModalOpen(false)}
+        show={modalOpen}
+        size="xs"
+        title="Are you sure?"
+      >
+        <div className="space-y-5 p-5">
+          <p>
+            Unfollow this account to stop seeing their posts in your Timeline
+            feed.
+          </p>
+          <div className="flex justify-end gap-3">
+            <Button onClick={() => setModalOpen(false)} outline>
+              Cancel
+            </Button>
+            <Button
+              disabled={isSubmitting}
+              loading={isSubmitting}
+              onClick={handleCreateUnfollow}
+            >
+              Unfollow
+            </Button>
+          </div>
+        </div>
+      </Modal>
+    </>
   );
 };
 
