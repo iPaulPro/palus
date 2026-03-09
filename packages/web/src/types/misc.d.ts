@@ -10,11 +10,22 @@ export interface NewAttachment {
 }
 
 export interface Emoji {
-  aliases: string[];
-  category: string;
-  description: string;
-  emoji: string;
-  tags: string[];
+  /**
+   * Aliases for the emoji, e.g. ["smile", "happy"] for 😀
+   */
+  a: string[];
+  /**
+   * Description of the emoji, e.g. "grinning face" for 😀
+   */
+  d: string;
+  /**
+   * The emoji character itself, e.g. "😀"
+   */
+  e: string;
+  /**
+   * Optional tags for the emoji, e.g. ["face", "grin"] for 😀
+   */
+  t?: string[];
 }
 
 export interface MarkupLinkProps {

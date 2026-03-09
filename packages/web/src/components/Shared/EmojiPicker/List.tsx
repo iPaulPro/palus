@@ -68,14 +68,14 @@ const List = ({ setEmoji }: ListProps) => {
         {emojis.map((emoji: Emoji) => (
           <button
             className="rounded-lg py-1 hover:bg-gray-100 dark:hover:bg-gray-800"
-            key={emoji.emoji}
+            key={emoji.e}
             onClick={() => {
-              setEmoji(emoji.emoji);
+              setEmoji(emoji.e);
               close();
             }}
             type="button"
           >
-            {emoji.emoji}
+            {emoji.e}
           </button>
         ))}
       </div>

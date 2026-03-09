@@ -33,13 +33,11 @@ const useEmojis = ({
       .filter((emoji) => {
         const lowercaseQuery = query.toLowerCase();
         return (
-          emoji.aliases.some((alias) =>
+          emoji.a.some((alias) =>
             alias.toLowerCase().includes(lowercaseQuery)
           ) ||
-          emoji.tags.some((tag) =>
-            tag.toLowerCase().includes(lowercaseQuery)
-          ) ||
-          emoji.description.toLowerCase().includes(lowercaseQuery)
+          emoji.t?.some((tag) => tag.toLowerCase().includes(lowercaseQuery)) ||
+          emoji.d.toLowerCase().includes(lowercaseQuery)
         );
       })
       .slice(0, limit);

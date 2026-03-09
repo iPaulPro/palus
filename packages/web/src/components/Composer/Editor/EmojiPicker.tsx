@@ -23,9 +23,9 @@ const EmojiItem = ({ emoji, onSelect }: EmojiItemProps) => {
       onSelect={onSelect}
     >
       <div className="flex items-center space-x-2">
-        <span className="text-base">{emoji.emoji}</span>
+        <span className="text-base">{emoji.e}</span>
         <span className="text-sm capitalize">
-          {emoji.aliases[0].split("_").join(" ")}
+          {emoji.a[0].split("_").join(" ")}
         </span>
       </div>
     </AutocompleteItem>
@@ -38,7 +38,7 @@ const EmojiPicker = () => {
   const { emojis } = useEmojis({ query });
 
   const handleInsert = (emoji: Emoji) => {
-    editor.commands.insertText({ text: emoji.emoji });
+    editor.commands.insertText({ text: emoji.e });
   };
 
   return (
@@ -55,7 +55,7 @@ const EmojiPicker = () => {
         {emojis.map((emoji) => (
           <EmojiItem
             emoji={emoji}
-            key={emoji.emoji}
+            key={emoji.e}
             onSelect={() => handleInsert(emoji)}
           />
         ))}
