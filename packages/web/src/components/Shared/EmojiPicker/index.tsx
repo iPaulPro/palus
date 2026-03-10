@@ -15,8 +15,8 @@ const EmojiPicker = ({
   anchor = "bottom start"
 }: EmojiPickerProps) => {
   return (
-    <Tooltip content="Emoji" placement="top" withDelay>
-      <Popover className="relative">
+    <Popover className="relative">
+      <Tooltip content="Emoji" placement="top" withDelay>
         <PopoverButton className="flex items-center">
           {emoji ? (
             <span className="text-lg">{emoji}</span>
@@ -24,18 +24,18 @@ const EmojiPicker = ({
             <FaceSmileIcon className="size-5" />
           )}
         </PopoverButton>
-        <PopoverPanel
-          anchor={anchor}
-          className="flex w-[300px] flex-col rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-gray-900"
-        >
-          <List
-            setEmoji={(emoji: string) => {
-              setEmoji(emoji);
-            }}
-          />
-        </PopoverPanel>
-      </Popover>
-    </Tooltip>
+      </Tooltip>
+      <PopoverPanel
+        anchor={anchor}
+        className="flex w-[300px] flex-col rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-gray-900"
+      >
+        <List
+          setEmoji={(emoji: string) => {
+            setEmoji(emoji);
+          }}
+        />
+      </PopoverPanel>
+    </Popover>
   );
 };
 
