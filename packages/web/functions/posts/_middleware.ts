@@ -11,6 +11,15 @@ import type { Metadata } from "../types";
 import getPostData from "./getPostData";
 
 export const onRequest: PagesFunction = async (context) => {
+  const url = new URL(context.request.url);
+
+  const pathname = url.pathname;
+  const match = pathname.match(/^\/posts\/([^.]+)$/);
+
+  if (!match) {
+    return context.next();
+  }
+
   const response = await context.next();
 
   try {
@@ -20,8 +29,8 @@ export const onRequest: PagesFunction = async (context) => {
     const contentType = response.headers.get("content-type") ?? "";
     if (!contentType.includes("text/html")) return response;
 
-    const url = new URL(context.request.url);
-    const meta = await fetchMetaForRoute(url.pathname);
+    const postId = match[1];
+    const meta = await fetchMetaForRoute(postId);
     if (!meta) return response;
 
     const body = await replaceMetaTags(
@@ -32,10 +41,7 @@ export const onRequest: PagesFunction = async (context) => {
     );
 
     return new Response(body, {
-      headers: {
-        ...Object.fromEntries(response.headers),
-        "content-type": "text/html;charset=utf-8"
-      },
+      headers: response.headers,
       status: response.status
     });
   } catch {
@@ -43,17 +49,12 @@ export const onRequest: PagesFunction = async (context) => {
   }
 };
 
-async function fetchMetaForRoute(pathname: string): Promise<Metadata> {
+async function fetchMetaForRoute(postId: string): Promise<Metadata> {
   const defaultMeta = {
     description: "Palus is a Web3 social app built with Lens",
     image: "https://palus.app/images/og/cover.webp",
     title: "Palus"
   };
-
-  const match = pathname.match(/^\/posts\/(.+)$/);
-  if (!match) return defaultMeta;
-
-  const postId = match[1];
 
   try {
     const data = await lensQuery<PostQuery, PostQueryVariables>(PostDocument, {

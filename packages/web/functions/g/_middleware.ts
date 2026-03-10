@@ -10,6 +10,15 @@ import { lensQuery } from "../lens-api";
 import type { Metadata } from "../types";
 
 export const onRequest: PagesFunction = async (context) => {
+  const url = new URL(context.request.url);
+
+  const pathname = url.pathname;
+  const match = pathname.match(/^\/posts\/([^.]+)$/);
+
+  if (!match) {
+    return context.next();
+  }
+
   const response = await context.next();
 
   try {
@@ -19,17 +28,14 @@ export const onRequest: PagesFunction = async (context) => {
     const contentType = response.headers.get("content-type") ?? "";
     if (!contentType.includes("text/html")) return response;
 
-    const url = new URL(context.request.url);
-    const meta = await fetchMetaForRoute(url.pathname);
+    const address = match[1];
+    const meta = await fetchMetaForRoute(address);
     if (!meta) return response;
 
     const body = await replaceMetaTags(url, response, meta, "summary");
 
     return new Response(body, {
-      headers: {
-        ...Object.fromEntries(response.headers),
-        "content-type": "text/html;charset=utf-8"
-      },
+      headers: response.headers,
       status: response.status
     });
   } catch {
@@ -37,17 +43,12 @@ export const onRequest: PagesFunction = async (context) => {
   }
 };
 
-async function fetchMetaForRoute(pathname: string): Promise<Metadata> {
+async function fetchMetaForRoute(address: string): Promise<Metadata> {
   const defaultMeta = {
     description: "Palus is a Web3 social app built with Lens",
     image: "https://palus.app/apple-touch-icon.png",
     title: "Group on Palus"
   };
-
-  const match = pathname.match(/^\/g\/(.+)$/);
-  if (!match) return defaultMeta;
-
-  const address = match[1];
 
   try {
     const data = await lensQuery<GroupQuery, GroupQueryVariables>(
