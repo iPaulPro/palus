@@ -1,6 +1,7 @@
 import type { PostMentionFragment } from "@palus/indexer";
 import { Link } from "react-router";
 import AccountPreview from "@/components/Shared/Account/AccountPreview";
+import GroupPreview from "@/components/Shared/Group/GroupPreview";
 import Slug from "@/components/Shared/Slug";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import type { MarkupLinkProps } from "@/types/misc";
@@ -56,7 +57,9 @@ const Mention = ({ mentions, title }: MarkupLinkProps) => {
       onClick={stopEventPropagation}
       to={`/g/${mention.replace.from.slice(1)}`}
     >
-      <Slug slug={name} useBrandColor />
+      <GroupPreview address={mention.replace.from.slice(1)} name={name}>
+        <Slug slug={name} useBrandColor />
+      </GroupPreview>
     </Link>
   );
 };

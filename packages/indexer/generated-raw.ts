@@ -9476,6 +9476,17 @@ export type AdminsForQuery = {
   };
 };
 
+export type FullGroupQueryVariables = Exact<{
+  groupRequest: GroupRequest;
+  groupStatsRequest: GroupStatsRequest;
+}>;
+
+export type FullGroupQuery = {
+  __typename?: "Query";
+  group?: ({ __typename?: "Group" } & GroupFragment) | null;
+  groupStats: { __typename?: "GroupStatsResponse"; totalMembers: number };
+};
+
 export type GroupQueryVariables = Exact<{
   request: GroupRequest;
 }>;
@@ -12234,6 +12245,22 @@ ${AccountMetadataFragmentDoc}
 ${MetadataAttributeFragmentDoc}
 ${UsernameFragmentDoc}
 ${PaginatedResultInfoFragmentDoc}`;
+export const FullGroupDocument = `
+    query FullGroup($groupRequest: GroupRequest!, $groupStatsRequest: GroupStatsRequest!) {
+  group(request: $groupRequest) {
+    ...Group
+  }
+  groupStats(request: $groupStatsRequest) {
+    totalMembers
+  }
+}
+    ${GroupFragmentDoc}
+${FeedFragmentDoc}
+${FeedRuleFragmentDoc}
+${GroupRuleFragmentDoc}
+${AnyKeyValueFragmentDoc}
+${LoggedInGroupOperationsFragmentDoc}
+${GroupMetadataFragmentDoc}`;
 export const GroupDocument = `
     query Group($request: GroupRequest!) {
   group(request: $request) {
@@ -13592,6 +13619,24 @@ export function getSdk(
             variables
           }),
         "FullAccount",
+        "query",
+        variables
+      );
+    },
+    FullGroup(
+      variables: FullGroupQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+      signal?: RequestInit["signal"]
+    ): Promise<FullGroupQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<FullGroupQuery>({
+            document: FullGroupDocument,
+            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
+            signal,
+            variables
+          }),
+        "FullGroup",
         "query",
         variables
       );

@@ -1,0 +1,11 @@
+query FullGroup(
+  $groupRequest: GroupRequest!
+  $groupStatsRequest: GroupStatsRequest!
+) {
+  group(request: $groupRequest) {
+    ...Group
+  }
+  groupStats(request: $groupStatsRequest) {
+    totalMembers
+  }
+}
