@@ -23,7 +23,7 @@ const MentionNotification = ({ notification }: MentionNotificationProps) => {
   const timestamp = notification.post.timestamp;
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 px-4 py-5 md:p-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <AtSymbolIcon className="size-6" />

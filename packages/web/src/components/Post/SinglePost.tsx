@@ -1,6 +1,7 @@
 import type { AnyPostFragment, TimelineItemFragment } from "@palus/indexer";
 import { memo } from "react";
 import ActionType from "@/components/Home/Timeline/EventType";
+import { PinIconFilled } from "@/components/Shared/Icons/PinIconFilled";
 import PostWrapper from "@/components/Shared/Post/PostWrapper";
 import cn from "@/helpers/cn";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
@@ -18,6 +19,7 @@ interface SinglePostProps {
   showMore?: boolean;
   showType?: boolean;
   embedded?: boolean;
+  isPinned?: boolean;
 }
 
 const SinglePost = ({
@@ -25,7 +27,8 @@ const SinglePost = ({
   post,
   showMore = true,
   showType = true,
-  embedded = false
+  embedded = false,
+  isPinned = false
 }: SinglePostProps) => {
   const rootPost = timelineItem ? timelineItem?.primary : post;
   const hasComments = Boolean(timelineItem?.comments?.length);
@@ -42,6 +45,11 @@ const SinglePost = ({
     >
       {timelineItem ? (
         <ActionType timelineItem={timelineItem} />
+      ) : isPinned ? (
+        <div className="text flex items-center gap-x-1.5 pb-2 text-secondary text-sm">
+          <PinIconFilled className="size-4" />
+          Pinned
+        </div>
       ) : (
         <PostType post={post} showType={showType} />
       )}

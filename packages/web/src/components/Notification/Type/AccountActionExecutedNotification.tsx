@@ -66,8 +66,12 @@ const AccountActionExecutedNotification = ({
     setShowNewPostModal(true);
   };
 
+  if (!type) {
+    return null;
+  }
+
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 px-4 py-5 md:p-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <TipIcon className="size-6" />

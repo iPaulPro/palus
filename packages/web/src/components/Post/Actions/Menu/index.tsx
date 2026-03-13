@@ -2,6 +2,7 @@ import { Menu, MenuButton, MenuItems } from "@headlessui/react";
 import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 import type { PostFragment } from "@palus/indexer";
 import { Fragment } from "react";
+import PinPost from "@/components/Post/Actions/Menu/PinPost";
 import ViewMetadata from "@/components/Post/Actions/Menu/ViewMetadata";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import cn from "@/helpers/cn";
@@ -48,6 +49,7 @@ const PostMenu = ({ post }: PostMenuProps) => {
         >
           {currentAccount ? (
             <>
+              <PinPost post={post} />
               <NotInterested post={post} />
               <HideComment post={post} />
               <Bookmark post={post} />

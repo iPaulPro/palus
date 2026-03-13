@@ -8,6 +8,7 @@ import CreateGroupModal from "@/components/Shared/Group/CreateGroupModal";
 import GroupMinting from "@/components/Shared/Group/GroupMinting";
 import GroupSuccess from "@/components/Shared/Group/GroupSuccess";
 import SuperJoin from "@/components/Shared/Group/SuperJoin";
+import PinPostConfirm from "@/components/Shared/Modal/PinPostConfirm";
 import ReportAccount from "@/components/Shared/Modal/ReportAccount";
 import ReportPost from "@/components/Shared/Modal/ReportPost";
 import { Modal } from "@/components/Shared/UI";
@@ -17,6 +18,7 @@ import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore
 import { useCreateGroupStore } from "@/store/non-persisted/modal/useCreateGroupStore";
 import { useFundModalStore } from "@/store/non-persisted/modal/useFundModalStore";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
+import { usePinPostModalStore } from "@/store/non-persisted/modal/usePinPostModalStore";
 import { useReportAccountModalStore } from "@/store/non-persisted/modal/useReportAccountModalStore";
 import { useReportPostModalStore } from "@/store/non-persisted/modal/useReportPostModalStore";
 import { useSuperFollowModalStore } from "@/store/non-persisted/modal/useSuperFollowModalStore";
@@ -66,6 +68,8 @@ const GlobalModals = () => {
     showCreateGroupModal,
     setShowCreateGroupModal
   } = useCreateGroupStore();
+  const { isPinned, showPinPostModal, setShowPinPostModal } =
+    usePinPostModalStore();
 
   const authModalTitle =
     authModalType === "signup"
@@ -172,6 +176,14 @@ const GlobalModals = () => {
         ) : (
           <GroupSuccess />
         )}
+      </Modal>
+      <Modal
+        onClose={() => setShowPinPostModal(false)}
+        show={showPinPostModal}
+        size="xs"
+        title={isPinned ? "Unpin post from profile?" : "Pin post to profile?"}
+      >
+        <PinPostConfirm />
       </Modal>
     </>
   );

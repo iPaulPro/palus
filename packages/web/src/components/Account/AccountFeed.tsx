@@ -5,11 +5,16 @@ import {
   PageSize,
   type PostsRequest,
   PostType,
+  usePostLazyQuery,
   usePostsQuery
 } from "@palus/indexer";
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { useReadContract } from "wagmi";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
+import { pinPostAccountActionAbi } from "@/data/abis/pinPostAccountActionAbi";
+import { CHAIN } from "@/data/constants";
+import { CONTRACTS } from "@/data/contracts";
 import { AccountFeedType } from "@/data/enums";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
 
@@ -32,6 +37,8 @@ const EMPTY_MESSAGES: Record<AccountFeedType, string> = {
 
 const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
   const { bannedAccounts } = useBannedAccountsStore();
+
+  const [pinnedPost, setPinnedPost] = useState<AnyPostFragment | null>(null);
 
   const postTypes = useMemo(() => {
     switch (type) {
@@ -83,6 +90,36 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
     variables: { request }
   });
 
+  const [getPost] = usePostLazyQuery();
+
+  const { data: pinnedPostId } = useReadContract({
+    abi: pinPostAccountActionAbi,
+    address: CONTRACTS.pinPostAccountAction,
+    args: [address as `0x${string}`],
+    chainId: CHAIN.id,
+    functionName: "pinnedPosts"
+  });
+
+  useEffect(() => {
+    if (!pinnedPostId) {
+      setPinnedPost(null);
+      return;
+    }
+
+    const getPinnedPost = async () => {
+      const { data } = await getPost({
+        variables: {
+          request: {
+            post: pinnedPostId.toString()
+          }
+        }
+      });
+      setPinnedPost(data?.post ?? null);
+    };
+
+    getPinnedPost();
+  }, [pinnedPostId]);
+
   // Filter out quote comments from the main feed
   const posts = data?.posts?.items.filter((post) =>
     type === AccountFeedType.Feed && post.__typename === "Post"
@@ -120,6 +157,7 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
       items={safePosts}
       kind="account"
       loading={loading}
+      pin={pinnedPost ? <SinglePost isPinned post={pinnedPost} /> : null}
       refetch={refetch}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />

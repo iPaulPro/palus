@@ -8278,6 +8278,23 @@ export type BlockMutation = {
     | ({ __typename?: "TransactionWillFail" } & TransactionWillFailFragment);
 };
 
+export type ConfigureAccountActionMutationVariables = Exact<{
+  request: ConfigureAccountActionRequest;
+}>;
+
+export type ConfigureAccountActionMutation = {
+  __typename?: "Mutation";
+  configureAccountAction:
+    | { __typename?: "ConfigureAccountActionResponse"; hash: any }
+    | ({
+        __typename?: "SelfFundedTransactionRequest";
+      } & SelfFundedTransactionRequestFragment)
+    | ({
+        __typename?: "SponsoredTransactionRequest";
+      } & SponsoredTransactionRequestFragment)
+    | ({ __typename?: "TransactionWillFail" } & TransactionWillFailFragment);
+};
+
 export type CreateAccountWithUsernameMutationVariables = Exact<{
   request: CreateAccountWithUsernameRequest;
 }>;
@@ -10882,6 +10899,26 @@ export const BlockDocument = `
     ${SelfFundedTransactionRequestFragmentDoc}
 ${SponsoredTransactionRequestFragmentDoc}
 ${TransactionWillFailFragmentDoc}`;
+export const ConfigureAccountActionDocument = `
+    mutation ConfigureAccountAction($request: ConfigureAccountActionRequest!) {
+  configureAccountAction(request: $request) {
+    ... on ConfigureAccountActionResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}
+    ${SelfFundedTransactionRequestFragmentDoc}
+${SponsoredTransactionRequestFragmentDoc}
+${TransactionWillFailFragmentDoc}`;
 export const CreateAccountWithUsernameDocument = `
     mutation CreateAccountWithUsername($request: CreateAccountWithUsernameRequest!) {
   createAccountWithUsername(request: $request) {
@@ -13350,6 +13387,24 @@ export function getSdk(
           }),
         "CollectAction",
         "query",
+        variables
+      );
+    },
+    ConfigureAccountAction(
+      variables: ConfigureAccountActionMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+      signal?: RequestInit["signal"]
+    ): Promise<ConfigureAccountActionMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ConfigureAccountActionMutation>({
+            document: ConfigureAccountActionDocument,
+            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
+            signal,
+            variables
+          }),
+        "ConfigureAccountAction",
+        "mutation",
         variables
       );
     },

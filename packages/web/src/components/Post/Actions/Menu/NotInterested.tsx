@@ -12,6 +12,7 @@ import { toast } from "sonner";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { ApolloClientError } from "@/types/errors";
 
 interface NotInterestedProps {
@@ -19,6 +20,8 @@ interface NotInterestedProps {
 }
 
 const NotInterested = ({ post }: NotInterestedProps) => {
+  const { currentAccount } = useAccountStore();
+
   const notInterested = post.operations?.isNotInterested;
 
   const request: PostNotInterestedRequest = {
@@ -68,6 +71,10 @@ const NotInterested = ({ post }: NotInterestedProps) => {
 
     return await addPostNotInterested();
   };
+
+  if (currentAccount?.address === post.author.address) {
+    return null;
+  }
 
   return (
     <MenuItem

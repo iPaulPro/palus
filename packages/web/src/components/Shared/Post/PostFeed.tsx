@@ -20,6 +20,7 @@ interface PostFeedProps<T extends { id: string }> {
   refetch: () => Promise<any>;
   onScroll?: (scrollOffset: number) => void;
   alwaysRestoreScroll?: boolean;
+  pin?: ReactNode;
 }
 
 const PostFeed = <T extends { id: string }>({
@@ -35,7 +36,8 @@ const PostFeed = <T extends { id: string }>({
   renderItem,
   refetch,
   onScroll,
-  alwaysRestoreScroll
+  alwaysRestoreScroll,
+  pin
 }: PostFeedProps<T>) => {
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 
@@ -63,6 +65,7 @@ const PostFeed = <T extends { id: string }>({
           onScroll={onScroll}
           ref={ref}
         >
+          {pin}
           {items.map((item) => renderItem(item))}
           {hasMore && <div className="h-0.5" ref={loadMoreRef} />}
         </CachedWindowVirtualizer>

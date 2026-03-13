@@ -31,7 +31,7 @@ const ReactionNotification = ({ notification }: ReactionNotificationProps) => {
   const timestamp = notification.reactions[0].reactions[0].reactedAt;
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-2 px-4 py-5 md:p-5">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3">
           <HeartIcon className="size-6" />

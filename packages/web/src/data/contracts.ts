@@ -28,6 +28,9 @@ export const CONTRACTS = {
     ? lensDeployments.testnet.LensGlobalGraph.address
     : lensDeployments.mainnet.LensGlobalGraph.address,
   nativeToken: "0x000000000000000000000000000000000000800A",
+  pinPostAccountAction: IS_TESTNET
+    ? "0x2E148a60881C62c9b396c45bA1D6347241F3ebc9"
+    : "0x96a66659ca64Fc146Ee0f804cd582AAdA1c93e35",
   pollVoteAction: IS_TESTNET
     ? "0x58C03173a0A71fb0e1AF00625E21f84CC799FC56"
     : "0x0B9507487800F0c385A240199fDf1d79131E8e25",

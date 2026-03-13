@@ -18,7 +18,6 @@ import CachedWindowVirtualizer from "@/components/Shared/CachedWindowVirtualizer
 import PullToRefresh from "@/components/Shared/PullToRefresh";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import { NotificationFeedType } from "@/data/enums";
-import cn from "@/helpers/cn";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
 import { useNotificationStore } from "@/store/persisted/useNotificationStore";
@@ -198,19 +197,12 @@ const List = ({ feedType }: ListProps) => {
                 notification.__typename as keyof typeof notificationComponentMap
               ];
 
-            return (
-              <div
-                className={cn({
-                  "px-4 py-5 md:p-5":
-                    notification.__typename !== "FollowNotification"
-                })}
+            return Component ? (
+              <Component
                 key={notification.id}
-              >
-                {Component && (
-                  <Component notification={notification as never} />
-                )}
-              </div>
-            );
+                notification={notification as never}
+              />
+            ) : null;
           })}
           {hasMore && <div className="h-0.5" ref={loadMoreRef} />}
         </CachedWindowVirtualizer>
