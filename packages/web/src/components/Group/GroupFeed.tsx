@@ -1,5 +1,10 @@
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
-import { PageSize, type PostsRequest, usePostsQuery } from "@palus/indexer";
+import {
+  PageSize,
+  type PostsRequest,
+  PostType,
+  usePostsQuery
+} from "@palus/indexer";
 import { useCallback, useMemo } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
@@ -14,7 +19,7 @@ const GroupFeed = ({ feed }: GroupFeedProps) => {
   const { bannedAccounts } = useBannedAccountsStore();
 
   const request: PostsRequest = {
-    filter: { feeds: [{ feed }] },
+    filter: { feeds: [{ feed }], postTypes: [PostType.Root, PostType.Quote] },
     pageSize: PageSize.Fifty
   };
 
