@@ -11,9 +11,11 @@ import {
   HomeIcon as HomeIconSolid,
   WalletIcon as WalletSolid
 } from "@heroicons/react/24/solid";
-import type { MouseEvent, ReactNode } from "react";
-import { Link, useLocation } from "react-router";
+import { useLongPress } from "@uidotdev/usehooks";
+import type { ReactNode } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
 import { Image } from "@/components/Shared/UI";
+import getAccount from "@/helpers/getAccount";
 import getAvatar from "@/helpers/getAvatar";
 import useHasNewNotifications from "@/hooks/useHasNewNotifications";
 import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
@@ -26,7 +28,6 @@ interface NavigationItemProps {
   outline: ReactNode;
   solid: ReactNode;
   isActive: boolean;
-  onClick?: (e: MouseEvent) => void;
   showIndicator?: boolean;
 }
 
@@ -36,15 +37,9 @@ const NavigationItem = ({
   outline,
   solid,
   isActive,
-  onClick,
   showIndicator
 }: NavigationItemProps) => (
-  <Link
-    aria-label={label}
-    className="center my-3 flex flex-1"
-    onClick={onClick}
-    to={path}
-  >
+  <Link aria-label={label} className="center my-3 flex flex-1" to={path}>
     <div className="relative">
       {isActive ? solid : outline}
       {showIndicator && (
@@ -61,14 +56,12 @@ const BottomNavigation = () => {
     useMobileDrawerModalStore();
   const hasNewNotifications = useHasNewNotifications();
 
-  const handleAccountClick = () => setShowMobileDrawer(true);
+  const navigate = useNavigate();
+  const attrs = useLongPress(() => {
+    navigate(`/u/${getAccount(currentAccount).username}`);
+  });
 
-  const handleHomClick = (path: string, e: MouseEvent) => {
-    if (path === "/" && pathname === "/") {
-      e.preventDefault();
-      window.scrollTo(0, 0);
-    }
-  };
+  const handleAccountClick = () => setShowMobileDrawer(true);
 
   const navigationItems = [
     {
@@ -112,7 +105,6 @@ const BottomNavigation = () => {
             isActive={pathname === path}
             key={path}
             label={label}
-            onClick={(e) => handleHomClick(path, e)}
             outline={outline}
             path={path}
             showIndicator={hasNewNotifications && path === "/notifications"}
@@ -122,9 +114,11 @@ const BottomNavigation = () => {
         {currentAccount && (
           <button
             aria-label="Your account"
-            className="center flex flex-1"
+            className="center touch-callout-none flex flex-1"
             onClick={handleAccountClick}
+            onContextMenu={(event) => event.preventDefault()}
             type="button"
+            {...attrs}
           >
             <Image
               alt={currentAccount.address}

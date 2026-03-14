@@ -321,4 +321,8 @@
     background-position: center center;
     background-size: cover;
   }
+
+  .touch-callout-none {
+    -webkit-touch-callout: none;
+  }
 }
