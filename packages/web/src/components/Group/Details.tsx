@@ -62,7 +62,7 @@ const Details = ({ group }: DetailsProps) => {
           {group.metadata?.description}
         </Markup>
       ) : null}
-      <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-1.5">
+      <div className="mt-4 flex flex-wrap items-center gap-x-6 gap-y-1.5 sm:mt-0">
         <div className="flex items-center gap-x-2">
           <span className="text-secondary">Owned by</span>
           <LazySmallSingleAccount
