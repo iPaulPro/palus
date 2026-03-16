@@ -188,6 +188,8 @@ const PinPostConfirm = () => {
             Cancel
           </Button>
           <Button
+            data-umami-event="Pin Post"
+            data-umami-event-type="Configure"
             disabled={isSubmitting}
             loading={isSubmitting}
             onClick={handleConfigureAction}
@@ -217,6 +219,8 @@ const PinPostConfirm = () => {
           Cancel
         </Button>
         <Button
+          data-umami-event="Pin Post"
+          data-umami-event-type={isPinned ? "Unpin" : "Pin"}
           disabled={isSubmitting}
           loading={isSubmitting}
           onClick={handleTogglePinPost}
