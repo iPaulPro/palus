@@ -15,10 +15,6 @@ interface TipActionProps {
 }
 
 const TipAction = ({ currentAccount, post, showCount }: TipActionProps) => {
-  if (currentAccount?.address === post.author.address) {
-    return null;
-  }
-
   const hasTipped = post.operations?.hasTipped;
   const { tips } = post.stats;
 
@@ -34,6 +30,7 @@ const TipAction = ({ currentAccount, post, showCount }: TipActionProps) => {
               : "text-gray-500 hover:bg-gray-300/20 dark:text-gray-200",
             "rounded-full p-1.5 outline-offset-2"
           )}
+          disabled={currentAccount?.address === post.author.address}
           onClick={stopEventPropagation}
         >
           <Tooltip content="Tip" placement="top" withDelay>
