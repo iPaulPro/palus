@@ -1,98 +1,91 @@
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import { defineConfig, loadEnv } from "vite";
-import tsconfigPaths from "vite-tsconfig-paths";
 
-const dependenciesToChunk = {
-  editor: [
-    "mdast-util-to-markdown",
-    "react-markdown",
-    "rehype-parse",
-    "rehype-remark",
-    "remark-breaks",
-    "remark-gfm",
-    "remark-html",
-    "remark-linkify-regex",
-    "remark-parse",
-    "remark-stringify",
-    "strip-markdown",
-    "unified",
-    "unist-util-visit-parents"
-  ],
-  icons: ["@phosphor-icons/webcomponents"],
-  indexer: ["@palus/indexer"],
-  media: ["plyr-react", "@livepeer/react", "browser-image-compression"],
-  misc: [
-    "@apollo/client",
-    "@lens-chain/storage-client",
-    "@lens-protocol/metadata",
-    "dayjs",
-    "html-to-image",
-    "tailwind-merge",
-    "@tanstack/react-query",
-    "virtua",
-    "zod",
-    "zustand"
-  ],
-  prosekit: ["prosekit", "prosekit/core", "prosekit/react"],
-  react: [
-    "react",
-    "react-dom",
-    "react-helmet-async",
-    "react-easy-crop",
-    "react-hook-form",
-    "react-hotkeys-hook",
-    "react-router",
-    "react-simple-pull-to-refresh",
-    "react-tracked"
-  ],
-  ui: [
-    "@headlessui/react",
-    "@heroicons/react",
-    "@hookform/resolvers",
-    "@radix-ui/react-hover-card",
-    "@radix-ui/react-scroll-area",
-    "@radix-ui/react-select",
-    "@radix-ui/react-slider",
-    "@radix-ui/react-tooltip",
-    "@uidotdev/usehooks",
-    "class-variance-authority",
-    "clsx",
-    "plur",
-    "sonner",
-    "tailwindcss",
-    "motion"
-  ],
-  viem: ["viem", "viem/zksync", "@lens-chain/sdk/viem"],
-  wagmi: ["wagmi", "@wagmi/core"],
-  wallets: ["@metamask/sdk", "@walletconnect/ethereum-provider", "family"],
-  wevm: ["lens-modules", "@thirdweb-dev/storage"]
-};
+const codeSplittingGroups = [
+  { name: "apollo", test: /node_modules\/@apollo\// },
+  { name: "indexer", test: /packages\/indexer/ },
+  {
+    name: "react",
+    test: /node_modules\/(?:react|react-dom|react-is|scheduler)\//
+  },
+  {
+    name: "react-libs",
+    test: /node_modules\/(?:react-router|react-hook-form|react-hotkeys-hook|react-tracked|react-easy-crop|react-simple-pull-to-refresh|react-helmet-async|zustand|@uidotdev\/usehooks|@hookform\/resolvers)\//
+  },
+  { name: "viem", test: /node_modules\/viem/ },
+  { name: "wagmi", test: /node_modules\/(?:wagmi|@wagmi\/)/ },
+  { name: "family", test: /node_modules\/family/ },
+  { name: "motion", test: /node_modules\/(?:motion|framer-motion)/ },
+  { name: "zod", test: /node_modules\/zod/ },
+  { name: "headlessui", test: /node_modules\/@headlessui\// },
+  { name: "plyr", test: /node_modules\/plyr-react/ },
+  {
+    name: "ui",
+    test: /node_modules\/(?:@radix-ui\/|sonner|virtua|html-to-image|browser-image-compression|plur|dayjs)/
+  },
+  { name: "hls-js", test: /node_modules\/hls\.js/ },
+  { name: "livepeer", test: /node_modules\/@livepeer\// },
+  { name: "phosphor", test: /node_modules\/@phosphor-icons\// },
+  { name: "heroicons", test: /node_modules\/@heroicons\// },
+  { name: "metamask", test: /node_modules\/@metamask\// },
+  { name: "lens", test: /node_modules\/(?:@lens-chain|@lens-protocol)\// },
+  { name: "lens-modules", test: /node_modules\/lens-modules/ },
+  { name: "prosemirror", test: /node_modules\/prosemirror-/ },
+  {
+    name: "editor",
+    test: /node_modules\/(?:@prosekit\/|prosekit|unified|react-markdown)/
+  },
+  { name: "walletconnect-utils", test: /node_modules\/@walletconnect\/utils/ },
+  { name: "walletconnect-core", test: /node_modules\/@walletconnect\/core/ },
+  { name: "walletconnect", test: /node_modules\/@walletconnect\// },
+  {
+    name: "reown-controllers",
+    test: /node_modules\/@reown\/appkit-controllers/
+  },
+  { name: "reown-ui", test: /node_modules\/@reown\/appkit-ui/ },
+  { name: "reown", test: /node_modules\/@reown\// },
+  { name: "thirdweb", test: /node_modules\/@thirdweb-dev\// },
+  { name: "tanstack", test: /node_modules\/@tanstack\// },
+  {
+    name: "markdown",
+    test: /node_modules\/(?:remark-|rehype-|strip-markdown)/
+  },
+  {
+    name: "tailwind",
+    test: /node_modules\/(?:tailwindcss|tailwind-merge|@tailwindcss\/|clsx|class-variance-authority)/
+  }
+];
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), "");
-
   return {
     build: {
-      cssMinify: "lightningcss",
-      rollupOptions: {
+      rolldownOptions: {
         output: {
-          assetFileNames: (assetInfo) => {
-            if (/\.woff2$/.test(assetInfo.name ?? "")) {
-              return "assets/fonts/[name][extname]";
-            }
-
-            return "assets/[name]-[hash][extname]";
+          codeSplitting: {
+            groups: codeSplittingGroups
           },
-          manualChunks: dependenciesToChunk
+          strictExecutionOrder: true
         }
       },
       sourcemap: env.VITE_SOURCEMAP === "1" ? "hidden" : false,
       target: "esnext"
     },
-    plugins: [tsconfigPaths(), react(), tailwindcss()],
+    plugins: [
+      react(),
+      tailwindcss()
+      // visualizer({
+      //   filename: "dist/stats.html",
+      //   open: true,
+      //   template: "flamegraph"
+      // })
+    ],
     preview: {
       allowedHosts: ["palus.app", "www.palus.app"]
+    },
+    resolve: {
+      tsconfigPaths: true
     }
   };
 });

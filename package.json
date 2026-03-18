@@ -21,7 +21,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.2.7",
     "husky": "^9.1.7",
-    "vite": "^7.1.12"
+    "vite": "^8.0.0"
   },
   "packageManager": "pnpm@10.17.1",
   "engines": {
