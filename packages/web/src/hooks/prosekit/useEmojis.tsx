@@ -1,6 +1,5 @@
-import { useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import type { Emoji } from "@/types/misc";
-import allEmojis from "../../assets/emoji.json";
 
 const DEFAULT_MAX_EMOJI_COUNT = 5;
 
@@ -20,6 +19,14 @@ const useEmojis = ({
   query = "",
   minQueryLength = 0
 }: UseEmojisOptions = {}): UseEmojisResult => {
+  const [allEmojis, setAllEmojis] = useState<Emoji[]>([]);
+
+  useEffect(() => {
+    import("@/assets/emoji.json").then((mod) => {
+      setAllEmojis(mod.default);
+    });
+  }, []);
+
   const emojis = useMemo(() => {
     if (!allEmojis) {
       return [];
