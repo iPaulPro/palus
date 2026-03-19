@@ -12,7 +12,7 @@ import {
   WalletIcon as WalletSolid
 } from "@heroicons/react/24/solid";
 import { useLongPress } from "@uidotdev/usehooks";
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
 import { Image } from "@/components/Shared/UI";
 import getAccount from "@/helpers/getAccount";
@@ -28,6 +28,7 @@ interface NavigationItemProps {
   outline: ReactNode;
   solid: ReactNode;
   isActive: boolean;
+  onClick?: (e: MouseEvent) => void;
   showIndicator?: boolean;
 }
 
@@ -37,9 +38,15 @@ const NavigationItem = ({
   outline,
   solid,
   isActive,
+  onClick,
   showIndicator
 }: NavigationItemProps) => (
-  <Link aria-label={label} className="center my-3 flex flex-1" to={path}>
+  <Link
+    aria-label={label}
+    className="center my-3 flex flex-1"
+    onClick={onClick}
+    to={path}
+  >
     <div className="relative">
       {isActive ? solid : outline}
       {showIndicator && (
@@ -62,6 +69,13 @@ const BottomNavigation = () => {
   });
 
   const handleAccountClick = () => setShowMobileDrawer(true);
+
+  const handleHomeClick = (path: string, e: MouseEvent) => {
+    if (path === "/" && pathname === "/") {
+      e.preventDefault();
+      window.scrollTo(0, 0);
+    }
+  };
 
   const navigationItems = [
     {
@@ -105,6 +119,7 @@ const BottomNavigation = () => {
             isActive={pathname === path}
             key={path}
             label={label}
+            onClick={(e) => handleHomeClick(path, e)}
             outline={outline}
             path={path}
             showIndicator={hasNewNotifications && path === "/notifications"}
