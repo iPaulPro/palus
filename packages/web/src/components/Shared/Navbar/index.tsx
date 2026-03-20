@@ -41,6 +41,7 @@ import useHasNewNotifications from "@/hooks/useHasNewNotifications";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { useNotificationStore } from "@/store/persisted/useNotificationStore";
 import SignedAccount from "./SignedAccount";
 
 const navigationItems = {
@@ -99,6 +100,7 @@ const NavItem = memo(({ icon, onClick, url }: NavItemProps) => (
 const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const { pathname } = useLocation();
   const hasNewNotifications = useHasNewNotifications();
+  const { incrementNotificationRefreshSignal } = useNotificationStore();
   const client = useApolloClient();
   const [refreshingRoute, setRefreshingRoute] = useState<string | null>(null);
   const routes = [
@@ -141,6 +143,11 @@ const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
           }
           e.preventDefault();
           window.scrollTo(0, 0);
+
+          if (route === "/notifications") {
+            incrementNotificationRefreshSignal();
+          }
+
           setRefreshingRoute(route);
           try {
             await client.refetchQueries({ include: item.refreshDocs });

@@ -1,21 +1,20 @@
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import type { GroupMembershipRequestRejectedNotificationFragment } from "@palus/indexer";
-import dayjs from "dayjs";
+import { memo } from "react";
 import { Link } from "react-router";
-import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
-import { Image, Tooltip } from "@/components/Shared/UI";
+import AggregatedNotificationTitle from "@/components/Notification/Type/Shared/AggregatedNotificationTitle";
+import Timestamp from "@/components/Notification/Type/Shared/Timestamp";
+import GroupPreview from "@/components/Shared/Group/GroupPreview";
+import { Image } from "@/components/Shared/UI";
 import { TRANSFORMS } from "@/data/constants";
-import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
 import formatAddress from "@/helpers/formatAddress";
 import getAvatar from "@/helpers/getAvatar";
-
-interface Props {
-  notification: GroupMembershipRequestRejectedNotificationFragment;
-}
+import type { NotificationProps } from "@/types/palus";
 
 const GroupMembershipRequestRejectedNotification = ({
-  notification
-}: Props) => {
+  notification,
+  isNew
+}: NotificationProps<GroupMembershipRequestRejectedNotificationFragment>) => {
   const rejectedBy = notification.rejectedBy;
   const rejectedAt = notification.rejectedAt;
   const group = notification.group;
@@ -41,14 +40,7 @@ const GroupMembershipRequestRejectedNotification = ({
             </Link>
           </div>
         </div>
-        <Tooltip
-          content={dayjs(rejectedAt).format("MMM D, YYYY h:mm A")}
-          placement="left"
-        >
-          <div className="text-secondary text-sm">
-            {formatRelativeOrAbsolute(rejectedAt)}
-          </div>
-        </Tooltip>
+        <Timestamp isNew={isNew} timestamp={rejectedAt} />
       </div>
       <div className="ml-9 flex flex-wrap items-center space-x-1">
         <AggregatedNotificationTitle
@@ -57,13 +49,15 @@ const GroupMembershipRequestRejectedNotification = ({
           text="rejected your request to join"
         />
         <Link className="font-bold hover:underline" to={`/g/${group.address}`}>
-          {group.metadata?.name
-            ? `#${group.metadata?.name}`
-            : formatAddress(group.address)}
+          <GroupPreview address={group.address} name={group.metadata?.name}>
+            {group.metadata?.name
+              ? `#${group.metadata?.name}`
+              : formatAddress(group.address)}
+          </GroupPreview>
         </Link>
       </div>
     </div>
   );
 };
 
-export default GroupMembershipRequestRejectedNotification;
+export default memo(GroupMembershipRequestRejectedNotification);

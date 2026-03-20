@@ -1,28 +1,32 @@
 import { useNotificationIndicatorQuery } from "@palus/indexer";
+import { getNotificationTimestamp } from "@/helpers/getNotificationTimestamp";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useNotificationStore } from "@/store/persisted/useNotificationStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 
 const useHasNewNotifications = () => {
   const { currentAccount } = useAccountStore();
-  const { lastSeenNotificationId } = useNotificationStore();
+  const { lastSeenNotificationTimestamp } = useNotificationStore();
   const { includeLowScore } = usePreferencesStore();
 
   const { data } = useNotificationIndicatorQuery({
+    fetchPolicy: "no-cache",
+    pollInterval: 60 * 1000,
     skip: !currentAccount,
     variables: { request: { filter: { includeLowScore } } }
   });
 
-  const latestNotificationWithId = data?.notifications?.items?.find(
-    (notification) => "id" in notification
-  );
-  const latestId = latestNotificationWithId?.id;
-
-  if (!latestId || !currentAccount) {
+  const latestNotification = data?.notifications?.items[0];
+  if (!latestNotification || !currentAccount) {
     return false;
   }
 
-  return latestId !== lastSeenNotificationId;
+  const latestTimestamp = getNotificationTimestamp(latestNotification);
+  if (!latestTimestamp) {
+    return false;
+  }
+
+  return new Date(latestTimestamp) > new Date(lastSeenNotificationTimestamp);
 };
 
 export default useHasNewNotifications;

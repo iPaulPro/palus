@@ -1,19 +1,18 @@
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 import type { FollowNotificationFragment } from "@palus/indexer";
-import dayjs from "dayjs";
 import plur from "plur";
-import { NotificationAccountAvatar } from "@/components/Notification/Account";
-import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
-import { Tooltip } from "@/components/Shared/UI";
-import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
+import { memo } from "react";
+import { NotificationAccountAvatar } from "@/components/Notification/Type/Shared/Account";
+import AggregatedNotificationTitle from "@/components/Notification/Type/Shared/AggregatedNotificationTitle";
+import Timestamp from "@/components/Notification/Type/Shared/Timestamp";
 import getAccount from "@/helpers/getAccount";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import type { NotificationProps } from "@/types/palus";
 
-interface FollowNotificationProps {
-  notification: FollowNotificationFragment;
-}
-
-const FollowNotification = ({ notification }: FollowNotificationProps) => {
+const FollowNotification = ({
+  notification,
+  isNew
+}: NotificationProps<FollowNotificationFragment>) => {
   const { currentAccount } = useAccountStore();
   const followers = notification.followers;
   const firstAccount = followers?.[0];
@@ -39,14 +38,7 @@ const FollowNotification = ({ notification }: FollowNotificationProps) => {
             ))}
           </div>
         </div>
-        <Tooltip
-          content={dayjs(timestamp).format("MMM D, YYYY h:mm A")}
-          placement="left"
-        >
-          <div className="pl-4 text-secondary text-sm">
-            {formatRelativeOrAbsolute(timestamp)}
-          </div>
-        </Tooltip>
+        <Timestamp isNew={isNew} timestamp={timestamp} />
       </div>
       <div className="ml-9">
         <AggregatedNotificationTitle
@@ -60,4 +52,4 @@ const FollowNotification = ({ notification }: FollowNotificationProps) => {
   );
 };
 
-export default FollowNotification;
+export default memo(FollowNotification);

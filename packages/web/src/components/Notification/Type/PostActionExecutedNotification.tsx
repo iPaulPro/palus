@@ -7,24 +7,21 @@ import type {
   PostActionExecutedNotificationFragment,
   TippingPostActionExecuted
 } from "@palus/indexer";
-import dayjs from "dayjs";
 import plur from "plur";
-import { NotificationAccountAvatar } from "@/components/Notification/Account";
-import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
+import { memo } from "react";
+import { NotificationAccountAvatar } from "@/components/Notification/Type/Shared/Account";
+import AggregatedNotificationTitle from "@/components/Notification/Type/Shared/AggregatedNotificationTitle";
+import Timestamp from "@/components/Notification/Type/Shared/Timestamp";
 import { TipIcon } from "@/components/Shared/Icons/TipIcon";
 import Markup from "@/components/Shared/Markup";
 import PostLink from "@/components/Shared/Post/PostLink";
-import { Button, Tooltip } from "@/components/Shared/UI";
+import { Button } from "@/components/Shared/UI";
 import { CONTRACTS } from "@/data/contracts";
-import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
 import getPostData from "@/helpers/getPostData";
 import truncateUrl from "@/helpers/truncateUrl";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
-
-interface PostActionExecutedNotificationProps {
-  notification: PostActionExecutedNotificationFragment;
-}
+import type { NotificationProps } from "@/types/palus";
 
 function isTippingActionExecuted(
   action: any
@@ -33,8 +30,9 @@ function isTippingActionExecuted(
 }
 
 const PostActionExecutedNotification = ({
-  notification
-}: PostActionExecutedNotificationProps) => {
+  notification,
+  isNew
+}: NotificationProps<PostActionExecutedNotificationFragment>) => {
   const post = notification.post;
   const { metadata } = post;
   const postData = getPostData(metadata);
@@ -112,14 +110,7 @@ const PostActionExecutedNotification = ({
             })}
           </div>
         </div>
-        <Tooltip
-          content={dayjs(timestamp).format("MMM D, YYYY h:mm A")}
-          placement="left"
-        >
-          <div className="text-secondary text-sm">
-            {formatRelativeOrAbsolute(timestamp)}
-          </div>
-        </Tooltip>
+        <Timestamp isNew={isNew} timestamp={timestamp} />
       </div>
       <div className="ml-9">
         {firstAccount && (
@@ -165,4 +156,4 @@ const PostActionExecutedNotification = ({
   );
 };
 
-export default PostActionExecutedNotification;
+export default memo(PostActionExecutedNotification);

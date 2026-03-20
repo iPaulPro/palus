@@ -1,19 +1,18 @@
 import { AtSymbolIcon } from "@heroicons/react/24/outline";
 import type { MentionNotificationFragment } from "@palus/indexer";
-import dayjs from "dayjs";
-import { NotificationAccountAvatar } from "@/components/Notification/Account";
-import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
+import { memo } from "react";
+import { NotificationAccountAvatar } from "@/components/Notification/Type/Shared/Account";
+import AggregatedNotificationTitle from "@/components/Notification/Type/Shared/AggregatedNotificationTitle";
+import Timestamp from "@/components/Notification/Type/Shared/Timestamp";
 import Markup from "@/components/Shared/Markup";
 import PostLink from "@/components/Shared/Post/PostLink";
-import { Tooltip } from "@/components/Shared/UI";
-import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
 import getPostData from "@/helpers/getPostData";
+import type { NotificationProps } from "@/types/palus";
 
-interface MentionNotificationProps {
-  notification: MentionNotificationFragment;
-}
-
-const MentionNotification = ({ notification }: MentionNotificationProps) => {
+const MentionNotification = ({
+  notification,
+  isNew
+}: NotificationProps<MentionNotificationFragment>) => {
   const metadata = notification.post.metadata;
   const filteredContent = getPostData(metadata)?.content || "";
   const firstAccount = notification.post.author;
@@ -31,14 +30,7 @@ const MentionNotification = ({ notification }: MentionNotificationProps) => {
             <NotificationAccountAvatar account={firstAccount} />
           </div>
         </div>
-        <Tooltip
-          content={dayjs(timestamp).format("MMM D, YYYY h:mm A")}
-          placement="left"
-        >
-          <div className="text-secondary text-sm">
-            {formatRelativeOrAbsolute(timestamp)}
-          </div>
-        </Tooltip>
+        <Timestamp isNew={isNew} timestamp={timestamp} />
       </div>
       <div className="ml-9">
         <AggregatedNotificationTitle
@@ -60,4 +52,4 @@ const MentionNotification = ({ notification }: MentionNotificationProps) => {
   );
 };
 
-export default MentionNotification;
+export default memo(MentionNotification);

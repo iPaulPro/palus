@@ -2,15 +2,22 @@ import { Localstorage } from "@/data/storage";
 import { createPersistedTrackedStore } from "@/store/createTrackedStore";
 
 interface State {
-  lastSeenNotificationId: string;
-  setLastSeenNotificationId: (id: string) => void;
+  lastSeenNotificationTimestamp: string;
+  notificationRefreshSignal: number;
+  setLastSeenNotificationTimestamp: (timestamp: string) => void;
+  incrementNotificationRefreshSignal: () => void;
 }
 
 const { useStore: useNotificationStore } = createPersistedTrackedStore<State>(
   (set) => ({
-    lastSeenNotificationId: "0",
-    setLastSeenNotificationId: (id) =>
-      set(() => ({ lastSeenNotificationId: id }))
+    incrementNotificationRefreshSignal: () =>
+      set((state) => ({
+        notificationRefreshSignal: state.notificationRefreshSignal + 1
+      })),
+    lastSeenNotificationTimestamp: new Date().toISOString(),
+    notificationRefreshSignal: 0,
+    setLastSeenNotificationTimestamp: (timestamp) =>
+      set(() => ({ lastSeenNotificationTimestamp: timestamp }))
   }),
   { name: Localstorage.NotificationStore }
 );

@@ -2,19 +2,16 @@ import type {
   AccountActionExecutedNotificationFragment,
   TippingAccountActionExecuted
 } from "@palus/indexer";
-import dayjs from "dayjs";
 import plur from "plur";
-import { NotificationAccountAvatar } from "@/components/Notification/Account";
-import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
+import { memo } from "react";
+import { NotificationAccountAvatar } from "@/components/Notification/Type/Shared/Account";
+import AggregatedNotificationTitle from "@/components/Notification/Type/Shared/AggregatedNotificationTitle";
+import Timestamp from "@/components/Notification/Type/Shared/Timestamp";
 import { TipIcon } from "@/components/Shared/Icons/TipIcon";
-import { Button, Tooltip } from "@/components/Shared/UI";
-import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
+import { Button } from "@/components/Shared/UI";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
-
-interface AccountActionExecutedNotificationProps {
-  notification: AccountActionExecutedNotificationFragment;
-}
+import type { NotificationProps } from "@/types/palus";
 
 function isTippingActionExecuted(
   action: any
@@ -23,8 +20,9 @@ function isTippingActionExecuted(
 }
 
 const AccountActionExecutedNotification = ({
-  notification
-}: AccountActionExecutedNotificationProps) => {
+  notification,
+  isNew
+}: NotificationProps<AccountActionExecutedNotificationFragment>) => {
   const actions = notification.actions;
   const firstAction = actions[0];
   const firstAccount =
@@ -94,14 +92,7 @@ const AccountActionExecutedNotification = ({
             })}
           </div>
         </div>
-        <Tooltip
-          content={dayjs(timestamp).format("MMM D, YYYY h:mm A")}
-          placement="left"
-        >
-          <div className="text-secondary text-sm">
-            {formatRelativeOrAbsolute(timestamp)}
-          </div>
-        </Tooltip>
+        <Timestamp isNew={isNew} timestamp={timestamp} />
       </div>
       <div className="ml-9">
         {firstAccount && (
@@ -130,4 +121,4 @@ const AccountActionExecutedNotification = ({
   );
 };
 
-export default AccountActionExecutedNotification;
+export default memo(AccountActionExecutedNotification);

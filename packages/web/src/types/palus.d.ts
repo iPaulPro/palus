@@ -32,3 +32,21 @@ export type ShareAction = {
   amount: Erc20AmountFragment | NativeAmountFragment;
   timestamp: Date;
 };
+
+export interface NotificationProps<T> {
+  notification: T;
+  isNew: boolean;
+}
+
+export type AnyNotificationFragment =
+  | AccountActionExecutedNotificationFragment
+  | CommentNotificationFragment
+  | FollowNotificationFragment
+  | GroupMembershipRequestApprovedNotificationFragment
+  | GroupMembershipRequestRejectedNotificationFragment
+  | MentionNotificationFragment
+  | PostActionExecutedNotificationFragment
+  | QuoteNotificationFragment
+  | ReactionNotificationFragment
+  | RepostNotificationFragment
+  | TokenDistributedNotificationFragment;

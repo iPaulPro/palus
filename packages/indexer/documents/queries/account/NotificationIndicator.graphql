@@ -2,37 +2,68 @@ query NotificationIndicator($request: NotificationRequest!) {
   notifications(request: $request) {
     items {
       ... on CommentNotification {
-        id
+        comment {
+          timestamp
+        }
       }
       ... on FollowNotification {
-        id
+        followers {
+          followedAt
+        }
       }
       ... on MentionNotification {
-        id
+        post {
+          timestamp
+        }
       }
       ... on QuoteNotification {
-        id
+        quote {
+          timestamp
+        }
       }
       ... on ReactionNotification {
-        id
+        reactions {
+          reactions {
+            reactedAt
+          }
+        }
       }
       ... on RepostNotification {
-        id
+        reposts {
+          repostedAt
+        }
       }
       ... on PostActionExecutedNotification {
-        id
+        actions {
+          ... on SimpleCollectPostActionExecuted {
+            executedAt
+          }
+          ... on TippingPostActionExecuted {
+            executedAt
+          }
+          ... on UnknownPostActionExecuted {
+            executedAt
+          }
+        }
       }
       ... on AccountActionExecutedNotification {
-        id
+        actions {
+          ... on TippingAccountActionExecuted {
+            executedAt
+          }
+          ... on UnknownAccountActionExecuted {
+            executedAt
+          }
+        }
       }
       ... on TokenDistributedNotification {
-        id
+        actionDate
       }
       ... on GroupMembershipRequestRejectedNotification {
-        id
+        rejectedAt
       }
       ... on GroupMembershipRequestApprovedNotification {
-        id
+        approvedAt
       }
     }
   }

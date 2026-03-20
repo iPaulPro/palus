@@ -1,20 +1,19 @@
 import { ChatBubbleBottomCenterTextIcon } from "@heroicons/react/24/outline";
 import type { QuoteNotificationFragment } from "@palus/indexer";
-import dayjs from "dayjs";
-import { NotificationAccountAvatar } from "@/components/Notification/Account";
-import AggregatedNotificationTitle from "@/components/Notification/AggregatedNotificationTitle";
+import { memo } from "react";
+import { NotificationAccountAvatar } from "@/components/Notification/Type/Shared/Account";
+import AggregatedNotificationTitle from "@/components/Notification/Type/Shared/AggregatedNotificationTitle";
+import Timestamp from "@/components/Notification/Type/Shared/Timestamp";
 import Markup from "@/components/Shared/Markup";
 import PostLink from "@/components/Shared/Post/PostLink";
-import { Tooltip } from "@/components/Shared/UI";
-import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
 import getPostData from "@/helpers/getPostData";
 import truncateUrl from "@/helpers/truncateUrl";
+import type { NotificationProps } from "@/types/palus";
 
-interface QuoteNotificationProps {
-  notification: QuoteNotificationFragment;
-}
-
-const QuoteNotification = ({ notification }: QuoteNotificationProps) => {
+const QuoteNotification = ({
+  notification,
+  isNew
+}: NotificationProps<QuoteNotificationFragment>) => {
   const metadata = notification.quote.metadata;
   const postData = getPostData(metadata);
   const filteredContent = postData?.content || "";
@@ -33,14 +32,7 @@ const QuoteNotification = ({ notification }: QuoteNotificationProps) => {
             <NotificationAccountAvatar account={firstAccount} />
           </div>
         </div>
-        <Tooltip
-          content={dayjs(timestamp).format("MMM D, YYYY h:mm A")}
-          placement="left"
-        >
-          <div className="text-secondary text-sm">
-            {formatRelativeOrAbsolute(timestamp)}
-          </div>
-        </Tooltip>
+        <Timestamp isNew={isNew} timestamp={timestamp} />
       </div>
       <div className="ml-9">
         <AggregatedNotificationTitle
@@ -66,4 +58,4 @@ const QuoteNotification = ({ notification }: QuoteNotificationProps) => {
   );
 };
 
-export default QuoteNotification;
+export default memo(QuoteNotification);

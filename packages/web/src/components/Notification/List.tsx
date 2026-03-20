@@ -18,6 +18,7 @@ import CachedWindowVirtualizer from "@/components/Shared/CachedWindowVirtualizer
 import PullToRefresh from "@/components/Shared/PullToRefresh";
 import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import { NotificationFeedType } from "@/data/enums";
+import { getNotificationTimestamp } from "@/helpers/getNotificationTimestamp";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
 import { useNotificationStore } from "@/store/persisted/useNotificationStore";
@@ -46,11 +47,21 @@ interface ListProps {
 }
 
 const List = ({ feedType }: ListProps) => {
-  const { setLastSeenNotificationId } = useNotificationStore();
+  const {
+    lastSeenNotificationTimestamp,
+    notificationRefreshSignal,
+    setLastSeenNotificationTimestamp
+  } = useNotificationStore();
   const { includeLowScore } = usePreferencesStore();
   const { bannedAccounts } = useBannedAccountsStore();
 
-  const getNotificationType = useCallback(() => {
+  const seenAtMountRef = useRef(lastSeenNotificationTimestamp);
+
+  useEffect(() => {
+    seenAtMountRef.current = lastSeenNotificationTimestamp;
+  }, [notificationRefreshSignal]);
+
+  const getNotificationType = (feedType: string) => {
     switch (feedType) {
       case NotificationFeedType.All:
         return;
@@ -70,14 +81,17 @@ const List = ({ feedType }: ListProps) => {
       default:
         return;
     }
-  }, [feedType]);
-
-  const request: NotificationRequest = {
-    filter: {
-      includeLowScore,
-      notificationTypes: getNotificationType()
-    }
   };
+
+  const request: NotificationRequest = useMemo(
+    () => ({
+      filter: {
+        includeLowScore,
+        notificationTypes: getNotificationType(feedType)
+      }
+    }),
+    [includeLowScore, feedType]
+  );
 
   const { data, error, fetchMore, loading, refetch } = useNotificationsQuery({
     variables: { request }
@@ -90,40 +104,37 @@ const List = ({ feedType }: ListProps) => {
   const cacheKey = "window-list-cache-notifications";
   const ref = useRef<WindowVirtualizerHandle>(null);
 
-  const getNotificationActorAddress = useCallback(
-    (
-      notification: NonNullable<typeof notifications>[number]
-    ): string | undefined => {
-      switch (notification?.__typename) {
-        case "AccountActionExecutedNotification":
-        case "PostActionExecutedNotification":
-          return notification.actions.length === 1
-            ? notification.actions[0].executedBy.address
-            : undefined;
-        case "CommentNotification":
-          return notification.comment.author.address;
-        case "FollowNotification":
-          return notification.followers.length === 1
-            ? notification.followers[0].account.address
-            : undefined;
-        case "MentionNotification":
-          return notification.post.author.address;
-        case "QuoteNotification":
-          return notification.quote.author.address;
-        case "ReactionNotification":
-          return notification.reactions.length === 1
-            ? notification.reactions[0].account.address
-            : undefined;
-        case "RepostNotification":
-          return notification.reposts.length === 1
-            ? notification.reposts[0].account.address
-            : undefined;
-        default:
-          return undefined;
-      }
-    },
-    [notifications]
-  );
+  const getNotificationActorAddress = (
+    notification: NonNullable<typeof notifications>[number]
+  ): string | undefined => {
+    switch (notification?.__typename) {
+      case "AccountActionExecutedNotification":
+      case "PostActionExecutedNotification":
+        return notification.actions.length === 1
+          ? notification.actions[0].executedBy.address
+          : undefined;
+      case "CommentNotification":
+        return notification.comment.author.address;
+      case "FollowNotification":
+        return notification.followers.length === 1
+          ? notification.followers[0].account.address
+          : undefined;
+      case "MentionNotification":
+        return notification.post.author.address;
+      case "QuoteNotification":
+        return notification.quote.author.address;
+      case "ReactionNotification":
+        return notification.reactions.length === 1
+          ? notification.reactions[0].account.address
+          : undefined;
+      case "RepostNotification":
+        return notification.reposts.length === 1
+          ? notification.reposts[0].account.address
+          : undefined;
+      default:
+        return undefined;
+    }
+  };
 
   const filteredNotifications = useMemo(
     () =>
@@ -143,11 +154,11 @@ const List = ({ feedType }: ListProps) => {
     ) {
       return;
     }
-    const firstId = firstNotification.id;
-    if (firstId) {
-      setLastSeenNotificationId(firstId);
+    const timestamp = getNotificationTimestamp(firstNotification);
+    if (timestamp) {
+      setLastSeenNotificationTimestamp(timestamp);
     }
-  }, [notifications, setLastSeenNotificationId]);
+  }, [notifications]);
 
   const handleEndReached = useCallback(async () => {
     if (hasMore) {
@@ -158,6 +169,11 @@ const List = ({ feedType }: ListProps) => {
   }, [fetchMore, hasMore, pageInfo?.next, request]);
 
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
+
+  const handleRefresh = useCallback(async () => {
+    seenAtMountRef.current = lastSeenNotificationTimestamp;
+    await refetch();
+  }, [lastSeenNotificationTimestamp, refetch]);
 
   if (loading) {
     return (
@@ -184,7 +200,7 @@ const List = ({ feedType }: ListProps) => {
   }
 
   return (
-    <PullToRefresh onRefresh={refetch}>
+    <PullToRefresh onRefresh={handleRefresh}>
       <Card className="virtual-divider-list-window">
         <CachedWindowVirtualizer cacheKey={cacheKey} ref={ref}>
           {filteredNotifications.map((notification) => {
@@ -197,8 +213,11 @@ const List = ({ feedType }: ListProps) => {
                 notification.__typename as keyof typeof notificationComponentMap
               ];
 
+            const timestamp = getNotificationTimestamp(notification);
+
             return Component ? (
               <Component
+                isNew={new Date(timestamp) > new Date(seenAtMountRef.current)}
                 key={notification.id}
                 notification={notification as never}
               />

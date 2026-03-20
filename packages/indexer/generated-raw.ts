@@ -9348,17 +9348,66 @@ export type NotificationIndicatorQuery = {
   notifications: {
     __typename?: "PaginatedNotificationResult";
     items: Array<
-      | { __typename?: "AccountActionExecutedNotification"; id: any }
-      | { __typename?: "CommentNotification"; id: any }
-      | { __typename?: "FollowNotification"; id: any }
-      | { __typename?: "GroupMembershipRequestApprovedNotification"; id: any }
-      | { __typename?: "GroupMembershipRequestRejectedNotification"; id: any }
-      | { __typename?: "MentionNotification"; id: any }
-      | { __typename?: "PostActionExecutedNotification"; id: any }
-      | { __typename?: "QuoteNotification"; id: any }
-      | { __typename?: "ReactionNotification"; id: any }
-      | { __typename?: "RepostNotification"; id: any }
-      | { __typename?: "TokenDistributedNotification"; id: any }
+      | {
+          __typename?: "AccountActionExecutedNotification";
+          actions: Array<
+            | { __typename?: "TippingAccountActionExecuted"; executedAt: any }
+            | { __typename?: "UnknownAccountActionExecuted"; executedAt: any }
+          >;
+        }
+      | {
+          __typename?: "CommentNotification";
+          comment: { __typename?: "Post"; timestamp: any };
+        }
+      | {
+          __typename?: "FollowNotification";
+          followers: Array<{
+            __typename?: "NotificationAccountFollow";
+            followedAt: any;
+          }>;
+        }
+      | {
+          __typename?: "GroupMembershipRequestApprovedNotification";
+          approvedAt: any;
+        }
+      | {
+          __typename?: "GroupMembershipRequestRejectedNotification";
+          rejectedAt: any;
+        }
+      | {
+          __typename?: "MentionNotification";
+          post: { __typename?: "Post"; timestamp: any };
+        }
+      | {
+          __typename?: "PostActionExecutedNotification";
+          actions: Array<
+            | {
+                __typename?: "SimpleCollectPostActionExecuted";
+                executedAt: any;
+              }
+            | { __typename?: "TippingPostActionExecuted"; executedAt: any }
+            | { __typename?: "UnknownPostActionExecuted"; executedAt: any }
+          >;
+        }
+      | {
+          __typename?: "QuoteNotification";
+          quote: { __typename?: "Post"; timestamp: any };
+        }
+      | {
+          __typename?: "ReactionNotification";
+          reactions: Array<{
+            __typename?: "NotificationAccountPostReaction";
+            reactions: Array<{ __typename?: "PostReaction"; reactedAt: any }>;
+          }>;
+        }
+      | {
+          __typename?: "RepostNotification";
+          reposts: Array<{
+            __typename?: "NotificationAccountRepost";
+            repostedAt: any;
+          }>;
+        }
+      | { __typename?: "TokenDistributedNotification"; actionDate: any }
     >;
   };
 };
@@ -12055,37 +12104,68 @@ export const NotificationIndicatorDocument = `
   notifications(request: $request) {
     items {
       ... on CommentNotification {
-        id
+        comment {
+          timestamp
+        }
       }
       ... on FollowNotification {
-        id
+        followers {
+          followedAt
+        }
       }
       ... on MentionNotification {
-        id
+        post {
+          timestamp
+        }
       }
       ... on QuoteNotification {
-        id
+        quote {
+          timestamp
+        }
       }
       ... on ReactionNotification {
-        id
+        reactions {
+          reactions {
+            reactedAt
+          }
+        }
       }
       ... on RepostNotification {
-        id
+        reposts {
+          repostedAt
+        }
       }
       ... on PostActionExecutedNotification {
-        id
+        actions {
+          ... on SimpleCollectPostActionExecuted {
+            executedAt
+          }
+          ... on TippingPostActionExecuted {
+            executedAt
+          }
+          ... on UnknownPostActionExecuted {
+            executedAt
+          }
+        }
       }
       ... on AccountActionExecutedNotification {
-        id
+        actions {
+          ... on TippingAccountActionExecuted {
+            executedAt
+          }
+          ... on UnknownAccountActionExecuted {
+            executedAt
+          }
+        }
       }
       ... on TokenDistributedNotification {
-        id
+        actionDate
       }
       ... on GroupMembershipRequestRejectedNotification {
-        id
+        rejectedAt
       }
       ... on GroupMembershipRequestApprovedNotification {
-        id
+        approvedAt
       }
     }
   }
