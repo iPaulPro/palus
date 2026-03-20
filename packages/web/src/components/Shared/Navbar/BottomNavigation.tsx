@@ -70,8 +70,8 @@ const BottomNavigation = () => {
 
   const handleAccountClick = () => setShowMobileDrawer(true);
 
-  const handleHomeClick = (path: string, e: MouseEvent) => {
-    if (path === "/" && pathname === "/") {
+  const handleClick = (path: string, e: MouseEvent) => {
+    if (path === pathname) {
       e.preventDefault();
       window.scrollTo(0, 0);
     }
@@ -119,7 +119,7 @@ const BottomNavigation = () => {
             isActive={pathname === path}
             key={path}
             label={label}
-            onClick={(e) => handleHomeClick(path, e)}
+            onClick={(e) => handleClick(path, e)}
             outline={outline}
             path={path}
             showIndicator={hasNewNotifications && path === "/notifications"}
