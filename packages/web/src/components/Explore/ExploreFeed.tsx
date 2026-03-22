@@ -1,6 +1,6 @@
 import { ChatBubbleBottomCenterIcon } from "@heroicons/react/24/outline";
 import {
-  type MainContentFocus,
+  MainContentFocus,
   PageSize,
   type PostsExploreRequest,
   usePostsExploreQuery
@@ -21,12 +21,28 @@ const ExploreFeed = ({ focus, onScroll }: ExploreFeedProps) => {
 
   const request: PostsExploreRequest = useMemo(
     () => ({
-      ...(focus && {
-        filter: {
-          metadata: { mainContentFocus: [focus] },
-          since: dayjs().subtract(2, "week").unix()
-        }
-      }),
+      ...(focus
+        ? {
+            filter: {
+              metadata: { mainContentFocus: [focus] },
+              since: dayjs().subtract(2, "week").unix()
+            }
+          }
+        : {
+            filter: {
+              // TODO remove when API is fixed
+              metadata: {
+                mainContentFocus: [
+                  MainContentFocus.Article,
+                  MainContentFocus.Audio,
+                  MainContentFocus.Image,
+                  MainContentFocus.TextOnly,
+                  MainContentFocus.Video
+                ]
+              },
+              since: dayjs().subtract(2, "week").unix()
+            }
+          }),
       pageSize: PageSize.Fifty
     }),
     [focus]
