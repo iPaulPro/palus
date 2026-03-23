@@ -19,6 +19,7 @@ import ActivityShimmer from "@/components/Wallet/Activity/Shimmer";
 import TokensShimmer from "@/components/Wallet/Tokens/Shimmer";
 import { BLOCK_EXPLORER_URL } from "@/data/constants";
 import { CONTRACTS } from "@/data/contracts";
+import { TOKENS } from "@/data/tokens";
 import cn from "@/helpers/cn";
 import formatAddress from "@/helpers/formatAddress";
 import useCopyToClipboard from "@/hooks/useCopyToClipboard";
@@ -60,7 +61,11 @@ const Wallet = () => {
       request: {
         address: currentAccount?.address,
         includeNative: true,
-        tokens: [CONTRACTS.wrappedNativeToken]
+        tokens: TOKENS.filter(
+          (token) =>
+            token.contractAddress !== "" &&
+            token.contractAddress !== CONTRACTS.nativeToken
+        ).map((token) => token.contractAddress)
       }
     }
   });
@@ -74,7 +79,8 @@ const Wallet = () => {
     data?.balancesBulk?.reduce((acc, balance) => {
       if (
         balance.__typename === "NativeAmount" ||
-        balance.__typename === "Erc20Amount"
+        (balance.__typename === "Erc20Amount" &&
+          balance.asset.contract.address === CONTRACTS.wrappedNativeToken)
       ) {
         return acc + Number.parseFloat(balance.value);
       }

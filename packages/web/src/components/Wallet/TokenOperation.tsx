@@ -13,6 +13,7 @@ import type { ApolloClientError } from "@/types/errors";
 interface TokenOperationProps {
   useMutationHook: any;
   resultKey: string;
+  tokenAddress: string;
   title: string;
   successMessage: string;
   balances: AnyBalance[];
@@ -25,17 +26,16 @@ const TokenOperation = ({
   useMutationHook,
   resultKey,
   title,
+  tokenAddress,
   successMessage,
   balances,
   refetch,
   showModal,
   setShowModal
 }: TokenOperationProps) => {
-  const [selectedToken, setSelectedToken] = useState<string>(
-    resultKey === "unwrapTokens"
-      ? CONTRACTS.wrappedNativeToken
-      : CONTRACTS.nativeToken
-  );
+  const tokens = TOKENS.filter((token) => token.contractAddress !== "");
+
+  const [selectedToken, setSelectedToken] = useState<string>(tokenAddress);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [maxValue, setMaxValue] = useState<string>("0");
   const [inputValue, setInputValue] = useState<string>("");
@@ -118,9 +118,9 @@ const TokenOperation = ({
       variables: {
         request:
           resultKey === "withdraw"
-            ? selectedToken === CONTRACTS.wrappedNativeToken
-              ? { erc20: { currency: selectedToken, value } }
-              : { native: value }
+            ? selectedToken === CONTRACTS.nativeToken
+              ? { native: value }
+              : { erc20: { currency: selectedToken, value } }
             : { amount: value }
       }
     });
@@ -137,7 +137,7 @@ const TokenOperation = ({
         {resultKey === "withdraw" && (
           <Select
             onChange={setSelectedToken}
-            options={TOKENS.map((token) => ({
+            options={tokens.map((token) => ({
               label: token.symbol,
               selected: selectedToken === token.contractAddress,
               value: token.contractAddress

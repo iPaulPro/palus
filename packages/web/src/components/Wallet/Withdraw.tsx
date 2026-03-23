@@ -2,6 +2,7 @@ import { ArrowUpIcon } from "@heroicons/react/24/solid";
 import { type AnyBalance, useWithdrawMutation } from "@palus/indexer";
 import { useState } from "react";
 import { Button } from "@/components/Shared/UI";
+import { CONTRACTS } from "@/data/contracts";
 import TokenOperation from "./TokenOperation";
 
 interface WithdrawProps {
@@ -35,6 +36,7 @@ const Withdraw = ({ balances, refetch, disabled }: WithdrawProps) => {
         showModal={showModal}
         successMessage="Withdrawal Successful"
         title="Withdraw"
+        tokenAddress={CONTRACTS.nativeToken}
         useMutationHook={useWithdrawMutation}
       />
     </>

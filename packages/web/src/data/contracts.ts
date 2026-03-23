@@ -31,6 +31,9 @@ export const CONTRACTS = {
   pinPostAccountAction: IS_TESTNET
     ? "0x2E148a60881C62c9b396c45bA1D6347241F3ebc9"
     : "0x96a66659ca64Fc146Ee0f804cd582AAdA1c93e35",
+  pointlessToken: IS_TESTNET
+    ? ""
+    : "0x2142a24c46f67432c3605dd1cccbbb4abfe90e63",
   pollVoteAction: IS_TESTNET
     ? "0x58C03173a0A71fb0e1AF00625E21f84CC799FC56"
     : "0x0B9507487800F0c385A240199fDf1d79131E8e25",
@@ -43,6 +46,10 @@ export const CONTRACTS = {
   tippingPostAction: IS_TESTNET
     ? lensDeployments.testnet.TippingPostAction.address
     : lensDeployments.mainnet.TippingPostAction.address,
+  usdc: IS_TESTNET ? "" : "0x88F08E304EC4f90D644Cec3Fb69b8aD414acf884",
+  weth: IS_TESTNET
+    ? "0xaA91D645D7a6C1aeaa5988e0547267B77d33fe16"
+    : "0xE5ecd226b3032910CEaa43ba92EE8232f8237553",
   wrappedNativeToken: IS_TESTNET
     ? "0xeee5a340Cdc9c179Db25dea45AcfD5FE8d4d3eB8"
     : "0x6bDc36E20D267Ff0dd6097799f82e78907105e2F"
