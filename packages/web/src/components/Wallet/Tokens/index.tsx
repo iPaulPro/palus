@@ -10,6 +10,7 @@ import { NATIVE_TOKEN_SYMBOL } from "@/data/constants";
 import { CONTRACTS } from "@/data/contracts";
 import { formatWithZeroSubscript } from "@/helpers/formatValues";
 import getTokenImage from "@/helpers/getTokenImage";
+import nFormatter from "@/helpers/nFormatter";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import TokenOperation from "../TokenOperation";
 
@@ -22,6 +23,8 @@ interface TokenBalanceProps {
   buttonLabel: string;
   disabled?: boolean;
 }
+
+const formatter = Intl.NumberFormat();
 
 const TokenBalance = ({
   value,
@@ -44,13 +47,17 @@ const TokenBalance = ({
   const formattedAmount = useMemo(() => {
     if (!value) return "";
 
+    const num = Number(value);
+    if (num > 1_000_000) {
+      return nFormatter(num);
+    }
+
     const [, frac = ""] = value.split(".");
     const len = frac.length;
     if (len > 5) return formatWithZeroSubscript(value);
 
-    const num = Number(value);
     if (len <= 2) {
-      return new Intl.NumberFormat().format(num);
+      return formatter.format(num);
     }
 
     return value;

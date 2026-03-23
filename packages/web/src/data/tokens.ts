@@ -11,13 +11,6 @@ export const TOKENS = [
     tipAmounts: [0.1, 0.5, 1, 5, 10]
   },
   {
-    contractAddress: CONTRACTS.wrappedNativeToken,
-    decimals: 18,
-    name: IS_TESTNET ? "Wrapped GRASS" : "Wrapped GHO",
-    symbol: IS_TESTNET ? "WGRASS" : "WGHO",
-    tipAmounts: [0.1, 0.5, 1, 5, 10]
-  },
-  {
     contractAddress: CONTRACTS.weth,
     decimals: 6,
     name: "Ether",
@@ -36,6 +29,13 @@ export const TOKENS = [
     decimals: 6,
     name: "USDC",
     symbol: "USDC",
+    tipAmounts: [0.1, 0.5, 1, 5, 10]
+  },
+  {
+    contractAddress: CONTRACTS.wrappedNativeToken,
+    decimals: 18,
+    name: IS_TESTNET ? "Wrapped GRASS" : "Wrapped GHO",
+    symbol: IS_TESTNET ? "WGRASS" : "WGHO",
     tipAmounts: [0.1, 0.5, 1, 5, 10]
   }
 ];

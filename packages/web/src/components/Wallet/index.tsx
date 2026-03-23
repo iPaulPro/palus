@@ -184,6 +184,7 @@ const Wallet = () => {
           <Send
             balances={data?.balancesBulk as AnyBalance[]}
             disabled={!loggedInAsOwner || loading || !!error}
+            refetch={refetch}
           />
           <Withdraw
             balances={data?.balancesBulk as AnyBalance[]}

@@ -22,9 +22,10 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 interface SendProps {
   balances: AnyBalance[];
   disabled: boolean;
+  refetch: () => void;
 }
 
-const Send = ({ balances, disabled }: SendProps) => {
+const Send = ({ balances, disabled, refetch }: SendProps) => {
   const tokens = TOKENS.filter((token) => token.contractAddress !== "");
 
   const [showModal, setShowModal] = useState(false);
@@ -106,6 +107,7 @@ const Send = ({ balances, disabled }: SendProps) => {
     setShowModal(false);
     setInputValue("");
     setRecipient("");
+    refetch();
     track("Token operation", {
       sendTokens: selectedToken.symbol
     });
