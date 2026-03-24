@@ -1,5 +1,6 @@
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { motion } from "motion/react";
+import { useState } from "react";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Input, Select } from "@/components/Shared/UI";
 import { STATIC_IMAGES_URL } from "@/data/constants";
@@ -18,7 +19,23 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
   const { currentAccount } = useAccountStore();
   const { collectAction } = useCollectActionStore((state) => state);
 
-  const enabled = Boolean(collectAction.payToCollect?.native);
+  const [selectedToken, setSelectedToken] = useState<string>(
+    collectAction.payToCollect?.erc20?.currency ?? CONTRACTS.nativeToken
+  );
+
+  const enabled = Boolean(
+    collectAction.payToCollect?.native ??
+      collectAction.payToCollect?.erc20?.value
+  );
+
+  const tokens = TOKENS.filter((token) => token.contractAddress !== "").map(
+    (token) => ({
+      icon: `${STATIC_IMAGES_URL}/${token.symbol.toLowerCase()}.svg`,
+      label: token.name,
+      selected: token.contractAddress === selectedToken,
+      value: token.contractAddress
+    })
+  );
 
   return (
     <div>
@@ -31,17 +48,20 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
           setCollectType({
             payToCollect: enabled
               ? undefined
-              : {
+              : (collectAction.payToCollect ?? {
                   native: 1,
                   recipients: [
                     { address: currentAccount?.address, percent: 100 }
                   ], // 2.45% for the Palus platform fees after the 1.5% lens fees cut
                   referralShare: 3
-                }
+                })
           });
+          if (!collectAction.payToCollect) {
+            setSelectedToken(CONTRACTS.nativeToken);
+          }
         }}
       />
-      {collectAction.payToCollect?.native ? (
+      {enabled ? (
         <motion.div
           animate="visible"
           className="mt-4 ml-8"
@@ -55,43 +75,61 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
           <div className="flex space-x-2 text-sm">
             <Input
               label="Price"
-              max="100000"
               min="0"
               onChange={(event) => {
                 if (!collectAction.payToCollect) return;
                 setCollectType({
                   payToCollect: {
                     ...collectAction.payToCollect,
-                    native: event.target.value ? event.target.value : "0"
+                    ...(selectedToken === CONTRACTS.nativeToken
+                      ? {
+                          erc20: undefined,
+                          native: event.target.value ? event.target.value : "0"
+                        }
+                      : {
+                          erc20: {
+                            currency: selectedToken,
+                            value: event.target.value ? event.target.value : "0"
+                          },
+                          native: undefined
+                        })
                   }
                 });
               }}
               placeholder="0.5"
               type="number"
-              value={Number.parseFloat(collectAction.payToCollect?.native)}
+              value={
+                selectedToken === CONTRACTS.nativeToken
+                  ? collectAction.payToCollect?.native
+                  : collectAction.payToCollect?.erc20?.value
+              }
             />
             <div className="w-5/6">
               <div className="label">Select currency</div>
               <Select
                 iconClassName="size-4 rounded-full"
-                onChange={() => {
+                onChange={(token) => {
                   if (!collectAction.payToCollect) return;
+                  setSelectedToken(token);
                   setCollectType({
                     payToCollect: {
                       ...collectAction.payToCollect,
-                      native: collectAction.payToCollect?.native
+                      ...(selectedToken === CONTRACTS.nativeToken
+                        ? {
+                            erc20: undefined,
+                            native: collectAction.payToCollect?.native
+                          }
+                        : {
+                            erc20: {
+                              currency: token,
+                              value: collectAction.payToCollect?.erc20?.value
+                            },
+                            native: undefined
+                          })
                     }
                   });
                 }}
-                options={[
-                  {
-                    icon: `${STATIC_IMAGES_URL}/${TOKENS[0].symbol.toLowerCase()}.svg`,
-                    label: TOKENS[0].name,
-                    selected:
-                      TOKENS[0].contractAddress === CONTRACTS.nativeToken,
-                    value: TOKENS[0].contractAddress
-                  }
-                ]}
+                options={tokens}
               />
             </div>
           </div>
