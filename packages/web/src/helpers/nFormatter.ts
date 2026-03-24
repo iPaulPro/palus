@@ -1,12 +1,17 @@
 import humanize from "./humanize";
 
 const LOOKUP = [
-  { symbol: "E", value: 1e18 },
-  { symbol: "P", value: 1e15 },
+  { symbol: "D", value: 1e33 },
+  { symbol: "N", value: 1e30 },
+  { symbol: "Oc", value: 1e27 },
+  { symbol: "Sp", value: 1e24 },
+  { symbol: "Sx", value: 1e21 },
+  { symbol: "Qi", value: 1e18 },
+  { symbol: "Qa", value: 1e15 },
   { symbol: "T", value: 1e12 },
-  { symbol: "G", value: 1e9 },
+  { symbol: "B", value: 1e9 },
   { symbol: "M", value: 1e6 },
-  { symbol: "k", value: 1e3 },
+  { symbol: "K", value: 1e3 },
   { symbol: "", value: 1 }
 ];
 
