@@ -7,9 +7,11 @@ import {
   Square2StackIcon
 } from "@heroicons/react/24/outline";
 import { type AnyBalance, useBalancesBulkQuery } from "@palus/indexer";
+import { accountAbi } from "lens-modules/abis";
 import { Fragment, useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router";
-import { useConnection } from "wagmi";
+import type { Hex } from "viem";
+import { useConnection, useReadContract } from "wagmi";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
 import PageLayout from "@/components/Shared/PageLayout";
@@ -17,7 +19,7 @@ import Skeleton from "@/components/Shared/Skeleton";
 import { Card, CardHeader, Tabs, Tooltip } from "@/components/Shared/UI";
 import ActivityShimmer from "@/components/Wallet/Activity/Shimmer";
 import TokensShimmer from "@/components/Wallet/Tokens/Shimmer";
-import { BLOCK_EXPLORER_URL } from "@/data/constants";
+import { BLOCK_EXPLORER_URL, CHAIN } from "@/data/constants";
 import { CONTRACTS } from "@/data/contracts";
 import { TOKENS } from "@/data/tokens";
 import cn from "@/helpers/cn";
@@ -54,7 +56,12 @@ const Wallet = () => {
     setActiveTab(tab.toUpperCase());
   }, [tab]);
 
-  const { data, refetch, loading, error } = useBalancesBulkQuery({
+  const {
+    data,
+    refetch,
+    loading: balancesLoading,
+    error
+  } = useBalancesBulkQuery({
     pollInterval: 5000,
     skip: !currentAccount?.address,
     variables: {
@@ -70,6 +77,25 @@ const Wallet = () => {
     }
   });
 
+  const { data: permissions, isFetching: permissionsLoading } = useReadContract(
+    {
+      abi: accountAbi,
+      address: currentAccount?.address,
+      args: [walletAddress as Hex],
+      chainId: CHAIN.id,
+      functionName: "getAccountManagerPermissions",
+      query: {
+        enabled: !!currentAccount?.address && !!walletAddress
+      }
+    }
+  );
+
+  const loading = balancesLoading || permissionsLoading;
+
+  const canTransfer =
+    currentAccount?.owner === walletAddress ||
+    (permissions?.canTransferTokens && permissions.canTransferNative);
+
   const copyAddress = useCopyToClipboard(
     currentAccount?.address,
     "Address copied to clipboard!"
@@ -80,7 +106,8 @@ const Wallet = () => {
       if (
         balance.__typename === "NativeAmount" ||
         (balance.__typename === "Erc20Amount" &&
-          balance.asset.contract.address === CONTRACTS.wrappedNativeToken)
+          (balance.asset.contract.address === CONTRACTS.wrappedNativeToken ||
+            balance.asset.contract.address === CONTRACTS.usdc))
       ) {
         return acc + Number.parseFloat(balance.value);
       }
@@ -95,9 +122,6 @@ const Wallet = () => {
   if (!currentAccount) {
     return <NotLoggedIn />;
   }
-
-  const loggedInAsOwner =
-    walletAddress?.toLowerCase() === currentAccount.owner.toLowerCase();
 
   return (
     <PageLayout zeroTopMargin>
@@ -180,22 +204,22 @@ const Wallet = () => {
           </div>
         )}
         <div className="flex justify-center gap-x-4 px-5 py-2">
-          <Deposit disabled={!loggedInAsOwner || loading || !!error} />
+          <Deposit disabled={!canTransfer || loading || !!error} />
           <Send
             balances={data?.balancesBulk as AnyBalance[]}
-            disabled={!loggedInAsOwner || loading || !!error}
+            disabled={!canTransfer || loading || !!error}
             refetch={refetch}
           />
           <Withdraw
             balances={data?.balancesBulk as AnyBalance[]}
-            disabled={!loggedInAsOwner || loading || !!error}
+            disabled={!canTransfer || loading || !!error}
             refetch={refetch}
           />
         </div>
-        {!loggedInAsOwner && (
-          <div className="center mx-5 mt-2 flex gap-x-2 rounded-lg bg-yellow-100/50 p-3 text-sm text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">
-            You are viewing this wallet as a manager. Connect the owner&apos;s
-            wallet to enable transactions.
+        {canTransfer ? null : (
+          <div className="center mx-5 mt-2 flex gap-x-2 rounded-lg bg-yellow-100/50 p-3 text-center text-sm text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">
+            You don&apos;t have permission to transfer tokens. Log in with the
+            owner wallet to enable transfers.
           </div>
         )}
         <div className="flex flex-col gap-y-2 pt-4 sm:p-5">
@@ -219,6 +243,7 @@ const Wallet = () => {
             ) : (
               <Tokens
                 balances={data?.balancesBulk as AnyBalance[]}
+                canTransfer={canTransfer}
                 refetch={refetch}
               />
             )
