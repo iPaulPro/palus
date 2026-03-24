@@ -22,7 +22,7 @@ const codeSplittingGroups = [
   { name: "plyr", test: /node_modules\/plyr-react/ },
   {
     name: "ui",
-    test: /node_modules\/(?:@radix-ui\/|sonner|virtua|html-to-image|browser-image-compression|plur|dayjs)/
+    test: /node_modules\/(?:@radix-ui\/|sonner|virtua|html-to-image|browser-image-compression|plur|dayjs|qr)/
   },
   { name: "hls-js", test: /node_modules\/hls\.js/ },
   { name: "livepeer", test: /node_modules\/@livepeer\// },
