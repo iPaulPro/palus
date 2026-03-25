@@ -18,18 +18,18 @@ import { NATIVE_TOKEN_SYMBOL } from "@/data/tokens";
 import cn from "@/helpers/cn";
 import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
 import { decodeDelegatedTransaction } from "@/helpers/decodeTransaction";
-import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import {
   getTransactionLabel,
   getTransactionStatus,
   getTransactionValueDisplay
-} from "./parseTransaction";
+} from "@/helpers/parseTransaction";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import type {
   ActivityProps,
   BlockRange,
   Transaction,
   TransactionsResponse
-} from "./types";
+} from "@/types/palus";
 
 const GET_TRANSACTIONS_QUERY_KEY = "getTransactions";
 const ONE_WEEK_SECONDS = 7 * 24 * 60 * 60;

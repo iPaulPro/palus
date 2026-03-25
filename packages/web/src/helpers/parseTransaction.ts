@@ -2,7 +2,7 @@ import { formatEther } from "viem";
 import { NATIVE_TOKEN_SYMBOL } from "@/data/constants";
 import { CONTRACTS } from "@/data/contracts";
 import type { DecodedTransaction } from "@/helpers/decodeTransaction";
-import type { Transaction } from "./types";
+import type { Transaction } from "@/types/palus";
 
 export const camelToCapitalized = (str: string): string => {
   return str
