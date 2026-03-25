@@ -164,6 +164,9 @@ importers:
       prosekit:
         specifier: ^0.17.1
         version: 0.17.1(@shikijs/types@3.20.0)(@types/hast@3.0.4)(preact@10.28.1)(prosemirror-model@1.25.4)(prosemirror-state@1.4.4)(prosemirror-transform@1.10.5)(prosemirror-view@1.41.4)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      qr:
+        specifier: ^0.5.5
+        version: 0.5.5
       react:
         specifier: ^19.2.4
         version: 19.2.4
@@ -5242,6 +5245,10 @@ packages:
 
   pump@3.0.3:
     resolution: {integrity: sha512-todwxLMY7/heScKmntwQG8CXVkWUOdYxIvY2s0VWAAMh/nd8SoYiRaKjlr7+iCs984f2P8zvrfWcDDYVb73NfA==}
+
+  qr@0.5.5:
+    resolution: {integrity: sha512-iQBvKj7MRKO+co+MY0IZpyLO+ezvttxsmV86WywrgPuAmgBkv0pytyi03wourniSoPgzffeBW6cBgIkpqcvjTg==}
+    engines: {node: '>= 20.19.0'}
 
   qrcode@1.5.3:
     resolution: {integrity: sha512-puyri6ApkEHYiVl4CFzo1tDkAZ+ATcnbJrJ6RiBM1Fhctdn/ix9MTE3hRph33omisEbC/2fcfemsseiKgBPKZg==}
@@ -13052,6 +13059,8 @@ snapshots:
     dependencies:
       end-of-stream: 1.4.5
       once: 1.4.0
+
+  qr@0.5.5: {}
 
   qrcode@1.5.3:
     dependencies:

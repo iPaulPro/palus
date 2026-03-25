@@ -4,70 +4,20 @@ import {
   useWrapTokensMutation
 } from "@palus/indexer";
 import { useState } from "react";
-import { useConnection } from "wagmi";
-import { Button, Image, Tooltip } from "@/components/Shared/UI";
-import { IS_TESTNET, NATIVE_TOKEN_SYMBOL } from "@/data/constants";
-import getTokenImage from "@/helpers/getTokenImage";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { NATIVE_TOKEN_SYMBOL } from "@/data/constants";
+import { CONTRACTS } from "@/data/contracts";
 import TokenOperation from "../TokenOperation";
+import TokenBalance from "./Balance";
 
-interface TokenBalanceProps {
-  value: string;
-  symbol: string;
-  onClick: () => void;
-  buttonLabel: string;
-  disabled?: boolean;
-}
-
-const TokenBalance = ({
-  value,
-  symbol,
-  onClick,
-  buttonLabel,
-  disabled = false
-}: TokenBalanceProps) => {
-  return (
-    <div className="group flex flex-wrap items-center justify-between gap-5">
-      <div className="flex items-center gap-2">
-        <Image
-          alt={symbol}
-          className="size-7 rounded-full"
-          src={getTokenImage(IS_TESTNET ? undefined : symbol)}
-        />
-        <span className="font-bold">{symbol}</span>
-      </div>
-      <div className="flex items-center gap-x-3">
-        <Button
-          disabled={disabled || Number(value) === 0}
-          onClick={onClick}
-          outline
-          size="sm"
-        >
-          {buttonLabel}
-        </Button>
-        <Tooltip content={value}>
-          <span className="font-bold">
-            ${Number.parseFloat(value).toFixed(2)}{" "}
-          </span>
-        </Tooltip>
-      </div>
-    </div>
-  );
-};
-
-interface TokenProps {
+interface Props {
   balances: AnyBalance[] | undefined;
   refetch: () => void;
+  canTransfer?: boolean;
 }
 
-const Tokens = ({ balances, refetch }: TokenProps) => {
+const Tokens = ({ balances, refetch, canTransfer = false }: Props) => {
   const [showWrapModal, setShowWrapModal] = useState(false);
   const [showUnwrapModal, setShowUnwrapModal] = useState(false);
-
-  const { currentAccount } = useAccountStore();
-  const { address: walletAddress } = useConnection();
-  const loggedInAsOwner =
-    walletAddress?.toLowerCase() === currentAccount?.owner.toLowerCase();
 
   if (!balances || balances.length === 0) {
     return <div className="p-5">No tokens found.</div>;
@@ -75,7 +25,7 @@ const Tokens = ({ balances, refetch }: TokenProps) => {
 
   return (
     <>
-      <div className="space-y-5 px-5 pt-2 pb-4 sm:px-0 sm:pb-0">
+      <div className="space-y-5 px-5 pt-2 pb-4 sm:space-y-0 sm:px-0 sm:pb-0">
         {balances.map((balance) => {
           if (!("asset" in balance)) {
             return null;
@@ -88,7 +38,9 @@ const Tokens = ({ balances, refetch }: TokenProps) => {
               {balance.__typename === "NativeAmount" && (
                 <TokenBalance
                   buttonLabel="Wrap"
-                  disabled={!loggedInAsOwner}
+                  contractAddress={balance.asset.contract.address}
+                  disabled={!canTransfer}
+                  name={balance.asset.name}
                   onClick={() => setShowWrapModal(true)}
                   symbol={NATIVE_TOKEN_SYMBOL}
                   value={balance.value}
@@ -97,7 +49,9 @@ const Tokens = ({ balances, refetch }: TokenProps) => {
               {balance.__typename === "Erc20Amount" && (
                 <TokenBalance
                   buttonLabel="Unwrap"
-                  disabled={!loggedInAsOwner}
+                  contractAddress={balance.asset.contract.address}
+                  disabled={!canTransfer}
+                  name={balance.asset.name}
                   onClick={() => setShowUnwrapModal(true)}
                   symbol={balance.asset.symbol}
                   value={balance.value}
@@ -115,6 +69,7 @@ const Tokens = ({ balances, refetch }: TokenProps) => {
         showModal={showWrapModal}
         successMessage="Wrap Successful"
         title="Wrap"
+        tokenAddress={CONTRACTS.nativeToken}
         useMutationHook={useWrapTokensMutation}
       />
       <TokenOperation
@@ -125,6 +80,7 @@ const Tokens = ({ balances, refetch }: TokenProps) => {
         showModal={showUnwrapModal}
         successMessage="Unwrap Successful"
         title="Unwrap"
+        tokenAddress={CONTRACTS.wrappedNativeToken}
         useMutationHook={useUnwrapTokensMutation}
       />
     </>

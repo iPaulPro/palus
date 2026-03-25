@@ -106,7 +106,7 @@ const Transfer = ({ token }: TransferProps) => {
 
   const tokenBalance =
     balance?.balancesBulk[0].__typename === "Erc20Amount"
-      ? Number(balance.balancesBulk[0].value).toFixed(2)
+      ? Number(balance.balancesBulk[0].value).toFixed(6)
       : balance?.balancesBulk[0].__typename === "NativeAmount"
         ? Number(balance.balancesBulk[0].value).toFixed(2)
         : 0;

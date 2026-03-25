@@ -3,11 +3,18 @@ import type { AnyBalance, Erc20Amount, NativeAmount } from "@palus/indexer";
 import { accountAbi } from "lens-modules/abis";
 import { useMemo, useState } from "react";
 import { toast } from "sonner";
-import { type Hex, isAddress, parseEther } from "viem";
+import {
+  encodeFunctionData,
+  erc20Abi,
+  type Hex,
+  isAddress,
+  parseUnits
+} from "viem";
 import { useWriteContract } from "wagmi";
 import SearchAccounts from "@/components/Shared/Account/SearchAccounts";
 import { Button, Input, Modal, Select } from "@/components/Shared/UI";
 import { ADDRESS_PLACEHOLDER } from "@/data/constants";
+import { CONTRACTS } from "@/data/contracts";
 import { TOKENS } from "@/data/tokens";
 import useUmami from "@/hooks/useUmami";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -15,14 +22,27 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 interface SendProps {
   balances: AnyBalance[];
   disabled: boolean;
+  refetch: () => void;
 }
 
-const Send = ({ balances, disabled }: SendProps) => {
+const Send = ({ balances, disabled, refetch }: SendProps) => {
+  const tokens = TOKENS.filter((token) => token.contractAddress !== "");
+
   const [showModal, setShowModal] = useState(false);
   const [inputValue, setInputValue] = useState<string>("");
   const [recipient, setRecipient] = useState<string>("");
-  const [selectedToken, setSelectedToken] = useState<string>(
-    TOKENS[0].contractAddress
+  const [selectedTokenAddress, setSelectedTokenAddress] = useState<string>(
+    tokens[0].contractAddress
+  );
+
+  const selectedToken = useMemo(
+    () =>
+      tokens.find(
+        (token) =>
+          token.contractAddress.toLowerCase() ===
+          selectedTokenAddress.toLowerCase()
+      ) ?? tokens[0],
+    [tokens, selectedTokenAddress]
   );
 
   const { currentAccount } = useAccountStore();
@@ -36,20 +56,47 @@ const Send = ({ balances, disabled }: SendProps) => {
         (balance.__typename === "NativeAmount" ||
           balance.__typename === "Erc20Amount") &&
         balance.asset.contract.address.toLowerCase() ===
-          selectedToken.toLowerCase()
+          selectedTokenAddress.toLowerCase()
     ) as NativeAmount | Erc20Amount | undefined;
-  }, [selectedToken, balances]);
+  }, [selectedTokenAddress, balances]);
+
+  const sendNative = async (account: Hex) => {
+    return writeContractAsync({
+      abi: accountAbi,
+      address: account,
+      args: [
+        recipient as Hex,
+        parseUnits(inputValue, selectedToken.decimals),
+        "0x"
+      ],
+      functionName: "executeTransaction"
+    });
+  };
+
+  const sendErc20 = async (account: Hex) => {
+    const callData = encodeFunctionData({
+      abi: erc20Abi,
+      args: [recipient as Hex, parseUnits(inputValue, selectedToken.decimals)],
+      functionName: "transfer"
+    });
+
+    return writeContractAsync({
+      abi: accountAbi,
+      address: account,
+      args: [selectedTokenAddress as Hex, 0n, callData],
+      functionName: "executeTransaction"
+    });
+  };
 
   const handleSubmit = async () => {
     if (!currentAccount || !isAddress(recipient)) return;
 
     try {
-      await writeContractAsync({
-        abi: accountAbi,
-        address: currentAccount.address,
-        args: [recipient as Hex, parseEther(inputValue), "0x"],
-        functionName: "executeTransaction"
-      });
+      if (selectedTokenAddress === CONTRACTS.nativeToken) {
+        await sendNative(currentAccount.address);
+      } else {
+        await sendErc20(currentAccount.address);
+      }
     } catch (e) {
       console.error("handleSubmit: executeTransaction error=", e);
       toast.error("Failed to send tokens.");
@@ -60,11 +107,9 @@ const Send = ({ balances, disabled }: SendProps) => {
     setShowModal(false);
     setInputValue("");
     setRecipient("");
+    refetch();
     track("Token operation", {
-      sendTokens: TOKENS.find(
-        (token) =>
-          token.contractAddress.toLowerCase() === selectedToken.toLowerCase()
-      )?.symbol
+      sendTokens: selectedToken.symbol
     });
   };
 
@@ -83,7 +128,12 @@ const Send = ({ balances, disabled }: SendProps) => {
         />
         Send
       </Button>
-      <Modal onClose={() => setShowModal(false)} show={showModal} title="Send">
+      <Modal
+        onClose={() => setShowModal(false)}
+        show={showModal}
+        size="xs"
+        title="Send"
+      >
         <div className="flex flex-col gap-y-3 p-5">
           <SearchAccounts
             error={recipient.length > 0 && !isAddress(recipient)}
@@ -103,10 +153,10 @@ const Send = ({ balances, disabled }: SendProps) => {
               value={inputValue}
             />
             <Select
-              onChange={setSelectedToken}
-              options={TOKENS.map((token) => ({
+              onChange={setSelectedTokenAddress}
+              options={tokens.map((token) => ({
                 label: token.symbol,
-                selected: selectedToken === token.contractAddress,
+                selected: selectedTokenAddress === token.contractAddress,
                 value: token.contractAddress
               }))}
             />
