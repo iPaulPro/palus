@@ -1,6 +1,12 @@
-import type { AnyBalance, Erc20Amount, NativeAmount } from "@palus/indexer";
+import {
+  type AnyBalance,
+  type Erc20Amount,
+  type NativeAmount,
+  useBalancesBulkQuery
+} from "@palus/indexer";
 import { useCallback, useEffect, useState } from "react";
 import { toast } from "sonner";
+import { useConnection } from "wagmi";
 import { Button, Input, Modal, Select } from "@/components/Shared/UI";
 import { CONTRACTS } from "@/data/contracts";
 import { TOKENS } from "@/data/tokens";
@@ -12,11 +18,11 @@ import type { ApolloClientError } from "@/types/errors";
 
 interface TokenOperationProps {
   useMutationHook: any;
-  resultKey: string;
+  resultKey: "deposit" | "withdraw" | "wrapTokens" | "unwrapTokens";
   tokenAddress: string;
   title: string;
   successMessage: string;
-  balances: AnyBalance[];
+  balances?: AnyBalance[];
   refetch: () => void;
   showModal: boolean;
   setShowModal: (show: boolean) => void;
@@ -39,9 +45,24 @@ const TokenOperation = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [maxValue, setMaxValue] = useState<string>("0");
   const [inputValue, setInputValue] = useState<string>("");
-  const handleTransactionLifecycle = useTransactionLifecycle();
 
+  const handleTransactionLifecycle = useTransactionLifecycle();
+  const { address: walletAddress } = useConnection();
   const { track } = useUmami();
+
+  const { data: walletBalance } = useBalancesBulkQuery({
+    fetchPolicy: "no-cache",
+    pollInterval: 10000,
+    skip: !walletAddress || resultKey !== "deposit" || !showModal,
+    variables: {
+      request: {
+        address: walletAddress,
+        ...(selectedToken === CONTRACTS.nativeToken
+          ? { includeNative: true }
+          : { tokens: [selectedToken] })
+      }
+    }
+  });
 
   useEffect(() => {
     const balance = balances?.find(
@@ -52,8 +73,17 @@ const TokenOperation = ({
           selectedToken.toLowerCase()
     ) as NativeAmount | Erc20Amount | undefined;
     const value = balance?.value ?? "0";
-    setMaxValue(value || "0");
+    setMaxValue(value);
   }, [selectedToken, balances]);
+
+  useEffect(() => {
+    const balance =
+      walletBalance?.balancesBulk[0].__typename === "Erc20Amount" ||
+      walletBalance?.balancesBulk[0].__typename === "NativeAmount"
+        ? walletBalance.balancesBulk[0].value
+        : "0";
+    setMaxValue(balance);
+  }, [walletBalance]);
 
   const onCompleted = () => {
     setShowModal(false);
@@ -117,7 +147,7 @@ const TokenOperation = ({
     return mutate({
       variables: {
         request:
-          resultKey === "withdraw"
+          resultKey === "withdraw" || resultKey === "deposit"
             ? selectedToken === CONTRACTS.nativeToken
               ? { native: value }
               : { erc20: { currency: selectedToken, value } }
@@ -134,7 +164,7 @@ const TokenOperation = ({
       title={title}
     >
       <div className="space-y-2 p-5">
-        {resultKey === "withdraw" && (
+        {(resultKey === "withdraw" || resultKey === "deposit") && (
           <Select
             onChange={setSelectedToken}
             options={tokens.map((token) => ({

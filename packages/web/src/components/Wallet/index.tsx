@@ -222,7 +222,10 @@ const Wallet = () => {
             </div>
           )}
           <div className="flex justify-center gap-x-4 px-5 py-2">
-            <Deposit disabled={!canTransfer || loading || !!error} />
+            <Deposit
+              disabled={!canTransfer || loading || !!error}
+              refetch={refetch}
+            />
             <Send
               balances={data?.balancesBulk as AnyBalance[]}
               disabled={!canTransfer || loading || !!error}
