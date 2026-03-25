@@ -12,7 +12,7 @@ export const TOKENS = [
   },
   {
     contractAddress: CONTRACTS.weth,
-    decimals: 6,
+    decimals: 18,
     name: "Ether",
     symbol: "ETH",
     tipAmounts: [0.00005, 0.00025, 0.0005, 0.0025, 0.005]
