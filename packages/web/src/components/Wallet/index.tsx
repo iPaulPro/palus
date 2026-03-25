@@ -237,7 +237,7 @@ const Wallet = () => {
               refetch={refetch}
             />
           </div>
-          {canTransfer ? null : (
+          {loading || canTransfer ? null : (
             <div className="center mx-5 mt-2 flex gap-x-2 rounded-lg bg-yellow-100/50 p-3 text-center text-sm text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300">
               You don&apos;t have permission to transfer tokens. Log in with the
               owner wallet to enable transfers.
