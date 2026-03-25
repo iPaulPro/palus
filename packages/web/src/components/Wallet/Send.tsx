@@ -25,24 +25,24 @@ interface SendProps {
   refetch: () => void;
 }
 
-const Send = ({ balances, disabled, refetch }: SendProps) => {
-  const tokens = TOKENS.filter((token) => token.contractAddress !== "");
+const AVAILABLE_TOKENS = TOKENS.filter((token) => token.contractAddress !== "");
 
+const Send = ({ balances, disabled, refetch }: SendProps) => {
   const [showModal, setShowModal] = useState(false);
   const [inputValue, setInputValue] = useState<string>("");
   const [recipient, setRecipient] = useState<string>("");
   const [selectedTokenAddress, setSelectedTokenAddress] = useState<string>(
-    tokens[0].contractAddress
+    AVAILABLE_TOKENS[0].contractAddress
   );
 
   const selectedToken = useMemo(
     () =>
-      tokens.find(
+      AVAILABLE_TOKENS.find(
         (token) =>
           token.contractAddress.toLowerCase() ===
           selectedTokenAddress.toLowerCase()
-      ) ?? tokens[0],
-    [tokens, selectedTokenAddress]
+      ) ?? AVAILABLE_TOKENS[0],
+    [AVAILABLE_TOKENS, selectedTokenAddress]
   );
 
   const { currentAccount } = useAccountStore();
@@ -60,53 +60,72 @@ const Send = ({ balances, disabled, refetch }: SendProps) => {
     ) as NativeAmount | Erc20Amount | undefined;
   }, [selectedTokenAddress, balances]);
 
-  const sendNative = async (account: Hex) => {
+  const reset = () => {
+    setShowModal(false);
+    setInputValue("");
+    setRecipient("");
+    setSelectedTokenAddress(AVAILABLE_TOKENS[0].contractAddress);
+  };
+
+  const sendNative = async (account: Hex, amount: bigint) => {
     return writeContractAsync({
       abi: accountAbi,
       address: account,
-      args: [
-        recipient as Hex,
-        parseUnits(inputValue, selectedToken.decimals),
-        "0x"
-      ],
+      args: [recipient as Hex, amount, "0x"],
       functionName: "executeTransaction"
     });
   };
 
-  const sendErc20 = async (account: Hex) => {
+  const sendErc20 = async (account: Hex, amount: bigint) => {
     const callData = encodeFunctionData({
       abi: erc20Abi,
-      args: [recipient as Hex, parseUnits(inputValue, selectedToken.decimals)],
+      args: [recipient as Hex, amount],
       functionName: "transfer"
     });
 
     return writeContractAsync({
       abi: accountAbi,
       address: account,
-      args: [selectedTokenAddress as Hex, 0n, callData],
+      args: [selectedToken.contractAddress as Hex, 0n, callData],
       functionName: "executeTransaction"
     });
   };
 
   const handleSubmit = async () => {
-    if (!currentAccount || !isAddress(recipient)) return;
+    if (
+      !currentAccount ||
+      !isAddress(recipient) ||
+      currentAccount.address.toLowerCase() === recipient.toLowerCase()
+    ) {
+      toast.error("Invalid receiver address");
+      return;
+    }
+
+    let amount = 0n;
+    try {
+      amount = parseUnits(inputValue, selectedToken.decimals);
+    } catch {
+      toast.error("Invalid amount");
+      return;
+    }
 
     try {
-      if (selectedTokenAddress === CONTRACTS.nativeToken) {
-        await sendNative(currentAccount.address);
+      if (
+        selectedToken.contractAddress.toLowerCase() ===
+        CONTRACTS.nativeToken.toLowerCase()
+      ) {
+        await sendNative(currentAccount.address, amount);
       } else {
-        await sendErc20(currentAccount.address);
+        await sendErc20(currentAccount.address, amount);
       }
     } catch (e) {
       console.error("handleSubmit: executeTransaction error=", e);
-      toast.error("Failed to send tokens.");
+      toast.error("Failed to send tokens");
       return;
     }
 
     toast.success("Tokens sent successfully!");
-    setShowModal(false);
-    setInputValue("");
-    setRecipient("");
+    reset();
     refetch();
     track("Token operation", {
       sendTokens: selectedToken.symbol
@@ -128,12 +147,7 @@ const Send = ({ balances, disabled, refetch }: SendProps) => {
         />
         Send
       </Button>
-      <Modal
-        onClose={() => setShowModal(false)}
-        show={showModal}
-        size="xs"
-        title="Send"
-      >
+      <Modal onClose={reset} show={showModal} size="xs" title="Send">
         <div className="flex flex-col gap-y-3 p-5">
           <SearchAccounts
             error={recipient.length > 0 && !isAddress(recipient)}
@@ -153,24 +167,33 @@ const Send = ({ balances, disabled, refetch }: SendProps) => {
               value={inputValue}
             />
             <Select
-              onChange={setSelectedTokenAddress}
-              options={tokens.map((token) => ({
+              onChange={(token) => {
+                setInputValue("");
+                setSelectedTokenAddress(token);
+              }}
+              options={AVAILABLE_TOKENS.map((token) => ({
                 label: token.symbol,
-                selected: selectedTokenAddress === token.contractAddress,
+                selected:
+                  selectedToken.contractAddress === token.contractAddress,
                 value: token.contractAddress
               }))}
             />
           </div>
-          <div>
+          <button
+            className="text-start text-secondary hover:text-on-surface"
+            onClick={() => setInputValue(balance?.value ?? "0")}
+            type="button"
+          >
             Balance: {balance ? Number(balance.value).toFixed(4) : "0"}{" "}
             {balance && "asset" in balance ? balance.asset.symbol : ""}
-          </div>
+          </button>
           <Button
             className="w-full"
             disabled={
               isPending ||
               !inputValue ||
               Number(inputValue) <= 0 ||
+              Number(inputValue) > Number(balance?.value) ||
               !isAddress(recipient)
             }
             loading={isPending}

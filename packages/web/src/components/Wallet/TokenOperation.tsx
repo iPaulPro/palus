@@ -28,6 +28,8 @@ interface TokenOperationProps {
   setShowModal: (show: boolean) => void;
 }
 
+const AVAILABLE_TOKENS = TOKENS.filter((token) => token.contractAddress !== "");
+
 const TokenOperation = ({
   useMutationHook,
   resultKey,
@@ -39,8 +41,6 @@ const TokenOperation = ({
   showModal,
   setShowModal
 }: TokenOperationProps) => {
-  const tokens = TOKENS.filter((token) => token.contractAddress !== "");
-
   const [selectedToken, setSelectedToken] = useState<string>(tokenAddress);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [maxValue, setMaxValue] = useState<string>("0");
@@ -57,7 +57,7 @@ const TokenOperation = ({
     variables: {
       request: {
         address: walletAddress,
-        ...(selectedToken === CONTRACTS.nativeToken
+        ...(selectedToken.toLowerCase() === CONTRACTS.nativeToken.toLowerCase()
           ? { includeNative: true }
           : { tokens: [selectedToken] })
       }
@@ -85,9 +85,15 @@ const TokenOperation = ({
     setMaxValue(balance);
   }, [walletBalance]);
 
-  const onCompleted = () => {
+  const reset = () => {
     setShowModal(false);
     setIsSubmitting(false);
+    setInputValue("");
+    setSelectedToken(tokenAddress);
+  };
+
+  const onCompleted = () => {
+    reset();
     refetch();
     toast.success(successMessage);
     track("Token operation", {
@@ -148,7 +154,8 @@ const TokenOperation = ({
       variables: {
         request:
           resultKey === "withdraw" || resultKey === "deposit"
-            ? selectedToken === CONTRACTS.nativeToken
+            ? selectedToken.toLowerCase() ===
+              CONTRACTS.nativeToken.toLowerCase()
               ? { native: value }
               : { erc20: { currency: selectedToken, value } }
             : { amount: value }
@@ -157,17 +164,15 @@ const TokenOperation = ({
   };
 
   return (
-    <Modal
-      onClose={() => setShowModal(false)}
-      show={showModal}
-      size="xs"
-      title={title}
-    >
+    <Modal onClose={reset} show={showModal} size="xs" title={title}>
       <div className="space-y-2 p-5">
         {(resultKey === "withdraw" || resultKey === "deposit") && (
           <Select
-            onChange={setSelectedToken}
-            options={tokens.map((token) => ({
+            onChange={(token) => {
+              setSelectedToken(token);
+              setInputValue("");
+            }}
+            options={AVAILABLE_TOKENS.map((token) => ({
               label: token.symbol,
               selected: selectedToken === token.contractAddress,
               value: token.contractAddress
@@ -188,7 +193,13 @@ const TokenOperation = ({
             Max
           </Button>
         </div>
-        <div>Balance: {maxValue ? Number(maxValue).toFixed(4) : "0"}</div>
+        <button
+          className="text-start text-secondary hover:text-on-surface"
+          onClick={() => setInputValue(maxValue)}
+          type="button"
+        >
+          Balance: {maxValue ? Number(maxValue).toFixed(4) : "0"}
+        </button>
         <Button
           className="w-full"
           disabled={
