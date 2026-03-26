@@ -16,6 +16,7 @@ import { Button, Input, Modal, Select } from "@/components/Shared/UI";
 import { ADDRESS_PLACEHOLDER } from "@/data/constants";
 import { CONTRACTS } from "@/data/contracts";
 import { TOKENS } from "@/data/tokens";
+import humanize from "@/helpers/humanize";
 import useUmami from "@/hooks/useUmami";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
@@ -157,7 +158,7 @@ const Send = ({ balances, disabled, refetch }: SendProps) => {
             placeholder={`${ADDRESS_PLACEHOLDER} or wagmi`}
             value={recipient}
           />
-          <div className="flex items-center gap-x-3">
+          <div className="flex min-w-0 items-center gap-x-3">
             <Input
               inputMode="decimal"
               min={0}
@@ -180,11 +181,11 @@ const Send = ({ balances, disabled, refetch }: SendProps) => {
             />
           </div>
           <button
-            className="text-start text-secondary hover:text-on-surface"
+            className="truncate text-start text-secondary hover:text-on-surface"
             onClick={() => setInputValue(balance?.value ?? "0")}
             type="button"
           >
-            Balance: {balance ? Number(balance.value).toFixed(4) : "0"}{" "}
+            Balance: {balance ? humanize(Number(balance.value)) : "0"}{" "}
             {balance && "asset" in balance ? balance.asset.symbol : ""}
           </button>
           <Button

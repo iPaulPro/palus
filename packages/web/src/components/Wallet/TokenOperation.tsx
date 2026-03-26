@@ -11,6 +11,7 @@ import { Button, Input, Modal, Select } from "@/components/Shared/UI";
 import { CONTRACTS } from "@/data/contracts";
 import { TOKENS } from "@/data/tokens";
 import errorToast from "@/helpers/errorToast";
+import humanize from "@/helpers/humanize";
 import { parseLocaleNumber } from "@/helpers/parseLocaleNumber";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useUmami from "@/hooks/useUmami";
@@ -65,6 +66,8 @@ const TokenOperation = ({
   });
 
   useEffect(() => {
+    if (resultKey === "deposit" || !balances) return;
+
     const balance = balances?.find(
       (balance) =>
         (balance.__typename === "NativeAmount" ||
@@ -72,16 +75,20 @@ const TokenOperation = ({
         balance.asset.contract.address.toLowerCase() ===
           selectedToken.toLowerCase()
     ) as NativeAmount | Erc20Amount | undefined;
+
     const value = balance?.value ?? "0";
     setMaxValue(value);
   }, [selectedToken, balances]);
 
   useEffect(() => {
+    if (resultKey !== "deposit" || !walletBalance) return;
+
     const balance =
       walletBalance?.balancesBulk[0].__typename === "Erc20Amount" ||
       walletBalance?.balancesBulk[0].__typename === "NativeAmount"
         ? walletBalance.balancesBulk[0].value
         : "0";
+
     setMaxValue(balance);
   }, [walletBalance]);
 
@@ -165,7 +172,7 @@ const TokenOperation = ({
 
   return (
     <Modal onClose={reset} show={showModal} size="xs" title={title}>
-      <div className="space-y-2 p-5">
+      <div className="min-w-0 space-y-2 p-5">
         {(resultKey === "withdraw" || resultKey === "deposit") && (
           <Select
             onChange={(token) => {
@@ -194,11 +201,11 @@ const TokenOperation = ({
           </Button>
         </div>
         <button
-          className="text-start text-secondary hover:text-on-surface"
+          className="truncate text-start text-secondary hover:text-on-surface"
           onClick={() => setInputValue(maxValue)}
           type="button"
         >
-          Balance: {maxValue ? Number(maxValue).toFixed(4) : "0"}
+          Balance: {maxValue ? humanize(Number(maxValue)) : "0"}
         </button>
         <Button
           className="w-full"
