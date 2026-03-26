@@ -40,7 +40,7 @@ const ViewGroup = () => {
   return (
     <PageLayout title={group.metadata?.name} zeroTopMargin>
       <Cover
-        cover={group.metadata?.coverPicture || `${STATIC_IMAGES_URL}/2.svg`}
+        cover={group.metadata?.coverPicture || `${STATIC_IMAGES_URL}/2.webp`}
       />
       <Details group={group} />
       {isBanned && (

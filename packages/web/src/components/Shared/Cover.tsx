@@ -9,7 +9,7 @@ interface CoverProps {
 const Cover = ({ cover }: CoverProps) => {
   const isDefaultCover = cover.includes(STATIC_IMAGES_URL);
   const backgroundImage = isDefaultCover
-    ? `${STATIC_IMAGES_URL}/2.svg`
+    ? `${STATIC_IMAGES_URL}/2.webp`
     : imageKit(sanitizeDStorageUrl(cover), TRANSFORMS.COVER);
 
   const backgroundStyles = {
@@ -17,7 +17,7 @@ const Cover = ({ cover }: CoverProps) => {
     backgroundImage: `url(${backgroundImage})`,
     backgroundPosition: "center center",
     backgroundRepeat: isDefaultCover ? "repeat" : "no-repeat",
-    backgroundSize: isDefaultCover ? "30%" : "cover"
+    backgroundSize: isDefaultCover ? "15%" : "cover"
   };
 
   return (

@@ -82,7 +82,7 @@ const WalletSelector: FC = () => {
             <span>{getWalletDetails(connector.id).name}</span>
             <img
               alt={connector.id}
-              className="size-6"
+              className="size-6 rounded"
               draggable={false}
               height={24}
               src={getWalletDetails(connector.id).logo}
