@@ -16,7 +16,6 @@ export const componentToPng = async (
     return null;
   }
   return await toPng(component, {
-    cacheBust: true,
     filter: (node: HTMLElement) => {
       return !options.exclusionClasses.some((classname) =>
         node.classList?.contains(classname)

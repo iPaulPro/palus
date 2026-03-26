@@ -83,7 +83,7 @@ const PostActionExecutedNotification = ({
       amount: anyAmount,
       executedBy: action.executedBy,
       timestamp: new Date(action.executedAt),
-      type: "post-tip"
+      type: tipAmount ? "post-tip" : "collect"
     });
     setShowNewPostModal(true);
   };

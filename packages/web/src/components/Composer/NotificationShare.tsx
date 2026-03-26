@@ -12,6 +12,7 @@ import {
   useState
 } from "react";
 import { Image, Tooltip } from "@/components/Shared/UI";
+import { WAVE_BACKGROUNDS } from "@/data/waves";
 import { componentToPng } from "@/helpers/componentToPng";
 import { formatWithZeroSubscript } from "@/helpers/formatValues";
 import getAccount from "@/helpers/getAccount";
@@ -75,14 +76,16 @@ const NotificationShare = forwardRef<
     const amountEl = amountRef.current;
     if (!amountEl) return;
 
-    const containerWidth = CARD_WIDTH - 68 - 24; // left-17 (68px) and right-6 (24px)
-    const maxFontSize = 64;
+    const maxFontSize = 80;
     const minFontSize = 16;
 
     let fontSize = maxFontSize;
     amountEl.style.fontSize = `${fontSize}px`;
 
-    while (fontSize > minFontSize && amountEl.scrollWidth > containerWidth) {
+    while (
+      fontSize > minFontSize &&
+      amountEl.scrollWidth > amountEl.offsetWidth
+    ) {
       fontSize -= 2;
       amountEl.style.fontSize = `${fontSize}px`;
     }
@@ -121,12 +124,17 @@ const NotificationShare = forwardRef<
       style={{ height: CARD_HEIGHT * scale }}
     >
       <div
-        className={`waves-${bgIndex} relative h-75 w-120 origin-top-left overflow-hidden rounded-xl`}
+        className={
+          "flex h-[300px] w-[480px] origin-top-left flex-col overflow-hidden rounded-xl bg-center bg-cover bg-repeat"
+        }
         ref={ref}
         {...props}
-        style={{ transform: `scale(${scale})` }}
+        style={{
+          backgroundImage: `url("${WAVE_BACKGROUNDS[bgIndex]}")`,
+          transform: `scale(${scale})`
+        }}
       >
-        <div className="absolute top-5 left-5 flex items-center gap-x-2 text-2xl text-white">
+        <div className="flex items-center gap-x-[8px] p-[20px] text-2xl text-white">
           <Image
             alt={actor.username}
             className="size-11 flex-none rounded-full border border-border bg-gray-200 object-cover"
@@ -135,7 +143,7 @@ const NotificationShare = forwardRef<
             src={getAvatar(account)}
             width={64}
           />
-          <div className="flex min-w-0 flex-col">
+          <div className="flex w-full flex-col">
             <div className="flex min-w-0 flex-wrap items-center gap-x-1.5">
               <span className="truncate font-bold">{actor.name}</span>
               <span className="truncate pb-0.5 font-semibold text-gray-200">
@@ -146,11 +154,13 @@ const NotificationShare = forwardRef<
           </div>
         </div>
         <div
-          className="-translate-y-1/2 absolute top-1/2 right-6 left-17 text-white drop-shadow-black/30 drop-shadow-xs"
-          ref={amountRef}
+          className="flex w-[480px] flex-grow items-center pr-[24px] pl-[68px] text-white drop-shadow-black/30 drop-shadow-xs"
           style={{ fontSize: amountFontSize, lineHeight: 1.2 }}
         >
-          <div className="flex items-center gap-x-2 whitespace-nowrap pt-7">
+          <div
+            className="flex w-full items-center gap-x-[8px] whitespace-nowrap pb-[24px]"
+            ref={amountRef}
+          >
             <span className="font-bold">
               {notificationShare.amount.__typename === "NativeAmount"
                 ? "$"
@@ -163,58 +173,60 @@ const NotificationShare = forwardRef<
             </span>
           </div>
         </div>
-        <div className="absolute bottom-3 left-5 flex items-center gap-x-2">
+        <div className="flex h-fit flex-none items-center gap-x-[8px] px-[20px] pb-[12px]">
           <Image
             alt="Palus Logo"
-            className="mt-0.5 size-6"
+            className="mt-0.5 size-[24px]"
             height={24}
             src="/favicon.svg"
             width={24}
           />
-          <div className="font-semibold text-base text-black opacity-75">{`palus.app/u/${currentAccount.username.localName}`}</div>
+          <div className="flex-grow font-semibold text-base text-black opacity-75">{`palus.app/u/${currentAccount.username.localName}`}</div>
+          <Image
+            alt="Lens Logo"
+            className="mt-0.5 size-[24px] drop-shadow-black/30 drop-shadow-xs"
+            height={24}
+            src="/images/lens.svg"
+            width={24}
+          />
         </div>
-        <Image
-          alt="Lens Logo"
-          className="absolute right-5 bottom-3 mt-0.5 size-6 drop-shadow-black/30 drop-shadow-xs"
-          height={24}
-          src="/images/lens.svg"
-          width={24}
-        />
-        <div
-          className="controls absolute top-3 right-3 flex origin-top-right gap-2"
-          style={{ transform: `scale(${1 / scale})` }}
-        >
-          <Tooltip content="Previous background" placement="top" withDelay>
-            <button
-              aria-label="Previous background"
-              className="center flex rounded-full bg-black/30 p-2 text-gray-400 hover:text-white"
-              onClick={() => setBgIndex((i) => (i - 1 + 10) % 10)}
-              type="button"
-            >
-              <ChevronLeftIcon className="size-3" strokeWidth={4} />
-            </button>
-          </Tooltip>
-          <Tooltip content="Next background" placement="top" withDelay>
-            <button
-              aria-label="Next background"
-              className="center flex rounded-full bg-black/30 p-2 text-gray-400 hover:text-white"
-              onClick={() => setBgIndex((i) => (i + 1) % 10)}
-              type="button"
-            >
-              <ChevronRightIcon className="size-3" strokeWidth={4} />
-            </button>
-          </Tooltip>
-          <Tooltip content="Download image" placement="top">
-            <button
-              aria-label="Download"
-              className="center flex rounded-full bg-black/30 p-2 text-gray-400 hover:text-white"
-              onClick={downloadImage}
-              type="button"
-            >
-              <ArrowDownTrayIcon className="size-3" strokeWidth={3} />
-            </button>
-          </Tooltip>
-        </div>
+      </div>
+      <div className="controls absolute top-3 right-3 flex origin-top-right gap-2">
+        <Tooltip content="Previous background" placement="top" withDelay>
+          <button
+            aria-label="Previous background"
+            className="center flex rounded-full bg-black/30 p-2 text-gray-400 hover:text-white"
+            onClick={() =>
+              setBgIndex(
+                (i) =>
+                  (i - 1 + WAVE_BACKGROUNDS.length) % WAVE_BACKGROUNDS.length
+              )
+            }
+            type="button"
+          >
+            <ChevronLeftIcon className="size-3" strokeWidth={4} />
+          </button>
+        </Tooltip>
+        <Tooltip content="Next background" placement="top" withDelay>
+          <button
+            aria-label="Next background"
+            className="center flex rounded-full bg-black/30 p-2 text-gray-400 hover:text-white"
+            onClick={() => setBgIndex((i) => (i + 1) % WAVE_BACKGROUNDS.length)}
+            type="button"
+          >
+            <ChevronRightIcon className="size-3" strokeWidth={4} />
+          </button>
+        </Tooltip>
+        <Tooltip content="Download image" placement="top">
+          <button
+            aria-label="Download"
+            className="center flex rounded-full bg-black/30 p-2 text-gray-400 hover:text-white"
+            onClick={downloadImage}
+            type="button"
+          >
+            <ArrowDownTrayIcon className="size-3" strokeWidth={3} />
+          </button>
+        </Tooltip>
       </div>
     </div>
   );
