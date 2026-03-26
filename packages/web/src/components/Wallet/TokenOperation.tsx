@@ -172,7 +172,16 @@ const TokenOperation = ({
 
   return (
     <Modal onClose={reset} show={showModal} size="xs" title={title}>
-      <div className="min-w-0 space-y-2 p-5">
+      <div className="min-w-0 space-y-3 p-5">
+        <p className="pb-1">
+          {resultKey === "deposit"
+            ? "Deposit funds from your connected wallet"
+            : resultKey === "withdraw"
+              ? "Withdraw funds to your connected wallet"
+              : resultKey === "wrapTokens"
+                ? "Wrap your GHO to convert into WGHO"
+                : "Unwrap your WGO tokens back into GHO"}
+        </p>
         {(resultKey === "withdraw" || resultKey === "deposit") && (
           <Select
             onChange={(token) => {
