@@ -6,6 +6,7 @@ import {
   decodeDelegatedTransaction
 } from "@/helpers/decodeTransaction";
 import { encodeParamKey } from "@/helpers/encodeParamKey";
+import formatAddress from "@/helpers/formatAddress";
 import { formatWithZeroSubscript } from "@/helpers/formatValues";
 import nFormatter from "@/helpers/nFormatter";
 import type { Transaction } from "@/types/palus";
@@ -22,9 +23,9 @@ export const camelToCapitalized = (str: string): string => {
 const getReceivedInnerAction = (from: string): string | undefined => {
   switch (from) {
     case CONTRACTS.simpleCollectAction:
-      return "Post collected";
+      return "Post Collected";
     case CONTRACTS.tippingPostAction:
-      return "Post tip";
+      return "Post Tip";
     default:
       return undefined;
   }
@@ -33,15 +34,15 @@ const getReceivedInnerAction = (from: string): string | undefined => {
 const getSentInnerAction = (actionContract: string): string | undefined => {
   switch (actionContract) {
     case CONTRACTS.pollVoteAction:
-      return "Voted on a poll";
+      return "Voted on a Poll";
     case CONTRACTS.simpleCollectAction:
-      return "Collected a post";
+      return "Collected a Post";
     case CONTRACTS.tippingPostAction:
-      return "Tipped a post";
+      return "Tipped a Post";
     case CONTRACTS.tippingAccountAction:
-      return "Tipped an account";
+      return "Tipped an Account";
     case CONTRACTS.pinPostAccountAction:
-      return "Pinned a post";
+      return "Pinned a Post";
     default:
       return undefined;
   }
@@ -91,6 +92,12 @@ export type ParsedTransaction = {
   actionContract?: string;
 };
 
+const getValue = (o: any | undefined): string | undefined => {
+  if (!o) return undefined;
+  if (o.value === undefined || o.value === "0") return undefined;
+  return o.value as string;
+};
+
 export const parseTransaction = (tx: Transaction): ParsedTransaction => {
   let decodedTx: DecodedTransaction | null = null;
   try {
@@ -131,17 +138,20 @@ export const parseTransaction = (tx: Transaction): ParsedTransaction => {
   const token = tokenAddress ? findToken(tokenAddress) : undefined;
 
   // For determining received value when withdrawing wrapped tokens
-  const actionWads =
-    decodedTx?.decodedActions?.reduce(
-      (acc, action) => acc + BigInt(action.parameters?.wad ?? "0"),
-      0n
-    ) ?? 0n;
+  const actionWads = decodedTx?.decodedActions?.[0].parameters?.wad;
+
   const value =
-    BigInt(decodedTx?.value ?? "0") ||
-    BigInt(tx.internal?.value ?? "0") ||
-    decodedTx.transactions?.length === 1
-      ? BigInt(decodedTx.transactions?.[0]?.value ?? "0")
-      : BigInt("0") || actionWads || BigInt(tx.value ?? "0");
+    getValue(decodedTx) ??
+    getValue(tx.internal) ??
+    getValue(
+      decodedTx.transactions?.length === 1
+        ? decodedTx.transactions?.[0]
+        : undefined
+    ) ??
+    decodedTx.decodedActions.find((da) => da.action === "transfer")?.parameters
+      ?.amount ??
+    actionWads ??
+    tx.value;
 
   const target = decodedTx.target ?? decodedTx.transactions?.[0].target;
 
@@ -152,7 +162,7 @@ export const parseTransaction = (tx: Transaction): ParsedTransaction => {
     from: target ? tx.to : tx.from,
     to: target ?? tx.to,
     token,
-    value: value
+    value: BigInt(value ?? "0")
   };
 };
 
@@ -188,7 +198,8 @@ export const getTransactionLabel = (
   }
 
   return {
-    label: "Contract interaction"
+    detail: formatAddress(parsedTx.to),
+    label: "Contract Interaction"
   };
 };
 
