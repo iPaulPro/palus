@@ -169,7 +169,7 @@ export const parseTransaction = (tx: Transaction): ParsedTransaction => {
 export const getTransactionLabel = (
   parsedTx: ParsedTransaction,
   isReceived: boolean
-): { label: string; detail?: string } => {
+): { value: string; detail?: string } => {
   const token = parsedTx.token;
   const transferLabel = `${isReceived ? "Received" : "Sent"} ${token?.symbol || "ERC-20"}`;
 
@@ -178,7 +178,7 @@ export const getTransactionLabel = (
     parsedTx.action === "transfer" ||
     (parsedTx.value > 0n && !parsedTx.action)
   ) {
-    return { label: transferLabel };
+    return { value: transferLabel };
   }
 
   const innerAction = parsedTx.actionContract
@@ -193,13 +193,13 @@ export const getTransactionLabel = (
       detail:
         (parsedTx.contractType === "ERC-20" && parsedTx.token?.symbol) ||
         parsedTx.contractType,
-      label: innerAction ?? camelToCapitalized(parsedTx.action)
+      value: innerAction ?? camelToCapitalized(parsedTx.action)
     };
   }
 
   return {
     detail: formatAddress(parsedTx.to),
-    label: "Contract Interaction"
+    value: "Contract Interaction"
   };
 };
 
