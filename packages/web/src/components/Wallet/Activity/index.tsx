@@ -1,4 +1,8 @@
-import { ArrowsRightLeftIcon, CpuChipIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowsRightLeftIcon,
+  CpuChipIcon,
+  ExclamationCircleIcon
+} from "@heroicons/react/24/outline";
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { useCallback, useRef } from "react";
@@ -301,7 +305,9 @@ const Activity = ({ account }: ActivityProps) => {
                 to={`${BLOCK_EXPLORER_URL}/tx/${tx.hash}`}
               >
                 <div className="flex min-w-0 items-center gap-x-2">
-                  {txValue > 0n ? (
+                  {status === "Failed" ? (
+                    <ExclamationCircleIcon className="size-7 rounded-full bg-red-100 p-1 text-red-600" />
+                  ) : txValue > 0n ? (
                     <ArrowsRightLeftIcon className="size-7 rounded-full bg-gray-200 p-1 text-gray-600 dark:bg-gray-700 dark:text-gray-400" />
                   ) : label.detail ? (
                     <svg
@@ -322,29 +328,9 @@ const Activity = ({ account }: ActivityProps) => {
                     <CpuChipIcon className="size-7 rounded-full bg-gray-200 p-1 text-gray-600 dark:bg-gray-700 dark:text-gray-400" />
                   )}
                   <div className="flex min-w-0 flex-col">
-                    {label.detail ? (
-                      <div className="flex min-w-0 items-center gap-x-1 truncate">
-                        <span className="truncate font-medium">
-                          {label.detail}
-                        </span>
-                        <span className="flex-none rounded-md bg-gray-200 px-1 text-secondary text-sm dark:bg-gray-800">
-                          {label.label}
-                        </span>
-                      </div>
-                    ) : (
-                      <span className="truncate font-medium">
-                        {label.label}
-                      </span>
-                    )}
-                    <span
-                      className={cn(
-                        "text-sm",
-                        status === "Confirmed"
-                          ? "text-green-600"
-                          : "text-red-600"
-                      )}
-                    >
-                      {status}
+                    <span className="truncate font-medium">{label.label}</span>
+                    <span className="text-secondary text-sm">
+                      {label.detail}
                     </span>
                   </div>
                 </div>
