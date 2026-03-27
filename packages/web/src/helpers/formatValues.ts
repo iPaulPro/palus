@@ -15,7 +15,8 @@ export const formatWithZeroSubscript = (
   const unsigned = sign ? numStr.slice(sign.length) : numStr;
 
   const [intPartRaw, fracPartRaw = ""] = unsigned.split(".");
-  const intPart = intPartRaw === "" ? "0" : intPartRaw;
+  const intPart =
+    intPartRaw === "" ? "0" : Intl.NumberFormat().format(Number(intPartRaw));
   const fracPart = fracPartRaw;
 
   // No fractional digits -> return as-is
@@ -31,13 +32,14 @@ export const formatWithZeroSubscript = (
   }
 
   // If there are no repeating zeros after the first fractional digit, return original
-  if (zeroCount === 0) return `${sign}${intPart}.${fracPart}`;
+  if (zeroCount === 0) return `${sign}${intPart}.${fracPart.substring(0, 6)}`;
 
-  // If fractional part is all zeros (e.g. "1.0000"), don't compress — keep original
-  if (zeroCount === fracPart.length - 1) return `${sign}${intPart}.${fracPart}`;
+  // If fractional part is all zeros (e.g. "1.0000"), we can just return the integer part
+  if (zeroCount === fracPart.length - 1) return `${sign}${intPart}`;
 
   // Respect the requested maximum subscript support
-  if (zeroCount > maxSubscript) return `${sign}${intPart}.${fracPart}`;
+  if (zeroCount > maxSubscript)
+    return `${sign}${intPart}.${fracPart.substring(0, 6)}`;
 
   // Map digits to Unicode subscript characters (0-9)
   const subDigits: Record<string, string> = {
