@@ -65,6 +65,7 @@ export interface Transaction {
   input?: string;
   data?: string;
   confirmations?: string;
+  internal?: Transaction;
 }
 
 export interface TransactionsResponse {

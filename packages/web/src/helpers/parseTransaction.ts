@@ -138,12 +138,10 @@ export const parseTransaction = (tx: Transaction): ParsedTransaction => {
     ) ?? 0n;
   const value =
     BigInt(decodedTx?.value ?? "0") ||
-    decodedTx?.transactions?.reduce(
-      (acc, t) => acc + BigInt(t?.value ?? "0"),
-      0n
-    ) ||
-    actionWads ||
-    BigInt(tx.value ?? "0");
+    BigInt(tx.internal?.value ?? "0") ||
+    decodedTx.transactions?.length === 1
+      ? BigInt(decodedTx.transactions?.[0]?.value ?? "0")
+      : BigInt("0") || actionWads || BigInt(tx.value ?? "0");
 
   const target = decodedTx.target ?? decodedTx.transactions?.[0].target;
 

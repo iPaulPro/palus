@@ -105,7 +105,7 @@ const Activity = ({ account }: ActivityProps) => {
               return tx;
             }
             const fullTx = await fetchTransaction(tx.hash);
-            return fullTx ?? tx; // fallback to original if fetch fails
+            return fullTx ? { ...fullTx, internal: tx } : tx; // fallback to original if fetch fails
           })
         );
         return parentTxs;
@@ -276,7 +276,8 @@ const Activity = ({ account }: ActivityProps) => {
           {transactions.map((tx) => {
             const parsedTx = parseTransaction(tx);
             const isReceived =
-              parsedTx.to.toLowerCase() === account.toLowerCase();
+              parsedTx.to.toLowerCase() === account.toLowerCase() ||
+              tx.internal?.to.toLowerCase() === account.toLowerCase();
             const txValue = parsedTx.value;
             const label = getTransactionLabel(parsedTx, isReceived);
             const status = getTransactionStatus(tx);

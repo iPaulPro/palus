@@ -29,7 +29,7 @@ export const formatWithZeroSubscript = (
   }
 
   // If there are no repeating zeros after the first fractional digit, return original
-  if (zeroCount === 0) return `${sign}${intPart}.${fracPart.substring(0, 6)}`;
+  if (zeroCount <= 5) return `${sign}${intPart}.${fracPart.substring(0, 6)}`;
 
   // If fractional part is all zeros (e.g. "1.0000"), we can just return the integer part
   if (zeroCount === fracPart.length - 1) return `${sign}${intPart}`;
