@@ -26,6 +26,8 @@ const getReceivedInnerAction = (from: string): string | undefined => {
       return "Post Collected";
     case CONTRACTS.tippingPostAction:
       return "Post Tip";
+    case CONTRACTS.tippingAccountAction:
+      return "Account Tip";
     default:
       return undefined;
   }
