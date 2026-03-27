@@ -7,9 +7,8 @@ import {
   groupAbi,
   namespaceAbi
 } from "lens-modules/abis";
-import { decodeFunctionData, type Hex, parseAbi } from "viem";
+import { decodeFunctionData, erc20Abi, type Hex, parseAbi } from "viem";
 import { wrappedGhoAbi } from "@/data/abis/wrappedGhoAbi";
-import { NATIVE_TOKEN_SYMBOL } from "@/data/tokens";
 
 interface ABIItem {
   readonly type: string;
@@ -77,6 +76,7 @@ function addFunctionsToMap(
   }
 }
 
+addFunctionsToMap([...erc20Abi], "ERC-20");
 addFunctionsToMap([...accountAbi], "Account");
 addFunctionsToMap([...feedAbi], "Feed");
 addFunctionsToMap([...graphAbi], "Graph");
@@ -84,7 +84,7 @@ addFunctionsToMap([...groupAbi], "Group");
 addFunctionsToMap([...namespaceAbi], "Namespace");
 addFunctionsToMap([...appAbi], "App");
 addFunctionsToMap([...actionHubAbi], "ActionHub");
-addFunctionsToMap([...wrappedGhoAbi], NATIVE_TOKEN_SYMBOL);
+addFunctionsToMap([...wrappedGhoAbi], "Wrapped GHO");
 
 export function decodeDelegatedTransaction(calldata: Hex): DecodedTransaction {
   try {
@@ -257,6 +257,7 @@ function decodeInnerAction(target: string, data: Hex): DecodedAction {
     }
 
     const abiSets = [
+      { abi: erc20Abi, name: "ERC-20" },
       { abi: feedAbi, name: "Feed" },
       { abi: graphAbi, name: "Graph" },
       { abi: groupAbi, name: "Group" },
@@ -264,7 +265,7 @@ function decodeInnerAction(target: string, data: Hex): DecodedAction {
       { abi: appAbi, name: "App" },
       { abi: accountAbi, name: "Account" },
       { abi: actionHubAbi, name: "ActionHub" },
-      { abi: wrappedGhoAbi, name: NATIVE_TOKEN_SYMBOL }
+      { abi: wrappedGhoAbi, name: "Wrapped GHO" }
     ];
 
     for (const { abi, name } of abiSets) {

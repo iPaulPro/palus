@@ -52,15 +52,18 @@ export type AnyNotificationFragment =
   | TokenDistributedNotificationFragment;
 
 export interface Transaction {
-  timeStamp: string;
+  timeStamp?: string;
+  receivedAt?: string;
   hash: string;
   from: string;
   to: string;
   value: string;
-  isError: string;
+  isError?: string;
+  error?: string;
   type: string;
   blockNumber: string;
   input?: string;
+  data?: string;
   confirmations?: string;
 }
 

@@ -2,42 +2,50 @@ import { CONTRACTS } from "./contracts";
 
 export const IS_TESTNET = import.meta.env.VITE_USE_TESTNET === "true";
 
-export const TOKENS = [
+export type Token = {
+  contractAddress: string;
+  decimals: number;
+  name: string;
+  symbol: string;
+};
+
+export const TOKENS: Token[] = [
   {
     contractAddress: CONTRACTS.nativeToken,
     decimals: 18,
     name: IS_TESTNET ? "GRASS" : "GHO",
-    symbol: IS_TESTNET ? "GRASS" : "GHO",
-    tipAmounts: [0.1, 0.5, 1, 5, 10]
+    symbol: IS_TESTNET ? "GRASS" : "GHO"
   },
   {
     contractAddress: CONTRACTS.weth,
     decimals: 18,
     name: "Ether",
-    symbol: "ETH",
-    tipAmounts: [0.00005, 0.00025, 0.0005, 0.0025, 0.005]
+    symbol: "ETH"
   },
   {
     contractAddress: CONTRACTS.pointlessToken,
     decimals: 18,
     name: "pointless",
-    symbol: "pointless",
-    tipAmounts: [1_000_000, 5_000_000, 10_000_000, 50_000_000, 100_000_000]
+    symbol: "pointless"
   },
   {
     contractAddress: CONTRACTS.usdc,
     decimals: 6,
     name: "USDC",
-    symbol: "USDC",
-    tipAmounts: [0.1, 0.5, 1, 5, 10]
+    symbol: "USDC"
   },
   {
     contractAddress: CONTRACTS.wrappedNativeToken,
     decimals: 18,
     name: IS_TESTNET ? "Wrapped GRASS" : "Wrapped GHO",
-    symbol: IS_TESTNET ? "WGRASS" : "WGHO",
-    tipAmounts: [0.1, 0.5, 1, 5, 10]
+    symbol: IS_TESTNET ? "WGRASS" : "WGHO"
   }
 ];
 
 export const NATIVE_TOKEN_SYMBOL = IS_TESTNET ? "GRASS" : "GHO";
+
+export const findToken = (address: string) => {
+  return TOKENS.find(
+    (token) => token.contractAddress.toLowerCase() === address.toLowerCase()
+  );
+};

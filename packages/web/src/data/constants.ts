@@ -24,8 +24,8 @@ export const BLOCK_EXPLORER_URL = IS_TESTNET
   ? "https://explorer.testnet.lens.xyz"
   : "https://explorer.lens.xyz";
 export const BLOCK_EXPLORER_API_URL = IS_TESTNET
-  ? "https://explorer-api.testnet.lens.xyz/api/"
-  : "https://explorer-api.lens.xyz/api/";
+  ? "https://explorer-api.testnet.lens.xyz"
+  : "https://explorer-api.lens.xyz";
 
 // Storage
 export const STORAGE_NODE_URL = "https://api.grove.storage/";

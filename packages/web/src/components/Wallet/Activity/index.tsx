@@ -3,7 +3,7 @@ import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import dayjs from "dayjs";
 import { useCallback, useRef } from "react";
 import { Link } from "react-router";
-import { formatEther, type Hex } from "viem";
+import { formatEther, formatUnits } from "viem";
 import { Virtualizer } from "virtua";
 import PullToRefresh from "@/components/Shared/PullToRefresh";
 import {
@@ -17,11 +17,11 @@ import { BLOCK_EXPLORER_API_URL, BLOCK_EXPLORER_URL } from "@/data/constants";
 import { NATIVE_TOKEN_SYMBOL } from "@/data/tokens";
 import cn from "@/helpers/cn";
 import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
-import { decodeDelegatedTransaction } from "@/helpers/decodeTransaction";
 import {
   getTransactionLabel,
   getTransactionStatus,
-  getTransactionValueDisplay
+  getTransactionValueDisplay,
+  parseTransaction
 } from "@/helpers/parseTransaction";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import type {
@@ -44,7 +44,7 @@ const Activity = ({ account }: ActivityProps) => {
   ): Promise<number | null> => {
     try {
       const response = await fetch(
-        `${BLOCK_EXPLORER_API_URL}?module=block&action=getblocknobytime&closest=before&timestamp=${timestamp}`
+        `${BLOCK_EXPLORER_API_URL}/api?module=block&action=getblocknobytime&closest=before&timestamp=${timestamp}`
       );
 
       if (!response.ok) {
@@ -63,6 +63,21 @@ const Activity = ({ account }: ActivityProps) => {
     }
   };
 
+  const fetchTransaction = async (
+    hash: string
+  ): Promise<Transaction | null> => {
+    try {
+      const response = await fetch(
+        `${BLOCK_EXPLORER_API_URL}/transactions/${hash}`
+      );
+      if (!response.ok) return null;
+      const data = await response.json();
+      return data as Transaction;
+    } catch {
+      return null;
+    }
+  };
+
   const fetchTransactionList = async (
     startBlock: number,
     endBlock: number,
@@ -70,17 +85,30 @@ const Activity = ({ account }: ActivityProps) => {
   ): Promise<Transaction[]> => {
     try {
       const response = await fetch(
-        `${BLOCK_EXPLORER_API_URL}?module=account&action=${action}&startblock=${startBlock}&endblock=${endBlock}&sort=desc&address=${account}&offset=1000`
+        `${BLOCK_EXPLORER_API_URL}/api?module=account&action=${action}&startblock=${startBlock}&endblock=${endBlock}&sort=desc&address=${account}&offset=1000`
       );
 
-      if (!response.ok) {
-        return [];
-      }
+      if (!response.ok) return [];
 
       const data: TransactionsResponse = await response.json();
 
       if (data.status !== "1" || !Array.isArray(data.result)) {
         return [];
+      }
+
+      if (action === "txlistinternal") {
+        const transactions = data.result as Transaction[];
+        // call getTransaction for each result to get the input data for parsing
+        const parentTxs = await Promise.all(
+          transactions.map(async (tx) => {
+            if (tx.input || tx.data) {
+              return tx;
+            }
+            const fullTx = await fetchTransaction(tx.hash);
+            return fullTx ?? tx; // fallback to original if fetch fails
+          })
+        );
+        return parentTxs;
       }
 
       return data.result;
@@ -159,7 +187,15 @@ const Activity = ({ account }: ActivityProps) => {
 
     // Merge and sort by timestamp descending
     const allTransactions = [...uniqueTxs, ...uniqueInternalTxs].sort(
-      (a, b) => Number(b.timeStamp) - Number(a.timeStamp)
+      (a, b) => {
+        const aTime = a.timeStamp
+          ? Number(a.timeStamp)
+          : new Date(a.receivedAt ?? 0).getTime() / 1000;
+        const bTime = b.timeStamp
+          ? Number(b.timeStamp)
+          : new Date(b.receivedAt ?? 0).getTime() / 1000;
+        return bTime - aTime;
+      }
     );
 
     // We can continue if either list had transactions and startBlock > 0
@@ -238,39 +274,20 @@ const Activity = ({ account }: ActivityProps) => {
       <div className="h-full overflow-y-auto bg-card">
         <Virtualizer>
           {transactions.map((tx) => {
-            const decodedTx = tx.input
-              ? decodeDelegatedTransaction(tx.input as Hex)
-              : null;
-
-            // For determining received value when withdrawing wrapped tokens
-            const actionWads =
-              decodedTx?.decodedActions?.reduce(
-                (acc, action) => acc + BigInt(action.parameters?.wad ?? "0"),
-                0n
-              ) ?? 0n;
-
-            const isReceived = decodedTx
-              ? decodedTx?.decodedActions?.[0]?.target?.toLowerCase() ===
-                  account.toLowerCase() || actionWads > 0n
-              : tx.to.toLowerCase() === account.toLowerCase();
-
-            const txValue =
-              BigInt(decodedTx?.value ?? "0") ||
-              decodedTx?.transactions?.reduce(
-                (acc, t) => acc + BigInt(t?.value ?? "0"),
-                0n
-              ) ||
-              actionWads ||
-              BigInt(tx.value ?? "0");
-            const label = getTransactionLabel(
-              decodedTx,
-              tx,
-              isReceived,
-              txValue
-            );
+            const parsedTx = parseTransaction(tx);
+            const isReceived =
+              parsedTx.to.toLowerCase() === account.toLowerCase();
+            const txValue = parsedTx.value;
+            const label = getTransactionLabel(parsedTx, isReceived);
             const status = getTransactionStatus(tx);
-            const value = getTransactionValueDisplay(txValue, isReceived);
-            const date = dayjs(Number(tx.timeStamp) * 1000);
+            const value = getTransactionValueDisplay(
+              txValue,
+              isReceived,
+              parsedTx.token
+            );
+            const date = dayjs(
+              tx.timeStamp ? Number(tx.timeStamp) * 1000 : tx.receivedAt
+            );
 
             return (
               <Link
@@ -323,9 +340,7 @@ const Activity = ({ account }: ActivityProps) => {
                         "text-sm",
                         status === "Confirmed"
                           ? "text-green-600"
-                          : status === "Failed"
-                            ? "text-red-600"
-                            : "text-yellow-600"
+                          : "text-red-600"
                       )}
                     >
                       {status}
@@ -344,7 +359,7 @@ const Activity = ({ account }: ActivityProps) => {
                     </Tooltip>
                   </span>
                   <Tooltip
-                    content={`${formatEther(txValue).toString()} ${NATIVE_TOKEN_SYMBOL}`}
+                    content={`${parsedTx.token?.decimals ? formatUnits(txValue, parsedTx.token.decimals) : formatEther(txValue)} ${parsedTx.token?.symbol ?? NATIVE_TOKEN_SYMBOL}`}
                     placement="left"
                   >
                     <span

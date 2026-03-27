@@ -2,12 +2,9 @@ export const formatWithZeroSubscript = (
   numStr: string,
   maxSubscript = 16
 ): string => {
-  // Normalize input
-  if (typeof numStr !== "string") numStr = String(numStr);
   numStr = numStr.trim();
 
-  // Quick path: no decimal point
-  if (!numStr.includes(".")) return numStr;
+  if (!numStr.includes(".")) return Intl.NumberFormat().format(Number(numStr));
 
   // Capture sign, integer part and fractional part
   const signMatch = numStr.match(/^([+-]?)(.*)$/);
@@ -64,5 +61,5 @@ export const formatWithZeroSubscript = (
   const firstDigit = fracPart[0];
   const rest = fracPart.slice(1 + zeroCount); // everything after the compressed zeros
 
-  return `${sign}${intPart}.${firstDigit}${toSubscript(zeroCount)}${rest}`;
+  return `${sign}${intPart}.${firstDigit}${toSubscript(zeroCount + 1)}${rest}`;
 };
