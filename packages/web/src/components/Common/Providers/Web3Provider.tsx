@@ -14,7 +14,7 @@ import {
 const connectors = [
   metaMask({
     dappMetadata: {
-      iconUrl: "https://palus.app/web-app-manifest-512x512.png",
+      iconUrl: "https://palus.app/icon-512.png",
       name: "Palus",
       url: "https://palus.app"
     },

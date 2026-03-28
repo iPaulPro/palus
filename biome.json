@@ -25,7 +25,8 @@
       "!**/generated.ts",
       "!**/expo-env.d.ts",
       "!**/package.json",
-      "!packages/web/src/assets/**/*"
+      "!packages/web/src/assets/**/*",
+      "!packages/web/public/site.webmanifest"
     ]
   },
   "formatter": {

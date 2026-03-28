@@ -1,21 +1,47 @@
 {
   "background_color": "#ffffff",
+  "categories": ["multimedia", "social", "social networking"],
+  "description": "An open-source Web3 social media platform built on Lens.",
   "display": "standalone",
   "icons": [
     {
       "purpose": "maskable",
       "sizes": "192x192",
-      "src": "/web-app-manifest-192x192.png",
+      "src": "/icon-192.png",
       "type": "image/png"
     },
     {
       "purpose": "maskable",
       "sizes": "512x512",
-      "src": "/web-app-manifest-512x512.png",
+      "src": "/icon-512.png",
       "type": "image/png"
     }
   ],
   "name": "Palus",
+  "screenshots": [
+    {
+	  "src": "https://api.grove.storage/170620f034149965ddc4c52e361d573fd0f94f3e20d4f105e426cd93c31a23b0",
+	  "sizes": "794x1692",
+	  "type": "image/webp",
+	  "label": "Home feed",
+	  "form_factor": "narrow"
+	},
+	{
+	  "src": "https://api.grove.storage/91d8a7d6d7801f4c26d0cec75e1000ecbcfa785df43daa7868440ea3be7549a6",
+	  "sizes": "784x1692",
+	  "type": "image/webp",
+	  "label": "Profile page",
+      "form_factor": "narrow"
+	},
+    {
+	  "src": "https://api.grove.storage/bff93e0d3ea4cbb63eef98ae1ba59bda97c3c0d966924964566dc91a855eda17",
+	  "sizes": "780x1689",
+	  "type": "image/webp",
+	  "label": "Account wallet",
+      "form_factor": "narrow"
+	}
+  ],
   "short_name": "Palus",
+  "start_url": "/",
   "theme_color": "#0170a3"
 }
