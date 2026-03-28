@@ -6,7 +6,7 @@ import {
 import { useInfiniteQuery, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useRef } from "react";
 import { Link } from "react-router";
-import { formatEther, formatUnits } from "viem";
+import { formatUnits } from "viem";
 import { Virtualizer } from "virtua";
 import PullToRefresh from "@/components/Shared/PullToRefresh";
 import {
@@ -17,7 +17,7 @@ import {
 } from "@/components/Shared/UI";
 import ActivityShimmer from "@/components/Wallet/Activity/Shimmer";
 import { BLOCK_EXPLORER_URL } from "@/data/constants";
-import { NATIVE_TOKEN_SYMBOL } from "@/data/tokens";
+import { CONTRACTS } from "@/data/contracts";
 import cn from "@/helpers/cn";
 import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
 import {
@@ -106,10 +106,10 @@ const Activity = ({ account }: ActivityProps) => {
               className={
                 "mb-1 flex items-center justify-between rounded-lg px-3 py-2 hover:bg-gray-300/20 sm:p-2"
               }
-              key={`${item.tx.hash}-${item.tx.to}`}
+              key={`${item.hash}`}
               rel="noreferrer noopener"
               target="_blank"
-              to={`${BLOCK_EXPLORER_URL}/tx/${item.tx.hash}`}
+              to={`${BLOCK_EXPLORER_URL}/tx/${item.hash}`}
             >
               <div className="flex min-w-0 items-center gap-x-2">
                 {item.status === "Failed" ? (
@@ -155,20 +155,28 @@ const Activity = ({ account }: ActivityProps) => {
                   </Tooltip>
                 </span>
                 <Tooltip
-                  content={`${item.parsedTx.token?.decimals ? formatUnits(item.txValue, item.parsedTx.token.decimals) : formatEther(item.txValue)} ${item.parsedTx.token?.symbol ?? NATIVE_TOKEN_SYMBOL}`}
+                  content={`${formatUnits(item.txValue, item.parsedTx.token?.decimals ?? 18)} ${item.parsedTx.token?.symbol ?? ""}`}
                   placement="left"
                 >
                   <span
                     className={cn(
                       "font-medium",
-                      item.txValue === 0n
-                        ? "text-secondary"
-                        : item.isReceived
+                      item.flow === "swap"
+                        ? "text-on-surface"
+                        : item.flow === "in"
                           ? "text-green-600"
-                          : "text-red-600"
+                          : item.txValue === 0n
+                            ? "text-secondary opacity-50"
+                            : "text-red-600"
                     )}
                   >
-                    {item.valueDisplay}
+                    {item.valueDisplay}{" "}
+                    {item.parsedTx.token?.contractAddress ===
+                      CONTRACTS.nativeToken ||
+                    item.parsedTx.token?.contractAddress ===
+                      CONTRACTS.wrappedNativeToken
+                      ? ""
+                      : (item.parsedTx.token?.symbol ?? "")}
                   </span>
                 </Tooltip>
               </div>

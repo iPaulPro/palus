@@ -17,9 +17,9 @@ import type {
 const ONE_WEEK_SECONDS = 7 * 24 * 60 * 60;
 
 export type TransactionItem = {
-  tx: Transaction;
+  hash: string;
   parsedTx: ParsedTransaction;
-  isReceived: boolean;
+  flow: "in" | "out" | "swap";
   txValue: bigint;
   label: { value: string; detail?: string };
   status: "Confirmed" | "Failed";
@@ -31,23 +31,20 @@ const toTransactionItem = (
   tx: Transaction,
   account: string
 ): TransactionItem => {
-  const parsedTx = parseTransaction(tx);
-  const isReceived =
-    parsedTx.to.toLowerCase() === account.toLowerCase() ||
-    tx.internal?.to.toLowerCase() === account.toLowerCase();
+  const parsedTx = parseTransaction(tx, account);
   const txValue = parsedTx.value;
 
   return {
     date: dayjs(tx.timeStamp ? Number(tx.timeStamp) * 1000 : tx.receivedAt),
-    isReceived,
-    label: getTransactionLabel(parsedTx, isReceived),
+    flow: parsedTx.flow,
+    hash: tx.hash,
+    label: getTransactionLabel(parsedTx, parsedTx.flow),
     parsedTx,
     status: getTransactionStatus(tx),
-    tx,
     txValue,
     valueDisplay: getTransactionValueDisplay(
       txValue,
-      isReceived,
+      parsedTx.flow,
       parsedTx.token
     )
   };
