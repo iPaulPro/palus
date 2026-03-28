@@ -1,5 +1,7 @@
 import { useMemo } from "react";
+import { Link } from "react-router";
 import { Button, Image, Tooltip } from "@/components/Shared/UI";
+import { BLOCK_EXPLORER_URL } from "@/data/constants";
 import { CONTRACTS } from "@/data/contracts";
 import { formatWithZeroSubscript } from "@/helpers/formatValues";
 import getTokenImage from "@/helpers/getTokenImage";
@@ -53,7 +55,11 @@ const TokenBalance = ({
   }, [value]);
 
   return (
-    <div className="group flex items-center justify-between gap-5 rounded-xl hover:bg-surface sm:p-2">
+    <Link
+      className="group flex cursor-pointer items-center justify-between gap-5 rounded-xl hover:bg-surface sm:p-2"
+      target="_blank"
+      to={`${BLOCK_EXPLORER_URL}/address/${contractAddress}`}
+    >
       <div className="flex min-w-0 items-center gap-2">
         <Image
           alt={symbol}
@@ -71,7 +77,10 @@ const TokenBalance = ({
         {isNative ? (
           <Button
             disabled={disabled || Number(value) === 0}
-            onClick={onClick}
+            onClick={(e) => {
+              e.preventDefault();
+              onClick();
+            }}
             outline
             size="sm"
           >
@@ -89,7 +98,7 @@ const TokenBalance = ({
           </span>
         </Tooltip>
       </div>
-    </div>
+    </Link>
   );
 };
 
