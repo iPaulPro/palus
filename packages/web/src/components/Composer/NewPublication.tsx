@@ -389,7 +389,6 @@ const NewPublication = ({
         }
       });
     } catch (error) {
-      console.error(error);
       onError(error);
     }
   };

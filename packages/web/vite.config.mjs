@@ -1,7 +1,7 @@
 import tailwindcss from "@tailwindcss/vite";
 // import basicSsl from "@vitejs/plugin-basic-ssl";
 import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 
 const codeSplittingGroups = [
   { name: "apollo", test: /node_modules\/@apollo\// },
@@ -59,7 +59,7 @@ const codeSplittingGroups = [
 ];
 
 export default defineConfig(({ mode }) => {
-  // const env = loadEnv(mode, process.cwd(), "");
+  const env = loadEnv(mode, process.cwd(), "");
   return {
     build: {
       rolldownOptions: {
@@ -70,8 +70,7 @@ export default defineConfig(({ mode }) => {
           strictExecutionOrder: true
         }
       },
-      // sourcemap: env.VITE_SOURCEMAP === "1" ? "hidden" : false,
-      sourcemap: true,
+      sourcemap: env.VITE_SOURCEMAP === "1" ? "hidden" : false,
       target: "esnext"
     },
     plugins: [
