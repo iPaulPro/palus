@@ -29,11 +29,13 @@ import SessionsSettings from "@/components/Settings/Sessions";
 import UsernameSettings from "@/components/Settings/Username";
 import Custom404 from "@/components/Shared/404";
 import Wallet from "@/components/Wallet";
+import useInstallListener from "@/hooks/useInstallListener";
 import useWatchWindowResize from "@/hooks/useWatchWindowResize";
 import RewardsSettings from "./components/Settings/Rewards";
 
 const Routes = () => {
   useWatchWindowResize();
+  useInstallListener();
 
   return (
     <BrowserRouter>
