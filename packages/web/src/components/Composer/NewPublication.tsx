@@ -282,9 +282,10 @@ const NewPublication = ({
     }
 
     try {
+      setPostContentError("");
       setIsSubmitting(true);
+
       if (hasAudio) {
-        setPostContentError("");
         const parsedData = AudioPostSchema.safeParse(audioPost);
         if (!parsedData.success) {
           const issue = parsedData.error.issues[0];
@@ -301,8 +302,6 @@ const NewPublication = ({
           } should not be empty!`
         );
       }
-
-      setPostContentError("");
 
       const baseMetadata = {
         content: postContent.length > 0 ? postContent : undefined,
@@ -390,6 +389,7 @@ const NewPublication = ({
         }
       });
     } catch (error) {
+      console.error(error);
       onError(error);
     }
   };
