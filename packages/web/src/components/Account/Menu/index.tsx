@@ -9,9 +9,9 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import Ban from "./Ban";
 import Block from "./Block";
 import CopyAddress from "./CopyAddress";
-import CopyLink from "./CopyLink";
 import Mute from "./Mute";
 import Report from "./Report";
+import Share from "./Share";
 
 interface AccountMenuProps {
   account: AccountFragment;
@@ -38,7 +38,7 @@ const AccountMenu = ({ account }: AccountMenuProps) => {
           className="mt-2 w-48 origin-top-right rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-gray-900"
           static
         >
-          <CopyLink account={account} />
+          <Share account={account} />
           <CopyAddress account={account} />
           <OpenExplorer account={account} />
           {currentAccount && currentAccount?.address !== account.address ? (
