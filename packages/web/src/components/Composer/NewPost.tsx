@@ -1,10 +1,8 @@
 import type { GroupFragment } from "@palus/indexer";
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router";
+import { useState } from "react";
 import { Card, Image } from "@/components/Shared/UI";
 import getAvatar from "@/helpers/getAvatar";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import NewPublication from "./NewPublication";
 
@@ -13,27 +11,13 @@ interface NewPostProps {
 }
 
 const NewPost = ({ group }: NewPostProps) => {
-  const [searchParams] = useSearchParams();
-  const text = searchParams.get("text");
-  const url = searchParams.get("url");
-  const via = searchParams.get("via");
-
   const { currentAccount } = useAccountStore();
-  const { setPostContent } = usePostStore();
   const { bannedAccounts } = useBannedAccountsStore();
   const [showComposer, setShowComposer] = useState(false);
 
   const handleOpenComposer = () => {
     setShowComposer(true);
   };
-
-  useEffect(() => {
-    if (text) {
-      const content = `${text}${url ? `\n\n${url}` : ""}${via ? `\n\nvia @${via}` : ""}`;
-      handleOpenComposer();
-      setPostContent(content);
-    }
-  }, [text, url, via]);
 
   if (currentAccount && bannedAccounts.includes(currentAccount.address)) {
     return null;

@@ -16,6 +16,7 @@ import BottomNavigation from "@/components/Shared/Navbar/BottomNavigation";
 import { Spinner } from "@/components/Shared/UI";
 import { ADMIN_GROUP_ADDRESS } from "@/data/constants";
 import reloadAllTabs from "@/helpers/reloadAllTabs";
+import useShareTargetListener from "@/hooks/useShareTargetListener";
 import { useTheme } from "@/hooks/useTheme";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -30,6 +31,8 @@ const Layout = () => {
   const isMounted = useIsClient();
   const { accessToken } = hydrateAuthTokens();
   const { setBannedAccounts } = useBannedAccountsStore();
+
+  useShareTargetListener();
 
   useEffect(() => {
     if (pathname === "/") return; // let CachedWindowVirtualizer handle scroll restoration on home page
