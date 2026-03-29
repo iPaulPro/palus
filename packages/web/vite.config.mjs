@@ -1,4 +1,5 @@
 import tailwindcss from "@tailwindcss/vite";
+// import basicSsl from "@vitejs/plugin-basic-ssl";
 import react from "@vitejs/plugin-react";
 import { defineConfig, loadEnv } from "vite";
 
@@ -75,6 +76,7 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(),
       tailwindcss()
+      // basicSsl()
       // visualizer({
       //   filename: "dist/stats.html",
       //   open: true,
@@ -87,5 +89,9 @@ export default defineConfig(({ mode }) => {
     resolve: {
       tsconfigPaths: true
     }
+    // server: {
+    //   host: true, // Enables access from other devices on the network
+    //   https: true
+    // }
   };
 });
