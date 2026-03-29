@@ -33,20 +33,19 @@ const useInstallListener = () => {
     return (
       <div className="flex flex-grow justify-end">
         <Button
-          className="text-on-surface-invert"
+          className="flex-none invert"
           onClick={async () => {
             if (!installEvent) return;
             const choice = await installEvent.prompt();
-            track("Install Prompted", {
-              outcome: choice.outcome,
-              ...(choice.platform
-                ? { platform: choice.platform }
-                : installEvent.platforms.length
-                  ? { platform: installEvent.platforms.join() }
-                  : {})
-            });
+            if (choice.outcome === "accepted") {
+              track("Install Prompted", {
+                outcome: "accepted",
+                ...(choice.platform && { platform: choice.platform })
+              });
+            } else {
+              toast.dismiss(TOAST_ID);
+            }
             setShowInstallPrompt(false);
-            toast.dismiss(TOAST_ID);
           }}
           outline
         >
