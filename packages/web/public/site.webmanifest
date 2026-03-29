@@ -31,8 +31,13 @@
 	   "type": "image/png"
 	 }
   ],
+  "handle_links": "preferred",
   "id": "/",
+  "launch_handler": {
+    "client_mode": "focus-existing"
+  },
   "name": "Palus",
+  "scope": "/",
   "screenshots": [
     {
       "form_factor": "narrow",
@@ -81,8 +86,5 @@
     }
   ],
   "start_url": "/",
-  "theme_color": "#0170a3",
-  "url_handlers": [
-    { "origin": "https://palus.app" }
-  ]
+  "theme_color": "#0170a3"
 }
