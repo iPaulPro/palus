@@ -31,6 +31,7 @@
 	   "type": "image/png"
 	 }
   ],
+  "id": "/",
   "name": "Palus",
   "screenshots": [
     {
@@ -56,6 +57,20 @@
     }
   ],
   "short_name": "Palus",
+  "shortcuts": [
+    {
+      "name": "Notifications",
+      "url": "/notifications"
+    },
+    {
+      "name": "Search",
+      "url": "/search"
+    },
+    {
+      "name": "Wallet",
+      "url": "/wallet"
+    }
+  ],
   "start_url": "/",
   "theme_color": "#0170a3"
 }

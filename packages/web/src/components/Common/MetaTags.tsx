@@ -7,7 +7,7 @@ interface MetaTagsProps {
 
 const MetaTags = ({
   title = "Palus",
-  description = "Palus is a social network for the open web"
+  description = "Palus is an open-source Web3 social media platform built on Lens"
 }: MetaTagsProps) => {
   return (
     <Helmet>
