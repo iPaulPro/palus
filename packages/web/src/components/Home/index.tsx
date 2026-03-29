@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import NewPost from "@/components/Composer/NewPost";
-import ExploreFeed from "@/components/Explore/ExploreFeed";
 import FloatingNewPostButton from "@/components/Post/FloatingNewPostButton";
 import PageLayout from "@/components/Shared/PageLayout";
 import { HomeFeedType } from "@/data/enums";
@@ -40,7 +39,7 @@ const Home = () => {
       ) : (
         <>
           <Hero />
-          <ExploreFeed />
+          <TopAccounts />
         </>
       )}
     </PageLayout>
