@@ -6,6 +6,8 @@ import useUmami from "@/hooks/useUmami";
 import { useInstallPromptStore } from "@/store/non-persisted/alert/installPromptStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 
+const TOAST_ID = "prompt-install";
+
 const useInstallListener = () => {
   const { track } = useUmami();
   const { event: installEvent, setEvent } = useInstallPromptStore();
@@ -44,6 +46,7 @@ const useInstallListener = () => {
                   : {})
             });
             setShowInstallPrompt(false);
+            toast.dismiss(TOAST_ID);
           }}
           outline
         >
@@ -60,7 +63,7 @@ const useInstallListener = () => {
       action: <InstallAction />,
       duration: Number.POSITIVE_INFINITY,
       icon: <ArrowDownTrayIcon className="size-5" />,
-      id: "prompt-install",
+      id: TOAST_ID,
       invert: true,
       onDismiss: () => {
         track("Install Prompted", {
