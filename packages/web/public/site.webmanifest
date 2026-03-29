@@ -72,5 +72,8 @@
     }
   ],
   "start_url": "/",
-  "theme_color": "#0170a3"
+  "theme_color": "#0170a3",
+  "url_handlers": [
+    { "origin": "https://palus.app" },
+  ]
 }
