@@ -47,7 +47,6 @@ const useInstallListener = () => {
             }
             setShowInstallPrompt(false);
           }}
-          outline
         >
           Install
         </Button>
