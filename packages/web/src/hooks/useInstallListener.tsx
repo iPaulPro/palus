@@ -1,5 +1,5 @@
 import { ArrowDownTrayIcon } from "@heroicons/react/24/outline";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { Button } from "@/components/Shared/UI";
 import useUmami from "@/hooks/useUmami";
@@ -12,6 +12,7 @@ const useInstallListener = () => {
   const { track } = useUmami();
   const { event: installEvent, setEvent } = useInstallPromptStore();
   const { showInstallPrompt, setShowInstallPrompt } = usePreferencesStore();
+  const [autoDismissed, setAutoDismissed] = useState(false);
 
   useEffect(() => {
     const promptedListener = (e: any) => {
@@ -42,10 +43,10 @@ const useInstallListener = () => {
                 outcome: "accepted",
                 ...(choice.platform && { platform: choice.platform })
               });
-            } else {
-              toast.dismiss(TOAST_ID);
+              setAutoDismissed(true);
+              setShowInstallPrompt(false);
             }
-            setShowInstallPrompt(false);
+            toast.dismiss(TOAST_ID);
           }}
         >
           Install
@@ -64,6 +65,7 @@ const useInstallListener = () => {
       id: TOAST_ID,
       invert: true,
       onDismiss: () => {
+        if (autoDismissed) return;
         track("Install Prompted", {
           outcome: "dismissed",
           ...(installEvent.platforms.length && {
