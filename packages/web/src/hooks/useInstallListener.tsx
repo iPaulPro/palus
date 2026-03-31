@@ -55,8 +55,8 @@ const useInstallListener = () => {
     );
   };
 
-  const prompt = async () => {
-    if (!installEvent || !showInstallPrompt) return;
+  const prompt = async (override?: boolean) => {
+    if (!installEvent || (!showInstallPrompt && !override)) return;
 
     toast("Install Palus as an app", {
       action: <InstallAction />,

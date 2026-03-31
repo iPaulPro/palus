@@ -1,10 +1,12 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import type { AccountFragment } from "@palus/indexer";
+import { useMediaQuery } from "@uidotdev/usehooks";
 import { Link } from "react-router";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Bookmarks from "@/components/Shared/Navbar/NavItems/Bookmarks";
 import Groups from "@/components/Shared/Navbar/NavItems/Groups";
+import Install from "@/components/Shared/Navbar/NavItems/Install";
 import Logout from "@/components/Shared/Navbar/NavItems/Logout";
 import Settings from "@/components/Shared/Navbar/NavItems/Settings";
 import Support from "@/components/Shared/Navbar/NavItems/Support";
@@ -12,12 +14,16 @@ import SwitchAccount from "@/components/Shared/Navbar/NavItems/SwitchAccount";
 import ThemeSwitch from "@/components/Shared/Navbar/NavItems/ThemeSwitch";
 import YourAccount from "@/components/Shared/Navbar/NavItems/YourAccount";
 import cn from "@/helpers/cn";
+import { IS_STANDALONE } from "@/helpers/mediaQueries";
+import { useInstallPromptStore } from "@/store/non-persisted/alert/installPromptStore";
 import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const MobileDrawerMenu = () => {
   const { currentAccount } = useAccountStore();
   const { setShow: setShowMobileDrawer } = useMobileDrawerModalStore();
+  const { event: installEvent } = useInstallPromptStore();
+  const isStandalone = useMediaQuery(IS_STANDALONE);
 
   const handleCloseDrawer = () => {
     setShowMobileDrawer(false);
@@ -72,6 +78,13 @@ const MobileDrawerMenu = () => {
           </div>
           <div className="divider" />
         </div>
+        {!isStandalone && installEvent ? (
+          <div className="bg-white dark:bg-gray-900">
+            <div className="divider" />
+            <Install className={cn(itemClass, "px-4")} />
+            <div className="divider" />
+          </div>
+        ) : null}
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
           <Link onClick={handleCloseDrawer} to="/support">
