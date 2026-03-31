@@ -26,15 +26,24 @@ const useHasNewNotifications = () => {
 
   const latestNotification = data?.notifications?.items[0];
   if (!latestNotification || !currentAccount) {
+    navigator.clearAppBadge().catch();
     return false;
   }
 
   const latestTimestamp = getNotificationTimestamp(latestNotification);
   if (!latestTimestamp) {
+    navigator.clearAppBadge().catch();
     return false;
   }
 
-  return new Date(latestTimestamp) > new Date(lastSeenNotificationTimestamp);
+  const hasNew =
+    new Date(latestTimestamp) > new Date(lastSeenNotificationTimestamp);
+  if (hasNew) {
+    navigator.setAppBadge().catch();
+  } else {
+    navigator.clearAppBadge().catch();
+  }
+  return hasNew;
 };
 
 export default useHasNewNotifications;
