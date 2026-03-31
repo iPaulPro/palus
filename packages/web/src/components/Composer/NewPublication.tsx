@@ -489,7 +489,7 @@ const NewPublication = ({
       <div className="block shrink-0 items-center border-border border-t px-5 py-3 sm:flex">
         <div
           className={cn("flex w-full items-center space-x-5", {
-            "pb-6": isStandalone && isModal
+            "pb-6 sm:pb-0": isStandalone && isModal
           })}
         >
           <Attachment

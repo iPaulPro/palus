@@ -55,7 +55,7 @@ const PageLayout = ({
         className={cn(
           "mt-4 mb-16 min-w-0 flex-1 space-y-4 md:mt-5 md:mb-5 md:space-y-5",
           {
-            "mb-28": isStandalone,
+            "mb-28 sm:mb-16": isStandalone,
             "mt-0 md:mt-5": zeroTopMargin
           }
         )}
