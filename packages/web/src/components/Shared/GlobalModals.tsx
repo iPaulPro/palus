@@ -1,4 +1,5 @@
 import { useMediaQuery } from "@uidotdev/usehooks";
+import { useEffect } from "react";
 import NewPublication from "@/components/Composer/NewPublication";
 import SuperFollow from "@/components/Shared/Account/SuperFollow";
 import SwitchAccounts from "@/components/Shared/Account/SwitchAccounts";
@@ -268,7 +269,9 @@ const DraftModalContent = ({
   ) => void;
 }) => {
   // Load draft data into stores on mount
-  loadDraftIntoStores(draft);
+  useEffect(() => {
+    loadDraftIntoStores(draft);
+  }, [draft.id]);
 
   return (
     <NewPublication

@@ -143,7 +143,7 @@ const DraftList = ({ group, parentPostId }: DraftListProps) => {
                   {draft.parentPost ? " · Reply" : ""}
                   {draft.quotedPost ? " · Quote" : ""}
                   {draft.group
-                    ? ` · ${draft.group.metadata?.name || "Group"}`
+                    ? ` · ${draft.group.metadata?.name || "Unnamed group"}`
                     : ""}
                 </p>
               </div>
