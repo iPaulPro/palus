@@ -16,6 +16,7 @@ import getAccount from "@/helpers/getAccount";
 import { IS_MOBILE } from "@/helpers/mediaQueries";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useCreateGroupStore } from "@/store/non-persisted/modal/useCreateGroupStore";
+import { useDraftModalStore } from "@/store/non-persisted/modal/useDraftModalStore";
 import { useFundModalStore } from "@/store/non-persisted/modal/useFundModalStore";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
 import { usePinPostModalStore } from "@/store/non-persisted/modal/usePinPostModalStore";
@@ -25,7 +26,14 @@ import { useSuperFollowModalStore } from "@/store/non-persisted/modal/useSuperFo
 import { useSuperJoinModalStore } from "@/store/non-persisted/modal/useSuperJoinModalStore";
 import { useSwitchAccountModalStore } from "@/store/non-persisted/modal/useSwitchAccountModalStore";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
+import { usePostAudioStore } from "@/store/non-persisted/post/usePostAudioStore";
+import { usePostContentWarningStore } from "@/store/non-persisted/post/usePostContentWarningStore";
+import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
+import { usePostPollStore } from "@/store/non-persisted/post/usePostPollStore";
+import { usePostRulesStore } from "@/store/non-persisted/post/usePostRulesStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
+import { usePostVideoStore } from "@/store/non-persisted/post/usePostVideoStore";
+import { toNewAttachment } from "@/types/draft";
 import Auth from "./Auth";
 
 const GlobalModals = () => {
@@ -44,6 +52,18 @@ const GlobalModals = () => {
     setNotificationShare
   } = usePostStore();
   const { setAttachments } = usePostAttachmentStore();
+  const { setAudioPost } = usePostAudioStore();
+  const { setVideoThumbnail, setVideoDurationInSeconds } = usePostVideoStore();
+  const { setContentWarning } = usePostContentWarningStore();
+  const { setPollConfig, setShowPollEditor } = usePostPollStore();
+  const { setLicense } = usePostLicenseStore();
+  const {
+    setCollectorsOnly,
+    setFollowersOnly,
+    setFollowingOnly,
+    setGroupGate
+  } = usePostRulesStore();
+  const { draft, showDraftModal, setShowDraftModal } = useDraftModalStore();
   const { authModalType, showAuthModal, setShowAuthModal } =
     useAuthModalStore();
   const {
@@ -79,6 +99,24 @@ const GlobalModals = () => {
       : "Login";
 
   const isSmallDevice = useMediaQuery(IS_MOBILE);
+
+  const loadDraftIntoStores = (d: NonNullable<typeof draft>) => {
+    setPostContent(d.postContent);
+    setAttachments(d.attachments.map(toNewAttachment));
+    setAudioPost(d.audioPost);
+    setVideoThumbnail({ ...d.videoThumbnail, uploading: false });
+    setVideoDurationInSeconds(d.videoDurationInSeconds);
+    setQuotedPost(d.quotedPost);
+    setParentPost(d.parentPost);
+    setContentWarning(d.contentWarning);
+    setPollConfig(d.pollConfig);
+    setShowPollEditor(d.showPollEditor);
+    setLicense(d.license);
+    setCollectorsOnly(d.collectorsOnly);
+    setFollowersOnly(d.followersOnly);
+    setFollowingOnly(d.followingOnly);
+    setGroupGate(d.groupGate);
+  };
 
   return (
     <>
@@ -140,6 +178,33 @@ const GlobalModals = () => {
           post={parentPost}
         />
       </Modal>
+      {draft ? (
+        <Modal
+          afterLeave={() => {
+            setPostContent("");
+            setQuotedPost(undefined);
+            setParentPost(undefined);
+            setNotificationShare(undefined);
+            setAttachments([]);
+          }}
+          onClose={() => setShowDraftModal(false)}
+          preventClose={true}
+          show={showDraftModal}
+          size={isSmallDevice ? "full" : "md"}
+          title={
+            draft.parentPost
+              ? `Reply to @${getAccount(draft.parentPost.author).username}`
+              : draft.quotedPost
+                ? "Quote post"
+                : "Draft"
+          }
+        >
+          <DraftModalContent
+            draft={draft}
+            loadDraftIntoStores={loadDraftIntoStores}
+          />
+        </Modal>
+      ) : null}
       <Modal
         onClose={() => setShowFundModal({ showFundModal: false })}
         show={showFundModal}
@@ -186,6 +251,33 @@ const GlobalModals = () => {
         <PinPostConfirm />
       </Modal>
     </>
+  );
+};
+
+/**
+ * Separate component so that NewPublication gets its own EditorContext when
+ * rendered inside the draft modal (independent from the main new-post modal).
+ */
+const DraftModalContent = ({
+  draft,
+  loadDraftIntoStores
+}: {
+  draft: NonNullable<ReturnType<typeof useDraftModalStore>["draft"]>;
+  loadDraftIntoStores: (
+    d: NonNullable<ReturnType<typeof useDraftModalStore>["draft"]>
+  ) => void;
+}) => {
+  // Load draft data into stores on mount
+  loadDraftIntoStores(draft);
+
+  return (
+    <NewPublication
+      className="!rounded-b-xl !rounded-t-none border-none"
+      draftId={draft.id}
+      group={draft.group}
+      isModal
+      post={draft.parentPost}
+    />
   );
 };
 

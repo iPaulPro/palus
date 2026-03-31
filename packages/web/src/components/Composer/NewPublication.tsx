@@ -29,6 +29,7 @@ import cn from "@/helpers/cn";
 import collectActionParams from "@/helpers/collectActionParams";
 import { componentToPng } from "@/helpers/componentToPng";
 import errorToast from "@/helpers/errorToast";
+import generateUUID from "@/helpers/generateUUID";
 import getAccount from "@/helpers/getAccount";
 import getMentions from "@/helpers/getMentions";
 import getPostData from "@/helpers/getPostData";
@@ -62,6 +63,9 @@ import {
   usePostVideoStore
 } from "@/store/non-persisted/post/usePostVideoStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { useDraftStore } from "@/store/persisted/useDraftStore";
+import type { PostDraft } from "@/types/draft";
+import { toDraftAttachment } from "@/types/draft";
 import type { IGif } from "@/types/giphy";
 import type { NewAttachment } from "@/types/misc";
 import { Editor, useEditorContext, withEditorContext } from "./Editor";
@@ -71,19 +75,25 @@ interface NewPublicationProps {
   post?: PostFragment;
   group?: GroupFragment;
   isModal?: boolean;
+  draftId?: string;
 }
 
 const NewPublication = ({
   className,
   post,
   group,
-  isModal
+  isModal,
+  draftId: initialDraftId
 }: NewPublicationProps) => {
   const { currentAccount } = useAccountStore();
   const { bannedAccounts } = useBannedAccountsStore();
 
   // New post modal store
   const { setShow: setShowNewPostModal } = useNewPostModalStore();
+
+  // Draft store
+  const { saveDraft, removeDraft } = useDraftStore();
+  const [draftId] = useState(() => initialDraftId || generateUUID());
 
   // Post store
   const {
@@ -105,7 +115,8 @@ const NewPublication = ({
   const { audioPost, setAudioPost } = usePostAudioStore();
 
   // Video store
-  const { setVideoThumbnail, videoThumbnail } = usePostVideoStore();
+  const { setVideoThumbnail, videoThumbnail, videoDurationInSeconds } =
+    usePostVideoStore();
 
   // Attachment store
   const { addAttachments, attachments, isUploading, setAttachments } =
@@ -116,7 +127,7 @@ const NewPublication = ({
     usePostPollStore();
 
   // License store
-  const { setLicense } = usePostLicenseStore();
+  const { license, setLicense } = usePostLicenseStore();
 
   // Collect module store
   const { collectAction, reset: resetCollectSettings } = useCollectActionStore(
@@ -133,7 +144,7 @@ const NewPublication = ({
     setGroupGate,
     setCollectorsOnly
   } = usePostRulesStore();
-  const { setContentWarning } = usePostContentWarningStore();
+  const { contentWarning, setContentWarning } = usePostContentWarningStore();
 
   // States
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -185,6 +196,7 @@ const NewPublication = ({
   };
 
   const onCompleted = () => {
+    removeDraft(draftId);
     reset();
   };
 
@@ -261,6 +273,77 @@ const NewPublication = ({
 
     setPostContentError("");
   }, [postContent]);
+
+  // Autosave draft (debounced via debouncedPostContent)
+  const debouncedAttachments = useDebounce(attachments, 2000);
+  const debouncedAudioPost = useDebounce(audioPost, 2000);
+  const debouncedPollConfig = useDebounce(pollConfig, 2000);
+  const draftCreatedAt = useRef(Date.now());
+
+  useEffect(() => {
+    if (editingPost) {
+      return;
+    }
+
+    const hasContent =
+      debouncedPostContent.length > 0 ||
+      debouncedAttachments.length > 0 ||
+      showPollEditor;
+
+    if (!hasContent) {
+      return;
+    }
+
+    const draft: PostDraft = {
+      attachments: debouncedAttachments.map(toDraftAttachment),
+      audioPost: debouncedAudioPost,
+      collectAction,
+      collectorsOnly,
+      contentWarning,
+      createdAt: draftCreatedAt.current,
+      followersOnly,
+      followingOnly,
+      group: selectedGroup,
+      groupGate,
+      id: draftId,
+      license,
+      parentPost: post,
+      pollConfig: debouncedPollConfig,
+      postContent,
+      quotedPost,
+      showPollEditor,
+      updatedAt: Date.now(),
+      videoDurationInSeconds,
+      videoThumbnail: {
+        mimeType: videoThumbnail.mimeType,
+        url: videoThumbnail.url
+      }
+    };
+
+    saveDraft(draft);
+  }, [
+    editingPost,
+    draftId,
+    debouncedPostContent,
+    postContent,
+    debouncedAttachments,
+    debouncedAudioPost,
+    videoThumbnail,
+    videoDurationInSeconds,
+    quotedPost,
+    post,
+    selectedGroup,
+    contentWarning,
+    debouncedPollConfig,
+    showPollEditor,
+    collectAction,
+    license,
+    collectorsOnly,
+    followersOnly,
+    followingOnly,
+    groupGate,
+    saveDraft
+  ]);
 
   const {
     data: canComment,

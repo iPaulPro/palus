@@ -4,6 +4,7 @@ import { Card, Image } from "@/components/Shared/UI";
 import getAvatar from "@/helpers/getAvatar";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import DraftList from "./DraftList";
 import NewPublication from "./NewPublication";
 
 interface NewPostProps {
@@ -28,21 +29,24 @@ const NewPost = ({ group }: NewPostProps) => {
   }
 
   return (
-    <Card
-      className="cursor-pointer space-y-3 px-3 py-4 md:px-5"
-      onClick={handleOpenComposer}
-    >
-      <div className="flex items-center space-x-3">
-        <Image
-          alt={currentAccount?.address}
-          className="size-11 cursor-pointer rounded-full border border-gray-200 bg-gray-200 object-cover dark:border-gray-800"
-          height={44}
-          src={getAvatar(currentAccount)}
-          width={44}
-        />
-        <span className="text-gray-500 dark:text-gray-200">What's new?</span>
-      </div>
-    </Card>
+    <>
+      <Card
+        className="cursor-pointer space-y-3 px-3 py-4 md:px-5"
+        onClick={handleOpenComposer}
+      >
+        <div className="flex items-center space-x-3">
+          <Image
+            alt={currentAccount?.address}
+            className="size-11 cursor-pointer rounded-full border border-gray-200 bg-gray-200 object-cover dark:border-gray-800"
+            height={44}
+            src={getAvatar(currentAccount)}
+            width={44}
+          />
+          <span className="text-gray-500 dark:text-gray-200">What's new?</span>
+        </div>
+      </Card>
+      <DraftList group={group} />
+    </>
   );
 };
 
