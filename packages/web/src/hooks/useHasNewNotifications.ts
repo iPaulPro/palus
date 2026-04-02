@@ -6,6 +6,18 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useNotificationStore } from "@/store/persisted/useNotificationStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 
+const clearAppBadge = () => {
+  if ("clearAppBadge" in navigator) {
+    navigator.clearAppBadge().catch();
+  }
+};
+
+const setAppBadge = () => {
+  if ("setAppBadge" in navigator) {
+    navigator.setAppBadge().catch();
+  }
+};
+
 const useHasNewNotifications = () => {
   const { currentAccount } = useAccountStore();
   const { lastSeenNotificationTimestamp } = useNotificationStore();
@@ -26,22 +38,22 @@ const useHasNewNotifications = () => {
 
   const latestNotification = data?.notifications?.items[0];
   if (!latestNotification || !currentAccount) {
-    navigator.clearAppBadge().catch();
+    clearAppBadge();
     return false;
   }
 
   const latestTimestamp = getNotificationTimestamp(latestNotification);
   if (!latestTimestamp) {
-    navigator.clearAppBadge().catch();
+    clearAppBadge();
     return false;
   }
 
   const hasNew =
     new Date(latestTimestamp) > new Date(lastSeenNotificationTimestamp);
   if (hasNew) {
-    navigator.setAppBadge().catch();
+    setAppBadge();
   } else {
-    navigator.clearAppBadge().catch();
+    clearAppBadge();
   }
   return hasNew;
 };
