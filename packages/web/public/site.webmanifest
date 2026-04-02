@@ -74,15 +74,36 @@
   "shortcuts": [
     {
       "name": "Notifications",
-      "url": "/notifications"
+      "url": "/notifications",
+      "icons": [
+		{
+		  "sizes": "192x192",
+		  "src": "/images/ic_notifications.png",
+		  "type": "image/png"
+		}
+	  ]
     },
     {
       "name": "Search",
-      "url": "/search"
+      "url": "/search",
+      "icons": [
+		{
+		  "sizes": "192x192",
+		  "src": "/images/ic_search.png",
+		  "type": "image/png"
+		}
+	  ]
     },
     {
       "name": "Wallet",
-      "url": "/wallet"
+      "url": "/wallet",
+      "icons": [
+		{
+		  "sizes": "192x192",
+		  "src": "/images/ic_wallet.png",
+		  "type": "image/png"
+		}
+	  ]
     }
   ],
   "start_url": "/",
