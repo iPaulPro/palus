@@ -23,7 +23,7 @@ import useUmami from "@/hooks/useUmami";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { ApolloClientError } from "@/types/errors";
 
-const submitButtonClassName = "w-full py-1.5 text-sm font-semibold";
+const submitButtonClassName = "w-full py-2 sm:py-1.5 text-base font-semibold";
 
 interface TipMenuProps {
   closePopover: () => void;
@@ -34,7 +34,7 @@ interface TipMenuProps {
 const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const { currentAccount } = useAccountStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [amount, setAmount] = useState(0.1);
+  const [amount, setAmount] = useState(0.01);
   const [other, setOther] = useState(false);
   const handleTransactionLifecycle = useTransactionLifecycle();
   const { cache } = useApolloClient();
@@ -176,7 +176,16 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
           </span>
         </div>
       </div>
-      <div className="flex gap-x-3">
+      <div className="flex gap-x-2">
+        <Button
+          className="flex-1 py-2 sm:py-1"
+          disabled={amountDisabled}
+          onClick={() => handleSetAmount(0.01)}
+          outline={amount !== 0.01}
+          size="sm"
+        >
+          $0.01
+        </Button>
         <Button
           className="flex-1"
           disabled={amountDisabled}
@@ -184,7 +193,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
           outline={amount !== 0.1}
           size="sm"
         >
-          $0.1
+          $0.10
         </Button>
         <Button
           className="flex-1"
@@ -193,13 +202,13 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
           outline={amount !== 0.5}
           size="sm"
         >
-          $0.5
+          $0.50
         </Button>
         <Button
           className="flex-1"
           disabled={amountDisabled}
           onClick={() => handleSetAmount(1)}
-          outline={amount !== 1}
+          outline={amount !== 5}
           size="sm"
         >
           $1
@@ -207,17 +216,8 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
         <Button
           className="flex-1"
           disabled={amountDisabled}
-          onClick={() => handleSetAmount(5)}
-          outline={amount !== 5}
-          size="sm"
-        >
-          $5
-        </Button>
-        <Button
-          className="flex-1"
-          disabled={amountDisabled}
           onClick={() => {
-            handleSetAmount(other ? 0.1 : 10);
+            handleSetAmount(other ? 0.01 : 5);
             setOther(!other);
           }}
           outline={!other}
