@@ -42,7 +42,7 @@ const PostActions = ({ post, showCount = true }: PostActionsProps) => {
     >
       <span
         className={cn("flex flex-grow flex-wrap items-center", {
-          "gap-x-6":
+          "gap-x-4 sm:gap-x-5":
             showCount &&
             (!showShareMenu || !hasCollectAction || isPostFromCurrentAccount),
           "gap-x-7": !showCount,
