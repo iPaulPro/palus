@@ -10,7 +10,7 @@ import AccountLink from "@/components/Shared/Account/AccountLink";
 import AccountPreview from "@/components/Shared/Account/AccountPreview";
 import TopAccount from "@/components/Shared/Badges/TopAccount";
 import PostLink from "@/components/Shared/Post/PostLink";
-import { Image } from "@/components/Shared/UI";
+import { Image, Tooltip } from "@/components/Shared/UI";
 import { TRANSFORMS } from "@/data/constants";
 import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
 import getAccount from "@/helpers/getAccount";
@@ -72,7 +72,9 @@ const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
           <span className="text-gray-500 dark:text-gray-200">
             &#8729;{" "}
             <PostLink className="text-sm hover:underline" post={post}>
-              {formatRelativeOrAbsolute(timestamp)}
+              <Tooltip content={new Date(timestamp).toLocaleString()}>
+                {formatRelativeOrAbsolute(timestamp)}
+              </Tooltip>
             </PostLink>
           </span>
         ) : null}
