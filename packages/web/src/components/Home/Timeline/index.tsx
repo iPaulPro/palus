@@ -1,4 +1,4 @@
-import { EyeIcon, UserGroupIcon } from "@heroicons/react/24/outline";
+import { UserGroupIcon } from "@heroicons/react/24/outline";
 import {
   TimelineEventItemType,
   type TimelineRequest,
@@ -121,10 +121,9 @@ const Timeline = ({ onScroll }: TimelineProps) => {
                   <div className="h-full w-[1px] border-gray-200 border-l dark:border-gray-800" />
                 </div>
                 <PostLink
-                  className="flex items-center gap-1 pt-2 pb-4 pl-3 font-bold text-gray-500 text-sm hover:underline dark:text-gray-200"
+                  className="flex items-center gap-1 pt-2 pb-4 pl-3 font-semibold text-brand-500 text-brand-500 text-sm hover:underline"
                   post={timelineItem.primary}
                 >
-                  <EyeIcon className="size-4" />
                   Show {remainingCommentsCount} other{" "}
                   {remainingCommentsCount === 1 ? "comment" : "comments"}
                 </PostLink>
