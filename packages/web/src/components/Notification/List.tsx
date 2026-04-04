@@ -59,6 +59,9 @@ const List = ({ feedType }: ListProps) => {
 
   useEffect(() => {
     seenAtMountRef.current = lastSeenNotificationTimestamp;
+    if ("clearAppBadge" in navigator) {
+      navigator.clearAppBadge().catch();
+    }
   }, [notificationRefreshSignal]);
 
   const getNotificationType = (feedType: string) => {
@@ -145,6 +148,15 @@ const List = ({ feedType }: ListProps) => {
     [notifications, bannedAccounts]
   );
 
+  const updateLastSeenTimestamp = (timestamp: string) => {
+    if (timestamp) {
+      setLastSeenNotificationTimestamp(timestamp);
+      if ("clearAppBadge" in navigator) {
+        navigator.clearAppBadge().catch();
+      }
+    }
+  };
+
   useEffect(() => {
     const firstNotification = notifications?.[0];
     if (
@@ -155,9 +167,7 @@ const List = ({ feedType }: ListProps) => {
       return;
     }
     const timestamp = getNotificationTimestamp(firstNotification);
-    if (timestamp) {
-      setLastSeenNotificationTimestamp(timestamp);
-    }
+    updateLastSeenTimestamp(timestamp);
   }, [notifications]);
 
   const handleEndReached = useCallback(async () => {

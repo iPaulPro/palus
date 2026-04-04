@@ -1,20 +1,16 @@
 import { useNotificationIndicatorQuery } from "@palus/indexer";
 import { useVisibilityChange } from "@uidotdev/usehooks";
+import { useMemo } from "react";
 import { getNotificationTimestamp } from "@/helpers/getNotificationTimestamp";
 import { useIntervalWhen } from "@/hooks/useIntervalWhen";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useNotificationStore } from "@/store/persisted/useNotificationStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
+import type { AnyNotificationFragment } from "@/types/palus";
 
-const clearAppBadge = () => {
-  if ("clearAppBadge" in navigator) {
-    navigator.clearAppBadge().catch();
-  }
-};
-
-const setAppBadge = () => {
+const setAppBadge = (count: number) => {
   if ("setAppBadge" in navigator) {
-    navigator.setAppBadge().catch();
+    navigator.setAppBadge(count).catch();
   }
 };
 
@@ -36,26 +32,23 @@ const useHasNewNotifications = () => {
     when: documentVisible
   });
 
-  const latestNotification = data?.notifications?.items[0];
-  if (!latestNotification || !currentAccount) {
-    clearAppBadge();
-    return false;
-  }
+  return useMemo(() => {
+    if (!currentAccount) {
+      setAppBadge(0);
+      return false;
+    }
 
-  const latestTimestamp = getNotificationTimestamp(latestNotification);
-  if (!latestTimestamp) {
-    clearAppBadge();
-    return false;
-  }
+    const newNotifications = data?.notifications.items.filter(
+      (n) =>
+        getNotificationTimestamp(n as AnyNotificationFragment) >
+        lastSeenNotificationTimestamp
+    );
 
-  const hasNew =
-    new Date(latestTimestamp) > new Date(lastSeenNotificationTimestamp);
-  if (hasNew) {
-    setAppBadge();
-  } else {
-    clearAppBadge();
-  }
-  return hasNew;
+    const count = newNotifications?.length ?? 0;
+    setAppBadge(count);
+
+    return count > 0;
+  }, [currentAccount, data, lastSeenNotificationTimestamp]);
 };
 
 export default useHasNewNotifications;

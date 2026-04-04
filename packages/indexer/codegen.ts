@@ -25,6 +25,7 @@ const config: CodegenConfig = {
         addDocBlocks: false,
         disableDescriptions: true,
         noGraphQLTag: true,
+        nonOptionalTypename: true,
         useTypeImports: true,
         withMutationFn: false,
         withMutationOptionsType: false,

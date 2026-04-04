@@ -57,13 +57,13 @@ export type AccessControlRequest = {
 };
 
 export type AccessControlResult = {
-  __typename?: 'AccessControlResult';
+  __typename: 'AccessControlResult';
   address: Scalars['EvmAddress']['output'];
   createdAt: Scalars['DateTime']['output'];
 };
 
 export type Account = {
-  __typename?: 'Account';
+  __typename: 'Account';
   actions: Array<AccountAction>;
   address: Scalars['EvmAddress']['output'];
   createdAt: Scalars['DateTime']['output'];
@@ -100,7 +100,7 @@ export type AccountActionExecuteInput = {
 export type AccountActionExecuted = TippingAccountActionExecuted | UnknownAccountActionExecuted;
 
 export type AccountActionExecutedNotification = {
-  __typename?: 'AccountActionExecutedNotification';
+  __typename: 'AccountActionExecutedNotification';
   actions: Array<AccountActionExecuted>;
   id: Scalars['GeneratedNotificationId']['output'];
 };
@@ -131,7 +131,7 @@ export type AccountBalancesRequest = {
 };
 
 export type AccountBlocked = {
-  __typename?: 'AccountBlocked';
+  __typename: 'AccountBlocked';
   account: Account;
   blockedAt: Scalars['DateTime']['output'];
 };
@@ -142,7 +142,7 @@ export type AccountBlockedNotificationFilter = {
 };
 
 export type AccountBlockedResponse = {
-  __typename?: 'AccountBlockedResponse';
+  __typename: 'AccountBlockedResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -152,7 +152,7 @@ export type AccountCreatedNotificationFilter = {
 };
 
 export type AccountExecutedActions = {
-  __typename?: 'AccountExecutedActions';
+  __typename: 'AccountExecutedActions';
   account: Account;
   firstAt: Scalars['DateTime']['output'];
   lastAt: Scalars['DateTime']['output'];
@@ -160,7 +160,7 @@ export type AccountExecutedActions = {
 };
 
 export type AccountFeedsStats = {
-  __typename?: 'AccountFeedsStats';
+  __typename: 'AccountFeedsStats';
   collects: Scalars['Int']['output'];
   comments: Scalars['Int']['output'];
   posts: Scalars['Int']['output'];
@@ -181,7 +181,7 @@ export type AccountFeedsStatsRequest = {
 };
 
 export type AccountFollowOperationValidationFailed = {
-  __typename?: 'AccountFollowOperationValidationFailed';
+  __typename: 'AccountFollowOperationValidationFailed';
   reason: Scalars['String']['output'];
   unsatisfiedRules?: Maybe<AccountFollowUnsatisfiedRules>;
 };
@@ -189,19 +189,19 @@ export type AccountFollowOperationValidationFailed = {
 export type AccountFollowOperationValidationOutcome = AccountFollowOperationValidationFailed | AccountFollowOperationValidationPassed | AccountFollowOperationValidationUnknown;
 
 export type AccountFollowOperationValidationPassed = {
-  __typename?: 'AccountFollowOperationValidationPassed';
+  __typename: 'AccountFollowOperationValidationPassed';
   passed: Scalars['AlwaysTrue']['output'];
 };
 
 export type AccountFollowOperationValidationRule = AccountFollowRule | GraphRule;
 
 export type AccountFollowOperationValidationUnknown = {
-  __typename?: 'AccountFollowOperationValidationUnknown';
+  __typename: 'AccountFollowOperationValidationUnknown';
   extraChecksRequired: Array<AccountFollowOperationValidationRule>;
 };
 
 export type AccountFollowRule = {
-  __typename?: 'AccountFollowRule';
+  __typename: 'AccountFollowRule';
   address: Scalars['EvmAddress']['output'];
   config: Array<AnyKeyValue>;
   id: Scalars['RuleId']['output'];
@@ -229,7 +229,7 @@ export enum AccountFollowRuleUnsatisfiedReason {
 }
 
 export type AccountFollowRules = {
-  __typename?: 'AccountFollowRules';
+  __typename: 'AccountFollowRules';
   anyOf: Array<AccountFollowRule>;
   required: Array<AccountFollowRule>;
 };
@@ -240,7 +240,7 @@ export type AccountFollowRulesProcessingParams = {
 };
 
 export type AccountFollowUnsatisfiedRule = {
-  __typename?: 'AccountFollowUnsatisfiedRule';
+  __typename: 'AccountFollowUnsatisfiedRule';
   config: Array<AnyKeyValue>;
   message: Scalars['String']['output'];
   reason: AccountFollowRuleUnsatisfiedReason;
@@ -248,7 +248,7 @@ export type AccountFollowUnsatisfiedRule = {
 };
 
 export type AccountFollowUnsatisfiedRules = {
-  __typename?: 'AccountFollowUnsatisfiedRules';
+  __typename: 'AccountFollowUnsatisfiedRules';
   anyOf: Array<AccountFollowUnsatisfiedRule>;
   required: Array<AccountFollowUnsatisfiedRule>;
 };
@@ -261,7 +261,7 @@ export type AccountFollowedNotificationFilter = {
 };
 
 export type AccountGraphsFollowStats = {
-  __typename?: 'AccountGraphsFollowStats';
+  __typename: 'AccountGraphsFollowStats';
   followers: Scalars['Int']['output'];
   following: Scalars['Int']['output'];
 };
@@ -280,14 +280,14 @@ export type AccountIsMemberOfGroupRequest = {
 };
 
 export type AccountManaged = {
-  __typename?: 'AccountManaged';
+  __typename: 'AccountManaged';
   account: Account;
   addedAt: Scalars['DateTime']['output'];
   permissions: AccountManagerPermissions;
 };
 
 export type AccountManager = {
-  __typename?: 'AccountManager';
+  __typename: 'AccountManager';
   addedAt: Scalars['DateTime']['output'];
   isLensManager: Scalars['Boolean']['output'];
   manager: Scalars['EvmAddress']['output'];
@@ -306,7 +306,7 @@ export type AccountManagerChallengeRequest = {
 };
 
 export type AccountManagerPermissions = {
-  __typename?: 'AccountManagerPermissions';
+  __typename: 'AccountManagerPermissions';
   canExecuteTransactions: Scalars['Boolean']['output'];
   canSetMetadataUri: Scalars['Boolean']['output'];
   /** @deprecated Use `canTransferTokens` instead. */
@@ -337,7 +337,7 @@ export type AccountManagersRequest = {
 };
 
 export type AccountMention = {
-  __typename?: 'AccountMention';
+  __typename: 'AccountMention';
   account: Scalars['EvmAddress']['output'];
   namespace: Scalars['EvmAddress']['output'];
   replace: MentionReplace;
@@ -352,7 +352,7 @@ export type AccountMentionedNotificationFilter = {
 };
 
 export type AccountMetadata = {
-  __typename?: 'AccountMetadata';
+  __typename: 'AccountMetadata';
   attributes: Array<MetadataAttribute>;
   bio?: Maybe<Scalars['String']['output']>;
   coverPicture?: Maybe<Scalars['URI']['output']>;
@@ -372,7 +372,7 @@ export type AccountMetadataPictureArgs = {
 };
 
 export type AccountOwned = {
-  __typename?: 'AccountOwned';
+  __typename: 'AccountOwned';
   account: Account;
   addedAt: Scalars['DateTime']['output'];
 };
@@ -388,7 +388,7 @@ export type AccountOwnershipTransferredNotificationFilter = {
 };
 
 export type AccountPostReaction = {
-  __typename?: 'AccountPostReaction';
+  __typename: 'AccountPostReaction';
   account: Account;
   reactions: Array<PostReaction>;
 };
@@ -430,7 +430,7 @@ export type AccountScoreFilter = {
 };
 
 export type AccountStats = {
-  __typename?: 'AccountStats';
+  __typename: 'AccountStats';
   feedStats: AccountFeedsStats;
   graphFollowStats: AccountGraphsFollowStats;
 };
@@ -448,7 +448,7 @@ export type AccountUnblockedNotificationFilter = {
 };
 
 export type AccountUnblockedResponse = {
-  __typename?: 'AccountUnblockedResponse';
+  __typename: 'AccountUnblockedResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -517,7 +517,7 @@ export type AccountsRequest = {
 };
 
 export type ActionMetadata = {
-  __typename?: 'ActionMetadata';
+  __typename: 'ActionMetadata';
   authors: Array<Scalars['String']['output']>;
   configureParams: Array<KeyValuePair>;
   description: Scalars['String']['output'];
@@ -570,7 +570,7 @@ export type AddAppSignersRequest = {
 export type AddAppSignersResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type AddReactionFailure = {
-  __typename?: 'AddReactionFailure';
+  __typename: 'AddReactionFailure';
   reason: Scalars['String']['output'];
 };
 
@@ -580,20 +580,20 @@ export type AddReactionRequest = {
 };
 
 export type AddReactionResponse = {
-  __typename?: 'AddReactionResponse';
+  __typename: 'AddReactionResponse';
   success: Scalars['Boolean']['output'];
 };
 
 export type AddReactionResult = AddReactionFailure | AddReactionResponse;
 
 export type AddressKeyValue = {
-  __typename?: 'AddressKeyValue';
+  __typename: 'AddressKeyValue';
   address: Scalars['EvmAddress']['output'];
   key: Scalars['String']['output'];
 };
 
 export type Admin = {
-  __typename?: 'Admin';
+  __typename: 'Admin';
   account: Account;
   addedAt: Scalars['DateTime']['output'];
 };
@@ -630,7 +630,7 @@ export type AnyMedia = MediaAudio | MediaImage | MediaVideo;
 export type AnyPost = Post | Repost;
 
 export type App = {
-  __typename?: 'App';
+  __typename: 'App';
   address: Scalars['EvmAddress']['output'];
   createdAt: Scalars['DateTime']['output'];
   defaultFeedAddress?: Maybe<Scalars['EvmAddress']['output']>;
@@ -645,7 +645,7 @@ export type App = {
 };
 
 export type AppFeed = {
-  __typename?: 'AppFeed';
+  __typename: 'AppFeed';
   feed: Scalars['EvmAddress']['output'];
   timestamp: Scalars['DateTime']['output'];
 };
@@ -663,7 +663,7 @@ export type AppGroupsRequest = {
 };
 
 export type AppMetadata = {
-  __typename?: 'AppMetadata';
+  __typename: 'AppMetadata';
   description?: Maybe<Scalars['String']['output']>;
   developer: Scalars['String']['output'];
   logo?: Maybe<Scalars['URI']['output']>;
@@ -696,7 +696,7 @@ export type AppServerApiKeyRequest = {
 };
 
 export type AppSigner = {
-  __typename?: 'AppSigner';
+  __typename: 'AppSigner';
   signer: Scalars['EvmAddress']['output'];
   timestamp: Scalars['DateTime']['output'];
 };
@@ -719,7 +719,7 @@ export type AppSignersRequest = {
 };
 
 export type AppUser = {
-  __typename?: 'AppUser';
+  __typename: 'AppUser';
   account: Account;
   firstLoginOn: Scalars['DateTime']['output'];
   lastActiveOn: Scalars['DateTime']['output'];
@@ -750,7 +750,7 @@ export type ApproveGroupMembershipRequest = {
 };
 
 export type ApproveGroupMembershipRequestsResponse = {
-  __typename?: 'ApproveGroupMembershipRequestsResponse';
+  __typename: 'ApproveGroupMembershipRequestsResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -778,7 +778,7 @@ export type AppsRequest = {
 };
 
 export type AppsResult = {
-  __typename?: 'AppsResult';
+  __typename: 'AppsResult';
   items: Array<App>;
   pageInfo: PaginatedResultInfo;
 };
@@ -786,13 +786,13 @@ export type AppsResult = {
 export type ArrayData = AddressKeyValue | BigDecimalKeyValue | BooleanKeyValue | DictionaryKeyValue | IntKeyValue | IntNullableKeyValue | RawKeyValue | StringKeyValue;
 
 export type ArrayKeyValue = {
-  __typename?: 'ArrayKeyValue';
+  __typename: 'ArrayKeyValue';
   array: Array<ArrayData>;
   key: Scalars['String']['output'];
 };
 
 export type ArticleMetadata = {
-  __typename?: 'ArticleMetadata';
+  __typename: 'ArticleMetadata';
   attachments: Array<AnyMedia>;
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
@@ -805,7 +805,7 @@ export type ArticleMetadata = {
 };
 
 export type AssignUsernameResponse = {
-  __typename?: 'AssignUsernameResponse';
+  __typename: 'AssignUsernameResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -819,7 +819,7 @@ export type AssignUsernameToAccountRequest = {
 export type AssignUsernameToAccountResult = AssignUsernameResponse | NamespaceOperationValidationFailed | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type AudioMetadata = {
-  __typename?: 'AudioMetadata';
+  __typename: 'AudioMetadata';
   attachments: Array<AnyMedia>;
   attributes: Array<MetadataAttribute>;
   audio: MediaAudio;
@@ -833,7 +833,7 @@ export type AudioMetadata = {
 };
 
 export type AuthenticatedSession = {
-  __typename?: 'AuthenticatedSession';
+  __typename: 'AuthenticatedSession';
   app: Scalars['EvmAddress']['output'];
   authenticationId: Scalars['UUID']['output'];
   browser?: Maybe<Scalars['String']['output']>;
@@ -853,7 +853,7 @@ export type AuthenticatedSessionsRequest = {
 };
 
 export type AuthenticationChallenge = {
-  __typename?: 'AuthenticationChallenge';
+  __typename: 'AuthenticationChallenge';
   id: Scalars['UUID']['output'];
   text: Scalars['String']['output'];
 };
@@ -861,7 +861,7 @@ export type AuthenticationChallenge = {
 export type AuthenticationResult = AuthenticationTokens | ExpiredChallengeError | ForbiddenError | WrongSignerError;
 
 export type AuthenticationTokens = {
-  __typename?: 'AuthenticationTokens';
+  __typename: 'AuthenticationTokens';
   accessToken: Scalars['AccessToken']['output'];
   idToken: Scalars['IdToken']['output'];
   refreshToken: Scalars['RefreshToken']['output'];
@@ -879,14 +879,14 @@ export type BanGroupAccountsRequest = {
 };
 
 export type BanGroupAccountsResponse = {
-  __typename?: 'BanGroupAccountsResponse';
+  __typename: 'BanGroupAccountsResponse';
   hash: Scalars['TxHash']['output'];
 };
 
 export type BanGroupAccountsResult = BanGroupAccountsResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type BigDecimalKeyValue = {
-  __typename?: 'BigDecimalKeyValue';
+  __typename: 'BigDecimalKeyValue';
   bigDecimal: Scalars['BigDecimal']['output'];
   key: Scalars['String']['output'];
 };
@@ -902,13 +902,13 @@ export type BookmarkPostRequest = {
 };
 
 export type BooleanKeyValue = {
-  __typename?: 'BooleanKeyValue';
+  __typename: 'BooleanKeyValue';
   boolean: Scalars['Boolean']['output'];
   key: Scalars['String']['output'];
 };
 
 export type BooleanValue = {
-  __typename?: 'BooleanValue';
+  __typename: 'BooleanValue';
   onChain: Scalars['Boolean']['output'];
   optimistic: Scalars['Boolean']['output'];
 };
@@ -938,7 +938,7 @@ export type CancelGroupMembershipRequestRequest = {
 };
 
 export type CancelGroupMembershipRequestResponse = {
-  __typename?: 'CancelGroupMembershipRequestResponse';
+  __typename: 'CancelGroupMembershipRequestResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -952,7 +952,7 @@ export type ChallengeRequest = {
 };
 
 export type CheckingInMetadata = {
-  __typename?: 'CheckingInMetadata';
+  __typename: 'CheckingInMetadata';
   address?: Maybe<PhysicalAddress>;
   attachments: Array<AnyMedia>;
   attributes: Array<MetadataAttribute>;
@@ -971,7 +971,7 @@ export type CollectedBy = {
 };
 
 export type CommentNotification = {
-  __typename?: 'CommentNotification';
+  __typename: 'CommentNotification';
   comment: Post;
   id: Scalars['GeneratedNotificationId']['output'];
 };
@@ -981,7 +981,7 @@ export type ConfigureAccountActionRequest = {
 };
 
 export type ConfigureAccountActionResponse = {
-  __typename?: 'ConfigureAccountActionResponse';
+  __typename: 'ConfigureAccountActionResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -993,7 +993,7 @@ export type ConfigurePostActionRequest = {
 };
 
 export type ConfigurePostActionResponse = {
-  __typename?: 'ConfigurePostActionResponse';
+  __typename: 'ConfigurePostActionResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -1013,7 +1013,7 @@ export type CreateAccountRequest = {
 };
 
 export type CreateAccountResponse = {
-  __typename?: 'CreateAccountResponse';
+  __typename: 'CreateAccountResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -1046,7 +1046,7 @@ export type CreateAppRequest = {
 };
 
 export type CreateAppResponse = {
-  __typename?: 'CreateAppResponse';
+  __typename: 'CreateAppResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -1059,7 +1059,7 @@ export type CreateFeedRequest = {
 };
 
 export type CreateFeedResponse = {
-  __typename?: 'CreateFeedResponse';
+  __typename: 'CreateFeedResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -1073,7 +1073,7 @@ export type CreateFollowRequest = {
 };
 
 export type CreateFrameEip712TypedData = {
-  __typename?: 'CreateFrameEIP712TypedData';
+  __typename: 'CreateFrameEIP712TypedData';
   domain: Eip712TypedDataDomain;
   types: CreateFrameEip712TypedDataTypes;
   value: CreateFrameEip712TypedDataValue;
@@ -1086,7 +1086,7 @@ export type CreateFrameEip712TypedDataInput = {
 };
 
 export type CreateFrameEip712TypedDataTypes = {
-  __typename?: 'CreateFrameEIP712TypedDataTypes';
+  __typename: 'CreateFrameEIP712TypedDataTypes';
   frameData: Array<Eip712TypedDataField>;
 };
 
@@ -1095,7 +1095,7 @@ export type CreateFrameEip712TypedDataTypesInput = {
 };
 
 export type CreateFrameEip712TypedDataValue = {
-  __typename?: 'CreateFrameEIP712TypedDataValue';
+  __typename: 'CreateFrameEIP712TypedDataValue';
   account: Scalars['EvmAddress']['output'];
   app: Scalars['EvmAddress']['output'];
   buttonIndex: Scalars['Int']['output'];
@@ -1115,7 +1115,7 @@ export type CreateGraphRequest = {
 };
 
 export type CreateGraphResponse = {
-  __typename?: 'CreateGraphResponse';
+  __typename: 'CreateGraphResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -1130,14 +1130,14 @@ export type CreateGroupRequest = {
 };
 
 export type CreateGroupResponse = {
-  __typename?: 'CreateGroupResponse';
+  __typename: 'CreateGroupResponse';
   hash: Scalars['TxHash']['output'];
 };
 
 export type CreateGroupResult = CreateGroupResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type CreateNamespaceResponse = {
-  __typename?: 'CreateNamespaceResponse';
+  __typename: 'CreateNamespaceResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -1173,7 +1173,7 @@ export type CreateSponsorshipRequest = {
 };
 
 export type CreateSponsorshipResponse = {
-  __typename?: 'CreateSponsorshipResponse';
+  __typename: 'CreateSponsorshipResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -1206,7 +1206,7 @@ export type CreateUsernameRequest = {
 };
 
 export type CreateUsernameResponse = {
-  __typename?: 'CreateUsernameResponse';
+  __typename: 'CreateUsernameResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -1224,7 +1224,7 @@ export type DebugPostMetadataRequest = {
 };
 
 export type DebugPostMetadataResult = {
-  __typename?: 'DebugPostMetadataResult';
+  __typename: 'DebugPostMetadataResult';
   reason?: Maybe<Scalars['String']['output']>;
   valid: Scalars['Boolean']['output'];
 };
@@ -1235,7 +1235,7 @@ export type DeletePostRequest = {
 };
 
 export type DeletePostResponse = {
-  __typename?: 'DeletePostResponse';
+  __typename: 'DeletePostResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -1253,7 +1253,7 @@ export type DepositRequest = {
 export type DepositResult = InsufficientFunds | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type DictionaryKeyValue = {
-  __typename?: 'DictionaryKeyValue';
+  __typename: 'DictionaryKeyValue';
   dictionary: Array<PrimitiveData>;
   key: Scalars['String']['output'];
 };
@@ -1263,7 +1263,7 @@ export type DisableAccountActionRequest = {
 };
 
 export type DisableAccountActionResponse = {
-  __typename?: 'DisableAccountActionResponse';
+  __typename: 'DisableAccountActionResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -1280,7 +1280,7 @@ export type DisablePostActionRequest = {
 };
 
 export type DisablePostActionResponse = {
-  __typename?: 'DisablePostActionResponse';
+  __typename: 'DisablePostActionResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -1298,7 +1298,7 @@ export type EditPostRequest = {
 };
 
 export type Eip712Meta = {
-  __typename?: 'Eip712Meta';
+  __typename: 'Eip712Meta';
   customSignature?: Maybe<Scalars['BlockchainData']['output']>;
   factoryDeps: Array<Scalars['BlockchainData']['output']>;
   gasPerPubdata: Scalars['BigInt']['output'];
@@ -1306,7 +1306,7 @@ export type Eip712Meta = {
 };
 
 export type Eip712TransactionRequest = {
-  __typename?: 'Eip712TransactionRequest';
+  __typename: 'Eip712TransactionRequest';
   chainId: Scalars['Int']['output'];
   customData: Eip712Meta;
   data: Scalars['BlockchainData']['output'];
@@ -1321,7 +1321,7 @@ export type Eip712TransactionRequest = {
 };
 
 export type Eip712TypedDataDomain = {
-  __typename?: 'Eip712TypedDataDomain';
+  __typename: 'Eip712TypedDataDomain';
   chainId: Scalars['Int']['output'];
   name: Scalars['String']['output'];
   verifyingContract: Scalars['EvmAddress']['output'];
@@ -1336,7 +1336,7 @@ export type Eip712TypedDataDomainInput = {
 };
 
 export type Eip712TypedDataField = {
-  __typename?: 'Eip712TypedDataField';
+  __typename: 'Eip712TypedDataField';
   name: Scalars['String']['output'];
   type: Scalars['String']['output'];
 };
@@ -1347,7 +1347,7 @@ export type Eip712TypedDataFieldInput = {
 };
 
 export type Eip1559TransactionRequest = {
-  __typename?: 'Eip1559TransactionRequest';
+  __typename: 'Eip1559TransactionRequest';
   chainId: Scalars['Int']['output'];
   data: Scalars['BlockchainData']['output'];
   from: Scalars['EvmAddress']['output'];
@@ -1361,7 +1361,7 @@ export type Eip1559TransactionRequest = {
 };
 
 export type EmbedMetadata = {
-  __typename?: 'EmbedMetadata';
+  __typename: 'EmbedMetadata';
   attachments: Array<AnyMedia>;
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
@@ -1378,7 +1378,7 @@ export type EnableAccountActionRequest = {
 };
 
 export type EnableAccountActionResponse = {
-  __typename?: 'EnableAccountActionResponse';
+  __typename: 'EnableAccountActionResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -1395,7 +1395,7 @@ export type EnablePostActionRequest = {
 };
 
 export type EnablePostActionResponse = {
-  __typename?: 'EnablePostActionResponse';
+  __typename: 'EnablePostActionResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -1431,7 +1431,7 @@ export enum EntityType {
 }
 
 export type Erc20 = {
-  __typename?: 'Erc20';
+  __typename: 'Erc20';
   contract: NetworkAddress;
   decimals: Scalars['Int']['output'];
   name: Scalars['String']['output'];
@@ -1439,7 +1439,7 @@ export type Erc20 = {
 };
 
 export type Erc20Amount = {
-  __typename?: 'Erc20Amount';
+  __typename: 'Erc20Amount';
   asset: Erc20;
   value: Scalars['BigDecimal']['output'];
 };
@@ -1450,19 +1450,19 @@ export type Erc20AmountInput = {
 };
 
 export type Erc20BalanceError = {
-  __typename?: 'Erc20BalanceError';
+  __typename: 'Erc20BalanceError';
   reason: Scalars['String']['output'];
   token: Scalars['EvmAddress']['output'];
 };
 
 export type EventLocation = {
-  __typename?: 'EventLocation';
+  __typename: 'EventLocation';
   physical?: Maybe<Scalars['String']['output']>;
   virtual?: Maybe<Scalars['URI']['output']>;
 };
 
 export type EventMetadata = {
-  __typename?: 'EventMetadata';
+  __typename: 'EventMetadata';
   address?: Maybe<PhysicalAddress>;
   attachments: Array<AnyMedia>;
   attributes: Array<MetadataAttribute>;
@@ -1482,7 +1482,7 @@ export type EventMetadata = {
 };
 
 export type EventSchedulingAdjustments = {
-  __typename?: 'EventSchedulingAdjustments';
+  __typename: 'EventSchedulingAdjustments';
   timezoneId: TimezoneId;
   timezoneOffset: Scalars['Float']['output'];
 };
@@ -1493,7 +1493,7 @@ export type ExecuteAccountActionRequest = {
 };
 
 export type ExecuteAccountActionResponse = {
-  __typename?: 'ExecuteAccountActionResponse';
+  __typename: 'ExecuteAccountActionResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -1505,7 +1505,7 @@ export type ExecutePostActionRequest = {
 };
 
 export type ExecutePostActionResponse = {
-  __typename?: 'ExecutePostActionResponse';
+  __typename: 'ExecutePostActionResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -1516,19 +1516,19 @@ export type ExecutedUnknownActionRequest = {
 };
 
 export type ExpiredChallengeError = {
-  __typename?: 'ExpiredChallengeError';
+  __typename: 'ExpiredChallengeError';
   reason: Scalars['String']['output'];
 };
 
 export type FailedTransactionStatus = {
-  __typename?: 'FailedTransactionStatus';
+  __typename: 'FailedTransactionStatus';
   blockTimestamp: Scalars['DateTime']['output'];
   reason: Scalars['String']['output'];
   summary: Array<SubOperationStatus>;
 };
 
 export type Feed = {
-  __typename?: 'Feed';
+  __typename: 'Feed';
   address: Scalars['EvmAddress']['output'];
   createdAt: Scalars['DateTime']['output'];
   metadata?: Maybe<FeedMetadata>;
@@ -1544,7 +1544,7 @@ export type FeedChoiceOneOf = {
 };
 
 export type FeedMetadata = {
-  __typename?: 'FeedMetadata';
+  __typename: 'FeedMetadata';
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
@@ -1557,7 +1557,7 @@ export type FeedOneOf = {
 };
 
 export type FeedOperationValidationFailed = {
-  __typename?: 'FeedOperationValidationFailed';
+  __typename: 'FeedOperationValidationFailed';
   reason: Scalars['String']['output'];
   unsatisfiedRules?: Maybe<FeedUnsatisfiedRules>;
 };
@@ -1565,12 +1565,12 @@ export type FeedOperationValidationFailed = {
 export type FeedOperationValidationOutcome = FeedOperationValidationFailed | FeedOperationValidationPassed | FeedOperationValidationUnknown;
 
 export type FeedOperationValidationPassed = {
-  __typename?: 'FeedOperationValidationPassed';
+  __typename: 'FeedOperationValidationPassed';
   passed: Scalars['AlwaysTrue']['output'];
 };
 
 export type FeedOperationValidationUnknown = {
-  __typename?: 'FeedOperationValidationUnknown';
+  __typename: 'FeedOperationValidationUnknown';
   extraChecksRequired: Array<FeedRule>;
 };
 
@@ -1580,7 +1580,7 @@ export type FeedRequest = {
 };
 
 export type FeedRule = {
-  __typename?: 'FeedRule';
+  __typename: 'FeedRule';
   address: Scalars['EvmAddress']['output'];
   config: Array<AnyKeyValue>;
   executesOn: Array<FeedRuleExecuteOn>;
@@ -1619,7 +1619,7 @@ export enum FeedRuleUnsatisfiedReason {
 }
 
 export type FeedRules = {
-  __typename?: 'FeedRules';
+  __typename: 'FeedRules';
   anyOf: Array<FeedRule>;
   required: Array<FeedRule>;
 };
@@ -1634,7 +1634,7 @@ export type FeedRulesProcessingParams = {
 };
 
 export type FeedUnsatisfiedRule = {
-  __typename?: 'FeedUnsatisfiedRule';
+  __typename: 'FeedUnsatisfiedRule';
   config: Array<AnyKeyValue>;
   message: Scalars['String']['output'];
   reason: FeedRuleUnsatisfiedReason;
@@ -1642,7 +1642,7 @@ export type FeedUnsatisfiedRule = {
 };
 
 export type FeedUnsatisfiedRules = {
-  __typename?: 'FeedUnsatisfiedRules';
+  __typename: 'FeedUnsatisfiedRules';
   anyOf: Array<FeedUnsatisfiedRule>;
   required: Array<FeedUnsatisfiedRule>;
 };
@@ -1667,7 +1667,7 @@ export type FeedsRequest = {
 };
 
 export type FinishedTransactionStatus = {
-  __typename?: 'FinishedTransactionStatus';
+  __typename: 'FinishedTransactionStatus';
   blockTimestamp: Scalars['DateTime']['output'];
   summary: Array<SubOperationStatus>;
 };
@@ -1678,7 +1678,7 @@ export type FixedSizeTransform = {
 };
 
 export type FollowNotification = {
-  __typename?: 'FollowNotification';
+  __typename: 'FollowNotification';
   followers: Array<NotificationAccountFollow>;
   id: Scalars['GeneratedNotificationId']['output'];
 };
@@ -1690,7 +1690,7 @@ export type FollowPair = {
 };
 
 export type FollowResponse = {
-  __typename?: 'FollowResponse';
+  __typename: 'FollowResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -1701,7 +1701,7 @@ export type FollowStatusRequest = {
 };
 
 export type FollowStatusResult = {
-  __typename?: 'FollowStatusResult';
+  __typename: 'FollowStatusResult';
   account: Scalars['EvmAddress']['output'];
   follower: Scalars['EvmAddress']['output'];
   graph: Scalars['EvmAddress']['output'];
@@ -1709,14 +1709,14 @@ export type FollowStatusResult = {
 };
 
 export type Follower = {
-  __typename?: 'Follower';
+  __typename: 'Follower';
   followedOn: Scalars['DateTime']['output'];
   follower: Account;
   graph: Scalars['EvmAddress']['output'];
 };
 
 export type FollowerOn = {
-  __typename?: 'FollowerOn';
+  __typename: 'FollowerOn';
   globalGraph: Scalars['Boolean']['output'];
   graph: Scalars['EvmAddress']['output'];
 };
@@ -1770,7 +1770,7 @@ export type FollowersYouKnowRequest = {
 };
 
 export type Following = {
-  __typename?: 'Following';
+  __typename: 'Following';
   followedOn: Scalars['DateTime']['output'];
   following: Account;
   graph: Scalars['EvmAddress']['output'];
@@ -1802,7 +1802,7 @@ export enum ForYouSource {
 }
 
 export type ForbiddenError = {
-  __typename?: 'ForbiddenError';
+  __typename: 'ForbiddenError';
   reason: Scalars['String']['output'];
 };
 
@@ -1820,7 +1820,7 @@ export type FrameEip712Request = {
 };
 
 export type FrameLensManagerSignatureResult = {
-  __typename?: 'FrameLensManagerSignatureResult';
+  __typename: 'FrameLensManagerSignatureResult';
   signature: Scalars['EcdsaSignature']['output'];
   signedTypedData: CreateFrameEip712TypedData;
 };
@@ -1854,7 +1854,7 @@ export type GetSnsSubscriptionsRequest = {
 };
 
 export type Graph = {
-  __typename?: 'Graph';
+  __typename: 'Graph';
   address: Scalars['EvmAddress']['output'];
   createdAt: Scalars['DateTime']['output'];
   metadata?: Maybe<GraphMetadata>;
@@ -1869,7 +1869,7 @@ export type GraphChoiceOneOf = {
 };
 
 export type GraphMetadata = {
-  __typename?: 'GraphMetadata';
+  __typename: 'GraphMetadata';
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
@@ -1887,7 +1887,7 @@ export type GraphRequest = {
 };
 
 export type GraphRule = {
-  __typename?: 'GraphRule';
+  __typename: 'GraphRule';
   address: Scalars['EvmAddress']['output'];
   config: Array<AnyKeyValue>;
   executesOn: Array<GraphRuleExecuteOn>;
@@ -1915,7 +1915,7 @@ export enum GraphRuleType {
 }
 
 export type GraphRules = {
-  __typename?: 'GraphRules';
+  __typename: 'GraphRules';
   anyOf: Array<GraphRule>;
   required: Array<GraphRule>;
 };
@@ -1948,7 +1948,7 @@ export type GraphsRequest = {
 };
 
 export type Group = {
-  __typename?: 'Group';
+  __typename: 'Group';
   address: Scalars['EvmAddress']['output'];
   banningEnabled: Scalars['Boolean']['output'];
   feed?: Maybe<Feed>;
@@ -1961,7 +1961,7 @@ export type Group = {
 };
 
 export type GroupBannedAccount = {
-  __typename?: 'GroupBannedAccount';
+  __typename: 'GroupBannedAccount';
   account: Account;
   bannedAt: Scalars['DateTime']['output'];
   bannedBy: Account;
@@ -2004,7 +2004,7 @@ export type GroupGatedGraphRuleConfig = {
 };
 
 export type GroupMember = {
-  __typename?: 'GroupMember';
+  __typename: 'GroupMember';
   account: Account;
   joinedAt: Scalars['DateTime']['output'];
   lastActiveAt: Scalars['DateTime']['output'];
@@ -2030,7 +2030,7 @@ export type GroupMembersRequest = {
 };
 
 export type GroupMembershipRequest = {
-  __typename?: 'GroupMembershipRequest';
+  __typename: 'GroupMembershipRequest';
   account: Account;
   lastActiveAt: Scalars['DateTime']['output'];
   requestedAt: Scalars['DateTime']['output'];
@@ -2038,7 +2038,7 @@ export type GroupMembershipRequest = {
 };
 
 export type GroupMembershipRequestApprovedNotification = {
-  __typename?: 'GroupMembershipRequestApprovedNotification';
+  __typename: 'GroupMembershipRequestApprovedNotification';
   approvedAt: Scalars['DateTime']['output'];
   approvedBy: Account;
   group: Group;
@@ -2046,7 +2046,7 @@ export type GroupMembershipRequestApprovedNotification = {
 };
 
 export type GroupMembershipRequestRejectedNotification = {
-  __typename?: 'GroupMembershipRequestRejectedNotification';
+  __typename: 'GroupMembershipRequestRejectedNotification';
   group: Group;
   id: Scalars['GeneratedNotificationId']['output'];
   rejectedAt: Scalars['DateTime']['output'];
@@ -2073,13 +2073,13 @@ export type GroupMembershipRequestsRequest = {
 };
 
 export type GroupMention = {
-  __typename?: 'GroupMention';
+  __typename: 'GroupMention';
   group: Scalars['EvmAddress']['output'];
   replace: MentionReplace;
 };
 
 export type GroupMetadata = {
-  __typename?: 'GroupMetadata';
+  __typename: 'GroupMetadata';
   coverPicture?: Maybe<Scalars['URI']['output']>;
   description?: Maybe<Scalars['String']['output']>;
   icon?: Maybe<Scalars['URI']['output']>;
@@ -2098,7 +2098,7 @@ export type GroupMetadataIconArgs = {
 };
 
 export type GroupOperationValidationFailed = {
-  __typename?: 'GroupOperationValidationFailed';
+  __typename: 'GroupOperationValidationFailed';
   reason: Scalars['String']['output'];
   unsatisfiedRules?: Maybe<GroupUnsatisfiedRules>;
 };
@@ -2106,12 +2106,12 @@ export type GroupOperationValidationFailed = {
 export type GroupOperationValidationOutcome = GroupOperationValidationFailed | GroupOperationValidationPassed | GroupOperationValidationUnknown;
 
 export type GroupOperationValidationPassed = {
-  __typename?: 'GroupOperationValidationPassed';
+  __typename: 'GroupOperationValidationPassed';
   passed: Scalars['AlwaysTrue']['output'];
 };
 
 export type GroupOperationValidationUnknown = {
-  __typename?: 'GroupOperationValidationUnknown';
+  __typename: 'GroupOperationValidationUnknown';
   extraChecksRequired: Array<GroupRule>;
 };
 
@@ -2121,7 +2121,7 @@ export type GroupRequest = {
 };
 
 export type GroupRule = {
-  __typename?: 'GroupRule';
+  __typename: 'GroupRule';
   address: Scalars['EvmAddress']['output'];
   config: Array<AnyKeyValue>;
   executesOn: Array<GroupRuleExecuteOn>;
@@ -2161,7 +2161,7 @@ export enum GroupRuleUnsatisfiedReason {
 }
 
 export type GroupRules = {
-  __typename?: 'GroupRules';
+  __typename: 'GroupRules';
   anyOf: Array<GroupRule>;
   required: Array<GroupRule>;
 };
@@ -2180,12 +2180,12 @@ export type GroupStatsRequest = {
 };
 
 export type GroupStatsResponse = {
-  __typename?: 'GroupStatsResponse';
+  __typename: 'GroupStatsResponse';
   totalMembers: Scalars['Int']['output'];
 };
 
 export type GroupUnsatisfiedRule = {
-  __typename?: 'GroupUnsatisfiedRule';
+  __typename: 'GroupUnsatisfiedRule';
   config: Array<AnyKeyValue>;
   message: Scalars['String']['output'];
   reason: GroupRuleUnsatisfiedReason;
@@ -2193,7 +2193,7 @@ export type GroupUnsatisfiedRule = {
 };
 
 export type GroupUnsatisfiedRules = {
-  __typename?: 'GroupUnsatisfiedRules';
+  __typename: 'GroupUnsatisfiedRules';
   anyOf: Array<GroupUnsatisfiedRule>;
   required: Array<GroupUnsatisfiedRule>;
 };
@@ -2235,7 +2235,7 @@ export type HideReplyRequest = {
 };
 
 export type ImageMetadata = {
-  __typename?: 'ImageMetadata';
+  __typename: 'ImageMetadata';
   attachments: Array<AnyMedia>;
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
@@ -2261,18 +2261,18 @@ export enum IndexingStatus {
 }
 
 export type InsufficientFunds = {
-  __typename?: 'InsufficientFunds';
+  __typename: 'InsufficientFunds';
   reason: Scalars['String']['output'];
 };
 
 export type IntKeyValue = {
-  __typename?: 'IntKeyValue';
+  __typename: 'IntKeyValue';
   int: Scalars['Int']['output'];
   key: Scalars['String']['output'];
 };
 
 export type IntNullableKeyValue = {
-  __typename?: 'IntNullableKeyValue';
+  __typename: 'IntNullableKeyValue';
   key: Scalars['String']['output'];
   optionalInt?: Maybe<Scalars['Int']['output']>;
 };
@@ -2291,14 +2291,14 @@ export type JoinGroupRequest = {
 };
 
 export type JoinGroupResponse = {
-  __typename?: 'JoinGroupResponse';
+  __typename: 'JoinGroupResponse';
   hash: Scalars['TxHash']['output'];
 };
 
 export type JoinGroupResult = GroupOperationValidationFailed | JoinGroupResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type KeyValuePair = {
-  __typename?: 'KeyValuePair';
+  __typename: 'KeyValuePair';
   key: Scalars['FixedBytes32']['output'];
   name: Scalars['String']['output'];
   type: Scalars['String']['output'];
@@ -2315,7 +2315,7 @@ export type LeaveGroupRequest = {
 };
 
 export type LeaveGroupResponse = {
-  __typename?: 'LeaveGroupResponse';
+  __typename: 'LeaveGroupResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -2327,7 +2327,7 @@ export type LengthAmountPair = {
 };
 
 export type LinkMetadata = {
-  __typename?: 'LinkMetadata';
+  __typename: 'LinkMetadata';
   attachments: Array<AnyMedia>;
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
@@ -2340,7 +2340,7 @@ export type LinkMetadata = {
 };
 
 export type LivestreamMetadata = {
-  __typename?: 'LivestreamMetadata';
+  __typename: 'LivestreamMetadata';
   attachments: Array<AnyMedia>;
   attributes: Array<MetadataAttribute>;
   checkLiveApi?: Maybe<Scalars['URI']['output']>;
@@ -2358,7 +2358,7 @@ export type LivestreamMetadata = {
 };
 
 export type LoggedInAccountOperations = {
-  __typename?: 'LoggedInAccountOperations';
+  __typename: 'LoggedInAccountOperations';
   canBlock: Scalars['Boolean']['output'];
   canFollow: AccountFollowOperationValidationOutcome;
   canUnblock: Scalars['Boolean']['output'];
@@ -2393,13 +2393,13 @@ export type LoggedInAccountOperationsIsFollowingMeArgs = {
 };
 
 export type LoggedInFeedPostOperations = {
-  __typename?: 'LoggedInFeedPostOperations';
+  __typename: 'LoggedInFeedPostOperations';
   canPost: FeedOperationValidationOutcome;
   id: Scalars['ID']['output'];
 };
 
 export type LoggedInGroupOperations = {
-  __typename?: 'LoggedInGroupOperations';
+  __typename: 'LoggedInGroupOperations';
   canAddMember: GroupOperationValidationOutcome;
   canJoin: GroupOperationValidationOutcome;
   canLeave: GroupOperationValidationOutcome;
@@ -2411,7 +2411,7 @@ export type LoggedInGroupOperations = {
 };
 
 export type LoggedInPostOperations = {
-  __typename?: 'LoggedInPostOperations';
+  __typename: 'LoggedInPostOperations';
   canComment: PostOperationValidationOutcome;
   canDelete: PostOperationValidationOutcome;
   canEdit: PostOperationValidationOutcome;
@@ -2452,13 +2452,13 @@ export type LoggedInPostOperationsHasReactedArgs = {
 };
 
 export type LoggedInUsernameNamespaceOperations = {
-  __typename?: 'LoggedInUsernameNamespaceOperations';
+  __typename: 'LoggedInUsernameNamespaceOperations';
   canCreate: NamespaceOperationValidationOutcome;
   id: Scalars['ID']['output'];
 };
 
 export type LoggedInUsernameOperations = {
-  __typename?: 'LoggedInUsernameOperations';
+  __typename: 'LoggedInUsernameOperations';
   canAssign: NamespaceOperationValidationOutcome;
   canRemove: NamespaceOperationValidationOutcome;
   canUnassign: NamespaceOperationValidationOutcome;
@@ -2496,7 +2496,7 @@ export type ManagedBy = {
 };
 
 export type MarketplaceMetadataAttribute = {
-  __typename?: 'MarketplaceMetadataAttribute';
+  __typename: 'MarketplaceMetadataAttribute';
   displayType?: Maybe<MarketplaceMetadataAttributeDisplayType>;
   traitType?: Maybe<Scalars['String']['output']>;
   value?: Maybe<Scalars['MarketplaceMetadataAttributeValue']['output']>;
@@ -2509,7 +2509,7 @@ export enum MarketplaceMetadataAttributeDisplayType {
 }
 
 export type MeResult = {
-  __typename?: 'MeResult';
+  __typename: 'MeResult';
   appLoggedIn: Scalars['EvmAddress']['output'];
   isSignless: Scalars['Boolean']['output'];
   isSponsored: Scalars['Boolean']['output'];
@@ -2518,7 +2518,7 @@ export type MeResult = {
 };
 
 export type MediaAudio = {
-  __typename?: 'MediaAudio';
+  __typename: 'MediaAudio';
   artist?: Maybe<Scalars['String']['output']>;
   attributes: Array<MetadataAttribute>;
   cover?: Maybe<Scalars['URI']['output']>;
@@ -2570,7 +2570,7 @@ export enum MediaAudioType {
 }
 
 export type MediaImage = {
-  __typename?: 'MediaImage';
+  __typename: 'MediaImage';
   altTag?: Maybe<Scalars['String']['output']>;
   attributes: Array<MetadataAttribute>;
   height?: Maybe<Scalars['Int']['output']>;
@@ -2608,7 +2608,7 @@ export type MediaSnapshotNotificationFilter = {
 };
 
 export type MediaVideo = {
-  __typename?: 'MediaVideo';
+  __typename: 'MediaVideo';
   altTag?: Maybe<Scalars['String']['output']>;
   attributes: Array<MetadataAttribute>;
   cover?: Maybe<Scalars['URI']['output']>;
@@ -2653,19 +2653,19 @@ export type MembershipApprovalGroupRuleConfig = {
 };
 
 export type MentionNotification = {
-  __typename?: 'MentionNotification';
+  __typename: 'MentionNotification';
   id: Scalars['GeneratedNotificationId']['output'];
   post: Post;
 };
 
 export type MentionReplace = {
-  __typename?: 'MentionReplace';
+  __typename: 'MentionReplace';
   from: Scalars['String']['output'];
   to: Scalars['String']['output'];
 };
 
 export type MetadataAttribute = {
-  __typename?: 'MetadataAttribute';
+  __typename: 'MetadataAttribute';
   key: Scalars['String']['output'];
   type: MetadataAttributeType;
   value: Scalars['String']['output'];
@@ -2723,7 +2723,7 @@ export type MetadataSnapshotNotificationFilter = {
 };
 
 export type MintMetadata = {
-  __typename?: 'MintMetadata';
+  __typename: 'MintMetadata';
   attachments: Array<AnyMedia>;
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
@@ -2746,7 +2746,7 @@ export type MlinternalForYouRequest = {
 };
 
 export type Mutation = {
-  __typename?: 'Mutation';
+  __typename: 'Mutation';
   addAccountManager: AddAccountManagerResult;
   addAdmins: AddAdminsResult;
   addAppAuthorizationEndpoint: Scalars['Void']['output'];
@@ -3416,7 +3416,7 @@ export type MuteRequest = {
 };
 
 export type NamespaceOperationValidationFailed = {
-  __typename?: 'NamespaceOperationValidationFailed';
+  __typename: 'NamespaceOperationValidationFailed';
   reason: Scalars['String']['output'];
   unsatisfiedRules?: Maybe<NamespaceUnsatisfiedRules>;
 };
@@ -3424,12 +3424,12 @@ export type NamespaceOperationValidationFailed = {
 export type NamespaceOperationValidationOutcome = NamespaceOperationValidationFailed | NamespaceOperationValidationPassed | NamespaceOperationValidationUnknown;
 
 export type NamespaceOperationValidationPassed = {
-  __typename?: 'NamespaceOperationValidationPassed';
+  __typename: 'NamespaceOperationValidationPassed';
   passed: Scalars['AlwaysTrue']['output'];
 };
 
 export type NamespaceOperationValidationUnknown = {
-  __typename?: 'NamespaceOperationValidationUnknown';
+  __typename: 'NamespaceOperationValidationUnknown';
   extraChecksRequired: Array<NamespaceRule>;
 };
 
@@ -3445,7 +3445,7 @@ export type NamespaceReservedUsernamesRequest = {
 };
 
 export type NamespaceRule = {
-  __typename?: 'NamespaceRule';
+  __typename: 'NamespaceRule';
   address: Scalars['EvmAddress']['output'];
   config: Array<AnyKeyValue>;
   executesOn: Array<NamespaceRuleExecuteOn>;
@@ -3485,7 +3485,7 @@ export enum NamespaceRuleUnsatisfiedReason {
 }
 
 export type NamespaceRules = {
-  __typename?: 'NamespaceRules';
+  __typename: 'NamespaceRules';
   anyOf: Array<NamespaceRule>;
   required: Array<NamespaceRule>;
 };
@@ -3500,7 +3500,7 @@ export type NamespaceRulesProcessingParams = {
 };
 
 export type NamespaceUnsatisfiedRule = {
-  __typename?: 'NamespaceUnsatisfiedRule';
+  __typename: 'NamespaceUnsatisfiedRule';
   config: Array<AnyKeyValue>;
   id: Scalars['RuleId']['output'];
   message: Scalars['String']['output'];
@@ -3510,7 +3510,7 @@ export type NamespaceUnsatisfiedRule = {
 };
 
 export type NamespaceUnsatisfiedRules = {
-  __typename?: 'NamespaceUnsatisfiedRules';
+  __typename: 'NamespaceUnsatisfiedRules';
   anyOf: Array<NamespaceUnsatisfiedRule>;
   required: Array<NamespaceUnsatisfiedRule>;
 };
@@ -3534,24 +3534,24 @@ export type NamespacesRequest = {
 };
 
 export type NamespacesResult = {
-  __typename?: 'NamespacesResult';
+  __typename: 'NamespacesResult';
   items: Array<UsernameNamespace>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type NativeAmount = {
-  __typename?: 'NativeAmount';
+  __typename: 'NativeAmount';
   asset: NativeToken;
   value: Scalars['BigDecimal']['output'];
 };
 
 export type NativeBalanceError = {
-  __typename?: 'NativeBalanceError';
+  __typename: 'NativeBalanceError';
   reason: Scalars['String']['output'];
 };
 
 export type NativeToken = {
-  __typename?: 'NativeToken';
+  __typename: 'NativeToken';
   contract: NetworkAddress;
   decimals: Scalars['Int']['output'];
   name: Scalars['String']['output'];
@@ -3559,13 +3559,13 @@ export type NativeToken = {
 };
 
 export type NetworkAddress = {
-  __typename?: 'NetworkAddress';
+  __typename: 'NetworkAddress';
   address: Scalars['EvmAddress']['output'];
   chainId: Scalars['Int']['output'];
 };
 
 export type NftMetadata = {
-  __typename?: 'NftMetadata';
+  __typename: 'NftMetadata';
   animationUrl?: Maybe<Scalars['URI']['output']>;
   attributes: Array<MarketplaceMetadataAttribute>;
   description?: Maybe<Scalars['String']['output']>;
@@ -3575,7 +3575,7 @@ export type NftMetadata = {
 };
 
 export type NotIndexedYetStatus = {
-  __typename?: 'NotIndexedYetStatus';
+  __typename: 'NotIndexedYetStatus';
   reason: Scalars['String']['output'];
   txHasMined: Scalars['Boolean']['output'];
 };
@@ -3583,19 +3583,19 @@ export type NotIndexedYetStatus = {
 export type Notification = AccountActionExecutedNotification | CommentNotification | FollowNotification | GroupMembershipRequestApprovedNotification | GroupMembershipRequestRejectedNotification | MentionNotification | PostActionExecutedNotification | QuoteNotification | ReactionNotification | RepostNotification | TokenDistributedNotification;
 
 export type NotificationAccountFollow = {
-  __typename?: 'NotificationAccountFollow';
+  __typename: 'NotificationAccountFollow';
   account: Account;
   followedAt: Scalars['DateTime']['output'];
 };
 
 export type NotificationAccountPostReaction = {
-  __typename?: 'NotificationAccountPostReaction';
+  __typename: 'NotificationAccountPostReaction';
   account: Account;
   reactions: Array<PostReaction>;
 };
 
 export type NotificationAccountRepost = {
-  __typename?: 'NotificationAccountRepost';
+  __typename: 'NotificationAccountRepost';
   account: Account;
   repostId: Scalars['PostId']['output'];
   repostedAt: Scalars['DateTime']['output'];
@@ -3646,193 +3646,193 @@ export enum PageSize {
 }
 
 export type PaginatedAccountExecutedActionsResult = {
-  __typename?: 'PaginatedAccountExecutedActionsResult';
+  __typename: 'PaginatedAccountExecutedActionsResult';
   items: Array<AccountExecutedActions>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedAccountManagersResult = {
-  __typename?: 'PaginatedAccountManagersResult';
+  __typename: 'PaginatedAccountManagersResult';
   items: Array<AccountManager>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedAccountsAvailableResult = {
-  __typename?: 'PaginatedAccountsAvailableResult';
+  __typename: 'PaginatedAccountsAvailableResult';
   items: Array<AccountAvailable>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedAccountsBlockedResult = {
-  __typename?: 'PaginatedAccountsBlockedResult';
+  __typename: 'PaginatedAccountsBlockedResult';
   items: Array<AccountBlocked>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedAccountsResult = {
-  __typename?: 'PaginatedAccountsResult';
+  __typename: 'PaginatedAccountsResult';
   items: Array<Account>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedActiveAuthenticationsResult = {
-  __typename?: 'PaginatedActiveAuthenticationsResult';
+  __typename: 'PaginatedActiveAuthenticationsResult';
   items: Array<AuthenticatedSession>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedAdminsResult = {
-  __typename?: 'PaginatedAdminsResult';
+  __typename: 'PaginatedAdminsResult';
   items: Array<Admin>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedAnyPostsResult = {
-  __typename?: 'PaginatedAnyPostsResult';
+  __typename: 'PaginatedAnyPostsResult';
   items: Array<AnyPost>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedAppFeedsResult = {
-  __typename?: 'PaginatedAppFeedsResult';
+  __typename: 'PaginatedAppFeedsResult';
   items: Array<AppFeed>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedAppSignersResult = {
-  __typename?: 'PaginatedAppSignersResult';
+  __typename: 'PaginatedAppSignersResult';
   items: Array<AppSigner>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedAppUsersResult = {
-  __typename?: 'PaginatedAppUsersResult';
+  __typename: 'PaginatedAppUsersResult';
   items: Array<AppUser>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedFeedsResult = {
-  __typename?: 'PaginatedFeedsResult';
+  __typename: 'PaginatedFeedsResult';
   items: Array<Feed>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedFollowersResult = {
-  __typename?: 'PaginatedFollowersResult';
+  __typename: 'PaginatedFollowersResult';
   items: Array<Follower>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedFollowingResult = {
-  __typename?: 'PaginatedFollowingResult';
+  __typename: 'PaginatedFollowingResult';
   items: Array<Following>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedGraphsResult = {
-  __typename?: 'PaginatedGraphsResult';
+  __typename: 'PaginatedGraphsResult';
   items: Array<Graph>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedGroupBannedAccountsResult = {
-  __typename?: 'PaginatedGroupBannedAccountsResult';
+  __typename: 'PaginatedGroupBannedAccountsResult';
   items: Array<GroupBannedAccount>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedGroupMembersResult = {
-  __typename?: 'PaginatedGroupMembersResult';
+  __typename: 'PaginatedGroupMembersResult';
   items: Array<GroupMember>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedGroupMembershipRequestsResult = {
-  __typename?: 'PaginatedGroupMembershipRequestsResult';
+  __typename: 'PaginatedGroupMembershipRequestsResult';
   items: Array<GroupMembershipRequest>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedGroupsResult = {
-  __typename?: 'PaginatedGroupsResult';
+  __typename: 'PaginatedGroupsResult';
   items: Array<Group>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedNamespaceReservedUsernamesResult = {
-  __typename?: 'PaginatedNamespaceReservedUsernamesResult';
+  __typename: 'PaginatedNamespaceReservedUsernamesResult';
   items: Array<UsernameReserved>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedNotificationResult = {
-  __typename?: 'PaginatedNotificationResult';
+  __typename: 'PaginatedNotificationResult';
   items: Array<Notification>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedPostActionContracts = {
-  __typename?: 'PaginatedPostActionContracts';
+  __typename: 'PaginatedPostActionContracts';
   items: Array<PostActionContract>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedPostEditsResult = {
-  __typename?: 'PaginatedPostEditsResult';
+  __typename: 'PaginatedPostEditsResult';
   items: Array<PostEdit>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedPostExecutedActionsResult = {
-  __typename?: 'PaginatedPostExecutedActionsResult';
+  __typename: 'PaginatedPostExecutedActionsResult';
   items: Array<PostExecutedActions>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedPostReactionsResult = {
-  __typename?: 'PaginatedPostReactionsResult';
+  __typename: 'PaginatedPostReactionsResult';
   items: Array<AccountPostReaction>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedPostTagsResult = {
-  __typename?: 'PaginatedPostTagsResult';
+  __typename: 'PaginatedPostTagsResult';
   items: Array<PostTag>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedPostsForYouResult = {
-  __typename?: 'PaginatedPostsForYouResult';
+  __typename: 'PaginatedPostsForYouResult';
   items: Array<PostForYou>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedPostsResult = {
-  __typename?: 'PaginatedPostsResult';
+  __typename: 'PaginatedPostsResult';
   items: Array<Post>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedResultInfo = {
-  __typename?: 'PaginatedResultInfo';
+  __typename: 'PaginatedResultInfo';
   next?: Maybe<Scalars['Cursor']['output']>;
   prev?: Maybe<Scalars['Cursor']['output']>;
 };
 
 export type PaginatedTimelineResult = {
-  __typename?: 'PaginatedTimelineResult';
+  __typename: 'PaginatedTimelineResult';
   items: Array<TimelineItem>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedTokenDistributionsResult = {
-  __typename?: 'PaginatedTokenDistributionsResult';
+  __typename: 'PaginatedTokenDistributionsResult';
   items: Array<TokenDistribution>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type PaginatedUsernamesResult = {
-  __typename?: 'PaginatedUsernamesResult';
+  __typename: 'PaginatedUsernamesResult';
   items: Array<Username>;
   pageInfo: PaginatedResultInfo;
 };
@@ -3844,7 +3844,7 @@ export type PausingRequest = {
 export type PausingResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type PayToCollectConfig = {
-  __typename?: 'PayToCollectConfig';
+  __typename: 'PayToCollectConfig';
   /** @deprecated Use `price` which supports native tokens */
   amount: Erc20Amount;
   price: PayableAmount;
@@ -3862,7 +3862,7 @@ export type PayToCollectInput = {
 export type PayableAmount = Erc20Amount | NativeAmount;
 
 export type PaymasterParams = {
-  __typename?: 'PaymasterParams';
+  __typename: 'PaymasterParams';
   paymaster: Scalars['EvmAddress']['output'];
   paymasterInput: Scalars['BlockchainData']['output'];
 };
@@ -3873,13 +3873,13 @@ export enum PaymentSource {
 }
 
 export type PendingTransactionStatus = {
-  __typename?: 'PendingTransactionStatus';
+  __typename: 'PendingTransactionStatus';
   blockTimestamp: Scalars['DateTime']['output'];
   summary: Array<SubOperationStatus>;
 };
 
 export type PhysicalAddress = {
-  __typename?: 'PhysicalAddress';
+  __typename: 'PhysicalAddress';
   country: Scalars['String']['output'];
   formatted?: Maybe<Scalars['String']['output']>;
   locality: Scalars['String']['output'];
@@ -3889,7 +3889,7 @@ export type PhysicalAddress = {
 };
 
 export type Post = {
-  __typename?: 'Post';
+  __typename: 'Post';
   actions: Array<PostAction>;
   app?: Maybe<App>;
   author: Account;
@@ -3956,7 +3956,7 @@ export type PostActionExecuteInput = {
 export type PostActionExecuted = SimpleCollectPostActionExecuted | TippingPostActionExecuted | UnknownPostActionExecuted;
 
 export type PostActionExecutedNotification = {
-  __typename?: 'PostActionExecutedNotification';
+  __typename: 'PostActionExecutedNotification';
   actions: Array<PostActionExecuted>;
   id: Scalars['GeneratedNotificationId']['output'];
   post: Post;
@@ -4026,7 +4026,7 @@ export type PostDeletedNotificationFilter = {
 };
 
 export type PostEdit = {
-  __typename?: 'PostEdit';
+  __typename: 'PostEdit';
   metadata: PostMetadata;
   timestamp: Scalars['DateTime']['output'];
 };
@@ -4046,7 +4046,7 @@ export type PostEditsRequest = {
 };
 
 export type PostExecutedActions = {
-  __typename?: 'PostExecutedActions';
+  __typename: 'PostExecutedActions';
   account: Account;
   firstAt: Scalars['DateTime']['output'];
   lastAt: Scalars['DateTime']['output'];
@@ -4054,20 +4054,20 @@ export type PostExecutedActions = {
 };
 
 export type PostFeedInfo = {
-  __typename?: 'PostFeedInfo';
+  __typename: 'PostFeedInfo';
   address: Scalars['EvmAddress']['output'];
   group?: Maybe<PostGroupInfo>;
   metadata?: Maybe<FeedMetadata>;
 };
 
 export type PostForYou = {
-  __typename?: 'PostForYou';
+  __typename: 'PostForYou';
   post: Post;
   source: ForYouSource;
 };
 
 export type PostGroupInfo = {
-  __typename?: 'PostGroupInfo';
+  __typename: 'PostGroupInfo';
   address: Scalars['EvmAddress']['output'];
   metadata?: Maybe<GroupMetadata>;
 };
@@ -4096,7 +4096,7 @@ export type PostNotInterestedRequest = {
 };
 
 export type PostOperationValidationFailed = {
-  __typename?: 'PostOperationValidationFailed';
+  __typename: 'PostOperationValidationFailed';
   reason: Scalars['String']['output'];
   unsatisfiedRules?: Maybe<PostUnsatisfiedRules>;
 };
@@ -4104,19 +4104,19 @@ export type PostOperationValidationFailed = {
 export type PostOperationValidationOutcome = PostOperationValidationFailed | PostOperationValidationPassed | PostOperationValidationUnknown;
 
 export type PostOperationValidationPassed = {
-  __typename?: 'PostOperationValidationPassed';
+  __typename: 'PostOperationValidationPassed';
   passed: Scalars['AlwaysTrue']['output'];
 };
 
 export type PostOperationValidationRule = FeedRule | PostRule;
 
 export type PostOperationValidationUnknown = {
-  __typename?: 'PostOperationValidationUnknown';
+  __typename: 'PostOperationValidationUnknown';
   extraChecksRequired: Array<PostOperationValidationRule>;
 };
 
 export type PostReaction = {
-  __typename?: 'PostReaction';
+  __typename: 'PostReaction';
   app?: Maybe<Scalars['EvmAddress']['output']>;
   reactedAt: Scalars['DateTime']['output'];
   reaction: PostReactionType;
@@ -4142,7 +4142,7 @@ export type PostReactionRemovedNotificationFilter = {
 };
 
 export type PostReactionStatus = {
-  __typename?: 'PostReactionStatus';
+  __typename: 'PostReactionStatus';
   account: Scalars['EvmAddress']['output'];
   app?: Maybe<Scalars['EvmAddress']['output']>;
   postId: Scalars['PostId']['output'];
@@ -4222,14 +4222,14 @@ export type PostRequest = {
 };
 
 export type PostResponse = {
-  __typename?: 'PostResponse';
+  __typename: 'PostResponse';
   hash: Scalars['TxHash']['output'];
 };
 
 export type PostResult = PostOperationValidationFailed | PostResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type PostRule = {
-  __typename?: 'PostRule';
+  __typename: 'PostRule';
   address: Scalars['EvmAddress']['output'];
   config: Array<AnyKeyValue>;
   executesOn: Array<PostRuleExecuteOn>;
@@ -4261,7 +4261,7 @@ export enum PostRuleUnsatisfiedReason {
 }
 
 export type PostRules = {
-  __typename?: 'PostRules';
+  __typename: 'PostRules';
   anyOf: Array<PostRule>;
   required: Array<PostRule>;
 };
@@ -4276,7 +4276,7 @@ export type PostRulesProcessingParams = {
 };
 
 export type PostStats = {
-  __typename?: 'PostStats';
+  __typename: 'PostStats';
   bookmarks: Scalars['Int']['output'];
   collects: Scalars['Int']['output'];
   comments: Scalars['Int']['output'];
@@ -4296,7 +4296,7 @@ export type PostStatsParams = {
 };
 
 export type PostTag = {
-  __typename?: 'PostTag';
+  __typename: 'PostTag';
   total: Scalars['Int']['output'];
   value: Scalars['String']['output'];
 };
@@ -4318,7 +4318,7 @@ export type PostTagsRequest = {
 };
 
 export type PostTip = {
-  __typename?: 'PostTip';
+  __typename: 'PostTip';
   /** @deprecated Use `tipAmount` which supports native tokens */
   amount: Erc20Amount;
   date: Scalars['DateTime']['output'];
@@ -4333,7 +4333,7 @@ export enum PostType {
 }
 
 export type PostUnsatisfiedRule = {
-  __typename?: 'PostUnsatisfiedRule';
+  __typename: 'PostUnsatisfiedRule';
   config: Array<AnyKeyValue>;
   message: Scalars['String']['output'];
   reason: PostRuleUnsatisfiedReason;
@@ -4341,7 +4341,7 @@ export type PostUnsatisfiedRule = {
 };
 
 export type PostUnsatisfiedRules = {
-  __typename?: 'PostUnsatisfiedRules';
+  __typename: 'PostUnsatisfiedRules';
   anyOf: Array<PostUnsatisfiedRule>;
   required: Array<PostUnsatisfiedRule>;
 };
@@ -4423,7 +4423,7 @@ export enum PrimitiveMetadataSchema {
 }
 
 export type Query = {
-  __typename?: 'Query';
+  __typename: 'Query';
   _service: _Service;
   accessControl?: Maybe<AccessControlResult>;
   account?: Maybe<Account>;
@@ -4865,13 +4865,13 @@ export type QueryWhoReferencedPostArgs = {
 };
 
 export type QuoteNotification = {
-  __typename?: 'QuoteNotification';
+  __typename: 'QuoteNotification';
   id: Scalars['GeneratedNotificationId']['output'];
   quote: Post;
 };
 
 export type RawKeyValue = {
-  __typename?: 'RawKeyValue';
+  __typename: 'RawKeyValue';
   data: Scalars['BlockchainData']['output'];
   key: Scalars['BlockchainData']['output'];
 };
@@ -4882,14 +4882,14 @@ export type RawKeyValueInput = {
 };
 
 export type ReactionNotification = {
-  __typename?: 'ReactionNotification';
+  __typename: 'ReactionNotification';
   id: Scalars['GeneratedNotificationId']['output'];
   post: Post;
   reactions: Array<NotificationAccountPostReaction>;
 };
 
 export type RecipientPercent = {
-  __typename?: 'RecipientPercent';
+  __typename: 'RecipientPercent';
   address: Scalars['EvmAddress']['output'];
   percent: Scalars['Float']['output'];
 };
@@ -4925,7 +4925,7 @@ export type RefreshMetadataRequest = {
 };
 
 export type RefreshMetadataResult = {
-  __typename?: 'RefreshMetadataResult';
+  __typename: 'RefreshMetadataResult';
   id: Scalars['UUID']['output'];
 };
 
@@ -4934,7 +4934,7 @@ export type RefreshMetadataStatusRequest = {
 };
 
 export type RefreshMetadataStatusResult = {
-  __typename?: 'RefreshMetadataStatusResult';
+  __typename: 'RefreshMetadataStatusResult';
   id: Scalars['UUID']['output'];
   reason?: Maybe<Scalars['String']['output']>;
   status: IndexingStatus;
@@ -4953,7 +4953,7 @@ export type RejectGroupMembershipRequest = {
 };
 
 export type RejectGroupMembershipRequestsResponse = {
-  __typename?: 'RejectGroupMembershipRequestsResponse';
+  __typename: 'RejectGroupMembershipRequestsResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -5005,7 +5005,7 @@ export type RemoveGroupMembersRequest = {
 };
 
 export type RemoveGroupMembersResponse = {
-  __typename?: 'RemoveGroupMembersResponse';
+  __typename: 'RemoveGroupMembersResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -5027,7 +5027,7 @@ export type ReportPostRequest = {
 };
 
 export type Repost = {
-  __typename?: 'Repost';
+  __typename: 'Repost';
   app?: Maybe<App>;
   author: Account;
   id: Scalars['PostId']['output'];
@@ -5038,7 +5038,7 @@ export type Repost = {
 };
 
 export type RepostNotification = {
-  __typename?: 'RepostNotification';
+  __typename: 'RepostNotification';
   id: Scalars['GeneratedNotificationId']['output'];
   post: Post;
   reposts: Array<NotificationAccountRepost>;
@@ -5049,7 +5049,7 @@ export type RequestGroupMembershipRequest = {
 };
 
 export type RequestGroupMembershipResponse = {
-  __typename?: 'RequestGroupMembershipResponse';
+  __typename: 'RequestGroupMembershipResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -5075,7 +5075,7 @@ export enum SelfFundedFallbackReason {
 }
 
 export type SelfFundedTransactionRequest = {
-  __typename?: 'SelfFundedTransactionRequest';
+  __typename: 'SelfFundedTransactionRequest';
   raw: Eip1559TransactionRequest;
   reason: Scalars['String']['output'];
   selfFundedReason?: Maybe<SelfFundedFallbackReason>;
@@ -5086,7 +5086,7 @@ export type SetAccountMetadataRequest = {
 };
 
 export type SetAccountMetadataResponse = {
-  __typename?: 'SetAccountMetadataResponse';
+  __typename: 'SetAccountMetadataResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -5147,7 +5147,7 @@ export type SetFeedMetadataRequest = {
 };
 
 export type SetFeedMetadataResponse = {
-  __typename?: 'SetFeedMetadataResponse';
+  __typename: 'SetFeedMetadataResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -5166,7 +5166,7 @@ export type SetGroupMetadataRequest = {
 };
 
 export type SetGroupMetadataResponse = {
-  __typename?: 'SetGroupMetadataResponse';
+  __typename: 'SetGroupMetadataResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -5197,13 +5197,13 @@ export type SignerErc20Approval = {
 };
 
 export type SignerErc20ApprovalRequired = {
-  __typename?: 'SignerErc20ApprovalRequired';
+  __typename: 'SignerErc20ApprovalRequired';
   amount: Erc20Amount;
   reason: Scalars['String']['output'];
 };
 
 export type SimpleCollectAction = {
-  __typename?: 'SimpleCollectAction';
+  __typename: 'SimpleCollectAction';
   address: Scalars['EvmAddress']['output'];
   collectLimit?: Maybe<Scalars['Int']['output']>;
   collectNftAddress: Scalars['EvmAddress']['output'];
@@ -5222,7 +5222,7 @@ export type SimpleCollectActionConfigInput = {
 };
 
 export type SimpleCollectActionContract = {
-  __typename?: 'SimpleCollectActionContract';
+  __typename: 'SimpleCollectActionContract';
   address: Scalars['EvmAddress']['output'];
 };
 
@@ -5233,14 +5233,14 @@ export type SimpleCollectExecuteInput = {
 };
 
 export type SimpleCollectPostActionExecuted = {
-  __typename?: 'SimpleCollectPostActionExecuted';
+  __typename: 'SimpleCollectPostActionExecuted';
   action: SimpleCollectAction;
   executedAt: Scalars['DateTime']['output'];
   executedBy: Account;
 };
 
 export type SimpleCollectValidationFailed = {
-  __typename?: 'SimpleCollectValidationFailed';
+  __typename: 'SimpleCollectValidationFailed';
   reason: Scalars['String']['output'];
   reasonType: SimpleCollectValidationFailedReason;
 };
@@ -5256,7 +5256,7 @@ export enum SimpleCollectValidationFailedReason {
 export type SimpleCollectValidationOutcome = SimpleCollectValidationFailed | SimpleCollectValidationPassed;
 
 export type SimpleCollectValidationPassed = {
-  __typename?: 'SimpleCollectValidationPassed';
+  __typename: 'SimpleCollectValidationPassed';
   passed: Scalars['AlwaysTrue']['output'];
 };
 
@@ -5324,7 +5324,7 @@ export enum SnsNotificationType {
 }
 
 export type SnsSubscription = {
-  __typename?: 'SnsSubscription';
+  __typename: 'SnsSubscription';
   account: Scalars['EvmAddress']['output'];
   app?: Maybe<Scalars['EvmAddress']['output']>;
   filter: Scalars['JSON']['output'];
@@ -5368,7 +5368,7 @@ export type SnsTopicInput = {
 };
 
 export type SpaceMetadata = {
-  __typename?: 'SpaceMetadata';
+  __typename: 'SpaceMetadata';
   attachments: Array<AnyMedia>;
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
@@ -5390,14 +5390,14 @@ export enum SponsoredFallbackReason {
 }
 
 export type SponsoredTransactionRequest = {
-  __typename?: 'SponsoredTransactionRequest';
+  __typename: 'SponsoredTransactionRequest';
   raw: Eip712TransactionRequest;
   reason: Scalars['String']['output'];
   sponsoredReason?: Maybe<SponsoredFallbackReason>;
 };
 
 export type Sponsorship = {
-  __typename?: 'Sponsorship';
+  __typename: 'Sponsorship';
   address: Scalars['EvmAddress']['output'];
   allowsLensAccess: Scalars['Boolean']['output'];
   balance: Scalars['BigDecimal']['output'];
@@ -5409,7 +5409,7 @@ export type Sponsorship = {
 };
 
 export type SponsorshipAllowance = {
-  __typename?: 'SponsorshipAllowance';
+  __typename: 'SponsorshipAllowance';
   allowance: Scalars['Int']['output'];
   allowanceLeft: Scalars['Int']['output'];
   allowanceUsed: Scalars['Int']['output'];
@@ -5417,7 +5417,7 @@ export type SponsorshipAllowance = {
 };
 
 export type SponsorshipGrant = {
-  __typename?: 'SponsorshipGrant';
+  __typename: 'SponsorshipGrant';
   amount: NativeAmount;
   grantedAt: Scalars['DateTime']['output'];
   id: Scalars['GrantId']['output'];
@@ -5435,7 +5435,7 @@ export type SponsorshipGrantsRequest = {
 };
 
 export type SponsorshipGrantsResult = {
-  __typename?: 'SponsorshipGrantsResult';
+  __typename: 'SponsorshipGrantsResult';
   items: Array<SponsorshipGrant>;
   pageInfo: PaginatedResultInfo;
 };
@@ -5458,19 +5458,19 @@ export type SponsorshipLimitExclusionsRequest = {
 };
 
 export type SponsorshipLimits = {
-  __typename?: 'SponsorshipLimits';
+  __typename: 'SponsorshipLimits';
   global?: Maybe<SponsorshipRateLimit>;
   user?: Maybe<SponsorshipRateLimit>;
 };
 
 export type SponsorshipLimitsExclusionsResult = {
-  __typename?: 'SponsorshipLimitsExclusionsResult';
+  __typename: 'SponsorshipLimitsExclusionsResult';
   items: Array<SponsorshipLimitsExempt>;
   pageInfo: PaginatedResultInfo;
 };
 
 export type SponsorshipLimitsExempt = {
-  __typename?: 'SponsorshipLimitsExempt';
+  __typename: 'SponsorshipLimitsExempt';
   address: Scalars['EvmAddress']['output'];
   createdAt: Scalars['DateTime']['output'];
   label: Scalars['String']['output'];
@@ -5478,14 +5478,14 @@ export type SponsorshipLimitsExempt = {
 };
 
 export type SponsorshipMetadata = {
-  __typename?: 'SponsorshipMetadata';
+  __typename: 'SponsorshipMetadata';
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
   name: Scalars['String']['output'];
 };
 
 export type SponsorshipRateLimit = {
-  __typename?: 'SponsorshipRateLimit';
+  __typename: 'SponsorshipRateLimit';
   limit: Scalars['Int']['output'];
   window: SponsorshipRateLimitWindow;
 };
@@ -5518,7 +5518,7 @@ export type SponsorshipRequest = {
 };
 
 export type SponsorshipSigner = {
-  __typename?: 'SponsorshipSigner';
+  __typename: 'SponsorshipSigner';
   address: Scalars['EvmAddress']['output'];
   createdAt: Scalars['DateTime']['output'];
   label: Scalars['String']['output'];
@@ -5548,7 +5548,7 @@ export type SponsorshipSignersRequest = {
 };
 
 export type SponsorshipSignersResult = {
-  __typename?: 'SponsorshipSignersResult';
+  __typename: 'SponsorshipSignersResult';
   items: Array<SponsorshipSigner>;
   pageInfo: PaginatedResultInfo;
 };
@@ -5571,7 +5571,7 @@ export type SponsorshipsRequest = {
 };
 
 export type SponsorshipsResult = {
-  __typename?: 'SponsorshipsResult';
+  __typename: 'SponsorshipsResult';
   items: Array<Sponsorship>;
   pageInfo: PaginatedResultInfo;
 };
@@ -5581,7 +5581,7 @@ export type StatsReactionRequest = {
 };
 
 export type StoryMetadata = {
-  __typename?: 'StoryMetadata';
+  __typename: 'StoryMetadata';
   asset: AnyMedia;
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
@@ -5593,13 +5593,13 @@ export type StoryMetadata = {
 };
 
 export type StringKeyValue = {
-  __typename?: 'StringKeyValue';
+  __typename: 'StringKeyValue';
   key: Scalars['String']['output'];
   string: Scalars['String']['output'];
 };
 
 export type SubOperationStatus = {
-  __typename?: 'SubOperationStatus';
+  __typename: 'SubOperationStatus';
   operation: TransactionOperation;
   status: IndexingStatus;
 };
@@ -5611,7 +5611,7 @@ export type SwitchAccountRequest = {
 export type SwitchAccountResult = AuthenticationTokens | ForbiddenError;
 
 export type TextOnlyMetadata = {
-  __typename?: 'TextOnlyMetadata';
+  __typename: 'TextOnlyMetadata';
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
   contentWarning?: Maybe<ContentWarning>;
@@ -5622,7 +5622,7 @@ export type TextOnlyMetadata = {
 };
 
 export type ThreeDAsset = {
-  __typename?: 'ThreeDAsset';
+  __typename: 'ThreeDAsset';
   format: ThreeDAssetFormat;
   license?: Maybe<MetadataLicenseType>;
   playerUrl: Scalars['URI']['output'];
@@ -5638,7 +5638,7 @@ export enum ThreeDAssetFormat {
 }
 
 export type ThreeDMetadata = {
-  __typename?: 'ThreeDMetadata';
+  __typename: 'ThreeDMetadata';
   assets: Array<ThreeDAsset>;
   attachments: Array<AnyMedia>;
   attributes: Array<MetadataAttribute>;
@@ -5678,7 +5678,7 @@ export type TimelineHighlightsRequest = {
 };
 
 export type TimelineItem = {
-  __typename?: 'TimelineItem';
+  __typename: 'TimelineItem';
   comments: Array<Post>;
   id: Scalars['UUID']['output'];
   primary: Post;
@@ -6123,12 +6123,12 @@ export enum TimezoneId {
 }
 
 export type TippingAccountAction = {
-  __typename?: 'TippingAccountAction';
+  __typename: 'TippingAccountAction';
   address: Scalars['EvmAddress']['output'];
 };
 
 export type TippingAccountActionExecuted = {
-  __typename?: 'TippingAccountActionExecuted';
+  __typename: 'TippingAccountActionExecuted';
   /** @deprecated Use `tipAmount` which supports native tokens */
   amount: Erc20Amount;
   executedAt: Scalars['DateTime']['output'];
@@ -6144,12 +6144,12 @@ export type TippingAmountInput = {
 };
 
 export type TippingPostActionContract = {
-  __typename?: 'TippingPostActionContract';
+  __typename: 'TippingPostActionContract';
   address: Scalars['EvmAddress']['output'];
 };
 
 export type TippingPostActionExecuted = {
-  __typename?: 'TippingPostActionExecuted';
+  __typename: 'TippingPostActionExecuted';
   /** @deprecated Use `tipAmount` which supports native tokens */
   amount: Erc20Amount;
   executedAt: Scalars['DateTime']['output'];
@@ -6165,7 +6165,7 @@ export type TokenAmountInput = {
 };
 
 export type TokenDistributedNotification = {
-  __typename?: 'TokenDistributedNotification';
+  __typename: 'TokenDistributedNotification';
   account: Account;
   actionDate: Scalars['DateTime']['output'];
   amount: PayableAmount;
@@ -6173,7 +6173,7 @@ export type TokenDistributedNotification = {
 };
 
 export type TokenDistribution = {
-  __typename?: 'TokenDistribution';
+  __typename: 'TokenDistribution';
   amount: PayableAmount;
   timestamp: Scalars['DateTime']['output'];
   txHash?: Maybe<Scalars['TxHash']['output']>;
@@ -6216,7 +6216,7 @@ export enum TokenStandard {
 }
 
 export type TransactionMetadata = {
-  __typename?: 'TransactionMetadata';
+  __typename: 'TransactionMetadata';
   attachments: Array<AnyMedia>;
   attributes: Array<MetadataAttribute>;
   chainId: Scalars['ChainId']['output'];
@@ -6393,7 +6393,7 @@ export enum TransactionType {
 }
 
 export type TransactionWillFail = {
-  __typename?: 'TransactionWillFail';
+  __typename: 'TransactionWillFail';
   reason: Scalars['String']['output'];
 };
 
@@ -6410,7 +6410,7 @@ export type UnassignUsernameFromAccountRequest = {
 };
 
 export type UnassignUsernameResponse = {
-  __typename?: 'UnassignUsernameResponse';
+  __typename: 'UnassignUsernameResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -6422,7 +6422,7 @@ export type UnbanGroupAccountsRequest = {
 };
 
 export type UnbanGroupAccountsResponse = {
-  __typename?: 'UnbanGroupAccountsResponse';
+  __typename: 'UnbanGroupAccountsResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -6435,7 +6435,7 @@ export type UnblockRequest = {
 export type UnblockResult = AccountUnblockedResponse | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type UndoReactionFailure = {
-  __typename?: 'UndoReactionFailure';
+  __typename: 'UndoReactionFailure';
   reason: Scalars['String']['output'];
 };
 
@@ -6445,7 +6445,7 @@ export type UndoReactionRequest = {
 };
 
 export type UndoReactionResponse = {
-  __typename?: 'UndoReactionResponse';
+  __typename: 'UndoReactionResponse';
   success: Scalars['Boolean']['output'];
 };
 
@@ -6456,7 +6456,7 @@ export type UndoRecommendedAccount = {
 };
 
 export type UnfollowResponse = {
-  __typename?: 'UnfollowResponse';
+  __typename: 'UnfollowResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -6471,14 +6471,14 @@ export type UnhideReplyRequest = {
 };
 
 export type UnknownAccountAction = {
-  __typename?: 'UnknownAccountAction';
+  __typename: 'UnknownAccountAction';
   address: Scalars['EvmAddress']['output'];
   config: Array<RawKeyValue>;
   metadata?: Maybe<ActionMetadata>;
 };
 
 export type UnknownAccountActionExecuted = {
-  __typename?: 'UnknownAccountActionExecuted';
+  __typename: 'UnknownAccountActionExecuted';
   action: UnknownAccountAction;
   executedAt: Scalars['DateTime']['output'];
   executedBy: Account;
@@ -6525,20 +6525,20 @@ export type UnknownNamespaceRuleConfig = {
 };
 
 export type UnknownPostAction = {
-  __typename?: 'UnknownPostAction';
+  __typename: 'UnknownPostAction';
   address: Scalars['EvmAddress']['output'];
   config: Array<RawKeyValue>;
   metadata?: Maybe<ActionMetadata>;
 };
 
 export type UnknownPostActionContract = {
-  __typename?: 'UnknownPostActionContract';
+  __typename: 'UnknownPostActionContract';
   address: Scalars['EvmAddress']['output'];
   metadata?: Maybe<ActionMetadata>;
 };
 
 export type UnknownPostActionExecuted = {
-  __typename?: 'UnknownPostActionExecuted';
+  __typename: 'UnknownPostActionExecuted';
   action: UnknownPostAction;
   executedAt: Scalars['DateTime']['output'];
   executedBy: Account;
@@ -6546,7 +6546,7 @@ export type UnknownPostActionExecuted = {
 };
 
 export type UnknownPostMetadata = {
-  __typename?: 'UnknownPostMetadata';
+  __typename: 'UnknownPostMetadata';
   raw: Scalars['JsonString']['output'];
 };
 
@@ -6574,7 +6574,7 @@ export type UpdateAccountFollowRulesRequest = {
 };
 
 export type UpdateAccountFollowRulesResponse = {
-  __typename?: 'UpdateAccountFollowRulesResponse';
+  __typename: 'UpdateAccountFollowRulesResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -6594,7 +6594,7 @@ export type UpdateFeedRulesRequest = {
 };
 
 export type UpdateFeedRulesResponse = {
-  __typename?: 'UpdateFeedRulesResponse';
+  __typename: 'UpdateFeedRulesResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -6615,7 +6615,7 @@ export type UpdateGroupRulesRequest = {
 };
 
 export type UpdateGroupRulesResponse = {
-  __typename?: 'UpdateGroupRulesResponse';
+  __typename: 'UpdateGroupRulesResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -6637,7 +6637,7 @@ export type UpdatePostRulesRequest = {
 };
 
 export type UpdatePostRulesResponse = {
-  __typename?: 'UpdatePostRulesResponse';
+  __typename: 'UpdatePostRulesResponse';
   hash: Scalars['TxHash']['output'];
 };
 
@@ -6676,7 +6676,7 @@ export type UpdateSponsorshipSignersRequest = {
 export type UpdateSponsorshipSignersResult = SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type Username = {
-  __typename?: 'Username';
+  __typename: 'Username';
   id: Scalars['ID']['output'];
   linkedTo?: Maybe<Scalars['EvmAddress']['output']>;
   localName: Scalars['String']['output'];
@@ -6698,7 +6698,7 @@ export type UsernameLengthNamespaceRuleConfig = {
 };
 
 export type UsernameNamespace = {
-  __typename?: 'UsernameNamespace';
+  __typename: 'UsernameNamespace';
   address: Scalars['EvmAddress']['output'];
   collectionMetadata?: Maybe<UsernameNamespaceMetadataStandard>;
   createdAt: Scalars['DateTime']['output'];
@@ -6719,13 +6719,13 @@ export type UsernameNamespaceChoiceOneOf = {
 };
 
 export type UsernameNamespaceMetadata = {
-  __typename?: 'UsernameNamespaceMetadata';
+  __typename: 'UsernameNamespaceMetadata';
   description?: Maybe<Scalars['String']['output']>;
   id: Scalars['String']['output'];
 };
 
 export type UsernameNamespaceMetadataStandard = {
-  __typename?: 'UsernameNamespaceMetadataStandard';
+  __typename: 'UsernameNamespaceMetadataStandard';
   bannerImage?: Maybe<Scalars['URI']['output']>;
   collaborators: Array<Scalars['EvmAddress']['output']>;
   description?: Maybe<Scalars['String']['output']>;
@@ -6738,7 +6738,7 @@ export type UsernameNamespaceMetadataStandard = {
 };
 
 export type UsernameNamespaceStats = {
-  __typename?: 'UsernameNamespaceStats';
+  __typename: 'UsernameNamespaceStats';
   totalUsernames: Scalars['Int']['output'];
 };
 
@@ -6760,7 +6760,7 @@ export type UsernameRequest = {
 };
 
 export type UsernameReserved = {
-  __typename?: 'UsernameReserved';
+  __typename: 'UsernameReserved';
   localName: Scalars['String']['output'];
   namespace: Scalars['EvmAddress']['output'];
   ruleId: Scalars['RuleId']['output'];
@@ -6772,7 +6772,7 @@ export type UsernameSearchInput = {
 };
 
 export type UsernameTaken = {
-  __typename?: 'UsernameTaken';
+  __typename: 'UsernameTaken';
   ownedBy: Scalars['EvmAddress']['output'];
   reason: Scalars['String']['output'];
 };
@@ -6797,7 +6797,7 @@ export type UsernamesRequest = {
 };
 
 export type VideoMetadata = {
-  __typename?: 'VideoMetadata';
+  __typename: 'VideoMetadata';
   attachments: Array<AnyMedia>;
   attributes: Array<MetadataAttribute>;
   content: Scalars['String']['output'];
@@ -6878,32 +6878,32 @@ export type WrapTokensRequest = {
 export type WrapTokensResult = InsufficientFunds | SelfFundedTransactionRequest | SponsoredTransactionRequest | TransactionWillFail;
 
 export type WrongSignerError = {
-  __typename?: 'WrongSignerError';
+  __typename: 'WrongSignerError';
   reason: Scalars['String']['output'];
 };
 
 export type _Service = {
-  __typename?: '_Service';
+  __typename: '_Service';
   sdl?: Maybe<Scalars['String']['output']>;
 };
 
-type AnyKeyValue_AddressKeyValue_Fragment = { __typename?: 'AddressKeyValue', key: string, address: any };
+type AnyKeyValue_AddressKeyValue_Fragment = { __typename: 'AddressKeyValue', key: string, address: any };
 
-type AnyKeyValue_ArrayKeyValue_Fragment = { __typename?: 'ArrayKeyValue' };
+type AnyKeyValue_ArrayKeyValue_Fragment = { __typename: 'ArrayKeyValue' };
 
-type AnyKeyValue_BigDecimalKeyValue_Fragment = { __typename?: 'BigDecimalKeyValue', key: string, bigDecimal: any };
+type AnyKeyValue_BigDecimalKeyValue_Fragment = { __typename: 'BigDecimalKeyValue', key: string, bigDecimal: any };
 
-type AnyKeyValue_BooleanKeyValue_Fragment = { __typename?: 'BooleanKeyValue' };
+type AnyKeyValue_BooleanKeyValue_Fragment = { __typename: 'BooleanKeyValue' };
 
-type AnyKeyValue_DictionaryKeyValue_Fragment = { __typename?: 'DictionaryKeyValue' };
+type AnyKeyValue_DictionaryKeyValue_Fragment = { __typename: 'DictionaryKeyValue' };
 
-type AnyKeyValue_IntKeyValue_Fragment = { __typename?: 'IntKeyValue' };
+type AnyKeyValue_IntKeyValue_Fragment = { __typename: 'IntKeyValue' };
 
-type AnyKeyValue_IntNullableKeyValue_Fragment = { __typename?: 'IntNullableKeyValue' };
+type AnyKeyValue_IntNullableKeyValue_Fragment = { __typename: 'IntNullableKeyValue' };
 
-type AnyKeyValue_RawKeyValue_Fragment = { __typename?: 'RawKeyValue' };
+type AnyKeyValue_RawKeyValue_Fragment = { __typename: 'RawKeyValue' };
 
-type AnyKeyValue_StringKeyValue_Fragment = { __typename?: 'StringKeyValue', key: string, string: string };
+type AnyKeyValue_StringKeyValue_Fragment = { __typename: 'StringKeyValue', key: string, string: string };
 
 export type AnyKeyValueFragment =
   | AnyKeyValue_AddressKeyValue_Fragment
@@ -6917,21 +6917,21 @@ export type AnyKeyValueFragment =
   | AnyKeyValue_StringKeyValue_Fragment
 ;
 
-export type BooleanValueFragment = { __typename?: 'BooleanValue', onChain: boolean, optimistic: boolean };
+export type BooleanValueFragment = { __typename: 'BooleanValue', onChain: boolean, optimistic: boolean };
 
-export type Erc20AmountFragment = { __typename?: 'Erc20Amount', value: any, asset: { __typename?: 'Erc20', decimals: number, name: string, symbol: string, contract: { __typename?: 'NetworkAddress', address: any } } };
+export type Erc20AmountFragment = { __typename: 'Erc20Amount', value: any, asset: { __typename: 'Erc20', decimals: number, name: string, symbol: string, contract: { __typename: 'NetworkAddress', address: any } } };
 
-export type NativeAmountFragment = { __typename?: 'NativeAmount', value: any, asset: { __typename?: 'NativeToken', decimals: number, name: string, symbol: string, contract: { __typename?: 'NetworkAddress', address: any } } };
+export type NativeAmountFragment = { __typename: 'NativeAmount', value: any, asset: { __typename: 'NativeToken', decimals: number, name: string, symbol: string, contract: { __typename: 'NetworkAddress', address: any } } };
 
-export type PaginatedResultInfoFragment = { __typename?: 'PaginatedResultInfo', prev?: any | null, next?: any | null };
+export type PaginatedResultInfoFragment = { __typename: 'PaginatedResultInfo', prev?: any | null, next?: any | null };
 
 type PayableAmount_Erc20Amount_Fragment = (
-  { __typename?: 'Erc20Amount' }
+  { __typename: 'Erc20Amount' }
   & Erc20AmountFragment
 );
 
 type PayableAmount_NativeAmount_Fragment = (
-  { __typename?: 'NativeAmount' }
+  { __typename: 'NativeAmount' }
   & NativeAmountFragment
 );
 
@@ -6940,302 +6940,302 @@ export type PayableAmountFragment =
   | PayableAmount_NativeAmount_Fragment
 ;
 
-export type TimelineItemFragment = { __typename?: 'TimelineItem', id: any, primary: (
-    { __typename?: 'Post' }
+export type TimelineItemFragment = { __typename: 'TimelineItem', id: any, primary: (
+    { __typename: 'Post' }
     & PostFragment
   ), comments: Array<(
-    { __typename?: 'Post' }
+    { __typename: 'Post' }
     & PostFragment
   )>, reposts: Array<(
-    { __typename?: 'Repost' }
+    { __typename: 'Repost' }
     & RepostFragment
   )> };
 
-export type AccountFragment = { __typename?: 'Account', owner: any, address: any, score: number, createdAt: any, isAdmin: boolean, rules: { __typename?: 'AccountFollowRules', anyOf: Array<(
-      { __typename?: 'AccountFollowRule' }
+export type AccountFragment = { __typename: 'Account', owner: any, address: any, score: number, createdAt: any, isAdmin: boolean, rules: { __typename: 'AccountFollowRules', anyOf: Array<(
+      { __typename: 'AccountFollowRule' }
       & AccountFollowRuleFragment
     )>, required: Array<(
-      { __typename?: 'AccountFollowRule' }
+      { __typename: 'AccountFollowRule' }
       & AccountFollowRuleFragment
     )> }, operations?: (
-    { __typename?: 'LoggedInAccountOperations' }
+    { __typename: 'LoggedInAccountOperations' }
     & LoggedInAccountOperationsFragment
   ) | null, metadata?: (
-    { __typename?: 'AccountMetadata' }
+    { __typename: 'AccountMetadata' }
     & AccountMetadataFragment
   ) | null, username?: (
-    { __typename?: 'Username' }
+    { __typename: 'Username' }
     & UsernameFragment
   ) | null };
 
-export type AccountFollowRuleFragment = { __typename?: 'AccountFollowRule', id: any, type: AccountFollowRuleType, config: Array<
+export type AccountFollowRuleFragment = { __typename: 'AccountFollowRule', id: any, type: AccountFollowRuleType, config: Array<
     | (
-      { __typename?: 'AddressKeyValue' }
+      { __typename: 'AddressKeyValue' }
       & AnyKeyValue_AddressKeyValue_Fragment
     )
     | (
-      { __typename?: 'ArrayKeyValue' }
+      { __typename: 'ArrayKeyValue' }
       & AnyKeyValue_ArrayKeyValue_Fragment
     )
     | (
-      { __typename?: 'BigDecimalKeyValue' }
+      { __typename: 'BigDecimalKeyValue' }
       & AnyKeyValue_BigDecimalKeyValue_Fragment
     )
     | (
-      { __typename?: 'BooleanKeyValue' }
+      { __typename: 'BooleanKeyValue' }
       & AnyKeyValue_BooleanKeyValue_Fragment
     )
     | (
-      { __typename?: 'DictionaryKeyValue' }
+      { __typename: 'DictionaryKeyValue' }
       & AnyKeyValue_DictionaryKeyValue_Fragment
     )
     | (
-      { __typename?: 'IntKeyValue' }
+      { __typename: 'IntKeyValue' }
       & AnyKeyValue_IntKeyValue_Fragment
     )
     | (
-      { __typename?: 'IntNullableKeyValue' }
+      { __typename: 'IntNullableKeyValue' }
       & AnyKeyValue_IntNullableKeyValue_Fragment
     )
     | (
-      { __typename?: 'RawKeyValue' }
+      { __typename: 'RawKeyValue' }
       & AnyKeyValue_RawKeyValue_Fragment
     )
     | (
-      { __typename?: 'StringKeyValue' }
+      { __typename: 'StringKeyValue' }
       & AnyKeyValue_StringKeyValue_Fragment
     )
   > };
 
-export type AccountManagerFragment = { __typename?: 'AccountManager', manager: any, isLensManager: boolean, permissions: { __typename?: 'AccountManagerPermissions', canExecuteTransactions: boolean, canTransferNative: boolean, canTransferTokens: boolean } };
+export type AccountManagerFragment = { __typename: 'AccountManager', manager: any, isLensManager: boolean, permissions: { __typename: 'AccountManagerPermissions', canExecuteTransactions: boolean, canTransferNative: boolean, canTransferTokens: boolean } };
 
-export type AccountMetadataFragment = { __typename?: 'AccountMetadata', id: string, name?: string | null, bio?: string | null, picture?: any | null, coverPicture?: any | null, attributes: Array<(
-    { __typename?: 'MetadataAttribute' }
+export type AccountMetadataFragment = { __typename: 'AccountMetadata', id: string, name?: string | null, bio?: string | null, picture?: any | null, coverPicture?: any | null, attributes: Array<(
+    { __typename: 'MetadataAttribute' }
     & MetadataAttributeFragment
   )> };
 
-export type LoggedInAccountOperationsFragment = { __typename?: 'LoggedInAccountOperations', id: string, isFollowedByMe: boolean, isFollowingMe: boolean, isMutedByMe: boolean, isBlockedByMe: boolean, hasBlockedMe: boolean };
+export type LoggedInAccountOperationsFragment = { __typename: 'LoggedInAccountOperations', id: string, isFollowedByMe: boolean, isFollowingMe: boolean, isMutedByMe: boolean, isBlockedByMe: boolean, hasBlockedMe: boolean };
 
-export type UsernameFragment = { __typename?: 'Username', namespace: any, localName: string, linkedTo?: any | null, value: any, ownedBy: any };
+export type UsernameFragment = { __typename: 'Username', namespace: any, localName: string, linkedTo?: any | null, value: any, ownedBy: any };
 
-export type FeedFragment = { __typename?: 'Feed', address: any, rules: { __typename?: 'FeedRules', required: Array<(
-      { __typename?: 'FeedRule' }
+export type FeedFragment = { __typename: 'Feed', address: any, rules: { __typename: 'FeedRules', required: Array<(
+      { __typename: 'FeedRule' }
       & FeedRuleFragment
     )> } };
 
-export type FeedRuleFragment = { __typename?: 'FeedRule', address: any, id: any, config: Array<
-    | { __typename?: 'AddressKeyValue' }
-    | { __typename?: 'ArrayKeyValue' }
-    | { __typename?: 'BigDecimalKeyValue' }
-    | { __typename?: 'BooleanKeyValue', key: string, boolean: boolean }
-    | { __typename?: 'DictionaryKeyValue' }
-    | { __typename?: 'IntKeyValue' }
-    | { __typename?: 'IntNullableKeyValue' }
-    | { __typename?: 'RawKeyValue' }
-    | { __typename?: 'StringKeyValue' }
+export type FeedRuleFragment = { __typename: 'FeedRule', address: any, id: any, config: Array<
+    | { __typename: 'AddressKeyValue' }
+    | { __typename: 'ArrayKeyValue' }
+    | { __typename: 'BigDecimalKeyValue' }
+    | { __typename: 'BooleanKeyValue', key: string, boolean: boolean }
+    | { __typename: 'DictionaryKeyValue' }
+    | { __typename: 'IntKeyValue' }
+    | { __typename: 'IntNullableKeyValue' }
+    | { __typename: 'RawKeyValue' }
+    | { __typename: 'StringKeyValue' }
   > };
 
-export type GroupFragment = { __typename?: 'Group', address: any, owner: any, membershipApprovalEnabled: boolean, timestamp: any, feed?: (
-    { __typename?: 'Feed' }
+export type GroupFragment = { __typename: 'Group', address: any, owner: any, membershipApprovalEnabled: boolean, timestamp: any, feed?: (
+    { __typename: 'Feed' }
     & FeedFragment
-  ) | null, rules: { __typename?: 'GroupRules', anyOf: Array<(
-      { __typename?: 'GroupRule' }
+  ) | null, rules: { __typename: 'GroupRules', anyOf: Array<(
+      { __typename: 'GroupRule' }
       & GroupRuleFragment
     )>, required: Array<(
-      { __typename?: 'GroupRule' }
+      { __typename: 'GroupRule' }
       & GroupRuleFragment
     )> }, operations?: (
-    { __typename?: 'LoggedInGroupOperations' }
+    { __typename: 'LoggedInGroupOperations' }
     & LoggedInGroupOperationsFragment
   ) | null, metadata?: (
-    { __typename?: 'GroupMetadata' }
+    { __typename: 'GroupMetadata' }
     & GroupMetadataFragment
   ) | null };
 
-export type GroupMemberFragment = { __typename?: 'GroupMember', account: (
-    { __typename?: 'Account' }
+export type GroupMemberFragment = { __typename: 'GroupMember', account: (
+    { __typename: 'Account' }
     & AccountFragment
   ) };
 
-export type GroupMetadataFragment = { __typename?: 'GroupMetadata', name: string, description?: string | null, icon?: any | null, coverPicture?: any | null };
+export type GroupMetadataFragment = { __typename: 'GroupMetadata', name: string, description?: string | null, icon?: any | null, coverPicture?: any | null };
 
-export type GroupRuleFragment = { __typename?: 'GroupRule', id: any, type: GroupRuleType, config: Array<
+export type GroupRuleFragment = { __typename: 'GroupRule', id: any, type: GroupRuleType, config: Array<
     | (
-      { __typename?: 'AddressKeyValue' }
+      { __typename: 'AddressKeyValue' }
       & AnyKeyValue_AddressKeyValue_Fragment
     )
     | (
-      { __typename?: 'ArrayKeyValue' }
+      { __typename: 'ArrayKeyValue' }
       & AnyKeyValue_ArrayKeyValue_Fragment
     )
     | (
-      { __typename?: 'BigDecimalKeyValue' }
+      { __typename: 'BigDecimalKeyValue' }
       & AnyKeyValue_BigDecimalKeyValue_Fragment
     )
     | (
-      { __typename?: 'BooleanKeyValue' }
+      { __typename: 'BooleanKeyValue' }
       & AnyKeyValue_BooleanKeyValue_Fragment
     )
     | (
-      { __typename?: 'DictionaryKeyValue' }
+      { __typename: 'DictionaryKeyValue' }
       & AnyKeyValue_DictionaryKeyValue_Fragment
     )
     | (
-      { __typename?: 'IntKeyValue' }
+      { __typename: 'IntKeyValue' }
       & AnyKeyValue_IntKeyValue_Fragment
     )
     | (
-      { __typename?: 'IntNullableKeyValue' }
+      { __typename: 'IntNullableKeyValue' }
       & AnyKeyValue_IntNullableKeyValue_Fragment
     )
     | (
-      { __typename?: 'RawKeyValue' }
+      { __typename: 'RawKeyValue' }
       & AnyKeyValue_RawKeyValue_Fragment
     )
     | (
-      { __typename?: 'StringKeyValue' }
+      { __typename: 'StringKeyValue' }
       & AnyKeyValue_StringKeyValue_Fragment
     )
   > };
 
-export type LoggedInGroupOperationsFragment = { __typename?: 'LoggedInGroupOperations', id: string, isMember: boolean, isBanned: boolean, hasRequestedMembership: boolean };
+export type LoggedInGroupOperationsFragment = { __typename: 'LoggedInGroupOperations', id: string, isMember: boolean, isBanned: boolean, hasRequestedMembership: boolean };
 
-export type AccountActionExecutedNotificationFragment = { __typename?: 'AccountActionExecutedNotification', id: any, actions: Array<
-    | { __typename?: 'TippingAccountActionExecuted', executedAt: any, executedBy: (
-        { __typename?: 'Account' }
+export type AccountActionExecutedNotificationFragment = { __typename: 'AccountActionExecutedNotification', id: any, actions: Array<
+    | { __typename: 'TippingAccountActionExecuted', executedAt: any, executedBy: (
+        { __typename: 'Account' }
         & AccountFragment
       ), tipAmount:
         | (
-          { __typename?: 'Erc20Amount' }
+          { __typename: 'Erc20Amount' }
           & PayableAmount_Erc20Amount_Fragment
         )
         | (
-          { __typename?: 'NativeAmount' }
+          { __typename: 'NativeAmount' }
           & PayableAmount_NativeAmount_Fragment
         )
        }
-    | { __typename?: 'UnknownAccountActionExecuted', executedAt: any, executedBy: (
-        { __typename?: 'Account' }
+    | { __typename: 'UnknownAccountActionExecuted', executedAt: any, executedBy: (
+        { __typename: 'Account' }
         & AccountFragment
       ) }
   > };
 
-export type CommentNotificationFragment = { __typename?: 'CommentNotification', id: any, comment: (
-    { __typename?: 'Post' }
+export type CommentNotificationFragment = { __typename: 'CommentNotification', id: any, comment: (
+    { __typename: 'Post' }
     & ReferencedPostNotificationFragment
   ) };
 
-export type FollowNotificationFragment = { __typename?: 'FollowNotification', id: any, followers: Array<{ __typename?: 'NotificationAccountFollow', followedAt: any, account: (
-      { __typename?: 'Account' }
+export type FollowNotificationFragment = { __typename: 'FollowNotification', id: any, followers: Array<{ __typename: 'NotificationAccountFollow', followedAt: any, account: (
+      { __typename: 'Account' }
       & AccountFragment
     ) }> };
 
-export type GroupMembershipRequestApprovedNotificationFragment = { __typename?: 'GroupMembershipRequestApprovedNotification', id: any, approvedAt: any, approvedBy: (
-    { __typename?: 'Account' }
+export type GroupMembershipRequestApprovedNotificationFragment = { __typename: 'GroupMembershipRequestApprovedNotification', id: any, approvedAt: any, approvedBy: (
+    { __typename: 'Account' }
     & AccountFragment
   ), group: (
-    { __typename?: 'Group' }
+    { __typename: 'Group' }
     & GroupFragment
   ) };
 
-export type GroupMembershipRequestRejectedNotificationFragment = { __typename?: 'GroupMembershipRequestRejectedNotification', id: any, rejectedAt: any, rejectedBy: (
-    { __typename?: 'Account' }
+export type GroupMembershipRequestRejectedNotificationFragment = { __typename: 'GroupMembershipRequestRejectedNotification', id: any, rejectedAt: any, rejectedBy: (
+    { __typename: 'Account' }
     & AccountFragment
   ), group: (
-    { __typename?: 'Group' }
+    { __typename: 'Group' }
     & GroupFragment
   ) };
 
-export type MentionNotificationFragment = { __typename?: 'MentionNotification', id: any, post: (
-    { __typename?: 'Post' }
+export type MentionNotificationFragment = { __typename: 'MentionNotification', id: any, post: (
+    { __typename: 'Post' }
     & PostFragment
   ) };
 
-export type PostActionExecutedNotificationFragment = { __typename?: 'PostActionExecutedNotification', id: any, actions: Array<
-    | { __typename?: 'SimpleCollectPostActionExecuted', executedAt: any, executedBy: (
-        { __typename?: 'Account' }
+export type PostActionExecutedNotificationFragment = { __typename: 'PostActionExecutedNotification', id: any, actions: Array<
+    | { __typename: 'SimpleCollectPostActionExecuted', executedAt: any, executedBy: (
+        { __typename: 'Account' }
         & AccountFragment
-      ), action: { __typename?: 'SimpleCollectAction', payToCollect?: (
-          { __typename?: 'PayToCollectConfig' }
+      ), action: { __typename: 'SimpleCollectAction', payToCollect?: (
+          { __typename: 'PayToCollectConfig' }
           & PayToCollectConfigFragment
         ) | null } }
-    | { __typename?: 'TippingPostActionExecuted', executedAt: any, executedBy: (
-        { __typename?: 'Account' }
+    | { __typename: 'TippingPostActionExecuted', executedAt: any, executedBy: (
+        { __typename: 'Account' }
         & AccountFragment
       ), tipAmount:
         | (
-          { __typename?: 'Erc20Amount' }
+          { __typename: 'Erc20Amount' }
           & PayableAmount_Erc20Amount_Fragment
         )
         | (
-          { __typename?: 'NativeAmount' }
+          { __typename: 'NativeAmount' }
           & PayableAmount_NativeAmount_Fragment
         )
        }
-    | { __typename?: 'UnknownPostActionExecuted', executedAt: any, action: (
-        { __typename?: 'UnknownPostAction' }
+    | { __typename: 'UnknownPostActionExecuted', executedAt: any, action: (
+        { __typename: 'UnknownPostAction' }
         & UnknownPostActionFragment
       ), executedBy: (
-        { __typename?: 'Account' }
+        { __typename: 'Account' }
         & AccountFragment
       ) }
   >, post: (
-    { __typename?: 'Post' }
+    { __typename: 'Post' }
     & PostFragment
   ) };
 
-export type QuoteNotificationFragment = { __typename?: 'QuoteNotification', id: any, quote: (
-    { __typename?: 'Post' }
+export type QuoteNotificationFragment = { __typename: 'QuoteNotification', id: any, quote: (
+    { __typename: 'Post' }
     & ReferencedPostNotificationFragment
   ) };
 
-export type ReactionNotificationFragment = { __typename?: 'ReactionNotification', id: any, post: (
-    { __typename?: 'Post' }
+export type ReactionNotificationFragment = { __typename: 'ReactionNotification', id: any, post: (
+    { __typename: 'Post' }
     & PostFragment
-  ), reactions: Array<{ __typename?: 'NotificationAccountPostReaction', account: (
-      { __typename?: 'Account' }
+  ), reactions: Array<{ __typename: 'NotificationAccountPostReaction', account: (
+      { __typename: 'Account' }
       & AccountFragment
-    ), reactions: Array<{ __typename?: 'PostReaction', reactedAt: any, reaction: PostReactionType }> }> };
+    ), reactions: Array<{ __typename: 'PostReaction', reactedAt: any, reaction: PostReactionType }> }> };
 
 export type ReferencedPostNotificationFragment = (
-  { __typename?: 'Post', commentOn?: (
-    { __typename?: 'Post' }
+  { __typename: 'Post', commentOn?: (
+    { __typename: 'Post' }
     & PostFragment
   ) | null, quoteOf?: (
-    { __typename?: 'Post' }
+    { __typename: 'Post' }
     & PostFragment
   ) | null }
   & ReferencedPostFragment
 );
 
-export type RepostNotificationFragment = { __typename?: 'RepostNotification', id: any, post: (
-    { __typename?: 'Post' }
+export type RepostNotificationFragment = { __typename: 'RepostNotification', id: any, post: (
+    { __typename: 'Post' }
     & PostFragment
-  ), reposts: Array<{ __typename?: 'NotificationAccountRepost', repostedAt: any, account: (
-      { __typename?: 'Account' }
+  ), reposts: Array<{ __typename: 'NotificationAccountRepost', repostedAt: any, account: (
+      { __typename: 'Account' }
       & AccountFragment
     ) }> };
 
-export type TokenDistributedNotificationFragment = { __typename?: 'TokenDistributedNotification', id: any, actionDate: any, amount:
+export type TokenDistributedNotificationFragment = { __typename: 'TokenDistributedNotification', id: any, actionDate: any, amount:
     | (
-      { __typename?: 'Erc20Amount' }
+      { __typename: 'Erc20Amount' }
       & PayableAmount_Erc20Amount_Fragment
     )
     | (
-      { __typename?: 'NativeAmount' }
+      { __typename: 'NativeAmount' }
       & PayableAmount_NativeAmount_Fragment
     )
    };
 
-export type AccountMentionFragment = { __typename?: 'AccountMention', account: any, namespace: any, replace: { __typename?: 'MentionReplace', from: string } };
+export type AccountMentionFragment = { __typename: 'AccountMention', account: any, namespace: any, replace: { __typename: 'MentionReplace', from: string } };
 
 type AnyPost_Post_Fragment = (
-  { __typename?: 'Post' }
+  { __typename: 'Post' }
   & PostFragment
 );
 
 type AnyPost_Repost_Fragment = (
-  { __typename?: 'Repost' }
+  { __typename: 'Repost' }
   & RepostFragment
 );
 
@@ -7244,16 +7244,16 @@ export type AnyPostFragment =
   | AnyPost_Repost_Fragment
 ;
 
-export type GroupMentionFragment = { __typename?: 'GroupMention', group: any, replace: { __typename?: 'MentionReplace', from: string, to: string } };
+export type GroupMentionFragment = { __typename: 'GroupMention', group: any, replace: { __typename: 'MentionReplace', from: string, to: string } };
 
-export type LoggedInPostOperationsFragment = { __typename?: 'LoggedInPostOperations', id: string, hasBookmarked: boolean, hasReacted: boolean, hasSimpleCollected: boolean, hasTipped: boolean, hasReported: boolean, isNotInterested: boolean, hasCommented: (
-    { __typename?: 'BooleanValue' }
+export type LoggedInPostOperationsFragment = { __typename: 'LoggedInPostOperations', id: string, hasBookmarked: boolean, hasReacted: boolean, hasSimpleCollected: boolean, hasTipped: boolean, hasReported: boolean, isNotInterested: boolean, hasCommented: (
+    { __typename: 'BooleanValue' }
     & BooleanValueFragment
   ), hasQuoted: (
-    { __typename?: 'BooleanValue' }
+    { __typename: 'BooleanValue' }
     & BooleanValueFragment
   ), hasReposted: (
-    { __typename?: 'BooleanValue' }
+    { __typename: 'BooleanValue' }
     & BooleanValueFragment
   ), canEdit:
     | { __typename: 'PostOperationValidationFailed' }
@@ -7261,66 +7261,66 @@ export type LoggedInPostOperationsFragment = { __typename?: 'LoggedInPostOperati
     | { __typename: 'PostOperationValidationUnknown' }
   , canRepost:
     | (
-      { __typename?: 'PostOperationValidationFailed' }
+      { __typename: 'PostOperationValidationFailed' }
       & PostOperationValidationOutcome_PostOperationValidationFailed_Fragment
     )
     | (
-      { __typename?: 'PostOperationValidationPassed' }
+      { __typename: 'PostOperationValidationPassed' }
       & PostOperationValidationOutcome_PostOperationValidationPassed_Fragment
     )
     | (
-      { __typename?: 'PostOperationValidationUnknown' }
+      { __typename: 'PostOperationValidationUnknown' }
       & PostOperationValidationOutcome_PostOperationValidationUnknown_Fragment
     )
   , canQuote:
     | (
-      { __typename?: 'PostOperationValidationFailed' }
+      { __typename: 'PostOperationValidationFailed' }
       & PostOperationValidationOutcome_PostOperationValidationFailed_Fragment
     )
     | (
-      { __typename?: 'PostOperationValidationPassed' }
+      { __typename: 'PostOperationValidationPassed' }
       & PostOperationValidationOutcome_PostOperationValidationPassed_Fragment
     )
     | (
-      { __typename?: 'PostOperationValidationUnknown' }
+      { __typename: 'PostOperationValidationUnknown' }
       & PostOperationValidationOutcome_PostOperationValidationUnknown_Fragment
     )
   , canComment:
     | (
-      { __typename?: 'PostOperationValidationFailed' }
+      { __typename: 'PostOperationValidationFailed' }
       & PostOperationValidationOutcome_PostOperationValidationFailed_Fragment
     )
     | (
-      { __typename?: 'PostOperationValidationPassed' }
+      { __typename: 'PostOperationValidationPassed' }
       & PostOperationValidationOutcome_PostOperationValidationPassed_Fragment
     )
     | (
-      { __typename?: 'PostOperationValidationUnknown' }
+      { __typename: 'PostOperationValidationUnknown' }
       & PostOperationValidationOutcome_PostOperationValidationUnknown_Fragment
     )
    };
 
 export type PostFragment = (
-  { __typename?: 'Post', root?: (
-    { __typename?: 'Post' }
+  { __typename: 'Post', root?: (
+    { __typename: 'Post' }
     & ReferencedPostFragment
   ) | null, commentOn?: (
-    { __typename?: 'Post' }
+    { __typename: 'Post' }
     & ReferencedPostFragment
   ) | null, quoteOf?: (
-    { __typename?: 'Post' }
+    { __typename: 'Post' }
     & ReferencedPostFragment
   ) | null }
   & ReferencedPostFragment
 );
 
 type PostAction_SimpleCollectAction_Fragment = (
-  { __typename?: 'SimpleCollectAction' }
+  { __typename: 'SimpleCollectAction' }
   & SimpleCollectActionFragment
 );
 
 type PostAction_UnknownPostAction_Fragment = (
-  { __typename?: 'UnknownPostAction' }
+  { __typename: 'UnknownPostAction' }
   & UnknownPostActionFragment
 );
 
@@ -7329,23 +7329,23 @@ export type PostActionFragment =
   | PostAction_UnknownPostAction_Fragment
 ;
 
-export type PostFeedInfoFragment = { __typename?: 'PostFeedInfo', address: any, group?: (
-    { __typename?: 'PostGroupInfo' }
+export type PostFeedInfoFragment = { __typename: 'PostFeedInfo', address: any, group?: (
+    { __typename: 'PostGroupInfo' }
     & PostGroupInfoFragment
   ) | null };
 
-export type PostGroupInfoFragment = { __typename?: 'PostGroupInfo', address: any, metadata?: (
-    { __typename?: 'GroupMetadata' }
+export type PostGroupInfoFragment = { __typename: 'PostGroupInfo', address: any, metadata?: (
+    { __typename: 'GroupMetadata' }
     & GroupMetadataFragment
   ) | null };
 
 type PostMention_AccountMention_Fragment = (
-  { __typename?: 'AccountMention' }
+  { __typename: 'AccountMention' }
   & AccountMentionFragment
 );
 
 type PostMention_GroupMention_Fragment = (
-  { __typename?: 'GroupMention' }
+  { __typename: 'GroupMention' }
   & GroupMentionFragment
 );
 
@@ -7450,20 +7450,20 @@ export type PostMetadataFragment =
   | PostMetadata_VideoMetadata_Fragment
 ;
 
-export type PostOperationValidationFailedFragment = { __typename: 'PostOperationValidationFailed', unsatisfiedRules?: { __typename?: 'PostUnsatisfiedRules', required: Array<{ __typename?: 'PostUnsatisfiedRule', message: string }> } | null };
+export type PostOperationValidationFailedFragment = { __typename: 'PostOperationValidationFailed', unsatisfiedRules?: { __typename: 'PostUnsatisfiedRules', required: Array<{ __typename: 'PostUnsatisfiedRule', message: string }> } | null };
 
 type PostOperationValidationOutcome_PostOperationValidationFailed_Fragment = (
-  { __typename?: 'PostOperationValidationFailed' }
+  { __typename: 'PostOperationValidationFailed' }
   & PostOperationValidationFailedFragment
 );
 
 type PostOperationValidationOutcome_PostOperationValidationPassed_Fragment = (
-  { __typename?: 'PostOperationValidationPassed' }
+  { __typename: 'PostOperationValidationPassed' }
   & PostOperationValidationPassedFragment
 );
 
 type PostOperationValidationOutcome_PostOperationValidationUnknown_Fragment = (
-  { __typename?: 'PostOperationValidationUnknown' }
+  { __typename: 'PostOperationValidationUnknown' }
   & PostOperationValidationUnknownFragment
 );
 
@@ -7473,15 +7473,15 @@ export type PostOperationValidationOutcomeFragment =
   | PostOperationValidationOutcome_PostOperationValidationUnknown_Fragment
 ;
 
-export type PostOperationValidationPassedFragment = { __typename?: 'PostOperationValidationPassed', passed: any };
+export type PostOperationValidationPassedFragment = { __typename: 'PostOperationValidationPassed', passed: any };
 
 type PostOperationValidationRule_FeedRule_Fragment = (
-  { __typename?: 'FeedRule' }
+  { __typename: 'FeedRule' }
   & FeedRuleFragment
 );
 
 type PostOperationValidationRule_PostRule_Fragment = (
-  { __typename?: 'PostRule' }
+  { __typename: 'PostRule' }
   & PostRuleFragment
 );
 
@@ -7490,97 +7490,97 @@ export type PostOperationValidationRuleFragment =
   | PostOperationValidationRule_PostRule_Fragment
 ;
 
-export type PostOperationValidationUnknownFragment = { __typename?: 'PostOperationValidationUnknown', extraChecksRequired: Array<
+export type PostOperationValidationUnknownFragment = { __typename: 'PostOperationValidationUnknown', extraChecksRequired: Array<
     | (
-      { __typename?: 'FeedRule' }
+      { __typename: 'FeedRule' }
       & PostOperationValidationRule_FeedRule_Fragment
     )
     | (
-      { __typename?: 'PostRule' }
+      { __typename: 'PostRule' }
       & PostOperationValidationRule_PostRule_Fragment
     )
   > };
 
-export type PostRuleFragment = { __typename?: 'PostRule', address: any };
+export type PostRuleFragment = { __typename: 'PostRule', address: any };
 
-export type PostStatsFragment = { __typename?: 'PostStats', bookmarks: number, comments: number, quotes: number, reactions: number, reposts: number, collects: number, tips: number };
+export type PostStatsFragment = { __typename: 'PostStats', bookmarks: number, comments: number, quotes: number, reactions: number, reposts: number, collects: number, tips: number };
 
 export type ReferencedPostFragment = { __typename: 'Post', id: any, slug: any, isDeleted: boolean, isEdited: boolean, contentUri: any, timestamp: any, feed: (
-    { __typename?: 'PostFeedInfo' }
+    { __typename: 'PostFeedInfo' }
     & PostFeedInfoFragment
-  ), app?: { __typename?: 'App', metadata?: { __typename?: 'AppMetadata', name: string } | null } | null, author: (
-    { __typename?: 'Account' }
+  ), app?: { __typename: 'App', metadata?: { __typename: 'AppMetadata', name: string } | null } | null, author: (
+    { __typename: 'Account' }
     & AccountFragment
   ), metadata:
     | (
-      { __typename?: 'ArticleMetadata' }
+      { __typename: 'ArticleMetadata' }
       & PostMetadata_ArticleMetadata_Fragment
     )
     | (
-      { __typename?: 'AudioMetadata' }
+      { __typename: 'AudioMetadata' }
       & PostMetadata_AudioMetadata_Fragment
     )
     | (
-      { __typename?: 'CheckingInMetadata' }
+      { __typename: 'CheckingInMetadata' }
       & PostMetadata_CheckingInMetadata_Fragment
     )
     | (
-      { __typename?: 'EmbedMetadata' }
+      { __typename: 'EmbedMetadata' }
       & PostMetadata_EmbedMetadata_Fragment
     )
     | (
-      { __typename?: 'EventMetadata' }
+      { __typename: 'EventMetadata' }
       & PostMetadata_EventMetadata_Fragment
     )
     | (
-      { __typename?: 'ImageMetadata' }
+      { __typename: 'ImageMetadata' }
       & PostMetadata_ImageMetadata_Fragment
     )
     | (
-      { __typename?: 'LinkMetadata' }
+      { __typename: 'LinkMetadata' }
       & PostMetadata_LinkMetadata_Fragment
     )
     | (
-      { __typename?: 'LivestreamMetadata' }
+      { __typename: 'LivestreamMetadata' }
       & PostMetadata_LivestreamMetadata_Fragment
     )
     | (
-      { __typename?: 'MintMetadata' }
+      { __typename: 'MintMetadata' }
       & PostMetadata_MintMetadata_Fragment
     )
     | (
-      { __typename?: 'SpaceMetadata' }
+      { __typename: 'SpaceMetadata' }
       & PostMetadata_SpaceMetadata_Fragment
     )
     | (
-      { __typename?: 'StoryMetadata' }
+      { __typename: 'StoryMetadata' }
       & PostMetadata_StoryMetadata_Fragment
     )
     | (
-      { __typename?: 'TextOnlyMetadata' }
+      { __typename: 'TextOnlyMetadata' }
       & PostMetadata_TextOnlyMetadata_Fragment
     )
     | (
-      { __typename?: 'ThreeDMetadata' }
+      { __typename: 'ThreeDMetadata' }
       & PostMetadata_ThreeDMetadata_Fragment
     )
     | (
-      { __typename?: 'TransactionMetadata' }
+      { __typename: 'TransactionMetadata' }
       & PostMetadata_TransactionMetadata_Fragment
     )
     | (
-      { __typename?: 'UnknownPostMetadata' }
+      { __typename: 'UnknownPostMetadata' }
       & PostMetadata_UnknownPostMetadata_Fragment
     )
     | (
-      { __typename?: 'VideoMetadata' }
+      { __typename: 'VideoMetadata' }
       & PostMetadata_VideoMetadata_Fragment
     )
   , stats: (
-    { __typename?: 'PostStats' }
+    { __typename: 'PostStats' }
     & PostStatsFragment
   ), operations?: (
-    { __typename?: 'LoggedInPostOperations' }
+    { __typename: 'LoggedInPostOperations' }
     & LoggedInPostOperationsFragment
   ) | null, actions: Array<
     | { __typename: 'SimpleCollectAction' }
@@ -7590,308 +7590,308 @@ export type ReferencedPostFragment = { __typename: 'Post', id: any, slug: any, i
     )
   >, mentions: Array<
     | (
-      { __typename?: 'AccountMention' }
+      { __typename: 'AccountMention' }
       & PostMention_AccountMention_Fragment
     )
     | (
-      { __typename?: 'GroupMention' }
+      { __typename: 'GroupMention' }
       & PostMention_GroupMention_Fragment
     )
   > };
 
-export type RepostFragment = { __typename?: 'Repost', id: any, slug: any, isDeleted: boolean, timestamp: any, author: (
-    { __typename?: 'Account' }
+export type RepostFragment = { __typename: 'Repost', id: any, slug: any, isDeleted: boolean, timestamp: any, author: (
+    { __typename: 'Account' }
     & AccountFragment
   ), repostOf: (
-    { __typename?: 'Post' }
+    { __typename: 'Post' }
     & PostFragment
   ) };
 
-export type PayToCollectConfigFragment = { __typename?: 'PayToCollectConfig', referralShare?: number | null, recipients: Array<{ __typename?: 'RecipientPercent', address: any, percent: number }>, price:
+export type PayToCollectConfigFragment = { __typename: 'PayToCollectConfig', referralShare?: number | null, recipients: Array<{ __typename: 'RecipientPercent', address: any, percent: number }>, price:
     | (
-      { __typename?: 'Erc20Amount' }
+      { __typename: 'Erc20Amount' }
       & PayableAmount_Erc20Amount_Fragment
     )
     | (
-      { __typename?: 'NativeAmount' }
+      { __typename: 'NativeAmount' }
       & PayableAmount_NativeAmount_Fragment
     )
    };
 
-export type SimpleCollectActionFragment = { __typename?: 'SimpleCollectAction', address: any, collectLimit?: number | null, endsAt?: any | null, payToCollect?: (
-    { __typename?: 'PayToCollectConfig' }
+export type SimpleCollectActionFragment = { __typename: 'SimpleCollectAction', address: any, collectLimit?: number | null, endsAt?: any | null, payToCollect?: (
+    { __typename: 'PayToCollectConfig' }
     & PayToCollectConfigFragment
   ) | null };
 
-export type UnknownPostActionFragment = { __typename: 'UnknownPostAction', address: any, config: Array<{ __typename?: 'RawKeyValue', data: any, key: any }> };
+export type UnknownPostActionFragment = { __typename: 'UnknownPostAction', address: any, config: Array<{ __typename: 'RawKeyValue', data: any, key: any }> };
 
-export type ArticleMetadataFragment = { __typename?: 'ArticleMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
-    { __typename?: 'MetadataAttribute' }
+export type ArticleMetadataFragment = { __typename: 'ArticleMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
+    { __typename: 'MetadataAttribute' }
     & MetadataAttributeFragment
   )>, attachments: Array<
     | (
-      { __typename?: 'MediaAudio' }
+      { __typename: 'MediaAudio' }
       & AnyMedia_MediaAudio_Fragment
     )
     | (
-      { __typename?: 'MediaImage' }
+      { __typename: 'MediaImage' }
       & AnyMedia_MediaImage_Fragment
     )
     | (
-      { __typename?: 'MediaVideo' }
+      { __typename: 'MediaVideo' }
       & AnyMedia_MediaVideo_Fragment
     )
   > };
 
-export type AudioMetadataFragment = { __typename?: 'AudioMetadata', id: any, title?: string | null, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
-    { __typename?: 'MetadataAttribute' }
+export type AudioMetadataFragment = { __typename: 'AudioMetadata', id: any, title?: string | null, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
+    { __typename: 'MetadataAttribute' }
     & MetadataAttributeFragment
   )>, audio: (
-    { __typename?: 'MediaAudio' }
+    { __typename: 'MediaAudio' }
     & MediaAudioFragment
   ), attachments: Array<
     | (
-      { __typename?: 'MediaAudio' }
+      { __typename: 'MediaAudio' }
       & AnyMedia_MediaAudio_Fragment
     )
     | (
-      { __typename?: 'MediaImage' }
+      { __typename: 'MediaImage' }
       & AnyMedia_MediaImage_Fragment
     )
     | (
-      { __typename?: 'MediaVideo' }
+      { __typename: 'MediaVideo' }
       & AnyMedia_MediaVideo_Fragment
     )
   > };
 
-export type CheckingInMetadataFragment = { __typename?: 'CheckingInMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
-    { __typename?: 'MetadataAttribute' }
+export type CheckingInMetadataFragment = { __typename: 'CheckingInMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
+    { __typename: 'MetadataAttribute' }
     & MetadataAttributeFragment
   )>, attachments: Array<
     | (
-      { __typename?: 'MediaAudio' }
+      { __typename: 'MediaAudio' }
       & AnyMedia_MediaAudio_Fragment
     )
     | (
-      { __typename?: 'MediaImage' }
+      { __typename: 'MediaImage' }
       & AnyMedia_MediaImage_Fragment
     )
     | (
-      { __typename?: 'MediaVideo' }
+      { __typename: 'MediaVideo' }
       & AnyMedia_MediaVideo_Fragment
     )
   > };
 
-export type EmbedMetadataFragment = { __typename?: 'EmbedMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
-    { __typename?: 'MetadataAttribute' }
+export type EmbedMetadataFragment = { __typename: 'EmbedMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
+    { __typename: 'MetadataAttribute' }
     & MetadataAttributeFragment
   )>, attachments: Array<
     | (
-      { __typename?: 'MediaAudio' }
+      { __typename: 'MediaAudio' }
       & AnyMedia_MediaAudio_Fragment
     )
     | (
-      { __typename?: 'MediaImage' }
+      { __typename: 'MediaImage' }
       & AnyMedia_MediaImage_Fragment
     )
     | (
-      { __typename?: 'MediaVideo' }
+      { __typename: 'MediaVideo' }
       & AnyMedia_MediaVideo_Fragment
     )
   > };
 
-export type EventMetadataFragment = { __typename?: 'EventMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
-    { __typename?: 'MetadataAttribute' }
+export type EventMetadataFragment = { __typename: 'EventMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
+    { __typename: 'MetadataAttribute' }
     & MetadataAttributeFragment
   )>, attachments: Array<
     | (
-      { __typename?: 'MediaAudio' }
+      { __typename: 'MediaAudio' }
       & AnyMedia_MediaAudio_Fragment
     )
     | (
-      { __typename?: 'MediaImage' }
+      { __typename: 'MediaImage' }
       & AnyMedia_MediaImage_Fragment
     )
     | (
-      { __typename?: 'MediaVideo' }
+      { __typename: 'MediaVideo' }
       & AnyMedia_MediaVideo_Fragment
     )
   > };
 
-export type ImageMetadataFragment = { __typename?: 'ImageMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
-    { __typename?: 'MetadataAttribute' }
+export type ImageMetadataFragment = { __typename: 'ImageMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
+    { __typename: 'MetadataAttribute' }
     & MetadataAttributeFragment
   )>, attachments: Array<
     | (
-      { __typename?: 'MediaAudio' }
+      { __typename: 'MediaAudio' }
       & AnyMedia_MediaAudio_Fragment
     )
     | (
-      { __typename?: 'MediaImage' }
+      { __typename: 'MediaImage' }
       & AnyMedia_MediaImage_Fragment
     )
     | (
-      { __typename?: 'MediaVideo' }
+      { __typename: 'MediaVideo' }
       & AnyMedia_MediaVideo_Fragment
     )
   >, image: (
-    { __typename?: 'MediaImage' }
+    { __typename: 'MediaImage' }
     & MediaImageFragment
   ) };
 
-export type LinkMetadataFragment = { __typename?: 'LinkMetadata', id: any, content: string, contentWarning?: ContentWarning | null, sharingLink: any, tags?: Array<any> | null, attributes: Array<(
-    { __typename?: 'MetadataAttribute' }
+export type LinkMetadataFragment = { __typename: 'LinkMetadata', id: any, content: string, contentWarning?: ContentWarning | null, sharingLink: any, tags?: Array<any> | null, attributes: Array<(
+    { __typename: 'MetadataAttribute' }
     & MetadataAttributeFragment
   )>, attachments: Array<
     | (
-      { __typename?: 'MediaAudio' }
+      { __typename: 'MediaAudio' }
       & AnyMedia_MediaAudio_Fragment
     )
     | (
-      { __typename?: 'MediaImage' }
+      { __typename: 'MediaImage' }
       & AnyMedia_MediaImage_Fragment
     )
     | (
-      { __typename?: 'MediaVideo' }
+      { __typename: 'MediaVideo' }
       & AnyMedia_MediaVideo_Fragment
     )
   > };
 
-export type LivestreamMetadataFragment = { __typename?: 'LivestreamMetadata', id: any, playbackUrl: any, liveUrl: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
-    { __typename?: 'MetadataAttribute' }
+export type LivestreamMetadataFragment = { __typename: 'LivestreamMetadata', id: any, playbackUrl: any, liveUrl: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
+    { __typename: 'MetadataAttribute' }
     & MetadataAttributeFragment
   )>, attachments: Array<
     | (
-      { __typename?: 'MediaAudio' }
+      { __typename: 'MediaAudio' }
       & AnyMedia_MediaAudio_Fragment
     )
     | (
-      { __typename?: 'MediaImage' }
+      { __typename: 'MediaImage' }
       & AnyMedia_MediaImage_Fragment
     )
     | (
-      { __typename?: 'MediaVideo' }
+      { __typename: 'MediaVideo' }
       & AnyMedia_MediaVideo_Fragment
     )
   > };
 
-export type MetadataAttributeFragment = { __typename?: 'MetadataAttribute', type: MetadataAttributeType, key: string, value: string };
+export type MetadataAttributeFragment = { __typename: 'MetadataAttribute', type: MetadataAttributeType, key: string, value: string };
 
-export type MintMetadataFragment = { __typename?: 'MintMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
-    { __typename?: 'MetadataAttribute' }
+export type MintMetadataFragment = { __typename: 'MintMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
+    { __typename: 'MetadataAttribute' }
     & MetadataAttributeFragment
   )>, attachments: Array<
     | (
-      { __typename?: 'MediaAudio' }
+      { __typename: 'MediaAudio' }
       & AnyMedia_MediaAudio_Fragment
     )
     | (
-      { __typename?: 'MediaImage' }
+      { __typename: 'MediaImage' }
       & AnyMedia_MediaImage_Fragment
     )
     | (
-      { __typename?: 'MediaVideo' }
+      { __typename: 'MediaVideo' }
       & AnyMedia_MediaVideo_Fragment
     )
   > };
 
-export type SpaceMetadataFragment = { __typename?: 'SpaceMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
-    { __typename?: 'MetadataAttribute' }
+export type SpaceMetadataFragment = { __typename: 'SpaceMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
+    { __typename: 'MetadataAttribute' }
     & MetadataAttributeFragment
   )>, attachments: Array<
     | (
-      { __typename?: 'MediaAudio' }
+      { __typename: 'MediaAudio' }
       & AnyMedia_MediaAudio_Fragment
     )
     | (
-      { __typename?: 'MediaImage' }
+      { __typename: 'MediaImage' }
       & AnyMedia_MediaImage_Fragment
     )
     | (
-      { __typename?: 'MediaVideo' }
+      { __typename: 'MediaVideo' }
       & AnyMedia_MediaVideo_Fragment
     )
   > };
 
-export type StoryMetadataFragment = { __typename?: 'StoryMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
-    { __typename?: 'MetadataAttribute' }
+export type StoryMetadataFragment = { __typename: 'StoryMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
+    { __typename: 'MetadataAttribute' }
     & MetadataAttributeFragment
   )> };
 
-export type TextOnlyMetadataFragment = { __typename?: 'TextOnlyMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
-    { __typename?: 'MetadataAttribute' }
+export type TextOnlyMetadataFragment = { __typename: 'TextOnlyMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
+    { __typename: 'MetadataAttribute' }
     & MetadataAttributeFragment
   )> };
 
-export type ThreeDMetadataFragment = { __typename?: 'ThreeDMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
-    { __typename?: 'MetadataAttribute' }
+export type ThreeDMetadataFragment = { __typename: 'ThreeDMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
+    { __typename: 'MetadataAttribute' }
     & MetadataAttributeFragment
   )>, attachments: Array<
     | (
-      { __typename?: 'MediaAudio' }
+      { __typename: 'MediaAudio' }
       & AnyMedia_MediaAudio_Fragment
     )
     | (
-      { __typename?: 'MediaImage' }
+      { __typename: 'MediaImage' }
       & AnyMedia_MediaImage_Fragment
     )
     | (
-      { __typename?: 'MediaVideo' }
+      { __typename: 'MediaVideo' }
       & AnyMedia_MediaVideo_Fragment
     )
   > };
 
-export type TransactionMetadataFragment = { __typename?: 'TransactionMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
-    { __typename?: 'MetadataAttribute' }
+export type TransactionMetadataFragment = { __typename: 'TransactionMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
+    { __typename: 'MetadataAttribute' }
     & MetadataAttributeFragment
   )>, attachments: Array<
     | (
-      { __typename?: 'MediaAudio' }
+      { __typename: 'MediaAudio' }
       & AnyMedia_MediaAudio_Fragment
     )
     | (
-      { __typename?: 'MediaImage' }
+      { __typename: 'MediaImage' }
       & AnyMedia_MediaImage_Fragment
     )
     | (
-      { __typename?: 'MediaVideo' }
+      { __typename: 'MediaVideo' }
       & AnyMedia_MediaVideo_Fragment
     )
   > };
 
-export type VideoMetadataFragment = { __typename?: 'VideoMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
-    { __typename?: 'MetadataAttribute' }
+export type VideoMetadataFragment = { __typename: 'VideoMetadata', id: any, content: string, contentWarning?: ContentWarning | null, tags?: Array<any> | null, attributes: Array<(
+    { __typename: 'MetadataAttribute' }
     & MetadataAttributeFragment
   )>, video: (
-    { __typename?: 'MediaVideo' }
+    { __typename: 'MediaVideo' }
     & MediaVideoFragment
   ), attachments: Array<
     | (
-      { __typename?: 'MediaAudio' }
+      { __typename: 'MediaAudio' }
       & AnyMedia_MediaAudio_Fragment
     )
     | (
-      { __typename?: 'MediaImage' }
+      { __typename: 'MediaImage' }
       & AnyMedia_MediaImage_Fragment
     )
     | (
-      { __typename?: 'MediaVideo' }
+      { __typename: 'MediaVideo' }
       & AnyMedia_MediaVideo_Fragment
     )
   > };
 
 type AnyMedia_MediaAudio_Fragment = (
-  { __typename?: 'MediaAudio' }
+  { __typename: 'MediaAudio' }
   & MediaAudioFragment
 );
 
 type AnyMedia_MediaImage_Fragment = (
-  { __typename?: 'MediaImage' }
+  { __typename: 'MediaImage' }
   & MediaImageFragment
 );
 
 type AnyMedia_MediaVideo_Fragment = (
-  { __typename?: 'MediaVideo' }
+  { __typename: 'MediaVideo' }
   & MediaVideoFragment
 );
 
@@ -7901,34 +7901,34 @@ export type AnyMediaFragment =
   | AnyMedia_MediaVideo_Fragment
 ;
 
-export type MediaAudioFragment = { __typename?: 'MediaAudio', artist?: string | null, item: any, cover?: any | null, license?: MetadataLicenseType | null };
+export type MediaAudioFragment = { __typename: 'MediaAudio', artist?: string | null, item: any, cover?: any | null, license?: MetadataLicenseType | null };
 
-export type MediaImageFragment = { __typename?: 'MediaImage', item: any };
+export type MediaImageFragment = { __typename: 'MediaImage', item: any };
 
-export type MediaVideoFragment = { __typename?: 'MediaVideo', item: any, cover?: any | null, license?: MetadataLicenseType | null };
+export type MediaVideoFragment = { __typename: 'MediaVideo', item: any, cover?: any | null, license?: MetadataLicenseType | null };
 
-export type SelfFundedTransactionRequestFragment = { __typename?: 'SelfFundedTransactionRequest', raw: { __typename?: 'Eip1559TransactionRequest', chainId: number, data: any, from: any, gasLimit: number, maxFeePerGas: any, maxPriorityFeePerGas: any, nonce: number, to: any, type: number, value: any } };
+export type SelfFundedTransactionRequestFragment = { __typename: 'SelfFundedTransactionRequest', raw: { __typename: 'Eip1559TransactionRequest', chainId: number, data: any, from: any, gasLimit: number, maxFeePerGas: any, maxPriorityFeePerGas: any, nonce: number, to: any, type: number, value: any } };
 
-export type SponsoredTransactionRequestFragment = { __typename?: 'SponsoredTransactionRequest', raw: { __typename?: 'Eip712TransactionRequest', chainId: number, data: any, from: any, gasLimit: number, maxFeePerGas: any, maxPriorityFeePerGas: any, nonce: number, to: any, type: number, value: any, customData: { __typename?: 'Eip712Meta', customSignature?: any | null, factoryDeps: Array<any>, gasPerPubdata: any, paymasterParams?: { __typename?: 'PaymasterParams', paymaster: any, paymasterInput: any } | null } } };
+export type SponsoredTransactionRequestFragment = { __typename: 'SponsoredTransactionRequest', raw: { __typename: 'Eip712TransactionRequest', chainId: number, data: any, from: any, gasLimit: number, maxFeePerGas: any, maxPriorityFeePerGas: any, nonce: number, to: any, type: number, value: any, customData: { __typename: 'Eip712Meta', customSignature?: any | null, factoryDeps: Array<any>, gasPerPubdata: any, paymasterParams?: { __typename: 'PaymasterParams', paymaster: any, paymasterInput: any } | null } } };
 
-export type TransactionWillFailFragment = { __typename?: 'TransactionWillFail', reason: string };
+export type TransactionWillFailFragment = { __typename: 'TransactionWillFail', reason: string };
 
 export type AddAccountManagerMutationVariables = Exact<{
   request: AddAccountManagerRequest;
 }>;
 
 
-export type AddAccountManagerMutation = { __typename?: 'Mutation', addAccountManager:
+export type AddAccountManagerMutation = { __typename: 'Mutation', addAccountManager:
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -7938,19 +7938,19 @@ export type AssignUsernameToAccountMutationVariables = Exact<{
 }>;
 
 
-export type AssignUsernameToAccountMutation = { __typename?: 'Mutation', assignUsernameToAccount:
-    | { __typename?: 'AssignUsernameResponse', hash: any }
-    | { __typename?: 'NamespaceOperationValidationFailed' }
+export type AssignUsernameToAccountMutation = { __typename: 'Mutation', assignUsernameToAccount:
+    | { __typename: 'AssignUsernameResponse', hash: any }
+    | { __typename: 'NamespaceOperationValidationFailed' }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -7960,18 +7960,18 @@ export type BlockMutationVariables = Exact<{
 }>;
 
 
-export type BlockMutation = { __typename?: 'Mutation', block:
-    | { __typename?: 'AccountBlockedResponse', hash: any }
+export type BlockMutation = { __typename: 'Mutation', block:
+    | { __typename: 'AccountBlockedResponse', hash: any }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -7981,18 +7981,18 @@ export type ConfigureAccountActionMutationVariables = Exact<{
 }>;
 
 
-export type ConfigureAccountActionMutation = { __typename?: 'Mutation', configureAccountAction:
-    | { __typename?: 'ConfigureAccountActionResponse', hash: any }
+export type ConfigureAccountActionMutation = { __typename: 'Mutation', configureAccountAction:
+    | { __typename: 'ConfigureAccountActionResponse', hash: any }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8002,22 +8002,22 @@ export type CreateAccountWithUsernameMutationVariables = Exact<{
 }>;
 
 
-export type CreateAccountWithUsernameMutation = { __typename?: 'Mutation', createAccountWithUsername:
-    | { __typename?: 'CreateAccountResponse', hash: any }
-    | { __typename?: 'NamespaceOperationValidationFailed', reason: string }
+export type CreateAccountWithUsernameMutation = { __typename: 'Mutation', createAccountWithUsername:
+    | { __typename: 'CreateAccountResponse', hash: any }
+    | { __typename: 'NamespaceOperationValidationFailed', reason: string }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
-    | { __typename?: 'UsernameTaken', reason: string }
+    | { __typename: 'UsernameTaken', reason: string }
    };
 
 export type CreateUsernameMutationVariables = Exact<{
@@ -8025,38 +8025,38 @@ export type CreateUsernameMutationVariables = Exact<{
 }>;
 
 
-export type CreateUsernameMutation = { __typename?: 'Mutation', createUsername:
-    | { __typename?: 'CreateUsernameResponse', hash: any }
-    | { __typename?: 'NamespaceOperationValidationFailed', reason: string }
+export type CreateUsernameMutation = { __typename: 'Mutation', createUsername:
+    | { __typename: 'CreateUsernameResponse', hash: any }
+    | { __typename: 'NamespaceOperationValidationFailed', reason: string }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
-    | { __typename?: 'UsernameTaken', reason: string }
+    | { __typename: 'UsernameTaken', reason: string }
    };
 
 export type EnableSignlessMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type EnableSignlessMutation = { __typename?: 'Mutation', enableSignless:
+export type EnableSignlessMutation = { __typename: 'Mutation', enableSignless:
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8066,20 +8066,20 @@ export type ExecuteAccountActionMutationVariables = Exact<{
 }>;
 
 
-export type ExecuteAccountActionMutation = { __typename?: 'Mutation', executeAccountAction:
-    | { __typename?: 'ExecuteAccountActionResponse', hash: any }
-    | { __typename?: 'InsufficientFunds' }
+export type ExecuteAccountActionMutation = { __typename: 'Mutation', executeAccountAction:
+    | { __typename: 'ExecuteAccountActionResponse', hash: any }
+    | { __typename: 'InsufficientFunds' }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
-    | { __typename?: 'SignerErc20ApprovalRequired' }
+    | { __typename: 'SignerErc20ApprovalRequired' }
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8089,19 +8089,19 @@ export type FollowMutationVariables = Exact<{
 }>;
 
 
-export type FollowMutation = { __typename?: 'Mutation', follow:
-    | { __typename?: 'AccountFollowOperationValidationFailed', reason: string }
-    | { __typename?: 'FollowResponse', hash: any }
+export type FollowMutation = { __typename: 'Mutation', follow:
+    | { __typename: 'AccountFollowOperationValidationFailed', reason: string }
+    | { __typename: 'FollowResponse', hash: any }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8111,31 +8111,31 @@ export type HideManagedAccountMutationVariables = Exact<{
 }>;
 
 
-export type HideManagedAccountMutation = { __typename?: 'Mutation', hideManagedAccount: any };
+export type HideManagedAccountMutation = { __typename: 'Mutation', hideManagedAccount: any };
 
 export type MuteMutationVariables = Exact<{
   request: MuteRequest;
 }>;
 
 
-export type MuteMutation = { __typename?: 'Mutation', mute: any };
+export type MuteMutation = { __typename: 'Mutation', mute: any };
 
 export type RemoveAccountManagerMutationVariables = Exact<{
   request: RemoveAccountManagerRequest;
 }>;
 
 
-export type RemoveAccountManagerMutation = { __typename?: 'Mutation', removeAccountManager:
+export type RemoveAccountManagerMutation = { __typename: 'Mutation', removeAccountManager:
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8143,17 +8143,17 @@ export type RemoveAccountManagerMutation = { __typename?: 'Mutation', removeAcco
 export type RemoveSignlessMutationVariables = Exact<{ [key: string]: never; }>;
 
 
-export type RemoveSignlessMutation = { __typename?: 'Mutation', removeSignless:
+export type RemoveSignlessMutation = { __typename: 'Mutation', removeSignless:
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8163,32 +8163,32 @@ export type ReportAccountMutationVariables = Exact<{
 }>;
 
 
-export type ReportAccountMutation = { __typename?: 'Mutation', reportAccount: any };
+export type ReportAccountMutation = { __typename: 'Mutation', reportAccount: any };
 
 export type RevokeAuthenticationMutationVariables = Exact<{
   request: RevokeAuthenticationRequest;
 }>;
 
 
-export type RevokeAuthenticationMutation = { __typename?: 'Mutation', revokeAuthentication: any };
+export type RevokeAuthenticationMutation = { __typename: 'Mutation', revokeAuthentication: any };
 
 export type SetAccountMetadataMutationVariables = Exact<{
   request: SetAccountMetadataRequest;
 }>;
 
 
-export type SetAccountMetadataMutation = { __typename?: 'Mutation', setAccountMetadata:
+export type SetAccountMetadataMutation = { __typename: 'Mutation', setAccountMetadata:
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
-    | { __typename?: 'SetAccountMetadataResponse', hash: any }
+    | { __typename: 'SetAccountMetadataResponse', hash: any }
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8198,21 +8198,21 @@ export type UnassignUsernameFromAccountMutationVariables = Exact<{
 }>;
 
 
-export type UnassignUsernameFromAccountMutation = { __typename?: 'Mutation', unassignUsernameFromAccount:
-    | { __typename?: 'NamespaceOperationValidationFailed' }
+export type UnassignUsernameFromAccountMutation = { __typename: 'Mutation', unassignUsernameFromAccount:
+    | { __typename: 'NamespaceOperationValidationFailed' }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
-    | { __typename?: 'UnassignUsernameResponse', hash: any }
+    | { __typename: 'UnassignUsernameResponse', hash: any }
    };
 
 export type UnblockMutationVariables = Exact<{
@@ -8220,18 +8220,18 @@ export type UnblockMutationVariables = Exact<{
 }>;
 
 
-export type UnblockMutation = { __typename?: 'Mutation', unblock:
-    | { __typename?: 'AccountUnblockedResponse', hash: any }
+export type UnblockMutation = { __typename: 'Mutation', unblock:
+    | { __typename: 'AccountUnblockedResponse', hash: any }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8241,21 +8241,21 @@ export type UnfollowMutationVariables = Exact<{
 }>;
 
 
-export type UnfollowMutation = { __typename?: 'Mutation', unfollow:
-    | { __typename?: 'AccountFollowOperationValidationFailed', reason: string }
+export type UnfollowMutation = { __typename: 'Mutation', unfollow:
+    | { __typename: 'AccountFollowOperationValidationFailed', reason: string }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
-    | { __typename?: 'UnfollowResponse', hash: any }
+    | { __typename: 'UnfollowResponse', hash: any }
    };
 
 export type UnhideManagedAccountMutationVariables = Exact<{
@@ -8263,34 +8263,34 @@ export type UnhideManagedAccountMutationVariables = Exact<{
 }>;
 
 
-export type UnhideManagedAccountMutation = { __typename?: 'Mutation', unhideManagedAccount: any };
+export type UnhideManagedAccountMutation = { __typename: 'Mutation', unhideManagedAccount: any };
 
 export type UnmuteMutationVariables = Exact<{
   request: MuteRequest;
 }>;
 
 
-export type UnmuteMutation = { __typename?: 'Mutation', unmute: any };
+export type UnmuteMutation = { __typename: 'Mutation', unmute: any };
 
 export type UpdateAccountFollowRulesMutationVariables = Exact<{
   request: UpdateAccountFollowRulesRequest;
 }>;
 
 
-export type UpdateAccountFollowRulesMutation = { __typename?: 'Mutation', updateAccountFollowRules:
+export type UpdateAccountFollowRulesMutation = { __typename: 'Mutation', updateAccountFollowRules:
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
-    | { __typename?: 'UpdateAccountFollowRulesResponse', hash: any }
+    | { __typename: 'UpdateAccountFollowRulesResponse', hash: any }
    };
 
 export type UpdateAccountManagerMutationVariables = Exact<{
@@ -8298,17 +8298,17 @@ export type UpdateAccountManagerMutationVariables = Exact<{
 }>;
 
 
-export type UpdateAccountManagerMutation = { __typename?: 'Mutation', updateAccountManager:
+export type UpdateAccountManagerMutation = { __typename: 'Mutation', updateAccountManager:
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8318,18 +8318,18 @@ export type DepositMutationVariables = Exact<{
 }>;
 
 
-export type DepositMutation = { __typename?: 'Mutation', deposit:
-    | { __typename?: 'InsufficientFunds', reason: string }
+export type DepositMutation = { __typename: 'Mutation', deposit:
+    | { __typename: 'InsufficientFunds', reason: string }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8339,18 +8339,18 @@ export type UnwrapTokensMutationVariables = Exact<{
 }>;
 
 
-export type UnwrapTokensMutation = { __typename?: 'Mutation', unwrapTokens:
-    | { __typename?: 'InsufficientFunds', reason: string }
+export type UnwrapTokensMutation = { __typename: 'Mutation', unwrapTokens:
+    | { __typename: 'InsufficientFunds', reason: string }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8360,18 +8360,18 @@ export type WithdrawMutationVariables = Exact<{
 }>;
 
 
-export type WithdrawMutation = { __typename?: 'Mutation', withdraw:
-    | { __typename?: 'InsufficientFunds', reason: string }
+export type WithdrawMutation = { __typename: 'Mutation', withdraw:
+    | { __typename: 'InsufficientFunds', reason: string }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8381,18 +8381,18 @@ export type WrapTokensMutationVariables = Exact<{
 }>;
 
 
-export type WrapTokensMutation = { __typename?: 'Mutation', wrapTokens:
-    | { __typename?: 'InsufficientFunds', reason: string }
+export type WrapTokensMutation = { __typename: 'Mutation', wrapTokens:
+    | { __typename: 'InsufficientFunds', reason: string }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8402,11 +8402,11 @@ export type AuthenticateMutationVariables = Exact<{
 }>;
 
 
-export type AuthenticateMutation = { __typename?: 'Mutation', authenticate:
-    | { __typename?: 'AuthenticationTokens', accessToken: any, refreshToken: any }
-    | { __typename?: 'ExpiredChallengeError' }
-    | { __typename?: 'ForbiddenError', reason: string }
-    | { __typename?: 'WrongSignerError' }
+export type AuthenticateMutation = { __typename: 'Mutation', authenticate:
+    | { __typename: 'AuthenticationTokens', accessToken: any, refreshToken: any }
+    | { __typename: 'ExpiredChallengeError' }
+    | { __typename: 'ForbiddenError', reason: string }
+    | { __typename: 'WrongSignerError' }
    };
 
 export type ChallengeMutationVariables = Exact<{
@@ -8414,16 +8414,16 @@ export type ChallengeMutationVariables = Exact<{
 }>;
 
 
-export type ChallengeMutation = { __typename?: 'Mutation', challenge: { __typename?: 'AuthenticationChallenge', id: any, text: string } };
+export type ChallengeMutation = { __typename: 'Mutation', challenge: { __typename: 'AuthenticationChallenge', id: any, text: string } };
 
 export type RefreshMutationVariables = Exact<{
   request: RefreshRequest;
 }>;
 
 
-export type RefreshMutation = { __typename?: 'Mutation', refresh:
-    | { __typename?: 'AuthenticationTokens', accessToken: any, refreshToken: any }
-    | { __typename?: 'ForbiddenError', reason: string }
+export type RefreshMutation = { __typename: 'Mutation', refresh:
+    | { __typename: 'AuthenticationTokens', accessToken: any, refreshToken: any }
+    | { __typename: 'ForbiddenError', reason: string }
    };
 
 export type SwitchAccountMutationVariables = Exact<{
@@ -8431,9 +8431,9 @@ export type SwitchAccountMutationVariables = Exact<{
 }>;
 
 
-export type SwitchAccountMutation = { __typename?: 'Mutation', switchAccount:
-    | { __typename?: 'AuthenticationTokens', accessToken: any, refreshToken: any }
-    | { __typename?: 'ForbiddenError' }
+export type SwitchAccountMutation = { __typename: 'Mutation', switchAccount:
+    | { __typename: 'AuthenticationTokens', accessToken: any, refreshToken: any }
+    | { __typename: 'ForbiddenError' }
    };
 
 export type UpdateFeedRulesMutationVariables = Exact<{
@@ -8441,20 +8441,20 @@ export type UpdateFeedRulesMutationVariables = Exact<{
 }>;
 
 
-export type UpdateFeedRulesMutation = { __typename?: 'Mutation', updateFeedRules:
+export type UpdateFeedRulesMutation = { __typename: 'Mutation', updateFeedRules:
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
-    | { __typename?: 'UpdateFeedRulesResponse', hash: any }
+    | { __typename: 'UpdateFeedRulesResponse', hash: any }
    };
 
 export type AddAdminsMutationVariables = Exact<{
@@ -8462,17 +8462,17 @@ export type AddAdminsMutationVariables = Exact<{
 }>;
 
 
-export type AddAdminsMutation = { __typename?: 'Mutation', addAdmins:
+export type AddAdminsMutation = { __typename: 'Mutation', addAdmins:
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8482,19 +8482,19 @@ export type ApproveGroupMembershipRequestsMutationVariables = Exact<{
 }>;
 
 
-export type ApproveGroupMembershipRequestsMutation = { __typename?: 'Mutation', approveGroupMembershipRequests:
-    | { __typename?: 'ApproveGroupMembershipRequestsResponse', hash: any }
-    | { __typename?: 'GroupOperationValidationFailed' }
+export type ApproveGroupMembershipRequestsMutation = { __typename: 'Mutation', approveGroupMembershipRequests:
+    | { __typename: 'ApproveGroupMembershipRequestsResponse', hash: any }
+    | { __typename: 'GroupOperationValidationFailed' }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8504,18 +8504,18 @@ export type BanGroupAccountsMutationVariables = Exact<{
 }>;
 
 
-export type BanGroupAccountsMutation = { __typename?: 'Mutation', banGroupAccounts:
-    | { __typename?: 'BanGroupAccountsResponse', hash: any }
+export type BanGroupAccountsMutation = { __typename: 'Mutation', banGroupAccounts:
+    | { __typename: 'BanGroupAccountsResponse', hash: any }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8525,18 +8525,18 @@ export type CancelGroupMembershipRequestMutationVariables = Exact<{
 }>;
 
 
-export type CancelGroupMembershipRequestMutation = { __typename?: 'Mutation', cancelGroupMembershipRequest:
-    | { __typename?: 'CancelGroupMembershipRequestResponse', hash: any }
+export type CancelGroupMembershipRequestMutation = { __typename: 'Mutation', cancelGroupMembershipRequest:
+    | { __typename: 'CancelGroupMembershipRequestResponse', hash: any }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8546,18 +8546,18 @@ export type CreateGroupMutationVariables = Exact<{
 }>;
 
 
-export type CreateGroupMutation = { __typename?: 'Mutation', createGroup:
-    | { __typename?: 'CreateGroupResponse', hash: any }
+export type CreateGroupMutation = { __typename: 'Mutation', createGroup:
+    | { __typename: 'CreateGroupResponse', hash: any }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8567,19 +8567,19 @@ export type JoinGroupMutationVariables = Exact<{
 }>;
 
 
-export type JoinGroupMutation = { __typename?: 'Mutation', joinGroup:
-    | { __typename?: 'GroupOperationValidationFailed', reason: string }
-    | { __typename?: 'JoinGroupResponse', hash: any }
+export type JoinGroupMutation = { __typename: 'Mutation', joinGroup:
+    | { __typename: 'GroupOperationValidationFailed', reason: string }
+    | { __typename: 'JoinGroupResponse', hash: any }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8589,19 +8589,19 @@ export type LeaveGroupMutationVariables = Exact<{
 }>;
 
 
-export type LeaveGroupMutation = { __typename?: 'Mutation', leaveGroup:
-    | { __typename?: 'GroupOperationValidationFailed', reason: string }
-    | { __typename?: 'LeaveGroupResponse', hash: any }
+export type LeaveGroupMutation = { __typename: 'Mutation', leaveGroup:
+    | { __typename: 'GroupOperationValidationFailed', reason: string }
+    | { __typename: 'LeaveGroupResponse', hash: any }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8611,18 +8611,18 @@ export type RejectGroupMembershipRequestsMutationVariables = Exact<{
 }>;
 
 
-export type RejectGroupMembershipRequestsMutation = { __typename?: 'Mutation', rejectGroupMembershipRequests:
-    | { __typename?: 'RejectGroupMembershipRequestsResponse', hash: any }
+export type RejectGroupMembershipRequestsMutation = { __typename: 'Mutation', rejectGroupMembershipRequests:
+    | { __typename: 'RejectGroupMembershipRequestsResponse', hash: any }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8632,17 +8632,17 @@ export type RemoveAdminsMutationVariables = Exact<{
 }>;
 
 
-export type RemoveAdminsMutation = { __typename?: 'Mutation', removeAdmins:
+export type RemoveAdminsMutation = { __typename: 'Mutation', removeAdmins:
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8652,18 +8652,18 @@ export type RequestGroupMembershipMutationVariables = Exact<{
 }>;
 
 
-export type RequestGroupMembershipMutation = { __typename?: 'Mutation', requestGroupMembership:
-    | { __typename?: 'RequestGroupMembershipResponse', hash: any }
+export type RequestGroupMembershipMutation = { __typename: 'Mutation', requestGroupMembership:
+    | { __typename: 'RequestGroupMembershipResponse', hash: any }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8673,18 +8673,18 @@ export type SetGroupMetadataMutationVariables = Exact<{
 }>;
 
 
-export type SetGroupMetadataMutation = { __typename?: 'Mutation', setGroupMetadata:
+export type SetGroupMetadataMutation = { __typename: 'Mutation', setGroupMetadata:
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
-    | { __typename?: 'SetGroupMetadataResponse', hash: any }
+    | { __typename: 'SetGroupMetadataResponse', hash: any }
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8694,20 +8694,20 @@ export type UnbanGroupAccountsMutationVariables = Exact<{
 }>;
 
 
-export type UnbanGroupAccountsMutation = { __typename?: 'Mutation', unbanGroupAccounts:
+export type UnbanGroupAccountsMutation = { __typename: 'Mutation', unbanGroupAccounts:
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
-    | { __typename?: 'UnbanGroupAccountsResponse', hash: any }
+    | { __typename: 'UnbanGroupAccountsResponse', hash: any }
    };
 
 export type UpdateGroupRulesMutationVariables = Exact<{
@@ -8715,20 +8715,20 @@ export type UpdateGroupRulesMutationVariables = Exact<{
 }>;
 
 
-export type UpdateGroupRulesMutation = { __typename?: 'Mutation', updateGroupRules:
+export type UpdateGroupRulesMutation = { __typename: 'Mutation', updateGroupRules:
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
-    | { __typename?: 'UpdateGroupRulesResponse', hash: any }
+    | { __typename: 'UpdateGroupRulesResponse', hash: any }
    };
 
 export type MlDismissRecommendedAccountsMutationVariables = Exact<{
@@ -8736,23 +8736,23 @@ export type MlDismissRecommendedAccountsMutationVariables = Exact<{
 }>;
 
 
-export type MlDismissRecommendedAccountsMutation = { __typename?: 'Mutation', mlDismissRecommendedAccounts: any };
+export type MlDismissRecommendedAccountsMutation = { __typename: 'Mutation', mlDismissRecommendedAccounts: any };
 
 export type AddPostNotInterestedMutationVariables = Exact<{
   request: PostNotInterestedRequest;
 }>;
 
 
-export type AddPostNotInterestedMutation = { __typename?: 'Mutation', addPostNotInterested: any };
+export type AddPostNotInterestedMutation = { __typename: 'Mutation', addPostNotInterested: any };
 
 export type AddReactionMutationVariables = Exact<{
   request: AddReactionRequest;
 }>;
 
 
-export type AddReactionMutation = { __typename?: 'Mutation', addReaction:
-    | { __typename?: 'AddReactionFailure', reason: string }
-    | { __typename?: 'AddReactionResponse', success: boolean }
+export type AddReactionMutation = { __typename: 'Mutation', addReaction:
+    | { __typename: 'AddReactionFailure', reason: string }
+    | { __typename: 'AddReactionResponse', success: boolean }
    };
 
 export type BookmarkPostMutationVariables = Exact<{
@@ -8760,26 +8760,26 @@ export type BookmarkPostMutationVariables = Exact<{
 }>;
 
 
-export type BookmarkPostMutation = { __typename?: 'Mutation', bookmarkPost: any };
+export type BookmarkPostMutation = { __typename: 'Mutation', bookmarkPost: any };
 
 export type CreatePostMutationVariables = Exact<{
   request: CreatePostRequest;
 }>;
 
 
-export type CreatePostMutation = { __typename?: 'Mutation', post:
-    | { __typename?: 'PostOperationValidationFailed' }
-    | { __typename?: 'PostResponse', hash: any }
+export type CreatePostMutation = { __typename: 'Mutation', post:
+    | { __typename: 'PostOperationValidationFailed' }
+    | { __typename: 'PostResponse', hash: any }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8789,18 +8789,18 @@ export type DeletePostMutationVariables = Exact<{
 }>;
 
 
-export type DeletePostMutation = { __typename?: 'Mutation', deletePost:
-    | { __typename?: 'DeletePostResponse', hash: any }
+export type DeletePostMutation = { __typename: 'Mutation', deletePost:
+    | { __typename: 'DeletePostResponse', hash: any }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8810,19 +8810,19 @@ export type EditPostMutationVariables = Exact<{
 }>;
 
 
-export type EditPostMutation = { __typename?: 'Mutation', editPost:
-    | { __typename?: 'PostOperationValidationFailed' }
-    | { __typename?: 'PostResponse', hash: any }
+export type EditPostMutation = { __typename: 'Mutation', editPost:
+    | { __typename: 'PostOperationValidationFailed' }
+    | { __typename: 'PostResponse', hash: any }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8832,20 +8832,20 @@ export type ExecutePostActionMutationVariables = Exact<{
 }>;
 
 
-export type ExecutePostActionMutation = { __typename?: 'Mutation', executePostAction:
-    | { __typename?: 'ExecutePostActionResponse', hash: any }
-    | { __typename?: 'InsufficientFunds' }
+export type ExecutePostActionMutation = { __typename: 'Mutation', executePostAction:
+    | { __typename: 'ExecutePostActionResponse', hash: any }
+    | { __typename: 'InsufficientFunds' }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
-    | { __typename?: 'SignerErc20ApprovalRequired' }
+    | { __typename: 'SignerErc20ApprovalRequired' }
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8855,33 +8855,33 @@ export type HideReplyMutationVariables = Exact<{
 }>;
 
 
-export type HideReplyMutation = { __typename?: 'Mutation', hideReply: any };
+export type HideReplyMutation = { __typename: 'Mutation', hideReply: any };
 
 export type ReportPostMutationVariables = Exact<{
   request: ReportPostRequest;
 }>;
 
 
-export type ReportPostMutation = { __typename?: 'Mutation', reportPost: any };
+export type ReportPostMutation = { __typename: 'Mutation', reportPost: any };
 
 export type RepostMutationVariables = Exact<{
   request: CreateRepostRequest;
 }>;
 
 
-export type RepostMutation = { __typename?: 'Mutation', repost:
-    | { __typename?: 'PostOperationValidationFailed' }
-    | { __typename?: 'PostResponse', hash: any }
+export type RepostMutation = { __typename: 'Mutation', repost:
+    | { __typename: 'PostOperationValidationFailed' }
+    | { __typename: 'PostResponse', hash: any }
     | (
-      { __typename?: 'SelfFundedTransactionRequest' }
+      { __typename: 'SelfFundedTransactionRequest' }
       & SelfFundedTransactionRequestFragment
     )
     | (
-      { __typename?: 'SponsoredTransactionRequest' }
+      { __typename: 'SponsoredTransactionRequest' }
       & SponsoredTransactionRequestFragment
     )
     | (
-      { __typename?: 'TransactionWillFail' }
+      { __typename: 'TransactionWillFail' }
       & TransactionWillFailFragment
     )
    };
@@ -8891,23 +8891,23 @@ export type UndoBookmarkPostMutationVariables = Exact<{
 }>;
 
 
-export type UndoBookmarkPostMutation = { __typename?: 'Mutation', undoBookmarkPost: any };
+export type UndoBookmarkPostMutation = { __typename: 'Mutation', undoBookmarkPost: any };
 
 export type UndoPostNotInterestedMutationVariables = Exact<{
   request: PostNotInterestedRequest;
 }>;
 
 
-export type UndoPostNotInterestedMutation = { __typename?: 'Mutation', undoPostNotInterested: any };
+export type UndoPostNotInterestedMutation = { __typename: 'Mutation', undoPostNotInterested: any };
 
 export type UndoReactionMutationVariables = Exact<{
   request: UndoReactionRequest;
 }>;
 
 
-export type UndoReactionMutation = { __typename?: 'Mutation', undoReaction:
-    | { __typename?: 'UndoReactionFailure', reason: string }
-    | { __typename?: 'UndoReactionResponse', success: boolean }
+export type UndoReactionMutation = { __typename: 'Mutation', undoReaction:
+    | { __typename: 'UndoReactionFailure', reason: string }
+    | { __typename: 'UndoReactionResponse', success: boolean }
    };
 
 export type UnhideReplyMutationVariables = Exact<{
@@ -8915,18 +8915,18 @@ export type UnhideReplyMutationVariables = Exact<{
 }>;
 
 
-export type UnhideReplyMutation = { __typename?: 'Mutation', unhideReply: any };
+export type UnhideReplyMutation = { __typename: 'Mutation', unhideReply: any };
 
 export type TransactionStatusQueryVariables = Exact<{
   request: TransactionStatusRequest;
 }>;
 
 
-export type TransactionStatusQuery = { __typename?: 'Query', transactionStatus:
-    | { __typename?: 'FailedTransactionStatus', reason: string }
-    | { __typename?: 'FinishedTransactionStatus', blockTimestamp: any }
-    | { __typename?: 'NotIndexedYetStatus', reason: string }
-    | { __typename?: 'PendingTransactionStatus', blockTimestamp: any }
+export type TransactionStatusQuery = { __typename: 'Query', transactionStatus:
+    | { __typename: 'FailedTransactionStatus', reason: string }
+    | { __typename: 'FinishedTransactionStatus', blockTimestamp: any }
+    | { __typename: 'NotIndexedYetStatus', reason: string }
+    | { __typename: 'PendingTransactionStatus', blockTimestamp: any }
    };
 
 export type AccountQueryVariables = Exact<{
@@ -8934,8 +8934,8 @@ export type AccountQueryVariables = Exact<{
 }>;
 
 
-export type AccountQuery = { __typename?: 'Query', account?: (
-    { __typename?: 'Account' }
+export type AccountQuery = { __typename: 'Query', account?: (
+    { __typename: 'Account' }
     & AccountFragment
   ) | null };
 
@@ -8944,11 +8944,11 @@ export type AccountManagersQueryVariables = Exact<{
 }>;
 
 
-export type AccountManagersQuery = { __typename?: 'Query', accountManagers: { __typename?: 'PaginatedAccountManagersResult', items: Array<(
-      { __typename?: 'AccountManager' }
+export type AccountManagersQuery = { __typename: 'Query', accountManagers: { __typename: 'PaginatedAccountManagersResult', items: Array<(
+      { __typename: 'AccountManager' }
       & AccountManagerFragment
     )>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -8957,18 +8957,18 @@ export type AccountStatsQueryVariables = Exact<{
 }>;
 
 
-export type AccountStatsQuery = { __typename?: 'Query', accountStats: { __typename?: 'AccountStats', feedStats: { __typename?: 'AccountFeedsStats', posts: number, comments: number, reposts: number, quotes: number, reacted: number, reactions: number }, graphFollowStats: { __typename?: 'AccountGraphsFollowStats', followers: number, following: number } } };
+export type AccountStatsQuery = { __typename: 'Query', accountStats: { __typename: 'AccountStats', feedStats: { __typename: 'AccountFeedsStats', posts: number, comments: number, reposts: number, quotes: number, reacted: number, reactions: number }, graphFollowStats: { __typename: 'AccountGraphsFollowStats', followers: number, following: number } } };
 
 export type AccountsQueryVariables = Exact<{
   request: AccountsRequest;
 }>;
 
 
-export type AccountsQuery = { __typename?: 'Query', accounts: { __typename?: 'PaginatedAccountsResult', items: Array<(
-      { __typename?: 'Account' }
+export type AccountsQuery = { __typename: 'Query', accounts: { __typename: 'PaginatedAccountsResult', items: Array<(
+      { __typename: 'Account' }
       & AccountFragment
     )>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -8978,20 +8978,20 @@ export type AccountsAvailableQueryVariables = Exact<{
 }>;
 
 
-export type AccountsAvailableQuery = { __typename?: 'Query', lastLoggedInAccount?: (
-    { __typename?: 'Account' }
+export type AccountsAvailableQuery = { __typename: 'Query', lastLoggedInAccount?: (
+    { __typename: 'Account' }
     & AccountFragment
-  ) | null, accountsAvailable: { __typename?: 'PaginatedAccountsAvailableResult', items: Array<
-      | { __typename?: 'AccountManaged', account: (
-          { __typename?: 'Account' }
+  ) | null, accountsAvailable: { __typename: 'PaginatedAccountsAvailableResult', items: Array<
+      | { __typename: 'AccountManaged', account: (
+          { __typename: 'Account' }
           & AccountFragment
         ) }
-      | { __typename?: 'AccountOwned', account: (
-          { __typename?: 'Account' }
+      | { __typename: 'AccountOwned', account: (
+          { __typename: 'Account' }
           & AccountFragment
         ) }
     >, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9000,11 +9000,11 @@ export type AccountsBlockedQueryVariables = Exact<{
 }>;
 
 
-export type AccountsBlockedQuery = { __typename?: 'Query', accountsBlocked: { __typename?: 'PaginatedAccountsBlockedResult', items: Array<{ __typename?: 'AccountBlocked', blockedAt: any, account: (
-        { __typename?: 'Account' }
+export type AccountsBlockedQuery = { __typename: 'Query', accountsBlocked: { __typename: 'PaginatedAccountsBlockedResult', items: Array<{ __typename: 'AccountBlocked', blockedAt: any, account: (
+        { __typename: 'Account' }
         & AccountFragment
       ) }>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9013,8 +9013,8 @@ export type AccountsBulkQueryVariables = Exact<{
 }>;
 
 
-export type AccountsBulkQuery = { __typename?: 'Query', accountsBulk: Array<(
-    { __typename?: 'Account' }
+export type AccountsBulkQuery = { __typename: 'Query', accountsBulk: Array<(
+    { __typename: 'Account' }
     & AccountFragment
   )> };
 
@@ -9023,17 +9023,17 @@ export type BalancesBulkQueryVariables = Exact<{
 }>;
 
 
-export type BalancesBulkQuery = { __typename?: 'Query', balancesBulk: Array<
+export type BalancesBulkQuery = { __typename: 'Query', balancesBulk: Array<
     | (
-      { __typename?: 'Erc20Amount' }
+      { __typename: 'Erc20Amount' }
       & Erc20AmountFragment
     )
-    | { __typename?: 'Erc20BalanceError' }
+    | { __typename: 'Erc20BalanceError' }
     | (
-      { __typename?: 'NativeAmount' }
+      { __typename: 'NativeAmount' }
       & NativeAmountFragment
     )
-    | { __typename?: 'NativeBalanceError' }
+    | { __typename: 'NativeBalanceError' }
   > };
 
 export type FollowersQueryVariables = Exact<{
@@ -9041,11 +9041,11 @@ export type FollowersQueryVariables = Exact<{
 }>;
 
 
-export type FollowersQuery = { __typename?: 'Query', followers: { __typename?: 'PaginatedFollowersResult', items: Array<{ __typename?: 'Follower', follower: (
-        { __typename?: 'Account' }
+export type FollowersQuery = { __typename: 'Query', followers: { __typename: 'PaginatedFollowersResult', items: Array<{ __typename: 'Follower', follower: (
+        { __typename: 'Account' }
         & AccountFragment
       ) }>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9054,11 +9054,11 @@ export type FollowersYouKnowQueryVariables = Exact<{
 }>;
 
 
-export type FollowersYouKnowQuery = { __typename?: 'Query', followersYouKnow: { __typename?: 'PaginatedFollowersResult', items: Array<{ __typename?: 'Follower', follower: (
-        { __typename?: 'Account' }
+export type FollowersYouKnowQuery = { __typename: 'Query', followersYouKnow: { __typename: 'PaginatedFollowersResult', items: Array<{ __typename: 'Follower', follower: (
+        { __typename: 'Account' }
         & AccountFragment
       ) }>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9067,11 +9067,11 @@ export type FollowingQueryVariables = Exact<{
 }>;
 
 
-export type FollowingQuery = { __typename?: 'Query', following: { __typename?: 'PaginatedFollowingResult', items: Array<{ __typename?: 'Following', following: (
-        { __typename?: 'Account' }
+export type FollowingQuery = { __typename: 'Query', following: { __typename: 'PaginatedFollowingResult', items: Array<{ __typename: 'Following', following: (
+        { __typename: 'Account' }
         & AccountFragment
       ) }>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9081,21 +9081,21 @@ export type FullAccountQueryVariables = Exact<{
 }>;
 
 
-export type FullAccountQuery = { __typename?: 'Query', account?: (
-    { __typename?: 'Account' }
+export type FullAccountQuery = { __typename: 'Query', account?: (
+    { __typename: 'Account' }
     & AccountFragment
-  ) | null, accountStats: { __typename?: 'AccountStats', graphFollowStats: { __typename?: 'AccountGraphsFollowStats', followers: number, following: number } } };
+  ) | null, accountStats: { __typename: 'AccountStats', graphFollowStats: { __typename: 'AccountGraphsFollowStats', followers: number, following: number } } };
 
 export type MeQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type MeQuery = { __typename?: 'Query', me: { __typename?: 'MeResult', isSignless: boolean, loggedInAs:
-      | { __typename?: 'AccountManaged', account: (
-          { __typename?: 'Account' }
+export type MeQuery = { __typename: 'Query', me: { __typename: 'MeResult', isSignless: boolean, loggedInAs:
+      | { __typename: 'AccountManaged', account: (
+          { __typename: 'Account' }
           & AccountFragment
         ) }
-      | { __typename?: 'AccountOwned', account: (
-          { __typename?: 'Account' }
+      | { __typename: 'AccountOwned', account: (
+          { __typename: 'Account' }
           & AccountFragment
         ) }
      } };
@@ -9105,25 +9105,25 @@ export type NotificationIndicatorQueryVariables = Exact<{
 }>;
 
 
-export type NotificationIndicatorQuery = { __typename?: 'Query', notifications: { __typename?: 'PaginatedNotificationResult', items: Array<
-      | { __typename?: 'AccountActionExecutedNotification', actions: Array<
-          | { __typename?: 'TippingAccountActionExecuted', executedAt: any }
-          | { __typename?: 'UnknownAccountActionExecuted', executedAt: any }
+export type NotificationIndicatorQuery = { __typename: 'Query', notifications: { __typename: 'PaginatedNotificationResult', items: Array<
+      | { __typename: 'AccountActionExecutedNotification', actions: Array<
+          | { __typename: 'TippingAccountActionExecuted', executedAt: any }
+          | { __typename: 'UnknownAccountActionExecuted', executedAt: any }
         > }
-      | { __typename?: 'CommentNotification', comment: { __typename?: 'Post', timestamp: any } }
-      | { __typename?: 'FollowNotification', followers: Array<{ __typename?: 'NotificationAccountFollow', followedAt: any }> }
-      | { __typename?: 'GroupMembershipRequestApprovedNotification', approvedAt: any }
-      | { __typename?: 'GroupMembershipRequestRejectedNotification', rejectedAt: any }
-      | { __typename?: 'MentionNotification', post: { __typename?: 'Post', timestamp: any } }
-      | { __typename?: 'PostActionExecutedNotification', actions: Array<
-          | { __typename?: 'SimpleCollectPostActionExecuted', executedAt: any }
-          | { __typename?: 'TippingPostActionExecuted', executedAt: any }
-          | { __typename?: 'UnknownPostActionExecuted', executedAt: any }
+      | { __typename: 'CommentNotification', comment: { __typename: 'Post', timestamp: any } }
+      | { __typename: 'FollowNotification', followers: Array<{ __typename: 'NotificationAccountFollow', followedAt: any }> }
+      | { __typename: 'GroupMembershipRequestApprovedNotification', approvedAt: any }
+      | { __typename: 'GroupMembershipRequestRejectedNotification', rejectedAt: any }
+      | { __typename: 'MentionNotification', post: { __typename: 'Post', timestamp: any } }
+      | { __typename: 'PostActionExecutedNotification', actions: Array<
+          | { __typename: 'SimpleCollectPostActionExecuted', executedAt: any }
+          | { __typename: 'TippingPostActionExecuted', executedAt: any }
+          | { __typename: 'UnknownPostActionExecuted', executedAt: any }
         > }
-      | { __typename?: 'QuoteNotification', quote: { __typename?: 'Post', timestamp: any } }
-      | { __typename?: 'ReactionNotification', reactions: Array<{ __typename?: 'NotificationAccountPostReaction', reactions: Array<{ __typename?: 'PostReaction', reactedAt: any }> }> }
-      | { __typename?: 'RepostNotification', reposts: Array<{ __typename?: 'NotificationAccountRepost', repostedAt: any }> }
-      | { __typename?: 'TokenDistributedNotification', actionDate: any }
+      | { __typename: 'QuoteNotification', quote: { __typename: 'Post', timestamp: any } }
+      | { __typename: 'ReactionNotification', reactions: Array<{ __typename: 'NotificationAccountPostReaction', reactions: Array<{ __typename: 'PostReaction', reactedAt: any }> }> }
+      | { __typename: 'RepostNotification', reposts: Array<{ __typename: 'NotificationAccountRepost', repostedAt: any }> }
+      | { __typename: 'TokenDistributedNotification', actionDate: any }
     > } };
 
 export type NotificationsQueryVariables = Exact<{
@@ -9131,53 +9131,53 @@ export type NotificationsQueryVariables = Exact<{
 }>;
 
 
-export type NotificationsQuery = { __typename?: 'Query', notifications: { __typename?: 'PaginatedNotificationResult', items: Array<
+export type NotificationsQuery = { __typename: 'Query', notifications: { __typename: 'PaginatedNotificationResult', items: Array<
       | (
-        { __typename?: 'AccountActionExecutedNotification' }
+        { __typename: 'AccountActionExecutedNotification' }
         & AccountActionExecutedNotificationFragment
       )
       | (
-        { __typename?: 'CommentNotification' }
+        { __typename: 'CommentNotification' }
         & CommentNotificationFragment
       )
       | (
-        { __typename?: 'FollowNotification' }
+        { __typename: 'FollowNotification' }
         & FollowNotificationFragment
       )
       | (
-        { __typename?: 'GroupMembershipRequestApprovedNotification' }
+        { __typename: 'GroupMembershipRequestApprovedNotification' }
         & GroupMembershipRequestApprovedNotificationFragment
       )
       | (
-        { __typename?: 'GroupMembershipRequestRejectedNotification' }
+        { __typename: 'GroupMembershipRequestRejectedNotification' }
         & GroupMembershipRequestRejectedNotificationFragment
       )
       | (
-        { __typename?: 'MentionNotification' }
+        { __typename: 'MentionNotification' }
         & MentionNotificationFragment
       )
       | (
-        { __typename?: 'PostActionExecutedNotification' }
+        { __typename: 'PostActionExecutedNotification' }
         & PostActionExecutedNotificationFragment
       )
       | (
-        { __typename?: 'QuoteNotification' }
+        { __typename: 'QuoteNotification' }
         & QuoteNotificationFragment
       )
       | (
-        { __typename?: 'ReactionNotification' }
+        { __typename: 'ReactionNotification' }
         & ReactionNotificationFragment
       )
       | (
-        { __typename?: 'RepostNotification' }
+        { __typename: 'RepostNotification' }
         & RepostNotificationFragment
       )
       | (
-        { __typename?: 'TokenDistributedNotification' }
+        { __typename: 'TokenDistributedNotification' }
         & TokenDistributedNotificationFragment
       )
     >, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9186,17 +9186,17 @@ export type TokenDistributionsQueryVariables = Exact<{
 }>;
 
 
-export type TokenDistributionsQuery = { __typename?: 'Query', tokenDistributions: { __typename?: 'PaginatedTokenDistributionsResult', items: Array<{ __typename?: 'TokenDistribution', timestamp: any, txHash?: any | null, amount:
+export type TokenDistributionsQuery = { __typename: 'Query', tokenDistributions: { __typename: 'PaginatedTokenDistributionsResult', items: Array<{ __typename: 'TokenDistribution', timestamp: any, txHash?: any | null, amount:
         | (
-          { __typename?: 'Erc20Amount' }
+          { __typename: 'Erc20Amount' }
           & PayableAmount_Erc20Amount_Fragment
         )
         | (
-          { __typename?: 'NativeAmount' }
+          { __typename: 'NativeAmount' }
           & PayableAmount_NativeAmount_Fragment
         )
        }>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9205,8 +9205,8 @@ export type UsernameQueryVariables = Exact<{
 }>;
 
 
-export type UsernameQuery = { __typename?: 'Query', username?: (
-    { __typename?: 'Username' }
+export type UsernameQuery = { __typename: 'Query', username?: (
+    { __typename: 'Username' }
     & UsernameFragment
   ) | null };
 
@@ -9215,11 +9215,11 @@ export type UsernamesQueryVariables = Exact<{
 }>;
 
 
-export type UsernamesQuery = { __typename?: 'Query', usernames: { __typename?: 'PaginatedUsernamesResult', items: Array<(
-      { __typename?: 'Username' }
+export type UsernamesQuery = { __typename: 'Query', usernames: { __typename: 'PaginatedUsernamesResult', items: Array<(
+      { __typename: 'Username' }
       & UsernameFragment
     )>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9228,8 +9228,8 @@ export type AuthenticatedSessionsQueryVariables = Exact<{
 }>;
 
 
-export type AuthenticatedSessionsQuery = { __typename?: 'Query', authenticatedSessions: { __typename?: 'PaginatedActiveAuthenticationsResult', items: Array<{ __typename?: 'AuthenticatedSession', authenticationId: any, app: any, browser?: string | null, device?: string | null, os?: string | null, origin?: any | null, signer: any, expiresAt: any, createdAt: any, updatedAt: any }>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+export type AuthenticatedSessionsQuery = { __typename: 'Query', authenticatedSessions: { __typename: 'PaginatedActiveAuthenticationsResult', items: Array<{ __typename: 'AuthenticatedSession', authenticationId: any, app: any, browser?: string | null, device?: string | null, os?: string | null, origin?: any | null, signer: any, expiresAt: any, createdAt: any, updatedAt: any }>, pageInfo: (
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9238,11 +9238,11 @@ export type AdminsForQueryVariables = Exact<{
 }>;
 
 
-export type AdminsForQuery = { __typename?: 'Query', adminsFor: { __typename?: 'PaginatedAdminsResult', items: Array<{ __typename?: 'Admin', account: (
-        { __typename?: 'Account' }
+export type AdminsForQuery = { __typename: 'Query', adminsFor: { __typename: 'PaginatedAdminsResult', items: Array<{ __typename: 'Admin', account: (
+        { __typename: 'Account' }
         & AccountFragment
       ) }>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9252,18 +9252,18 @@ export type FullGroupQueryVariables = Exact<{
 }>;
 
 
-export type FullGroupQuery = { __typename?: 'Query', group?: (
-    { __typename?: 'Group' }
+export type FullGroupQuery = { __typename: 'Query', group?: (
+    { __typename: 'Group' }
     & GroupFragment
-  ) | null, groupStats: { __typename?: 'GroupStatsResponse', totalMembers: number } };
+  ) | null, groupStats: { __typename: 'GroupStatsResponse', totalMembers: number } };
 
 export type GroupQueryVariables = Exact<{
   request: GroupRequest;
 }>;
 
 
-export type GroupQuery = { __typename?: 'Query', group?: (
-    { __typename?: 'Group' }
+export type GroupQuery = { __typename: 'Query', group?: (
+    { __typename: 'Group' }
     & GroupFragment
   ) | null };
 
@@ -9272,21 +9272,21 @@ export type GroupBannedAccountsQueryVariables = Exact<{
 }>;
 
 
-export type GroupBannedAccountsQuery = { __typename?: 'Query', groupBannedAccounts: { __typename?: 'PaginatedGroupBannedAccountsResult', items: Array<{ __typename?: 'GroupBannedAccount', account: (
-        { __typename?: 'Account' }
+export type GroupBannedAccountsQuery = { __typename: 'Query', groupBannedAccounts: { __typename: 'PaginatedGroupBannedAccountsResult', items: Array<{ __typename: 'GroupBannedAccount', account: (
+        { __typename: 'Account' }
         & AccountFragment
-      ) }>, pageInfo: { __typename?: 'PaginatedResultInfo', prev?: any | null, next?: any | null } } };
+      ) }>, pageInfo: { __typename: 'PaginatedResultInfo', prev?: any | null, next?: any | null } } };
 
 export type GroupMembersQueryVariables = Exact<{
   request: GroupMembersRequest;
 }>;
 
 
-export type GroupMembersQuery = { __typename?: 'Query', groupMembers: { __typename?: 'PaginatedGroupMembersResult', items: Array<{ __typename?: 'GroupMember', account: (
-        { __typename?: 'Account' }
+export type GroupMembersQuery = { __typename: 'Query', groupMembers: { __typename: 'PaginatedGroupMembersResult', items: Array<{ __typename: 'GroupMember', account: (
+        { __typename: 'Account' }
         & AccountFragment
       ) }>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9295,11 +9295,11 @@ export type GroupMembershipRequestsQueryVariables = Exact<{
 }>;
 
 
-export type GroupMembershipRequestsQuery = { __typename?: 'Query', groupMembershipRequests: { __typename?: 'PaginatedGroupMembershipRequestsResult', items: Array<{ __typename?: 'GroupMembershipRequest', requestedAt: any, account: (
-        { __typename?: 'Account' }
+export type GroupMembershipRequestsQuery = { __typename: 'Query', groupMembershipRequests: { __typename: 'PaginatedGroupMembershipRequestsResult', items: Array<{ __typename: 'GroupMembershipRequest', requestedAt: any, account: (
+        { __typename: 'Account' }
         & AccountFragment
       ) }>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9308,18 +9308,18 @@ export type GroupStatsQueryVariables = Exact<{
 }>;
 
 
-export type GroupStatsQuery = { __typename?: 'Query', groupStats: { __typename?: 'GroupStatsResponse', totalMembers: number } };
+export type GroupStatsQuery = { __typename: 'Query', groupStats: { __typename: 'GroupStatsResponse', totalMembers: number } };
 
 export type GroupsQueryVariables = Exact<{
   request: GroupsRequest;
 }>;
 
 
-export type GroupsQuery = { __typename?: 'Query', groups: { __typename?: 'PaginatedGroupsResult', items: Array<(
-      { __typename?: 'Group' }
+export type GroupsQuery = { __typename: 'Query', groups: { __typename: 'PaginatedGroupsResult', items: Array<(
+      { __typename: 'Group' }
       & GroupFragment
     )>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9329,11 +9329,11 @@ export type ProStatsQueryVariables = Exact<{
 }>;
 
 
-export type ProStatsQuery = { __typename?: 'Query', groupStats: { __typename?: 'GroupStatsResponse', totalMembers: number }, balancesBulk: Array<
-    | { __typename?: 'Erc20Amount', value: any }
-    | { __typename?: 'Erc20BalanceError' }
-    | { __typename?: 'NativeAmount' }
-    | { __typename?: 'NativeBalanceError' }
+export type ProStatsQuery = { __typename: 'Query', groupStats: { __typename: 'GroupStatsResponse', totalMembers: number }, balancesBulk: Array<
+    | { __typename: 'Erc20Amount', value: any }
+    | { __typename: 'Erc20BalanceError' }
+    | { __typename: 'NativeAmount' }
+    | { __typename: 'NativeBalanceError' }
   > };
 
 export type AccountRecommendationsQueryVariables = Exact<{
@@ -9341,11 +9341,11 @@ export type AccountRecommendationsQueryVariables = Exact<{
 }>;
 
 
-export type AccountRecommendationsQuery = { __typename?: 'Query', mlAccountRecommendations: { __typename?: 'PaginatedAccountsResult', items: Array<(
-      { __typename?: 'Account' }
+export type AccountRecommendationsQuery = { __typename: 'Query', mlAccountRecommendations: { __typename: 'PaginatedAccountsResult', items: Array<(
+      { __typename: 'Account' }
       & AccountFragment
     )>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9354,11 +9354,11 @@ export type PostsExploreQueryVariables = Exact<{
 }>;
 
 
-export type PostsExploreQuery = { __typename?: 'Query', mlPostsExplore: { __typename?: 'PaginatedPostsResult', items: Array<(
-      { __typename?: 'Post' }
+export type PostsExploreQuery = { __typename: 'Query', mlPostsExplore: { __typename: 'PaginatedPostsResult', items: Array<(
+      { __typename: 'Post' }
       & PostFragment
     )>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9367,11 +9367,11 @@ export type PostsForYouQueryVariables = Exact<{
 }>;
 
 
-export type PostsForYouQuery = { __typename?: 'Query', mlPostsForYou: { __typename?: 'PaginatedPostsForYouResult', items: Array<{ __typename?: 'PostForYou', post: (
-        { __typename?: 'Post' }
+export type PostsForYouQuery = { __typename: 'Query', mlPostsForYou: { __typename: 'PaginatedPostsForYouResult', items: Array<{ __typename: 'PostForYou', post: (
+        { __typename: 'Post' }
         & PostFragment
       ) }>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9380,24 +9380,24 @@ export type CollectActionQueryVariables = Exact<{
 }>;
 
 
-export type CollectActionQuery = { __typename?: 'Query', post?:
-    | { __typename?: 'Post', actions: Array<
+export type CollectActionQuery = { __typename: 'Query', post?:
+    | { __typename: 'Post', actions: Array<
         | (
-          { __typename?: 'SimpleCollectAction' }
+          { __typename: 'SimpleCollectAction' }
           & PostAction_SimpleCollectAction_Fragment
         )
         | (
-          { __typename?: 'UnknownPostAction' }
+          { __typename: 'UnknownPostAction' }
           & PostAction_UnknownPostAction_Fragment
         )
       > }
-    | { __typename?: 'Repost', repostOf: { __typename?: 'Post', actions: Array<
+    | { __typename: 'Repost', repostOf: { __typename: 'Post', actions: Array<
           | (
-            { __typename?: 'SimpleCollectAction' }
+            { __typename: 'SimpleCollectAction' }
             & PostAction_SimpleCollectAction_Fragment
           )
           | (
-            { __typename?: 'UnknownPostAction' }
+            { __typename: 'UnknownPostAction' }
             & PostAction_UnknownPostAction_Fragment
           )
         > } }
@@ -9408,7 +9408,7 @@ export type HiddenCommentsQueryVariables = Exact<{
 }>;
 
 
-export type HiddenCommentsQuery = { __typename?: 'Query', postReferences: { __typename?: 'PaginatedAnyPostsResult', items: Array<
+export type HiddenCommentsQuery = { __typename: 'Query', postReferences: { __typename: 'PaginatedAnyPostsResult', items: Array<
       | { __typename: 'Post' }
       | { __typename: 'Repost' }
     > } };
@@ -9418,13 +9418,13 @@ export type PostQueryVariables = Exact<{
 }>;
 
 
-export type PostQuery = { __typename?: 'Query', post?:
+export type PostQuery = { __typename: 'Query', post?:
     | (
-      { __typename?: 'Post' }
+      { __typename: 'Post' }
       & AnyPost_Post_Fragment
     )
     | (
-      { __typename?: 'Repost' }
+      { __typename: 'Repost' }
       & AnyPost_Repost_Fragment
     )
    | null };
@@ -9434,17 +9434,17 @@ export type PostBookmarksQueryVariables = Exact<{
 }>;
 
 
-export type PostBookmarksQuery = { __typename?: 'Query', postBookmarks: { __typename?: 'PaginatedAnyPostsResult', items: Array<
+export type PostBookmarksQuery = { __typename: 'Query', postBookmarks: { __typename: 'PaginatedAnyPostsResult', items: Array<
       | (
-        { __typename?: 'Post' }
+        { __typename: 'Post' }
         & AnyPost_Post_Fragment
       )
       | (
-        { __typename?: 'Repost' }
+        { __typename: 'Repost' }
         & AnyPost_Repost_Fragment
       )
     >, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9453,11 +9453,11 @@ export type PostReactionsQueryVariables = Exact<{
 }>;
 
 
-export type PostReactionsQuery = { __typename?: 'Query', postReactions: { __typename?: 'PaginatedPostReactionsResult', items: Array<{ __typename?: 'AccountPostReaction', account: (
-        { __typename?: 'Account' }
+export type PostReactionsQuery = { __typename: 'Query', postReactions: { __typename: 'PaginatedPostReactionsResult', items: Array<{ __typename: 'AccountPostReaction', account: (
+        { __typename: 'Account' }
         & AccountFragment
       ) }>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9466,17 +9466,17 @@ export type PostReferencesQueryVariables = Exact<{
 }>;
 
 
-export type PostReferencesQuery = { __typename?: 'Query', postReferences: { __typename?: 'PaginatedAnyPostsResult', items: Array<
+export type PostReferencesQuery = { __typename: 'Query', postReferences: { __typename: 'PaginatedAnyPostsResult', items: Array<
       | (
-        { __typename?: 'Post' }
+        { __typename: 'Post' }
         & AnyPost_Post_Fragment
       )
       | (
-        { __typename?: 'Repost' }
+        { __typename: 'Repost' }
         & AnyPost_Repost_Fragment
       )
     >, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9485,17 +9485,17 @@ export type PostsQueryVariables = Exact<{
 }>;
 
 
-export type PostsQuery = { __typename?: 'Query', posts: { __typename?: 'PaginatedAnyPostsResult', items: Array<
+export type PostsQuery = { __typename: 'Query', posts: { __typename: 'PaginatedAnyPostsResult', items: Array<
       | (
-        { __typename?: 'Post' }
+        { __typename: 'Post' }
         & AnyPost_Post_Fragment
       )
       | (
-        { __typename?: 'Repost' }
+        { __typename: 'Repost' }
         & AnyPost_Repost_Fragment
       )
     >, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9504,11 +9504,11 @@ export type TimelineQueryVariables = Exact<{
 }>;
 
 
-export type TimelineQuery = { __typename?: 'Query', timeline: { __typename?: 'PaginatedTimelineResult', items: Array<(
-      { __typename?: 'TimelineItem' }
+export type TimelineQuery = { __typename: 'Query', timeline: { __typename: 'PaginatedTimelineResult', items: Array<(
+      { __typename: 'TimelineItem' }
       & TimelineItemFragment
     )>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9517,11 +9517,11 @@ export type WhoExecutedActionOnPostQueryVariables = Exact<{
 }>;
 
 
-export type WhoExecutedActionOnPostQuery = { __typename?: 'Query', whoExecutedActionOnPost: { __typename?: 'PaginatedPostExecutedActionsResult', items: Array<{ __typename?: 'PostExecutedActions', account: (
-        { __typename?: 'Account' }
+export type WhoExecutedActionOnPostQuery = { __typename: 'Query', whoExecutedActionOnPost: { __typename: 'PaginatedPostExecutedActionsResult', items: Array<{ __typename: 'PostExecutedActions', account: (
+        { __typename: 'Account' }
         & AccountFragment
       ) }>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 
@@ -9530,11 +9530,11 @@ export type WhoReferencedPostQueryVariables = Exact<{
 }>;
 
 
-export type WhoReferencedPostQuery = { __typename?: 'Query', whoReferencedPost: { __typename?: 'PaginatedAccountsResult', items: Array<(
-      { __typename?: 'Account' }
+export type WhoReferencedPostQuery = { __typename: 'Query', whoReferencedPost: { __typename: 'PaginatedAccountsResult', items: Array<(
+      { __typename: 'Account' }
       & AccountFragment
     )>, pageInfo: (
-      { __typename?: 'PaginatedResultInfo' }
+      { __typename: 'PaginatedResultInfo' }
       & PaginatedResultInfoFragment
     ) } };
 

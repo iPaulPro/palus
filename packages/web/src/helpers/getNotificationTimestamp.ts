@@ -2,8 +2,8 @@ import type { AnyNotificationFragment } from "@/types/palus";
 
 export const getNotificationTimestamp = (
   notification: AnyNotificationFragment
-) => {
-  switch (notification?.__typename) {
+): string => {
+  switch (notification.__typename) {
     case "AccountActionExecutedNotification":
     case "PostActionExecutedNotification":
       return notification.actions[0].executedAt;
@@ -25,7 +25,5 @@ export const getNotificationTimestamp = (
       return notification.reposts[0].repostedAt;
     case "TokenDistributedNotification":
       return notification.actionDate;
-    default:
-      return undefined;
   }
 };

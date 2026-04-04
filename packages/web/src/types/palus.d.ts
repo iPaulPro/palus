@@ -1,8 +1,19 @@
 import type {
+  AccountActionExecutedNotificationFragment,
   AccountFragment,
+  CommentNotificationFragment,
   Erc20AmountFragment,
+  FollowNotificationFragment,
+  GroupMembershipRequestApprovedNotificationFragment,
+  GroupMembershipRequestRejectedNotificationFragment,
+  MentionNotificationFragment,
   NativeAmountFragment,
-  PayToCollectInput
+  PayToCollectInput,
+  PostActionExecutedNotificationFragment,
+  QuoteNotificationFragment,
+  ReactionNotificationFragment,
+  RepostNotificationFragment,
+  TokenDistributedNotificationFragment
 } from "@palus/indexer";
 
 export type CollectActionType = {

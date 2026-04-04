@@ -15,9 +15,10 @@ const getMentions = (text: string): PostMentionFragment[] => {
       .toLowerCase();
 
     return {
+      __typename: "AccountMention",
       account: "",
       namespace: "",
-      replace: { from: handle, to: handle }
+      replace: { __typename: "MentionReplace", from: handle, to: handle }
     } as AccountMentionFragment;
   });
 };
