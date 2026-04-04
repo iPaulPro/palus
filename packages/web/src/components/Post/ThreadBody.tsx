@@ -14,9 +14,15 @@ interface ThreadBodyProps {
   post: PostFragment;
   isRoot?: boolean;
   embedded?: boolean;
+  showMore?: boolean;
 }
 
-const ThreadBody = ({ post, isRoot, embedded }: ThreadBodyProps) => {
+const ThreadBody = ({
+  post,
+  isRoot,
+  embedded,
+  showMore = true
+}: ThreadBodyProps) => {
   const { bannedAccounts } = useBannedAccountsStore();
 
   return (
@@ -42,7 +48,7 @@ const ThreadBody = ({ post, isRoot, embedded }: ThreadBodyProps) => {
             <BannedAuthorPost />
           ) : (
             <>
-              <PostBody embedded={embedded} post={post} />
+              <PostBody embedded={embedded} post={post} showMore={showMore} />
               {embedded ? null : <PostActions post={post} />}
             </>
           )}

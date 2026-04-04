@@ -1,7 +1,7 @@
-import { ExclamationCircleIcon, EyeIcon } from "@heroicons/react/24/outline";
+import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { getSrc } from "@livepeer/react/external";
 import { type AnyPostFragment, ContentWarning } from "@palus/indexer";
-import { memo, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import HiddenPost from "@/components/Post/HiddenPost";
 import PollAction from "@/components/Post/OpenAction/PollAction";
 import Quote from "@/components/Shared/Embed/Quote";
@@ -9,7 +9,7 @@ import Markup from "@/components/Shared/Markup";
 import Attachments from "@/components/Shared/Post/Attachments";
 import PostLink from "@/components/Shared/Post/PostLink";
 import Video from "@/components/Shared/Post/Video";
-import { Button, H6 } from "@/components/Shared/UI";
+import { Button } from "@/components/Shared/UI";
 import { CONTRACTS } from "@/data/contracts";
 import cn from "@/helpers/cn";
 import getPostData from "@/helpers/getPostData";
@@ -35,7 +35,15 @@ const PostBody = ({
   const filteredAttachments = getPostData(metadata)?.attachments || [];
   const filteredAsset = getPostData(metadata)?.asset;
 
-  const canShowMore = filteredContent?.length > 450 && showMore;
+  const markupRef = useRef<HTMLElement>(null);
+  const [isClamped, setIsClamped] = useState(false);
+
+  useEffect(() => {
+    const el = markupRef.current;
+    if (el) {
+      setIsClamped(el.scrollHeight > el.clientHeight);
+    }
+  }, [filteredContent]);
 
   const unknownActions =
     post.__typename === "Post"
@@ -46,15 +54,6 @@ const PostBody = ({
   const pollAction = unknownActions?.find(
     (action) => action.address === CONTRACTS.pollVoteAction
   );
-
-  let content = filteredContent;
-
-  if (canShowMore) {
-    const lines = content?.split("\n");
-    if (lines && lines.length > 0) {
-      content = lines.slice(0, 5).join("\n");
-    }
-  }
 
   // Show live if it's there
   const showLive = metadata.__typename === "LivestreamMetadata";
@@ -98,19 +97,19 @@ const PostBody = ({
         >
           <Markup
             className={cn(
-              { "line-clamp-2": embedded, "line-clamp-5": canShowMore },
+              { "line-clamp-2": embedded, "line-clamp-7": showMore },
               "markup linkify break-words",
               contentClassName
             )}
             mentions={targetPost.mentions}
+            ref={markupRef}
           >
-            {content}
+            {filteredContent}
           </Markup>
-          {canShowMore ? (
-            <H6 className="mt-4 flex items-center space-x-1 text-gray-500 dark:text-gray-200">
-              <EyeIcon className="size-4" />
+          {isClamped ? (
+            <div className="flex items-center space-x-1 pt-1 font-semibold text-brand-500 text-sm">
               <PostLink post={post}>Show more</PostLink>
-            </H6>
+            </div>
           ) : null}
           {unknownActions?.length && !embedded ? (
             pollAction && post.__typename === "Post" ? (

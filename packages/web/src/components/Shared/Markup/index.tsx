@@ -1,5 +1,5 @@
 import type { PostMentionFragment } from "@palus/indexer";
-import { memo } from "react";
+import { forwardRef, memo } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
 import remarkGfm from "remark-gfm";
@@ -28,22 +28,26 @@ interface MarkupProps {
   mentions?: PostMentionFragment[];
 }
 
-const Markup = ({ children, className = "", mentions = [] }: MarkupProps) => {
-  if (!children) {
-    return null;
+const Markup = forwardRef<HTMLSpanElement, MarkupProps>(
+  ({ children, className = "", mentions = [] }, ref) => {
+    if (!children) {
+      return null;
+    }
+
+    const components = {
+      a: (props: any) => <MarkupLink mentions={mentions} title={props.title} />
+    };
+
+    return (
+      <span className={className} ref={ref}>
+        <ReactMarkdown components={components} remarkPlugins={plugins}>
+          {trimify(children)}
+        </ReactMarkdown>
+      </span>
+    );
   }
+);
 
-  const components = {
-    a: (props: any) => <MarkupLink mentions={mentions} title={props.title} />
-  };
-
-  return (
-    <span className={className}>
-      <ReactMarkdown components={components} remarkPlugins={plugins}>
-        {trimify(children)}
-      </ReactMarkdown>
-    </span>
-  );
-};
+Markup.displayName = "Markup";
 
 export default memo(Markup);

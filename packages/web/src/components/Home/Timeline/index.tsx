@@ -111,7 +111,6 @@ const Timeline = ({ onScroll }: TimelineProps) => {
                     <SinglePost
                       embedded={true}
                       post={comment}
-                      showMore={true}
                       showType={false}
                     />
                   </div>
