@@ -47,6 +47,7 @@
     "prosekit": "0.17.1",
     "qr": "0.5.5",
     "react": "19.2.4",
+    "react-device-detect": "2.2.3",
     "react-dom": "19.2.4",
     "react-easy-crop": "5.5.6",
     "react-helmet-async": "2.0.5",
