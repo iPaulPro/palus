@@ -208,7 +208,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
           className="flex-1"
           disabled={amountDisabled}
           onClick={() => handleSetAmount(1)}
-          outline={amount !== 5}
+          outline={amount !== 1}
           size="sm"
         >
           $1
