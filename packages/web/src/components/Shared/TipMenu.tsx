@@ -3,17 +3,32 @@ import {
   type PostFragment,
   useBalancesBulkQuery
 } from "@palus/indexer";
-import type { ChangeEvent, RefObject } from "react";
-import { memo, useRef, useState } from "react";
+import { memo, type RefObject, useEffect, useRef, useState } from "react";
+import { z } from "zod";
 import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import LoginButton from "@/components/Shared/LoginButton";
 import Skeleton from "@/components/Shared/Skeleton";
-import { Button, Input, Spinner } from "@/components/Shared/UI";
+import {
+  Button,
+  Form,
+  Input,
+  Spinner,
+  useZodForm
+} from "@/components/Shared/UI";
 import { NATIVE_TOKEN_SYMBOL } from "@/data/constants";
 import cn from "@/helpers/cn";
 import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
 import { useSendTip } from "@/hooks/useSendTip";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+
+const ValidationSchema = z.object({
+  amount: z
+    .string()
+    .min(1, { message: "Amount is required" })
+    .refine((val) => !Number.isNaN(Number(val)) && Number(val) > 0, {
+      message: "Amount must be greater than zero"
+    })
+});
 
 const submitButtonClassName = "w-full py-2 sm:py-1.5 text-base font-semibold";
 
@@ -23,12 +38,23 @@ interface TipMenuProps {
   account?: AccountFragment;
 }
 
+const formatter = new Intl.NumberFormat(undefined, {
+  maximumFractionDigits: 6,
+  minimumFractionDigits: 2
+});
+
 const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const { currentAccount } = useAccountStore();
-  const [amount, setAmount] = useState(0.01);
   const [other, setOther] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
+
+  const form = useZodForm({
+    defaultValues: { amount: "0.01" },
+    schema: ValidationSchema
+  });
+
+  const amount = Number(form.watch("amount")) || 0;
 
   const { send: handleTip, isSending: isSubmitting } = useSendTip({
     account,
@@ -46,6 +72,12 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     }
   });
 
+  useEffect(() => {
+    if (other) {
+      inputRef.current?.focus();
+    }
+  }, [other]);
+
   const balance =
     balances?.balancesBulk[0].__typename === "NativeAmount"
       ? Number(balances.balancesBulk[0].value)
@@ -53,15 +85,12 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   const canTip = balance >= amount;
   const balanceFormatted = balance.toFixed(2);
 
-  const handleSetAmount = (amount: number) => {
-    setAmount(amount);
+  const handleSetAmount = (value: number) => {
+    form.setValue("amount", String(value), { shouldValidate: true });
     setOther(false);
   };
 
-  const onOtherAmount = (event: ChangeEvent<HTMLInputElement>) => {
-    const value = Number(event.target.value);
-    setAmount(value);
-  };
+  const { ref: registerRef, ...amountInputProps } = form.register("amount");
 
   const amountDisabled = isSubmitting || !currentAccount;
 
@@ -70,106 +99,117 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
   }
 
   return (
-    <div className="m-4 space-y-3">
-      <div className="space-y-2">
-        <div className="flex items-center space-x-1 text-gray-500 text-xs dark:text-gray-200">
-          <span>Balance:</span>
-          <span>
-            {balanceFormatted ? (
-              `$${balanceFormatted} ${NATIVE_TOKEN_SYMBOL}`
-            ) : (
-              <Skeleton className="h-2.5 w-14 rounded-full" />
-            )}
-          </span>
+    <Form form={form} onSubmit={() => handleTip()}>
+      <div className="m-4 space-y-3">
+        <div className="space-y-2">
+          <div className="flex items-center space-x-1 text-gray-500 text-xs dark:text-gray-200">
+            <span>Balance:</span>
+            <span>
+              {balanceFormatted ? (
+                `$${balanceFormatted} ${NATIVE_TOKEN_SYMBOL}`
+              ) : (
+                <Skeleton className="h-2.5 w-14 rounded-full" />
+              )}
+            </span>
+          </div>
         </div>
-      </div>
-      <div className="flex gap-x-2">
-        <Button
-          className="flex-1 py-2 sm:py-1"
-          disabled={amountDisabled}
-          onClick={() => handleSetAmount(0.01)}
-          outline={amount !== 0.01}
-          size="sm"
-        >
-          $0.01
-        </Button>
-        <Button
-          className="flex-1"
-          disabled={amountDisabled}
-          onClick={() => handleSetAmount(0.1)}
-          outline={amount !== 0.1}
-          size="sm"
-        >
-          $0.10
-        </Button>
-        <Button
-          className="flex-1"
-          disabled={amountDisabled}
-          onClick={() => handleSetAmount(0.5)}
-          outline={amount !== 0.5}
-          size="sm"
-        >
-          $0.50
-        </Button>
-        <Button
-          className="flex-1"
-          disabled={amountDisabled}
-          onClick={() => handleSetAmount(1)}
-          outline={amount !== 1}
-          size="sm"
-        >
-          $1
-        </Button>
-        <Button
-          className="flex-1"
-          disabled={amountDisabled}
-          onClick={() => {
-            handleSetAmount(other ? 0.01 : 5);
-            setOther(!other);
-          }}
-          outline={!other}
-          size="sm"
-        >
-          &#8230;
-        </Button>
-      </div>
-      {other ? (
-        <div>
-          <Input
-            className="no-spinner"
-            max={1000}
-            min={0}
-            onChange={onOtherAmount}
-            placeholder="300"
-            ref={inputRef}
-            type="number"
-            value={amount}
-          />
-        </div>
-      ) : null}
-      <div className="pt-1">
-        {isSubmitting || balanceLoading ? (
+        <div className="flex gap-x-2">
           <Button
-            className={cn("flex justify-center", submitButtonClassName)}
-            disabled
-            icon={<Spinner className="my-0.5" size="xs" />}
-          />
-        ) : canTip ? (
-          <Button
-            className={submitButtonClassName}
-            disabled={!amount || isSubmitting || !canTip}
-            onClick={handleTip}
+            className="flex-1 py-2 sm:py-1"
+            disabled={amountDisabled}
+            onClick={() => handleSetAmount(0.01)}
+            outline={amount !== 0.01}
+            size="sm"
+            type="button"
           >
-            <b>Tip ${amount.toFixed(2)}</b>
+            $0.01
           </Button>
-        ) : (
-          <TopUpButton
-            amountToTopUp={Math.ceil((amount - balance) * 20) / 20}
-            className="w-full"
-          />
-        )}
+          <Button
+            className="flex-1"
+            disabled={amountDisabled}
+            onClick={() => handleSetAmount(0.1)}
+            outline={amount !== 0.1}
+            size="sm"
+            type="button"
+          >
+            $0.10
+          </Button>
+          <Button
+            className="flex-1"
+            disabled={amountDisabled}
+            onClick={() => handleSetAmount(0.5)}
+            outline={amount !== 0.5}
+            size="sm"
+            type="button"
+          >
+            $0.50
+          </Button>
+          <Button
+            className="flex-1"
+            disabled={amountDisabled}
+            onClick={() => handleSetAmount(1)}
+            outline={amount !== 1}
+            size="sm"
+            type="button"
+          >
+            $1
+          </Button>
+          <Button
+            className="flex-1"
+            disabled={amountDisabled}
+            onClick={() => {
+              handleSetAmount(other ? 0.01 : 5);
+              setOther(!other);
+            }}
+            outline={!other}
+            size="sm"
+            type="button"
+          >
+            &#8230;
+          </Button>
+        </div>
+        {other ? (
+          <div>
+            <Input
+              {...amountInputProps}
+              autoComplete="off"
+              className="no-spinner text-center"
+              min={0}
+              placeholder="10"
+              ref={(el) => {
+                registerRef(el);
+                inputRef.current = el;
+              }}
+              step="any"
+              type="number"
+            />
+          </div>
+        ) : null}
+        <div className="pt-1">
+          {isSubmitting || balanceLoading ? (
+            <Button
+              className={cn("flex justify-center", submitButtonClassName)}
+              disabled
+              icon={<Spinner className="my-0.5" size="xs" />}
+              type="button"
+            />
+          ) : canTip ? (
+            <Button
+              className={submitButtonClassName}
+              disabled={!amount || isSubmitting || !canTip}
+              type="submit"
+            >
+              <b>Tip ${formatter.format(amount)}</b>
+            </Button>
+          ) : (
+            <TopUpButton
+              amountToTopUp={Math.ceil((amount - balance) * 20) / 20}
+              className="w-full"
+            />
+          )}
+        </div>
       </div>
-    </div>
+    </Form>
   );
 };
 
