@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useEffectEvent, useRef } from "react";
 
 export function useIntervalWhen(
-  cb: () => {},
+  cb: () => void,
   {
     ms,
     when,
