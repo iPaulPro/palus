@@ -13,7 +13,7 @@ export const onRequest: PagesFunction = async (context) => {
   const url = new URL(context.request.url);
 
   const pathname = url.pathname;
-  const match = pathname.match(/^\/posts\/([^.]+)$/);
+  const match = pathname.match(/^\/g\/([^.]+)$/);
 
   if (!match) {
     return context.next();
