@@ -1,0 +1,20 @@
+# HTML documents should never be cached so browsers always receive the
+# latest index.html (and therefore the latest asset hashes) after a
+# deployment.  Without this, a stale index.html can reference hashed
+# asset files that no longer exist in the new deploy, causing Cloudflare's
+# SPA fallback to serve index.html (text/html) for those missing assets
+# and triggering MIME-type errors in the browser.
+/*
+  Cache-Control: no-cache, no-store, must-revalidate
+
+# Vite writes content-hashed filenames under /assets/, so these files are
+# safe to cache permanently — they never change once deployed.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Images use fixed filenames (no content hash), so we can't mark them
+# immutable, but a one-week cache is a safe performance win given they
+# rarely change.
+/images/*
+  Cache-Control: public, max-age=604800
+
