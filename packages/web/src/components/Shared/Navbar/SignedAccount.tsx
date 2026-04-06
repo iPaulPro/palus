@@ -51,6 +51,15 @@ const SignedAccount = () => {
             <YourAccount />
           </MenuItem>
           <MenuItem
+            as="div"
+            className={({ focus }) =>
+              cn({ "dropdown-active": focus }, "m-2 rounded-lg")
+            }
+          >
+            <SwitchAccount />
+          </MenuItem>
+          <div className="divider" />
+          <MenuItem
             as={Link}
             className={({ focus }: { focus: boolean }) =>
               cn({ "dropdown-active": focus }, "menu-item")
@@ -58,15 +67,6 @@ const SignedAccount = () => {
             to="/settings"
           >
             <Settings />
-          </MenuItem>
-          <div className="divider" />
-          <MenuItem
-            as="div"
-            className={({ focus }) =>
-              cn({ "dropdown-active": focus }, "m-2 rounded-lg")
-            }
-          >
-            <SwitchAccount />
           </MenuItem>
           <MenuItem
             as="div"
