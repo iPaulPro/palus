@@ -11,12 +11,15 @@ const FeedType = () => {
 
   const tabs = [
     { name: "Timeline", type: HomeFeedType.TIMELINE },
-    { name: "For You", type: HomeFeedType.FORYOU },
+    // { name: "For You", type: HomeFeedType.FORYOU },
     { name: "Top Accounts", type: HomeFeedType.TOP_ACCOUNTS }
   ];
 
   useEffect(() => {
-    if (feedType === HomeFeedType.FOLLOWING) {
+    if (
+      feedType === HomeFeedType.FOLLOWING ||
+      feedType === HomeFeedType.FORYOU
+    ) {
       setFeedType(HomeFeedType.TIMELINE);
     }
   }, [feedType]);

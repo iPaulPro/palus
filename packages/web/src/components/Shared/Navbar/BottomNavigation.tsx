@@ -1,13 +1,11 @@
 import {
   BellIcon,
-  GlobeAltIcon as GlobeOutline,
   HomeIcon,
   MagnifyingGlassIcon,
   WalletIcon as WalletOutline
 } from "@heroicons/react/24/outline";
 import {
   BellIcon as BellIconSolid,
-  GlobeAltIcon as GlobeSolid,
   HomeIcon as HomeIconSolid,
   WalletIcon as WalletSolid
 } from "@heroicons/react/24/solid";
@@ -90,12 +88,12 @@ const BottomNavigation = () => {
       path: "/search",
       solid: <MagnifyingGlassIcon className="size-6" />
     },
-    {
-      label: "Explore",
-      outline: <GlobeOutline className="size-6" />,
-      path: "/explore",
-      solid: <GlobeSolid className="size-6" />
-    },
+    // {
+    //   label: "Explore",
+    //   outline: <GlobeOutline className="size-6" />,
+    //   path: "/explore",
+    //   solid: <GlobeSolid className="size-6" />
+    // },
     {
       label: "Notifications",
       outline: <BellIcon className="size-6" />,

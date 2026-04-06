@@ -2,7 +2,6 @@ import { useApolloClient } from "@apollo/client";
 import {
   BellIcon as BellOutline,
   BookmarkIcon as BookmarkOutline,
-  GlobeAltIcon as GlobeOutline,
   HomeIcon as HomeOutline,
   PencilSquareIcon,
   UserCircleIcon,
@@ -12,7 +11,6 @@ import {
 import {
   BellIcon as BellSolid,
   BookmarkIcon as BookmarkSolid,
-  GlobeAltIcon as GlobeSolid,
   HomeIcon as HomeSolid,
   UserGroupIcon as UserGroupSolid,
   WalletIcon as WalletSolid
@@ -24,7 +22,6 @@ import {
   NotificationsDocument,
   PostBookmarksDocument,
   PostsDocument,
-  PostsExploreDocument,
   PostsForYouDocument,
   TimelineDocument
 } from "@palus/indexer";
@@ -57,12 +54,12 @@ const navigationItems = {
     solid: <BookmarkSolid className="size-6" />,
     title: "Bookmarks"
   },
-  "/explore": {
-    outline: <GlobeOutline className="size-6" />,
-    refreshDocs: [PostsExploreDocument],
-    solid: <GlobeSolid className="size-6" />,
-    title: "Explore"
-  },
+  // "/explore": {
+  //   outline: <GlobeOutline className="size-6" />,
+  //   refreshDocs: [PostsExploreDocument],
+  //   solid: <GlobeSolid className="size-6" />,
+  //   title: "Explore"
+  // },
   "/groups": {
     outline: <UserGroupOutline className="size-6" />,
     refreshDocs: [GroupsDocument],
@@ -105,7 +102,7 @@ const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const [refreshingRoute, setRefreshingRoute] = useState<string | null>(null);
   const routes = [
     "/",
-    "/explore",
+    // "/explore",
     ...(isLoggedIn
       ? ["/notifications", "/wallet", "/groups", "/bookmarks"]
       : [])
