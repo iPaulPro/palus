@@ -6,13 +6,15 @@ interface LightBoxProps {
   onClose: () => void;
   images: string[];
   initialIndex?: number;
+  onIndexChange?: (index: number) => void;
 }
 
 const LightBox = ({
   show,
   onClose,
   images,
-  initialIndex = 0
+  initialIndex = 0,
+  onIndexChange
 }: LightBoxProps) => {
   return (
     <PhotoSlider
@@ -21,6 +23,7 @@ const LightBox = ({
       index={initialIndex}
       maskOpacity={0.75}
       onClose={onClose}
+      onIndexChange={onIndexChange}
       visible={show}
     />
   );

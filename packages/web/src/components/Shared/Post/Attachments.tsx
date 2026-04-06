@@ -93,6 +93,7 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
               setShowLightBox(false);
               setExpandedImageIndex(0);
             }}
+            onIndexChange={setExpandedImageIndex}
             show={showLightBox}
           />
         </div>
