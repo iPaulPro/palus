@@ -10,19 +10,19 @@
   },
   "dependencies": {
     "@apollo/client": "3.14.0",
-    "graphql": "16.12.0"
+    "graphql": "16.13.2"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "6.1.0",
+    "@graphql-codegen/cli": "6.2.1",
     "@graphql-codegen/fragment-matcher": "6.0.0",
-    "@graphql-codegen/typescript": "5.0.7",
+    "@graphql-codegen/typescript": "5.0.9",
     "@graphql-codegen/typescript-graphql-request": "6.4.0",
-    "@graphql-codegen/typescript-operations": "5.0.7",
-    "@graphql-codegen/typescript-react-apollo": "4.3.4",
+    "@graphql-codegen/typescript-operations": "5.0.9",
+    "@graphql-codegen/typescript-react-apollo": "4.4.1",
     "@palus/config": "workspace:*",
-    "@types/node": "24.10.4",
+    "@types/node": "24.12.2",
     "graphql-request": "7.4.0",
     "typescript": "5.9.3",
-    "ws": "8.18.3"
+    "ws": "8.20.0"
   }
 }
