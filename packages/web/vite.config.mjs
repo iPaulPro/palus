@@ -12,7 +12,7 @@ const codeSplittingGroups = [
   },
   {
     name: "react-libs",
-    test: /node_modules\/(?:react-router|react-hook-form|react-hotkeys-hook|react-tracked|react-easy-crop|react-simple-pull-to-refresh|react-helmet-async|react-device-detect|zustand|@uidotdev\/usehooks|@hookform\/resolvers)\//
+    test: /node_modules\/(?:react-router|react-hook-form|react-hotkeys-hook|react-tracked|react-easy-crop|react-simple-pull-to-refresh|react-helmet-async|react-device-detect|react-photo-view|zustand|@uidotdev\/usehooks|@hookform\/resolvers)\//
   },
   { name: "viem", test: /node_modules\/viem/ },
   { name: "wagmi", test: /node_modules\/(?:wagmi|@wagmi\/)/ },

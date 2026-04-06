@@ -1,3 +1,4 @@
+import "react-photo-view/dist/react-photo-view.css";
 import "./font.css";
 import "./styles.css";
 
