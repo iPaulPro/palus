@@ -110,7 +110,7 @@ const PollEditor = () => {
             />
           </div>
         ))}
-        {pollConfig.options.length !== 10 ? (
+        {pollConfig.options.length === 10 ? null : (
           <button
             className="mt-2 flex items-center space-x-2 text-sm"
             onClick={() => {
@@ -123,7 +123,7 @@ const PollEditor = () => {
             <PlusIcon className="size-4" />
             <span>Add another option</span>
           </button>
-        ) : null}
+        )}
       </div>
     </Card>
   );

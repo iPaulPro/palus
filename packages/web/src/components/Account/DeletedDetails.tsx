@@ -13,7 +13,7 @@ const DeletedDetails = ({ account }: DeletedDetailsProps) => {
 
   return (
     <div className="space-y-5 px-5 md:px-0">
-      <div className="-mt-14 sm:-mt-24 relative ml-5 size-20 sm:size-36">
+      <div className="relative -mt-14 ml-5 size-20 sm:-mt-24 sm:size-36">
         <Image
           alt={account.address}
           className="size-20 rounded-xl bg-gray-200 object-cover ring-3 ring-gray-50 sm:size-36 dark:bg-gray-700 dark:ring-black"

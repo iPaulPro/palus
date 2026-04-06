@@ -269,7 +269,7 @@ function decodeInnerAction(target: string, data: Hex): DecodedAction {
     ];
 
     for (const { abi, name } of abiSets) {
-      if (!abi || !abi.length) continue;
+      if (!abi?.length) continue;
 
       try {
         const decoded = decodeFunctionData({
@@ -370,9 +370,9 @@ function formatTupleParameters(
 
   components.forEach((component, index) => {
     const value =
-      tupleValue[component.name] !== undefined
-        ? tupleValue[component.name]
-        : tupleValue[index];
+      tupleValue[component.name] === undefined
+        ? tupleValue[index]
+        : tupleValue[component.name];
 
     try {
       if (component.type === "address") {

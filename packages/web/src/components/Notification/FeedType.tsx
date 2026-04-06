@@ -35,9 +35,9 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
         setActive={(type) => {
           setFeedType(type as NotificationFeedType);
           setSearchParams(
-            type !== NotificationFeedType.All
-              ? `type=${type.toLowerCase()}`
-              : undefined
+            type === NotificationFeedType.All
+              ? undefined
+              : `type=${type.toLowerCase()}`
           );
         }}
         tabs={tabs}

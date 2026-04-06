@@ -19,7 +19,7 @@
     "typecheck:functions": "pnpm --recursive --parallel run typecheck:functions"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.7",
+    "@biomejs/biome": "2.4.10",
     "husky": "9.1.7",
     "vite": "8.0.5"
   },

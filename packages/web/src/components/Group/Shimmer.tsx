@@ -11,7 +11,7 @@ const GroupPageShimmer = () => {
       </div>
       <div className="mb-4 space-y-8 px-5 md:px-0">
         <div className="flex items-start justify-between">
-          <div className="-mt-24 sm:-mt-24 relative ml-5 size-32 bg-gray-100 sm:size-36">
+          <div className="relative -mt-24 ml-5 size-32 bg-gray-100 sm:-mt-24 sm:size-36">
             <Skeleton className="size-32 rounded-xl ring-3 ring-gray-50 sm:size-36 dark:bg-gray-700 dark:ring-black" />
           </div>
           <Skeleton className="h-[34px] w-20 rounded-full" />

@@ -77,7 +77,7 @@ const Details = ({
   return (
     <div className="mb-4 space-y-2 px-4 md:space-y-3 md:px-0">
       <div className="flex items-start justify-between">
-        <div className="-mt-14 sm:-mt-24 relative ml-4 size-20 sm:size-36 md:ml-5">
+        <div className="relative -mt-14 ml-4 size-20 sm:-mt-24 sm:size-36 md:ml-5">
           <Image
             alt={account.address}
             className="size-20 cursor-pointer rounded-full bg-gray-200 object-cover ring-3 ring-gray-50 sm:size-36 dark:bg-gray-700 dark:ring-black"

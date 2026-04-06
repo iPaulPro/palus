@@ -130,7 +130,7 @@ const PinPostConfirm = () => {
 
   const handleTogglePinPost = async () => {
     const account = currentAccount?.address;
-    if (!account || !post || !post.feed) return;
+    if (!account || !post?.feed) return;
 
     setIsSubmitting(true);
 

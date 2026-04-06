@@ -36,7 +36,7 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
       setActive={(type) => {
         setFeedType(type as AccountFeedType);
         setSearchParams(
-          type !== AccountFeedType.Feed ? { tab: type.toLowerCase() } : {}
+          type === AccountFeedType.Feed ? {} : { tab: type.toLowerCase() }
         );
       }}
       tabs={tabs}

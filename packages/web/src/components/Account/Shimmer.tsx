@@ -12,7 +12,7 @@ const AccountPageShimmer = () => {
       </div>
       <div className="mb-4 space-y-8 px-5 md:px-0">
         <div className="flex items-start justify-between">
-          <div className="-mt-14 sm:-mt-24 relative ml-5 size-32 rounded-full bg-gray-100 sm:size-36">
+          <div className="relative -mt-14 ml-5 size-32 rounded-full bg-gray-100 sm:-mt-24 sm:size-36">
             <Skeleton className="size-32 rounded-full ring-3 ring-gray-50 sm:size-36 dark:bg-gray-700 dark:ring-black" />
           </div>
           <div className="flex gap-2">

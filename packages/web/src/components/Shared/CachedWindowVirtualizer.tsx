@@ -38,11 +38,11 @@ const CachedWindowVirtualizer = forwardRef<
   const [offset, cache] = useMemo(() => {
     // Check if the page was refreshed
     const navigation =
-      typeof window !== "undefined"
-        ? (performance.getEntriesByType(
+      typeof window === "undefined"
+        ? null
+        : (performance.getEntriesByType(
             "navigation"
-          )[0] as PerformanceNavigationTiming)
-        : null;
+          )[0] as PerformanceNavigationTiming);
     const isReload = navigation?.type === "reload";
 
     if (isReload && !sessionHandledKeys.has(cacheKey)) {

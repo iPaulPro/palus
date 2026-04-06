@@ -251,7 +251,7 @@ const Wallet = () => {
               setActive={(type) => {
                 setActiveTab(type);
                 setSearchParams(
-                  type !== WalletTab.Tokens ? { tab: type.toLowerCase() } : {}
+                  type === WalletTab.Tokens ? {} : { tab: type.toLowerCase() }
                 );
               }}
               tabs={tabs}

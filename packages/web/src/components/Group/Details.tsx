@@ -32,7 +32,7 @@ const Details = ({ group }: DetailsProps) => {
   return (
     <div className="mb-4 space-y-3 px-4 md:px-0">
       <div className="flex items-start justify-between">
-        <div className="-mt-24 sm:-mt-24 relative ml-5 size-32 sm:size-36">
+        <div className="relative -mt-24 ml-5 size-32 sm:-mt-24 sm:size-36">
           <Image
             alt={group.address}
             className="size-32 cursor-pointer rounded-xl bg-gray-200 object-cover ring-3 ring-gray-50 sm:size-36 dark:bg-gray-700 dark:ring-black"

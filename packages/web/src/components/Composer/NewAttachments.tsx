@@ -63,7 +63,7 @@ const NewAttachments = ({
     : attachments?.slice(0, MAX_IMAGE_UPLOAD);
   const attachmentsLength = slicedAttachments?.length;
 
-  return attachmentsLength !== 0 ? (
+  return attachmentsLength === 0 ? null : (
     <div
       className={cn(getClass(attachmentsLength)?.row, "mt-3 grid gap-2", "m-5")}
     >
@@ -129,7 +129,7 @@ const NewAttachments = ({
         );
       })}
     </div>
-  ) : null;
+  );
 };
 
 export default memo(NewAttachments);

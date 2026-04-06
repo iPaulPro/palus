@@ -69,7 +69,7 @@ const TokenBalance = ({
         <span className="truncate font-bold">
           {name.replace("Token", "")}{" "}
           <span className="text-secondary">
-            {symbol !== name ? `(${symbol})` : ""}
+            {symbol === name ? "" : `(${symbol})`}
           </span>
         </span>
       </div>

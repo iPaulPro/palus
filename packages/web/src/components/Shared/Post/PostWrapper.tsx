@@ -26,7 +26,7 @@ const PostWrapper = ({
   const handleClick = () => {
     if (disableClick) return;
     const selection = window.getSelection();
-    if (!selection || !selection.toString().length) {
+    if (!selection?.toString().length) {
       if (isHotkeyPressed(isMacOs ? "meta" : "ctrl")) {
         const url = `${window.location.origin}/posts/${post.slug}`;
         window.open(url, "_blank");
