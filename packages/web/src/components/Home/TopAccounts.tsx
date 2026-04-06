@@ -52,6 +52,7 @@ const TopAccounts = ({ onScroll }: TopAccountsProps) => {
       (posts ?? []).filter(
         (post) =>
           !post.author.operations?.isBlockedByMe &&
+          !post.author.operations?.isMutedByMe &&
           post.__typename === "Post" &&
           !post.operations?.hasReported &&
           !bannedAccounts.includes(post.author.address)

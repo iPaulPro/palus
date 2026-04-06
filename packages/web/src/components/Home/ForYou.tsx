@@ -51,6 +51,7 @@ const ForYou = ({ onScroll }: ForYouProps) => {
         .filter(
           (post) =>
             !post.author.operations?.isBlockedByMe &&
+            !post.author.operations?.isMutedByMe &&
             !post.operations?.hasReported &&
             !bannedAccounts.includes(post.author.address)
         ),

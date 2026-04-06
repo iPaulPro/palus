@@ -46,6 +46,7 @@ const GroupFeed = ({ feed }: GroupFeedProps) => {
         const targetPost = isRepost(post) ? post.repostOf : post;
         return (
           !post.author.operations?.isBlockedByMe &&
+          !post.author.operations?.isMutedByMe &&
           !targetPost.operations?.hasReported &&
           !bannedAccounts.includes(post.author.address)
         );

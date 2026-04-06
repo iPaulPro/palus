@@ -2,7 +2,10 @@ import type { PostFragment } from "@palus/indexer";
 import { memo, useState } from "react";
 import PostWarning from "@/components/Shared/Post/PostWarning";
 import PostWrapper from "@/components/Shared/Post/PostWrapper";
-import { getBlockedByMeMessage } from "@/helpers/getBlockedMessage";
+import {
+  getBlockedByMeMessage,
+  getMutedByMeMessage
+} from "@/helpers/getBlockedMessage";
 import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
 import PostBody from "./PostBody";
@@ -15,14 +18,25 @@ interface QuotedPostProps {
 
 const QuotedPost = ({ isNew = false, post }: QuotedPostProps) => {
   const isBlockedByMe = post.author.operations?.isBlockedByMe;
+  const isMutedByMe = post.author.operations?.isMutedByMe;
 
   const [ignoreBlock, setIgnoreBlock] = useState(false);
+  const [ignoreMute, setIgnoreMute] = useState(false);
 
   if (isBlockedByMe && !ignoreBlock) {
     return (
       <PostWarning
         message={getBlockedByMeMessage(post.author)}
-        setIgnoreBlock={setIgnoreBlock}
+        setIgnore={setIgnoreBlock}
+      />
+    );
+  }
+
+  if (isMutedByMe && !ignoreMute) {
+    return (
+      <PostWarning
+        message={getMutedByMeMessage(post.author)}
+        setIgnore={setIgnoreMute}
       />
     );
   }

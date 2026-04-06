@@ -56,6 +56,7 @@ const Timeline = ({ onScroll }: TimelineProps) => {
       (feed ?? []).filter(
         (timelineItem) =>
           !timelineItem.primary.author.operations?.isBlockedByMe &&
+          !timelineItem.primary.author.operations?.isMutedByMe &&
           !timelineItem.primary.operations?.hasReported &&
           !bannedAccounts.includes(timelineItem.primary.author.address)
       ),

@@ -62,6 +62,7 @@ const NoneRelevantFeed = ({ postId }: NoneRelevantFeedProps) => {
   const filteredComments = comments.filter(
     (comment) =>
       !comment.author.operations?.isBlockedByMe &&
+      !comment.author.operations?.isMutedByMe &&
       !comment.operations?.hasReported &&
       !comment.isDeleted &&
       !bannedAccounts.includes(comment.author.address)

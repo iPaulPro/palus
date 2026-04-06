@@ -59,6 +59,7 @@ const WhoToFollow = () => {
   const recommendedAccounts = data?.mlAccountRecommendations.items.filter(
     (account) =>
       !account.operations?.isBlockedByMe &&
+      !account.operations?.isMutedByMe &&
       !account.operations?.isFollowedByMe &&
       !account.operations?.hasBlockedMe &&
       !bannedAccounts.includes(account.address)

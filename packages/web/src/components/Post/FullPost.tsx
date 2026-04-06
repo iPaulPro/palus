@@ -5,7 +5,10 @@ import { useLayoutEffect, useRef, useState } from "react";
 import PostWarning from "@/components/Shared/Post/PostWarning";
 import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
-import { getBlockedByMeMessage } from "@/helpers/getBlockedMessage";
+import {
+  getBlockedByMeMessage,
+  getMutedByMeMessage
+} from "@/helpers/getBlockedMessage";
 import { isRepost } from "@/helpers/postHelpers";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
 import { useHiddenCommentFeedStore } from ".";
@@ -30,11 +33,13 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
 
   const headerRef = useRef<HTMLDivElement>(null);
   const [ignoreBlock, setIgnoreBlock] = useState(false);
+  const [ignoreMute, setIgnoreMute] = useState(false);
 
   const targetPost = isRepost(post) ? post?.repostOf : post;
   const { timestamp } = targetPost;
 
   const isBlockedByMe = post.author.operations?.isBlockedByMe;
+  const isMutedByMe = post.author.operations?.isMutedByMe;
   const isComment = post.__typename === "Post" && post.commentOn;
 
   useLayoutEffect(() => {
@@ -47,10 +52,20 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
     return (
       <PostWarning
         message={getBlockedByMeMessage(post.author)}
-        setIgnoreBlock={setIgnoreBlock}
+        setIgnore={setIgnoreBlock}
       />
     );
   }
+
+  if (isMutedByMe && !ignoreMute) {
+    return (
+      <PostWarning
+        message={getMutedByMeMessage(post.author)}
+        setIgnore={setIgnoreMute}
+      />
+    );
+  }
+
   return (
     <article className="py-5 pr-5 pl-3 md:p-5">
       <PostType post={post} showType />
