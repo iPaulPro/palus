@@ -3,7 +3,6 @@ import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import type { AccountFragment } from "@palus/indexer";
 import { type MouseEvent, useCallback } from "react";
 import cn from "@/helpers/cn";
-import getAccount from "@/helpers/getAccount";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useBlockAlertStore } from "@/store/non-persisted/alert/useBlockAlertStore";
 
@@ -32,9 +31,7 @@ const Block = ({ account }: BlockProps) => {
   return (
     <MenuItem as="div" className={menuItemClassName} onClick={handleClick}>
       <NoSymbolIcon className="size-4" />
-      <div>
-        {isBlockedByMe ? "Unblock" : "Block"} {getAccount(account).username}
-      </div>
+      <div>{isBlockedByMe ? "Unblock" : "Block"} account</div>
     </MenuItem>
   );
 };
