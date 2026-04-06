@@ -1,9 +1,11 @@
-import { AccountsOrderBy, useAccountsLazyQuery } from "@palus/indexer";
+import {
+  AccountsOrderBy,
+  PageSize,
+  useAccountsLazyQuery
+} from "@palus/indexer";
 import { useEffect, useState } from "react";
 import getAccount from "@/helpers/getAccount";
 import getAvatar from "@/helpers/getAvatar";
-
-const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
 export type MentionAccount = {
   address: string;
@@ -27,7 +29,8 @@ const useAccountMentionQuery = (query: string): MentionAccount[] => {
       variables: {
         request: {
           filter: { searchBy: { localNameQuery: query } },
-          orderBy: AccountsOrderBy.AccountScore
+          orderBy: AccountsOrderBy.AccountScore,
+          pageSize: PageSize.Ten
         }
       }
     }).then(({ data }) => {
@@ -46,7 +49,7 @@ const useAccountMentionQuery = (query: string): MentionAccount[] => {
           })
         );
 
-      setResults(accountsResults.slice(0, SUGGESTION_LIST_LENGTH_LIMIT));
+      setResults(accountsResults);
     });
   }, [query, searchAccounts]);
 

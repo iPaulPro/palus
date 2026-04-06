@@ -68,7 +68,7 @@ const GroupMentionPicker = () => {
   return (
     <AutocompletePopover
       className={cn(
-        "z-10 block w-52 rounded-xl border border-gray-200 bg-white p-0 shadow-xs dark:border-gray-800 dark:bg-gray-900",
+        "!max-h-64 z-10 block w-52 rounded-xl border border-gray-200 bg-white p-0 shadow-xs dark:border-gray-800 dark:bg-gray-900",
         !results.length && "hidden"
       )}
       offset={10}

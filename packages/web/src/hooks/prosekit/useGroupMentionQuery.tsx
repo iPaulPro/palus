@@ -1,7 +1,5 @@
-import { useGroupsLazyQuery } from "@palus/indexer";
+import { PageSize, useGroupsLazyQuery } from "@palus/indexer";
 import { useEffect, useState } from "react";
-
-const SUGGESTION_LIST_LENGTH_LIMIT = 5;
 
 export type MentionGroup = {
   address: string;
@@ -23,7 +21,8 @@ const useGroupMentionQuery = (query: string): MentionGroup[] => {
     searchGroups({
       variables: {
         request: {
-          filter: { searchQuery: query }
+          filter: { searchQuery: query },
+          pageSize: PageSize.Ten
           // orderBy: GroupsOrderBy.Alphabetical
         }
       }
@@ -40,7 +39,7 @@ const useGroupMentionQuery = (query: string): MentionGroup[] => {
         })
       );
 
-      setResults(groupsResults.slice(0, SUGGESTION_LIST_LENGTH_LIMIT));
+      setResults(groupsResults);
     });
   }, [query, searchGroups]);
 
