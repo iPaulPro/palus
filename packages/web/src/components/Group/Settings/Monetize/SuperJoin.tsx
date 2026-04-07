@@ -20,10 +20,7 @@ import {
   Input,
   Tooltip
 } from "@/components/Shared/UI";
-import {
-  STATIC_IMAGES_URL,
-  WRAPPED_NATIVE_TOKEN_SYMBOL
-} from "@/data/constants";
+import { NATIVE_TOKEN_SYMBOL, STATIC_IMAGES_URL } from "@/data/constants";
 import errorToast from "@/helpers/errorToast";
 import { getSimplePaymentDetails } from "@/helpers/rules";
 import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
@@ -123,11 +120,11 @@ const SuperJoin = ({ group }: SuperJoinProps) => {
           placeholder="1"
           prefix={
             <Tooltip
-              content={`Payable in ${WRAPPED_NATIVE_TOKEN_SYMBOL}`}
+              content={`Payable in ${NATIVE_TOKEN_SYMBOL}`}
               placement="top"
             >
               <Image
-                alt={WRAPPED_NATIVE_TOKEN_SYMBOL}
+                alt={NATIVE_TOKEN_SYMBOL}
                 className="size-5 rounded-full"
                 src={`${STATIC_IMAGES_URL}/gho.svg`}
               />

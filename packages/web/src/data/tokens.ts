@@ -42,8 +42,6 @@ export const TOKENS: Token[] = [
   }
 ];
 
-export const NATIVE_TOKEN_SYMBOL = IS_TESTNET ? "GRASS" : "GHO";
-
 export const findToken = (address: string) => {
   return TOKENS.find(
     (token) => token.contractAddress.toLowerCase() === address.toLowerCase()

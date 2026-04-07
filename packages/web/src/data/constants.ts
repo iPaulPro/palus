@@ -15,11 +15,13 @@ export const ADMIN_GROUP_ADDRESS = IS_TESTNET
 // Application
 export const BRAND_COLOR = "#0170a3";
 
-// URLs
+// Media URLs
 export const STATIC_IMAGES_URL = "/images";
 export const LENS_MEDIA_SNAPSHOT_URL = "https://ik.imagekit.io/lens";
 export const DEFAULT_AVATAR = `${STATIC_IMAGES_URL}/default.webp`;
 export const PLACEHOLDER_IMAGE = `${STATIC_IMAGES_URL}/placeholder.webp`;
+
+// Explorer URLs
 export const BLOCK_EXPLORER_URL = IS_TESTNET
   ? "https://explorer.testnet.lens.xyz"
   : "https://explorer.lens.xyz";
@@ -27,7 +29,7 @@ export const BLOCK_EXPLORER_API_URL = IS_TESTNET
   ? "https://explorer-api.testnet.lens.xyz"
   : "https://explorer-api.lens.xyz";
 
-// Storage
+// Storage URLs
 export const STORAGE_NODE_URL = "https://api.grove.storage/";
 export const IPFS_GATEWAY = "https://gw.ipfs-lens.dev/ipfs/";
 
@@ -39,7 +41,6 @@ export const THIRD_WEB_CLIENT_ID = "50f0da09fdc3c0f9ae25464c55babfdb";
 
 export const LENS_NAMESPACE = "lens/";
 export const NATIVE_TOKEN_SYMBOL = IS_TESTNET ? "GRASS" : "GHO";
-export const WRAPPED_NATIVE_TOKEN_SYMBOL = IS_TESTNET ? "WGRASS" : "WGHO";
 
 export const MAX_IMAGE_UPLOAD = 8;
 
