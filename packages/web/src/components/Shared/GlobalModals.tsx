@@ -76,7 +76,7 @@ const GlobalModals = () => {
       ? signupScreen === "choose"
         ? "Signup"
         : null
-      : "Login";
+      : null;
 
   const isSmallDevice = useMediaQuery(IS_MOBILE);
 

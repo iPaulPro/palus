@@ -86,7 +86,7 @@ const WalletSelector: FC = () => {
           </button>
         );
       })}
-      <div className="linkify text-gray-500 text-sm">
+      <div className="linkify pt-1 text-gray-500 text-sm">
         By connecting a wallet, you agree to our{" "}
         <Link target="_blank" to="/terms">
           Terms of Use
