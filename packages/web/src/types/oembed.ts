@@ -1,6 +1,7 @@
 export interface Oembed {
   author_name?: string;
   author_url?: string;
+  favicon_url?: string;
   height?: number;
   html?: string;
   provider_name?: string;

@@ -7,12 +7,14 @@ import PollAction from "@/components/Post/OpenAction/PollAction";
 import Quote from "@/components/Shared/Embed/Quote";
 import Markup from "@/components/Shared/Markup";
 import Attachments from "@/components/Shared/Post/Attachments";
+import OEmbed from "@/components/Shared/Post/OEmbed";
 import PostLink from "@/components/Shared/Post/PostLink";
 import Video from "@/components/Shared/Post/Video";
 import { Button } from "@/components/Shared/UI";
 import { CONTRACTS } from "@/data/contracts";
 import cn from "@/helpers/cn";
 import getPostData from "@/helpers/getPostData";
+import getURLs from "@/helpers/getURLs";
 import { isRepost } from "@/helpers/postHelpers";
 
 interface PostBodyProps {
@@ -45,6 +47,9 @@ const PostBody = ({
     }
   }, [filteredContent]);
 
+  const urls = getURLs(filteredContent);
+  const hasURLs = urls.length > 0;
+
   const unknownActions =
     post.__typename === "Post"
       ? post.actions.filter(
@@ -59,6 +64,14 @@ const PostBody = ({
   const showLive = metadata.__typename === "LivestreamMetadata";
   // Show attachments if they're there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
+  const showSharingLink = metadata.__typename === "LinkMetadata";
+  const showOembed =
+    !showSharingLink &&
+    hasURLs &&
+    !showLive &&
+    !showAttachments &&
+    !embedded &&
+    !targetPost.quoteOf;
 
   const [showCensored, setShowCensored] = useState(false);
   const contentWarning =
@@ -135,6 +148,7 @@ const PostBody = ({
               <Video src={getSrc(metadata.liveUrl || metadata.playbackUrl)} />
             </div>
           ) : null}
+          {showOembed ? <OEmbed url={urls[0]} /> : null}
           {targetPost.quoteOf && !embedded ? (
             <Quote post={targetPost.quoteOf} />
           ) : null}

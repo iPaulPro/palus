@@ -1,8 +1,49 @@
+import getFavicon from "@/helpers/getFavicon";
 import type { Oembed } from "@/types/oembed";
 
 const X_OEMBED_URL = "https://publish.twitter.com/oembed?omit_script=true&url=";
 const TIK_TOK_URL = "https://www.tiktok.com/oembed?url=";
 const SPOTIFY_URL = "https://open.spotify.com/oembed?url=";
+
+const fetchLinkPreview = async (url: string): Promise<Oembed | null> => {
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      return null;
+    }
+    const html = await response.text();
+    const doc = new DOMParser().parseFromString(html, "text/html");
+
+    const getMeta = (property: string): string | null =>
+      doc
+        .querySelector(`meta[property="${property}"]`)
+        ?.getAttribute("content") ??
+      doc
+        .querySelector(`meta[name="${property}"]`)
+        ?.getAttribute("content") ??
+      null;
+
+    const title = getMeta("og:title") ?? doc.title ?? null;
+    const thumbnailUrl = getMeta("og:image");
+    const providerName =
+      getMeta("og:site_name") ?? new URL(url).hostname ?? null;
+
+    if (!title && !thumbnailUrl) {
+      return null;
+    }
+
+    return {
+      favicon_url: getFavicon(url),
+      ...(providerName && { provider_name: providerName }),
+      ...(thumbnailUrl && { thumbnail_url: thumbnailUrl }),
+      ...(title && { title }),
+      type: "link",
+      version: "1.0"
+    };
+  } catch {
+    return null;
+  }
+};
 
 export const getOembed = async (
   url: string,
@@ -30,7 +71,7 @@ export const getOembed = async (
   }
 
   if (!oembedUrl) {
-    return null;
+    return fetchLinkPreview(url);
   }
 
   try {
@@ -38,8 +79,7 @@ export const getOembed = async (
     if (!response.ok) {
       return null;
     }
-    const data: Oembed = await response.json();
-    return data;
+    return (await response.json()) as Oembed;
   } catch {
     return null;
   }
