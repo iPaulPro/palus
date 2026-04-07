@@ -15,12 +15,7 @@ const WalletSelector: FC = () => {
   const { connector: activeConnector } = useConnection();
   const connectors = useConnectors();
 
-  const allowedConnectors = [
-    "metaMaskSDK",
-    "injected",
-    "walletConnect",
-    "familyAccountsProvider"
-  ];
+  const allowedConnectors = ["injected", "metaMaskSDK", "walletConnect"];
 
   const filteredConnectors = connectors
     .filter((connector: any) => {

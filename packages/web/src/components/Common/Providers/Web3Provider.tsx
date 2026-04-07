@@ -1,4 +1,3 @@
-import { familyAccountsConnector } from "family";
 import type { ReactNode } from "react";
 import { http } from "viem";
 import { mainnet } from "viem/chains";
@@ -21,7 +20,6 @@ const connectors = [
     enableAnalytics: false,
     infuraAPIKey: INFURA_API_KEY
   }),
-  familyAccountsConnector(),
   walletConnect({ projectId: WALLETCONNECT_PROJECT_ID }),
   injected()
 ];

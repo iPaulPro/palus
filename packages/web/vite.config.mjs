@@ -16,7 +16,6 @@ const codeSplittingGroups = [
   },
   { name: "viem", test: /node_modules\/viem/ },
   { name: "wagmi", test: /node_modules\/(?:wagmi|@wagmi\/)/ },
-  { name: "family", test: /node_modules\/family/ },
   { name: "motion", test: /node_modules\/(?:motion|framer-motion)/ },
   { name: "zod", test: /node_modules\/zod/ },
   { name: "headlessui", test: /node_modules\/@headlessui\// },

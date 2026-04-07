@@ -143,9 +143,6 @@ importers:
       dayjs:
         specifier: 1.11.20
         version: 1.11.20
-      family:
-        specifier: 0.1.6
-        version: 0.1.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(viem@2.47.10(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)(zod@4.3.6))(wagmi@3.6.0)
       html-to-image:
         specifier: 1.11.13
         version: 1.11.13
@@ -3854,23 +3851,6 @@ packages:
   eyes@0.1.8:
     resolution: {integrity: sha512-GipyPsXO1anza0AOZdy69Im7hGFCNB7Y/NGjDlZGJ3GJJLtwNSb2vrzYrTYJRrRloVx7pl+bhUaTB8yiccPvFQ==}
     engines: {node: '> 0.1.90'}
-
-  family@0.1.6:
-    resolution: {integrity: sha512-ulHRThfhz+glfmVfSPcU16N1hZ/uj0Y1D79vl0PeJ3yFfgXlkiBbVwXRJhDQuP8oizxBCl16KT2PrMleiYwrPw==}
-    peerDependencies:
-      react: 17.x || 18.x || 19.x
-      react-dom: 17.x || 18.x || 19.x
-      viem: 2.x
-      wagmi: 2.x
-    peerDependenciesMeta:
-      react:
-        optional: true
-      react-dom:
-        optional: true
-      viem:
-        optional: true
-      wagmi:
-        optional: true
 
   fast-deep-equal@3.1.3:
     resolution: {integrity: sha512-f3qQ9oQy9j2AhBe/H9VC91wLmKBCCU/gDOnKNAYG5hswO7BLKj09Hc5HYNz9cGI++xlpDCIgDaitVs03ATR84Q==}
@@ -11413,13 +11393,6 @@ snapshots:
 
   eyes@0.1.8:
     optional: true
-
-  family@0.1.6(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(viem@2.47.10(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)(zod@4.3.6))(wagmi@3.6.0):
-    optionalDependencies:
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
-      viem: 2.47.10(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)(zod@4.3.6)
-      wagmi: 3.6.0(@coinbase/wallet-sdk@4.3.6(@types/react@19.2.14)(bufferutil@4.1.0)(immer@10.2.0)(react@19.2.4)(typescript@5.9.3)(use-sync-external-store@1.6.0(react@19.2.4))(utf-8-validate@6.0.6)(zod@4.3.6))(@safe-global/safe-apps-provider@0.18.6(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)(zod@4.3.6))(@safe-global/safe-apps-sdk@9.1.0(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)(zod@4.3.6))(@tanstack/query-core@5.96.2)(@tanstack/react-query@5.96.2(react@19.2.4))(@types/react@19.2.14)(@walletconnect/ethereum-provider@2.23.9(@types/react@19.2.14)(bufferutil@4.1.0)(immer@10.2.0)(react@19.2.4)(typescript@5.9.3)(use-sync-external-store@1.6.0(react@19.2.4))(utf-8-validate@6.0.6)(zod@4.3.6))(immer@10.2.0)(ox@0.14.7(typescript@5.9.3)(zod@4.3.6))(porto@0.2.35)(react@19.2.4)(typescript@5.9.3)(viem@2.47.10(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)(zod@4.3.6))
 
   fast-deep-equal@3.1.3: {}
 

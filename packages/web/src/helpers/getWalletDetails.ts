@@ -6,10 +6,6 @@ interface WalletDetails {
 }
 
 const WALLETS = {
-  familyAccountsProvider: {
-    logo: `${STATIC_IMAGES_URL}/family.webp`,
-    name: "Login with Family"
-  },
   injected: {
     logo: `${STATIC_IMAGES_URL}/wallet.svg`,
     name: "Browser Wallet"
