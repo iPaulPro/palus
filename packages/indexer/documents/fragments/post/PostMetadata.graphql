@@ -1,4 +1,5 @@
 fragment PostMetadata on PostMetadata {
+  __typename
   ... on VideoMetadata {
     ...VideoMetadata
   }

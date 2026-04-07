@@ -1,0 +1,13 @@
+mutation AddAdmins($request: AddAdminsRequest!) {
+  addAdmins(request: $request) {
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

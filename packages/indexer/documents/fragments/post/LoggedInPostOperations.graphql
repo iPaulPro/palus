@@ -6,6 +6,9 @@ fragment LoggedInPostOperations on LoggedInPostOperations {
   hasTipped
   hasReported
   isNotInterested
+  hasCommented {
+    ...BooleanValue
+  }
   hasQuoted {
     ...BooleanValue
   }
@@ -16,12 +19,12 @@ fragment LoggedInPostOperations on LoggedInPostOperations {
     __typename
   }
   canRepost {
-    __typename
+    ...PostOperationValidationOutcome
   }
   canQuote {
-    __typename
+    ...PostOperationValidationOutcome
   }
   canComment {
-    __typename
+    ...PostOperationValidationOutcome
   }
 }

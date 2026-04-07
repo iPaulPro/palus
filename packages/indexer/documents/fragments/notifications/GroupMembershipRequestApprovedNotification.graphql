@@ -1,0 +1,10 @@
+fragment GroupMembershipRequestApprovedNotification on GroupMembershipRequestApprovedNotification {
+  id
+  approvedAt
+  approvedBy {
+    ...Account
+  }
+  group {
+    ...Group
+  }
+}

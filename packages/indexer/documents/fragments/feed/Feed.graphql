@@ -1,0 +1,8 @@
+fragment Feed on Feed {
+  address
+  rules {
+    required {
+      ...FeedRule
+    }
+  }
+}

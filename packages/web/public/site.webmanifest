@@ -1,0 +1,113 @@
+{
+  "background_color": "#ffffff",
+  "categories": [
+    "multimedia",
+    "social",
+    "social networking"
+  ],
+  "description": "An open-source Web3 social media platform built on Lens.",
+  "display": "standalone",
+  "icons": [
+    {
+      "purpose": "any",
+      "sizes": "192x192",
+      "src": "/icon-192.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "sizes": "192x192",
+      "src": "/icon-192-mask.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "/icon-512.png",
+      "type": "image/png"
+    },
+	 {
+	   "purpose": "maskable",
+	   "sizes": "512x512",
+	   "src": "/icon-512-mask.png",
+	   "type": "image/png"
+	 }
+  ],
+  "handle_links": "preferred",
+  "id": "/",
+  "launch_handler": {
+    "client_mode": "navigate-existing"
+  },
+  "name": "Palus",
+  "scope": "/",
+  "screenshots": [
+    {
+      "form_factor": "narrow",
+      "label": "Home feed",
+      "sizes": "780x1683",
+      "src": "https://api.grove.storage/4e4b414de7b75d64a0ecb6011992fd1ee36f6248b24adf107de0a62381c436e1",
+      "type": "image/webp"
+    },
+    {
+      "form_factor": "narrow",
+      "label": "Profile page",
+      "sizes": "780x1683",
+      "src": "https://api.grove.storage/dac7e851e68ec5d99b0100902780197e28de587f40de551a459a052ba970499e",
+      "type": "image/webp"
+    },
+    {
+      "form_factor": "narrow",
+      "label": "Account wallet",
+      "sizes": "780x1683",
+      "src": "https://api.grove.storage/d2aeb1ced09bbf3cb4d5d714a45af4a390ca7249d960095b7266b81f61788682",
+      "type": "image/webp"
+    }
+  ],
+  "share_target": {
+    "action": "/",
+    "enctype": "application/x-www-form-urlencoded",
+    "method": "GET",
+    "params": {
+      "text": "text",
+      "url": "url"
+    }
+  },
+  "short_name": "Palus",
+  "shortcuts": [
+    {
+      "name": "Notifications",
+      "url": "/notifications",
+      "icons": [
+		{
+		  "sizes": "192x192",
+		  "src": "/images/ic_notifications.png",
+		  "type": "image/png"
+		}
+	  ]
+    },
+    {
+      "name": "Search",
+      "url": "/search",
+      "icons": [
+		{
+		  "sizes": "192x192",
+		  "src": "/images/ic_search.png",
+		  "type": "image/png"
+		}
+	  ]
+    },
+    {
+      "name": "Wallet",
+      "url": "/wallet",
+      "icons": [
+		{
+		  "sizes": "192x192",
+		  "src": "/images/ic_wallet.png",
+		  "type": "image/png"
+		}
+	  ]
+    }
+  ],
+  "start_url": "/",
+  "theme_color": "#0170a3"
+}

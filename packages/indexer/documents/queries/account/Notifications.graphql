@@ -28,6 +28,12 @@ query Notifications($request: NotificationRequest!) {
       ... on TokenDistributedNotification {
         ...TokenDistributedNotification
       }
+      ... on GroupMembershipRequestRejectedNotification {
+        ...GroupMembershipRequestRejectedNotification
+      }
+      ... on GroupMembershipRequestApprovedNotification {
+        ...GroupMembershipRequestApprovedNotification
+      }
     }
     pageInfo {
       ...PaginatedResultInfo

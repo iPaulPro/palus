@@ -1,0 +1,32 @@
+import { useGroupQuery } from "@palus/indexer";
+import { H4, Spinner } from "@/components/Shared/UI";
+import { useCreateGroupStore } from "@/store/non-persisted/modal/useCreateGroupStore";
+
+const GroupMinting = () => {
+  const { setScreen, transactionHash, setGroupAddress } = useCreateGroupStore();
+
+  useGroupQuery({
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data) => {
+      if (data.group) {
+        setGroupAddress(data.group.address);
+        setScreen("success");
+      }
+    },
+    pollInterval: 1500,
+    skip: !transactionHash,
+    variables: { request: { txHash: transactionHash } }
+  });
+
+  return (
+    <div className="m-8 flex flex-col items-center justify-center">
+      <H4>We are preparing your group!</H4>
+      <div className="mt-3 text-center font-semibold text-gray-500 dark:text-gray-200">
+        This may take a few moments…
+      </div>
+      <Spinner className="mt-8" />
+    </div>
+  );
+};
+
+export default GroupMinting;

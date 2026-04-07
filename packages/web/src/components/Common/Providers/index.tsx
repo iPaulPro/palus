@@ -1,0 +1,37 @@
+import { ApolloProvider } from "@apollo/client";
+import { createApolloClient } from "@palus/indexer/apollo/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import type { ReactNode } from "react";
+import { HelmetProvider } from "react-helmet-async";
+import ErrorBoundary from "@/components/Common/ErrorBoundary";
+import authLink from "@/helpers/authLink";
+import { ThemeProvider } from "@/hooks/useTheme";
+import Web3Provider from "./Web3Provider";
+
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { refetchOnWindowFocus: false } }
+});
+
+const lensApolloClient = createApolloClient(authLink);
+
+interface ProvidersProps {
+  children: ReactNode;
+}
+
+const Providers = ({ children }: ProvidersProps) => {
+  return (
+    <ErrorBoundary>
+      <Web3Provider>
+        <QueryClientProvider client={queryClient}>
+          <ApolloProvider client={lensApolloClient}>
+            <HelmetProvider>
+              <ThemeProvider>{children}</ThemeProvider>
+            </HelmetProvider>
+          </ApolloProvider>
+        </QueryClientProvider>
+      </Web3Provider>
+    </ErrorBoundary>
+  );
+};
+
+export default Providers;

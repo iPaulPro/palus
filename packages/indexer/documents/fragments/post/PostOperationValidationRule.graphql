@@ -1,0 +1,4 @@
+fragment PostOperationValidationRule on PostOperationValidationRule {
+  ...PostRule
+  ...FeedRule
+}

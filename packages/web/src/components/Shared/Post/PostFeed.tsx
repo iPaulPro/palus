@@ -1,0 +1,77 @@
+import { memo, type ReactNode, useRef } from "react";
+import type { WindowVirtualizerHandle } from "virtua";
+import CachedWindowVirtualizer from "@/components/Shared/CachedWindowVirtualizer";
+import PullToRefresh from "@/components/Shared/PullToRefresh";
+import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
+import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
+
+interface PostFeedProps<T extends { id: string }> {
+  items: T[];
+  kind: string;
+  loading?: boolean;
+  error?: { message?: string };
+  hasMore?: boolean;
+  handleEndReached: () => Promise<void>;
+  emptyIcon: ReactNode;
+  emptyMessage: ReactNode;
+  errorTitle: string;
+  renderItem: (item: T) => ReactNode;
+  refetch: () => Promise<any>;
+  onScroll?: (scrollOffset: number) => void;
+  alwaysRestoreScroll?: boolean;
+  pin?: ReactNode;
+}
+
+const PostFeed = <T extends { id: string }>({
+  items,
+  kind,
+  loading = false,
+  error,
+  hasMore,
+  handleEndReached,
+  emptyIcon,
+  emptyMessage,
+  errorTitle,
+  renderItem,
+  refetch,
+  onScroll,
+  alwaysRestoreScroll,
+  pin
+}: PostFeedProps<T>) => {
+  const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
+
+  const cacheKey = `window-list-cache-${kind}`;
+  const ref = useRef<WindowVirtualizerHandle>(null);
+
+  if (loading) {
+    return <PostsShimmer />;
+  }
+
+  if (!items?.length) {
+    return <EmptyState icon={emptyIcon} message={emptyMessage} />;
+  }
+
+  if (error) {
+    return <ErrorMessage error={error} title={errorTitle} />;
+  }
+
+  return (
+    <PullToRefresh onRefresh={refetch}>
+      <Card className="virtual-divider-list-window">
+        <CachedWindowVirtualizer
+          alwaysRestore={alwaysRestoreScroll}
+          cacheKey={cacheKey}
+          onScroll={onScroll}
+          ref={ref}
+        >
+          {pin}
+          {items.map((item) => renderItem(item))}
+          {hasMore && <div className="h-0.5" ref={loadMoreRef} />}
+        </CachedWindowVirtualizer>
+      </Card>
+    </PullToRefresh>
+  );
+};
+
+export default memo(PostFeed) as typeof PostFeed;

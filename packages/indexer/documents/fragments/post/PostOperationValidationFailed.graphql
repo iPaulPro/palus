@@ -1,0 +1,8 @@
+fragment PostOperationValidationFailed on PostOperationValidationFailed {
+  __typename
+  unsatisfiedRules {
+    required {
+      message
+    }
+  }
+}

@@ -1,0 +1,5 @@
+fragment PostOperationValidationOutcome on PostOperationValidationOutcome {
+  ...PostOperationValidationFailed
+  ...PostOperationValidationPassed
+  ...PostOperationValidationUnknown
+}

@@ -1,0 +1,227 @@
+import { useApolloClient } from "@apollo/client";
+import {
+  BellIcon as BellOutline,
+  BookmarkIcon as BookmarkOutline,
+  HomeIcon as HomeOutline,
+  PencilSquareIcon,
+  UserCircleIcon,
+  UserGroupIcon as UserGroupOutline,
+  WalletIcon as WalletOutline
+} from "@heroicons/react/24/outline";
+import {
+  BellIcon as BellSolid,
+  BookmarkIcon as BookmarkSolid,
+  HomeIcon as HomeSolid,
+  UserGroupIcon as UserGroupSolid,
+  WalletIcon as WalletSolid
+} from "@heroicons/react/24/solid";
+import {
+  BalancesBulkDocument,
+  GroupsDocument,
+  NotificationIndicatorDocument,
+  NotificationsDocument,
+  PostBookmarksDocument,
+  PostsDocument,
+  PostsForYouDocument,
+  TimelineDocument
+} from "@palus/indexer";
+import {
+  type MouseEvent,
+  memo,
+  type ReactNode,
+  useCallback,
+  useState
+} from "react";
+import { Link, useLocation } from "react-router";
+import { Image, Spinner, Tooltip } from "@/components/Shared/UI";
+import useHasNewNotifications from "@/hooks/useHasNewNotifications";
+import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
+import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
+import { useNotificationStore } from "@/store/persisted/useNotificationStore";
+import SignedAccount from "./SignedAccount";
+
+const navigationItems = {
+  "/": {
+    outline: <HomeOutline className="size-6" />,
+    refreshDocs: [TimelineDocument, PostsForYouDocument, PostsDocument],
+    solid: <HomeSolid className="size-6" />,
+    title: "Home"
+  },
+  "/bookmarks": {
+    outline: <BookmarkOutline className="size-6" />,
+    refreshDocs: [PostBookmarksDocument],
+    solid: <BookmarkSolid className="size-6" />,
+    title: "Bookmarks"
+  },
+  // "/explore": {
+  //   outline: <GlobeOutline className="size-6" />,
+  //   refreshDocs: [PostsExploreDocument],
+  //   solid: <GlobeSolid className="size-6" />,
+  //   title: "Explore"
+  // },
+  "/groups": {
+    outline: <UserGroupOutline className="size-6" />,
+    refreshDocs: [GroupsDocument],
+    solid: <UserGroupSolid className="size-6" />,
+    title: "Groups"
+  },
+  "/notifications": {
+    outline: <BellOutline className="size-6" />,
+    refreshDocs: [NotificationsDocument, NotificationIndicatorDocument],
+    solid: <BellSolid className="size-6" />,
+    title: "Notifications"
+  },
+  "/wallet": {
+    outline: <WalletOutline className="size-6" />,
+    refreshDocs: [BalancesBulkDocument],
+    solid: <WalletSolid className="size-6" />,
+    title: "Wallet"
+  }
+};
+
+interface NavItemProps {
+  url: string;
+  icon: ReactNode;
+  onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
+}
+
+const NavItem = memo(({ icon, onClick, url }: NavItemProps) => (
+  <Tooltip content={navigationItems[url as keyof typeof navigationItems].title}>
+    <Link onClick={onClick} to={url}>
+      {icon}
+    </Link>
+  </Tooltip>
+));
+
+const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
+  const { pathname } = useLocation();
+  const hasNewNotifications = useHasNewNotifications();
+  const { incrementNotificationRefreshSignal } = useNotificationStore();
+  const client = useApolloClient();
+  const [refreshingRoute, setRefreshingRoute] = useState<string | null>(null);
+  const routes = [
+    "/",
+    // "/explore",
+    ...(isLoggedIn
+      ? ["/notifications", "/wallet", "/groups", "/bookmarks"]
+      : [])
+  ];
+
+  return (
+    <>
+      {routes.map((route) => {
+        let icon =
+          pathname === route
+            ? navigationItems[route as keyof typeof navigationItems].solid
+            : navigationItems[route as keyof typeof navigationItems].outline;
+
+        if (refreshingRoute === route) {
+          icon = <Spinner className="my-0.5" size="sm" />;
+        }
+
+        const iconWithIndicator =
+          route === "/notifications" ? (
+            <span className="relative">
+              {icon}
+              {hasNewNotifications && (
+                <span className="absolute -top-1 -right-1 size-2 rounded-full bg-brand-500" />
+              )}
+            </span>
+          ) : (
+            icon
+          );
+
+        const handleClick = async (e: MouseEvent<HTMLAnchorElement>) => {
+          const item = navigationItems[route as keyof typeof navigationItems];
+          const isSameRoute = pathname === route;
+          if (!isSameRoute || !("refreshDocs" in item) || !item.refreshDocs) {
+            return;
+          }
+          e.preventDefault();
+          window.scrollTo(0, 0);
+
+          if (route === "/notifications") {
+            incrementNotificationRefreshSignal();
+          }
+
+          setRefreshingRoute(route);
+          try {
+            await client.refetchQueries({ include: item.refreshDocs });
+          } finally {
+            setRefreshingRoute(null);
+          }
+        };
+
+        return (
+          <NavItem
+            icon={iconWithIndicator}
+            key={route}
+            onClick={handleClick}
+            url={route}
+          />
+        );
+      })}
+    </>
+  );
+});
+
+const Navbar = () => {
+  const { pathname } = useLocation();
+  const { currentAccount } = useAccountStore();
+  const { setShowAuthModal } = useAuthModalStore();
+  const { setShow: setShowNewPostModal } = useNewPostModalStore();
+
+  const handleLogoClick = useCallback(
+    (e: MouseEvent<HTMLAnchorElement>) => {
+      if (pathname === "/") {
+        e.preventDefault();
+        window.scrollTo(0, 0);
+      }
+    },
+    [pathname]
+  );
+
+  const handleAuthClick = useCallback(() => {
+    setShowAuthModal(true);
+  }, []);
+
+  const handleNewPostClick = () => {
+    setShowNewPostModal(true);
+  };
+
+  return (
+    <aside className="sticky top-0 hidden h-screen w-10 shrink-0 flex-col items-center gap-y-8 overflow-y-auto py-5 md:flex">
+      <Link onClick={handleLogoClick} to="/">
+        <Image
+          alt="Logo"
+          className="size-8"
+          height={32}
+          src="/favicon.svg"
+          width={32}
+        />
+      </Link>
+      <NavItems isLoggedIn={!!currentAccount} />
+      {currentAccount ? (
+        <div className="flex flex-1 flex-col items-center justify-between gap-y-8">
+          <button
+            className="center flex size-10 rounded-full bg-brand-500 text-white active:bg-brand-600 dark:bg-brand-700 dark:active:bg-brand-600"
+            onClick={handleNewPostClick}
+            type="button"
+          >
+            <PencilSquareIcon className="mb-0.5 ml-0.5 size-5" />
+          </button>
+          <SignedAccount />
+        </div>
+      ) : (
+        <button onClick={handleAuthClick} type="button">
+          <Tooltip content="Login">
+            <UserCircleIcon className="size-6" />
+          </Tooltip>
+        </button>
+      )}
+    </aside>
+  );
+};
+
+export default memo(Navbar);

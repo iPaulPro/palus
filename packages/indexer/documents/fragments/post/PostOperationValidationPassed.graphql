@@ -1,0 +1,3 @@
+fragment PostOperationValidationPassed on PostOperationValidationPassed {
+  passed
+}

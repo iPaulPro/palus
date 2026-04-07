@@ -1,0 +1,107 @@
+import { Menu, MenuButton, MenuItems } from "@headlessui/react";
+import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import type { AnyPostFragment } from "@palus/indexer";
+import { useState } from "react";
+import MenuTransition from "@/components/Shared/MenuTransition";
+import { Spinner, Tooltip } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
+import humanize from "@/helpers/humanize";
+import nFormatter from "@/helpers/nFormatter";
+import { isRepost } from "@/helpers/postHelpers";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
+import useCanShare from "@/hooks/useCanShare";
+import Quote from "./Quote";
+import Repost from "./Repost";
+import UndoRepost from "./UndoRepost";
+
+interface ShareMenuProps {
+  post: AnyPostFragment;
+  showCount: boolean;
+}
+
+const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const targetPost = isRepost(post) ? post?.repostOf : post;
+  const hasReposted =
+    targetPost.operations?.hasReposted.optimistic ||
+    targetPost.operations?.hasReposted.onChain;
+  const hasQuoted =
+    targetPost.operations?.hasQuoted.optimistic ||
+    targetPost.operations?.hasQuoted.onChain;
+  const hasShared = hasReposted || hasQuoted;
+  const shares = targetPost.stats.reposts + targetPost.stats.quotes;
+
+  const { canRepost, canQuote } = useCanShare({ post: targetPost });
+
+  if (!canRepost && !canQuote) {
+    return null;
+  }
+
+  return (
+    <div className="flex items-center space-x-1">
+      <Menu as="div" className="relative">
+        <MenuButton
+          aria-label="Repost"
+          className={cn(
+            hasShared
+              ? "text-brand-500 hover:bg-brand-300/20"
+              : "text-gray-500 hover:bg-gray-300/20 dark:text-gray-200",
+            "rounded-full p-1.5 outline-offset-2"
+          )}
+          onClick={stopEventPropagation}
+        >
+          {isSubmitting ? (
+            <Spinner className="mr-0.5" size="xs" />
+          ) : (
+            <Tooltip
+              content={
+                shares > 0
+                  ? `${humanize(shares)} Reposts and Quotes`
+                  : "Repost or Quote"
+              }
+              placement="top"
+              withDelay
+            >
+              <ArrowsRightLeftIcon className="size-5" />
+            </Tooltip>
+          )}
+        </MenuButton>
+        <MenuTransition>
+          <MenuItems
+            anchor="bottom start"
+            className="z-[5] mt-2 w-max origin-top-left rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-gray-900"
+            static
+          >
+            {canRepost && (
+              <Repost
+                isSubmitting={isSubmitting}
+                post={targetPost}
+                setIsSubmitting={setIsSubmitting}
+              />
+            )}
+            {canQuote && <Quote post={targetPost} />}
+            {hasReposted && targetPost.id !== post.id && (
+              <UndoRepost
+                isSubmitting={isSubmitting}
+                post={post}
+                setIsSubmitting={setIsSubmitting}
+              />
+            )}
+          </MenuItems>
+        </MenuTransition>
+      </Menu>
+      {shares > 0 && showCount ? (
+        <span
+          className={cn(
+            hasShared ? "text-brand-500" : "text-gray-500 dark:text-gray-200",
+            "w-3 text-sm"
+          )}
+        >
+          {nFormatter(shares)}
+        </span>
+      ) : null}
+    </div>
+  );
+};
+
+export default ShareMenu;

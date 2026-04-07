@@ -3,7 +3,7 @@ fragment Group on Group {
   owner
   membershipApprovalEnabled
   feed {
-    address
+    ...Feed
   }
   rules {
     anyOf {

@@ -1,0 +1,10 @@
+fragment GroupMembershipRequestRejectedNotification on GroupMembershipRequestRejectedNotification {
+  id
+  rejectedAt
+  rejectedBy {
+    ...Account
+  }
+  group {
+    ...Group
+  }
+}

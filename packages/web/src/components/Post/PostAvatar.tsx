@@ -1,0 +1,46 @@
+import type { AnyPostFragment, TimelineItemFragment } from "@palus/indexer";
+import { memo } from "react";
+import AccountLink from "@/components/Shared/Account/AccountLink";
+import { Image } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
+import getAvatar from "@/helpers/getAvatar";
+import { isRepost } from "@/helpers/postHelpers";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
+
+interface PostAvatarProps {
+  timelineItem?: TimelineItemFragment;
+  post: AnyPostFragment;
+  quoted?: boolean;
+}
+
+const PostAvatar = ({
+  timelineItem,
+  post,
+  quoted = false
+}: PostAvatarProps) => {
+  const targetPost = isRepost(post) ? post?.repostOf : post;
+  const rootPost = timelineItem ? timelineItem?.primary : targetPost;
+  const account = timelineItem ? rootPost.author : targetPost.author;
+
+  return (
+    <AccountLink
+      account={account}
+      className="contents"
+      onClick={stopEventPropagation}
+    >
+      <Image
+        alt={account.address}
+        className={cn(
+          quoted ? "mt-0.5 size-8" : "size-11",
+          "z-[1] cursor-pointer rounded-full border border-gray-200 bg-gray-200 object-cover dark:border-gray-800"
+        )}
+        height={quoted ? 25 : 44}
+        loading="lazy"
+        src={getAvatar(account)}
+        width={quoted ? 25 : 44}
+      />
+    </AccountLink>
+  );
+};
+
+export default memo(PostAvatar);

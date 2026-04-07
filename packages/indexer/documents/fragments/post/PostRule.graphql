@@ -1,0 +1,3 @@
+fragment PostRule on PostRule {
+  address
+}

@@ -1,0 +1,18 @@
+mutation RejectGroupMembershipRequests(
+  $request: RejectGroupMembershipRequest!
+) {
+  rejectGroupMembershipRequests(request: $request) {
+    ... on RejectGroupMembershipRequestsResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

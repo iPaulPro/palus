@@ -1,0 +1,16 @@
+mutation UpdateFeedRules($request: UpdateFeedRulesRequest!) {
+  updateFeedRules(request: $request) {
+    ... on UpdateFeedRulesResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

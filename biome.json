@@ -10,6 +10,11 @@
       }
     }
   },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
   "files": {
     "includes": [
       "**",
@@ -19,11 +24,14 @@
       "!**/dist",
       "!**/artifacts",
       "!**/node_modules",
+      "!**/.wrangler",
       "!**/.git",
       "!**/cache",
       "!**/generated.ts",
       "!**/expo-env.d.ts",
-      "!**/package.json"
+      "!**/package.json",
+      "!packages/web/src/assets/**/*",
+      "!packages/web/public/site.webmanifest"
     ]
   },
   "formatter": {

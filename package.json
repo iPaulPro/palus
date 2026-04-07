@@ -13,14 +13,15 @@
     "dep:fix": "pnpm dlx sherif@latest --fix",
     "dev": "pnpm --recursive --parallel run dev",
     "prepare": "husky install",
+    "sort": "node ./script/sort-package-json.mjs",
     "start": "pnpm --recursive --parallel run start",
-    "sync": "node ./script/sync-public.mjs",
-    "typecheck": "pnpm --recursive --parallel run typecheck"
+    "typecheck": "pnpm --recursive --parallel run typecheck",
+    "typecheck:functions": "pnpm --recursive --parallel run typecheck:functions"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.2.7",
-    "husky": "^9.1.7",
-    "vite": "^7.1.12"
+    "@biomejs/biome": "2.4.10",
+    "husky": "9.1.7",
+    "vite": "8.0.5"
   },
   "packageManager": "pnpm@10.17.1",
   "engines": {

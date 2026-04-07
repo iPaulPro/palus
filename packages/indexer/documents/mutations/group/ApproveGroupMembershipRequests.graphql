@@ -1,0 +1,18 @@
+mutation ApproveGroupMembershipRequests(
+  $request: ApproveGroupMembershipRequest!
+) {
+  approveGroupMembershipRequests(request: $request) {
+    ... on ApproveGroupMembershipRequestsResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

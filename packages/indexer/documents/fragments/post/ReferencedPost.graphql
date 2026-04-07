@@ -1,8 +1,10 @@
 fragment ReferencedPost on Post {
+  __typename
   id
   slug
   isDeleted
   isEdited
+  contentUri
   feed {
     ...PostFeedInfo
   }
@@ -25,6 +27,7 @@ fragment ReferencedPost on Post {
   }
   actions {
     __typename
+    ...UnknownPostAction
   }
   mentions {
     ...PostMention

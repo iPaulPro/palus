@@ -18,7 +18,9 @@ fragment Account on Account {
   username {
     ...Username
   }
-  ...Permissions
   score
   createdAt
+  isAdmin: isMemberOf(
+    request: { group: "0x3B12d0255Fe501307D3616F2CFc95398FF11e5E9" }
+  )
 }

@@ -1,0 +1,13 @@
+mutation RemoveAdmins($request: RemoveAdminsRequest!) {
+  removeAdmins(request: $request) {
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

@@ -1,0 +1,12 @@
+query AdminsFor($request: AdminsForRequest!) {
+  adminsFor(request: $request) {
+    items {
+      account {
+        ...Account
+      }
+    }
+    pageInfo {
+      ...PaginatedResultInfo
+    }
+  }
+}

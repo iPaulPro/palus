@@ -1,2 +1,3 @@
 pnpm run biome:check
 pnpm typecheck
+pnpm typecheck:functions

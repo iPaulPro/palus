@@ -1,0 +1,5 @@
+fragment PostOperationValidationUnknown on PostOperationValidationUnknown {
+  extraChecksRequired {
+    ...PostOperationValidationRule
+  }
+}

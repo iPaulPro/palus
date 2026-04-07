@@ -1,0 +1,64 @@
+import type { PostFragment } from "@palus/indexer";
+import { memo, useState } from "react";
+import PostWarning from "@/components/Shared/Post/PostWarning";
+import PostWrapper from "@/components/Shared/Post/PostWrapper";
+import {
+  getBlockedByMeMessage,
+  getMutedByMeMessage
+} from "@/helpers/getBlockedMessage";
+import HiddenPost from "./HiddenPost";
+import PostAvatar from "./PostAvatar";
+import PostBody from "./PostBody";
+import PostHeader from "./PostHeader";
+
+interface QuotedPostProps {
+  isNew?: boolean;
+  post: PostFragment;
+}
+
+const QuotedPost = ({ isNew = false, post }: QuotedPostProps) => {
+  const isBlockedByMe = post.author.operations?.isBlockedByMe;
+  const isMutedByMe = post.author.operations?.isMutedByMe;
+
+  const [ignoreBlock, setIgnoreBlock] = useState(false);
+  const [ignoreMute, setIgnoreMute] = useState(false);
+
+  if (isBlockedByMe && !ignoreBlock) {
+    return (
+      <PostWarning
+        message={getBlockedByMeMessage(post.author)}
+        setIgnore={setIgnoreBlock}
+      />
+    );
+  }
+
+  if (isMutedByMe && !ignoreMute) {
+    return (
+      <PostWarning
+        message={getMutedByMeMessage(post.author)}
+        setIgnore={setIgnoreMute}
+      />
+    );
+  }
+
+  return (
+    <PostWrapper
+      className="cursor-pointer p-4 first:rounded-t-xl last:rounded-b-xl"
+      post={post}
+    >
+      <div className="flex gap-x-2">
+        <PostAvatar post={post} quoted />
+        <PostHeader isNew={isNew} post={post} quoted />
+      </div>
+      {post.isDeleted ? (
+        <HiddenPost type={post.__typename} />
+      ) : (
+        <div className="md:ml-10">
+          <PostBody post={post} showMore />
+        </div>
+      )}
+    </PostWrapper>
+  );
+};
+
+export default memo(QuotedPost);

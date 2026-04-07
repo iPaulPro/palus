@@ -22,6 +22,9 @@ fragment PostActionExecutedNotification on PostActionExecutedNotification {
       executedAt
     }
     ... on UnknownPostActionExecuted {
+      action {
+        ...UnknownPostAction
+      }
       executedBy {
         ...Account
       }

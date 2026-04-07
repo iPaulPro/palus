@@ -1,6 +1,6 @@
-# Palus Monorepo
+# Palus
 
-Palus is a fork of [Hey](https://github.com/bigint/hey) maintained by [Paul Burke](https://github.com/iPaulPro/).
+Palus is a social app built on Lens and a fork of [Hey](https://github.com/bigint/hey) maintained by [Paul Burke](https://github.com/iPaulPro/).
 
 ## Requirements
 
