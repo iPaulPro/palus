@@ -2,13 +2,14 @@ import type { ReactNode } from "react";
 import { http } from "viem";
 import { mainnet } from "viem/chains";
 import { createConfig, WagmiProvider } from "wagmi";
-import { injected, metaMask, walletConnect } from "wagmi/connectors";
+import { injected, walletConnect } from "wagmi/connectors";
 import {
   CHAIN,
   INFURA_API_KEY,
   IS_TESTNET,
   WALLETCONNECT_PROJECT_ID
 } from "@/data/constants";
+import { metaMask } from "@/helpers/metaMaskSdkConnector";
 
 const connectors = [
   metaMask({
