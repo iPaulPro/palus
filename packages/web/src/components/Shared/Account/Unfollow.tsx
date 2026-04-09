@@ -2,7 +2,7 @@ import { useApolloClient } from "@apollo/client";
 import { type AccountFragment, useUnfollowMutation } from "@palus/indexer";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
-import { Button, Modal } from "@/components/Shared/UI";
+import { Alert, Button } from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
@@ -96,31 +96,15 @@ const Unfollow = ({
       >
         {title}
       </Button>
-      <Modal
+      <Alert
+        confirmText="Unfollow"
+        description="Unfollow this account to stop seeing their posts in your Timeline feed."
+        isPerformingAction={isSubmitting}
         onClose={() => setModalOpen(false)}
+        onConfirm={handleCreateUnfollow}
         show={modalOpen}
-        size="xs"
         title="Are you sure?"
-      >
-        <div className="space-y-5 p-5">
-          <p>
-            Unfollow this account to stop seeing their posts in your Timeline
-            feed.
-          </p>
-          <div className="flex justify-end gap-3">
-            <Button onClick={() => setModalOpen(false)} outline>
-              Cancel
-            </Button>
-            <Button
-              disabled={isSubmitting}
-              loading={isSubmitting}
-              onClick={handleCreateUnfollow}
-            >
-              Unfollow
-            </Button>
-          </div>
-        </div>
-      </Modal>
+      />
     </>
   );
 };
