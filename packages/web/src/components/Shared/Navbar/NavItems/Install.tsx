@@ -19,6 +19,7 @@ const Install = ({ className = "" }: Props) => {
         "flex w-full items-center space-x-1.5 px-2 py-1.5 text-left text-gray-700 text-sm dark:text-gray-200",
         className
       )}
+      data-umami-event="Install menu"
       onClick={() => event?.prompt()}
       type="button"
     >
