@@ -31,7 +31,8 @@
       "!**/expo-env.d.ts",
       "!**/package.json",
       "!packages/web/src/assets/**/*",
-      "!packages/web/public/site.webmanifest"
+      "!packages/web/public/site.webmanifest",
+      "!packages/web/src/helpers/metaMaskSdkConnector.ts"
     ]
   },
   "formatter": {

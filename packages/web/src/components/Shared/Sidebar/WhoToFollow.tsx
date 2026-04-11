@@ -1,10 +1,11 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   type AccountFragment,
-  PageSize,
-  useAccountRecommendationsQuery
+  type PostFragment,
+  PostType,
+  useTopAccountsQuery
 } from "@palus/indexer";
-import { memo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import Suggested from "@/components/Home/Suggested";
 import DismissRecommendedAccount from "@/components/Shared/Account/DismissRecommendedAccount";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
@@ -21,15 +22,37 @@ const WhoToFollow = () => {
   const { bannedAccounts } = useBannedAccountsStore();
   const [showMore, setShowMore] = useState(false);
 
-  const { data, error, loading } = useAccountRecommendationsQuery({
+  // const { data, error, loading } = useAccountRecommendationsQuery({
+  //   variables: {
+  //     request: {
+  //       account: currentAccount?.address,
+  //       pageSize: PageSize.Fifty,
+  //       shuffle: true
+  //     }
+  //   }
+  // });
+
+  // TODO revert back to useAccountRecommendationsQuery when API is fixed
+  const { data, error, loading } = useTopAccountsQuery({
     variables: {
       request: {
-        account: currentAccount?.address,
-        pageSize: PageSize.Fifty,
-        shuffle: true
+        filter: {
+          accountScore: {
+            atLeast: 9000
+          },
+          postTypes: [PostType.Root]
+        }
       }
     }
   });
+
+  const accounts = useMemo(() => {
+    const authors = data?.posts.items.map(
+      (post) => (post as PostFragment).author
+    );
+    const uniqueAuthors = new Set(authors);
+    return Array.from(uniqueAuthors);
+  }, [data?.posts.items]);
 
   if (loading) {
     return (
@@ -52,11 +75,11 @@ const WhoToFollow = () => {
     );
   }
 
-  if (!data?.mlAccountRecommendations.items.length) {
+  if (!accounts.length) {
     return null;
   }
 
-  const recommendedAccounts = data?.mlAccountRecommendations.items.filter(
+  const recommendedAccounts = accounts.filter(
     (account) =>
       !account.operations?.isBlockedByMe &&
       !account.operations?.isMutedByMe &&

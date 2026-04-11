@@ -9473,6 +9473,24 @@ export type TokenDistributionsQuery = {
   };
 };
 
+export type TopAccountsQueryVariables = Exact<{
+  request: PostsRequest;
+}>;
+
+export type TopAccountsQuery = {
+  __typename?: "Query";
+  posts: {
+    __typename?: "PaginatedAnyPostsResult";
+    items: Array<
+      | {
+          __typename?: "Post";
+          author: { __typename?: "Account" } & AccountFragment;
+        }
+      | { __typename?: "Repost" }
+    >;
+  };
+};
+
 export type UsernameQueryVariables = Exact<{
   request: UsernameRequest;
 }>;
@@ -12300,6 +12318,25 @@ export const TokenDistributionsDocument = `
 ${Erc20AmountFragmentDoc}
 ${NativeAmountFragmentDoc}
 ${PaginatedResultInfoFragmentDoc}`;
+export const TopAccountsDocument = `
+    query TopAccounts($request: PostsRequest!) {
+  posts(request: $request) {
+    items {
+      ... on Post {
+        author {
+          ...Account
+        }
+      }
+    }
+  }
+}
+    ${AccountFragmentDoc}
+${AccountFollowRuleFragmentDoc}
+${AnyKeyValueFragmentDoc}
+${LoggedInAccountOperationsFragmentDoc}
+${AccountMetadataFragmentDoc}
+${MetadataAttributeFragmentDoc}
+${UsernameFragmentDoc}`;
 export const UsernameDocument = `
     query Username($request: UsernameRequest!) {
   username(request: $request) {
@@ -14474,6 +14511,24 @@ export function getSdk(
             variables
           }),
         "TokenDistributions",
+        "query",
+        variables
+      );
+    },
+    TopAccounts(
+      variables: TopAccountsQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+      signal?: RequestInit["signal"]
+    ): Promise<TopAccountsQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<TopAccountsQuery>({
+            document: TopAccountsDocument,
+            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
+            signal,
+            variables
+          }),
+        "TopAccounts",
         "query",
         variables
       );
