@@ -1,15 +1,12 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
-import type { AccountFragment } from "@palus/indexer";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { Link } from "react-router";
-import AccountLink from "@/components/Shared/Account/AccountLink";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import Install from "@/components/Shared/Navbar/NavItems/Install";
 import Logout from "@/components/Shared/Navbar/NavItems/Logout";
 import Settings from "@/components/Shared/Navbar/NavItems/Settings";
 import SwitchAccount from "@/components/Shared/Navbar/NavItems/SwitchAccount";
 import ThemeSwitch from "@/components/Shared/Navbar/NavItems/ThemeSwitch";
-import YourAccount from "@/components/Shared/Navbar/NavItems/YourAccount";
 import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import getAvatar from "@/helpers/getAvatar";
@@ -41,15 +38,6 @@ const SignedAccount = () => {
           className="z-[5] mt-2 w-48 origin-top-left rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-black"
           static
         >
-          <MenuItem
-            account={currentAccount as AccountFragment}
-            as={AccountLink}
-            className={({ focus }: { focus: boolean }) =>
-              cn({ "dropdown-active": focus }, "menu-item")
-            }
-          >
-            <YourAccount />
-          </MenuItem>
           <MenuItem
             as="div"
             className={({ focus }) =>
