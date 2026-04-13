@@ -6,6 +6,7 @@ import HelpTooltip from "./HelpTooltip";
 
 interface InputProps extends Omit<ComponentProps<"input">, "prefix"> {
   className?: string;
+  wrapperClassName?: string;
   error?: boolean;
   helper?: ReactNode;
   hideError?: boolean;
@@ -19,6 +20,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   (
     {
       className = "",
+      wrapperClassName = "",
       error,
       helper,
       hideError = false,
@@ -59,7 +61,8 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               { "!bg-gray-500/20 opacity-50": props.disabled },
               { "!border-red-500": error },
               prefix ? "rounded-r-xl" : "rounded-xl",
-              "flex w-full items-center border border-gray-300 bg-white focus-within:border-gray-500 dark:border-gray-800 dark:bg-gray-900"
+              "flex w-full items-center border border-gray-300 bg-white focus-within:border-gray-500 dark:border-gray-800 dark:bg-gray-900",
+              wrapperClassName
             )}
           >
             <input

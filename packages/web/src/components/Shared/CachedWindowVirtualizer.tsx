@@ -89,15 +89,13 @@ const CachedWindowVirtualizer = forwardRef<
   }, [cacheKey, offset, shouldRestore]);
 
   return (
-    <div className="virtual-divider-list-window">
-      <WindowVirtualizer
-        cache={cache}
-        onScroll={() => onScroll?.(innerRef.current?.scrollOffset ?? 0)}
-        ref={innerRef}
-      >
-        {children}
-      </WindowVirtualizer>
-    </div>
+    <WindowVirtualizer
+      cache={cache}
+      onScroll={() => onScroll?.(innerRef.current?.scrollOffset ?? 0)}
+      ref={innerRef}
+    >
+      {children}
+    </WindowVirtualizer>
   );
 });
 

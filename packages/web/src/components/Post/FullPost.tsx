@@ -67,64 +67,66 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
   }
 
   return (
-    <article className="py-5 pr-5 pl-3 md:p-5">
+    <article className="py-5 pr-5 pl-3 md:p-6 md:pb-5">
       <PostType post={post} showType />
       <div className="flex w-full items-start gap-x-3" ref={headerRef}>
         <PostAvatar post={post} />
         <div className="w-full">
           <PostHeader post={targetPost} />
-          {targetPost.isDeleted ? (
-            <HiddenPost type={targetPost.__typename} />
-          ) : bannedAccounts.includes(post.author.address) ? (
-            <BannedAuthorPost />
-          ) : (
-            <>
-              <PostBody
-                contentClassName="full-page-post-markup"
-                post={targetPost}
-              />
-              <div className="my-3 flex items-center text-gray-500 text-sm dark:text-gray-200">
-                {dayjs(timestamp).format("h:mm A · MMM D, YYYY")}
-                {targetPost.isEdited ? " · Edited" : null}
-                {targetPost.app?.metadata?.name
-                  ? ` · ${targetPost.app?.metadata?.name}`
-                  : null}
-              </div>
-              <PostStats post={targetPost} />
-              <div className="divider" />
-              <div className="flex items-center justify-between">
-                <PostActions post={targetPost} showCount={false} />
-                {hasHiddenComments ? (
-                  <div className="mt-2">
-                    <button
-                      aria-label="Like"
-                      className={cn(
-                        showHiddenComments
-                          ? "text-black hover:bg-gray-500/20"
-                          : "text-gray-500 hover:bg-gray-300/20 dark:text-gray-200",
-                        "rounded-full p-1.5 outline-offset-2"
-                      )}
-                      onClick={() => setShowHiddenComments(!showHiddenComments)}
-                      type="button"
-                    >
-                      <Tooltip
-                        content={
-                          showHiddenComments
-                            ? "Hide hidden comments"
-                            : "Show hidden comments"
-                        }
-                        placement="top"
-                        withDelay
-                      >
-                        <QueueListIcon className="size-5" />
-                      </Tooltip>
-                    </button>
-                  </div>
-                ) : null}
-              </div>
-            </>
-          )}
         </div>
+      </div>
+      <div className="pt-4">
+        {targetPost.isDeleted ? (
+          <HiddenPost type={targetPost.__typename} />
+        ) : bannedAccounts.includes(post.author.address) ? (
+          <BannedAuthorPost />
+        ) : (
+          <div className="flex flex-col gap-y-1">
+            <PostBody
+              contentClassName="full-page-post-markup"
+              post={targetPost}
+            />
+            <div className="my-3 flex items-center text-gray-500 text-sm dark:text-gray-200">
+              {dayjs(timestamp).format("h:mm A · MMM D, YYYY")}
+              {targetPost.isEdited ? " · Edited" : null}
+              {targetPost.app?.metadata?.name
+                ? ` · ${targetPost.app?.metadata?.name}`
+                : null}
+            </div>
+            <PostStats post={targetPost} />
+            <div className="divider" />
+            <div className="flex items-center justify-between">
+              <PostActions post={targetPost} showCount={false} />
+              {hasHiddenComments ? (
+                <div className="mt-2">
+                  <button
+                    aria-label="Like"
+                    className={cn(
+                      showHiddenComments
+                        ? "text-black hover:bg-gray-500/20"
+                        : "text-gray-500 hover:bg-gray-300/20 dark:text-gray-200",
+                      "rounded-full p-1.5 outline-offset-2"
+                    )}
+                    onClick={() => setShowHiddenComments(!showHiddenComments)}
+                    type="button"
+                  >
+                    <Tooltip
+                      content={
+                        showHiddenComments
+                          ? "Hide hidden comments"
+                          : "Show hidden comments"
+                      }
+                      placement="top"
+                      withDelay
+                    >
+                      <QueueListIcon className="size-5" />
+                    </Tooltip>
+                  </button>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        )}
       </div>
     </article>
   );

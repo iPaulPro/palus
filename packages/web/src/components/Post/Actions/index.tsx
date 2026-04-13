@@ -37,7 +37,7 @@ const PostActions = ({ post, showCount = true }: PostActionsProps) => {
 
   return (
     <span
-      className="mt-3 flex w-full flex-wrap items-center justify-between gap-3"
+      className="mt-4 flex w-full flex-wrap items-center justify-between gap-3"
       onClick={stopEventPropagation}
     >
       <span

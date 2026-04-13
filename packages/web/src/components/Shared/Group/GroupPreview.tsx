@@ -14,13 +14,15 @@ interface Props {
   name?: string;
   address?: string;
   showGroupPreview?: boolean;
+  className?: string;
 }
 
 const GroupPreview = ({
   children,
   address,
   name,
-  showGroupPreview = true
+  showGroupPreview = true,
+  className
 }: Props) => {
   const [loadGroup, { data, loading }] = useFullGroupLazyQuery();
   const group = data?.group;
@@ -112,7 +114,7 @@ const GroupPreview = ({
     <span onFocus={onPreviewStart} onMouseOver={onPreviewStart}>
       <HoverCard.Root>
         <HoverCard.Trigger asChild>
-          <span>{children}</span>
+          <span className={className}>{children}</span>
         </HoverCard.Trigger>
         <HoverCard.Portal>
           <HoverCard.Content

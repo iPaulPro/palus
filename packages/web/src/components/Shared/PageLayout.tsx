@@ -53,7 +53,7 @@ const PageLayout = ({
       <MetaTags description={description} title={title} />
       <div
         className={cn(
-          "mt-4 mb-16 min-w-0 flex-1 space-y-4 md:mt-5 md:mb-5 md:space-y-5",
+          "mt-4 mb-16 w-full min-w-0 grow space-y-4 md:mt-5 md:mb-5 md:space-y-5",
           {
             "mb-28 sm:mb-16": isStandalone,
             "mt-0 md:mt-5": zeroTopMargin
@@ -69,10 +69,12 @@ const PageLayout = ({
         />
         {children}
       </div>
-      <aside className="no-scrollbar sticky top-5 mt-5 hidden max-h-screen w-[22.5rem] shrink-0 flex-col gap-y-5 overflow-y-auto lg:flex">
-        <AuthButtons />
-        {!hideSearch && <Search />}
-        {sidebar}
+      <aside className="no-scrollbar sticky top-5 mt-5 hidden shrink lg:flex">
+        <div className="no-scrollbar flex flex-col gap-y-5">
+          <AuthButtons />
+          {!hideSearch && <Search />}
+          {sidebar}
+        </div>
       </aside>
     </>
   );

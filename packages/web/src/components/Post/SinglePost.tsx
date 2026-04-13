@@ -3,6 +3,7 @@ import { memo } from "react";
 import ActionType from "@/components/Home/Timeline/EventType";
 import { PinIconFilled } from "@/components/Shared/Icons/PinIconFilled";
 import PostWrapper from "@/components/Shared/Post/PostWrapper";
+import { Card } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
 import PostActions from "./Actions";
@@ -35,41 +36,47 @@ const SinglePost = ({
   const { bannedAccounts } = useBannedAccountsStore();
 
   return (
-    <PostWrapper
-      className={cn("w-full cursor-pointer pt-4 pr-5", {
-        "pb-3": !hasComments,
-        "pl-2.5": embedded,
-        "pl-3 md:pl-5": !embedded
+    <Card
+      className={cn("mb-6 w-full", {
+        "mb-4": embedded || hasComments
       })}
-      post={rootPost}
     >
-      {timelineItem ? (
-        <ActionType timelineItem={timelineItem} />
-      ) : isPinned ? (
-        <div className="text flex items-center gap-x-1.5 pb-2 text-secondary text-sm">
-          <PinIconFilled className="size-4" />
-          Pinned
+      <PostWrapper
+        className={cn("w-full cursor-pointer p-6 pb-5", {
+          "px-5 py-4 pb-3": embedded
+        })}
+        post={rootPost}
+      >
+        {timelineItem ? (
+          <ActionType timelineItem={timelineItem} />
+        ) : isPinned ? (
+          <div className="text flex items-center gap-x-1.5 pb-2 text-secondary text-sm">
+            <PinIconFilled className="size-4" />
+            Pinned
+          </div>
+        ) : (
+          <PostType post={post} showType={showType} />
+        )}
+        <div className="flex w-full gap-x-3">
+          <div className="flex flex-none flex-col items-center">
+            <PostAvatar
+              post={rootPost}
+              quoted={embedded}
+              timelineItem={timelineItem}
+            />
+            {hasComments ? (
+              <div className="w-[1px] flex-grow border-gray-200 border-l dark:border-gray-800" />
+            ) : null}
+          </div>
+          <div className="w-full">
+            <PostHeader
+              embedded={embedded}
+              post={rootPost}
+              timelineItem={timelineItem}
+            />
+          </div>
         </div>
-      ) : (
-        <PostType post={post} showType={showType} />
-      )}
-      <div className="flex w-full gap-x-2">
-        <div className="flex flex-none flex-col items-center">
-          <PostAvatar
-            post={rootPost}
-            quoted={embedded}
-            timelineItem={timelineItem}
-          />
-          {hasComments ? (
-            <div className="w-[1px] flex-grow border-gray-200 border-l dark:border-gray-800" />
-          ) : null}
-        </div>
-        <div className="w-full">
-          <PostHeader
-            embedded={embedded}
-            post={rootPost}
-            timelineItem={timelineItem}
-          />
+        <div className={cn("pt-4", { "pt-2": embedded })}>
           {post.isDeleted ? (
             <HiddenPost type={post.__typename} />
           ) : bannedAccounts.includes(post.author.address) ? (
@@ -77,12 +84,12 @@ const SinglePost = ({
           ) : (
             <>
               <PostBody post={rootPost} showMore={showMore} />
-              {embedded ? null : <PostActions post={rootPost} />}
+              <PostActions post={rootPost} />
             </>
           )}
         </div>
-      </div>
-    </PostWrapper>
+      </PostWrapper>
+    </Card>
   );
 };
 

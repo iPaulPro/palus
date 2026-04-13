@@ -439,7 +439,9 @@ const NewPublication = ({
   ) : (
     <Card
       className={cn(
-        { "flex h-full flex-col overflow-hidden pt-4": isModal },
+        {
+          "!drop-shadow-none flex h-full flex-col overflow-hidden pt-4": isModal
+        },
         className
       )}
     >

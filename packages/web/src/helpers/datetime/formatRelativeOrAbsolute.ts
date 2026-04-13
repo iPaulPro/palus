@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-const formatRelativeOrAbsolute = (date: Date | string) => {
+const formatRelativeOrAbsolute = (date: Date | string, suffix?: string) => {
   const now = dayjs();
   const targetDate = dayjs(date);
   const diffInDays = now.diff(targetDate, "day");
@@ -11,7 +11,7 @@ const formatRelativeOrAbsolute = (date: Date | string) => {
   if (diffInDays >= 1) {
     // More than a day
     return diffInDays < 7
-      ? `${diffInDays}d`
+      ? `${diffInDays}d${suffix ? ` ${suffix}` : ""}`
       : targetDate.format(
           now.isSame(targetDate, "year") ? "MMM D" : "MMM D, YYYY"
         );
@@ -19,16 +19,16 @@ const formatRelativeOrAbsolute = (date: Date | string) => {
 
   if (diffInHours >= 1) {
     // More than an hour
-    return `${diffInHours}h`;
+    return `${diffInHours}h${suffix ? ` ${suffix}` : ""}`;
   }
 
   if (diffInMinutes >= 1) {
     // More than a minute
-    return `${diffInMinutes}m`;
+    return `${diffInMinutes}m${suffix ? ` ${suffix}` : ""}`;
   }
 
   // Seconds
-  return `${diffInSeconds}s`;
+  return `${diffInSeconds}s${suffix ? ` ${suffix}` : ""}`;
 };
 
 export default formatRelativeOrAbsolute;

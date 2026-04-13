@@ -164,7 +164,7 @@ const Search = ({
   }, [debouncedSearchText]);
 
   return (
-    <div className="w-full">
+    <div className="w-88">
       <Form form={form} onSubmit={handleSubmit}>
         <Input
           autoFocus={autoFocus}
@@ -180,6 +180,7 @@ const Search = ({
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           type="text"
+          wrapperClassName="drop-shadow-card md:rounded-2xl md:border-none"
           {...form.register("query")}
         />
       </Form>

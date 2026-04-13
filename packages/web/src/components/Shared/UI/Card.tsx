@@ -1,18 +1,16 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { type ElementType, type MouseEvent, memo, type ReactNode } from "react";
 
-const cardVariants = cva(
-  "border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900",
-  {
-    defaultVariants: { forceRounded: false },
-    variants: {
-      forceRounded: {
-        false: "rounded-none border-y md:rounded-xl md:border",
-        true: "rounded-xl border"
-      }
+const cardVariants = cva("flex flex-col border-border bg-card", {
+  defaultVariants: { forceRounded: false },
+  variants: {
+    forceRounded: {
+      false:
+        "rounded-none border-y drop-shadow-card md:rounded-2xl md:border-none",
+      true: "rounded-xl border"
     }
   }
-);
+});
 
 interface CardProps extends VariantProps<typeof cardVariants> {
   as?: ElementType;

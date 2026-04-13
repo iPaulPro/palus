@@ -109,7 +109,7 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
 
   return (
     <>
-      <Card forceRounded onClick={stopEventPropagation}>
+      <Card className="sm:w-4/5" forceRounded onClick={stopEventPropagation}>
         <ScrollArea className="max-h-72 overflow-y-auto p-2">
           {options.map((option, index) => (
             <button

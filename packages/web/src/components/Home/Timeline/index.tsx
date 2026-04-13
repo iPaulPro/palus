@@ -94,7 +94,7 @@ const Timeline = ({ onScroll }: TimelineProps) => {
             {timelineItem.comments.length === 0
               ? null
               : commentsToShow.map((comment, i) => (
-                  <div className="flex pl-4 last:pb-2 md:pl-6" key={comment.id}>
+                  <div className="flex w-full pl-2 last:pb-2" key={comment.id}>
                     <div
                       className={cn("flex w-9 flex-none justify-center", {
                         "pb-4":
@@ -104,7 +104,7 @@ const Timeline = ({ onScroll }: TimelineProps) => {
                     >
                       <div
                         className={cn(
-                          "h-full w-[1px] border-gray-200 border-l dark:border-gray-800",
+                          "mask-t-from-0 h-1/2 w-4 rounded-bl-xl border-gray-300 border-b border-l dark:border-gray-800",
                           { "pt-2": i === 0 }
                         )}
                       />
@@ -117,10 +117,7 @@ const Timeline = ({ onScroll }: TimelineProps) => {
                   </div>
                 ))}
             {remainingCommentsCount > 0 ? (
-              <div className="flex pb-2 pl-4 md:pl-6">
-                <div className="flex w-9 flex-none justify-center pb-4">
-                  <div className="h-full w-[1px] border-gray-200 border-l dark:border-gray-800" />
-                </div>
+              <div className="flex pb-2 pl-4 md:pl-8">
                 <PostLink
                   className="flex items-center gap-1 pt-2 pb-4 pl-3 font-semibold text-brand-500 text-brand-500 text-sm hover:underline"
                   post={timelineItem.primary}

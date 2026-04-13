@@ -92,7 +92,7 @@ const Layout = () => {
       <GlobalModals />
       <GlobalAlerts />
       <ReloadTabsWatcher />
-      <div className="mx-auto flex w-full max-w-6xl items-start gap-x-5 px-0 md:px-5">
+      <div className="mx-auto flex w-full max-w-6xl items-start gap-x-6 px-0 md:px-5">
         <Navbar />
         <Outlet />
         <BottomNavigation />

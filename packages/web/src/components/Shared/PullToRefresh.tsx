@@ -13,6 +13,10 @@ interface PullToRefreshProps {
 const PullToRefresh = ({ children, onRefresh }: PullToRefreshProps) => {
   const isSmallDevice = useMediaQuery(IS_MOBILE);
 
+  if (!isSmallDevice || !onRefresh) {
+    return <>{children}</>;
+  }
+
   const PullingContent = () => {
     return (
       <div className="flex h-24 w-full flex-col items-center gap-y-2 p-4">

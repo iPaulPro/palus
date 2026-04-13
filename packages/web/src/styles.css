@@ -17,7 +17,7 @@
   --color-brand-600: #055e87;
   --color-brand-700: #0b4e6f;
 
-  --color-surface: #f9fafb;
+  --color-surface: #f4f4f6;
   --color-on-surface: #000000;
   --color-secondary: #6a7282;
   --color-border: #e5e7eb;
@@ -235,4 +235,8 @@
   .touch-callout-none {
     -webkit-touch-callout: none;
   }
+}
+
+.drop-shadow-card {
+  @apply drop-shadow-xl drop-shadow-gray-200 dark:drop-shadow-black;
 }

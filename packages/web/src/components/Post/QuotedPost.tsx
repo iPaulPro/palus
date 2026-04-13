@@ -53,7 +53,7 @@ const QuotedPost = ({ isNew = false, post }: QuotedPostProps) => {
       {post.isDeleted ? (
         <HiddenPost type={post.__typename} />
       ) : (
-        <div className="md:ml-10">
+        <div className="pt-2">
           <PostBody post={post} showMore />
         </div>
       )}

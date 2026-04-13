@@ -7,7 +7,6 @@ import {
   useLayoutEffect,
   useRef
 } from "react";
-import { ScrollArea } from "@/components/Shared/UI/ScrollArea";
 import cn from "@/helpers/cn";
 
 interface TabsProps {
@@ -53,7 +52,7 @@ const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
   };
 
   return (
-    <ScrollArea className="w-full min-w-0">
+    <div className="no-scrollbar w-full min-w-0 overflow-scroll">
       <MotionConfig transition={{ bounce: 0, duration: 0.4, type: "spring" }}>
         <motion.ul
           className={cn(
@@ -80,11 +79,15 @@ const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
             >
               {active === tab.type ? (
                 <motion.div
-                  className="absolute inset-0 rounded-lg bg-gray-300 dark:bg-gray-300/20"
+                  className="absolute inset-0 rounded-lg border border-border bg-card"
                   layoutId={layoutId}
                 />
               ) : null}
-              <span className="relative flex items-center gap-2 text-inherit">
+              <span
+                className={cn("relative flex items-center gap-2 text-inherit", {
+                  "text-secondary": active !== tab.type
+                })}
+              >
                 {tab.name}
                 {tab.suffix}
               </span>
@@ -92,7 +95,7 @@ const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
           ))}
         </motion.ul>
       </MotionConfig>
-    </ScrollArea>
+    </div>
   );
 };
 

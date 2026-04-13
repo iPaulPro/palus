@@ -94,7 +94,7 @@ const WhoToFollow = () => {
 
   return (
     <>
-      <Card className="space-y-4 p-5">
+      <Card className="max-w-88 space-y-4 p-5">
         <Title />
         <ErrorMessage error={error} title="Failed to load recommendations" />
         {recommendedAccounts?.slice(0, 5).map((account) => (

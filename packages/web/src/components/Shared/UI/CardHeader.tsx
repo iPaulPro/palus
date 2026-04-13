@@ -1,6 +1,5 @@
 import type { ReactNode } from "react";
 import { memo } from "react";
-import { H5 } from "./Typography";
 
 interface CardHeaderProps {
   body?: ReactNode;
@@ -18,9 +17,9 @@ const CardHeader = ({
   return (
     <>
       <div className="mx-4 my-3 space-y-2 sm:mx-6">
-        <div className="flex items-center gap-x-4">
+        <div className="flex items-center gap-x-3.5">
           {icon ? icon : null}
-          <H5>{title}</H5>
+          <div className="pb-0.5 font-bold text-lg">{title}</div>
         </div>
         {body ? <p>{body}</p> : null}
       </div>
