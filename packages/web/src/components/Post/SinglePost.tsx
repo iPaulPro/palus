@@ -38,8 +38,8 @@ const SinglePost = ({
 
   return (
     <Card
-      className={cn("mb-3 w-full sm:mb-6", {
-        "mb-1 sm:mb-4": embedded || hasComments,
+      className={cn("mb-3 w-full sm:mb-5", {
+        "mb-1 sm:mb-3": embedded || hasComments,
         "rounded-bl-xl": embedded
       })}
     >

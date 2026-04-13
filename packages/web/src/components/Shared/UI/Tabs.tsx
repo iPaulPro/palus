@@ -23,23 +23,11 @@ const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
   useLayoutEffect(() => {
     const activeTab = tabRefs.current.get(active);
     if (activeTab) {
-      const viewport = activeTab.closest('[data-slot="scroll-area-viewport"]');
-      if (viewport) {
-        const viewportRect = viewport.getBoundingClientRect();
-        const tabRect = activeTab.getBoundingClientRect();
-
-        const scrollLeft =
-          tabRect.left -
-          viewportRect.left +
-          viewport.scrollLeft -
-          viewportRect.width / 2 +
-          tabRect.width / 2;
-
-        viewport.scrollTo({
-          behavior: "smooth",
-          left: scrollLeft
-        });
-      }
+      activeTab.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center"
+      });
     }
   }, [active]);
 
