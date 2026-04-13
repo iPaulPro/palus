@@ -35,13 +35,15 @@ const ThreadBody = ({
         <PostAvatar post={post} />
         <div
           className={cn("absolute bottom-0 left-[21px] h-full", {
-            "border-[0.9px] border-gray-300 border-solid dark:border-gray-800":
+            "border-gray-300 border-l-[0.9px] border-solid dark:border-gray-800":
               !isRoot,
             "left-dash text-gray-400 dark:text-gray-700": isRoot
           })}
         />
-        <div className="w-full">
-          <PostHeader embedded={embedded} post={post} />
+        <div className="w-full min-w-0">
+          <div className="w-full min-w-0">
+            <PostHeader embedded={embedded} post={post} />
+          </div>
           {post.isDeleted ? (
             <HiddenPost type={post.__typename} />
           ) : bannedAccounts.includes(post.author.address) ? (

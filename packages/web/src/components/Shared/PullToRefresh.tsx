@@ -7,14 +7,14 @@ import { IS_MOBILE } from "@/helpers/mediaQueries";
 
 interface PullToRefreshProps {
   children: ReactNode;
-  onRefresh?: () => Promise<any>;
+  onRefresh: () => Promise<any>;
 }
 
 const PullToRefresh = ({ children, onRefresh }: PullToRefreshProps) => {
   const isSmallDevice = useMediaQuery(IS_MOBILE);
 
-  if (!isSmallDevice || !onRefresh) {
-    return <>{children}</>;
+  if (!isSmallDevice) {
+    return children;
   }
 
   const PullingContent = () => {

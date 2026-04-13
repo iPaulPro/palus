@@ -67,11 +67,11 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
   }
 
   return (
-    <article className="py-5 pr-5 pl-3 md:p-6 md:pb-5">
+    <article className="px-4 pt-5 pb-3 md:p-6 md:pb-5">
       <PostType post={post} showType />
       <div className="flex w-full items-start gap-x-3" ref={headerRef}>
         <PostAvatar post={post} />
-        <div className="w-full">
+        <div className="w-full min-w-0">
           <PostHeader post={targetPost} />
         </div>
       </div>
@@ -81,7 +81,7 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
         ) : bannedAccounts.includes(post.author.address) ? (
           <BannedAuthorPost />
         ) : (
-          <div className="flex flex-col gap-y-1">
+          <div className="flex flex-col sm:gap-y-1">
             <PostBody
               contentClassName="full-page-post-markup"
               post={targetPost}

@@ -34,7 +34,7 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
   const { canRepost, canQuote } = useCanShare({ post: targetPost });
 
   if (!canRepost && !canQuote) {
-    return null;
+    return <div className="order-last block size-8 sm:hidden" />;
   }
 
   return (

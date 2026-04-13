@@ -237,6 +237,11 @@
   }
 }
 
-.drop-shadow-card {
-  @apply drop-shadow-xl drop-shadow-gray-200 dark:drop-shadow-black;
+@utility drop-shadow-card {
+  filter: drop-shadow(0 20px 13px rgb(229 231 235 / 0.7))
+    drop-shadow(0 8px 5px rgb(229 231 235 / 0.5));
+  @variant dark {
+    filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.3))
+      drop-shadow(0 8px 5px rgb(0 0 0 / 0.2));
+  }
 }

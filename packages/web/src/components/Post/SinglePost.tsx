@@ -5,6 +5,7 @@ import { PinIconFilled } from "@/components/Shared/Icons/PinIconFilled";
 import PostWrapper from "@/components/Shared/Post/PostWrapper";
 import { Card } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import getAccount from "@/helpers/getAccount";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
 import PostActions from "./Actions";
 import BannedAuthorPost from "./BannedAuthorPost";
@@ -37,13 +38,14 @@ const SinglePost = ({
 
   return (
     <Card
-      className={cn("mb-6 w-full", {
-        "mb-4": embedded || hasComments
+      className={cn("mb-3 w-full sm:mb-6", {
+        "mb-1 sm:mb-4": embedded || hasComments,
+        "rounded-bl-xl": embedded
       })}
     >
       <PostWrapper
-        className={cn("w-full cursor-pointer p-6 pb-5", {
-          "px-5 py-4 pb-3": embedded
+        className={cn("w-full cursor-pointer p-4 pb-3 sm:p-6 sm:pb-5", {
+          "px-3 py-3 pb-2 sm:px-5 sm:py-4 sm:pb-3": embedded
         })}
         post={rootPost}
       >
@@ -68,7 +70,7 @@ const SinglePost = ({
               <div className="w-[1px] flex-grow border-gray-200 border-l dark:border-gray-800" />
             ) : null}
           </div>
-          <div className="w-full">
+          <div className="w-full min-w-0">
             <PostHeader
               embedded={embedded}
               post={rootPost}
@@ -83,8 +85,15 @@ const SinglePost = ({
             <BannedAuthorPost />
           ) : (
             <>
+              {embedded &&
+              post.__typename === "Post" &&
+              post.commentOn?.id !== post.root?.id ? (
+                <div className="pb-1 text-secondary">
+                  Reply to @{getAccount(post.commentOn?.author).username}
+                </div>
+              ) : null}
               <PostBody post={rootPost} showMore={showMore} />
-              <PostActions post={rootPost} />
+              <PostActions embedded={embedded} post={rootPost} />
             </>
           )}
         </div>

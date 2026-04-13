@@ -17,7 +17,7 @@ const CardHeader = ({
   return (
     <>
       <div className="mx-4 my-3 space-y-2 sm:mx-6">
-        <div className="flex items-center gap-x-3.5">
+        <div className="flex items-center gap-x-5">
           {icon ? icon : null}
           <div className="pb-0.5 font-bold text-lg">{title}</div>
         </div>

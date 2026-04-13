@@ -14,9 +14,14 @@ import ShareMenu from "./Share";
 interface PostActionsProps {
   post: AnyPostFragment;
   showCount?: boolean;
+  embedded?: boolean;
 }
 
-const PostActions = ({ post, showCount = true }: PostActionsProps) => {
+const PostActions = ({
+  post,
+  showCount = true,
+  embedded
+}: PostActionsProps) => {
   const { currentAccount } = useAccountStore();
   const targetPost = isRepost(post) ? post.repostOf : post;
   const hasPostAction = (targetPost.actions?.length || 0) > 0;
@@ -25,32 +30,21 @@ const PostActions = ({ post, showCount = true }: PostActionsProps) => {
     targetPost.actions.some(
       (action) => action.__typename === "SimpleCollectAction"
     );
-  const canRepost =
-    targetPost.operations?.canRepost.__typename ===
-    "PostOperationValidationPassed";
-  const canQuote =
-    targetPost.operations?.canQuote.__typename ===
-    "PostOperationValidationPassed";
-  const showShareMenu = canRepost || canQuote;
-  const isPostFromCurrentAccount =
-    currentAccount?.address === targetPost.author.address;
 
   return (
     <span
-      className="mt-4 flex w-full flex-wrap items-center justify-between gap-3"
+      className={cn(
+        "mt-2 flex w-full flex-wrap items-center justify-between gap-3 sm:mt-4",
+        {
+          "mt-3": showCount && !embedded
+        }
+      )}
       onClick={stopEventPropagation}
     >
-      <span
-        className={cn("flex flex-grow flex-wrap items-center", {
-          "gap-x-4 sm:gap-x-5":
-            showCount &&
-            (!showShareMenu || !hasCollectAction || isPostFromCurrentAccount),
-          "gap-x-7": !showCount,
-          "justify-between pr-2 sm:justify-start sm:gap-x-6":
-            showCount &&
-            showShareMenu &&
-            hasCollectAction &&
-            !isPostFromCurrentAccount
+      <div
+        className={cn("items-center", {
+          "flex flex-grow flex-wrap gap-x-7": !showCount,
+          "flex w-full justify-between sm:justify-start sm:gap-x-7": showCount
         })}
       >
         <Comment post={targetPost} showCount={showCount} />
@@ -67,8 +61,10 @@ const PostActions = ({ post, showCount = true }: PostActionsProps) => {
         />
         {hasCollectAction ? (
           <CollectAction post={targetPost} showCount={showCount} />
-        ) : null}
-      </span>
+        ) : (
+          <div className="block size-8 sm:hidden" />
+        )}
+      </div>
       {!showCount && hasCollectAction ? (
         <div className="hidden sm:flex sm:pr-2">
           <SmallCollectButton post={targetPost} />

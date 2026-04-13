@@ -29,7 +29,7 @@ const NewPost = ({ group }: NewPostProps) => {
 
   return (
     <Card
-      className="cursor-pointer space-y-3 px-3 py-4 md:px-5"
+      className="cursor-pointer space-y-3 px-4 py-4 md:px-5"
       onClick={handleOpenComposer}
     >
       <div className="flex items-center space-x-3">

@@ -7,7 +7,6 @@ import {
 import { memo, useCallback, useMemo } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
-import PostLink from "@/components/Shared/Post/PostLink";
 import cn from "@/helpers/cn";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -79,10 +78,6 @@ const Timeline = ({ onScroll }: TimelineProps) => {
       refetch={refetch}
       renderItem={(timelineItem) => {
         const commentsToShow = timelineItem.comments.slice(0, 3);
-        const remainingCommentsCount = Math.max(
-          0,
-          timelineItem.comments.length - 3
-        );
 
         return (
           <>
@@ -94,17 +89,21 @@ const Timeline = ({ onScroll }: TimelineProps) => {
             {timelineItem.comments.length === 0
               ? null
               : commentsToShow.map((comment, i) => (
-                  <div className="flex w-full pl-2 last:pb-2" key={comment.id}>
+                  <div
+                    className="flex w-full pl-4 last:pb-2 sm:pl-2"
+                    key={comment.id}
+                  >
                     <div
-                      className={cn("flex w-9 flex-none justify-center", {
-                        "pb-4":
-                          i === commentsToShow.length - 1 &&
-                          remainingCommentsCount === 0
-                      })}
+                      className={cn(
+                        "hidden w-5 flex-none justify-center sm:flex sm:w-9",
+                        {
+                          "pb-4": i === commentsToShow.length - 1
+                        }
+                      )}
                     >
                       <div
                         className={cn(
-                          "mask-t-from-0 h-1/2 w-4 rounded-bl-xl border-gray-300 border-b border-l dark:border-gray-800",
+                          "mask-t-from-0 h-1/2 w-3 rounded-bl-xl border-gray-300 border-b border-l sm:w-4 dark:border-gray-800",
                           { "pt-2": i === 0 }
                         )}
                       />
@@ -116,17 +115,6 @@ const Timeline = ({ onScroll }: TimelineProps) => {
                     />
                   </div>
                 ))}
-            {remainingCommentsCount > 0 ? (
-              <div className="flex pb-2 pl-4 md:pl-8">
-                <PostLink
-                  className="flex items-center gap-1 pt-2 pb-4 pl-3 font-semibold text-brand-500 text-brand-500 text-sm hover:underline"
-                  post={timelineItem.primary}
-                >
-                  Show {remainingCommentsCount} other{" "}
-                  {remainingCommentsCount === 1 ? "comment" : "comments"}
-                </PostLink>
-              </div>
-            ) : null}
           </>
         );
       }}

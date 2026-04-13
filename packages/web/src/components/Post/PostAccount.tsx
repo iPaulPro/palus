@@ -23,25 +23,25 @@ interface PostAccountProps {
 
 const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-wrap items-center gap-x-1.5">
+    <div className="flex min-w-0 flex-col pr-4">
+      <div className="flex items-center gap-x-1.5">
         <AccountLink
           account={account}
-          className="outline-hidden hover:underline focus:underline"
+          className="min-w-0 outline-hidden hover:underline focus:underline"
         >
           <AccountPreview
             address={account.address}
             showUserPreview
             username={account.username?.localName}
           >
-            <div className="flex min-w-0 flex-wrap items-center gap-x-1">
-              <div className="flex items-center gap-x-0.5">
-                <span className="line-clamp-1 font-semibold">
+            <div className="flex min-w-0 items-center gap-x-1">
+              <div className="flex min-w-0 items-center gap-x-0.5 [flex-shrink:9999]">
+                <span className="truncate font-semibold">
                   {getAccount(account).name}
                 </span>
-                {account.score < 9000 ? null : <TopAccount />}
               </div>
-              <span className="text-gray-500 dark:text-gray-400">
+              {account.score < 9000 ? null : <TopAccount />}
+              <span className="truncate text-gray-500 dark:text-gray-400">
                 @{getAccount(account).username}
               </span>
             </div>

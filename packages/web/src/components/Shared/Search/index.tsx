@@ -164,7 +164,7 @@ const Search = ({
   }, [debouncedSearchText]);
 
   return (
-    <div className="w-88">
+    <>
       <Form form={form} onSubmit={handleSubmit}>
         <Input
           autoFocus={autoFocus}
@@ -222,7 +222,7 @@ const Search = ({
           </Card>
         </div>
       ) : null}
-    </div>
+    </>
   );
 };
 

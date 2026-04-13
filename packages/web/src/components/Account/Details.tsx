@@ -105,10 +105,18 @@ const Details = ({
         </div>
       </div>
       <div className="space-y-1 md:py-2">
-        <div className="flex items-center gap-1.5">
-          <H3 className="truncate">{getAccount(account).name}</H3>
+        <H3 className="flex flex-wrap items-center gap-x-1.5 pr-6 font-bold text-2xl">
+          {getAccount(account)
+            .name.slice(0, 40)
+            .split(/\s+/)
+            .filter(Boolean)
+            .map((namePart, index) => (
+              <span className="max-w-full break-words" key={namePart + index}>
+                {namePart}
+              </span>
+            ))}
           {account.score < 9000 ? null : <TopAccount className="size-6" />}
-        </div>
+        </H3>
         <div className="flex items-center space-x-3">
           <Slug
             className="text-sm sm:text-base"

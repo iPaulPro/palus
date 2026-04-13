@@ -6,7 +6,7 @@ const cardVariants = cva("flex flex-col border-border bg-card", {
   variants: {
     forceRounded: {
       false:
-        "rounded-none border-y drop-shadow-card md:rounded-2xl md:border-none",
+        "rounded-none border md:drop-shadow-card md:rounded-2xl md:border-none",
       true: "rounded-xl border"
     }
   }

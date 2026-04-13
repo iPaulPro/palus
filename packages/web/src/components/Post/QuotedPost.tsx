@@ -48,7 +48,9 @@ const QuotedPost = ({ isNew = false, post }: QuotedPostProps) => {
     >
       <div className="flex gap-x-2">
         <PostAvatar post={post} quoted />
-        <PostHeader isNew={isNew} post={post} quoted />
+        <div className="w-full min-w-0">
+          <PostHeader isNew={isNew} post={post} quoted />
+        </div>
       </div>
       {post.isDeleted ? (
         <HiddenPost type={post.__typename} />
