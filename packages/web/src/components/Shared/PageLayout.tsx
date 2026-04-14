@@ -5,6 +5,7 @@ import MetaTags from "@/components/Common/MetaTags";
 import SignupButton from "@/components/Shared/Navbar/SignupButton";
 import cn from "@/helpers/cn";
 import { IS_STANDALONE } from "@/helpers/mediaQueries";
+import { useStickyContentScroll } from "@/hooks/useStickyContentScroll";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import LoginButton from "./LoginButton";
 import Search from "./Search";
@@ -47,6 +48,7 @@ const PageLayout = ({
   zeroTopMargin = false
 }: PageLayoutProps) => {
   const isStandalone = useMediaQuery(IS_STANDALONE);
+  const { containerRef, contentRef } = useStickyContentScroll();
 
   return (
     <>
@@ -69,8 +71,11 @@ const PageLayout = ({
         />
         {children}
       </div>
-      <aside className="no-scrollbar sticky top-5 mt-5 hidden shrink lg:flex">
-        <div className="no-scrollbar flex w-88 flex-col gap-y-5">
+      <aside
+        className="sticky top-0 hidden h-[calc(100vh-2.5rem)] shrink-0 items-start pt-5 lg:flex"
+        ref={containerRef}
+      >
+        <div className="flex w-88 flex-col gap-y-5" ref={contentRef}>
           <AuthButtons />
           {!hideSearch && <Search />}
           {sidebar}
