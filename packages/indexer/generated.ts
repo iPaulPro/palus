@@ -7583,7 +7583,10 @@ export type ReferencedPostFragment = { __typename: 'Post', id: any, slug: any, i
     { __typename: 'LoggedInPostOperations' }
     & LoggedInPostOperationsFragment
   ) | null, actions: Array<
-    | { __typename: 'SimpleCollectAction' }
+    | (
+      { __typename: 'SimpleCollectAction' }
+      & SimpleCollectActionFragment
+    )
     | (
       { __typename: 'UnknownPostAction' }
       & UnknownPostActionFragment
@@ -7618,7 +7621,7 @@ export type PayToCollectConfigFragment = { __typename: 'PayToCollectConfig', ref
     )
    };
 
-export type SimpleCollectActionFragment = { __typename: 'SimpleCollectAction', address: any, collectLimit?: number | null, endsAt?: any | null, payToCollect?: (
+export type SimpleCollectActionFragment = { __typename: 'SimpleCollectAction', address: any, collectLimit?: number | null, collectNftAddress: any, endsAt?: any | null, isImmutable: boolean, payToCollect?: (
     { __typename: 'PayToCollectConfig' }
     & PayToCollectConfigFragment
   ) | null };
@@ -10112,6 +10115,67 @@ export const LoggedInPostOperationsFragmentDoc = gql`
 }
     ${BooleanValueFragmentDoc}
 ${PostOperationValidationOutcomeFragmentDoc}`;
+export const Erc20AmountFragmentDoc = gql`
+    fragment Erc20Amount on Erc20Amount {
+  asset {
+    contract {
+      address
+    }
+    decimals
+    name
+    symbol
+  }
+  value
+}
+    `;
+export const NativeAmountFragmentDoc = gql`
+    fragment NativeAmount on NativeAmount {
+  asset {
+    contract {
+      address
+    }
+    decimals
+    name
+    symbol
+  }
+  value
+}
+    `;
+export const PayableAmountFragmentDoc = gql`
+    fragment PayableAmount on PayableAmount {
+  ... on Erc20Amount {
+    ...Erc20Amount
+  }
+  ... on NativeAmount {
+    ...NativeAmount
+  }
+}
+    ${Erc20AmountFragmentDoc}
+${NativeAmountFragmentDoc}`;
+export const PayToCollectConfigFragmentDoc = gql`
+    fragment PayToCollectConfig on PayToCollectConfig {
+  referralShare
+  recipients {
+    address
+    percent
+  }
+  price {
+    ...PayableAmount
+  }
+}
+    ${PayableAmountFragmentDoc}`;
+export const SimpleCollectActionFragmentDoc = gql`
+    fragment SimpleCollectAction on SimpleCollectAction {
+  address
+  collectLimit
+  collectNftAddress
+  endsAt
+  isImmutable
+  payToCollect {
+    ...PayToCollectConfig
+  }
+}
+    ${PayToCollectConfigFragmentDoc}`;
 export const UnknownPostActionFragmentDoc = gql`
     fragment UnknownPostAction on UnknownPostAction {
   __typename
@@ -10181,6 +10245,7 @@ export const ReferencedPostFragmentDoc = gql`
   }
   actions {
     __typename
+    ...SimpleCollectAction
     ...UnknownPostAction
   }
   mentions {
@@ -10193,6 +10258,7 @@ ${AccountFragmentDoc}
 ${PostMetadataFragmentDoc}
 ${PostStatsFragmentDoc}
 ${LoggedInPostOperationsFragmentDoc}
+${SimpleCollectActionFragmentDoc}
 ${UnknownPostActionFragmentDoc}
 ${PostMentionFragmentDoc}`;
 export const PostFragmentDoc = gql`
@@ -10257,43 +10323,6 @@ export const GroupMemberFragmentDoc = gql`
   }
 }
     ${AccountFragmentDoc}`;
-export const Erc20AmountFragmentDoc = gql`
-    fragment Erc20Amount on Erc20Amount {
-  asset {
-    contract {
-      address
-    }
-    decimals
-    name
-    symbol
-  }
-  value
-}
-    `;
-export const NativeAmountFragmentDoc = gql`
-    fragment NativeAmount on NativeAmount {
-  asset {
-    contract {
-      address
-    }
-    decimals
-    name
-    symbol
-  }
-  value
-}
-    `;
-export const PayableAmountFragmentDoc = gql`
-    fragment PayableAmount on PayableAmount {
-  ... on Erc20Amount {
-    ...Erc20Amount
-  }
-  ... on NativeAmount {
-    ...NativeAmount
-  }
-}
-    ${Erc20AmountFragmentDoc}
-${NativeAmountFragmentDoc}`;
 export const AccountActionExecutedNotificationFragmentDoc = gql`
     fragment AccountActionExecutedNotification on AccountActionExecutedNotification {
   id
@@ -10437,18 +10466,6 @@ export const MentionNotificationFragmentDoc = gql`
   }
 }
     ${PostFragmentDoc}`;
-export const PayToCollectConfigFragmentDoc = gql`
-    fragment PayToCollectConfig on PayToCollectConfig {
-  referralShare
-  recipients {
-    address
-    percent
-  }
-  price {
-    ...PayableAmount
-  }
-}
-    ${PayableAmountFragmentDoc}`;
 export const PostActionExecutedNotificationFragmentDoc = gql`
     fragment PostActionExecutedNotification on PostActionExecutedNotification {
   id
@@ -10553,16 +10570,6 @@ export const AnyPostFragmentDoc = gql`
 }
     ${PostFragmentDoc}
 ${RepostFragmentDoc}`;
-export const SimpleCollectActionFragmentDoc = gql`
-    fragment SimpleCollectAction on SimpleCollectAction {
-  address
-  collectLimit
-  endsAt
-  payToCollect {
-    ...PayToCollectConfig
-  }
-}
-    ${PayToCollectConfigFragmentDoc}`;
 export const PostActionFragmentDoc = gql`
     fragment PostAction on PostAction {
   ... on SimpleCollectAction {

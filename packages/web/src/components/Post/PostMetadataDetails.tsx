@@ -42,7 +42,7 @@ const PostMetadataDetails = ({ post }: Props) => {
         <div className="flex items-center gap-x-1.5 text-secondary text-sm">
           <img
             alt="Lens Logo"
-            className="size-5 rounded-full bg-brand-500 p-1"
+            className="size-5 rounded-full bg-[#1EC6A2] p-1"
             height={12}
             src={`${STATIC_IMAGES_URL}/lens.svg`}
             width={19}

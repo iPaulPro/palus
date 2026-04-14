@@ -1,7 +1,9 @@
 fragment SimpleCollectAction on SimpleCollectAction {
   address
   collectLimit
+  collectNftAddress
   endsAt
+  isImmutable
   payToCollect {
     ...PayToCollectConfig
   }

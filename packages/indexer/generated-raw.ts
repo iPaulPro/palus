@@ -7851,7 +7851,7 @@ export type ReferencedPostFragment = {
       } & LoggedInPostOperationsFragment)
     | null;
   actions: Array<
-    | { __typename: "SimpleCollectAction" }
+    | ({ __typename: "SimpleCollectAction" } & SimpleCollectActionFragment)
     | ({ __typename: "UnknownPostAction" } & UnknownPostActionFragment)
   >;
   mentions: Array<
@@ -7887,7 +7887,9 @@ export type SimpleCollectActionFragment = {
   __typename?: "SimpleCollectAction";
   address: any;
   collectLimit?: number | null;
+  collectNftAddress: any;
   endsAt?: any | null;
+  isImmutable: boolean;
   payToCollect?:
     | ({ __typename?: "PayToCollectConfig" } & PayToCollectConfigFragment)
     | null;
@@ -10426,6 +10428,66 @@ export const LoggedInPostOperationsFragmentDoc = `
   }
 }
     `;
+export const Erc20AmountFragmentDoc = `
+    fragment Erc20Amount on Erc20Amount {
+  asset {
+    contract {
+      address
+    }
+    decimals
+    name
+    symbol
+  }
+  value
+}
+    `;
+export const NativeAmountFragmentDoc = `
+    fragment NativeAmount on NativeAmount {
+  asset {
+    contract {
+      address
+    }
+    decimals
+    name
+    symbol
+  }
+  value
+}
+    `;
+export const PayableAmountFragmentDoc = `
+    fragment PayableAmount on PayableAmount {
+  ... on Erc20Amount {
+    ...Erc20Amount
+  }
+  ... on NativeAmount {
+    ...NativeAmount
+  }
+}
+    `;
+export const PayToCollectConfigFragmentDoc = `
+    fragment PayToCollectConfig on PayToCollectConfig {
+  referralShare
+  recipients {
+    address
+    percent
+  }
+  price {
+    ...PayableAmount
+  }
+}
+    `;
+export const SimpleCollectActionFragmentDoc = `
+    fragment SimpleCollectAction on SimpleCollectAction {
+  address
+  collectLimit
+  collectNftAddress
+  endsAt
+  isImmutable
+  payToCollect {
+    ...PayToCollectConfig
+  }
+}
+    `;
 export const UnknownPostActionFragmentDoc = `
     fragment UnknownPostAction on UnknownPostAction {
   __typename
@@ -10494,6 +10556,7 @@ export const ReferencedPostFragmentDoc = `
   }
   actions {
     __typename
+    ...SimpleCollectAction
     ...UnknownPostAction
   }
   mentions {
@@ -10559,42 +10622,6 @@ export const GroupMemberFragmentDoc = `
     fragment GroupMember on GroupMember {
   account {
     ...Account
-  }
-}
-    `;
-export const Erc20AmountFragmentDoc = `
-    fragment Erc20Amount on Erc20Amount {
-  asset {
-    contract {
-      address
-    }
-    decimals
-    name
-    symbol
-  }
-  value
-}
-    `;
-export const NativeAmountFragmentDoc = `
-    fragment NativeAmount on NativeAmount {
-  asset {
-    contract {
-      address
-    }
-    decimals
-    name
-    symbol
-  }
-  value
-}
-    `;
-export const PayableAmountFragmentDoc = `
-    fragment PayableAmount on PayableAmount {
-  ... on Erc20Amount {
-    ...Erc20Amount
-  }
-  ... on NativeAmount {
-    ...NativeAmount
   }
 }
     `;
@@ -10734,18 +10761,6 @@ export const MentionNotificationFragmentDoc = `
   }
 }
     `;
-export const PayToCollectConfigFragmentDoc = `
-    fragment PayToCollectConfig on PayToCollectConfig {
-  referralShare
-  recipients {
-    address
-    percent
-  }
-  price {
-    ...PayableAmount
-  }
-}
-    `;
 export const PostActionExecutedNotificationFragmentDoc = `
     fragment PostActionExecutedNotification on PostActionExecutedNotification {
   id
@@ -10840,16 +10855,6 @@ export const AnyPostFragmentDoc = `
   }
   ... on Repost {
     ...Repost
-  }
-}
-    `;
-export const SimpleCollectActionFragmentDoc = `
-    fragment SimpleCollectAction on SimpleCollectAction {
-  address
-  collectLimit
-  endsAt
-  payToCollect {
-    ...PayToCollectConfig
   }
 }
     `;
@@ -12275,6 +12280,11 @@ ${PostOperationValidationUnknownFragmentDoc}
 ${PostOperationValidationRuleFragmentDoc}
 ${PostRuleFragmentDoc}
 ${FeedRuleFragmentDoc}
+${SimpleCollectActionFragmentDoc}
+${PayToCollectConfigFragmentDoc}
+${PayableAmountFragmentDoc}
+${Erc20AmountFragmentDoc}
+${NativeAmountFragmentDoc}
 ${UnknownPostActionFragmentDoc}
 ${PostMentionFragmentDoc}
 ${AccountMentionFragmentDoc}
@@ -12286,10 +12296,6 @@ ${QuoteNotificationFragmentDoc}
 ${ReactionNotificationFragmentDoc}
 ${RepostNotificationFragmentDoc}
 ${PostActionExecutedNotificationFragmentDoc}
-${PayToCollectConfigFragmentDoc}
-${PayableAmountFragmentDoc}
-${Erc20AmountFragmentDoc}
-${NativeAmountFragmentDoc}
 ${AccountActionExecutedNotificationFragmentDoc}
 ${TokenDistributedNotificationFragmentDoc}
 ${GroupMembershipRequestRejectedNotificationFragmentDoc}
@@ -12602,6 +12608,11 @@ ${PostOperationValidationUnknownFragmentDoc}
 ${PostOperationValidationRuleFragmentDoc}
 ${PostRuleFragmentDoc}
 ${FeedRuleFragmentDoc}
+${SimpleCollectActionFragmentDoc}
+${PayToCollectConfigFragmentDoc}
+${PayableAmountFragmentDoc}
+${Erc20AmountFragmentDoc}
+${NativeAmountFragmentDoc}
 ${UnknownPostActionFragmentDoc}
 ${PostMentionFragmentDoc}
 ${AccountMentionFragmentDoc}
@@ -12662,6 +12673,11 @@ ${PostOperationValidationUnknownFragmentDoc}
 ${PostOperationValidationRuleFragmentDoc}
 ${PostRuleFragmentDoc}
 ${FeedRuleFragmentDoc}
+${SimpleCollectActionFragmentDoc}
+${PayToCollectConfigFragmentDoc}
+${PayableAmountFragmentDoc}
+${Erc20AmountFragmentDoc}
+${NativeAmountFragmentDoc}
 ${UnknownPostActionFragmentDoc}
 ${PostMentionFragmentDoc}
 ${AccountMentionFragmentDoc}
@@ -12749,6 +12765,11 @@ ${PostOperationValidationUnknownFragmentDoc}
 ${PostOperationValidationRuleFragmentDoc}
 ${PostRuleFragmentDoc}
 ${FeedRuleFragmentDoc}
+${SimpleCollectActionFragmentDoc}
+${PayToCollectConfigFragmentDoc}
+${PayableAmountFragmentDoc}
+${Erc20AmountFragmentDoc}
+${NativeAmountFragmentDoc}
 ${UnknownPostActionFragmentDoc}
 ${PostMentionFragmentDoc}
 ${AccountMentionFragmentDoc}
@@ -12808,6 +12829,11 @@ ${PostOperationValidationUnknownFragmentDoc}
 ${PostOperationValidationRuleFragmentDoc}
 ${PostRuleFragmentDoc}
 ${FeedRuleFragmentDoc}
+${SimpleCollectActionFragmentDoc}
+${PayToCollectConfigFragmentDoc}
+${PayableAmountFragmentDoc}
+${Erc20AmountFragmentDoc}
+${NativeAmountFragmentDoc}
 ${UnknownPostActionFragmentDoc}
 ${PostMentionFragmentDoc}
 ${AccountMentionFragmentDoc}
@@ -12889,6 +12915,11 @@ ${PostOperationValidationUnknownFragmentDoc}
 ${PostOperationValidationRuleFragmentDoc}
 ${PostRuleFragmentDoc}
 ${FeedRuleFragmentDoc}
+${SimpleCollectActionFragmentDoc}
+${PayToCollectConfigFragmentDoc}
+${PayableAmountFragmentDoc}
+${Erc20AmountFragmentDoc}
+${NativeAmountFragmentDoc}
 ${UnknownPostActionFragmentDoc}
 ${PostMentionFragmentDoc}
 ${AccountMentionFragmentDoc}
@@ -12949,6 +12980,11 @@ ${PostOperationValidationUnknownFragmentDoc}
 ${PostOperationValidationRuleFragmentDoc}
 ${PostRuleFragmentDoc}
 ${FeedRuleFragmentDoc}
+${SimpleCollectActionFragmentDoc}
+${PayToCollectConfigFragmentDoc}
+${PayableAmountFragmentDoc}
+${Erc20AmountFragmentDoc}
+${NativeAmountFragmentDoc}
 ${UnknownPostActionFragmentDoc}
 ${PostMentionFragmentDoc}
 ${AccountMentionFragmentDoc}
@@ -13009,6 +13045,11 @@ ${PostOperationValidationUnknownFragmentDoc}
 ${PostOperationValidationRuleFragmentDoc}
 ${PostRuleFragmentDoc}
 ${FeedRuleFragmentDoc}
+${SimpleCollectActionFragmentDoc}
+${PayToCollectConfigFragmentDoc}
+${PayableAmountFragmentDoc}
+${Erc20AmountFragmentDoc}
+${NativeAmountFragmentDoc}
 ${UnknownPostActionFragmentDoc}
 ${PostMentionFragmentDoc}
 ${AccountMentionFragmentDoc}

@@ -12,6 +12,7 @@ import { create } from "zustand";
 import CommentFeed from "@/components/Comment/CommentFeed";
 import NoneRelevantFeed from "@/components/Comment/NoneRelevantFeed";
 import NewPublication from "@/components/Composer/NewPublication";
+import CollectibleDetails from "@/components/Post/CollectibleDetails";
 import PostMetadataDetails from "@/components/Post/PostMetadataDetails";
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
@@ -113,6 +114,7 @@ const ViewPost = () => {
           </Card>
           <RelevantPeople mentions={targetPost.mentions} />
           <PostMetadataDetails post={targetPost} />
+          <CollectibleDetails post={targetPost} />
           <Footer />
         </div>
       }
