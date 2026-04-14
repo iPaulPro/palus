@@ -110,7 +110,7 @@ const WhoToFollow = () => {
         ))}
         {recommendedAccounts.length > 5 && (
           <button
-            className="font-bold text-gray-500 dark:text-gray-200"
+            className="text-start font-bold text-gray-500 dark:text-gray-200"
             onClick={() => setShowMore(true)}
             type="button"
           >

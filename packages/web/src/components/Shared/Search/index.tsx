@@ -167,6 +167,7 @@ const Search = ({
     <>
       <Form form={form} onSubmit={handleSubmit}>
         <Input
+          autoComplete="off"
           autoFocus={autoFocus}
           className="px-3 py-3 text-base sm:text-sm"
           iconLeft={<MagnifyingGlassIcon />}
@@ -185,7 +186,7 @@ const Search = ({
         />
       </Form>
       {pathname !== "/search" && showDropdown ? (
-        <div className="fixed z-10 mt-2 w-[360px]" ref={dropdownRef}>
+        <div className="fixed z-10 mt-12 w-88" ref={dropdownRef}>
           <Card className="max-h-[80vh] overflow-y-auto py-2">
             {!debouncedSearchText && (
               <RecentAccounts onAccountClick={handleReset} />
