@@ -9,7 +9,7 @@ interface PostsShimmerProps {
 
 const PostsShimmer = ({ hideCard = false }: PostsShimmerProps) => {
   return Array.from({ length: 3 }).map((_, index) => (
-    <Card className={cn({ "!border-0": hideCard })} key={index}>
+    <Card className={cn("mb-4", { "!border-0": hideCard })} key={index}>
       <PostShimmer />
     </Card>
   ));
