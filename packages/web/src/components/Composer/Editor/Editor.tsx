@@ -94,6 +94,7 @@ const Editor = ({
               "ProseMirror relative box-border min-h-20 flex-1 leading-6 outline-0 sm:leading-[26px]",
               {
                 "h-full": fullHeight,
+                "mt-2": !hideGroupSelector,
                 "mt-3": hideGroupSelector
               }
             )}
