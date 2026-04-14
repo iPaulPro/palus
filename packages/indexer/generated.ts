@@ -10158,7 +10158,7 @@ export const ReferencedPostFragmentDoc = gql`
   slug
   isDeleted
   isEdited
-  contentUri
+  contentUri(request: {useSnapshot: false})
   feed {
     ...PostFeedInfo
   }

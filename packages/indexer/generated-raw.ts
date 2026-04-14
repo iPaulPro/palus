@@ -10471,7 +10471,7 @@ export const ReferencedPostFragmentDoc = `
   slug
   isDeleted
   isEdited
-  contentUri
+  contentUri(request: {useSnapshot: false})
   feed {
     ...PostFeedInfo
   }

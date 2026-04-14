@@ -4,7 +4,7 @@ fragment ReferencedPost on Post {
   slug
   isDeleted
   isEdited
-  contentUri
+  contentUri(request: { useSnapshot: false })
   feed {
     ...PostFeedInfo
   }

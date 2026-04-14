@@ -1,5 +1,6 @@
 import {
   PageSize,
+  type PostFragment,
   PostReferenceType,
   PostVisibilityFilter,
   useHiddenCommentsQuery,
@@ -11,6 +12,7 @@ import { create } from "zustand";
 import CommentFeed from "@/components/Comment/CommentFeed";
 import NoneRelevantFeed from "@/components/Comment/NoneRelevantFeed";
 import NewPublication from "@/components/Composer/NewPublication";
+import PostMetadataDetails from "@/components/Post/PostMetadataDetails";
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
@@ -91,7 +93,7 @@ const ViewPost = () => {
     return <Custom500 />;
   }
 
-  const targetPost = isRepost(post) ? post.repostOf : post;
+  const targetPost: PostFragment = isRepost(post) ? post.repostOf : post;
 
   return (
     <PageLayout
@@ -110,6 +112,7 @@ const ViewPost = () => {
             />
           </Card>
           <RelevantPeople mentions={targetPost.mentions} />
+          <PostMetadataDetails post={targetPost} />
           <Footer />
         </div>
       }
