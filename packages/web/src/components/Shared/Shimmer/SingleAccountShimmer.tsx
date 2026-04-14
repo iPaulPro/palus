@@ -19,7 +19,7 @@ const SingleAccountShimmer = ({
         <Skeleton
           className={cn(isBig ? "size-14" : "size-11", "rounded-full")}
         />
-        <div className="space-y-4 py-1">
+        <div className="space-y-2 py-1">
           <Skeleton className="h-3 w-28 rounded-lg" />
           <Skeleton className="h-3 w-20 rounded-lg" />
           {isBig ? <Skeleton className="h-3 w-48 rounded-lg" /> : null}

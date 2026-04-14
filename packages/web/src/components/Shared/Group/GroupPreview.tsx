@@ -76,7 +76,9 @@ const GroupPreview = ({
     const Name = () => (
       <div>
         <div className="flex min-w-0 max-w-sm items-center gap-1">
-          <div className="truncate">{group?.metadata?.name ?? "unnamed"}</div>
+          <div className="truncate font-semibold">
+            {group?.metadata?.name ?? "unnamed"}
+          </div>
         </div>
       </div>
     );

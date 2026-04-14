@@ -19,7 +19,7 @@ const PostMetadataDetails = ({ post }: Props) => {
 
   return (
     <Card as="aside" className="gap-y-2.5 p-5">
-      <div className="font-bold">Post metadata</div>
+      <div className="font-semibold">Post metadata</div>
       <div className="flex min-w-0 gap-x-1 text-secondary text-sm">
         <span className="font-bold">URI:</span>{" "}
         <a
@@ -42,7 +42,7 @@ const PostMetadataDetails = ({ post }: Props) => {
         <div className="flex items-center gap-x-1.5 text-secondary text-sm">
           <img
             alt="Lens Logo"
-            className="size-5 rounded-full bg-[#1EC6A2] p-1"
+            className="size-5 rounded-full border border-card bg-[#1EC6A2] p-1"
             height={12}
             src={`${STATIC_IMAGES_URL}/lens.svg`}
             width={19}

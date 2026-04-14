@@ -24,7 +24,7 @@ const CollectibleDetails = ({ post }: Props) => {
 
   return (
     <Card as="aside" className="gap-y-2.5 p-5">
-      <div className="font-bold">Collectible details</div>
+      <div className="font-semibold">Collectible details</div>
       <div className="flex min-w-0 gap-x-1 text-secondary text-sm">
         <span className="font-bold">Address:</span>{" "}
         <a
@@ -43,23 +43,25 @@ const CollectibleDetails = ({ post }: Props) => {
           <Square2StackIcon className="size-4 cursor-pointer hover:text-brand-500" />
         </button>
       </div>
-      <div className="flex items-center gap-x-1.5 text-secondary text-sm">
-        {collectAction.isImmutable ? (
-          <CheckCircleIcon className="size-5" />
-        ) : (
-          <XCircleIcon className="size-5" />
-        )}
-        Immutable
-      </div>
-      <div className="flex items-center gap-x-1.5 text-secondary text-sm">
-        <img
-          alt="Lens Logo"
-          className="size-5 rounded-full bg-[#1EC6A2] p-1"
-          height={12}
-          src={`${STATIC_IMAGES_URL}/lens.svg`}
-          width={19}
-        />
-        Lens Chain
+      <div className="space-y-1">
+        <div className="flex items-center gap-x-1.5 text-secondary text-sm">
+          {collectAction.isImmutable ? (
+            <CheckCircleIcon className="size-5" />
+          ) : (
+            <XCircleIcon className="size-5" />
+          )}
+          Immutable
+        </div>
+        <div className="flex items-center gap-x-1.5 text-secondary text-sm">
+          <img
+            alt="Lens Logo"
+            className="size-5 rounded-full border border-card bg-[#1EC6A2] p-1"
+            height={12}
+            src={`${STATIC_IMAGES_URL}/lens.svg`}
+            width={19}
+          />
+          Lens Chain
+        </div>
       </div>
     </Card>
   );

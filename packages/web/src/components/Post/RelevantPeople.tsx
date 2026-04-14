@@ -40,8 +40,6 @@ const RelevantPeople = ({ mentions }: RelevantPeopleProps) => {
         <SingleAccountShimmer showFollowUnfollowButton />
         <SingleAccountShimmer showFollowUnfollowButton />
         <SingleAccountShimmer showFollowUnfollowButton />
-        <SingleAccountShimmer showFollowUnfollowButton />
-        <SingleAccountShimmer showFollowUnfollowButton />
         <div className="pt-2 pb-1">
           <Skeleton className="h-3 w-5/12 rounded-full" />
         </div>
