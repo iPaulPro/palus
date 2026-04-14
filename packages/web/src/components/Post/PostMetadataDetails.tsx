@@ -1,4 +1,5 @@
 import { Square2StackIcon } from "@heroicons/react/24/outline";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/solid";
 import type { PostFragment } from "@palus/indexer";
 import { Card } from "@/components/Shared/UI";
 import { STATIC_IMAGES_URL } from "@/data/constants";
@@ -38,7 +39,7 @@ const PostMetadataDetails = ({ post }: Props) => {
           <Square2StackIcon className="size-4 cursor-pointer hover:text-brand-500" />
         </button>
       </div>
-      {isGrove && (
+      {isGrove ? (
         <div className="flex items-center gap-x-1.5 text-secondary text-sm">
           <img
             alt="Lens Logo"
@@ -49,8 +50,7 @@ const PostMetadataDetails = ({ post }: Props) => {
           />
           Stored on Lens Grove
         </div>
-      )}
-      {isIpfs && (
+      ) : isIpfs ? (
         <div className="flex items-center gap-x-1.5 text-secondary text-sm">
           <img
             alt="IPFS Logo"
@@ -61,8 +61,7 @@ const PostMetadataDetails = ({ post }: Props) => {
           />
           Stored on IPFS
         </div>
-      )}
-      {isArweave && (
+      ) : isArweave ? (
         <div className="flex items-center gap-x-1.5 text-secondary text-sm">
           <img
             alt="Arweave Logo"
@@ -72,6 +71,11 @@ const PostMetadataDetails = ({ post }: Props) => {
             width={20}
           />
           Stored on Arweave
+        </div>
+      ) : (
+        <div className="flex items-center gap-x-1.5 text-secondary text-sm">
+          <ExclamationTriangleIcon className="size-5 text-orange-400" />
+          Stored on centralized server
         </div>
       )}
     </Card>
