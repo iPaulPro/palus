@@ -4,12 +4,12 @@ import { useMediaQuery } from "@uidotdev/usehooks";
 import { Link } from "react-router";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
+import Footer from "@/components/Shared/Footer";
 import Bookmarks from "@/components/Shared/Navbar/NavItems/Bookmarks";
 import Groups from "@/components/Shared/Navbar/NavItems/Groups";
 import Install from "@/components/Shared/Navbar/NavItems/Install";
 import Logout from "@/components/Shared/Navbar/NavItems/Logout";
 import Settings from "@/components/Shared/Navbar/NavItems/Settings";
-import Support from "@/components/Shared/Navbar/NavItems/Support";
 import SwitchAccount from "@/components/Shared/Navbar/NavItems/SwitchAccount";
 import ThemeSwitch from "@/components/Shared/Navbar/NavItems/ThemeSwitch";
 import YourAccount from "@/components/Shared/Navbar/NavItems/YourAccount";
@@ -32,7 +32,7 @@ const MobileDrawerMenu = () => {
   const itemClass = "py-3 hover:bg-gray-100 dark:hover:bg-gray-800";
 
   return (
-    <div className="no-scrollbar fixed inset-0 z-10 size-full overflow-y-auto bg-gray-100 py-4 md:hidden dark:bg-black">
+    <div className="no-scrollbar fixed inset-0 z-10 flex size-full flex-col overflow-y-auto bg-gray-100 py-4 md:hidden dark:bg-black">
       <button className="px-5" onClick={handleCloseDrawer} type="button">
         <XMarkIcon className="size-6" />
       </button>
@@ -87,13 +87,6 @@ const MobileDrawerMenu = () => {
         ) : null}
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
-          <Link onClick={handleCloseDrawer} to="/support">
-            <Support className={cn(itemClass, "px-4")} />
-          </Link>
-          <div className="divider" />
-        </div>
-        <div className="bg-white dark:bg-gray-900">
-          <div className="divider" />
           <div className="hover:bg-gray-100 dark:hover:bg-gray-800">
             <Logout
               className={cn(itemClass, "px-4 py-3")}
@@ -102,6 +95,9 @@ const MobileDrawerMenu = () => {
           </div>
           <div className="divider" />
         </div>
+      </div>
+      <div className="flex flex-grow flex-col justify-end pt-6">
+        <Footer />
       </div>
     </div>
   );
