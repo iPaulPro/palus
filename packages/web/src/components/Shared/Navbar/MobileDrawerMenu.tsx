@@ -32,82 +32,98 @@ const MobileDrawerMenu = () => {
   const itemClass = "py-3 hover:bg-gray-100 dark:hover:bg-gray-800";
 
   return (
-    <div className="no-scrollbar fixed inset-0 z-10 flex size-full flex-col overflow-y-auto bg-gray-100 py-4 md:hidden dark:bg-black">
-      <div className="w-full space-y-2">
-        <div className="flex justify-between">
-          <AccountLink
-            account={currentAccount as AccountFragment}
-            className="flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
-            onClick={handleCloseDrawer}
-          >
-            <SingleAccount
-              account={currentAccount as AccountFragment}
-              linkToAccount={false}
-              showUserPreview={false}
-            />
-          </AccountLink>
-          <button className="px-6" onClick={handleCloseDrawer} type="button">
-            <XMarkIcon className="size-5" />
-          </button>
-        </div>
-        <div className="bg-white dark:bg-gray-900">
-          <div className="divider" />
-          <SwitchAccount className={cn(itemClass, "px-4")} />
-          <AccountLink
-            account={currentAccount as AccountFragment}
-            onClick={handleCloseDrawer}
-          >
-            <YourAccount className={cn(itemClass, "px-4")} />
-          </AccountLink>
-          <div className="divider" />
-        </div>
-        <div className="bg-white dark:bg-gray-900">
-          <div className="divider" />
-          <Link onClick={handleCloseDrawer} to="/groups">
-            <Groups className={cn(itemClass, "px-4")} />
-          </Link>
-          <Link onClick={handleCloseDrawer} to="/bookmarks">
-            <Bookmarks className={cn(itemClass, "px-4")} />
-          </Link>
-          <div className="divider" />
-        </div>
-        <div className="bg-white dark:bg-gray-900">
-          <div className="divider" />
-          <div>
-            <Link onClick={handleCloseDrawer} to="/settings">
-              <Settings className={cn(itemClass, "px-4")} />
-            </Link>
-            <ThemeSwitch
-              className={cn(itemClass, "px-4")}
-              onClick={handleCloseDrawer}
-            />
-          </div>
-          <div className="divider" />
-        </div>
-        {!isStandalone && installEvent ? (
-          <div className="bg-white dark:bg-gray-900">
-            <div className="divider" />
-            <Install className={cn(itemClass, "px-4")} />
-            <div className="divider" />
-          </div>
-        ) : null}
-        <div className="bg-white dark:bg-gray-900">
-          <div className="divider" />
-          <div className="hover:bg-gray-100 dark:hover:bg-gray-800">
-            <Logout
-              className={cn(itemClass, "px-4 py-3")}
-              onLogout={handleCloseDrawer}
-            />
-          </div>
-          <div className="divider" />
-        </div>
-      </div>
+    <div className="overscroll-hidden fixed inset-0 z-10 bg-gray-500/75 dark:bg-gray-900/80">
       <div
-        className={cn("flex flex-grow flex-col justify-end py-4", {
-          "pb-6": isStandalone
-        })}
+        className="no-scrollbar h-full overflow-y-scroll overscroll-contain"
+        onClick={handleCloseDrawer}
       >
-        <Footer />
+        {/* Prevents overscroll on iOS */}
+        <div aria-hidden="true" className="h-[calc(100%+1px)]" />
+        <div
+          className="no-scrollbar sticky bottom-0 flex max-h-full flex-col overflow-y-auto rounded-t-2xl bg-surface pt-2 pb-4 md:hidden"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div className="w-full space-y-2">
+            <div className="flex justify-between">
+              <AccountLink
+                account={currentAccount as AccountFragment}
+                className="flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
+                onClick={handleCloseDrawer}
+              >
+                <SingleAccount
+                  account={currentAccount as AccountFragment}
+                  linkToAccount={false}
+                  showUserPreview={false}
+                />
+              </AccountLink>
+              <button
+                className="px-6"
+                onClick={handleCloseDrawer}
+                type="button"
+              >
+                <XMarkIcon className="size-5" />
+              </button>
+            </div>
+            <div className="bg-white dark:bg-gray-900">
+              <div className="divider" />
+              <SwitchAccount className={cn(itemClass, "px-4")} />
+              <AccountLink
+                account={currentAccount as AccountFragment}
+                onClick={handleCloseDrawer}
+              >
+                <YourAccount className={cn(itemClass, "px-4")} />
+              </AccountLink>
+              <div className="divider" />
+            </div>
+            <div className="bg-white dark:bg-gray-900">
+              <div className="divider" />
+              <Link onClick={handleCloseDrawer} to="/groups">
+                <Groups className={cn(itemClass, "px-4")} />
+              </Link>
+              <Link onClick={handleCloseDrawer} to="/bookmarks">
+                <Bookmarks className={cn(itemClass, "px-4")} />
+              </Link>
+              <div className="divider" />
+            </div>
+            <div className="bg-white dark:bg-gray-900">
+              <div className="divider" />
+              <div>
+                <Link onClick={handleCloseDrawer} to="/settings">
+                  <Settings className={cn(itemClass, "px-4")} />
+                </Link>
+                <ThemeSwitch
+                  className={cn(itemClass, "px-4")}
+                  onClick={handleCloseDrawer}
+                />
+              </div>
+              <div className="divider" />
+            </div>
+            {!isStandalone && installEvent ? (
+              <div className="bg-white dark:bg-gray-900">
+                <div className="divider" />
+                <Install className={cn(itemClass, "px-4")} />
+                <div className="divider" />
+              </div>
+            ) : null}
+            <div className="bg-white dark:bg-gray-900">
+              <div className="divider" />
+              <div className="hover:bg-gray-100 dark:hover:bg-gray-800">
+                <Logout
+                  className={cn(itemClass, "px-4 py-3")}
+                  onLogout={handleCloseDrawer}
+                />
+              </div>
+              <div className="divider" />
+            </div>
+          </div>
+          <div
+            className={cn("flex flex-col justify-end py-4", {
+              "pb-6": isStandalone
+            })}
+          >
+            <Footer />
+          </div>
+        </div>
       </div>
     </div>
   );
