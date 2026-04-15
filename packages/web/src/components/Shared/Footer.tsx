@@ -13,7 +13,7 @@ const links = [
 
 const Footer = () => {
   return (
-    <footer className="mt-6 flex flex-wrap gap-x-[12px] gap-y-2 px-3 text-sm lg:px-0">
+    <footer className="mt-6 flex flex-wrap items-center justify-center gap-x-[12px] gap-y-2 px-3 text-sm sm:justify-start lg:px-0">
       <span className="font-bold text-secondary">
         &copy; {currentYear} Palus.app
       </span>

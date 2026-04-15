@@ -235,6 +235,18 @@
   .touch-callout-none {
     -webkit-touch-callout: none;
   }
+
+  .group\/drawer-content {
+    border: none !important;
+  }
+
+  .group-data-\[vaul-drawer-direction\=bottom\]\/drawer-content\:block {
+    &:is(
+        :where(.group\/drawer-content)[data-vaul-drawer-direction="bottom"] *
+      ) {
+      display: none !important;
+    }
+  }
 }
 
 @utility drop-shadow-card {

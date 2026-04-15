@@ -4,6 +4,18 @@ export { default as Button } from "./Button";
 export { default as Card } from "./Card";
 export { default as CardHeader } from "./CardHeader";
 export { default as Checkbox } from "./Checkbox";
+export {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
+  DrawerPortal,
+  DrawerTitle,
+  DrawerTrigger
+} from "./Drawer";
 export { default as EmptyState } from "./EmptyState";
 export { default as ErrorMessage } from "./ErrorMessage";
 export { Form, useZodForm } from "./Form";

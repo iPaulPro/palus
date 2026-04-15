@@ -16,60 +16,68 @@ import YourAccount from "@/components/Shared/Navbar/NavItems/YourAccount";
 import cn from "@/helpers/cn";
 import { IS_STANDALONE } from "@/helpers/mediaQueries";
 import { useInstallPromptStore } from "@/store/non-persisted/alert/installPromptStore";
-import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
-const MobileDrawerMenu = () => {
+interface Props {
+  onOpenChange: (open: boolean) => void;
+}
+
+const MobileDrawerMenu = ({ onOpenChange }: Props) => {
   const { currentAccount } = useAccountStore();
-  const { setShow: setShowMobileDrawer } = useMobileDrawerModalStore();
   const { event: installEvent } = useInstallPromptStore();
   const isStandalone = useMediaQuery(IS_STANDALONE);
 
   const handleCloseDrawer = () => {
-    setShowMobileDrawer(false);
+    onOpenChange(false);
   };
 
   const itemClass = "py-3 hover:bg-gray-100 dark:hover:bg-gray-800";
 
   return (
-    <div className="no-scrollbar fixed inset-0 z-10 flex size-full flex-col overflow-y-auto bg-gray-100 py-4 md:hidden dark:bg-black">
-      <button className="px-5" onClick={handleCloseDrawer} type="button">
-        <XMarkIcon className="size-6" />
-      </button>
+    <div className="no-scrollbar flex size-full flex-col overflow-y-auto rounded-t-2xl bg-surface pt-2 pb-4 md:hidden">
       <div className="w-full space-y-2">
-        <AccountLink
-          account={currentAccount as AccountFragment}
-          className="mt-2 flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
-          onClick={handleCloseDrawer}
-        >
-          <SingleAccount
+        <div className="flex justify-between">
+          <AccountLink
             account={currentAccount as AccountFragment}
-            linkToAccount={false}
-            showUserPreview={false}
-          />
-        </AccountLink>
+            className="flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
+            onClick={handleCloseDrawer}
+          >
+            <SingleAccount
+              account={currentAccount as AccountFragment}
+              linkToAccount={false}
+              showUserPreview={false}
+            />
+          </AccountLink>
+          <button className="px-6" onClick={handleCloseDrawer} type="button">
+            <XMarkIcon className="size-5" />
+          </button>
+        </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
+          <AccountLink
+            account={currentAccount as AccountFragment}
+            onClick={handleCloseDrawer}
+          >
+            <YourAccount className={cn(itemClass, "px-4")} />
+          </AccountLink>
           <SwitchAccount className={cn(itemClass, "px-4")} />
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
+          <Link onClick={handleCloseDrawer} to="/groups">
+            <Groups className={cn(itemClass, "px-4")} />
+          </Link>
+          <Link onClick={handleCloseDrawer} to="/bookmarks">
+            <Bookmarks className={cn(itemClass, "px-4")} />
+          </Link>
+          <div className="divider" />
+        </div>
+        <div className="bg-white dark:bg-gray-900">
+          <div className="divider" />
           <div>
-            <AccountLink
-              account={currentAccount as AccountFragment}
-              onClick={handleCloseDrawer}
-            >
-              <YourAccount className={cn(itemClass, "px-4")} />
-            </AccountLink>
             <Link onClick={handleCloseDrawer} to="/settings">
               <Settings className={cn(itemClass, "px-4")} />
-            </Link>
-            <Link onClick={handleCloseDrawer} to="/groups">
-              <Groups className={cn(itemClass, "px-4")} />
-            </Link>
-            <Link onClick={handleCloseDrawer} to="/bookmarks">
-              <Bookmarks className={cn(itemClass, "px-4")} />
             </Link>
             <ThemeSwitch
               className={cn(itemClass, "px-4")}
@@ -96,7 +104,11 @@ const MobileDrawerMenu = () => {
           <div className="divider" />
         </div>
       </div>
-      <div className="flex flex-grow flex-col justify-end pt-6">
+      <div
+        className={cn("flex flex-grow flex-col justify-end py-4", {
+          "pb-6": isStandalone
+        })}
+      >
         <Footer />
       </div>
     </div>

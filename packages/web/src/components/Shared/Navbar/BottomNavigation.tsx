@@ -9,14 +9,20 @@ import {
   HomeIcon as HomeIconSolid,
   WalletIcon as WalletSolid
 } from "@heroicons/react/24/solid";
+import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { useLongPress } from "@uidotdev/usehooks";
-import type { MouseEvent, ReactNode } from "react";
+import { type MouseEvent, type ReactNode, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router";
-import { Image } from "@/components/Shared/UI";
+import {
+  Drawer,
+  DrawerContent,
+  DrawerTitle,
+  DrawerTrigger,
+  Image
+} from "@/components/Shared/UI";
 import getAccount from "@/helpers/getAccount";
 import getAvatar from "@/helpers/getAvatar";
 import useHasNewNotifications from "@/hooks/useHasNewNotifications";
-import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import MobileDrawerMenu from "./MobileDrawerMenu";
 
@@ -57,16 +63,13 @@ const NavigationItem = ({
 const BottomNavigation = () => {
   const { pathname } = useLocation();
   const { currentAccount } = useAccountStore();
-  const { show: showMobileDrawer, setShow: setShowMobileDrawer } =
-    useMobileDrawerModalStore();
+  const [showMobileDrawer, setShowMobileDrawer] = useState(false);
   const hasNewNotifications = useHasNewNotifications();
 
   const navigate = useNavigate();
   const attrs = useLongPress(() => {
     navigate(`/u/${getAccount(currentAccount).username}`);
   });
-
-  const handleAccountClick = () => setShowMobileDrawer(true);
 
   const handleClick = (path: string, e: MouseEvent) => {
     if (path === pathname) {
@@ -110,7 +113,6 @@ const BottomNavigation = () => {
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-[5] border-gray-200 border-t bg-card pb-safe md:hidden dark:border-gray-800">
-      {showMobileDrawer && <MobileDrawerMenu />}
       <div className="flex justify-between">
         {navigationItems.map(({ path, label, outline, solid }) => (
           <NavigationItem
@@ -125,20 +127,29 @@ const BottomNavigation = () => {
           />
         ))}
         {currentAccount && (
-          <button
-            aria-label="Your account"
-            className="center touch-callout-none flex flex-1"
-            onClick={handleAccountClick}
-            onContextMenu={(event) => event.preventDefault()}
-            type="button"
-            {...attrs}
-          >
-            <Image
-              alt={currentAccount.address}
-              className="size-7 rounded-full border border-gray-200 object-cover dark:border-gray-800"
-              src={getAvatar(currentAccount)}
-            />
-          </button>
+          <Drawer onOpenChange={setShowMobileDrawer} open={showMobileDrawer}>
+            <DrawerTrigger asChild>
+              <button
+                aria-label="Your account"
+                className="center touch-callout-none flex flex-1"
+                onContextMenu={(event) => event.preventDefault()}
+                type="button"
+                {...attrs}
+              >
+                <Image
+                  alt={currentAccount.address}
+                  className="size-7 rounded-full border border-gray-200 object-cover dark:border-gray-800"
+                  src={getAvatar(currentAccount)}
+                />
+              </button>
+            </DrawerTrigger>
+            <DrawerContent>
+              <VisuallyHidden asChild>
+                <DrawerTitle>Account Navigation</DrawerTitle>
+              </VisuallyHidden>
+              <MobileDrawerMenu onOpenChange={setShowMobileDrawer} />
+            </DrawerContent>
+          </Drawer>
         )}
       </div>
     </nav>
