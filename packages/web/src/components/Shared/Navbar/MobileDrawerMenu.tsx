@@ -16,25 +16,23 @@ import YourAccount from "@/components/Shared/Navbar/NavItems/YourAccount";
 import cn from "@/helpers/cn";
 import { IS_STANDALONE } from "@/helpers/mediaQueries";
 import { useInstallPromptStore } from "@/store/non-persisted/alert/installPromptStore";
+import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
-interface Props {
-  onOpenChange: (open: boolean) => void;
-}
-
-const MobileDrawerMenu = ({ onOpenChange }: Props) => {
+const MobileDrawerMenu = () => {
   const { currentAccount } = useAccountStore();
+  const { setShow: setShowMobileDrawer } = useMobileDrawerModalStore();
   const { event: installEvent } = useInstallPromptStore();
   const isStandalone = useMediaQuery(IS_STANDALONE);
 
   const handleCloseDrawer = () => {
-    onOpenChange(false);
+    setShowMobileDrawer(false);
   };
 
   const itemClass = "py-3 hover:bg-gray-100 dark:hover:bg-gray-800";
 
   return (
-    <div className="no-scrollbar flex size-full flex-col overflow-y-auto rounded-t-2xl bg-surface pt-2 pb-4 md:hidden">
+    <div className="no-scrollbar fixed inset-0 z-10 flex size-full flex-col overflow-y-auto bg-gray-100 py-4 md:hidden dark:bg-black">
       <div className="w-full space-y-2">
         <div className="flex justify-between">
           <AccountLink
@@ -54,13 +52,13 @@ const MobileDrawerMenu = ({ onOpenChange }: Props) => {
         </div>
         <div className="bg-white dark:bg-gray-900">
           <div className="divider" />
+          <SwitchAccount className={cn(itemClass, "px-4")} />
           <AccountLink
             account={currentAccount as AccountFragment}
             onClick={handleCloseDrawer}
           >
             <YourAccount className={cn(itemClass, "px-4")} />
           </AccountLink>
-          <SwitchAccount className={cn(itemClass, "px-4")} />
           <div className="divider" />
         </div>
         <div className="bg-white dark:bg-gray-900">
