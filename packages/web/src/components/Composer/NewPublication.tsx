@@ -476,7 +476,7 @@ const NewPublication = ({
         ) : null}
         {showPollEditor ? <PollEditor /> : null}
         {notificationShare ? (
-          <div className="pr-5 pb-5 pl-16 sm:pl-18">
+          <div className="px-4 pb-5 sm:w-4/5 sm:px-5">
             <NotificationShare ref={notificationShareRef} />
           </div>
         ) : (

@@ -11,7 +11,7 @@ const PollEditor = () => {
   const [showPollLengthModal, setShowPollLengthModal] = useState(false);
 
   return (
-    <Card className="m-5 px-5 py-3" forceRounded>
+    <Card className="m-5 px-5 py-3 sm:w-4/5" forceRounded>
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2 text-sm">
           <Bars3BottomLeftIcon className="size-4" />
