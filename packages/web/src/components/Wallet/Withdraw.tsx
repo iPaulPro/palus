@@ -16,13 +16,14 @@ const Withdraw = ({ balances, refetch, disabled }: WithdrawProps) => {
   return (
     <>
       <Button
+        className="px-3 text-sm sm:px-5 sm:text-base"
         disabled={disabled}
         onClick={() => setShowModal(true)}
         outline
         size="lg"
       >
         <ArrowUpIcon
-          className="size-6 rounded-full border border-border bg-gray-50 p-1 dark:bg-gray-700"
+          className="size-5 rounded-full border border-border bg-gray-50 p-1 sm:size-6 dark:bg-gray-700"
           stroke="currentColor"
           strokeWidth={2}
         />

@@ -96,7 +96,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     return (
       <button
-        className={buttonVariants({ className, outline, size, variant })}
+        className={cn(buttonVariants({ outline, size, variant }), className)}
         disabled={disabled}
         ref={ref}
         type={rest.type}

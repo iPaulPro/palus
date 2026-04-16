@@ -25,7 +25,7 @@ const Tokens = ({ balances, refetch, canTransfer = false }: Props) => {
 
   return (
     <>
-      <div className="space-y-5 px-5 pt-2 pb-4 sm:space-y-0 sm:px-0 sm:pb-0">
+      <div className="space-y-5 py-2 sm:space-y-1 sm:py-0">
         {balances.map((balance) => {
           if (!("asset" in balance)) {
             return null;

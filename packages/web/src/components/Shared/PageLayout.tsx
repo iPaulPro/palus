@@ -37,6 +37,7 @@ interface PageLayoutProps {
   sidebar?: ReactNode;
   hideSearch?: boolean;
   zeroTopMargin?: boolean;
+  className?: string;
 }
 
 const PageLayout = ({
@@ -45,7 +46,8 @@ const PageLayout = ({
   description,
   sidebar = <Sidebar />,
   hideSearch = false,
-  zeroTopMargin = false
+  zeroTopMargin = false,
+  className = ""
 }: PageLayoutProps) => {
   const isStandalone = useMediaQuery(IS_STANDALONE);
   const { containerRef, contentRef } = useStickyContentScroll();
@@ -59,7 +61,8 @@ const PageLayout = ({
           {
             "mb-28 sm:mb-16": isStandalone,
             "mt-0 md:mt-5": zeroTopMargin
-          }
+          },
+          className
         )}
       >
         <AuthButtons
