@@ -150,7 +150,7 @@ const SplitConfig = ({
                   }
                   hideDropdown={isAddress(recipient.address)}
                   onAccountSelected={(account) =>
-                    updateRecipient(index, account.owner)
+                    updateRecipient(index, account.address)
                   }
                   onChange={(event) =>
                     updateRecipient(index, event.target.value)
