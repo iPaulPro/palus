@@ -1,4 +1,5 @@
 import { type PostFragment, useFullGroupQuery } from "@palus/indexer";
+import { Link } from "react-router";
 import JoinLeaveButton from "@/components/Shared/Group/JoinLeaveButton";
 import Markup from "@/components/Shared/Markup";
 import SingleAccountShimmer from "@/components/Shared/Shimmer/SingleAccountShimmer";
@@ -57,11 +58,15 @@ export const GroupDetails = ({ post }: Props) => {
   return (
     <Card as="aside" className="space-y-2 p-4">
       <div className="flex items-center">
-        <GroupAvatar />
+        <Link to={`/g/${group.address}`}>
+          <GroupAvatar />
+        </Link>
         <div className="flex min-w-0 max-w-sm flex-grow flex-col justify-center gap-x-1 px-3">
-          <div className="truncate font-semibold">
-            {group?.metadata?.name ?? "unnamed"}
-          </div>
+          <Link to={`/g/${group.address}`}>
+            <div className="truncate font-semibold">
+              {group?.metadata?.name ?? "unnamed"}
+            </div>
+          </Link>
           <div className="flex items-center space-x-3">
             <div className="flex items-center space-x-1 text-secondary text-sm">
               <span>{nFormatter(stats?.totalMembers ?? 0)}</span>
