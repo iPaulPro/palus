@@ -37,7 +37,7 @@ const getPostData = (
     case "ImageMetadata":
       return {
         asset: {
-          type: "Image",
+          kind: "Image",
           uri: sanitizeDStorageUrl(metadata.image.item)
         },
         attachments: getAttachmentsData(metadata.attachments),
@@ -56,8 +56,9 @@ const getPostData = (
               audioAttachments?.coverUri ||
               PLACEHOLDER_IMAGE
           ),
+          kind: "Audio",
           title: metadata.title || "Untitled",
-          type: "Audio",
+          type: metadata.audio.type,
           uri: metadata.audio.item || audioAttachments?.uri
         },
         content: metadata.content,
@@ -72,7 +73,7 @@ const getPostData = (
           coverUri: sanitizeDStorageUrl(
             metadata.video.cover || videoAttachments?.coverUri
           ),
-          type: "Video",
+          kind: "Video",
           uri: sanitizeDStorageUrl(metadata.video.item || videoAttachments?.uri)
         },
         content: metadata.content,

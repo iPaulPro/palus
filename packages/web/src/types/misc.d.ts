@@ -1,4 +1,4 @@
-import type { PostMentionFragment } from "@palus/indexer";
+import type { MediaAudioType, PostMentionFragment } from "@palus/indexer";
 
 export interface NewAttachment {
   file?: File;
@@ -36,7 +36,8 @@ export interface MarkupLinkProps {
 export interface AttachmentData {
   artist?: string | null;
   coverUri?: string;
-  type: "Audio" | "Image" | "Video";
+  kind: "Audio" | "Image" | "Video";
   uri: string;
   title?: string;
+  type?: MediaAudioType;
 }

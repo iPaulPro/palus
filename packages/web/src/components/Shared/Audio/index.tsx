@@ -1,8 +1,9 @@
 import { PauseIcon, PlayIcon } from "@heroicons/react/24/solid";
-import type { APITypes } from "plyr-react";
-import type { ChangeEvent } from "react";
-import { useRef, useState } from "react";
+import { MediaAudioType } from "@palus/indexer";
+import { type ChangeEvent, useEffect, useRef, useState } from "react";
 import { z } from "zod";
+import { useAudioPlayerContext } from "@/components/Common/Providers/AudioPlayerProvider";
+import Loader from "@/components/Shared/Loader";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { usePostAudioStore } from "@/store/non-persisted/post/usePostAudioStore";
 import CoverImage from "./CoverImage";
@@ -15,32 +16,65 @@ export const AudioPostSchema = z.object({
 });
 
 interface AudioProps {
-  artist?: string | null;
-  isNew?: boolean;
   poster: string;
   src: string;
+  type?: MediaAudioType;
+  artist?: string | null;
+  isNew?: boolean;
   title?: string;
 }
 
-const Audio = ({ artist, isNew = false, poster, src, title }: AudioProps) => {
+const getFormat = (type?: MediaAudioType) => {
+  if (!type) return undefined;
+  switch (type) {
+    case MediaAudioType.AudioWav:
+    case MediaAudioType.AudioVndWave:
+      return "wav";
+    case MediaAudioType.AudioMpeg:
+      return "mp3";
+    case MediaAudioType.AudioMp_4:
+      return "mp4";
+    case MediaAudioType.AudioAac:
+      return "m4a";
+    case MediaAudioType.AudioWebm:
+      return "webm";
+    case MediaAudioType.AudioOgg:
+      return "ogg";
+    case MediaAudioType.AudioFlac:
+      return "flac";
+    default:
+      return undefined;
+  }
+};
+
+const Audio = ({
+  artist,
+  isNew = false,
+  poster,
+  src,
+  type,
+  title
+}: AudioProps) => {
   const { audioPost, setAudioPost } = usePostAudioStore();
   const [newPreviewUri, setNewPreviewUri] = useState<null | string>(null);
-  const [playing, setPlaying] = useState(false);
-  const playerRef = useRef<APITypes>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const handlePlayPause = () => {
-    if (!playerRef.current) {
-      return;
-    }
+  const { load, isPlaying, play, pause, isLoading, isReady } =
+    useAudioPlayerContext();
 
-    const player = playerRef.current.plyr;
-    if (player.paused && !playing) {
-      setPlaying(true);
-      player.play();
+  useEffect(() => {
+    load(src, {
+      format: getFormat(type),
+      html5: true,
+      preload: "metadata"
+    });
+  }, [src]);
+
+  const handlePlayPause = () => {
+    if (isPlaying) {
+      pause();
     } else {
-      setPlaying(false);
-      player.pause();
+      play();
     }
   };
 
@@ -67,15 +101,18 @@ const Audio = ({ artist, isNew = false, poster, src, title }: AudioProps) => {
             setAudioPost({ ...audioPost, cover, mimeType });
           }}
         />
-        <div className="flex w-full flex-col justify-between px-2 py-0 sm:py-1">
-          <div className="mt-3 flex items-center gap-x-2.5 md:mt-5">
+        <div className="flex w-full flex-col justify-between px-3 py-3 sm:py-4">
+          <div className="flex items-center gap-x-2.5 sm:mt-2">
             <button
               className="flex-none"
+              disabled={!isReady}
               onClick={handlePlayPause}
               type="button"
             >
-              {playing && !playerRef.current?.plyr.paused ? (
+              {isPlaying ? (
                 <PauseIcon className="size-8 text-gray-100 hover:text-white sm:size-12" />
+              ) : isLoading ? (
+                <Loader className="size-8 text-gray-100 sm:size-12" />
               ) : (
                 <PlayIcon className="size-8 text-gray-100 hover:text-white sm:size-12" />
               )}
@@ -110,8 +147,8 @@ const Audio = ({ artist, isNew = false, poster, src, title }: AudioProps) => {
               )}
             </div>
           </div>
-          <div className="sm:pb-1">
-            <Player playerRef={playerRef} src={src} />
+          <div className="sm:p-2">
+            <Player />
           </div>
         </div>
       </div>

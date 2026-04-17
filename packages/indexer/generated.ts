@@ -7904,7 +7904,7 @@ export type AnyMediaFragment =
   | AnyMedia_MediaVideo_Fragment
 ;
 
-export type MediaAudioFragment = { __typename: 'MediaAudio', artist?: string | null, item: any, cover?: any | null, license?: MetadataLicenseType | null };
+export type MediaAudioFragment = { __typename: 'MediaAudio', artist?: string | null, item: any, cover?: any | null, license?: MetadataLicenseType | null, type: MediaAudioType };
 
 export type MediaImageFragment = { __typename: 'MediaImage', item: any };
 
@@ -9696,6 +9696,7 @@ export const MediaAudioFragmentDoc = gql`
   item
   cover
   license
+  type
 }
     `;
 export const AnyMediaFragmentDoc = gql`

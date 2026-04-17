@@ -29,13 +29,13 @@ const Edit = ({ post }: EditProps) => {
       attachments.push({
         id: generateUUID(),
         mimeType:
-          data.asset.type === "Image"
+          data.asset.kind === "Image"
             ? "image/jpeg"
-            : data.asset.type === "Video"
+            : data.asset.kind === "Video"
               ? "video/mp4"
               : "audio/mpeg",
         previewUri: data.asset.uri,
-        type: data.asset.type,
+        type: data.asset.kind,
         uri: data.asset.uri
       });
     }
@@ -45,13 +45,13 @@ const Edit = ({ post }: EditProps) => {
         attachments.push({
           id: generateUUID(),
           mimeType:
-            a.type === "Image"
+            a.kind === "Image"
               ? "image/jpeg"
-              : a.type === "Video"
+              : a.kind === "Video"
                 ? "video/mp4"
                 : "audio/mpeg",
           previewUri: a.uri,
-          type: a.type,
+          type: a.kind,
           uri: a.uri
         });
       }

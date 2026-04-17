@@ -26,6 +26,7 @@ export {
   SelectTrigger,
   SelectValue
 } from "./SelectUI";
+export { Slider } from "./Slider";
 export { default as Spinner } from "./Spinner";
 export { default as StackedAvatars } from "./StackedAvatars";
 export { default as Tabs } from "./Tabs";

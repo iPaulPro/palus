@@ -30,18 +30,18 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
   const [showLightBox, setShowLightBox] = useState<boolean>(false);
   const processedAttachments = attachments.slice(0, 10);
 
-  const assetType = asset?.type;
+  const assetKind = asset?.kind;
   const hasImageAttachment =
-    processedAttachments.some((attachment) => attachment.type === "Image") ||
-    assetType === "Image";
+    processedAttachments.some((attachment) => attachment.kind === "Image") ||
+    assetKind === "Image";
 
   const determineDisplay = () => {
-    if (assetType === "Video") return "displayVideoAsset";
-    if (assetType === "Audio") return "displayAudioAsset";
+    if (assetKind === "Video") return "displayVideoAsset";
+    if (assetKind === "Audio") return "displayAudioAsset";
     if (hasImageAttachment) {
       const imageAttachments = processedAttachments.filter(
         (attachment) =>
-          attachment.type === "Image" && attachment.uri !== asset?.uri
+          attachment.kind === "Image" && attachment.uri !== asset?.uri
       );
       if (asset?.uri) imageAttachments.unshift(asset);
       return [...new Set(imageAttachments)];
@@ -114,6 +114,7 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
           poster={asset?.coverUri as string}
           src={asset?.uri as string}
           title={asset?.title}
+          type={asset?.type}
         />
       )}
     </div>

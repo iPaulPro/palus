@@ -8168,6 +8168,7 @@ export type MediaAudioFragment = {
   item: any;
   cover?: any | null;
   license?: MetadataLicenseType | null;
+  type: MediaAudioType;
 };
 
 export type MediaImageFragment = { __typename?: "MediaImage"; item: any };
@@ -10045,6 +10046,7 @@ export const MediaAudioFragmentDoc = `
   item
   cover
   license
+  type
 }
     `;
 export const AnyMediaFragmentDoc = `

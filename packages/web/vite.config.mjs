@@ -19,13 +19,12 @@ const codeSplittingGroups = [
   { name: "motion", test: /node_modules\/(?:motion|framer-motion)/ },
   { name: "zod", test: /node_modules\/zod/ },
   { name: "headlessui", test: /node_modules\/@headlessui\// },
-  { name: "plyr", test: /node_modules\/plyr-react/ },
   {
     name: "ui",
     test: /node_modules\/(?:@radix-ui\/|sonner|virtua|html-to-image|browser-image-compression|plur|dayjs|qr)/
   },
   { name: "hls-js", test: /node_modules\/hls\.js/ },
-  { name: "livepeer", test: /node_modules\/@livepeer\// },
+  { name: "media", test: /node_modules\/(?:@livepeer\/|howler)/ },
   { name: "phosphor", test: /node_modules\/@phosphor-icons\// },
   { name: "heroicons", test: /node_modules\/@heroicons\// },
   { name: "metamask", test: /node_modules\/@metamask\// },

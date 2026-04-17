@@ -1,32 +1,15 @@
-import { useMediaQuery } from "@uidotdev/usehooks";
-import type { APITypes } from "plyr-react";
-import Plyr from "plyr-react";
-import "plyr-react/plyr.css";
-import type { Ref } from "react";
 import { memo } from "react";
-import { IS_MOBILE } from "@/helpers/mediaQueries";
+import AudioSeekBar from "@/components/Shared/Audio/AudioSeekBar";
+import TimeLabel from "@/components/Shared/Audio/TimeLabel";
+import VolumeControl from "@/components/Shared/Audio/VolumeControl";
 
-interface PlayerProps {
-  playerRef: Ref<APITypes>;
-  src: string;
-}
-
-const Player = ({ playerRef, src }: PlayerProps) => {
-  const isSmallDevice = useMediaQuery(IS_MOBILE);
-
+const Player = () => {
   return (
-    <Plyr
-      options={{
-        controls: [
-          "progress",
-          "current-time",
-          "mute",
-          !isSmallDevice && "volume"
-        ]
-      }}
-      ref={playerRef}
-      source={{ sources: [{ src }], type: "audio" }}
-    />
+    <div className="flex items-center gap-x-2">
+      <AudioSeekBar />
+      <TimeLabel />
+      <VolumeControl className="w-fit sm:w-1/2" />
+    </div>
   );
 };
 
