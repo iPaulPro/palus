@@ -57,7 +57,7 @@ const Audio = ({ artist, isNew = false, poster, src, title }: AudioProps) => {
       onClick={stopEventPropagation}
       style={{ backgroundImage: `url(${isNew ? newPreviewUri : poster})` }}
     >
-      <div className="flex flex-wrap rounded-xl px-3 pt-5 pb-1 backdrop-blur-2xl backdrop-brightness-50 md:flex-nowrap md:space-x-2 md:p-0">
+      <div className="flex space-x-2 rounded-xl p-0 backdrop-blur-2xl backdrop-brightness-50">
         <CoverImage
           cover={isNew ? (newPreviewUri as string) : poster}
           imageRef={imageRef}
@@ -67,7 +67,7 @@ const Audio = ({ artist, isNew = false, poster, src, title }: AudioProps) => {
             setAudioPost({ ...audioPost, cover, mimeType });
           }}
         />
-        <div className="flex w-full flex-col justify-between py-1 md:px-2">
+        <div className="flex w-full flex-col justify-between px-2 py-0 sm:py-1">
           <div className="mt-3 flex items-center gap-x-2.5 md:mt-5">
             <button
               className="flex-none"
@@ -75,9 +75,9 @@ const Audio = ({ artist, isNew = false, poster, src, title }: AudioProps) => {
               type="button"
             >
               {playing && !playerRef.current?.plyr.paused ? (
-                <PauseIcon className="size-12 text-gray-100 hover:text-white" />
+                <PauseIcon className="size-8 text-gray-100 hover:text-white sm:size-12" />
               ) : (
-                <PlayIcon className="size-12 text-gray-100 hover:text-white" />
+                <PlayIcon className="size-8 text-gray-100 hover:text-white sm:size-12" />
               )}
             </button>
             <div className="w-0 min-w-0 flex-1 overflow-hidden pr-3">
@@ -102,13 +102,15 @@ const Audio = ({ artist, isNew = false, poster, src, title }: AudioProps) => {
                 </div>
               ) : (
                 <>
-                  <div className="truncate text-lg text-white">{title}</div>
-                  <div className="truncate text-white/70">{artist}</div>
+                  <div className="truncate text-white sm:text-lg">{title}</div>
+                  <div className="truncate text-sm text-white/70 sm:text-base">
+                    {artist}
+                  </div>
                 </>
               )}
             </div>
           </div>
-          <div className="md:pb-1">
+          <div className="sm:pb-1">
             <Player playerRef={playerRef} src={src} />
           </div>
         </div>

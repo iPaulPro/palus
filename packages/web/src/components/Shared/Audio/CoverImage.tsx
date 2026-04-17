@@ -1,7 +1,7 @@
 import { PhotoIcon } from "@heroicons/react/24/outline";
 import type { ChangeEvent, Ref } from "react";
 import { useCallback, useState } from "react";
-import { Image, Spinner } from "@/components/Shared/UI";
+import { Image, LightBox, Spinner } from "@/components/Shared/UI";
 import { TRANSFORMS } from "@/data/constants";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
@@ -26,6 +26,7 @@ const CoverImage = ({
 }: CoverImageProps) => {
   const { currentAccount } = useAccountStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showLightBox, setShowLightBox] = useState(false);
 
   const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
@@ -49,25 +50,29 @@ const CoverImage = ({
     }
   };
 
+  const coverSrc = imageKit(sanitizeDStorageUrl(cover), TRANSFORMS.ATTACHMENT);
+
   return (
-    <div className="group relative w-full flex-none overflow-hidden md:w-fit">
+    <div className="group relative flex-none overflow-hidden">
       <button
-        className="flex w-full justify-center focus:outline-hidden md:w-fit"
+        className="flex justify-center focus:outline-hidden"
         type="button"
       >
         <Image
           alt={`attachment-audio-cover-${cover}`}
-          className="aspect-square w-64 max-w-[calc(100%-1rem)] rounded-lg object-cover md:size-36 md:max-w-full md:rounded-none"
+          className="size-24 object-cover sm:size-36"
           draggable={false}
+          onClick={() => setShowLightBox(true)}
           onError={({ currentTarget }) => {
             currentTarget.src = cover ? sanitizeDStorageUrl(cover) : cover;
           }}
           ref={imageRef}
-          src={
-            cover
-              ? imageKit(sanitizeDStorageUrl(cover), TRANSFORMS.ATTACHMENT)
-              : cover
-          }
+          src={cover ? coverSrc : cover}
+        />
+        <LightBox
+          images={[coverSrc]}
+          onClose={() => setShowLightBox(false)}
+          show={showLightBox}
         />
       </button>
       {isNew && (
