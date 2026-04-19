@@ -21,7 +21,7 @@ const codeSplittingGroups = [
   { name: "headlessui", test: /node_modules\/@headlessui\// },
   {
     name: "ui",
-    test: /node_modules\/(?:@radix-ui\/|sonner|virtua|html-to-image|browser-image-compression|plur|dayjs|qr)/
+    test: /node_modules\/(?:@radix-ui\/|sonner|virtua|html-to-image|browser-image-compression|plur|dayjs|qr|shadcn)/
   },
   { name: "hls-js", test: /node_modules\/hls\.js/ },
   { name: "media", test: /node_modules\/(?:@livepeer\/|howler)/ },

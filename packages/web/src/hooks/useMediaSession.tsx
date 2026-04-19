@@ -12,6 +12,7 @@ const useMediaSession = (player: AudioPlayer) => {
 
     if (!metadata) {
       navigator.mediaSession.metadata = null;
+      navigator.mediaSession.playbackState = "none";
       return;
     }
 

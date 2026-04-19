@@ -25,20 +25,19 @@ const FallbackPoster = () => {
 };
 
 const SidebarAudioPlayer = () => {
-  const { isReady, isPlaying, isLoading, togglePlayPause, stop } =
+  const { isReady, isPlaying, isLoading, isStopped, togglePlayPause, stop } =
     useAudioPlayerContext();
-  const { metadata, clear } = useAudioMetadataStore();
+  const { metadata } = useAudioMetadataStore();
 
   const [showLightBox, setShowLightBox] = useState(false);
 
-  if (!metadata) return null;
+  if (!metadata || isStopped) return null;
 
   const artist = metadata?.artist ?? "Unknown artist";
   const title = metadata?.title ?? "Untitled";
 
   const handleClose = () => {
     stop();
-    clear();
   };
 
   return (

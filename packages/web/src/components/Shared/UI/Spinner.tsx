@@ -5,7 +5,7 @@ import cn from "@/helpers/cn";
 const spinnerVariants = cva("", {
   defaultVariants: { size: "md" },
   variants: {
-    size: { lg: "size-8 sm:size-10", md: "size-7", sm: "size-5", xs: "size-4" }
+    size: { lg: "size-6 sm:size-10", md: "size-7", sm: "size-5", xs: "size-4" }
   }
 });
 

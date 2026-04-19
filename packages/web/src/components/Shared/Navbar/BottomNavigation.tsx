@@ -109,7 +109,7 @@ const BottomNavigation = () => {
   ];
 
   return (
-    <nav className="fixed inset-x-0 bottom-0 z-[5] border-gray-200 border-t bg-card pb-safe md:hidden dark:border-gray-800">
+    <nav className="fixed inset-x-0 bottom-0 z-[20] border-gray-200 border-t bg-card pb-safe md:hidden dark:border-gray-800">
       {showMobileDrawer && <MobileDrawerMenu />}
       <div className="flex justify-between">
         {navigationItems.map(({ path, label, outline, solid }) => (

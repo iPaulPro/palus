@@ -1,5 +1,12 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import { type ElementType, type MouseEvent, memo, type ReactNode } from "react";
+import {
+  type CSSProperties,
+  type ElementType,
+  type MouseEvent,
+  memo,
+  type ReactNode,
+  type Ref
+} from "react";
 
 const cardVariants = cva("flex flex-col border-border bg-card", {
   defaultVariants: { forceRounded: false },
@@ -17,6 +24,8 @@ interface CardProps extends VariantProps<typeof cardVariants> {
   children: ReactNode;
   className?: string;
   onClick?: (event: MouseEvent<HTMLDivElement>) => void;
+  ref?: Ref<HTMLElement>;
+  style?: CSSProperties;
 }
 
 const Card = ({
@@ -24,12 +33,16 @@ const Card = ({
   children,
   className = "",
   forceRounded = false,
-  onClick
+  onClick,
+  ref,
+  style
 }: CardProps) => {
   return (
     <Tag
       className={cardVariants({ className, forceRounded })}
       onClick={onClick}
+      ref={ref}
+      style={style}
     >
       {children}
     </Tag>

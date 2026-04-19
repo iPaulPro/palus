@@ -7,9 +7,12 @@ import Loader from "@/components/Shared/Loader";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useAudioMetadataStore } from "@/store/non-persisted/audio/useAudioMetadataStore";
 import { usePostAudioStore } from "@/store/non-persisted/post/usePostAudioStore";
+import useAudioDuration from "../../../hooks/useAudioDuration";
+import AudioSeekBar from "./AudioSeekBar";
 import CoverImage from "./CoverImage";
-import Player from "./Player";
-import useAudioDuration from "./useAudioDuration";
+import MuteButton from "./MuteButton";
+import TimeLabel from "./TimeLabel";
+import VolumeControl from "./VolumeControl";
 
 export const AudioPostSchema = z.object({
   artist: z.string().trim().min(1, { message: "Invalid artist name" }),
@@ -126,7 +129,7 @@ const Audio = ({
             setAudioPost({ ...audioPost, cover, mimeType });
           }}
         />
-        <div className="flex w-full flex-col justify-between px-3 py-3 sm:py-4">
+        <div className="flex w-full flex-col justify-between py-2 pr-3 pl-1 sm:px-3 sm:py-4">
           <div className="flex items-center gap-x-2.5 sm:mt-2">
             <button
               className="flex-none"
@@ -137,7 +140,7 @@ const Audio = ({
               {showPlaying ? (
                 <PauseIcon className="size-8 text-gray-100 hover:text-white sm:size-12" />
               ) : showLoading ? (
-                <div className="size-12 p-1">
+                <div className="size-8 px-1 py-1.5 sm:size-12 sm:px-1 sm:py-2">
                   <Loader className="text-gray-100" size="lg" />
                 </div>
               ) : (
@@ -174,10 +177,17 @@ const Audio = ({
               )}
             </div>
           </div>
-          <div className="sm:p-2">
-            <Player
-              disabled={playerDisabled}
+          <div className="flex items-center gap-x-2 pl-1 sm:p-2">
+            <AudioSeekBar disabled={playerDisabled} invert />
+            <TimeLabel
+              className="text-white"
               duration={playerDisabled ? localDuration : undefined}
+            />
+            <MuteButton className="text-white" disabled={playerDisabled} />
+            <VolumeControl
+              className="hidden w-2/5 sm:flex"
+              disabled={playerDisabled}
+              invert
             />
           </div>
         </div>

@@ -8,6 +8,7 @@ import { useIsClient } from "@uidotdev/usehooks";
 import { memo, useCallback, useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
 import { Toaster, type ToasterProps } from "sonner";
+import BottomAudioPlayer from "@/components/Shared/Audio/BottomAudioPlayer";
 import FullPageLoader from "@/components/Shared/FullPageLoader";
 import GlobalAlerts from "@/components/Shared/GlobalAlerts";
 import GlobalModals from "@/components/Shared/GlobalModals";
@@ -95,6 +96,7 @@ const Layout = () => {
       <div className="mx-auto flex w-full max-w-6xl items-start gap-x-6 px-0 md:px-5">
         <Navbar />
         <Outlet />
+        <BottomAudioPlayer />
         <BottomNavigation />
       </div>
     </>

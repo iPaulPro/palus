@@ -24,7 +24,7 @@
   --color-border: #e5e7eb;
   --color-card: #ffffff;
   --color-accent: oklch(87.2% 0.01 258.338 / 0.2);
-  --color-muted: #999999;
+  --color-muted: rgba(0, 0, 0, 0.3);
 }
 
 .dark {
@@ -40,7 +40,7 @@
   --color-secondary: #d1d5dc;
   --color-border: #1e2939;
   --color-card: #101828;
-  --color-muted: #555555;
+  --color-muted: rgba(249, 250, 251, 0.3);
 }
 
 @keyframes shimmer {

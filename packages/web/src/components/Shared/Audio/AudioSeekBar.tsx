@@ -8,13 +8,15 @@ interface Props {
   disabled?: boolean;
   hideThumb?: boolean;
   invert?: boolean;
+  thin?: boolean;
 }
 
 const AudioSeekBar = ({
   className = "",
   disabled = false,
   hideThumb = false,
-  invert = false
+  invert = false,
+  thin = false
 }: Props) => {
   const { getPosition, duration, seek } = useAudioPlayerContext();
   const [pos, setPos] = useState(0);
@@ -59,6 +61,7 @@ const AudioSeekBar = ({
         seek(v[0]);
         isDraggingRef.current = false;
       }}
+      thin={thin}
       value={disabled ? [0] : [pos]}
     />
   );

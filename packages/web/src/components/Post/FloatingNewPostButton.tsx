@@ -1,6 +1,7 @@
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { motion } from "motion/react";
+import { useAudioPlayerContext } from "@/components/Common/Providers/AudioPlayerProvider";
 import cn from "@/helpers/cn";
 import { IS_STANDALONE } from "@/helpers/mediaQueries";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
@@ -13,6 +14,7 @@ const FloatingNewPostButton = ({
   scrollOffset
 }: FloatingNewPostButtonProps) => {
   const { setShow: setShowNewPostModal } = useNewPostModalStore();
+  const { isStopped } = useAudioPlayerContext();
 
   const isVisible = scrollOffset >= 200;
   const isStandalone = useMediaQuery(IS_STANDALONE);
@@ -25,7 +27,9 @@ const FloatingNewPostButton = ({
     <motion.div
       animate={{ y: isVisible ? 0 : 200 }}
       className={cn("fixed right-5 bottom-20 block md:hidden", {
-        "bottom-24": isStandalone
+        "bottom-24": isStandalone,
+        "bottom-32": !isStopped,
+        "bottom-40": isStandalone && !isStopped
       })}
       initial={{ y: 200 }}
       transition={{ damping: 20, stiffness: 260, type: "spring" }}
