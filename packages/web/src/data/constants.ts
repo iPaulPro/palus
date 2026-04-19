@@ -51,5 +51,6 @@ export const TRANSFORMS = {
   AVATAR_SMALL: "tr:w-100,h-100,c-at_max",
   AVATAR_TINY: "tr:w-50,h-50,c-at_max",
   COVER: "tr:w-1350,h-350,c-at_max",
-  EXPANDED_AVATAR: "tr:w-1000,h-1000,c-at_max"
+  EXPANDED_AVATAR: "tr:w-1000,h-1000,c-at_max",
+  POSTER: "tr:w-512,h-512,c-at_max"
 };

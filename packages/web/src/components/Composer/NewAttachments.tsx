@@ -100,7 +100,12 @@ const NewAttachments = ({
                 <ChooseThumbnail />
               </>
             ) : isAudio ? (
-              <Audio isNew poster="" src={attachment.previewUri} />
+              <Audio
+                isNew
+                poster=""
+                src={attachment.previewUri}
+                type={attachment.file?.name.split(".").slice(-1)[0] || "mp3"}
+              />
             ) : isImage ? (
               <Image
                 alt={attachment.previewUri}

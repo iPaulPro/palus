@@ -4,10 +4,13 @@ import { type ChangeEvent, useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { useAudioPlayerContext } from "@/components/Common/Providers/AudioPlayerProvider";
 import Loader from "@/components/Shared/Loader";
+import { TRANSFORMS } from "@/data/constants";
+import imageKit from "@/helpers/imageKit";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { usePostAudioStore } from "@/store/non-persisted/post/usePostAudioStore";
 import CoverImage from "./CoverImage";
 import Player from "./Player";
+import useAudioDuration from "./useAudioDuration";
 
 export const AudioPostSchema = z.object({
   artist: z.string().trim().min(1, { message: "Invalid artist name" }),
@@ -18,13 +21,13 @@ export const AudioPostSchema = z.object({
 interface AudioProps {
   poster: string;
   src: string;
-  type?: MediaAudioType;
+  type?: MediaAudioType | string;
   artist?: string | null;
   isNew?: boolean;
   title?: string;
 }
 
-const getFormat = (type?: MediaAudioType) => {
+const getFormat = (type?: MediaAudioType | string) => {
   if (!type) return undefined;
   switch (type) {
     case MediaAudioType.AudioWav:
@@ -43,7 +46,7 @@ const getFormat = (type?: MediaAudioType) => {
     case MediaAudioType.AudioFlac:
       return "flac";
     default:
-      return undefined;
+      return type;
   }
 };
 
@@ -59,22 +62,44 @@ const Audio = ({
   const [newPreviewUri, setNewPreviewUri] = useState<null | string>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const { load, isPlaying, play, pause, isLoading, isReady } =
-    useAudioPlayerContext();
+  const {
+    load,
+    togglePlayPause,
+    isPlaying,
+    isLoading,
+    isReady,
+    unmute,
+    src: globalSrc
+  } = useAudioPlayerContext();
 
   useEffect(() => {
+    if (!isNew) return;
     load(src, {
-      format: getFormat(type),
-      html5: true,
-      preload: "metadata"
+      format: getFormat(type)
     });
-  }, [src]);
+  }, [isNew, src, type]);
+
+  const isCurrentTrack = globalSrc === src;
+  const localDuration = useAudioDuration(isCurrentTrack || isNew ? "" : src);
 
   const handlePlayPause = () => {
-    if (isPlaying) {
-      pause();
+    if (isCurrentTrack) {
+      togglePlayPause();
     } else {
-      play();
+      unmute();
+      load(src, {
+        autoplay: true,
+        format: getFormat(type),
+        html5: true
+      });
+
+      if ("mediaSession" in navigator) {
+        navigator.mediaSession.metadata = new MediaMetadata({
+          artist: artist || "Unknown Artist",
+          artwork: poster ? [{ src: imageKit(poster, TRANSFORMS.POSTER) }] : [],
+          title: title || "Untitled"
+        });
+      }
     }
   };
 
@@ -84,6 +109,10 @@ const Audio = ({
       [event.target.name]: event.target.value
     });
   };
+
+  const showPlaying = isCurrentTrack && isPlaying;
+  const showLoading = isCurrentTrack && isLoading;
+  const playerDisabled = !isCurrentTrack && !isNew;
 
   return (
     <div
@@ -105,14 +134,16 @@ const Audio = ({
           <div className="flex items-center gap-x-2.5 sm:mt-2">
             <button
               className="flex-none"
-              disabled={!isReady}
+              disabled={isCurrentTrack && !isReady}
               onClick={handlePlayPause}
               type="button"
             >
-              {isPlaying ? (
+              {showPlaying ? (
                 <PauseIcon className="size-8 text-gray-100 hover:text-white sm:size-12" />
-              ) : isLoading ? (
-                <Loader className="size-8 text-gray-100 sm:size-12" />
+              ) : showLoading ? (
+                <div className="size-12 p-1">
+                  <Loader className="text-gray-100" size="lg" />
+                </div>
               ) : (
                 <PlayIcon className="size-8 text-gray-100 hover:text-white sm:size-12" />
               )}
@@ -148,7 +179,10 @@ const Audio = ({
             </div>
           </div>
           <div className="sm:p-2">
-            <Player />
+            <Player
+              disabled={playerDisabled}
+              duration={playerDisabled ? localDuration : undefined}
+            />
           </div>
         </div>
       </div>

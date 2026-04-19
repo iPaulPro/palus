@@ -4,6 +4,7 @@ import cn from "@/helpers/cn";
 
 interface Props {
   className?: string;
+  duration?: number;
 }
 
 const formatTime = (seconds: number) => {
@@ -12,12 +13,17 @@ const formatTime = (seconds: number) => {
   return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
 };
 
-const TimeLabel = ({ className = "" }: Props) => {
+const TimeLabel = ({ className = "", duration: durationProp }: Props) => {
   const frameRef = useRef<number>(0);
   const [pos, setPos] = useState(0);
-  const { duration, getPosition } = useAudioPlayerContext();
+  const { duration: globalDuration, getPosition } = useAudioPlayerContext();
+
+  const isOverride = durationProp !== undefined;
+  const displayDuration = isOverride ? durationProp : globalDuration;
 
   useEffect(() => {
+    if (isOverride) return;
+
     const animate = () => {
       setPos(getPosition());
       frameRef.current = requestAnimationFrame(animate);
@@ -30,14 +36,14 @@ const TimeLabel = ({ className = "" }: Props) => {
         cancelAnimationFrame(frameRef.current);
       }
     };
-  }, [getPosition]);
+  }, [getPosition, isOverride]);
 
   return (
     <div className={cn("w-[5ch] text-sm invert", className)}>
-      {pos > 0 ? (
+      {!isOverride && pos > 0 ? (
         <span>{formatTime(pos)}</span>
       ) : (
-        <span>{formatTime(duration)}</span>
+        <span>{formatTime(displayDuration)}</span>
       )}
     </div>
   );

@@ -6,23 +6,25 @@ import cn from "@/helpers/cn";
 
 interface Props {
   className?: string;
+  disabled?: boolean;
 }
 
-const VolumeControl = ({ className = "" }: Props) => {
+const VolumeControl = ({ className = "", disabled = false }: Props) => {
   const { setVolume, volume, toggleMute, isMuted } = useAudioPlayerContext();
 
   const handleChange = useCallback(
     (value: number[]) => {
+      if (disabled) return;
       const volValue = Number.parseFloat((Number(value[0]) / 100).toFixed(2));
       return setVolume(volValue);
     },
-    [setVolume]
+    [setVolume, disabled]
   );
 
   return (
     <div className={cn("flex w-full items-center gap-x-2", className)}>
-      <button onClick={toggleMute} type="button">
-        {isMuted ? (
+      <button disabled={disabled} onClick={toggleMute} type="button">
+        {!disabled && isMuted ? (
           <SpeakerXMarkIcon className="ml-1 size-5 text-card" />
         ) : (
           <SpeakerWaveIcon className="ml-1 size-5 text-card" />
@@ -30,8 +32,9 @@ const VolumeControl = ({ className = "" }: Props) => {
       </button>
       <Slider
         className="hidden sm:flex"
+        disabled={disabled}
         onValueChange={handleChange}
-        value={isMuted ? [0] : [volume * 100]}
+        value={disabled ? [0] : isMuted ? [0] : [volume * 100]}
       />
     </div>
   );

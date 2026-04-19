@@ -99,7 +99,6 @@ export class HowlStore implements AudioControls {
    * Initiates a snapshot update from a Howl instance
    */
   private updateSnapshotFromHowlState(howl: Howl) {
-    console.log("updating snapshot from howl state:", howl);
     this.updateSnapshot({
       ...this.getSnapshotFromHowl(howl)
     });

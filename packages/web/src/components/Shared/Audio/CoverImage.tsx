@@ -79,7 +79,7 @@ const CoverImage = ({
         <label
           className={cn(
             { invisible: cover, visible: isSubmitting && !cover },
-            "absolute top-0 grid size-24 cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible md:size-40 dark:bg-gray-900"
+            "absolute top-0 grid size-24 cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible sm:size-36 dark:bg-gray-900"
           )}
         >
           {isSubmitting && !cover ? (

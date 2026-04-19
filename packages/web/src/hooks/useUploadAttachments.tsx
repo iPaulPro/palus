@@ -1,7 +1,6 @@
 import { useCallback } from "react";
 import { toast } from "sonner";
 import {
-  compressFiles,
   createPreviewAttachments,
   validateFileSize
 } from "@/helpers/attachmentUtils";
@@ -24,23 +23,18 @@ const useUploadAttachments = () => {
       setIsUploading(true);
 
       const files = Array.from(attachments);
-      const compressedFiles = await compressFiles(files);
-
-      if (!compressedFiles.every(validateFileSize)) {
+      if (!files.every(validateFileSize)) {
         setIsUploading(false);
         return [];
       }
 
-      const previewAttachments = createPreviewAttachments(compressedFiles);
+      const previewAttachments = createPreviewAttachments(files);
       const attachmentIds = previewAttachments.map(({ id }) => id as string);
 
       addAttachments(previewAttachments);
 
       try {
-        const uploaded = await uploadFiles(
-          compressedFiles,
-          currentAccount?.address
-        );
+        const uploaded = await uploadFiles(files, currentAccount?.address);
         const result = uploaded.map((file, index) => ({
           ...previewAttachments[index],
           mimeType: file.mimeType,
