@@ -256,7 +256,7 @@
   }
 }
 
-@utility drop-shadow-card {
+@utility card-drop-shadow {
   filter: drop-shadow(0 20px 13px rgb(229 231 235 / 0.7))
     drop-shadow(0 8px 5px rgb(229 231 235 / 0.5));
   @variant dark {

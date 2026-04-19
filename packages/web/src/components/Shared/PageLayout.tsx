@@ -2,6 +2,7 @@ import { useMediaQuery } from "@uidotdev/usehooks";
 import type { ReactNode } from "react";
 import { memo } from "react";
 import MetaTags from "@/components/Common/MetaTags";
+import SidebarAudioPlayer from "@/components/Shared/Audio/SidebarAudioPlayer";
 import SignupButton from "@/components/Shared/Navbar/SignupButton";
 import cn from "@/helpers/cn";
 import { IS_STANDALONE } from "@/helpers/mediaQueries";
@@ -57,7 +58,7 @@ const PageLayout = ({
       <MetaTags description={description} title={title} />
       <div
         className={cn(
-          "relative mt-4 mb-16 w-full min-w-0 grow space-y-4 md:mt-5 md:mb-5 md:space-y-5",
+          "mt-4 mb-16 w-full min-w-0 grow space-y-4 md:mt-5 md:mb-5 md:space-y-5",
           {
             "mb-28 sm:mb-16": isStandalone,
             "mt-0 md:mt-5": zeroTopMargin
@@ -81,6 +82,7 @@ const PageLayout = ({
         <div className="flex w-88 flex-col gap-y-5" ref={contentRef}>
           <AuthButtons />
           {!hideSearch && <Search />}
+          <SidebarAudioPlayer />
           {sidebar}
         </div>
       </aside>

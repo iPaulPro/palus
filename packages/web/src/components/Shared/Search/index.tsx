@@ -181,7 +181,7 @@ const Search = ({
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           type="text"
-          wrapperClassName="drop-shadow-card md:rounded-2xl md:border-none"
+          wrapperClassName="card-drop-shadow md:rounded-2xl md:border-none"
           {...form.register("query")}
         />
       </Form>

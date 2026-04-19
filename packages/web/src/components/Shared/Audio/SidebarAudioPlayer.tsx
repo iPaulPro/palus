@@ -25,23 +25,31 @@ const FallbackPoster = () => {
 };
 
 const SidebarAudioPlayer = () => {
-  const { isReady, isPlaying, isLoading, isStopped, togglePlayPause, stop } =
-    useAudioPlayerContext();
+  const {
+    isReady,
+    isPlaying,
+    isLoading,
+    isUnloaded,
+    cleanup,
+    togglePlayPause,
+    stop
+  } = useAudioPlayerContext();
   const { metadata } = useAudioMetadataStore();
 
   const [showLightBox, setShowLightBox] = useState(false);
 
-  if (!metadata || isStopped) return null;
+  if (!metadata || isUnloaded) return null;
 
   const artist = metadata?.artist ?? "Unknown artist";
   const title = metadata?.title ?? "Untitled";
 
   const handleClose = () => {
     stop();
+    cleanup();
   };
 
   return (
-    <Card className="group relative p-5">
+    <Card className="group relative p-4">
       <div className="flex gap-x-2">
         {metadata?.poster ? (
           <>
@@ -60,7 +68,7 @@ const SidebarAudioPlayer = () => {
           <FallbackPoster />
         )}
         <div className="flex w-full min-w-0 flex-col">
-          <div className="flex w-full items-center gap-x-1">
+          <div className="flex w-full items-center gap-x-2">
             <button
               className="flex-none"
               disabled={!isReady}
