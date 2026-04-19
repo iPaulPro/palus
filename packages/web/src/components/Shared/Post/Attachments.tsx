@@ -23,9 +23,10 @@ const getClass = (attachments: number) => {
 interface AttachmentsProps {
   asset?: AttachmentData;
   attachments: AttachmentData[];
+  postId: string;
 }
 
-const Attachments = ({ asset, attachments }: AttachmentsProps) => {
+const Attachments = ({ asset, attachments, postId }: AttachmentsProps) => {
   const [expandedImageIndex, setExpandedImageIndex] = useState<number>(0);
   const [showLightBox, setShowLightBox] = useState<boolean>(false);
   const processedAttachments = attachments.slice(0, 10);
@@ -110,8 +111,9 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
       )}
       {displayDecision === "displayAudioAsset" && (
         <Audio
-          artist={asset?.artist}
+          artist={asset?.artist ?? undefined}
           poster={asset?.coverUri as string}
+          postId={postId}
           src={asset?.uri as string}
           title={asset?.title}
           type={asset?.type}

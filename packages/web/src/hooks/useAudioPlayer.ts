@@ -27,7 +27,7 @@ import {
   defaultState,
   HowlStore,
   type Snapshot
-} from "@/store/non-persisted/HowlStore";
+} from "@/store/non-persisted/audio/HowlStore";
 import type { AudioControls, AudioLoadOptions } from "@/types/howl";
 
 export type AudioPlayer = AudioControls &

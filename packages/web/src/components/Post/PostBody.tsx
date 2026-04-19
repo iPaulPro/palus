@@ -128,6 +128,7 @@ const PostBody = ({
             <Attachments
               asset={filteredAsset}
               attachments={filteredAttachments}
+              postId={targetPost.slug}
             />
           ) : null}
           {showLive && !embedded ? (

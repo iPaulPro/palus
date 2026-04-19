@@ -4,9 +4,8 @@ import { type ChangeEvent, useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { useAudioPlayerContext } from "@/components/Common/Providers/AudioPlayerProvider";
 import Loader from "@/components/Shared/Loader";
-import { TRANSFORMS } from "@/data/constants";
-import imageKit from "@/helpers/imageKit";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
+import { useAudioMetadataStore } from "@/store/non-persisted/audio/useAudioMetadataStore";
 import { usePostAudioStore } from "@/store/non-persisted/post/usePostAudioStore";
 import CoverImage from "./CoverImage";
 import Player from "./Player";
@@ -22,9 +21,10 @@ interface AudioProps {
   poster: string;
   src: string;
   type?: MediaAudioType | string;
-  artist?: string | null;
+  artist?: string;
   isNew?: boolean;
   title?: string;
+  postId?: string;
 }
 
 const getFormat = (type?: MediaAudioType | string) => {
@@ -56,11 +56,14 @@ const Audio = ({
   poster,
   src,
   type,
-  title
+  title,
+  postId
 }: AudioProps) => {
-  const { audioPost, setAudioPost } = usePostAudioStore();
   const [newPreviewUri, setNewPreviewUri] = useState<null | string>(null);
   const imageRef = useRef<HTMLImageElement>(null);
+
+  const { audioPost, setAudioPost } = usePostAudioStore();
+  const { setMetadata } = useAudioMetadataStore();
 
   const {
     load,
@@ -92,15 +95,8 @@ const Audio = ({
         format: getFormat(type),
         html5: true
       });
-
-      if ("mediaSession" in navigator) {
-        navigator.mediaSession.metadata = new MediaMetadata({
-          artist: artist || "Unknown Artist",
-          artwork: poster ? [{ src: imageKit(poster, TRANSFORMS.POSTER) }] : [],
-          title: title || "Untitled"
-        });
-      }
     }
+    setMetadata({ artist, poster, postId, title });
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {

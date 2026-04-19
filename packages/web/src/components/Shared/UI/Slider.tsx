@@ -8,8 +8,13 @@ function Slider({
   value,
   min = 0,
   max = 100,
+  hideThumb = false,
+  invert = false,
   ...props
-}: ComponentProps<typeof SliderPrimitive.Root>) {
+}: ComponentProps<typeof SliderPrimitive.Root> & {
+  hideThumb?: boolean;
+  invert?: boolean;
+}) {
   const _values = useMemo(
     () =>
       Array.isArray(value)
@@ -22,7 +27,7 @@ function Slider({
   return (
     <SliderPrimitive.Root
       className={cn(
-        "relative flex h-1 w-full touch-none select-none items-center rounded-full bg-white data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col data-disabled:opacity-50",
+        "group relative flex w-full touch-none select-none items-center data-vertical:h-full data-vertical:min-h-40 data-vertical:w-auto data-vertical:flex-col data-disabled:opacity-50",
         className
       )}
       data-slot="slider"
@@ -33,17 +38,33 @@ function Slider({
       {...props}
     >
       <SliderPrimitive.Track
-        className="relative grow overflow-hidden rounded-full bg-muted data-horizontal:h-1 data-vertical:h-full data-horizontal:w-full data-vertical:w-1"
+        className={cn(
+          "relative grow overflow-hidden rounded-full bg-muted data-horizontal:h-1 data-vertical:h-full data-horizontal:w-full data-vertical:w-1",
+          {
+            "bg-white/30": invert
+          }
+        )}
         data-slot="slider-track"
       >
         <SliderPrimitive.Range
-          className="absolute select-none bg-primary data-horizontal:h-full data-vertical:w-full"
+          className={cn(
+            "absolute select-none bg-on-surface data-horizontal:h-full data-vertical:w-full",
+            {
+              "bg-white": invert
+            }
+          )}
           data-slot="slider-range"
         />
       </SliderPrimitive.Track>
       {Array.from({ length: _values.length }, (_, index) => (
         <SliderPrimitive.Thumb
-          className="relative block size-4 shrink-0 select-none rounded-full border border-ring bg-white ring-ring/50 transition-[color,box-shadow] after:absolute after:-inset-2 hover:ring-3 focus-visible:outline-hidden focus-visible:ring-3 active:ring-3 disabled:pointer-events-none disabled:opacity-50"
+          className={cn(
+            "relative block size-4 shrink-0 select-none rounded-full border border-ring bg-on-surface ring-ring/50 transition-[color,box-shadow] after:absolute after:-inset-2 hover:ring-3 focus-visible:outline-hidden focus-visible:ring-3 active:ring-3 disabled:pointer-events-none disabled:opacity-50",
+            {
+              "bg-white": invert,
+              "opacity-0 transition-opacity group-hover:opacity-100": hideThumb
+            }
+          )}
           data-slot="slider-thumb"
           key={index}
         />

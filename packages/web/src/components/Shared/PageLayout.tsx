@@ -2,6 +2,7 @@ import { useMediaQuery } from "@uidotdev/usehooks";
 import type { ReactNode } from "react";
 import { memo } from "react";
 import MetaTags from "@/components/Common/MetaTags";
+import SidebarAudioPlayer from "@/components/Shared/Audio/SidebarAudioPlayer";
 import SignupButton from "@/components/Shared/Navbar/SignupButton";
 import cn from "@/helpers/cn";
 import { IS_STANDALONE } from "@/helpers/mediaQueries";
@@ -81,6 +82,7 @@ const PageLayout = ({
         <div className="flex w-88 flex-col gap-y-5" ref={contentRef}>
           <AuthButtons />
           {!hideSearch && <Search />}
+          <SidebarAudioPlayer />
           {sidebar}
         </div>
       </aside>

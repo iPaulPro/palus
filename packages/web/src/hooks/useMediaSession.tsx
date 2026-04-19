@@ -1,7 +1,29 @@
 import { useEffect } from "react";
+import { TRANSFORMS } from "@/data/constants";
+import imageKit from "@/helpers/imageKit";
 import type { AudioPlayer } from "@/hooks/useAudioPlayer";
+import { useAudioMetadataStore } from "@/store/non-persisted/audio/useAudioMetadataStore";
 
-const useMediaSessionHandlers = (player: AudioPlayer) => {
+const useMediaSession = (player: AudioPlayer) => {
+  const { metadata } = useAudioMetadataStore();
+
+  useEffect(() => {
+    if (!("mediaSession" in navigator)) return;
+
+    if (!metadata) {
+      navigator.mediaSession.metadata = null;
+      return;
+    }
+
+    navigator.mediaSession.metadata = new MediaMetadata({
+      artist: metadata.artist || "Unknown Artist",
+      artwork: metadata.poster
+        ? [{ src: imageKit(metadata.poster, TRANSFORMS.POSTER) }]
+        : [],
+      title: metadata.title || "Untitled"
+    });
+  }, [metadata]);
+
   useEffect(() => {
     if (!("mediaSession" in navigator)) return;
 
@@ -53,4 +75,4 @@ const useMediaSessionHandlers = (player: AudioPlayer) => {
   }, [player]);
 };
 
-export default useMediaSessionHandlers;
+export default useMediaSession;

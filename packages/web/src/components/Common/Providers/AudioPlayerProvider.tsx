@@ -22,7 +22,7 @@
 
 import { type ComponentProps, createContext, useContext } from "react";
 import { type AudioPlayer, useAudioPlayer } from "@/hooks/useAudioPlayer";
-import useMediaSessionHandlers from "@/hooks/useMediaSessionHandlers";
+import useMediaSession from "@/hooks/useMediaSession";
 
 export const context = createContext<AudioPlayer | null>(null);
 
@@ -41,7 +41,7 @@ type Props = Omit<ComponentProps<typeof context.Provider>, "value">;
 
 export function AudioPlayerProvider({ children }: Props) {
   const player = useAudioPlayer();
-  useMediaSessionHandlers(player);
+  useMediaSession(player);
 
   return <context.Provider value={player}>{children}</context.Provider>;
 }

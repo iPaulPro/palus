@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "shadcn/tailwind.css";
 @plugin "@tailwindcss/aspect-ratio";
 @plugin "@tailwindcss/forms";
 @custom-variant dark (&:where(.dark, .dark *));
@@ -23,6 +24,7 @@
   --color-border: #e5e7eb;
   --color-card: #ffffff;
   --color-accent: oklch(87.2% 0.01 258.338 / 0.2);
+  --color-muted: #999999;
 }
 
 .dark {
@@ -38,6 +40,7 @@
   --color-secondary: #d1d5dc;
   --color-border: #1e2939;
   --color-card: #101828;
+  --color-muted: #555555;
 }
 
 @keyframes shimmer {

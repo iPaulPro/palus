@@ -39,7 +39,7 @@ const TimeLabel = ({ className = "", duration: durationProp }: Props) => {
   }, [getPosition, isOverride]);
 
   return (
-    <div className={cn("w-[5ch] text-sm invert", className)}>
+    <div className={cn("w-[5ch] text-sm", className)}>
       {!isOverride && pos > 0 ? (
         <span>{formatTime(pos)}</span>
       ) : (
