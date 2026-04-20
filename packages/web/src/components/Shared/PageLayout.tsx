@@ -2,6 +2,7 @@ import { useMediaQuery } from "@uidotdev/usehooks";
 import type { ReactNode } from "react";
 import { memo } from "react";
 import MetaTags from "@/components/Common/MetaTags";
+import { useAudioPlayerContext } from "@/components/Common/Providers/AudioPlayerProvider";
 import SidebarAudioPlayer from "@/components/Shared/Audio/SidebarAudioPlayer";
 import SignupButton from "@/components/Shared/Navbar/SignupButton";
 import cn from "@/helpers/cn";
@@ -51,6 +52,7 @@ const PageLayout = ({
   className = ""
 }: PageLayoutProps) => {
   const isStandalone = useMediaQuery(IS_STANDALONE);
+  const { isUnloaded } = useAudioPlayerContext();
   const { containerRef, contentRef } = useStickyContentScroll();
 
   return (
@@ -61,6 +63,7 @@ const PageLayout = ({
           "mt-4 mb-16 w-full min-w-0 grow space-y-4 md:mt-5 md:mb-5 md:space-y-5",
           {
             "mb-28 sm:mb-16": isStandalone,
+            "mb-40 sm:mb-16": isStandalone && !isUnloaded,
             "mt-0 md:mt-5": zeroTopMargin
           },
           className
