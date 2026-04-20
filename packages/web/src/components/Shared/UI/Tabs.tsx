@@ -1,3 +1,4 @@
+import { useIntersectionObserver } from "@uidotdev/usehooks";
 import { MotionConfig, motion } from "motion/react";
 import {
   type KeyboardEvent,
@@ -20,16 +21,18 @@ interface TabsProps {
 const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
   const tabRefs = useRef<Map<string, HTMLLIElement>>(new Map());
 
+  const [ref, entry] = useIntersectionObserver();
+
   useLayoutEffect(() => {
     const activeTab = tabRefs.current.get(active);
-    if (activeTab) {
+    if (activeTab && entry?.isIntersecting) {
       activeTab.scrollIntoView({
         behavior: "smooth",
         block: "nearest",
         inline: "center"
       });
     }
-  }, [active]);
+  }, [active, entry?.isIntersecting]);
 
   const handleAction = (
     e: MouseEvent<HTMLLIElement> | KeyboardEvent<HTMLLIElement>,
@@ -48,6 +51,7 @@ const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
             className
           )}
           layout
+          ref={ref}
         >
           {tabs.map((tab) => (
             <motion.li
