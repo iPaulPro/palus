@@ -87,6 +87,9 @@ const usePostMetadata = () => {
             ...(audioPost.artist && {
               artist: audioPost.artist
             }),
+            ...(audioPost.title && {
+              artist: audioPost.title
+            }),
             cover: audioPost.cover,
             item: primaryAttachment.uri,
             type: primaryAttachment.mimeType,
