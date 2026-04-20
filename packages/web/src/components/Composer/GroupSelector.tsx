@@ -49,7 +49,8 @@ const GroupSelector = ({ selected, onChange }: GroupSelectorProps) => {
         selected: group.feed?.address === selected?.feed?.address,
         value: group ?? ""
       }))
-      .filter((option) => option.value.feed?.address !== "");
+      .filter((option) => option.value.feed?.address !== "")
+      .sort((a, b) => a.label.localeCompare(b.label));
   }, [data?.groups?.items, selected]);
 
   if (!options.length) {
