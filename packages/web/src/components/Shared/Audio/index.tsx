@@ -115,7 +115,7 @@ const Audio = ({
 
   return (
     <div
-      className="overflow-hidden rounded-xl border border-gray-200 bg-gray-500 p-0 dark:border-gray-800"
+      className="overflow-hidden rounded-xl border border-gray-200 bg-gray-500 p-0 sm:w-4/5 dark:border-gray-800"
       onClick={stopEventPropagation}
       style={{ backgroundImage: `url(${isNew ? newPreviewUri : poster})` }}
     >
@@ -129,7 +129,7 @@ const Audio = ({
             setAudioPost({ ...audioPost, cover, mimeType });
           }}
         />
-        <div className="flex w-full flex-col justify-between py-2 pr-3 pl-1 sm:px-3 sm:py-4">
+        <div className="flex w-full flex-col justify-between py-2 pr-3 pl-1 sm:px-3 sm:py-2">
           <div className="flex items-center gap-x-2.5 sm:mt-2">
             <button
               className="flex-none"
