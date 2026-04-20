@@ -115,11 +115,11 @@ const Audio = ({
 
   return (
     <div
-      className="overflow-hidden rounded-xl border border-gray-200 bg-gray-500 p-0 sm:w-4/5 dark:border-gray-800"
+      className="h-24 overflow-hidden rounded-xl border border-gray-200 bg-gray-500 p-0 sm:h-32 sm:w-4/5 dark:border-gray-800"
       onClick={stopEventPropagation}
       style={{ backgroundImage: `url(${isNew ? newPreviewUri : poster})` }}
     >
-      <div className="flex space-x-2 rounded-xl p-0 backdrop-blur-2xl backdrop-brightness-50">
+      <div className="flex h-full w-full space-x-2 rounded-xl p-0 backdrop-blur-2xl backdrop-brightness-50">
         <CoverImage
           cover={isNew ? (newPreviewUri as string) : poster}
           imageRef={imageRef}
@@ -129,7 +129,7 @@ const Audio = ({
             setAudioPost({ ...audioPost, cover, mimeType });
           }}
         />
-        <div className="flex w-full flex-col justify-between py-2 pr-3 pl-1 sm:px-3 sm:py-2">
+        <div className="flex w-full flex-col justify-between py-3 pr-3 pl-1 sm:px-2 sm:py-3">
           <div className="flex items-center gap-x-2.5 sm:mt-2">
             <button
               className="flex-none"
@@ -152,7 +152,7 @@ const Audio = ({
                 <div className="flex w-full flex-col space-y-1">
                   <input
                     autoComplete="off"
-                    className="border-none bg-transparent p-0 text-lg text-white placeholder:text-white focus:ring-0"
+                    className="border-none bg-transparent p-0 text-white placeholder:text-white focus:ring-0 sm:text-lg"
                     name="title"
                     onChange={handleChange}
                     placeholder="Add title"
@@ -160,7 +160,7 @@ const Audio = ({
                   />
                   <input
                     autoComplete="off"
-                    className="border-none bg-transparent p-0 text-white/70 placeholder:text-white/70 focus:ring-0"
+                    className="border-none bg-transparent p-0 text-sm text-white/70 placeholder:text-white/70 focus:ring-0 sm:text-base"
                     name="artist"
                     onChange={handleChange}
                     placeholder="Add artist"
@@ -177,7 +177,7 @@ const Audio = ({
               )}
             </div>
           </div>
-          <div className="flex items-center gap-x-2 pl-1 sm:p-2">
+          <div className="flex items-center gap-x-2 pt-1 pl-1 sm:p-2">
             <AudioSeekBar disabled={playerDisabled} invert />
             <TimeLabel
               className="text-white"

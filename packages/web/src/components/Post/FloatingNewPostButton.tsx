@@ -28,7 +28,7 @@ const FloatingNewPostButton = ({
       : isUnloaded
         ? isStandalone
           ? "6rem"
-          : "5rem"
+          : "4rem"
         : "8rem";
 
   return (

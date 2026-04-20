@@ -53,14 +53,14 @@ const CoverImage = ({
   const coverSrc = imageKit(sanitizeDStorageUrl(cover), TRANSFORMS.ATTACHMENT);
 
   return (
-    <div className="group relative flex-none overflow-hidden">
+    <div className="group relative h-full flex-none overflow-hidden">
       <button
-        className="flex justify-center focus:outline-hidden"
+        className="flex h-full justify-center focus:outline-hidden"
         type="button"
       >
         <Image
           alt={`attachment-audio-cover-${cover}`}
-          className="size-20 object-cover sm:size-28"
+          className="aspect-square h-full object-cover"
           draggable={false}
           onClick={() => setShowLightBox(true)}
           onError={({ currentTarget }) => {
@@ -79,7 +79,7 @@ const CoverImage = ({
         <label
           className={cn(
             { invisible: cover, visible: isSubmitting && !cover },
-            "absolute top-0 grid size-20 cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible sm:size-28 dark:bg-gray-900"
+            "absolute top-0 grid aspect-square h-full cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible dark:bg-gray-900"
           )}
         >
           {isSubmitting && !cover ? (
