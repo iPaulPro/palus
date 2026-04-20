@@ -44,7 +44,8 @@ const PostActions = ({
       <div
         className={cn("items-center", {
           "flex flex-grow flex-wrap gap-x-7": !showCount,
-          "flex w-full justify-between sm:justify-start sm:gap-x-7": showCount
+          "flex w-full justify-between pr-2 sm:justify-start sm:gap-x-7 sm:pr-0":
+            showCount
         })}
       >
         <Comment post={targetPost} showCount={showCount} />
