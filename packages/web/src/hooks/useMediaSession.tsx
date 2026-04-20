@@ -51,27 +51,11 @@ const useMediaSession = (player: AudioPlayer) => {
       }
     });
 
-    session.setActionHandler("seekbackward", (details) => {
-      if (details.seekOffset != null) {
-        const position = player.getPosition();
-        player.seek(Math.max(position - details.seekOffset, 0));
-      }
-    });
-    session.setActionHandler("seekforward", (details) => {
-      if (details.seekOffset != null) {
-        const position = player.getPosition();
-        const duration = player.duration;
-        player.seek(Math.min(position + details.seekOffset, duration));
-      }
-    });
-
     return () => {
       session.setActionHandler("play", null);
       session.setActionHandler("pause", null);
       session.setActionHandler("stop", null);
       session.setActionHandler("seekto", null);
-      session.setActionHandler("seekbackward", null);
-      session.setActionHandler("seekforward", null);
     };
   }, [player]);
 };
