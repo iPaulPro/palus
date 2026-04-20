@@ -115,7 +115,7 @@ const Audio = ({
 
   return (
     <div
-      className="h-24 overflow-hidden rounded-xl border border-gray-200 bg-gray-500 p-0 sm:h-32 sm:w-4/5 dark:border-gray-800"
+      className="h-24 overflow-hidden rounded-xl border border-gray-200 bg-gray-500 p-0 sm:h-32 dark:border-gray-800"
       onClick={stopEventPropagation}
       style={{ backgroundImage: `url(${isNew ? newPreviewUri : poster})` }}
     >

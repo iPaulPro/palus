@@ -110,14 +110,16 @@ const Attachments = ({ asset, attachments, postId }: AttachmentsProps) => {
         />
       )}
       {displayDecision === "displayAudioAsset" && (
-        <Audio
-          artist={asset?.artist ?? undefined}
-          poster={asset?.coverUri as string}
-          postId={postId}
-          src={asset?.uri as string}
-          title={asset?.title}
-          type={asset?.type}
-        />
+        <div className="sm:w-4/5">
+          <Audio
+            artist={asset?.artist ?? undefined}
+            poster={asset?.coverUri as string}
+            postId={postId}
+            src={asset?.uri as string}
+            title={asset?.title}
+            type={asset?.type}
+          />
+        </div>
       )}
     </div>
   );
