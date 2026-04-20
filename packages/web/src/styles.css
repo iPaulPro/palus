@@ -147,27 +147,6 @@
     }
   }
 
-  /** CSS overrides for plyr audio **/
-  .plyr__controls {
-    @apply !pt-0 !pb-2 !px-2 sm:!p-4;
-  }
-
-  .plyr__progress__buffer {
-    @apply !bg-white;
-  }
-
-  .plyr--audio .plyr__controls {
-    @apply !bg-transparent !text-white;
-  }
-
-  .plyr--audio .plyr__control {
-    @apply hover:!bg-transparent;
-  }
-
-  .plyr--audio.plyr--full-ui input[type="range"] {
-    @apply !text-white;
-  }
-
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom);
   }
