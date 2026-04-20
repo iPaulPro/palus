@@ -88,7 +88,7 @@ const usePostMetadata = () => {
               artist: audioPost.artist
             }),
             ...(audioPost.title && {
-              artist: audioPost.title
+              title: audioPost.title
             }),
             cover: audioPost.cover,
             item: primaryAttachment.uri,
