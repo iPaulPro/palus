@@ -49,7 +49,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
             payToCollect: enabled
               ? undefined
               : (collectAction.payToCollect ?? {
-                  native: 1,
+                  native: "1",
                   recipients: [
                     { address: currentAccount?.address, percent: 100 }
                   ], // 2.45% for the Palus platform fees after the 1.5% lens fees cut
