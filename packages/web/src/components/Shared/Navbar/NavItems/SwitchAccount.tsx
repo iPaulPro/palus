@@ -1,5 +1,6 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
 import cn from "@/helpers/cn";
+import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
 import { useSwitchAccountModalStore } from "@/store/non-persisted/modal/useSwitchAccountModalStore";
 
 interface SwitchAccountProps {
@@ -8,6 +9,7 @@ interface SwitchAccountProps {
 
 const SwitchAccount = ({ className = "" }: SwitchAccountProps) => {
   const { setShow: setShowSwitchAccountModal } = useSwitchAccountModalStore();
+  const { setShow: setShowMobileDrawer } = useMobileDrawerModalStore();
 
   return (
     <button
@@ -15,7 +17,10 @@ const SwitchAccount = ({ className = "" }: SwitchAccountProps) => {
         "flex w-full items-center space-x-1.5 px-2 py-1.5 text-left text-gray-700 text-sm dark:text-gray-200",
         className
       )}
-      onClick={() => setShowSwitchAccountModal(true)}
+      onClick={() => {
+        setShowMobileDrawer(false);
+        setShowSwitchAccountModal(true);
+      }}
       type="button"
     >
       <ArrowsRightLeftIcon className="size-4" />
