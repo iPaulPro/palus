@@ -115,11 +115,11 @@ const Audio = ({
 
   return (
     <div
-      className="h-24 overflow-hidden rounded-xl border border-gray-200 bg-gray-500 p-0 sm:h-32 dark:border-gray-800"
+      className="[@supports(-moz-appearance:none)]:!bg-none h-24 overflow-hidden rounded-xl border border-gray-200 bg-gray-500 p-0 sm:h-32 dark:border-gray-800"
       onClick={stopEventPropagation}
       style={{ backgroundImage: `url(${isNew ? newPreviewUri : poster})` }}
     >
-      <div className="flex h-full w-full space-x-2 rounded-xl p-0 backdrop-blur-2xl backdrop-brightness-50">
+      <div className="flex h-full w-full space-x-2 rounded-xl bg-black/50 p-0 backdrop-blur-2xl [@supports(-moz-appearance:none)]:backdrop-blur-none">
         <CoverImage
           cover={isNew ? (newPreviewUri as string) : poster}
           imageRef={imageRef}
