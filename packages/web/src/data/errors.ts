@@ -1,5 +1,5 @@
 export const ERRORS = {
-  SignWallet: "Please sign in your wallet.",
+  SignWallet: "Please log in again.",
   SomethingWentWrong: "Something went wrong!"
 };
 
