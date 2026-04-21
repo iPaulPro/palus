@@ -59,7 +59,7 @@ const Modal = ({
         className={`fixed flex items-center justify-center ${
           size === "full"
             ? "top-[var(--vvt)] left-0 h-[var(--vvh)] w-full overflow-hidden overscroll-contain p-0"
-            : "inset-0 w-screen p-4"
+            : "inset-0 w-screen overflow-y-auto p-4"
         }`}
       >
         <DialogPanel className={modalVariants({ size })}>
