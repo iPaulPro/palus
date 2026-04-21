@@ -51,7 +51,6 @@ const Modal = ({
       }}
       open={show}
     >
-      <span className="hidden sm:inline-block sm:h-screen sm:align-middle" />
       <DialogBackdrop
         className="fixed inset-0 bg-gray-500/75 dark:bg-gray-900/80"
         onClick={stopEventPropagation}
