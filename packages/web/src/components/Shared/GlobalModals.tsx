@@ -112,7 +112,8 @@ const GlobalModals = () => {
         <Auth />
       </Modal>
       <Modal
-        afterLeave={() => {
+        onClose={() => {
+          setShowNewPostModal(false);
           setPostContent("");
           setEditingPost(undefined);
           setQuotedPost(undefined);
@@ -120,7 +121,6 @@ const GlobalModals = () => {
           setNotificationShare(undefined);
           setAttachments([]);
         }}
-        onClose={() => setShowNewPostModal(false)}
         preventClose={true}
         show={showNewPostModal}
         size={isSmallDevice ? "full" : "md"}
@@ -162,10 +162,10 @@ const GlobalModals = () => {
         <SuperFollow />
       </Modal>
       <Modal
-        afterLeave={() => {
+        onClose={() => {
+          setShowCreateGroupModal(false);
           setGroupScreen("details");
         }}
-        onClose={() => setShowCreateGroupModal(false)}
         show={showCreateGroupModal}
         title={groupScreen === "details" ? "Create a group" : undefined}
       >

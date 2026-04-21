@@ -26,7 +26,6 @@ const modalVariants = cva(
 );
 
 interface ModalProps extends VariantProps<typeof modalVariants> {
-  afterLeave?: () => void;
   children: ReactNode | ReactNode[];
   onClose?: () => void;
   show: boolean;
@@ -35,7 +34,6 @@ interface ModalProps extends VariantProps<typeof modalVariants> {
 }
 
 const Modal = ({
-  afterLeave,
   children,
   onClose,
   show,
