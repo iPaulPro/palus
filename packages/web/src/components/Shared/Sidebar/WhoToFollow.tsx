@@ -85,7 +85,8 @@ const WhoToFollow = () => {
       !account.operations?.isMutedByMe &&
       !account.operations?.isFollowedByMe &&
       !account.operations?.hasBlockedMe &&
-      !bannedAccounts.includes(account.address)
+      !bannedAccounts.includes(account.address) &&
+      account.address !== currentAccount?.address
   ) as AccountFragment[];
 
   if (!recommendedAccounts?.length) {
