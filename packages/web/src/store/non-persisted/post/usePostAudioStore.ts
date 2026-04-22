@@ -5,11 +5,13 @@ interface AudioPost {
   cover: string;
   mimeType: string;
   title: string;
+  duration: number;
 }
 
 export const DEFAULT_AUDIO_POST: AudioPost = {
   artist: "",
   cover: "",
+  duration: 0,
   mimeType: "",
   title: ""
 };

@@ -90,6 +90,9 @@ const usePostMetadata = () => {
             ...(audioPost.title && {
               title: audioPost.title
             }),
+            ...(audioPost.duration > 0 && {
+              duration: audioPost.duration
+            }),
             cover: audioPost.cover,
             item: primaryAttachment.uri,
             type: primaryAttachment.mimeType,

@@ -17,6 +17,7 @@ import VolumeControl from "./VolumeControl";
 export const AudioPostSchema = z.object({
   artist: z.string().trim().min(1, { message: "Invalid artist name" }),
   cover: z.string().trim().min(1, { message: "Invalid cover image" }),
+  duration: z.number({ message: "Invalid duration" }),
   title: z.string().trim().min(1, { message: "Invalid audio title" })
 });
 
@@ -71,6 +72,7 @@ const Audio = ({
   const {
     load,
     togglePlayPause,
+    duration,
     isPlaying,
     isLoading,
     isReady,
@@ -84,6 +86,14 @@ const Audio = ({
       format: getFormat(type)
     });
   }, [isNew, src, type]);
+
+  useEffect(() => {
+    if (!isNew) return;
+    setAudioPost({
+      ...audioPost,
+      duration: Math.floor(duration)
+    });
+  }, [isNew, duration, audioPost]);
 
   const isCurrentTrack = globalSrc === src;
   const localDuration = useAudioDuration(isCurrentTrack || isNew ? "" : src);
