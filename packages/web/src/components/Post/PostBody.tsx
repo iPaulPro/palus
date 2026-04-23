@@ -1,7 +1,7 @@
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { getSrc } from "@livepeer/react/external";
 import { type AnyPostFragment, ContentWarning } from "@palus/indexer";
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import HiddenPost from "@/components/Post/HiddenPost";
 import PollAction from "@/components/Post/OpenAction/PollAction";
 import Quote from "@/components/Shared/Embed/Quote";
@@ -13,6 +13,7 @@ import { Button } from "@/components/Shared/UI";
 import { CONTRACTS } from "@/data/contracts";
 import cn from "@/helpers/cn";
 import getPostData from "@/helpers/getPostData";
+import { type PlateNode, plateToMd } from "@/helpers/plateToMd";
 import { isRepost } from "@/helpers/postHelpers";
 
 interface PostBodyProps {
@@ -31,9 +32,30 @@ const PostBody = ({
   const targetPost = isRepost(post) ? post.repostOf : post;
   const { metadata } = targetPost;
 
-  const filteredContent = getPostData(metadata)?.content || "";
-  const filteredAttachments = getPostData(metadata)?.attachments || [];
-  const filteredAsset = getPostData(metadata)?.asset;
+  const postData = getPostData(metadata);
+  const isArticle = targetPost.metadata.__typename === "ArticleMetadata";
+
+  const filteredContent = useMemo(() => {
+    if (!postData) return "";
+
+    const contentJson = postData.attributes?.find(
+      (attr) => attr.key === "contentJson"
+    )?.value;
+    if (isArticle && contentJson) {
+      try {
+        const parsed = JSON.parse(contentJson) as PlateNode[];
+        const md = plateToMd(parsed);
+        return md;
+      } catch {
+        // ignore
+      }
+    }
+
+    return postData.content ?? "";
+  }, [postData, isArticle]);
+
+  const filteredAttachments = postData?.attachments || [];
+  const filteredAsset = postData?.asset;
 
   const markupRef = useRef<HTMLElement>(null);
   const [isClamped, setIsClamped] = useState(false);
@@ -103,6 +125,7 @@ const PostBody = ({
             )}
             mentions={targetPost.mentions}
             ref={markupRef}
+            strip={!isArticle}
           >
             {filteredContent}
           </Markup>

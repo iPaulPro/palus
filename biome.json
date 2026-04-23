@@ -30,6 +30,7 @@
       "!**/generated.ts",
       "!**/expo-env.d.ts",
       "!**/package.json",
+      "!docs/**/*",
       "!packages/web/src/assets/**/*",
       "!packages/web/public/site.webmanifest",
       "!packages/web/src/helpers/metaMaskSdkConnector.ts",

@@ -11,10 +11,6 @@ import trimify from "@/helpers/trimify";
 import MarkupLink from "./MarkupLink";
 
 const plugins: PluggableList = [
-  [
-    stripMarkdown,
-    { keep: ["strong", "emphasis", "list", "listItem", "delete"] }
-  ],
   remarkBreaks,
   remarkGfm,
   linkifyRegex(Regex.url),
@@ -26,10 +22,11 @@ interface MarkupProps {
   children: string;
   className?: string;
   mentions?: PostMentionFragment[];
+  strip?: boolean;
 }
 
 const Markup = forwardRef<HTMLSpanElement, MarkupProps>(
-  ({ children, className = "", mentions = [] }, ref) => {
+  ({ children, className = "", mentions = [], strip = true }, ref) => {
     if (!children) {
       return null;
     }
@@ -38,9 +35,21 @@ const Markup = forwardRef<HTMLSpanElement, MarkupProps>(
       a: (props: any) => <MarkupLink mentions={mentions} title={props.title} />
     };
 
+    const allPlugins = strip
+      ? ([
+          [
+            stripMarkdown,
+            {
+              keep: ["strong", "emphasis", "list", "listItem", "delete"]
+            }
+          ],
+          ...plugins
+        ] as PluggableList)
+      : plugins;
+
     return (
       <span className={className} ref={ref}>
-        <ReactMarkdown components={components} remarkPlugins={plugins}>
+        <ReactMarkdown components={components} remarkPlugins={allPlugins}>
           {trimify(children)}
         </ReactMarkdown>
       </span>

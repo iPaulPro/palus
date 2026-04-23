@@ -154,7 +154,12 @@
   /* Markup styles */
   .markup > p,
   .markup > ul,
-  .markup > ol {
+  .markup > ol,
+  .markup > h2,
+  .markup > h3,
+  .markup > h4,
+  .markup > h5,
+  .markup > h6 {
     word-break: break-word;
     @apply leading-[26px];
     @apply [&:not(:last-child)]:mb-3;
@@ -180,12 +185,41 @@
     @apply mb-3;
   }
 
+  .markup > p > img {
+    @apply rounded-xl;
+  }
+
+  .markup > h1 {
+    @apply text-2xl font-bold mb-4;
+  }
+
+  .markup > h2 {
+    @apply text-xl font-bold;
+  }
+
+  .markup > h3 {
+    @apply text-lg font-semibold;
+  }
+
+  .markup > h4 {
+    @apply text-base font-semibold;
+  }
+
+  .markup > h5,
+  .markup > h6 {
+    @apply font-semibold;
+  }
+
   .full-page-post-markup > p,
   .full-page-post-markup ul,
   .full-page-post-markup ol {
     @apply text-[15px] sm:text-[17px];
     @apply !leading-7 sm:leading-[26px];
     @apply [&:not(:last-child)]:mb-3 sm:[&:not(:last-child)]:mb-4;
+  }
+
+  .full-page-post-markup > h1 {
+    @apply text-center;
   }
 
   .virtual-divider-list-window {
