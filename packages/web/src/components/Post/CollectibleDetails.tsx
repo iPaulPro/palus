@@ -24,9 +24,9 @@ const CollectibleDetails = ({ post }: Props) => {
 
   return (
     <Card as="aside" className="gap-y-2.5 p-5">
-      <div className="font-semibold">Collectible details</div>
-      <div className="flex min-w-0 gap-x-1 text-secondary text-sm">
-        <span className="font-bold">Address:</span>{" "}
+      <div className="font-bold text-lg">Collectible Details</div>
+      <div className="flex min-w-0 gap-x-1 text-sm">
+        <span className="font-bold text-secondary">Address:</span>{" "}
         <a
           className="truncate"
           href={`${BLOCK_EXPLORER_URL}/address/${collectAction.collectNftAddress}`}

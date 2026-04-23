@@ -20,9 +20,9 @@ const PostMetadataDetails = ({ post }: Props) => {
 
   return (
     <Card as="aside" className="gap-y-2.5 p-5">
-      <div className="font-semibold">Post metadata</div>
-      <div className="flex min-w-0 gap-x-1 text-secondary text-sm">
-        <span className="font-bold">URI:</span>{" "}
+      <div className="font-bold text-lg">Post Metadata</div>
+      <div className="flex min-w-0 gap-x-1 text-sm">
+        <span className="font-bold text-secondary">URI:</span>{" "}
         <a
           className="truncate"
           href={sanitizeDStorageUrl(contentUri)}

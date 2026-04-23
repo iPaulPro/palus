@@ -37,7 +37,7 @@ const RelevantPeople = ({ mentions }: RelevantPeopleProps) => {
   if (loading) {
     return (
       <Card as="aside" className="space-y-4 p-5">
-        <SingleAccountShimmer showFollowUnfollowButton />
+        <div className="font-bold text-lg">Relevant Accounts</div>
         <SingleAccountShimmer showFollowUnfollowButton />
         <SingleAccountShimmer showFollowUnfollowButton />
         <div className="pt-2 pb-1">
@@ -56,6 +56,7 @@ const RelevantPeople = ({ mentions }: RelevantPeopleProps) => {
   return (
     <>
       <Card as="aside" className="space-y-4 p-5">
+        <div className="font-bold text-lg">Relevant Accounts</div>
         <ErrorMessage error={error} title="Failed to load relevant people" />
         {firstAccounts?.map((account) => (
           <div className="truncate" key={account?.address}>
