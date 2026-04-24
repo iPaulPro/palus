@@ -21,6 +21,7 @@ import { NotificationFeedType } from "@/data/enums";
 import { getNotificationTimestamp } from "@/helpers/getNotificationTimestamp";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useNotificationStore } from "@/store/persisted/useNotificationStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 import NotificationShimmer from "./Shimmer";
@@ -48,17 +49,29 @@ interface ListProps {
 
 const List = ({ feedType }: ListProps) => {
   const {
-    lastSeenNotificationTimestamp,
+    getLastSeenNotificationTimestamp,
     notificationRefreshSignal,
     setLastSeenNotificationTimestamp
   } = useNotificationStore();
+  const { currentAccount } = useAccountStore();
   const { includeLowScore } = usePreferencesStore();
   const { bannedAccounts } = useBannedAccountsStore();
 
-  const seenAtMountRef = useRef(lastSeenNotificationTimestamp);
+  const currentSeenTimestamp = useCallback(
+    () =>
+      currentAccount
+        ? getLastSeenNotificationTimestamp(currentAccount.address)
+        : new Date().toISOString(),
+    [currentAccount, getLastSeenNotificationTimestamp]
+  );
+
+  const seenAtMountRef = useRef(currentSeenTimestamp());
 
   useEffect(() => {
-    seenAtMountRef.current = lastSeenNotificationTimestamp;
+    seenAtMountRef.current = currentSeenTimestamp();
+  }, [notificationRefreshSignal, currentSeenTimestamp]);
+
+  useEffect(() => {
     if ("clearAppBadge" in navigator) {
       navigator.clearAppBadge().catch();
     }
@@ -148,27 +161,19 @@ const List = ({ feedType }: ListProps) => {
     [notifications, bannedAccounts]
   );
 
-  const updateLastSeenTimestamp = (timestamp: string) => {
-    if (timestamp) {
-      setLastSeenNotificationTimestamp(timestamp);
-      if ("clearAppBadge" in navigator) {
-        navigator.clearAppBadge().catch();
-      }
-    }
-  };
-
   useEffect(() => {
     const firstNotification = notifications?.[0];
-    if (
-      !firstNotification ||
-      typeof firstNotification !== "object" ||
-      !("id" in firstNotification)
-    ) {
+    if (!firstNotification || !("id" in firstNotification)) {
       return;
     }
     const timestamp = getNotificationTimestamp(firstNotification);
-    updateLastSeenTimestamp(timestamp);
-  }, [notifications]);
+    if (timestamp && currentAccount) {
+      setLastSeenNotificationTimestamp(currentAccount.address, timestamp);
+    }
+    if ("clearAppBadge" in navigator) {
+      navigator.clearAppBadge().catch();
+    }
+  }, [notifications, currentAccount]);
 
   const handleEndReached = useCallback(async () => {
     if (hasMore) {
@@ -176,14 +181,14 @@ const List = ({ feedType }: ListProps) => {
         variables: { request: { ...request, cursor: pageInfo?.next } }
       });
     }
-  }, [fetchMore, hasMore, pageInfo?.next, request]);
+  }, [fetchMore, pageInfo?.next, request]);
 
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 
   const handleRefresh = useCallback(async () => {
-    seenAtMountRef.current = lastSeenNotificationTimestamp;
+    seenAtMountRef.current = currentSeenTimestamp();
     await refetch();
-  }, [lastSeenNotificationTimestamp, refetch]);
+  }, [currentSeenTimestamp, refetch]);
 
   if (loading) {
     return (
