@@ -157,7 +157,11 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
       items={safePosts}
       kind="account"
       loading={loading}
-      pin={pinnedPost ? <SinglePost isPinned post={pinnedPost} /> : null}
+      pin={
+        pinnedPost && type === AccountFeedType.Feed ? (
+          <SinglePost isPinned post={pinnedPost} />
+        ) : null
+      }
       refetch={refetch}
       renderItem={(post) => <SinglePost key={post.id} post={post} />}
     />
