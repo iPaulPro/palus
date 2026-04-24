@@ -114,7 +114,7 @@ const ViewAccount = () => {
       {isDeleted || isBlockedByMe || isBanned ? (
         renderEmptyState()
       ) : (
-        <>
+        <div className="flex flex-col gap-y-4 pt-2">
           <FeedType feedType={feedType} setFeedType={setFeedType} />
           {currentAccount?.address === account?.address && <NewPost />}
           {(feedType === AccountFeedType.Feed ||
@@ -127,7 +127,7 @@ const ViewAccount = () => {
               username={accountInfo.username}
             />
           )}
-        </>
+        </div>
       )}
     </PageLayout>
   );
