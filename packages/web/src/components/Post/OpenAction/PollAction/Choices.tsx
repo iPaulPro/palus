@@ -161,7 +161,7 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
                     className={cn(
                       option.voted || (hasVoted && option.id === selectedOption)
                         ? "bg-brand-400"
-                        : "bg-muted",
+                        : "bg-secondary",
                       "h-6"
                     )}
                     style={{
