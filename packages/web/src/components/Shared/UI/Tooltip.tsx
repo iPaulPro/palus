@@ -29,7 +29,7 @@ const Tooltip = ({
         <RadixTooltip.Portal>
           <RadixTooltip.Content
             asChild
-            className="!rounded-lg !text-xs !leading-6 z-10 hidden bg-gray-700 px-3 py-0.5 text-white tracking-wide sm:block"
+            className="!rounded-lg !text-xs !leading-6 z-10 hidden max-w-96 bg-gray-700 px-3 py-0.5 text-white tracking-wide sm:block"
             side={placement}
             sideOffset={5}
           >

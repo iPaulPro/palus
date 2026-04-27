@@ -77,10 +77,10 @@ const Details = ({
   return (
     <div className="mb-4 space-y-2 px-4 md:space-y-3 md:px-2">
       <div className="flex items-start justify-between">
-        <div className="relative -mt-14 ml-4 size-20 sm:-mt-24 sm:size-36 md:ml-4">
+        <div className="relative -mt-20 ml-2 size-28 sm:-mt-24 sm:size-36 md:ml-4">
           <Image
             alt={account.address}
-            className="size-20 cursor-pointer rounded-full bg-gray-200 object-cover ring-3 ring-gray-50 sm:size-36 dark:bg-gray-700 dark:ring-black"
+            className="size-28 cursor-pointer rounded-full bg-gray-200 object-cover ring-3 ring-gray-50 sm:size-36 dark:bg-gray-700 dark:ring-black"
             height={128}
             onClick={handleShowLightBox}
             src={getAvatar(account, TRANSFORMS.AVATAR_BIG)}
@@ -104,8 +104,8 @@ const Details = ({
           <AccountMenu account={account} />
         </div>
       </div>
-      <div className="space-y-1 md:py-2">
-        <H3 className="flex flex-wrap items-center gap-x-1.5 pr-6 font-bold text-2xl">
+      <div className="pb-2 sm:space-y-1 md:py-2">
+        <H3 className="flex flex-wrap items-center gap-x-1.5 pr-6 font-bold text-2xl sm:py-0">
           {getAccount(account)
             .name.slice(0, 40)
             .split(/\s+/)
@@ -138,14 +138,8 @@ const Details = ({
           {account?.metadata.bio}
         </Markup>
       ) : null}
-      <div className="mt-4 space-y-5">
+      <div className="mt-5 space-y-3">
         <Followerings account={account} />
-        {!isBlockedByMe && currentAccount?.address !== account.address ? (
-          <FollowersYouKnowOverview
-            address={account.address}
-            username={getAccount(account).username}
-          />
-        ) : null}
         <div className="flex flex-wrap gap-x-5 gap-y-2">
           <AccountOwner ownerAddress={account.owner} />
           {!isBlockedByMe &&
@@ -181,6 +175,12 @@ const Details = ({
             </Tooltip>
           </div>
         </div>
+        {!isBlockedByMe && currentAccount?.address !== account.address ? (
+          <FollowersYouKnowOverview
+            address={account.address}
+            username={getAccount(account).username}
+          />
+        ) : null}
       </div>
     </div>
   );

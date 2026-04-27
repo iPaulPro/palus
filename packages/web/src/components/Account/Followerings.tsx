@@ -5,7 +5,7 @@ import { useLocation } from "react-router";
 import Followers from "@/components/Shared/Modal/Followers";
 import Following from "@/components/Shared/Modal/Following";
 import GraphStatsShimmer from "@/components/Shared/Shimmer/GraphStatsShimmer";
-import { Modal } from "@/components/Shared/UI";
+import { HelpTooltip, Modal } from "@/components/Shared/UI";
 import getAccount from "@/helpers/getAccount";
 import humanize from "@/helpers/humanize";
 
@@ -61,7 +61,7 @@ const Followerings = ({ account }: FolloweringsProps) => {
   );
 
   return (
-    <div className="flex flex-wrap gap-x-8 gap-y-2">
+    <div className="flex flex-wrap gap-x-6 gap-y-2 sm:gap-x-8">
       <button
         className="flex gap-x-1"
         onClick={() => setShowFollowingModal(true)}
@@ -82,7 +82,15 @@ const Followerings = ({ account }: FolloweringsProps) => {
       </button>
       <div className="flex gap-x-1">
         <span className="font-bold">{account.score}</span>
-        <span className="text-gray-500 dark:text-gray-200">Account Score</span>
+        <span className="flex items-center gap-x-1 text-gray-500 dark:text-gray-200">
+          Score
+          <HelpTooltip className="hidden sm:block">
+            Account Score is calculated using a set of machine learning
+            algorithms that consider factors like follower graphs, content, and
+            other variables. Higher scores suggest a positive and active
+            presence within the ecosystem.
+          </HelpTooltip>
+        </span>
       </div>
       {renderModal(
         showFollowingModal,

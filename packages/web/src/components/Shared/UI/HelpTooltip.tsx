@@ -2,18 +2,20 @@ import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import type { ReactNode } from "react";
 import { memo } from "react";
 import { Tooltip } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
 
 interface HelpTooltipProps {
   children: ReactNode;
+  className?: string;
 }
 
-const HelpTooltip = ({ children }: HelpTooltipProps) => {
+const HelpTooltip = ({ children, className = "" }: HelpTooltipProps) => {
   if (!children) {
     return null;
   }
 
   return (
-    <span className="cursor-pointer">
+    <span className={cn("cursor-pointer", className)}>
       <Tooltip content={<span>{children}</span>} placement="top">
         <InformationCircleIcon className="size-[15px] text-gray-500 dark:text-gray-200" />
       </Tooltip>
