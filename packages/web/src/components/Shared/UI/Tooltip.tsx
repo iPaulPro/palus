@@ -48,7 +48,7 @@ const Tooltip = ({
         <RadixTooltip.Portal>
           <RadixTooltip.Content
             asChild
-            className="!rounded-lg !text-xs !leading-6 z-10 max-w-96 bg-gray-700 px-3 py-0.5 text-white tracking-wide"
+            className="!rounded-lg !text-xs !leading-6 z-10 max-w-96 bg-gray-700 px-4 py-3 text-white tracking-wide"
             onPointerDownOutside={handleContentPointerDownOutside}
             side={placement}
             sideOffset={5}
