@@ -84,7 +84,7 @@ const Followerings = ({ account }: FolloweringsProps) => {
         <span className="font-bold">{account.score}</span>
         <span className="flex items-center gap-x-1 text-gray-500 dark:text-gray-200">
           Score
-          <HelpTooltip className="hidden sm:block">
+          <HelpTooltip>
             Account Score is calculated using a set of machine learning
             algorithms that consider factors like follower graphs, content, and
             other variables. Higher scores suggest a positive and active

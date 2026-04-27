@@ -1,6 +1,8 @@
 import * as RadixTooltip from "@radix-ui/react-tooltip";
+import { useMediaQuery } from "@uidotdev/usehooks";
 import { motion } from "motion/react";
-import { memo, type ReactNode } from "react";
+import { memo, type ReactNode, useCallback, useState } from "react";
+import { IS_MOBILE } from "@/helpers/mediaQueries";
 
 interface TooltipProps {
   children: ReactNode;
@@ -17,19 +19,37 @@ const Tooltip = ({
   placement = "right",
   withDelay = false
 }: TooltipProps) => {
+  const isMobile = useMediaQuery(IS_MOBILE);
+  const [open, setOpen] = useState(false);
+
+  const handleTriggerClick = useCallback(() => {
+    if (isMobile) setOpen((prev) => !prev);
+  }, [isMobile]);
+
+  // Close on outside pointer-down when on mobile
+  const handleContentPointerDownOutside = useCallback(() => {
+    if (isMobile) setOpen(false);
+  }, [isMobile]);
+
   return (
     <RadixTooltip.Provider
       delayDuration={withDelay ? 600 : 0}
       skipDelayDuration={withDelay ? 0 : 600}
     >
-      <RadixTooltip.Root>
+      <RadixTooltip.Root
+        onOpenChange={isMobile ? setOpen : undefined}
+        open={isMobile ? open : undefined}
+      >
         <RadixTooltip.Trigger asChild>
-          <span className={className}>{children}</span>
+          <span className={className} onClick={handleTriggerClick}>
+            {children}
+          </span>
         </RadixTooltip.Trigger>
         <RadixTooltip.Portal>
           <RadixTooltip.Content
             asChild
-            className="!rounded-lg !text-xs !leading-6 z-10 hidden max-w-96 bg-gray-700 px-3 py-0.5 text-white tracking-wide sm:block"
+            className="!rounded-lg !text-xs !leading-6 z-10 max-w-96 bg-gray-700 px-3 py-0.5 text-white tracking-wide"
+            onPointerDownOutside={handleContentPointerDownOutside}
             side={placement}
             sideOffset={5}
           >
