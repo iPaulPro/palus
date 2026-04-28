@@ -1,7 +1,7 @@
 import { QueueListIcon } from "@heroicons/react/24/outline";
 import type { AnyPostFragment } from "@palus/indexer";
 import dayjs from "dayjs";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import PostWarning from "@/components/Shared/Post/PostWarning";
 import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
@@ -9,6 +9,7 @@ import {
   getBlockedByMeMessage,
   getMutedByMeMessage
 } from "@/helpers/getBlockedMessage";
+import getPostData from "@/helpers/getPostData";
 import { isRepost } from "@/helpers/postHelpers";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
 import { useHiddenCommentFeedStore } from ".";
@@ -42,11 +43,26 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
   const isMutedByMe = post.author.operations?.isMutedByMe;
   const isComment = post.__typename === "Post" && post.commentOn;
 
+  const media = getPostData(targetPost.metadata)?.asset;
+
   useLayoutEffect(() => {
     if (isComment && headerRef.current) {
       headerRef.current.scrollIntoView();
     }
   }, [isComment, headerRef.current]);
+
+  const handleDownloadMedia = useCallback(async () => {
+    if (!media) return;
+    const uri = media?.uri;
+    if (!uri) return;
+
+    const link = document.createElement("a");
+    link.href = uri;
+    link.download = post.id;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }, [media]);
 
   if (isBlockedByMe && !ignoreBlock) {
     return (
@@ -86,12 +102,23 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
               contentClassName="full-page-post-markup"
               post={targetPost}
             />
-            <div className="my-3 flex items-center text-gray-500 text-sm dark:text-gray-200">
-              {dayjs(timestamp).format("h:mm A · MMM D, YYYY")}
-              {targetPost.isEdited ? " · Edited" : null}
-              {targetPost.app?.metadata?.name
-                ? ` · ${targetPost.app?.metadata?.name}`
-                : null}
+            <div className="flex items-center justify-between">
+              <div className="my-3 flex items-center text-gray-500 text-sm dark:text-gray-200">
+                {dayjs(timestamp).format("h:mm A · MMM D, YYYY")}
+                {targetPost.isEdited ? " · Edited" : null}
+                {targetPost.app?.metadata?.name
+                  ? ` · ${targetPost.app?.metadata?.name}`
+                  : null}
+              </div>
+              {targetPost.operations?.hasSimpleCollected && media ? (
+                <button
+                  className="font-semibold text-secondary text-sm hover:text-brand-500"
+                  onClick={handleDownloadMedia}
+                  type="button"
+                >
+                  Download media
+                </button>
+              ) : null}
             </div>
             <PostStats post={targetPost} />
             <div className="divider" />
