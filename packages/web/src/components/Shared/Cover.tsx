@@ -23,7 +23,7 @@ const Cover = ({ cover }: CoverProps) => {
   return (
     <div className="mx-auto">
       <div
-        className="h-52 border border-border sm:h-64 md:rounded-xl"
+        className="h-52 border-border border-b sm:h-64 md:rounded-xl md:border"
         style={backgroundStyles}
       />
     </div>
