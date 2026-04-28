@@ -8969,6 +8969,23 @@ export type BookmarkPostMutation = {
   bookmarkPost: any;
 };
 
+export type ConfigurePostActionMutationVariables = Exact<{
+  request: ConfigurePostActionRequest;
+}>;
+
+export type ConfigurePostActionMutation = {
+  __typename?: "Mutation";
+  configurePostAction:
+    | { __typename?: "ConfigurePostActionResponse"; hash: any }
+    | ({
+        __typename?: "SelfFundedTransactionRequest";
+      } & SelfFundedTransactionRequestFragment)
+    | ({
+        __typename?: "SponsoredTransactionRequest";
+      } & SponsoredTransactionRequestFragment)
+    | ({ __typename?: "TransactionWillFail" } & TransactionWillFailFragment);
+};
+
 export type CreatePostMutationVariables = Exact<{
   request: CreatePostRequest;
 }>;
@@ -11720,6 +11737,26 @@ export const BookmarkPostDocument = `
   bookmarkPost(request: $request)
 }
     `;
+export const ConfigurePostActionDocument = `
+    mutation ConfigurePostAction($request: ConfigurePostActionRequest!) {
+  configurePostAction(request: $request) {
+    ... on ConfigurePostActionResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}
+    ${SelfFundedTransactionRequestFragmentDoc}
+${SponsoredTransactionRequestFragmentDoc}
+${TransactionWillFailFragmentDoc}`;
 export const CreatePostDocument = `
     mutation CreatePost($request: CreatePostRequest!) {
   post(request: $request) {
@@ -13564,6 +13601,24 @@ export function getSdk(
             variables
           }),
         "ConfigureAccountAction",
+        "mutation",
+        variables
+      );
+    },
+    ConfigurePostAction(
+      variables: ConfigurePostActionMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+      signal?: RequestInit["signal"]
+    ): Promise<ConfigurePostActionMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ConfigurePostActionMutation>({
+            document: ConfigurePostActionDocument,
+            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
+            signal,
+            variables
+          }),
+        "ConfigurePostAction",
         "mutation",
         variables
       );

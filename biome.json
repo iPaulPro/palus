@@ -35,7 +35,7 @@
       "!packages/web/public/site.webmanifest",
       "!packages/web/src/helpers/metaMaskSdkConnector.ts",
       "!packages/web/src/helpers/howlCache.ts",
-      "!packages/web/src/store/non-persisted/howlStore.ts",
+      "!packages/web/src/store/non-persisted/audio/howlStore.ts",
       "!packages/web/src/types/howl.ts"
     ]
   },

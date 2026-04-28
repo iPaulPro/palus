@@ -8765,6 +8765,27 @@ export type BookmarkPostMutationVariables = Exact<{
 
 export type BookmarkPostMutation = { __typename: 'Mutation', bookmarkPost: any };
 
+export type ConfigurePostActionMutationVariables = Exact<{
+  request: ConfigurePostActionRequest;
+}>;
+
+
+export type ConfigurePostActionMutation = { __typename: 'Mutation', configurePostAction:
+    | { __typename: 'ConfigurePostActionResponse', hash: any }
+    | (
+      { __typename: 'SelfFundedTransactionRequest' }
+      & SelfFundedTransactionRequestFragment
+    )
+    | (
+      { __typename: 'SponsoredTransactionRequest' }
+      & SponsoredTransactionRequestFragment
+    )
+    | (
+      { __typename: 'TransactionWillFail' }
+      & TransactionWillFailFragment
+    )
+   };
+
 export type CreatePostMutationVariables = Exact<{
   request: CreatePostRequest;
 }>;
@@ -11677,6 +11698,31 @@ export function useBookmarkPostMutation(baseOptions?: Apollo.MutationHookOptions
         return Apollo.useMutation<BookmarkPostMutation, BookmarkPostMutationVariables>(BookmarkPostDocument, options);
       }
 export type BookmarkPostMutationHookResult = ReturnType<typeof useBookmarkPostMutation>;
+export const ConfigurePostActionDocument = gql`
+    mutation ConfigurePostAction($request: ConfigurePostActionRequest!) {
+  configurePostAction(request: $request) {
+    ... on ConfigurePostActionResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}
+    ${SelfFundedTransactionRequestFragmentDoc}
+${SponsoredTransactionRequestFragmentDoc}
+${TransactionWillFailFragmentDoc}`;
+export function useConfigurePostActionMutation(baseOptions?: Apollo.MutationHookOptions<ConfigurePostActionMutation, ConfigurePostActionMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<ConfigurePostActionMutation, ConfigurePostActionMutationVariables>(ConfigurePostActionDocument, options);
+      }
+export type ConfigurePostActionMutationHookResult = ReturnType<typeof useConfigurePostActionMutation>;
 export const CreatePostDocument = gql`
     mutation CreatePost($request: CreatePostRequest!) {
   post(request: $request) {

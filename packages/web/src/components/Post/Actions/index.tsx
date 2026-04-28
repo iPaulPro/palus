@@ -1,5 +1,6 @@
 import type { AnyPostFragment } from "@palus/indexer";
 import { memo } from "react";
+import MakeCollectible from "@/components/Composer/Actions/CollectSettings/MakeCollectible";
 import CollectAction from "@/components/Post/OpenAction/CollectAction";
 import SmallCollectButton from "@/components/Post/OpenAction/CollectAction/SmallCollectButton";
 import TipAction from "@/components/Post/OpenAction/TipAction";
@@ -66,11 +67,15 @@ const PostActions = ({
           <div className="block size-8 sm:hidden" />
         )}
       </div>
-      {!showCount && hasCollectAction ? (
+      {showCount ? null : (
         <div className="hidden sm:flex sm:pr-2">
-          <SmallCollectButton post={targetPost} />
+          {hasCollectAction ? (
+            <SmallCollectButton post={targetPost} />
+          ) : currentAccount?.address === targetPost.author.address ? (
+            <MakeCollectible post={targetPost} />
+          ) : null}
         </div>
-      ) : null}
+      )}
     </span>
   );
 };

@@ -16,9 +16,10 @@ import TimeLimitConfig from "./TimeLimitConfig";
 
 interface CollectFormProps {
   setShowModal: Dispatch<SetStateAction<boolean>>;
+  onSubmit?: (values: CollectActionType) => void;
 }
 
-const CollectForm = ({ setShowModal }: CollectFormProps) => {
+const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
   const { collectAction, setCollectAction, reset } = useCollectActionStore();
   const { setLicense } = usePostLicenseStore();
 
@@ -105,9 +106,16 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
         </Button>
         <Button
           disabled={Object.values(validationChecks).some(Boolean)}
-          onClick={() => setShowModal(false)}
+          onClick={() => {
+            if (onSubmit && collectAction.enabled) {
+              onSubmit(collectAction);
+              setLicense(null);
+              reset();
+            }
+            setShowModal(false);
+          }}
         >
-          Save
+          {onSubmit && collectAction.enabled ? "Submit" : "Save"}
         </Button>
       </div>
     </>
