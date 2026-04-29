@@ -6,12 +6,14 @@ import {
   useConfigurePostActionMutation,
   usePostLazyQuery
 } from "@palus/indexer";
+import { useMediaQuery } from "@uidotdev/usehooks";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import CollectForm from "@/components/Composer/Actions/CollectSettings/CollectForm";
-import { Button, Modal, Tooltip } from "@/components/Shared/UI";
+import { Button, Modal } from "@/components/Shared/UI";
 import collectActionParams from "@/helpers/collectActionParams";
 import errorToast from "@/helpers/errorToast";
+import { IS_MOBILE } from "@/helpers/mediaQueries";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToBeIndexed from "@/hooks/useWaitForTransactionToBeIndexed";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
@@ -41,6 +43,8 @@ const MakeCollectible = ({ post }: Props) => {
 
   const { setShow: setShowNewPostModal } = useNewPostModalStore();
   const { setQuotedPost } = usePostStore();
+
+  const isSmallDevice = useMediaQuery(IS_MOBILE);
 
   const handleShare = () => {
     setQuotedPost(post);
@@ -89,9 +93,7 @@ const MakeCollectible = ({ post }: Props) => {
 
   const onCompletedWithTransaction = useCallback(
     async (hash: string) => {
-      const toastId = toast.loading(
-        `${isComment ? "Comment" : "Post"} processing...`
-      );
+      const toastId = toast.loading("Making collectible...");
       await waitForTransactionToComplete(hash);
       await updateCache(toastId);
       return onCompleted();
@@ -143,17 +145,17 @@ const MakeCollectible = ({ post }: Props) => {
 
   return (
     <>
-      <Tooltip content="Make this post collectible" placement="top" withDelay>
-        <Button
-          disabled={isSubmitting}
-          icon={<ShoppingBagIcon className="-mt-0.5 size-5" />}
-          loading={isSubmitting}
-          onClick={() => setShowModal(true)}
-          outline
-        >
-          Make Collectible
-        </Button>
-      </Tooltip>
+      <Button
+        className="font-semibold text-sm"
+        disabled={isSubmitting}
+        icon={<ShoppingBagIcon className="-mt-0.5 size-5" />}
+        loading={isSubmitting}
+        onClick={() => setShowModal(true)}
+        outline
+        size={isSmallDevice ? "sm" : "md"}
+      >
+        Make Collectible
+      </Button>
       <Modal
         onClose={() => {
           setShowModal(false);

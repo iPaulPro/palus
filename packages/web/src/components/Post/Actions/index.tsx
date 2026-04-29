@@ -68,7 +68,7 @@ const PostActions = ({
         )}
       </div>
       {showCount ? null : (
-        <div className="hidden sm:flex sm:pr-2">
+        <div className="hidden sm:flex">
           {hasCollectAction ? (
             <SmallCollectButton post={targetPost} />
           ) : currentAccount?.address === targetPost.author.address ? (

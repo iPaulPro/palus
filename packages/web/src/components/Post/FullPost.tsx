@@ -2,6 +2,7 @@ import { QueueListIcon } from "@heroicons/react/24/outline";
 import type { AnyPostFragment } from "@palus/indexer";
 import dayjs from "dayjs";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import MakeCollectible from "@/components/Composer/Actions/CollectSettings/MakeCollectible";
 import PostWarning from "@/components/Shared/Post/PostWarning";
 import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
@@ -12,6 +13,7 @@ import {
 import getPostData from "@/helpers/getPostData";
 import { isRepost } from "@/helpers/postHelpers";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useHiddenCommentFeedStore } from ".";
 import PostActions from "./Actions";
 import BannedAuthorPost from "./BannedAuthorPost";
@@ -31,6 +33,7 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
   const { setShowHiddenComments, showHiddenComments } =
     useHiddenCommentFeedStore();
   const { bannedAccounts } = useBannedAccountsStore();
+  const { currentAccount } = useAccountStore();
 
   const headerRef = useRef<HTMLDivElement>(null);
   const [ignoreBlock, setIgnoreBlock] = useState(false);
@@ -118,6 +121,11 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
                 >
                   Download media
                 </button>
+              ) : null}
+              {targetPost.author.address === currentAccount?.address ? (
+                <div className="sm:hidden">
+                  <MakeCollectible post={targetPost} />
+                </div>
               ) : null}
             </div>
             <PostStats post={targetPost} />
