@@ -1,3 +1,4 @@
+import { CheckCircleIcon, XCircleIcon } from "@heroicons/react/24/solid";
 import {
   useEnableSignlessMutation,
   useRemoveSignlessMutation
@@ -74,12 +75,18 @@ const Signless = ({ isCard }: Props) => {
     return (
       <div className="m-5 flex flex-col gap-y-5">
         <div className="flex flex-col gap-y-1.5">
-          <div className="font-bold text-lg">
-            {isSignless ? "Disable" : "Enable"} signless transactions
+          <div className="flex items-center gap-x-2 font-bold text-lg">
+            {isSignless ? (
+              <CheckCircleIcon className="inline h-6 w-6 text-green-500" />
+            ) : (
+              <XCircleIcon className="inline h-6 w-6 text-red-500" />
+            )}{" "}
+            Signless transactions
           </div>
-          <div className="font-normal text-gray-500 dark:text-gray-200">
+          <div className="pt-2 font-normal text-gray-500 dark:text-gray-200">
             Enable Signless to interact with Palus without signing transactions.
-            This only applies to transactions that don't move tokens.
+            This only applies to transactions that don't move tokens, like
+            posting and following.
           </div>
         </div>
         <Button
@@ -90,7 +97,7 @@ const Signless = ({ isCard }: Props) => {
           outline={isSignless}
           variant={isSignless ? "danger" : "primary"}
         >
-          {isSignless ? "Disable" : "Enable"}
+          {isSignless ? "Disable Signless" : "Enable Signless"}
         </Button>
       </div>
     );
