@@ -114,7 +114,7 @@ const ViewPost = () => {
             />
           </Card>
           <GroupDetails post={targetPost} />
-          <RelevantPeople mentions={targetPost.mentions} />
+          <RelevantPeople post={targetPost} />
           <PostMetadataDetails post={targetPost} />
           <CollectibleDetails post={targetPost} />
           <Footer />

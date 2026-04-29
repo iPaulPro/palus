@@ -1,9 +1,9 @@
 import {
   type AccountFragment,
-  type PostMentionFragment,
+  type PostFragment,
   useAccountsBulkQuery
 } from "@palus/indexer";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import SingleAccountShimmer from "@/components/Shared/Shimmer/SingleAccountShimmer";
 import Skeleton from "@/components/Shared/Skeleton";
@@ -12,25 +12,39 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import MoreRelevantPeople from "./MoreRelevantPeople";
 
 interface RelevantPeopleProps {
-  mentions: PostMentionFragment[];
+  post: PostFragment;
 }
 
-const RelevantPeople = ({ mentions }: RelevantPeopleProps) => {
+const RelevantPeople = ({ post }: RelevantPeopleProps) => {
   const { currentAccount } = useAccountStore();
   const [showMore, setShowMore] = useState(false);
 
-  const accountAddresses = mentions.map((accountMention) =>
-    accountMention.__typename === "AccountMention"
-      ? accountMention.account
-      : accountMention.replace.from
-  );
+  const accountAddresses = useMemo(() => {
+    const addresses = post.mentions
+      .filter((mention) => mention.__typename === "AccountMention")
+      .filter((mention) => mention.account !== currentAccount?.address)
+      .map((mention) => mention.account);
+
+    if (
+      post.commentOn &&
+      post.commentOn.author.address !== currentAccount?.address
+    ) {
+      addresses.push(post.commentOn.author.address);
+    }
+
+    if (post.root && post.root.author.address !== currentAccount?.address) {
+      addresses.push(post.root.author.address);
+    }
+
+    return new Set(addresses);
+  }, [post]);
 
   const { data, error, loading } = useAccountsBulkQuery({
-    skip: accountAddresses.length <= 0,
-    variables: { request: { addresses: accountAddresses } }
+    skip: accountAddresses.size <= 0,
+    variables: { request: { addresses: Array.from(accountAddresses) } }
   });
 
-  if (accountAddresses.length <= 0) {
+  if (accountAddresses.size <= 0) {
     return null;
   }
 

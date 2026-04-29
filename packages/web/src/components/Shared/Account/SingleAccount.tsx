@@ -132,7 +132,7 @@ const SingleAccount = ({
       {showBio && account?.metadata?.bio && (
         <div
           className={cn(
-            isBig ? "text-base" : "text-sm",
+            isBig ? "line-clamp-5 text-base" : "line-clamp-3 text-sm",
             "mt-2",
             "linkify leading-6"
           )}
