@@ -62,6 +62,12 @@
   body {
     @apply bg-surface;
   }
+
+  input,
+  textarea,
+  div[contenteditable="true"] {
+    caret-color: var(--color-brand-500);
+  }
 }
 
 @layer components {
