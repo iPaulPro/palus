@@ -1,5 +1,4 @@
 import { motion } from "motion/react";
-import type { Dispatch, SetStateAction } from "react";
 import { isAddress } from "viem";
 import LicensePicker from "@/components/Composer/LicensePicker";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
@@ -15,7 +14,7 @@ import SplitConfig from "./SplitConfig";
 import TimeLimitConfig from "./TimeLimitConfig";
 
 interface CollectFormProps {
-  setShowModal: Dispatch<SetStateAction<boolean>>;
+  setShowModal: (show: boolean) => void;
   onSubmit?: (values: CollectActionType) => void;
 }
 

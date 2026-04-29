@@ -71,7 +71,8 @@ const PostActions = ({
         <div className="hidden sm:flex">
           {hasCollectAction ? (
             <SmallCollectButton post={targetPost} />
-          ) : currentAccount?.address === targetPost.author.address ? (
+          ) : !targetPost.commentOn &&
+            currentAccount?.address === targetPost.author.address ? (
             <MakeCollectible post={targetPost} />
           ) : null}
         </div>

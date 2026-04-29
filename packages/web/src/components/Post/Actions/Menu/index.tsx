@@ -13,6 +13,7 @@ import CopyPostText from "./CopyPostText";
 import Delete from "./Delete";
 import Edit from "./Edit";
 import HideComment from "./HideComment";
+import MakeCollectible from "./MakeCollectible";
 import NotInterested from "./NotInterested";
 import Report from "./Report";
 import Share from "./Share";
@@ -63,6 +64,7 @@ const PostMenu = ({ post }: PostMenuProps) => {
           {currentAccount?.address === post?.author?.address ? (
             <>
               {canEdit ? <Edit post={post} /> : null}
+              <MakeCollectible post={post} />
               <Delete post={post} />
             </>
           ) : (
