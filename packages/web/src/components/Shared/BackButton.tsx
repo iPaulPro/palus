@@ -13,8 +13,6 @@ const BackButton = ({ path }: BackButtonProps) => {
   const handleBack = useCallback(() => {
     if (path) {
       navigate(path);
-    } else if (navType === "POP") {
-      navigate("/");
     } else {
       navigate(-1);
     }
