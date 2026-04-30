@@ -273,6 +273,16 @@
       display: none !important;
     }
   }
+
+  .search {
+    anchor-name: --search;
+  }
+
+  .suggestions {
+    position: fixed;
+    top: anchor(--search bottom);
+    margin-top: 0.25rem;
+  }
 }
 
 @utility card-drop-shadow {
