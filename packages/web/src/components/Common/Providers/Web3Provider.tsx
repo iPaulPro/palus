@@ -16,7 +16,7 @@ const connectors = [
     dappMetadata: {
       iconUrl: "https://palus.app/icon-512.png",
       name: "Palus",
-      url: "https://palus.app"
+      url: window.origin
     },
     enableAnalytics: false,
     infuraAPIKey: INFURA_API_KEY
