@@ -1,7 +1,44 @@
-import { Button, Card, Image } from "@/components/Shared/UI";
-import { STATIC_IMAGES_URL } from "@/data/constants";
+import { motion } from "motion/react";
+import { Button, Card } from "@/components/Shared/UI";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
 import { useSignupStore } from "./Signup";
+
+const LogoAnimation = () => {
+  return (
+    <motion.svg
+      className="mx-auto size-20"
+      viewBox="0 0 500 500"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="250" cy="250" fill="#0170a3" r="250" />
+      <motion.path
+        animate={{ fillOpacity: 1, pathLength: 1 }}
+        d="M224.25 402c-.15-1.25-.5-7.8-.75-14.5-.35-9.5-.75-13.8-1.75-19-4.4-23.6-18.35-46.4-36.55-59.85-4.35-3.2-8.25-5.55-23.1-13.95-10.85-6.15-16.05-9.7-22.95-15.7-16.05-14-26.9-33.45-29.9-53.7-1.1-7.55-1.5-18.3-.8-23.7.75-6.25 2.05-9.55 5.1-12.85 7.15-7.85 20.1-8.15 28.2-.7 5.25 4.85 6.15 7.65 6.75 20.7.35 8.05.65 10.9 1.7 14.95 2.3 9.1 8.05 18.85 14.3 24.5l2.25 2 .25-11.25q-.15-10.5 1.8-14.6c1.95-4.1 5.3-7.5 9.1-9.3 4-1.85 10.1-2.1 14.2-.6 5.85 2.2 10.25 8.05 11.35 15.05.3 1.75.5 7.05.5 11.75.05 15.6 1.35 23.9 5 31.5 2.7 5.5 5.2 8.9 13.05 17.7l6.75 7.6.1-25.4c.15-21.7.05-26.15-.65-30.4-1.05-6.25-3.45-13.8-6.25-19.3-5.2-10.4-9.9-15.35-21.95-23.35-6.75-4.5-9.95-6.95-13.85-10.85-8.8-8.7-14.35-18.7-17.45-31.35-1.5-6.15-2.05-14.45-1.3-18.6 1.3-6.75 5.453-12.807 11.2-15.15 8.64-3.522 14.9-1.3 17.45-.1 4.95 2.3 8.45 6.25 10.15 11.5.4 1.2 1.1 5.1 1.5 8.7.95 7.95 2.8 12.2 7.15 16.55 2.8 2.8 8.95 6.2 12.5 6.95l1.65.3V135.9c0-17.45.2-33.15.45-34.9 1.45-9.95 7.55-16.5 16.95-18.1 6.8-1.2 13.2.7 18.05 5.3 3.35 3.25 5.25 6.85 6 11.3.35 2.1.5 20.75.5 52.35 0 28.2.2 49.15.45 49.15 1.05 0 6.75-4.3 9.95-7.5 8.65-8.5 12.25-17.2 13.15-31.75.6-8.85 1.4-12.05 3.85-15.7 3.8-5.55 9.15-8.25 16.4-8.25 7 .05 12.25 2.5 15.95 7.55 3.05 4.1 3.9 7.05 4.15 14.4.55 14-2.35 26.85-8.95 40.25-5.6 11.35-12.5 19.5-26.25 31.05-3.9 3.25-8.25 7.25-9.7 8.8-8 8.95-14.1 20.65-17.35 33.45q-.45 2.582-.9 5.7t-.4 17.65c.05 9.85.2 18.05.4 18.2.4.45 2.65-1.8 8.9-8.85 6.85-7.8 9.65-11.75 12.85-18.2 3.75-7.6 4.085-13.653 4.95-23.55s.977-10.597 2.212-14.05 7.688-9.25 14.738-9.6c5-.3 8.25.65 11.9 3.35 4.95 3.8 7.2 9.8 7.2 19.5l.05 5.25 2-2c6.25-6 11.8-18.35 13.95-30.95.6-3.45 1.15-9.5 1.3-14.7.35-10.55.85-13.4 2.85-17.25 1.9-3.5 4.55-5.95 8.9-8 2.95-1.45 9.427-2.835 15.6-.4 6.451 2.545 11.3 9.35 12.45 17.35.65 4.7.25 17.55-.85 25.15-4.35 31.3-20.5 57.2-44.4 71.3-1.95 1.15-6.5 3.5-10.05 5.2-3.6 1.7-6.85 3.3-7.25 3.5-.45.25-2.8 1.5-5.25 2.8-11.35 6-20.65 14.75-29 27.3-11 16.45-15.7 29.5-17.25 48.4-.65 7.25-.967 7.956-2.3 11.1s-3.635 6.525-9.7 8.5q-6.065 1.975-14.24 1.825c-10.05.15-12.867-1.375-14.517-1.825-6.7-2.05-11.643-7.7-12.493-14"
+        fill="#fff"
+        fillRule="evenodd"
+        initial={{ fillOpacity: 0, pathLength: 0 }}
+        stroke="#fff"
+        strokeWidth={4}
+        transition={{
+          fillOpacity: {
+            delay: 2,
+            duration: 0.5,
+            repeat: Number.POSITIVE_INFINITY,
+            repeatDelay: 5.5,
+            repeatType: "mirror"
+          },
+          pathLength: {
+            duration: 2,
+            ease: "easeInOut",
+            repeat: Number.POSITIVE_INFINITY,
+            repeatDelay: 4,
+            repeatType: "mirror"
+          }
+        }}
+      />
+    </motion.svg>
+  );
+};
 
 const SignupCard = () => {
   const { setShowAuthModal } = useAuthModalStore();
@@ -14,15 +51,16 @@ const SignupCard = () => {
 
   return (
     <Card className="space-y-4 p-5">
-      <Image
-        alt="Dizzy emoji"
-        className="mx-auto size-14"
-        height={56}
-        src={`${STATIC_IMAGES_URL}/dizzy.webp`}
-        width={56}
-      />
+      {/*<Image*/}
+      {/*  alt="Dizzy emoji"*/}
+      {/*  className="mx-auto size-14"*/}
+      {/*  height={56}*/}
+      {/*  src={"/favicon.svg"}*/}
+      {/*  width={56}*/}
+      {/*/>*/}
+      <LogoAnimation />
       <div className="space-y-3 text-center">
-        <div className="font-bold">Get your Palus account now!</div>
+        <div className="font-bold">Get your free Palus account now!</div>
         <div>
           <Button onClick={handleSignupClick}>Signup now</Button>
         </div>

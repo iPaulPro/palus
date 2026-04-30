@@ -8,7 +8,8 @@ const links = [
   { href: "/guidelines", label: "Guidelines" },
   { href: "/u/palus", label: "@palus" },
   { href: "https://github.com/ipaulpro/palus", label: "GitHub" },
-  { href: "/support", label: "Support" }
+  { href: "/support", label: "Support" },
+  { href: "https://lens.xyz", label: "Lens" }
 ];
 
 const Footer = () => {

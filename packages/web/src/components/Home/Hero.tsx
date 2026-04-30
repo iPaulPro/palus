@@ -13,7 +13,7 @@ const Hero = () => {
           Welcome to Palus
         </div>
         <div className="font-extrabold text-gray-200">
-          a social network built on Lens
+          a social media platform built on Lens
         </div>
       </div>
     </div>
