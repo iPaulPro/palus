@@ -11,7 +11,7 @@ const MonetizeSettings = () => {
   }
 
   return (
-    <PageLayout title="Monetize settings">
+    <PageLayout title="Monetize settings" zeroTopMargin>
       <SuperFollow />
     </PageLayout>
   );

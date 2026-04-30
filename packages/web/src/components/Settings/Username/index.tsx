@@ -14,7 +14,7 @@ const UsernameSettings = () => {
   }
 
   return (
-    <PageLayout title="Username settings">
+    <PageLayout title="Username settings" zeroTopMargin>
       <Card>
         <CardHeader icon={<BackButton path="/settings" />} title="Username" />
         <UnlinkUsername />

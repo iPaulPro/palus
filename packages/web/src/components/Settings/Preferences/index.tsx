@@ -14,7 +14,7 @@ const PreferencesSettings = () => {
   }
 
   return (
-    <PageLayout title="Preferences settings">
+    <PageLayout title="Preferences settings" zeroTopMargin>
       <Card>
         <CardHeader
           icon={<BackButton path="/settings" />}
