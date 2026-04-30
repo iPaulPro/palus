@@ -7,8 +7,9 @@ import {
 } from "@palus/indexer";
 import { useCallback, useState } from "react";
 import { useConnection } from "wagmi";
+import WalletSelector from "@/components/Shared/Auth/WalletSelector";
 import Loader from "@/components/Shared/Loader";
-import { ErrorMessage, Spinner, WarningMessage } from "@/components/Shared/UI";
+import { ErrorMessage, Spinner } from "@/components/Shared/UI";
 import { ERRORS } from "@/data/errors";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
@@ -46,13 +47,7 @@ const SwitchAccounts = () => {
   const [switchAccount] = useSwitchAccountMutation();
 
   if (!address) {
-    return (
-      <WarningMessage
-        className="m-5"
-        message="Connect your wallet to switch accounts"
-        title="No wallet connected"
-      />
-    );
+    return <WalletSelector />;
   }
 
   if (loading) {
