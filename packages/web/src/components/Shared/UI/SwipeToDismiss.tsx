@@ -1,11 +1,14 @@
 import { motion } from "motion/react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { createContext, useContext, useMemo } from "react";
-import useSwipeToDismiss from "@/hooks/useSwipeToDismiss";
+import useSwipeToDismiss, { SwipeDirection } from "@/hooks/useSwipeToDismiss";
+
+export { SwipeDirection };
 
 type SwipeToDismissOptions = Parameters<typeof useSwipeToDismiss>[0];
 
 interface SwipeToDismissContextValue {
+  dragControls: ReturnType<typeof useSwipeToDismiss>["dragControls"];
   motionProps: ReturnType<typeof useSwipeToDismiss>["motionProps"];
   ref: ReturnType<typeof useSwipeToDismiss>["ref"];
   reset: ReturnType<typeof useSwipeToDismiss>["reset"];
@@ -29,10 +32,10 @@ function SwipeToDismiss({
   children,
   ...options
 }: SwipeToDismissOptions & { children: ReactNode }) {
-  const { ref, motionProps, reset } = useSwipeToDismiss(options);
+  const { ref, motionProps, reset, dragControls } = useSwipeToDismiss(options);
   const value = useMemo(
-    () => ({ motionProps, ref, reset }),
-    [motionProps, ref, reset]
+    () => ({ dragControls, motionProps, ref, reset }),
+    [dragControls, motionProps, ref, reset]
   );
 
   return (
@@ -55,6 +58,30 @@ function Target({
   );
 }
 
+/**
+ * An area that initiates the drag gesture on pointer-down.
+ * Use with `handleOnly` on the parent to prevent iOS Safari from cancelling
+ * drags when the Target contains scrollable content.
+ */
+function Handle({
+  children,
+  style,
+  ...props
+}: ComponentPropsWithoutRef<"div">) {
+  const { dragControls } = useSwipeToDismissContext();
+
+  return (
+    <div
+      onPointerDown={(e) => dragControls.start(e)}
+      style={{ touchAction: "none", ...style }}
+      {...props}
+    >
+      {children}
+    </div>
+  );
+}
+
+SwipeToDismiss.Handle = Handle;
 SwipeToDismiss.Target = Target;
 
 export { SwipeToDismiss };

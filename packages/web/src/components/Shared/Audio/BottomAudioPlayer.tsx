@@ -9,7 +9,7 @@ import { Link } from "react-router";
 import { useAudioPlayerContext } from "@/components/Common/Providers/AudioPlayerProvider";
 import AudioSeekBar from "@/components/Shared/Audio/AudioSeekBar";
 import Loader from "@/components/Shared/Loader";
-import { Image, SwipeToDismiss } from "@/components/Shared/UI";
+import { Image, SwipeDirection, SwipeToDismiss } from "@/components/Shared/UI";
 import { TRANSFORMS } from "@/data/constants";
 import cn from "@/helpers/cn";
 import imageKit from "@/helpers/imageKit";
@@ -60,9 +60,15 @@ const BottomAudioPlayer = () => {
           initial={{ opacity: 0, y: 100 }}
           key={metadata.postId}
           transition={{ damping: 20, stiffness: 260, type: "spring" }}
-          // ...
         >
-          <SwipeToDismiss onDismissEnd={handleDismiss}>
+          <SwipeToDismiss
+            directions={[
+              SwipeDirection.LEFT,
+              SwipeDirection.RIGHT,
+              SwipeDirection.DOWN
+            ]}
+            onDismissEnd={handleDismiss}
+          >
             <SwipeToDismiss.Target>
               <div className="rounded-xl border border-border bg-card px-2 pt-2 shadow-xl">
                 <div className="flex items-center gap-x-2">
