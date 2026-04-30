@@ -47,7 +47,11 @@ const SwitchAccounts = () => {
   const [switchAccount] = useSwitchAccountMutation();
 
   if (!address) {
-    return <WalletSelector />;
+    return (
+      <div className="p-4">
+        <WalletSelector />
+      </div>
+    );
   }
 
   if (loading) {
