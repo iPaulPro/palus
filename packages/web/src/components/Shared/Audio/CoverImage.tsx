@@ -1,4 +1,5 @@
 import { PhotoIcon } from "@heroicons/react/24/outline";
+import { MediaImageMimeType } from "@lens-protocol/metadata";
 import type { ChangeEvent, Ref } from "react";
 import { useCallback, useState } from "react";
 import { Image, LightBox, Spinner } from "@/components/Shared/UI";
@@ -17,6 +18,8 @@ interface CoverImageProps {
   isNew: boolean;
   setCover: (previewUri: string, url: string, mimeType: string) => void;
 }
+
+const ImageMimeType = Object.values(MediaImageMimeType);
 
 const CoverImage = ({
   cover,
@@ -46,6 +49,8 @@ const CoverImage = ({
         );
       } catch (error) {
         onError(error as ApolloClientError);
+      } finally {
+        setIsSubmitting(false);
       }
     }
   };
@@ -91,7 +96,7 @@ const CoverImage = ({
             </div>
           )}
           <input
-            accept=".png, .jpg, .jpeg, .svg"
+            accept={ImageMimeType.join()}
             className="hidden w-full"
             onChange={onChange}
             type="file"
