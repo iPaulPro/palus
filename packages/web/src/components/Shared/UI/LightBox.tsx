@@ -1,5 +1,7 @@
+import { useMediaQuery } from "@uidotdev/usehooks";
 import { memo } from "react";
 import { PhotoSlider } from "react-photo-view";
+import { IS_MOBILE } from "@/helpers/mediaQueries";
 
 interface LightBoxProps {
   show: boolean;
@@ -16,9 +18,11 @@ const LightBox = ({
   initialIndex = 0,
   onIndexChange
 }: LightBoxProps) => {
+  const isSmallDevice = useMediaQuery(IS_MOBILE);
+
   return (
     <PhotoSlider
-      bannerVisible={false}
+      bannerVisible={!isSmallDevice}
       images={images.map((image) => ({ key: image, src: image }))}
       index={initialIndex}
       maskOpacity={0.75}
