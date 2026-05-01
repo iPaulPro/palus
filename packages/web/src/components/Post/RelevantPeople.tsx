@@ -32,7 +32,11 @@ const RelevantPeople = ({ post }: RelevantPeopleProps) => {
       addresses.push(post.commentOn.author.address);
     }
 
-    if (post.root && post.root.author.address !== currentAccount?.address) {
+    if (
+      post.root &&
+      post.root.author.address !== currentAccount?.address &&
+      post.root.author.address !== post.author.address
+    ) {
       addresses.push(post.root.author.address);
     }
 
