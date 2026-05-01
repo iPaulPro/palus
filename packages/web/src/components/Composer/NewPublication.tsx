@@ -440,21 +440,21 @@ const NewPublication = ({
     <Card
       className={cn(
         {
-          "!drop-shadow-none flex h-full flex-col overflow-hidden pt-4": isModal
+          "!drop-shadow-none flex h-full flex-col overflow-hidden": isModal
         },
         className
       )}
     >
-      {parentPost && isModal ? (
-        <div className="mx-3 shrink-0 md:mx-5">
-          <ThreadBody embedded post={parentPost} />
-        </div>
-      ) : null}
       <div
         className={cn("min-h-0 flex-1 overflow-y-auto", {
-          isModal: "overscroll-contain"
+          "overscroll-contain pt-4": isModal
         })}
       >
+        {parentPost && isModal ? (
+          <div className="mx-3 shrink-0 md:mx-5">
+            <ThreadBody embedded post={parentPost} />
+          </div>
+        ) : null}
         <Editor
           fullHeight={
             isModal &&
@@ -490,7 +490,7 @@ const NewPublication = ({
       </div>
       <div className="block shrink-0 items-center border-border border-t px-5 py-3 sm:flex">
         <div
-          className={cn("flex w-full items-center space-x-5", {
+          className={cn("flex w-full items-center space-x-5 bg-card", {
             "pb-6 sm:pb-0": isStandalone && isModal
           })}
         >

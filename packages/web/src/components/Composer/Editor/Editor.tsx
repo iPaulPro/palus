@@ -77,7 +77,8 @@ const Editor = ({
           "box-border flex w-full justify-stretch overflow-x-hidden px-4 md:px-5",
           {
             "h-full": fullHeight,
-            "pt-4": !isInModal || (isInModal && isComment)
+            "pt-2": isInModal && isComment,
+            "pt-4": !isInModal
           }
         )}
       >

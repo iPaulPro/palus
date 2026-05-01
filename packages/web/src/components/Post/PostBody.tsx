@@ -119,7 +119,10 @@ const PostBody = ({
         >
           <Markup
             className={cn(
-              { "line-clamp-2": embedded, "line-clamp-7": showMore },
+              {
+                "line-clamp-2": embedded,
+                "line-clamp-7": showMore && !embedded
+              },
               "markup linkify break-words",
               contentClassName
             )}
@@ -129,7 +132,7 @@ const PostBody = ({
           >
             {filteredContent}
           </Markup>
-          {isClamped ? (
+          {isClamped && !embedded ? (
             <div className="flex items-center space-x-1 pt-1 font-semibold text-brand-500 text-sm">
               <PostLink post={post}>Show more</PostLink>
             </div>
