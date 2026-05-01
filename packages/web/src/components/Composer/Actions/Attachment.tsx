@@ -47,7 +47,7 @@ const Attachment = ({ anchor = "bottom", disabled }: AttachmentProps) => {
   ) as MutableRefObject<HTMLDivElement>;
 
   const isTypeAllowed = (files: FileList) =>
-    Array.from(files).some((file) =>
+    Array.from(files).every((file) =>
       [...ImageMimeType, ...AudioMimeType, ...VideoMimeType].includes(file.type)
     );
 
@@ -62,7 +62,7 @@ const Attachment = ({ anchor = "bottom", disabled }: AttachmentProps) => {
     evt.preventDefault();
     setShowMenu(false);
     const { files } = evt.target;
-    if (!files) return;
+    if (!files?.length) return;
 
     if (!isUploadAllowed(files)) {
       return toast.error(
