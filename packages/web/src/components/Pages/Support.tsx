@@ -12,7 +12,15 @@ const Support = () => {
           <p className="mt-3">
             For assistance, please email us at{" "}
             <Link to="mailto:support@palus.app">support@palus.app</Link> with a
-            detailed description of your issue and how we can assist you.
+            detailed description of your issue and how we can assist you, or
+            file an issue on{" "}
+            <Link
+              target="_blank"
+              to="https://github.com/iPaulPro/palus/issues/new"
+            >
+              GitHub
+            </Link>
+            .
           </p>
           <div className="my-5 flex flex-col space-y-2">
             <Link to="/guidelines">Community Guidelines</Link>
