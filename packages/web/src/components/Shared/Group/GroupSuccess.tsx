@@ -9,12 +9,13 @@ const GroupSuccess = () => {
   const { groupAddress, setShowCreateGroupModal } = useCreateGroupStore();
 
   useEffect(() => {
-    setTimeout(() => {
+    const id = setTimeout(() => {
       if (groupAddress) {
         setShowCreateGroupModal(false);
         navigate(`/g/${groupAddress}`);
       }
     }, 3000);
+    return () => clearTimeout(id);
   }, [groupAddress]);
 
   return (
