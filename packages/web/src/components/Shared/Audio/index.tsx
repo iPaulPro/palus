@@ -4,6 +4,7 @@ import { type ChangeEvent, useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { useAudioPlayerContext } from "@/components/Common/Providers/AudioPlayerProvider";
 import Loader from "@/components/Shared/Loader";
+import { MarqueeText } from "@/components/Shared/UI";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useAudioMetadataStore } from "@/store/non-persisted/audio/useAudioMetadataStore";
 import { usePostAudioStore } from "@/store/non-persisted/post/usePostAudioStore";
@@ -182,10 +183,12 @@ const Audio = ({
                 </div>
               ) : (
                 <>
-                  <div className="truncate text-white sm:text-lg">{title}</div>
-                  <div className="truncate text-sm text-white/70 sm:text-base">
+                  <MarqueeText className="text-white sm:text-lg">
+                    {title}
+                  </MarqueeText>
+                  <MarqueeText className="text-sm text-white/70 sm:text-base">
                     {artist}
-                  </div>
+                  </MarqueeText>
                 </>
               )}
             </div>

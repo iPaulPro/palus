@@ -9,7 +9,12 @@ import { Link } from "react-router";
 import { useAudioPlayerContext } from "@/components/Common/Providers/AudioPlayerProvider";
 import AudioSeekBar from "@/components/Shared/Audio/AudioSeekBar";
 import Loader from "@/components/Shared/Loader";
-import { Image, SwipeDirection, SwipeToDismiss } from "@/components/Shared/UI";
+import {
+  Image,
+  MarqueeText,
+  SwipeDirection,
+  SwipeToDismiss
+} from "@/components/Shared/UI";
 import { TRANSFORMS } from "@/data/constants";
 import cn from "@/helpers/cn";
 import imageKit from "@/helpers/imageKit";
@@ -84,7 +89,9 @@ const BottomAudioPlayer = () => {
                     <div className="flex w-full items-center gap-x-1 pr-2">
                       <div className="w-full min-w-0">
                         <Link to={`/posts/${metadata.postId}`}>
-                          <div className="truncate font-semibold">{title}</div>
+                          <MarqueeText className="font-semibold">
+                            {title}
+                          </MarqueeText>
                         </Link>
                         <div className="truncate text-secondary text-sm">
                           {artist}

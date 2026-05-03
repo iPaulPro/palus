@@ -11,7 +11,7 @@ import AudioSeekBar from "@/components/Shared/Audio/AudioSeekBar";
 import MuteButton from "@/components/Shared/Audio/MuteButton";
 import TimeLabel from "@/components/Shared/Audio/TimeLabel";
 import Loader from "@/components/Shared/Loader";
-import { Card, Image, LightBox } from "@/components/Shared/UI";
+import { Card, Image, LightBox, MarqueeText } from "@/components/Shared/UI";
 import { TRANSFORMS } from "@/data/constants";
 import imageKit from "@/helpers/imageKit";
 import { useAudioMetadataStore } from "@/store/non-persisted/audio/useAudioMetadataStore";
@@ -87,9 +87,11 @@ const SidebarAudioPlayer = () => {
             </button>
             <div className="w-full min-w-0">
               <Link to={`/posts/${metadata.postId}`}>
-                <div className="truncate font-semibold">{title}</div>
+                <MarqueeText className="font-semibold">{title}</MarqueeText>
               </Link>
-              <div className="truncate text-secondary text-sm">{artist}</div>
+              <MarqueeText className="text-secondary text-sm">
+                {artist}
+              </MarqueeText>
             </div>
           </div>
           <div className="flex w-full items-center gap-x-2 pl-1.5">
