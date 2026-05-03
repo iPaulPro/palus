@@ -3,5 +3,6 @@ fragment MediaAudio on MediaAudio {
   item
   cover
   license
-  type
+  audioType: type
+  duration
 }

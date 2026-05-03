@@ -27,6 +27,7 @@ interface AudioProps {
   type?: MediaAudioType | string;
   artist?: string;
   isNew?: boolean;
+  isEditing?: boolean;
   title?: string;
   postId?: string;
 }
@@ -57,6 +58,7 @@ const getFormat = (type?: MediaAudioType | string) => {
 const Audio = ({
   artist,
   isNew = false,
+  isEditing = false,
   poster,
   src,
   type,
@@ -131,8 +133,9 @@ const Audio = ({
     >
       <div className="flex h-full w-full space-x-2 rounded-xl bg-black/50 p-0 backdrop-blur-2xl [@supports(-moz-appearance:none)]:backdrop-blur-none">
         <CoverImage
-          cover={isNew ? (newPreviewUri as string) : poster}
+          cover={newPreviewUri ?? (isEditing ? audioPost.cover : poster)}
           imageRef={imageRef}
+          isEditing={isEditing}
           isNew={isNew}
           setCover={(previewUri, cover, mimeType) => {
             setNewPreviewUri(previewUri);
@@ -158,7 +161,7 @@ const Audio = ({
               )}
             </button>
             <div className="w-0 min-w-0 flex-1 overflow-hidden pr-3">
-              {isNew ? (
+              {isNew || isEditing ? (
                 <div className="flex w-full flex-col space-y-1">
                   <input
                     autoComplete="off"

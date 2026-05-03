@@ -8168,16 +8168,22 @@ export type MediaAudioFragment = {
   item: any;
   cover?: any | null;
   license?: MetadataLicenseType | null;
-  type: MediaAudioType;
+  duration?: number | null;
+  audioType: MediaAudioType;
 };
 
-export type MediaImageFragment = { __typename?: "MediaImage"; item: any };
+export type MediaImageFragment = {
+  __typename?: "MediaImage";
+  item: any;
+  imageType: MediaImageType;
+};
 
 export type MediaVideoFragment = {
   __typename?: "MediaVideo";
   item: any;
   cover?: any | null;
   license?: MetadataLicenseType | null;
+  videoType: MediaVideoType;
 };
 
 export type SelfFundedTransactionRequestFragment = {
@@ -10050,11 +10056,13 @@ export const MediaVideoFragmentDoc = `
   item
   cover
   license
+  videoType: type
 }
     `;
 export const MediaImageFragmentDoc = `
     fragment MediaImage on MediaImage {
   item
+  imageType: type
 }
     `;
 export const MediaAudioFragmentDoc = `
@@ -10063,7 +10071,8 @@ export const MediaAudioFragmentDoc = `
   item
   cover
   license
-  type
+  audioType: type
+  duration
 }
     `;
 export const AnyMediaFragmentDoc = `

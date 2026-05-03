@@ -480,7 +480,10 @@ const NewPublication = ({
             <NotificationShare ref={notificationShareRef} />
           </div>
         ) : (
-          <NewAttachments attachments={attachments} />
+          <NewAttachments
+            attachments={attachments}
+            isEditing={Boolean(editingPost)}
+          />
         )}
         {quotedPost ? (
           <Wrapper className="m-5" zeroPadding>

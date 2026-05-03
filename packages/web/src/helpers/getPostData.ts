@@ -45,6 +45,7 @@ const getPostData = (
       return {
         asset: {
           kind: "Image",
+          type: metadata.image.imageType,
           uri: sanitizeDStorageUrl(metadata.image.item)
         },
         attachments: getAttachmentsData(metadata.attachments),
@@ -64,9 +65,10 @@ const getPostData = (
               audioAttachments?.coverUri ||
               PLACEHOLDER_IMAGE
           ),
+          duration: metadata.audio.duration ?? 0,
           kind: "Audio",
           title: metadata.title || "Untitled",
-          type: metadata.audio.type,
+          type: metadata.audio.audioType,
           uri: metadata.audio.item || audioAttachments?.uri
         },
         attributes: metadata.attributes,
@@ -83,6 +85,7 @@ const getPostData = (
             metadata.video.cover || videoAttachments?.coverUri
           ),
           kind: "Video",
+          type: metadata.video.videoType,
           uri: sanitizeDStorageUrl(metadata.video.item || videoAttachments?.uri)
         },
         attributes: metadata.attributes,

@@ -14,12 +14,14 @@ const getAttachmentsData = (
       case "MediaImage":
         return {
           kind: "Image",
+          type: attachment.imageType,
           uri: sanitizeDStorageUrl(attachment.item)
         } satisfies AttachmentData;
       case "MediaVideo":
         return {
           coverUri: sanitizeDStorageUrl(attachment.cover),
           kind: "Video",
+          type: attachment.videoType,
           uri: sanitizeDStorageUrl(attachment.item)
         } satisfies AttachmentData;
       case "MediaAudio":
@@ -27,6 +29,7 @@ const getAttachmentsData = (
           artist: attachment.artist,
           coverUri: sanitizeDStorageUrl(attachment.cover),
           kind: "Audio",
+          type: attachment.audioType,
           uri: sanitizeDStorageUrl(attachment.item)
         } satisfies AttachmentData;
       default:

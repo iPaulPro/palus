@@ -16,6 +16,7 @@ interface CoverImageProps {
   cover: string;
   imageRef: Ref<HTMLImageElement>;
   isNew: boolean;
+  isEditing: boolean;
   setCover: (previewUri: string, url: string, mimeType: string) => void;
 }
 
@@ -24,7 +25,8 @@ const ImageMimeType = Object.values(MediaImageMimeType);
 const CoverImage = ({
   cover,
   imageRef,
-  isNew = false,
+  isNew,
+  isEditing,
   setCover
 }: CoverImageProps) => {
   const { currentAccount } = useAccountStore();
@@ -80,19 +82,19 @@ const CoverImage = ({
           show={showLightBox}
         />
       </button>
-      {isNew && (
+      {(isNew || isEditing) && (
         <label
           className={cn(
-            { invisible: cover, visible: isSubmitting && !cover },
+            { invisible: cover, visible: isSubmitting },
             "absolute top-0 grid aspect-square h-full cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible dark:bg-gray-900"
           )}
         >
-          {isSubmitting && !cover ? (
+          {isSubmitting ? (
             <Spinner size="sm" />
           ) : (
             <div className="flex flex-col items-center text-sm opacity-60">
               <PhotoIcon className="size-5" />
-              <span>Add cover</span>
+              <span>{cover ? "Change cover" : "Add cover"}</span>
             </div>
           )}
           <input

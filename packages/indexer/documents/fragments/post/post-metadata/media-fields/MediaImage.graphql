@@ -1,3 +1,4 @@
 fragment MediaImage on MediaImage {
   item
+  imageType: type
 }

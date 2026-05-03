@@ -7904,11 +7904,11 @@ export type AnyMediaFragment =
   | AnyMedia_MediaVideo_Fragment
 ;
 
-export type MediaAudioFragment = { __typename: 'MediaAudio', artist?: string | null, item: any, cover?: any | null, license?: MetadataLicenseType | null, type: MediaAudioType };
+export type MediaAudioFragment = { __typename: 'MediaAudio', artist?: string | null, item: any, cover?: any | null, license?: MetadataLicenseType | null, duration?: number | null, audioType: MediaAudioType };
 
-export type MediaImageFragment = { __typename: 'MediaImage', item: any };
+export type MediaImageFragment = { __typename: 'MediaImage', item: any, imageType: MediaImageType };
 
-export type MediaVideoFragment = { __typename: 'MediaVideo', item: any, cover?: any | null, license?: MetadataLicenseType | null };
+export type MediaVideoFragment = { __typename: 'MediaVideo', item: any, cover?: any | null, license?: MetadataLicenseType | null, videoType: MediaVideoType };
 
 export type SelfFundedTransactionRequestFragment = { __typename: 'SelfFundedTransactionRequest', raw: { __typename: 'Eip1559TransactionRequest', chainId: number, data: any, from: any, gasLimit: number, maxFeePerGas: any, maxPriorityFeePerGas: any, nonce: number, to: any, type: number, value: any } };
 
@@ -9704,11 +9704,13 @@ export const MediaVideoFragmentDoc = gql`
   item
   cover
   license
+  videoType: type
 }
     `;
 export const MediaImageFragmentDoc = gql`
     fragment MediaImage on MediaImage {
   item
+  imageType: type
 }
     `;
 export const MediaAudioFragmentDoc = gql`
@@ -9717,7 +9719,8 @@ export const MediaAudioFragmentDoc = gql`
   item
   cover
   license
-  type
+  audioType: type
+  duration
 }
     `;
 export const AnyMediaFragmentDoc = gql`

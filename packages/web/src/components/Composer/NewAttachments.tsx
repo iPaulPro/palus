@@ -23,11 +23,13 @@ const getClass = (attachments: number) => {
 interface NewAttachmentsProps {
   attachments: NewAttachment[];
   hideDelete?: boolean;
+  isEditing?: boolean;
 }
 
 const NewAttachments = ({
   attachments = [],
-  hideDelete = false
+  hideDelete = false,
+  isEditing = false
 }: NewAttachmentsProps) => {
   const { setAttachments } = usePostAttachmentStore();
   const { setVideoDurationInSeconds } = usePostVideoStore();
@@ -101,7 +103,8 @@ const NewAttachments = ({
               </>
             ) : isAudio ? (
               <Audio
-                isNew
+                isEditing={isEditing}
+                isNew={!isEditing}
                 poster=""
                 src={attachment.previewUri}
                 type={attachment.file?.name.split(".").slice(-1)[0] || "mp3"}
