@@ -34,12 +34,6 @@ const Tooltip = ({
     if (isMobile) setOpen(false);
   }, [isMobile]);
 
-  console.log(
-    "extra padding",
-    typeof content === "string" && content.length > 50,
-    content
-  );
-
   return (
     <RadixTooltip.Provider
       delayDuration={withDelay ? 600 : 0}
