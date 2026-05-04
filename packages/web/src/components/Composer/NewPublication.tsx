@@ -34,7 +34,7 @@ import getMentions from "@/helpers/getMentions";
 import getPostData from "@/helpers/getPostData";
 import getURLs from "@/helpers/getURLs";
 import { getPostIdFromLensUrl } from "@/helpers/lensURLs";
-import { IS_STANDALONE } from "@/helpers/mediaQueries";
+import { IS_MOBILE, IS_STANDALONE } from "@/helpers/mediaQueries";
 import pollActionParams from "@/helpers/pollActionParams";
 import postRuleParams from "@/helpers/postRuleParams";
 import { uploadImage } from "@/helpers/uploadFiles";
@@ -155,6 +155,7 @@ const NewPublication = ({
   const hasVideo = attachments[0]?.type === "Video";
 
   const isStandalone = useMediaQuery(IS_STANDALONE);
+  const isMobile = useMediaQuery(IS_MOBILE);
 
   const [getPost] = usePostLazyQuery();
   const debouncedPostContent = useDebounce(postContent, 1000);
@@ -447,7 +448,8 @@ const NewPublication = ({
     >
       <div
         className={cn("min-h-0 flex-1 overflow-y-auto", {
-          "overscroll-contain pt-4": isModal
+          "overscroll-contain": isMobile && isModal,
+          "pt-4": isModal
         })}
       >
         {parentPost && isModal ? (
