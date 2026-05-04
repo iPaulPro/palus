@@ -77,6 +77,7 @@ const MarqueeText: FC<MarqueeTextProps> = ({
   children
 }: MarqueeTextProps) => {
   const marqueeItems = useRef<HTMLDivElement>(null);
+  const measureRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [translateFrom, setTranslateFrom] = useState(0);
   const [showItems, setShowItems] = useState(Children.toArray(children));
@@ -92,15 +93,14 @@ const MarqueeText: FC<MarqueeTextProps> = ({
 
   const computeLayout = useCallback(() => {
     const element = marqueeItems.current;
-    if (!element) return;
+    const measureElement = measureRef.current;
+    if (!element || !measureElement) return;
 
-    // Temporarily reset clones so we measure the natural content width
     const originalItems = Children.toArray(children);
     const containerWidth = Math.floor(element.parentElement?.offsetWidth ?? 0);
 
-    // Read the width of a single set of items by checking the first child group
-    // We use scrollWidth on a fresh render, so we rely on the parent container width
-    const itemsWidth = Math.floor(element.scrollWidth);
+    // Always measure the hidden single-copy element so clones never inflate the width
+    const itemsWidth = Math.floor(measureElement.scrollWidth);
 
     if (itemsWidth <= containerWidth || containerWidth === 0) {
       setIsOverflowing(false);
@@ -134,17 +134,12 @@ const MarqueeText: FC<MarqueeTextProps> = ({
     if (!container) return;
 
     const observer = new ResizeObserver(() => {
-      // Reset to original items first so scrollWidth reflects natural content size
-      setShowItems(Children.toArray(children));
-      // Let the DOM update, then recompute
-      requestAnimationFrame(() => {
-        computeLayout();
-      });
+      computeLayout();
     });
 
     observer.observe(container);
     return () => observer.disconnect();
-  }, [children, computeLayout]);
+  }, [computeLayout]);
 
   useEffect(() => {
     if (!playOnlyInView) return;
@@ -192,6 +187,19 @@ const MarqueeText: FC<MarqueeTextProps> = ({
           : marqueeContainerStyles
       }
     >
+      {/* Hidden measurement element — always holds original children only, never clones */}
+      <div
+        aria-hidden="true"
+        ref={measureRef}
+        style={{
+          ...marqueeBaseStyles,
+          pointerEvents: "none",
+          position: "absolute",
+          visibility: "hidden"
+        }}
+      >
+        {children}
+      </div>
       <div
         className={`${className}__items`}
         ref={marqueeItems}
