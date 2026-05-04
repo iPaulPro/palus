@@ -2,12 +2,13 @@ import * as RadixTooltip from "@radix-ui/react-tooltip";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { motion } from "motion/react";
 import { memo, type ReactNode, useCallback, useState } from "react";
+import cn from "@/helpers/cn";
 import { IS_MOBILE } from "@/helpers/mediaQueries";
 
 interface TooltipProps {
   children: ReactNode;
   className?: string;
-  content: ReactNode;
+  content: ReactNode | string;
   placement?: "bottom" | "left" | "right" | "top";
   withDelay?: boolean;
   showOnClick?: boolean;
@@ -33,6 +34,12 @@ const Tooltip = ({
     if (isMobile) setOpen(false);
   }, [isMobile]);
 
+  console.log(
+    "extra padding",
+    typeof content === "string" && content.length > 50,
+    content
+  );
+
   return (
     <RadixTooltip.Provider
       delayDuration={withDelay ? 600 : 0}
@@ -50,7 +57,12 @@ const Tooltip = ({
         <RadixTooltip.Portal>
           <RadixTooltip.Content
             asChild
-            className="!rounded-lg !text-xs !leading-6 z-10 max-w-96 bg-gray-700 px-4 py-3 text-white tracking-wide"
+            className={cn(
+              "!rounded-lg !text-xs !leading-6 z-10 max-w-96 bg-gray-700 px-4 py-3 text-white tracking-wide",
+              {
+                "px-3 py-1": typeof content === "string" && content.length < 50
+              }
+            )}
             onPointerDownOutside={handleContentPointerDownOutside}
             side={placement}
             sideOffset={5}
