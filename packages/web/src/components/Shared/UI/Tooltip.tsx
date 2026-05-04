@@ -10,6 +10,7 @@ interface TooltipProps {
   content: ReactNode;
   placement?: "bottom" | "left" | "right" | "top";
   withDelay?: boolean;
+  showOnClick?: boolean;
 }
 
 const Tooltip = ({
@@ -17,14 +18,15 @@ const Tooltip = ({
   className = "",
   content,
   placement = "right",
-  withDelay = false
+  withDelay = false,
+  showOnClick = false
 }: TooltipProps) => {
   const isMobile = useMediaQuery(IS_MOBILE);
   const [open, setOpen] = useState(false);
 
   const handleTriggerClick = useCallback(() => {
-    if (isMobile) setOpen((prev) => !prev);
-  }, [isMobile]);
+    if (isMobile && showOnClick) setOpen((prev) => !prev);
+  }, [isMobile, showOnClick]);
 
   // Close on outside pointer-down when on mobile
   const handleContentPointerDownOutside = useCallback(() => {
