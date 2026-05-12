@@ -122,7 +122,7 @@ const ViewPost = () => {
       }
       title={`${targetPost.__typename} by ${
         getAccount(targetPost.author).username
-      } • Palus`}
+      }`}
       zeroTopMargin
     >
       <div className="space-y-5">

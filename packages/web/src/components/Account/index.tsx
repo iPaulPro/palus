@@ -104,7 +104,7 @@ const ViewAccount = () => {
 
   return (
     <PageLayout
-      title={`${accountInfo.name} (${accountInfo.username}) • Palus`}
+      title={`${accountInfo.name} (${accountInfo.username})`}
       zeroTopMargin
     >
       <Cover
