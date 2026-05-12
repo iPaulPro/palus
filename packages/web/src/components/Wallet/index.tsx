@@ -128,7 +128,11 @@ const Wallet = () => {
 
   return (
     <>
-      <PageLayout className="space-y-1 md:space-y-2" zeroTopMargin>
+      <PageLayout
+        className="space-y-1 md:space-y-2"
+        title="Account wallet"
+        zeroTopMargin
+      >
         <Card className="pb-4">
           <CardHeader title="Account Wallet" />
           <div className="flex items-center justify-between px-5 pt-4">
