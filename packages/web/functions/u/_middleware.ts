@@ -32,7 +32,7 @@ export const onRequest: PagesFunction = async (context) => {
     const meta = await fetchMetaForRoute(username);
     if (!meta) return response;
 
-    const body = await replaceMetaTags(url, response, meta, "summary");
+    const body = await replaceMetaTags(url, response, meta);
 
     return new Response(body, {
       headers: response.headers,
@@ -45,10 +45,11 @@ export const onRequest: PagesFunction = async (context) => {
 
 async function fetchMetaForRoute(username: string): Promise<Metadata> {
   const defaultMeta = {
+    cardType: "summary",
     description: "Palus is a Web3 social app built with Lens",
     image: "https://palus.app/apple-touch-icon.png",
     title: "Account on Palus"
-  };
+  } satisfies Metadata;
 
   try {
     const data = await lensQuery<AccountQuery, AccountQueryVariables>(
@@ -67,6 +68,7 @@ async function fetchMetaForRoute(username: string): Promise<Metadata> {
       : `@${username} on Palus`;
 
     return {
+      cardType: defaultMeta.cardType,
       description:
         account.metadata?.bio?.slice(0, 160) ?? defaultMeta.description,
       image:

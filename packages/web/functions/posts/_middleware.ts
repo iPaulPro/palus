@@ -6,6 +6,7 @@ import {
 } from "@palus/indexer";
 import { isBot } from "../helpers/isBot";
 import { replaceMetaTags } from "../helpers/replaceMetaTags";
+import { sanitizeDStorageUrl } from "../helpers/sanitizeDStorageUrl";
 import { lensQuery } from "../lens-api";
 import type { Metadata } from "../types";
 import getPostData from "./getPostData";
@@ -33,12 +34,7 @@ export const onRequest: PagesFunction = async (context) => {
     const meta = await fetchMetaForRoute(postId);
     if (!meta) return response;
 
-    const body = await replaceMetaTags(
-      url,
-      response,
-      meta,
-      "summary_large_image"
-    );
+    const body = await replaceMetaTags(url, response, meta);
 
     return new Response(body, {
       headers: response.headers,
@@ -51,10 +47,11 @@ export const onRequest: PagesFunction = async (context) => {
 
 async function fetchMetaForRoute(postId: string): Promise<Metadata> {
   const defaultMeta = {
+    cardType: "summary",
     description: "Palus is a Web3 social app built with Lens",
-    image: "https://palus.app/images/og/cover.webp",
-    title: "Palus"
-  };
+    image: "https://palus.app/images/default.webp",
+    title: "Post on Palus"
+  } satisfies Metadata;
 
   try {
     const data = await lensQuery<PostQuery, PostQueryVariables>(PostDocument, {
@@ -76,10 +73,12 @@ async function fetchMetaForRoute(postId: string): Promise<Metadata> {
     const authorName = post.author.username
       ? `@${post.author.username.localName}`
       : formatAddress(post.author.address);
+    const authorAvatar = sanitizeDStorageUrl(post.author.metadata?.picture);
 
     return {
+      cardType: postData?.image ? "summary_large_image" : defaultMeta.cardType,
       description: postData?.content?.slice(0, 160) ?? defaultMeta.description,
-      image: postData?.image ?? defaultMeta.image,
+      image: postData?.image ?? authorAvatar ?? defaultMeta.image,
       title: `Post by ${authorName}`
     };
   } catch {

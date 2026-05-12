@@ -32,7 +32,7 @@ export const onRequest: PagesFunction = async (context) => {
     const meta = await fetchMetaForRoute(address);
     if (!meta) return response;
 
-    const body = await replaceMetaTags(url, response, meta, "summary");
+    const body = await replaceMetaTags(url, response, meta);
 
     return new Response(body, {
       headers: response.headers,
@@ -45,10 +45,11 @@ export const onRequest: PagesFunction = async (context) => {
 
 async function fetchMetaForRoute(address: string): Promise<Metadata> {
   const defaultMeta = {
+    cardType: "summary",
     description: "Palus is a Web3 social app built with Lens",
-    image: "https://palus.app/apple-touch-icon.png",
+    image: "https://palus.app/images/default.webp",
     title: "Group on Palus"
-  };
+  } satisfies Metadata;
 
   try {
     const data = await lensQuery<GroupQuery, GroupQueryVariables>(
@@ -65,6 +66,7 @@ async function fetchMetaForRoute(address: string): Promise<Metadata> {
     const title = name ? `${name} group on Palus` : "Group on Palus";
 
     return {
+      cardType: defaultMeta.cardType,
       description:
         group.metadata?.description?.slice(0, 160) ?? defaultMeta.description,
       image: sanitizeDStorageUrl(group.metadata?.icon) ?? defaultMeta.image,
