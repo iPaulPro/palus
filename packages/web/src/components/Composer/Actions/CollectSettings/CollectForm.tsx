@@ -32,7 +32,9 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
       ({ address }) => address && !isAddress(address)
     ),
     hasZeroPrice:
-      collectAction.payToCollect && collectAction.payToCollect.native <= 0,
+      collectAction.payToCollect &&
+      (collectAction.payToCollect.native <= 0 ||
+        collectAction.payToCollect.erc20?.value <= 0),
     hasZeroSplits: recipients.some(({ percent }) => percent === 0),
     isRecipientsDuplicated:
       new Set(recipients.map(({ address }) => address)).size !==
@@ -82,7 +84,8 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
             }}
           >
             <AmountConfig setCollectType={setCollectType} />
-            {collectAction.payToCollect?.native && (
+            {(collectAction.payToCollect?.native ||
+              collectAction.payToCollect?.erc20?.value) && (
               <SplitConfig
                 isRecipientsDuplicated={validationChecks.isRecipientsDuplicated}
                 setCollectType={setCollectType}
