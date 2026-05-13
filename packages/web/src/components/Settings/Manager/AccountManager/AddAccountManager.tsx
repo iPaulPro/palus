@@ -30,7 +30,12 @@ const AddAccountManager = ({
     setIsSubmitting(false);
     setShowAddManagerModal(false);
     const toastId = toast.loading("Adding manager...");
-    await waitForTransactionToComplete(hash);
+    try {
+      await waitForTransactionToComplete(hash);
+    } catch {
+      toast.error("Failed to add manager. Please try again.", { id: toastId });
+      return;
+    }
     toast.success("Manager added successfully", { id: toastId });
     location.reload();
   };

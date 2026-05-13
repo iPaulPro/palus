@@ -77,7 +77,12 @@ const SuperFollow = () => {
   }, [simplePaymentAmount, form]);
 
   const onCompleted = async (hash: string) => {
-    await waitForTransactionToComplete(hash);
+    try {
+      await waitForTransactionToComplete(hash);
+    } catch (e: any) {
+      errorToast(e);
+      return;
+    }
     const accountData = await getCurrentAccountDetails();
     setCurrentAccount(accountData?.data?.me.loggedInAs.account);
     toast.success("Setting updated");

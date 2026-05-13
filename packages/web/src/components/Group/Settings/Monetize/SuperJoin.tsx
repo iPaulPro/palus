@@ -53,7 +53,12 @@ const SuperJoin = ({ group }: SuperJoinProps) => {
   }, [simplePaymentAmount]);
 
   const onCompleted = async (hash: string) => {
-    await waitForTransactionToComplete(hash);
+    try {
+      await waitForTransactionToComplete(hash);
+    } catch (e: any) {
+      errorToast(e);
+      return;
+    }
     location.reload();
   };
 

@@ -82,7 +82,12 @@ const useMakePostCollectible = ({ post }: Props) => {
   const onCompletedWithTransaction = useCallback(
     async (hash: string) => {
       const toastId = toast.loading("Making collectible...");
-      await waitForTransactionToComplete(hash);
+      try {
+        await waitForTransactionToComplete(hash);
+      } catch (e: any) {
+        toast.error(e.message, { id: toastId });
+        return;
+      }
       await updateCache(toastId);
       return onCompleted();
     },
