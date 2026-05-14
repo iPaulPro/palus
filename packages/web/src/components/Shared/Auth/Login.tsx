@@ -14,7 +14,6 @@ import {
   useEffect,
   useState
 } from "react";
-import { toast } from "sonner";
 import { useConnection, useDisconnect, useSignMessage } from "wagmi";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
@@ -107,7 +106,12 @@ const Login = ({ setHasAccounts }: LoginProps) => {
     try {
       setLoggingInAccountId(account || null);
       setIsSubmitting(true);
-      await handleWrongNetwork();
+
+      try {
+        await handleWrongNetwork();
+      } catch {
+        return onError({ message: ERRORS.SignWallet });
+      }
 
       // Get challenge
       const challenge = await loadChallenge({
@@ -115,7 +119,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
       });
 
       if (!challenge?.data?.challenge?.text) {
-        return toast.error(ERRORS.SomethingWentWrong);
+        return onError({ message: ERRORS.SomethingWentWrong });
       }
 
       // Get signature

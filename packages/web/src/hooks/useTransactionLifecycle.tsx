@@ -37,20 +37,36 @@ const useTransactionLifecycle = () => {
         name: ERROR_NAMES.UnknownError
       });
     }
-    await handleWrongNetwork();
-    const walletClient = await getWalletClient(config);
-    if (!walletClient) {
+
+    try {
+      await handleWrongNetwork();
+    } catch {
       return onError({
         message: ERRORS.SignWallet,
         name: transactionData.__typename
       });
     }
-    return onCompleted(
-      await sendEip712Transaction(walletClient, {
-        account: walletClient.account,
-        ...getTransactionData(transactionData.raw, { sponsored: true })
-      })
-    );
+
+    try {
+      const walletClient = await getWalletClient(config);
+      if (!walletClient) {
+        return onError({
+          message: ERRORS.SignWallet,
+          name: transactionData.__typename
+        });
+      }
+      return onCompleted(
+        await sendEip712Transaction(walletClient, {
+          account: walletClient.account,
+          ...getTransactionData(transactionData.raw, { sponsored: true })
+        })
+      );
+    } catch {
+      return onError({
+        message: ERRORS.SomethingWentWrong,
+        name: ERROR_NAMES.UnknownError
+      });
+    }
   };
 
   const handleSelfFundedTransaction = async (
@@ -68,20 +84,36 @@ const useTransactionLifecycle = () => {
         name: ERROR_NAMES.UnknownError
       });
     }
-    await handleWrongNetwork();
-    const walletClient = await getWalletClient(config);
-    if (!walletClient) {
+
+    try {
+      await handleWrongNetwork();
+    } catch {
       return onError({
         message: ERRORS.SignWallet,
         name: transactionData.__typename
       });
     }
-    return onCompleted(
-      await sendTransaction(walletClient, {
-        account: walletClient.account,
-        ...getTransactionData(transactionData.raw)
-      })
-    );
+
+    try {
+      const walletClient = await getWalletClient(config);
+      if (!walletClient) {
+        return onError({
+          message: ERRORS.SignWallet,
+          name: transactionData.__typename
+        });
+      }
+      return onCompleted(
+        await sendTransaction(walletClient, {
+          account: walletClient.account,
+          ...getTransactionData(transactionData.raw)
+        })
+      );
+    } catch {
+      return onError({
+        message: ERRORS.SomethingWentWrong,
+        name: ERROR_NAMES.UnknownError
+      });
+    }
   };
 
   const handleTransactionLifecycle = async ({

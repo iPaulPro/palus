@@ -12,7 +12,6 @@ import {
   useCreateAccountWithUsernameMutation
 } from "@palus/indexer";
 import { useCallback, useState } from "react";
-import { toast } from "sonner";
 import { useConnection, useSignMessage } from "wagmi";
 import { z } from "zod";
 import AuthMessage from "@/components/Shared/Auth/AuthMessage";
@@ -113,7 +112,12 @@ const ChooseUsername = () => {
   }: z.infer<typeof ValidationSchema>) => {
     try {
       setIsSubmitting(true);
-      await handleWrongNetwork();
+
+      try {
+        await handleWrongNetwork();
+      } catch {
+        return onError({ message: ERRORS.SignWallet });
+      }
 
       const challenge = await loadChallenge({
         variables: {
@@ -122,7 +126,7 @@ const ChooseUsername = () => {
       });
 
       if (!challenge?.data?.challenge?.text) {
-        return toast.error(ERRORS.SomethingWentWrong);
+        return onError({ message: ERRORS.SomethingWentWrong });
       }
 
       // Get signature
