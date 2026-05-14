@@ -131,6 +131,7 @@ const GlobalModals = () => {
           setParentPost(undefined);
           setNotificationShare(undefined);
           setAttachments([]);
+          resetCollectForm();
         }}
         preventClose={true}
         show={showNewPostModal}
