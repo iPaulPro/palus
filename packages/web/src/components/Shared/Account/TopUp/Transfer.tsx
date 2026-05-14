@@ -81,8 +81,16 @@ const Transfer = ({ token }: TransferProps) => {
   });
 
   useEffect(() => {
-    if (transactionReceipt?.status === "success") {
+    if (!transactionReceipt) return;
+
+    if (transactionReceipt.status === "success") {
       onCompleted();
+    } else if (transactionReceipt.status === "reverted") {
+      onError({
+        message: "Transaction reverted",
+        name: transactionReceipt.transactionHash
+      });
+      setTxHash(null);
     }
   }, [transactionReceipt]);
 
