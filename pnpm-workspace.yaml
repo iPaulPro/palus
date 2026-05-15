@@ -1,2 +1,8 @@
 packages:
   - 'packages/*'
+allowBuilds:
+  '@reown/appkit': false
+  bufferutil: false
+  esbuild: false
+  msw: false
+  utf-8-validate: false
