@@ -25,19 +25,22 @@ const RelevantPeople = ({ post }: RelevantPeopleProps) => {
       .filter((mention) => mention.account !== currentAccount?.address)
       .map((mention) => mention.account);
 
+    const commentOnAuthorAddress = post.commentOn?.author.address;
     if (
-      post.commentOn &&
-      post.commentOn.author.address !== currentAccount?.address
+      commentOnAuthorAddress &&
+      commentOnAuthorAddress !== currentAccount?.address &&
+      commentOnAuthorAddress !== post.author.address
     ) {
-      addresses.push(post.commentOn.author.address);
+      addresses.push(commentOnAuthorAddress);
     }
 
+    const rootAuthorAddress = post.root?.author.address;
     if (
-      post.root &&
-      post.root.author.address !== currentAccount?.address &&
-      post.root.author.address !== post.author.address
+      rootAuthorAddress &&
+      rootAuthorAddress !== currentAccount?.address &&
+      rootAuthorAddress !== post.author.address
     ) {
-      addresses.push(post.root.author.address);
+      addresses.push(rootAuthorAddress);
     }
 
     return new Set(addresses);
