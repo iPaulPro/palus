@@ -2,14 +2,12 @@ import { createTrackedStore } from "@/store/createTrackedStore";
 
 interface State {
   showLogout: boolean;
-  setShowLogout: (showLogout: boolean, onLogout?: () => void) => void;
-  onLogout?: () => void;
+  setShowLogout: (showLogout: boolean) => void;
 }
 
 const { useStore: useLogoutAlertStore } = createTrackedStore<State>((set) => ({
   onLogout: undefined,
-  setShowLogout: (showLogout, onLogout) =>
-    set(() => ({ onLogout, showLogout })),
+  setShowLogout: (showLogout) => set(() => ({ showLogout })),
   showLogout: false
 }));
 

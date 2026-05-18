@@ -123,7 +123,7 @@ const MobileDrawerMenu = () => {
                   <div className="hover:bg-gray-100 dark:hover:bg-gray-800">
                     <Logout
                       className={cn(itemClass, "px-4 py-3")}
-                      onLogout={handleCloseDrawer}
+                      onClick={handleCloseDrawer}
                     />
                   </div>
                   <div className="divider" />

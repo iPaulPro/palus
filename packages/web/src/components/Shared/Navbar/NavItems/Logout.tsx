@@ -1,14 +1,13 @@
 import { ArrowRightStartOnRectangleIcon } from "@heroicons/react/24/outline";
 import cn from "@/helpers/cn";
-
 import { useLogoutAlertStore } from "@/store/non-persisted/alert/logoutAlertStore";
 
 interface LogoutProps {
   className?: string;
-  onLogout?: () => void;
+  onClick?: () => void;
 }
 
-const Logout = ({ className = "", onLogout }: LogoutProps) => {
+const Logout = ({ className = "", onClick }: LogoutProps) => {
   const { setShowLogout } = useLogoutAlertStore();
 
   return (
@@ -17,7 +16,10 @@ const Logout = ({ className = "", onLogout }: LogoutProps) => {
         "flex w-full items-center space-x-1.5 px-2 py-1.5 text-left text-gray-700 text-sm dark:text-gray-200",
         className
       )}
-      onClick={() => setShowLogout(true, onLogout)}
+      onClick={() => {
+        onClick?.();
+        setShowLogout(true);
+      }}
       type="button"
     >
       <ArrowRightStartOnRectangleIcon className="size-4" />

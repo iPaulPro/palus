@@ -6,7 +6,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { signOut } from "@/store/persisted/useAuthStore";
 
 const ConfirmLogout = () => {
-  const { showLogout, setShowLogout, onLogout } = useLogoutAlertStore();
+  const { showLogout, setShowLogout } = useLogoutAlertStore();
   const { currentAccount } = useAccountStore();
 
   const handleLogout = async () => {
@@ -14,7 +14,6 @@ const ConfirmLogout = () => {
       signOut();
       sessionStorage.clear();
       setShowLogout(false);
-      onLogout?.();
       reloadAllTabs();
     } catch (error) {
       errorToast(error);
