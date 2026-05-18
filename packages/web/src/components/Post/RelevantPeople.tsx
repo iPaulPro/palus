@@ -44,7 +44,7 @@ const RelevantPeople = ({ post }: RelevantPeopleProps) => {
     }
 
     return new Set(addresses);
-  }, [post]);
+  }, [post, currentAccount]);
 
   const { data, error, loading } = useAccountsBulkQuery({
     skip: accountAddresses.size <= 0,
