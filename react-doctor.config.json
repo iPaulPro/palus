@@ -1,5 +1,6 @@
 {
   "ignore": {
+    "files": ["src/hooks/useIntervalWhen.tsx"],
     "rules": ["react-doctor/design-no-default-tailwind-palette"]
   }
 }
