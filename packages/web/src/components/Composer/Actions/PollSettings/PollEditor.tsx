@@ -6,8 +6,15 @@ import { Button, Card, Input, Modal, Tooltip } from "@/components/Shared/UI";
 import { usePostPollStore } from "@/store/non-persisted/post/usePostPollStore";
 
 const PollEditor = () => {
-  const { pollConfig, resetPollConfig, setPollConfig, setShowPollEditor } =
-    usePostPollStore();
+  const {
+    pollConfig,
+    resetPollConfig,
+    updatePollConfig,
+    addPollOption,
+    removePollOption,
+    updatePollOption,
+    setShowPollEditor
+  } = usePostPollStore();
   const [showPollLengthModal, setShowPollLengthModal] = useState(false);
 
   return (
@@ -37,10 +44,7 @@ const PollEditor = () => {
                 max={365}
                 min={1}
                 onChange={(e) => {
-                  setPollConfig({
-                    ...pollConfig,
-                    durationInDays: Number(e.target.value)
-                  });
+                  updatePollConfig({ durationInDays: Number(e.target.value) });
                 }}
                 type="number"
                 value={pollConfig.durationInDays}
@@ -89,9 +93,7 @@ const PollEditor = () => {
                   <button
                     className="flex"
                     onClick={() => {
-                      const newOptions = [...pollConfig.options];
-                      newOptions.splice(index, 1);
-                      setPollConfig({ ...pollConfig, options: newOptions });
+                      removePollOption(index);
                     }}
                     type="button"
                   >
@@ -101,9 +103,7 @@ const PollEditor = () => {
               }
               maxLength={25}
               onChange={(event) => {
-                const newOptions = [...pollConfig.options];
-                newOptions[index] = event.target.value;
-                setPollConfig({ ...pollConfig, options: newOptions });
+                updatePollOption(index, event.target.value);
               }}
               placeholder={`Choice ${index + 1}`}
               value={choice}
@@ -114,9 +114,7 @@ const PollEditor = () => {
           <button
             className="mt-2 flex items-center gap-x-2 text-sm"
             onClick={() => {
-              const newOptions = [...pollConfig.options];
-              newOptions.push("");
-              setPollConfig({ ...pollConfig, options: newOptions });
+              addPollOption();
             }}
             type="button"
           >

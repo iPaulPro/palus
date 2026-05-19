@@ -69,7 +69,7 @@ const Audio = ({
   const [newPreviewUri, setNewPreviewUri] = useState<null | string>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const { audioPost, setAudioPost } = usePostAudioStore();
+  const { audioPost, updateAudioPost } = usePostAudioStore();
   const { setMetadata } = useAudioMetadataStore();
 
   const {
@@ -92,11 +92,8 @@ const Audio = ({
 
   useEffect(() => {
     if (!isNew) return;
-    setAudioPost({
-      ...audioPost,
-      duration: Math.floor(duration)
-    });
-  }, [isNew, duration, audioPost]);
+    updateAudioPost({ duration: Math.floor(duration) });
+  }, [isNew, duration]);
 
   const isCurrentTrack = globalSrc === src;
   const localDuration = useAudioDuration(isCurrentTrack || isNew ? "" : src);
@@ -116,10 +113,7 @@ const Audio = ({
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setAudioPost({
-      ...audioPost,
-      [event.target.name]: event.target.value
-    });
+    updateAudioPost({ [event.target.name]: event.target.value });
   };
 
   const showPlaying = isCurrentTrack && isPlaying;
@@ -141,7 +135,7 @@ const Audio = ({
           isNew={isNew}
           setCover={(previewUri, cover, mimeType) => {
             setNewPreviewUri(previewUri);
-            setAudioPost({ ...audioPost, cover, mimeType });
+            updateAudioPost({ cover, mimeType });
           }}
         />
         <div className="flex w-full flex-col justify-between py-3 pr-3 pl-1 sm:px-2 sm:py-3">

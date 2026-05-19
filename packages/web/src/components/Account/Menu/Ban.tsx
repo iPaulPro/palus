@@ -27,7 +27,7 @@ interface Props {
 
 const Ban = ({ account }: Props) => {
   const { currentAccount } = useAccountStore();
-  const { bannedAccounts, setBannedAccounts } = useBannedAccountsStore();
+  const { bannedAccounts, addBannedAccount } = useBannedAccountsStore();
   const handleTransactionLifecycle = useTransactionLifecycle();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -38,7 +38,7 @@ const Ban = ({ account }: Props) => {
 
   const onCompleted = () => {
     setIsSubmitting(false);
-    setBannedAccounts([...bannedAccounts, account.address]);
+    addBannedAccount(account.address);
   };
 
   const [banAccounts] = useBanGroupAccountsMutation({

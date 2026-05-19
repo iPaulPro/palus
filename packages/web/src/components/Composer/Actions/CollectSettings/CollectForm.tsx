@@ -19,7 +19,7 @@ interface CollectFormProps {
 }
 
 const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
-  const { collectAction, setCollectAction, reset } = useCollectActionStore();
+  const { collectAction, updateCollectAction, reset } = useCollectActionStore();
   const { setLicense } = usePostLicenseStore();
 
   const recipients = collectAction.payToCollect?.recipients || [];
@@ -42,7 +42,7 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
   };
 
   const setCollectType = (data: CollectActionType) => {
-    setCollectAction({ ...collectAction, ...data });
+    updateCollectAction(data);
   };
 
   const toggleCollect = () => {

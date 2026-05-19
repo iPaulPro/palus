@@ -27,13 +27,14 @@ const ChooseThumbnail = () => {
   const [hidden, setHidden] = useState(false);
 
   const { attachments } = usePostAttachmentStore();
-  const { setVideoThumbnail, videoThumbnail } = usePostVideoStore();
+  const { setVideoThumbnail, updateVideoThumbnail, videoThumbnail } =
+    usePostVideoStore();
   const { file } = attachments[0];
 
   const { currentAccount } = useAccountStore();
 
   const uploadThumbnailToStorageNode = async (fileToUpload: File) => {
-    setVideoThumbnail({ ...videoThumbnail, uploading: true });
+    updateVideoThumbnail({ uploading: true });
     const result = await uploadFile(fileToUpload, currentAccount?.address);
     if (!result.uri) {
       toast.error("Failed to upload thumbnail");
@@ -50,12 +51,12 @@ const ChooseThumbnail = () => {
   const handleSelectThumbnail = (index: number) => {
     setSelectedThumbnailIndex(index);
     if (thumbnails[index]?.decentralizedUrl === "") {
-      setVideoThumbnail({ ...videoThumbnail, uploading: true });
+      updateVideoThumbnail({ uploading: true });
       getFileFromDataURL(
         thumbnails[index].blobUrl,
         "thumbnail.jpeg",
         async (file: File) => {
-          setVideoThumbnail({ ...videoThumbnail, uploading: true });
+          updateVideoThumbnail({ uploading: true });
           const result = await uploadFile(file, currentAccount?.address);
           if (!result.uri) {
             toast.error("Failed to upload thumbnail");
@@ -71,8 +72,7 @@ const ChooseThumbnail = () => {
         }
       );
     } else {
-      setVideoThumbnail({
-        ...videoThumbnail,
+      updateVideoThumbnail({
         uploading: false,
         url: thumbnails[index]?.decentralizedUrl
       });
@@ -120,9 +120,9 @@ const ChooseThumbnail = () => {
         const file = event.target.files[0];
         const result = await uploadThumbnailToStorageNode(file);
         const preview = window.URL?.createObjectURL(file);
-        setThumbnails([
+        setThumbnails((prev) => [
           { blobUrl: preview, decentralizedUrl: result.uri },
-          ...thumbnails
+          ...prev
         ]);
         setSelectedThumbnailIndex(0);
       } catch {
