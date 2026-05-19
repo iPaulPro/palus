@@ -111,7 +111,7 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
     <>
       <Card className="sm:w-4/5" forceRounded onClick={stopEventPropagation}>
         <ScrollArea className="max-h-72 overflow-y-auto p-2">
-          {options.map((option, index) => (
+          {options.map((option) => (
             <button
               className={cn(
                 "not-last:mb-2.5 flex w-full items-center space-x-2.5 rounded-xl p-2 text-left text-sm enabled:hover:bg-gray-100 dark:enabled:hover:bg-gray-800",

@@ -1,5 +1,5 @@
 import type { MainContentFocus } from "@palus/indexer";
-import { useState } from "react";
+import { useSearchParams } from "react-router";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
 import PageLayout from "@/components/Shared/PageLayout";
 import ContentFeedType from "@/components/Shared/Post/ContentFeedType";
@@ -8,7 +8,9 @@ import BookmarksFeed from "./BookmarksFeed";
 
 const Bookmarks = () => {
   const { currentAccount } = useAccountStore();
-  const [focus, setFocus] = useState<MainContentFocus>();
+  const [searchParams] = useSearchParams();
+  const tab = searchParams.get("type");
+  const focus = tab ? (tab.toUpperCase() as MainContentFocus) : undefined;
 
   if (!currentAccount) {
     return <NotLoggedIn />;
@@ -16,11 +18,7 @@ const Bookmarks = () => {
 
   return (
     <PageLayout title="Bookmarks">
-      <ContentFeedType
-        focus={focus}
-        layoutId="bookmarks_tab"
-        setFocus={setFocus}
-      />
+      <ContentFeedType layoutId="bookmarks_tab" />
       <BookmarksFeed focus={focus} />
     </PageLayout>
   );

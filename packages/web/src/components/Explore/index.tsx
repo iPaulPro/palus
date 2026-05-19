@@ -1,5 +1,6 @@
 import type { MainContentFocus } from "@palus/indexer";
 import { useState } from "react";
+import { useSearchParams } from "react-router";
 import FloatingNewPostButton from "@/components/Post/FloatingNewPostButton";
 import Footer from "@/components/Shared/Footer";
 import PageLayout from "@/components/Shared/PageLayout";
@@ -10,9 +11,11 @@ import ExploreFeed from "./ExploreFeed";
 
 const Explore = () => {
   const { currentAccount } = useAccountStore();
-  const [focus, setFocus] = useState<MainContentFocus>();
   const loggedInWithAccount = Boolean(currentAccount);
   const [scrollOffset, setScrollOffset] = useState(0);
+  const [searchParams] = useSearchParams();
+  const tab = searchParams.get("type");
+  const focus = tab ? (tab.toUpperCase() as MainContentFocus) : undefined;
 
   return (
     <PageLayout
@@ -24,11 +27,7 @@ const Explore = () => {
       }
       title="Explore"
     >
-      <ContentFeedType
-        focus={focus}
-        layoutId="explore_tab"
-        setFocus={setFocus}
-      />
+      <ContentFeedType layoutId="explore_tab" />
       <ExploreFeed focus={focus} onScroll={setScrollOffset} />
       {loggedInWithAccount ? (
         <FloatingNewPostButton scrollOffset={scrollOffset} />

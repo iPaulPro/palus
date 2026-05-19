@@ -1,42 +1,33 @@
 import { MainContentFocus } from "@palus/indexer";
-import { type Dispatch, memo, type SetStateAction, useEffect } from "react";
+import { memo } from "react";
 import { useSearchParams } from "react-router";
 import { Tabs } from "@/components/Shared/UI";
 
 interface ContentFeedTypeProps {
-  focus?: MainContentFocus;
-  setFocus: Dispatch<SetStateAction<MainContentFocus | undefined>>;
   layoutId: string;
 }
 
-const ContentFeedType = ({
-  focus,
-  setFocus,
-  layoutId
-}: ContentFeedTypeProps) => {
-  const tabs = [
-    { name: "All posts", type: "" },
-    { name: "Text", type: MainContentFocus.TextOnly },
-    { name: "Video", type: MainContentFocus.Video },
-    { name: "Audio", type: MainContentFocus.Audio },
-    { name: "Images", type: MainContentFocus.Image }
-  ];
+const tabs = [
+  { name: "All posts", type: "" },
+  { name: "Text", type: MainContentFocus.TextOnly },
+  { name: "Video", type: MainContentFocus.Video },
+  { name: "Audio", type: MainContentFocus.Audio },
+  { name: "Images", type: MainContentFocus.Image }
+];
 
+const ContentFeedType = ({ layoutId }: ContentFeedTypeProps) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const tab = searchParams.get("type");
-
-  useEffect(() => {
-    if (!tab) return;
-    setFocus(tab.toUpperCase() as MainContentFocus);
-  }, [tab]);
+  const active = tab ? (tab.toUpperCase() as MainContentFocus) : "";
 
   return (
     <Tabs
-      active={focus ?? tab ?? ""}
+      active={active}
       layoutId={layoutId}
       setActive={(type) => {
-        setFocus(type as MainContentFocus);
-        setSearchParams(type ? `type=${type.toLowerCase()}` : undefined);
+        setSearchParams(
+          type ? `type=${(type as string).toLowerCase()}` : undefined
+        );
       }}
       tabs={tabs}
     />

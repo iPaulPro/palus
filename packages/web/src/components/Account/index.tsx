@@ -1,7 +1,6 @@
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import { useAccountQuery } from "@palus/indexer";
-import { useState } from "react";
-import { useParams } from "react-router";
+import { useParams, useSearchParams } from "react-router";
 import NewPost from "@/components/Composer/NewPost";
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
@@ -27,9 +26,11 @@ const ViewAccount = () => {
     address: string;
     username: string;
   }>();
-  const [feedType, setFeedType] = useState<AccountFeedType>(
-    AccountFeedType.Feed
-  );
+  const [searchParams] = useSearchParams();
+  const tab = searchParams.get("tab");
+  const feedType: AccountFeedType = tab
+    ? (tab.toUpperCase() as AccountFeedType)
+    : AccountFeedType.Feed;
 
   const { currentAccount } = useAccountStore();
   const { cachedAccount, setCachedAccount } = useAccountLinkStore();
@@ -111,7 +112,7 @@ const ViewAccount = () => {
         renderEmptyState()
       ) : (
         <div className="flex flex-col gap-y-4 pt-2">
-          <FeedType feedType={feedType} setFeedType={setFeedType} />
+          <FeedType />
           {currentAccount?.address === account?.address && <NewPost />}
           {(feedType === AccountFeedType.Feed ||
             feedType === AccountFeedType.Replies ||
