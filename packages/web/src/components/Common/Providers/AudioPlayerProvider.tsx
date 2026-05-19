@@ -20,14 +20,14 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
 
-import { type ComponentProps, createContext, useContext } from "react";
+import { type ComponentProps, createContext, use } from "react";
 import { type AudioPlayer, useAudioPlayer } from "@/hooks/useAudioPlayer";
 import useMediaSession from "@/hooks/useMediaSession";
 
 export const context = createContext<AudioPlayer | null>(null);
 
 export const useAudioPlayerContext = () => {
-  const ctx = useContext(context);
+  const ctx = use(context);
   if (ctx === null) {
     throw new Error(
       "useAudioPlayerContext must be used within an AudioPlayerProvider"

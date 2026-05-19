@@ -1,6 +1,6 @@
 import { m } from "motion/react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
-import { createContext, useContext, useMemo } from "react";
+import { createContext, use, useMemo } from "react";
 import useSwipeToDismiss, { SwipeDirection } from "@/hooks/useSwipeToDismiss";
 
 export { SwipeDirection };
@@ -19,7 +19,7 @@ const SwipeToDismissContext = createContext<SwipeToDismissContextValue | null>(
 );
 
 function useSwipeToDismissContext() {
-  const context = useContext(SwipeToDismissContext);
+  const context = use(SwipeToDismissContext);
   if (!context) {
     throw new Error(
       "SwipeToDismiss compound components cannot be rendered outside the SwipeToDismiss component"
