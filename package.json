@@ -12,6 +12,7 @@
     "dep:check": "pnpm dlx sherif@latest",
     "dep:fix": "pnpm dlx sherif@latest --fix",
     "dev": "pnpm --recursive --parallel run dev",
+    "doctor": "pnpm dlx react-doctor@latest --verbose --full",
     "prepare": "husky install",
     "sort": "node ./script/sort-package-json.mjs",
     "start": "pnpm --recursive --parallel run start",

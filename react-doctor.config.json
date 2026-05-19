@@ -1,0 +1,5 @@
+{
+  "ignore": {
+    "rules": ["react-doctor/design-no-default-tailwind-palette"]
+  }
+}
