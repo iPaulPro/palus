@@ -38,7 +38,15 @@ const PostWrapper = ({
   };
 
   return (
-    <article className={className} onClick={handleClick} ref={rootRef}>
+    <article
+      className={className}
+      onClick={handleClick}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") handleClick();
+      }}
+      ref={rootRef}
+      tabIndex={disableClick ? undefined : 0}
+    >
       {children}
     </article>
   );

@@ -51,7 +51,7 @@ const ReportPost = ({ postId }: ReportPostProps) => {
   };
 
   return (
-    <div onClick={stopEventPropagation}>
+    <div onClick={stopEventPropagation} onKeyDown={stopEventPropagation}>
       {data?.reportPost === null ? (
         <EmptyState
           hideCard

@@ -1,6 +1,6 @@
-import type { MouseEvent } from "react";
+import type { KeyboardEvent, MouseEvent } from "react";
 
-const stopEventPropagation = (event: MouseEvent<Element>) => {
+const stopEventPropagation = (event: MouseEvent<Element> | KeyboardEvent) => {
   event.stopPropagation();
 };
 

@@ -59,7 +59,7 @@ const ReportAccount = ({ account }: ReportAccountProps) => {
   };
 
   return (
-    <div onClick={stopEventPropagation}>
+    <div onClick={stopEventPropagation} onKeyDown={stopEventPropagation}>
       {data?.reportAccount === null ? (
         <EmptyState
           hideCard

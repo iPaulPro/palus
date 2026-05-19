@@ -19,7 +19,7 @@ const PostType = ({ post, showType }: PostTypeProps) => {
   }
 
   return (
-    <span onClick={stopEventPropagation}>
+    <span onClick={stopEventPropagation} onKeyDown={stopEventPropagation}>
       {type === "Post" && post.root && post.root.id !== post.commentOn?.id ? (
         <Root root={post.root} />
       ) : null}

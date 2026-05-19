@@ -17,6 +17,7 @@ import YourAccount from "@/components/Shared/Navbar/NavItems/YourAccount";
 import { SwipeDirection, SwipeToDismiss } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import { IS_STANDALONE } from "@/helpers/mediaQueries";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useInstallPromptStore } from "@/store/non-persisted/alert/installPromptStore";
 import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -37,6 +38,8 @@ const MobileDrawerMenu = () => {
     <div
       className="fixed inset-0 z-10 bg-gray-500/75 dark:bg-gray-900/80"
       onClick={handleCloseDrawer}
+      onKeyDown={(e) => e.key === "Escape" && handleCloseDrawer()}
+      role="presentation"
     >
       <AnimatePresence>
         <m.div
@@ -54,7 +57,7 @@ const MobileDrawerMenu = () => {
           >
             <SwipeToDismiss.Target
               className="flex max-h-full flex-col overflow-hidden rounded-t-2xl bg-surface pt-2 pb-4"
-              onClick={(e) => e.stopPropagation()}
+              onClick={stopEventPropagation}
             >
               <div className="w-full space-y-2">
                 <div className="flex justify-between">

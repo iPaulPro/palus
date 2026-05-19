@@ -41,6 +41,7 @@ const PostActions = ({
         }
       )}
       onClick={stopEventPropagation}
+      onKeyDown={stopEventPropagation}
     >
       <div
         className={cn("items-center", {

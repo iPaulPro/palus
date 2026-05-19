@@ -93,6 +93,7 @@ const Attachments = ({ asset, attachments, postId }: AttachmentsProps) => {
               )}
               key={attachment.uri}
               onClick={stopEventPropagation}
+              onKeyDown={stopEventPropagation}
             >
               <ImageComponent
                 index={index}

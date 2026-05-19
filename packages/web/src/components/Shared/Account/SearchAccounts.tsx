@@ -110,16 +110,17 @@ const SearchAccounts = ({
               <Loader className="my-3" message="Searching users" small />
             ) : accounts && accounts.length > 0 ? (
               displayedAccounts?.map((account, index) => (
-                <div
+                <button
                   className={cn(
-                    "cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800",
+                    "w-full cursor-pointer px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-800",
                     index === selectedIndex && "bg-gray-100 dark:bg-gray-800"
                   )}
                   key={account.address}
                   onClick={() => onAccountSelected(account)}
+                  type="button"
                 >
                   <SmallSingleAccount account={account} />
-                </div>
+                </button>
               ))
             ) : (
               <div className="px-4 py-2">No matching users</div>

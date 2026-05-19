@@ -197,12 +197,18 @@ const Search = ({
               <>
                 {accounts.map((account, index) => (
                   <div
+                    aria-selected={index === selectedIndex}
                     className={cn(
                       "cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800",
                       index === selectedIndex && "bg-gray-100 dark:bg-gray-800"
                     )}
                     key={account.address}
                     onClick={() => handleSelectAccount(account)}
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && handleSelectAccount(account)
+                    }
+                    role="option"
+                    tabIndex={0}
                   >
                     <SingleAccount
                       account={account}

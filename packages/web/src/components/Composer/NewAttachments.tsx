@@ -87,6 +87,7 @@ const NewAttachments = ({
             )}
             key={attachment.id}
             onClick={stopEventPropagation}
+            onKeyDown={stopEventPropagation}
           >
             {isVideo ? (
               <>

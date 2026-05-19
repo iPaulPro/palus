@@ -37,6 +37,7 @@ const PostHeader = ({
     <div
       className="flex w-full items-start justify-between"
       onClick={stopEventPropagation}
+      onKeyDown={stopEventPropagation}
     >
       <PostAccount
         account={account}
