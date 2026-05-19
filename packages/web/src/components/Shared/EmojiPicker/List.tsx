@@ -23,10 +23,6 @@ const List = ({ setEmoji }: ListProps) => {
 
   const close = useClose();
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value);
-  };
-
   const handleClearSearch = (e: MouseEvent) => {
     e.preventDefault();
     stopEventPropagation(e);
@@ -53,7 +49,9 @@ const List = ({ setEmoji }: ListProps) => {
               onClick={handleClearSearch}
             />
           }
-          onChange={handleChange}
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            setSearchText(event.target.value)
+          }
           onClick={(e) => {
             e.preventDefault();
             stopEventPropagation(e);

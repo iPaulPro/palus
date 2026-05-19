@@ -156,7 +156,7 @@ const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
             icon
           );
 
-        const handleClick = async (e: MouseEvent<HTMLAnchorElement>) => {
+        const onNavItemClick = async (e: MouseEvent<HTMLAnchorElement>) => {
           const item = navigationItems[route as keyof typeof navigationItems];
           const isSameRoute = pathname === route;
           if (!isSameRoute || !("refreshDocs" in item) || !item.refreshDocs) {
@@ -182,7 +182,7 @@ const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
             icon={iconWithIndicator}
             item={route}
             key={route}
-            onClick={handleClick}
+            onClick={onNavItemClick}
             url={resolvedRoute}
           />
         );

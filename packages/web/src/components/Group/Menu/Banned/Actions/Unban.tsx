@@ -89,18 +89,18 @@ const UnbanAccount = ({
     onError
   });
 
-  const handleClick = useCallback(
-    async (event: MouseEvent) => {
+  const unbanAccount = useCallback(
+    (event: MouseEvent) => {
       stopEventPropagation(event);
       setIsSubmitting(true);
-      await unbanAccounts({
+      unbanAccounts({
         variables: {
           request: {
             accounts: [account.address],
             group: groupAddress
           }
         }
-      });
+      }).catch(onError);
     },
     [account, groupAddress]
   );
@@ -110,7 +110,7 @@ const UnbanAccount = ({
       as="div"
       className={menuItemClassName}
       disabled={isSubmitting}
-      onClick={handleClick}
+      onClick={unbanAccount}
     >
       {isSubmitting ? <Loader small /> : <UserMinusIcon className="size-4" />}
       <div>Unban account</div>

@@ -56,7 +56,7 @@ const Ban = ({ account }: Props) => {
     onError
   });
 
-  const handleClick = useCallback(
+  const banAccount = useCallback(
     (event: MouseEvent) => {
       stopEventPropagation(event);
       banAccounts({
@@ -66,9 +66,9 @@ const Ban = ({ account }: Props) => {
             group: ADMIN_GROUP_ADDRESS
           }
         }
-      });
+      }).catch(onError);
     },
-    [account]
+    [banAccounts, account.address]
   );
 
   if (!currentAccount?.isAdmin || bannedAccounts.includes(account.address)) {
@@ -80,7 +80,7 @@ const Ban = ({ account }: Props) => {
       as="div"
       className={menuItemClassName}
       disabled={isSubmitting}
-      onClick={handleClick}
+      onClick={banAccount}
     >
       {isSubmitting ? <Loader small /> : <NoSymbolIcon className="size-4" />}
       <div>Ban account</div>

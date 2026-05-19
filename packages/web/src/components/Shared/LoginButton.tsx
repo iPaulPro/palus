@@ -16,7 +16,7 @@ const LoginButton = ({
 }: LoginButtonProps) => {
   const { setShowAuthModal } = useAuthModalStore();
 
-  const handleClick = useCallback((event: MouseEvent<HTMLButtonElement>) => {
+  const showAuth = useCallback((event: MouseEvent<HTMLButtonElement>) => {
     event.stopPropagation();
     return setShowAuthModal(true);
   }, []);
@@ -33,7 +33,7 @@ const LoginButton = ({
           width={19}
         />
       }
-      onClick={handleClick}
+      onClick={showAuth}
       size={isBig ? "lg" : "md"}
     >
       {title}

@@ -35,10 +35,13 @@ const BanMember = ({
 }: Props) => {
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const onError = useCallback((error: ApolloClientError) => {
-    setIsSubmitting(false);
-    errorToast(error);
-  }, []);
+  const onError = useCallback(
+    (error: ApolloClientError) => {
+      setIsSubmitting(false);
+      errorToast(error);
+    },
+    [setIsSubmitting]
+  );
 
   const onCompleted = () => {
     setIsSubmitting(false);
@@ -86,11 +89,11 @@ const BanMember = ({
     });
   };
 
-  const handleClick = useCallback(
-    async (event: MouseEvent) => {
+  const banAccount = useCallback(
+    (event: MouseEvent) => {
       stopEventPropagation(event);
       setIsSubmitting(true);
-      await banAccounts({
+      banAccounts({
         update: updateCache,
         variables: {
           request: {
@@ -98,9 +101,9 @@ const BanMember = ({
             group: groupAddress
           }
         }
-      });
+      }).catch(onError);
     },
-    [account, groupAddress]
+    [groupAddress, setIsSubmitting, banAccounts, account.address, onError]
   );
 
   return (
@@ -108,7 +111,7 @@ const BanMember = ({
       as="div"
       className={menuItemClassName}
       disabled={isSubmitting}
-      onClick={handleClick}
+      onClick={banAccount}
     >
       {isSubmitting ? <Loader small /> : <NoSymbolIcon className="size-4" />}
       <div>Ban account</div>

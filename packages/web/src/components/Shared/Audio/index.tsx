@@ -112,7 +112,7 @@ const Audio = ({
     setMetadata({ artist, poster, postId, title });
   };
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const update = (event: ChangeEvent<HTMLInputElement>) => {
     updateAudioPost({ [event.target.name]: event.target.value });
   };
 
@@ -163,7 +163,7 @@ const Audio = ({
                     autoComplete="off"
                     className="border-none bg-transparent p-0 text-white placeholder:text-white focus:ring-0 sm:text-lg"
                     name="title"
-                    onChange={handleChange}
+                    onChange={update}
                     placeholder="Add title"
                     value={audioPost.title}
                   />
@@ -171,7 +171,7 @@ const Audio = ({
                     autoComplete="off"
                     className="border-none bg-transparent p-0 text-sm text-white/70 placeholder:text-white/70 focus:ring-0 sm:text-base"
                     name="artist"
-                    onChange={handleChange}
+                    onChange={update}
                     placeholder="Add artist"
                     value={audioPost.artist}
                   />
