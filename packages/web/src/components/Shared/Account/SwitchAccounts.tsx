@@ -116,7 +116,7 @@ const SwitchAccounts = () => {
       />
       {sortedAccounts.map((accountAvailable, index) => (
         <button
-          className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+          className="flex w-full cursor-pointer items-center justify-between gap-x-2 rounded-lg py-3 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
           disabled={
             currentAccount?.address === accountAvailable.account.address
           }

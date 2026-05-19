@@ -102,7 +102,7 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
           <div className="divider" />
         </>
       )}
-      <div className="flex space-x-2 p-5">
+      <div className="flex gap-x-2 p-5">
         <Button className="ml-auto" onClick={handleClose} outline>
           {collectAction.enabled ? "Reset" : "Cancel"}
         </Button>

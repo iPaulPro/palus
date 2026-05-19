@@ -44,7 +44,7 @@ const Splits = ({ recipients }: SplitsProps) => {
             className="flex items-center justify-between text-sm"
             key={address}
           >
-            <div className="flex w-full items-center space-x-2">
+            <div className="flex w-full items-center gap-x-2">
               {loading ? (
                 <>
                   <Skeleton className="size-5 rounded-full" />

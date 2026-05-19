@@ -22,7 +22,7 @@ const Support = () => {
             </Link>
             .
           </p>
-          <div className="my-5 flex flex-col space-y-2">
+          <div className="my-5 flex flex-col gap-y-2">
             <Link to="/guidelines">Community Guidelines</Link>
             <Link to="/terms">Terms of Service</Link>
             <Link to="/privacy">Palus Privacy Policy</Link>

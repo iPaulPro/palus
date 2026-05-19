@@ -102,7 +102,7 @@ const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
       disabled={isSubmitting}
       onClick={handleCreateRepost}
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         <ArrowsRightLeftIcon className="size-4" />
         <div>{hasReposted ? "Repost again" : "Repost"}</div>
       </div>

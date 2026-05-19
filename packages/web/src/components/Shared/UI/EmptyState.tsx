@@ -27,7 +27,7 @@ const EmptyState = ({
 }: EmptyStateProps) => {
   return (
     <Card className={emptyStateVariants({ className, hideCard })}>
-      <div className="grid justify-items-center space-y-2 p-5">
+      <div className="grid justify-items-center gap-y-2 p-5">
         <div>{icon}</div>
         <div>{message}</div>
       </div>

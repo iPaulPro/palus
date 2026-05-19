@@ -117,7 +117,7 @@ const Details = ({
             ))}
           {account.score < 9000 ? null : <TopAccount className="size-6" />}
         </H3>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center gap-x-3">
           <Slug
             className="text-sm sm:text-base"
             prefix="@"

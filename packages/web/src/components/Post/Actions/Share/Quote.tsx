@@ -34,7 +34,7 @@ const Quote = ({ post }: QuoteProps) => {
         setShowNewPostModal(true);
       }}
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         <ChatBubbleBottomCenterTextIcon className="size-4" />
         <div>{post.commentOn ? "Quote comment" : "Quote post"}</div>
       </div>

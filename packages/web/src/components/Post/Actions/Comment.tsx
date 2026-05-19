@@ -26,7 +26,7 @@ const Comment = ({ post, showCount }: CommentProps) => {
     post.operations?.hasCommented.onChain;
 
   return (
-    <div className="flex items-center space-x-1 text-gray-500 dark:text-gray-200">
+    <div className="flex items-center gap-x-1 text-gray-500 dark:text-gray-200">
       <button
         aria-label="Comment"
         className={cn(

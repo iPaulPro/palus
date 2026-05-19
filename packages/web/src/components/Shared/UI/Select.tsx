@@ -48,7 +48,7 @@ const Select = ({
             className
           )}
         >
-          <span className="flex items-center space-x-2">
+          <span className="flex items-center gap-x-2">
             {selected?.icon && (
               <img
                 alt={selected?.label}
@@ -101,9 +101,9 @@ const Select = ({
                   value={option.value}
                 >
                   {({ selected }) => (
-                    <div className="mx-2 flex flex-col space-y-0 py-1.5">
-                      <span className="flex w-full items-center justify-between space-x-3 text-gray-700 dark:text-gray-200">
-                        <span className="flex items-center space-x-2">
+                    <div className="mx-2 flex flex-col gap-y-0 py-1.5">
+                      <span className="flex w-full items-center justify-between gap-x-3 text-gray-700 dark:text-gray-200">
+                        <span className="flex items-center gap-x-2">
                           {option.icon && (
                             <img
                               alt={option.label}

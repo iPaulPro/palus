@@ -105,7 +105,7 @@ const List = () => {
             key={session.authenticationId}
           >
             <div>
-              <div className="mb-3 flex items-center space-x-2">
+              <div className="mb-3 flex items-center gap-x-2">
                 <ComputerDesktopIcon className="size-8" />
                 <div>
                   {session.browser ? <span>{session.browser}</span> : null}

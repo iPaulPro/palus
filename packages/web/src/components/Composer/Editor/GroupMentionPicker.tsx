@@ -23,7 +23,7 @@ const MentionGroupItem = ({ onSelect, group }: MentionGroupItemProps) => {
   return (
     <div className="m-0 p-0">
       <AutocompleteItem
-        className="focusable-dropdown-item m-1.5 flex cursor-pointer items-center space-x-2 rounded-lg px-3 py-1 dark:text-white"
+        className="focusable-dropdown-item m-1.5 flex cursor-pointer items-center gap-x-2 rounded-lg px-3 py-1 dark:text-white"
         onSelect={onSelect}
         value={group.address}
       >

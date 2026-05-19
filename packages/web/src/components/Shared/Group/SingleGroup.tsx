@@ -33,7 +33,7 @@ const GroupAvatar = (props: SingleGroupProps) => (
 );
 
 const GroupInfo = (props: SingleGroupProps) => (
-  <div className="flex items-center space-x-3">
+  <div className="flex items-center gap-x-3">
     <GroupAvatar group={props.group} />
     <div>
       <div className="truncate font-bold">{props.group.metadata?.name}</div>

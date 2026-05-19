@@ -89,7 +89,7 @@ const UndoRepost = ({
       disabled={isSubmitting}
       onClick={handleUndoRepost}
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         <ArrowsRightLeftIcon className="size-4" />
         <div>Undo repost</div>
       </div>

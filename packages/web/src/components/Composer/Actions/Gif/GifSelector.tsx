@@ -38,7 +38,7 @@ const GifSelector = ({ setGifAttachment, setShowModal }: GifSelectorProps) => {
           <Categories setSearchText={setSearchText} />
         )}
       </div>
-      <div className="flex items-center space-x-2 p-3 text-sm">
+      <div className="flex items-center gap-x-2 p-3 text-sm">
         <b>Powered by</b>
         <img
           alt="Giphy"

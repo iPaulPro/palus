@@ -133,7 +133,7 @@ const PostBody = ({
             {filteredContent}
           </Markup>
           {isClamped && !embedded ? (
-            <div className="flex items-center space-x-1 pt-1 font-semibold text-brand-500 text-sm">
+            <div className="flex items-center gap-x-1 pt-1 font-semibold text-brand-500 text-sm">
               <PostLink post={post}>Show more</PostLink>
             </div>
           ) : null}

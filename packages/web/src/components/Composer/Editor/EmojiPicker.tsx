@@ -22,7 +22,7 @@ const EmojiItem = ({ emoji, onSelect }: EmojiItemProps) => {
       className="focusable-dropdown-item m-1 block cursor-pointer rounded-lg p-2 outline-hidden"
       onSelect={onSelect}
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         <span className="text-base">{emoji.e}</span>
         <span className="text-sm capitalize">
           {emoji.a[0].split("_").join(" ")}

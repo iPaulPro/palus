@@ -91,7 +91,7 @@ const Edit = ({ post }: EditProps) => {
         handleEdit();
       }}
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         <PencilSquareIcon className="size-4" />
         <div>Edit</div>
       </div>

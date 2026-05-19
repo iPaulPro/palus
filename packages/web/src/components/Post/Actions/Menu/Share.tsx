@@ -40,7 +40,7 @@ const Share = ({ post }: ShareProps) => {
         copyLink();
       }}
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         <ShareIcon className="size-4" />
         <div>Share</div>
       </div>

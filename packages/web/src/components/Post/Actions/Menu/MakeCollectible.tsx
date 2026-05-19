@@ -29,7 +29,7 @@ const MakeCollectible = ({ post }: Props) => {
 
   if (isSubmitting) {
     return (
-      <div className="m-2 flex items-center space-x-2 rounded-lg px-1 py-1.5 text-sm">
+      <div className="m-2 flex items-center gap-x-2 rounded-lg px-1 py-1.5 text-sm">
         <Loader small />
         <span>Making collectible...</span>
       </div>
@@ -53,7 +53,7 @@ const MakeCollectible = ({ post }: Props) => {
         setShowCollectFormModal(true, submit);
       }}
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         <ShoppingBagIcon className="size-4" />
         <div>Make collectible</div>
       </div>

@@ -4,7 +4,7 @@ const NotificationShimmer = () => {
   return (
     <div className="flex items-start justify-between p-5">
       <div className="w-4/5 space-y-4">
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center gap-x-3">
           <Skeleton className="size-6 rounded-lg" />
           <Skeleton className="size-8 rounded-full" />
         </div>

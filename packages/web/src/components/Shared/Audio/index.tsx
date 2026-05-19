@@ -132,7 +132,7 @@ const Audio = ({
       onClick={stopEventPropagation}
       style={{ backgroundImage: `url(${isNew ? newPreviewUri : poster})` }}
     >
-      <div className="flex h-full w-full space-x-2 rounded-xl bg-black/50 p-0 backdrop-blur-2xl [@supports(-moz-appearance:none)]:backdrop-blur-none">
+      <div className="flex h-full w-full gap-x-2 rounded-xl bg-black/50 p-0 backdrop-blur-2xl [@supports(-moz-appearance:none)]:backdrop-blur-none">
         <CoverImage
           cover={newPreviewUri ?? (isEditing ? audioPost.cover : poster)}
           imageRef={imageRef}
@@ -163,7 +163,7 @@ const Audio = ({
             </button>
             <div className="w-0 min-w-0 flex-1 overflow-hidden pr-3">
               {isNew || isEditing ? (
-                <div className="flex w-full flex-col space-y-1">
+                <div className="flex w-full flex-col gap-y-1">
                   <input
                     autoComplete="off"
                     className="border-none bg-transparent p-0 text-white placeholder:text-white focus:ring-0 sm:text-lg"

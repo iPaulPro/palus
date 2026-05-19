@@ -54,7 +54,7 @@ const GroupMenu = ({ group }: Props) => {
               }
               onClick={() => navigate(`/g/${group.address}/settings`)}
             >
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-x-2">
                 <CogIcon className="size-4" />
                 <div>Group settings</div>
               </div>

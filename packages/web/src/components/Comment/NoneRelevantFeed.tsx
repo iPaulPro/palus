@@ -71,7 +71,7 @@ const NoneRelevantFeed = ({ postId }: NoneRelevantFeedProps) => {
   return (
     <>
       <Card
-        className="flex cursor-pointer items-center justify-center space-x-2.5 p-5"
+        className="flex cursor-pointer items-center justify-center gap-x-2.5 p-5"
         onClick={() => setShowMore(!showMore)}
       >
         <StackedAvatars

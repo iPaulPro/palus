@@ -95,7 +95,7 @@ const AccountSettings = () => {
               key={page.url}
               to={page.url}
             >
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-x-2">
                 {page.icon}
                 <div>{page.title}</div>
               </div>

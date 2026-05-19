@@ -68,7 +68,7 @@ const List = () => {
             className="flex items-center justify-between p-5"
             key={distribution.txHash}
           >
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center gap-x-2">
               <GiftIcon className="size-4 text-gray-500 dark:text-gray-200" />
               <div>
                 Received <b>{Number(distribution.amount.value).toFixed(4)}</b>

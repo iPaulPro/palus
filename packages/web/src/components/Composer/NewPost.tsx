@@ -32,7 +32,7 @@ const NewPost = ({ group }: NewPostProps) => {
       className="cursor-pointer space-y-3 px-4 py-4 md:px-5"
       onClick={handleOpenComposer}
     >
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center gap-x-3">
         <Image
           alt={currentAccount?.address}
           className="size-11 cursor-pointer rounded-full border border-gray-200 bg-gray-200 object-cover dark:border-gray-800"

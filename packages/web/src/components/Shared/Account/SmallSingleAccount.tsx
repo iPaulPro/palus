@@ -66,7 +66,7 @@ const UserName = (props: SmallSingleAccountProps) => {
 };
 
 const AccountInfo = (props: SmallSingleAccountProps) => (
-  <div className="flex items-center space-x-1">
+  <div className="flex items-center gap-x-1">
     <UserAvatar {...props} />
     <UserName {...props} />
   </div>

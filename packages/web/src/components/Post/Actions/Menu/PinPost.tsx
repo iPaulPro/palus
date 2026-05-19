@@ -44,7 +44,7 @@ const PinPost = ({ post }: Props) => {
 
   if (isFetching) {
     return (
-      <div className="m-2 flex items-center space-x-2 rounded-lg px-1 py-1.5 text-sm">
+      <div className="m-2 flex items-center gap-x-2 rounded-lg px-1 py-1.5 text-sm">
         <Loader small />
         <span>Loading...</span>
       </div>
@@ -65,7 +65,7 @@ const PinPost = ({ post }: Props) => {
         setShowPinPostModal(true, post, isPinned);
       }}
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         {isPinned ? (
           <>
             <PinIconFilled className="size-4" />

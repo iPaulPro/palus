@@ -230,7 +230,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
           <SignupCard />
         )}
         <button
-          className="flex items-center space-x-1 text-sm underline"
+          className="flex items-center gap-x-1 text-sm underline"
           onClick={() => disconnect?.()}
           type="reset"
         >

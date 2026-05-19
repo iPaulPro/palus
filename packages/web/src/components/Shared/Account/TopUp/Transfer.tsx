@@ -165,7 +165,7 @@ const Transfer = ({ token }: TransferProps) => {
       </div>
       <div className="divider" />
       <div className="space-y-5 p-5">
-        <div className="flex space-x-4 text-sm">
+        <div className="flex gap-x-4 text-sm">
           <Button
             className="w-full"
             onClick={() => handleSetAmount(1)}

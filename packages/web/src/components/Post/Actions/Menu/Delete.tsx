@@ -26,7 +26,7 @@ const Delete = ({ post }: DeleteProps) => {
         setShowPostDeleteAlert(true, post);
       }}
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         <TrashIcon className="size-4" />
         <div>Delete</div>
       </div>

@@ -186,29 +186,29 @@ const ChooseUsername = () => {
           />
           {canCheck && !isInvalid ? (
             isAvailable === false ? (
-              <div className="mt-2 flex items-center space-x-1 text-red-500 text-sm">
+              <div className="mt-2 flex items-center gap-x-1 text-red-500 text-sm">
                 <FaceFrownIcon className="size-4" />
                 <b>Username not available!</b>
               </div>
             ) : isAvailable === true ? (
-              <div className="mt-2 flex items-center space-x-1 text-green-500 text-sm">
+              <div className="mt-2 flex items-center gap-x-1 text-green-500 text-sm">
                 <CheckIcon className="size-4" />
                 <b>You're in luck - it's available!</b>
               </div>
             ) : null
           ) : canCheck && isInvalid ? (
-            <div className="mt-2 flex items-center space-x-1 text-red-500 text-sm">
+            <div className="mt-2 flex items-center gap-x-1 text-red-500 text-sm">
               <ExclamationTriangleIcon className="size-4" />
               <b>{form.formState.errors.username?.message?.toString()}</b>
             </div>
           ) : (
-            <div className="mt-2 flex items-center space-x-1 text-gray-500 text-sm dark:text-gray-200">
+            <div className="mt-2 flex items-center gap-x-1 text-gray-500 text-sm dark:text-gray-200">
               <FaceSmileIcon className="size-4" />
               <b>Hope you get a good one!</b>
             </div>
           )}
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center gap-x-3">
           <Button
             className="w-full"
             disabled={disabled}

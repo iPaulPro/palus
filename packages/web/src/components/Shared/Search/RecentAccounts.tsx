@@ -49,7 +49,7 @@ const RecentAccounts = ({ onAccountClick }: RecentAccountsProps) => {
           </div>
           {accounts.map((account) => (
             <div
-              className="flex cursor-pointer items-center space-x-3 truncate px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+              className="flex cursor-pointer items-center gap-x-3 truncate px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
               key={account.address}
               onClick={() => {
                 setCachedAccount(account);

@@ -35,9 +35,9 @@ const GroupMembershipRequestApprovedNotification = ({
   return (
     <div className="space-y-2 px-4 py-5 md:p-5">
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center gap-x-3">
           <UserGroupIcon className="size-6" />
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center gap-x-1">
             <Link to={`/g/${group.address}`}>
               <GroupAvatar group={group} />
             </Link>
@@ -45,7 +45,7 @@ const GroupMembershipRequestApprovedNotification = ({
         </div>
         <Timestamp isNew={isNew} timestamp={approvedAt} />
       </div>
-      <div className="ml-9 flex flex-wrap items-center space-x-1">
+      <div className="ml-9 flex flex-wrap items-center gap-x-1">
         <AggregatedNotificationTitle
           firstAccount={approvedBy}
           linkToType={`/g/${group.address}`}

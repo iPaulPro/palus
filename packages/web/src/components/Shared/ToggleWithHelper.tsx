@@ -20,7 +20,7 @@ const ToggleWithHelper = ({
 }: ToggleWithHelperProps) => {
   return (
     <div className="flex items-center justify-between gap-x-4">
-      <div className="flex items-start space-x-3">
+      <div className="flex items-start gap-x-3">
         {icon && <span className="mt-1">{icon}</span>}
         <div>
           {heading && <b>{heading}</b>}

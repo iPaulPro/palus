@@ -98,7 +98,7 @@ const Bookmark = ({ post }: BookmarkProps) => {
         handleToggleBookmark();
       }}
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         {hasBookmarked ? (
           <>
             <BookmarkIconSolid className="size-4" />

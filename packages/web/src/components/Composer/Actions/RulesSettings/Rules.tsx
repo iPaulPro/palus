@@ -119,7 +119,7 @@ const Rules = ({ setShowModal, groupAddress }: RulesProps) => {
         ) : null}
       </div>
       <div className="divider" />
-      <div className="flex space-x-2 px-5 py-3">
+      <div className="flex gap-x-2 px-5 py-3">
         <Button
           className="ml-auto"
           onClick={() => {

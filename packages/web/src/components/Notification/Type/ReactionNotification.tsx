@@ -32,9 +32,9 @@ const ReactionNotification = ({
   return (
     <div className="space-y-2 px-4 py-5 md:p-5">
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center gap-x-3">
           <HeartIcon className="size-6" />
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center gap-x-1">
             {reactions.slice(0, 10).map((reaction) => (
               <div className="not-first:-ml-2" key={reaction.account.address}>
                 <NotificationAccountAvatar account={reaction.account} />

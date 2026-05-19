@@ -174,7 +174,7 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
           ))}
         </ScrollArea>
         <div className="flex items-center justify-between border-border border-t px-5 py-3">
-          <div className="flex items-center space-x-2 text-secondary text-xs">
+          <div className="flex items-center gap-x-2 text-secondary text-xs">
             <Bars3BottomLeftIcon className="size-4" />
             <button
               onClick={() => setShowPostExecutorsModal(true)}

@@ -4,14 +4,14 @@ import Skeleton from "@/components/Shared/Skeleton";
 const PostShimmer = () => {
   return (
     <div className="flex flex-col gap-y-4 p-6 pb-5">
-      <div className="flex items-start space-x-3">
+      <div className="flex items-start gap-x-3">
         <div>
           <Skeleton className="size-11 rounded-full" />
         </div>
         <div className="w-full space-y-4">
           <div className="item flex justify-between">
             <div className="flex flex-col gap-y-2">
-              <div className="item flex space-x-3 pt-1">
+              <div className="item flex gap-x-3 pt-1">
                 <Skeleton className="h-4 w-28 rounded-lg" />
                 <Skeleton className="h-4 w-20 rounded-lg" />
               </div>

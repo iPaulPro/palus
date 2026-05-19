@@ -98,8 +98,8 @@ const Preview = ({
           {truncateByWords(account.metadata.bio, 20)}
         </Markup>
       )}
-      <div className="mt-4 flex items-center space-x-3">
-        <div className="flex items-center space-x-1">
+      <div className="mt-4 flex items-center gap-x-3">
+        <div className="flex items-center gap-x-1">
           <div className="text-base">
             {nFormatter(stats.graphFollowStats?.following)}
           </div>
@@ -107,7 +107,7 @@ const Preview = ({
             Following
           </div>
         </div>
-        <div className="flex items-center space-x-1">
+        <div className="flex items-center gap-x-1">
           <div className="text-base">
             {nFormatter(stats.graphFollowStats?.followers)}
           </div>

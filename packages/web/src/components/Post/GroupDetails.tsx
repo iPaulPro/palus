@@ -71,8 +71,8 @@ export const GroupDetails = ({ post }: Props) => {
               {group?.metadata?.name ?? "unnamed"}
             </div>
           </Link>
-          <div className="flex items-center space-x-3">
-            <div className="flex items-center space-x-1 text-secondary text-sm">
+          <div className="flex items-center gap-x-3">
+            <div className="flex items-center gap-x-1 text-secondary text-sm">
               <span>{nFormatter(stats?.totalMembers ?? 0)}</span>
               <span>Members</span>
             </div>

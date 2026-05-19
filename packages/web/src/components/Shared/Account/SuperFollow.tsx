@@ -74,7 +74,7 @@ const SuperFollow = () => {
           Support your favorite people on Palus.
         </div>
       </div>
-      <div className="flex items-center space-x-1.5 py-2">
+      <div className="flex items-center gap-x-1.5 py-2">
         {isTokenEnabled ? (
           <img
             alt={assetSymbol}

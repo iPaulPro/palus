@@ -33,7 +33,7 @@ const PollActionShimmer = ({ optionCount }: PollActionShimmerProps) => {
         ))}
       </div>
       <div className="flex items-center justify-between border-border border-t px-5 py-2">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-x-2">
           <Bars3BottomLeftIcon className="size-4" />
           <Skeleton className="h-4 w-10 rounded-lg" />
           <span>·</span>

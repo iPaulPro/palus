@@ -29,10 +29,10 @@ const Combined = ({ timelineItem }: CombinedProps) => {
   }
 
   return (
-    <div className="flex flex-wrap items-center space-x-1 pb-4 text-[13px] text-gray-500 leading-6 dark:text-gray-200">
+    <div className="flex flex-wrap items-center gap-x-1 pb-4 text-[13px] text-gray-500 leading-6 dark:text-gray-200">
       <SparklesIcon className="size-4" />
       <Accounts accounts={accounts} />
-      <div className="flex items-center space-x-1">
+      <div className="flex items-center gap-x-1">
         {actionArray.map((action, index) => (
           <Fragment key={action}>
             <span>{action}</span>

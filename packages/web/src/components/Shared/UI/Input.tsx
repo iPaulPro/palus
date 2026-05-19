@@ -43,7 +43,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <label className="w-full" htmlFor={id}>
         {label ? (
-          <div className="mb-1 flex items-center space-x-1.5">
+          <div className="mb-1 flex items-center gap-x-1.5">
             <div className="font-medium text-gray-800 dark:text-gray-200">
               {label}
             </div>

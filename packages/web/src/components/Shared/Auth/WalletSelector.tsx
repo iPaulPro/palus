@@ -49,7 +49,7 @@ const WalletSelector: FC = () => {
   return activeConnector?.id ? (
     <div className="space-y-2.5">
       <button
-        className="flex items-center space-x-1 text-sm underline"
+        className="flex items-center gap-x-1 text-sm underline"
         onClick={() => disconnect?.()}
         type="reset"
       >
@@ -90,7 +90,7 @@ const WalletSelector: FC = () => {
           );
         })}
         <button
-          className="flex w-full items-center justify-between space-x-2.5 overflow-hidden rounded-xl border border-gray-200 px-4 py-3 outline-hidden dark:border-gray-800"
+          className="flex w-full items-center justify-between gap-x-2.5 overflow-hidden rounded-xl border border-gray-200 px-4 py-3 outline-hidden dark:border-gray-800"
           onClick={() => setShowFamilyAlert(true)}
           type="button"
         >

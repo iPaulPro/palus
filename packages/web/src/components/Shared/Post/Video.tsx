@@ -30,7 +30,7 @@ const PlayerError = ({ matcher, icon, title }: PlayerErrorProps) => {
       className="absolute inset-0 flex flex-col items-center justify-center bg-black"
       matcher={matcher}
     >
-      <div className="flex flex-col items-center space-y-2 text-lg text-white">
+      <div className="flex flex-col items-center gap-y-2 text-lg text-white">
         {icon}
         <b>{title}</b>
       </div>

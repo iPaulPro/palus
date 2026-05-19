@@ -139,7 +139,7 @@ const SuperJoin = ({ group }: SuperJoinProps) => {
           type="number"
           value={amount}
         />
-        <div className="flex justify-end space-x-2">
+        <div className="flex justify-end gap-x-2">
           {simplePaymentRule && (
             <Button
               disabled={isSubmitting}

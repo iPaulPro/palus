@@ -8,7 +8,7 @@ const Shimmer = () => {
         <Skeleton className="mt-2 h-4 w-24 rounded-full" />
       </div>
       <div className="h-[59px] flex-none items-center border-border border-t px-5 py-3 sm:flex">
-        <div className="flex w-full items-center space-x-5">
+        <div className="flex w-full items-center gap-x-5">
           <Skeleton className="size-5 rounded-full" />
           <Skeleton className="size-5 rounded-full" />
           <Skeleton className="size-5 rounded-full" />

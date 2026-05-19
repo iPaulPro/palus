@@ -101,7 +101,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
           }}
         >
           <FormProvider {...form}>
-            <div className="flex space-x-2 text-sm">
+            <div className="flex gap-x-2 text-sm">
               <Input
                 autoComplete="off"
                 label="Price"

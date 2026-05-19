@@ -38,7 +38,7 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
   }
 
   return (
-    <div className="flex items-center space-x-1">
+    <div className="flex items-center gap-x-1">
       <Menu as="div" className="relative">
         <MenuButton
           aria-label="Repost"

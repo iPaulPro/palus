@@ -22,7 +22,7 @@ const Banned = ({ setShowModal }: Props) => {
         setShowModal(true);
       }}
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         <NoSymbolIcon className="size-4" />
         <div>Banned accounts</div>
       </div>

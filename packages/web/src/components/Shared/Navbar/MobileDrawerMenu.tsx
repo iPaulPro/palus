@@ -60,7 +60,7 @@ const MobileDrawerMenu = () => {
                 <div className="flex justify-between">
                   <AccountLink
                     account={currentAccount as AccountFragment}
-                    className="flex items-center space-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
+                    className="flex items-center gap-x-2 px-5 py-3 hover:bg-gray-200 dark:hover:bg-gray-800"
                     onClick={handleCloseDrawer}
                   >
                     <SingleAccount
