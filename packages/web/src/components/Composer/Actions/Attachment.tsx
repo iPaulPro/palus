@@ -9,7 +9,7 @@ import {
   MediaImageMimeType
 } from "@lens-protocol/metadata";
 import { useClickAway } from "@uidotdev/usehooks";
-import type { ChangeEvent, JSX, MutableRefObject } from "react";
+import type { ChangeEvent, JSX, RefObject } from "react";
 import { memo, useId, useState } from "react";
 import { toast } from "sonner";
 import MenuTransition from "@/components/Shared/MenuTransition";
@@ -44,7 +44,7 @@ const Attachment = ({ anchor = "bottom", disabled }: AttachmentProps) => {
   const id = useId();
   const dropdownRef = useClickAway(() =>
     setShowMenu(false)
-  ) as MutableRefObject<HTMLDivElement>;
+  ) as RefObject<HTMLDivElement>;
 
   const isTypeAllowed = (files: FileList) =>
     Array.from(files).every((file) =>

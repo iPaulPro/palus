@@ -1,7 +1,8 @@
 import {
-  forwardRef,
   type ReactNode,
-  useImperativeHandle,
+  type Ref,
+  type RefObject,
+  useCallback,
   useLayoutEffect,
   useMemo,
   useRef
@@ -18,6 +19,7 @@ interface CachedWindowVirtualizerProps {
   children: ReactNode;
   onScroll?: (scrollOffset: number) => void;
   alwaysRestore?: boolean;
+  ref?: Ref<WindowVirtualizerHandle>;
 }
 
 // Track which keys have been "cleared" during this JS session to allow
@@ -29,15 +31,28 @@ const sessionHandledKeys = new Set<string>();
 // transitions from empty → populated) does not re-trigger a scroll-to-top.
 const restoredKeys = new Set<string>();
 
-const CachedWindowVirtualizer = forwardRef<
-  WindowVirtualizerHandle,
-  CachedWindowVirtualizerProps
->(({ cacheKey, children, onScroll, alwaysRestore = false }, ref) => {
+const CachedWindowVirtualizer = ({
+  cacheKey,
+  children,
+  onScroll,
+  alwaysRestore = false,
+  ref
+}: CachedWindowVirtualizerProps) => {
   const innerRef = useRef<WindowVirtualizerHandle>(null);
   const navType = useNavigationType();
   const shouldRestore = alwaysRestore || navType === "POP";
 
-  useImperativeHandle(ref, () => innerRef.current as WindowVirtualizerHandle);
+  const mergedRef = useCallback(
+    (node: WindowVirtualizerHandle | null) => {
+      (innerRef as RefObject<WindowVirtualizerHandle | null>).current = node;
+      if (typeof ref === "function") {
+        ref(node);
+      } else if (ref) {
+        (ref as RefObject<WindowVirtualizerHandle | null>).current = node;
+      }
+    },
+    [ref]
+  );
 
   const [offset, cache] = useMemo(() => {
     // Check if the page was refreshed
@@ -90,11 +105,11 @@ const CachedWindowVirtualizer = forwardRef<
     <WindowVirtualizer
       cache={cache}
       onScroll={() => onScroll?.(innerRef.current?.scrollOffset ?? 0)}
-      ref={innerRef}
+      ref={mergedRef}
     >
       {children}
     </WindowVirtualizer>
   );
-});
+};
 
 export default CachedWindowVirtualizer;

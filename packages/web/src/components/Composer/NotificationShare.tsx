@@ -4,8 +4,8 @@ import {
   ChevronRightIcon
 } from "@heroicons/react/24/outline";
 import {
-  forwardRef,
   type HTMLAttributes,
+  type Ref,
   useEffect,
   useMemo,
   useRef,
@@ -23,10 +23,10 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 const CARD_WIDTH = 480;
 const CARD_HEIGHT = 300;
 
-const NotificationShare = forwardRef<
-  HTMLDivElement,
-  HTMLAttributes<HTMLDivElement>
->((props, ref) => {
+const NotificationShare = ({
+  ref,
+  ...props
+}: HTMLAttributes<HTMLDivElement> & { ref?: Ref<HTMLDivElement> }) => {
   const [bgIndex, setBgIndex] = useState(0);
   const [scale, setScale] = useState(1);
   const [amountFontSize, setAmountFontSize] = useState(64);
@@ -230,6 +230,6 @@ const NotificationShare = forwardRef<
       </div>
     </div>
   );
-});
+};
 
 export default NotificationShare;

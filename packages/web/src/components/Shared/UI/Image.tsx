@@ -4,46 +4,44 @@ import type {
   Ref,
   SyntheticEvent
 } from "react";
-import { forwardRef, memo, useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { PLACEHOLDER_IMAGE } from "@/data/constants";
 
-const Image = forwardRef(
-  (
-    {
-      onError,
-      ...props
-    }: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement>,
-    ref: Ref<HTMLImageElement>
-  ) => {
-    const [imageLoadFailed, setImageLoadFailed] = useState(false);
+const Image = ({
+  ref,
+  onError,
+  ...props
+}: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & {
+  ref?: Ref<HTMLImageElement>;
+}) => {
+  const [imageLoadFailed, setImageLoadFailed] = useState(false);
 
-    const handleError = useCallback(
-      (event: SyntheticEvent<HTMLImageElement, Event>) => {
-        if (imageLoadFailed) {
-          return;
-        }
-        setImageLoadFailed(true);
-        if (onError) {
-          onError(event);
-        }
-      },
-      [imageLoadFailed, setImageLoadFailed, onError]
-    );
+  const handleError = useCallback(
+    (event: SyntheticEvent<HTMLImageElement, Event>) => {
+      if (imageLoadFailed) {
+        return;
+      }
+      setImageLoadFailed(true);
+      if (onError) {
+        onError(event);
+      }
+    },
+    [imageLoadFailed, setImageLoadFailed, onError]
+  );
 
-    useEffect(() => {
-      setImageLoadFailed(false);
-    }, [props.src]);
+  useEffect(() => {
+    setImageLoadFailed(false);
+  }, [props.src]);
 
-    return (
-      <img
-        {...props}
-        alt={props.alt || ""}
-        onError={handleError}
-        ref={ref}
-        src={imageLoadFailed ? PLACEHOLDER_IMAGE : props.src}
-      />
-    );
-  }
-);
+  return (
+    <img
+      {...props}
+      alt={props.alt || ""}
+      onError={handleError}
+      ref={ref}
+      src={imageLoadFailed ? PLACEHOLDER_IMAGE : props.src}
+    />
+  );
+};
 
 export default memo(Image);
