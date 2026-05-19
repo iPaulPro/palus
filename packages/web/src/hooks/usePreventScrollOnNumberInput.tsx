@@ -9,10 +9,12 @@ const usePreventScrollOnNumberInput = (
     event.stopPropagation();
   }, []);
 
+  // react-doctor-disable-next-line react-doctor/advanced-event-handler-refs
   useEffect(() => {
     const input = ref.current;
 
     if (input) {
+      // react-doctor-disable-next-line react-doctor/client-passive-event-listeners
       input.addEventListener("wheel", preventScroll, { passive: false });
     }
 
