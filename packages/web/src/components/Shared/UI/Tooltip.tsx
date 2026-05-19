@@ -51,7 +51,7 @@ const Tooltip = ({
             (e.key === "Enter" || e.key === " ") && handleTriggerClick()
           }
         >
-          {children}
+          <span>{children}</span>
         </RadixTooltip.Trigger>
         <RadixTooltip.Portal>
           <RadixTooltip.Content
