@@ -64,7 +64,7 @@ const Success = () => {
         width={56}
       />
       <i className="mt-8 text-gray-500 dark:text-gray-200">
-        We are taking you to Palus...
+        We are taking you to Palus…
       </i>
     </div>
   );

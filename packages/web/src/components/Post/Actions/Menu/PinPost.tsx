@@ -46,7 +46,7 @@ const PinPost = ({ post }: Props) => {
     return (
       <div className="m-2 flex items-center gap-x-2 rounded-lg px-1 py-1.5 text-sm">
         <Loader small />
-        <span>Loading...</span>
+        <span>Loading…</span>
       </div>
     );
   }
