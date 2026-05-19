@@ -1,5 +1,5 @@
 import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
-import type { RepostFragment } from "@palus/indexer";
+import type { AccountFragment, RepostFragment } from "@palus/indexer";
 import { useMemo } from "react";
 import Accounts from "@/components/Shared/Account/Accounts";
 
@@ -10,12 +10,12 @@ interface RepostedProps {
 const Reposted = ({ reposts }: RepostedProps) => {
   const accounts = useMemo(
     () =>
-      reposts
-        .map((repost) => repost.author)
-        .filter(
-          (account, index, self) =>
-            index === self.findIndex((t) => t.address === account.address)
-        ),
+      reposts.reduce<AccountFragment[]>((acc, repost) => {
+        if (!acc.some((a) => a.address === repost.author.address)) {
+          acc.push(repost.author);
+        }
+        return acc;
+      }, []),
     [reposts]
   );
 

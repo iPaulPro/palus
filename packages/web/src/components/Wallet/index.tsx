@@ -71,11 +71,15 @@ const Wallet = () => {
       request: {
         address: currentAccount?.address,
         includeNative: true,
-        tokens: TOKENS.filter(
-          (token) =>
+        tokens: TOKENS.reduce<string[]>((acc, token) => {
+          if (
             token.contractAddress !== "" &&
             token.contractAddress !== CONTRACTS.nativeToken
-        ).map((token) => token.contractAddress)
+          ) {
+            acc.push(token.contractAddress);
+          }
+          return acc;
+        }, [])
       }
     }
   });

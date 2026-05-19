@@ -46,15 +46,17 @@ const ForYou = ({ onScroll }: ForYouProps) => {
 
   const filteredPosts = useMemo(
     () =>
-      posts
-        ?.map((item) => item.post)
-        .filter(
-          (post) =>
-            !post.author.operations?.isBlockedByMe &&
-            !post.author.operations?.isMutedByMe &&
-            !post.operations?.hasReported &&
-            !bannedAccounts.includes(post.author.address)
-        ),
+      posts?.reduce<PostFragment[]>((acc, item) => {
+        if (
+          !item.post.author.operations?.isBlockedByMe &&
+          !item.post.author.operations?.isMutedByMe &&
+          !item.post.operations?.hasReported &&
+          !bannedAccounts.includes(item.post.author.address)
+        ) {
+          acc.push(item.post);
+        }
+        return acc;
+      }, []),
     [posts]
   );
 
@@ -67,7 +69,7 @@ const ForYou = ({ onScroll }: ForYouProps) => {
       errorTitle="Failed to load for you"
       handleEndReached={handleEndReached}
       hasMore={hasMore}
-      items={filteredPosts as PostFragment[]}
+      items={filteredPosts ?? []}
       kind="for-you"
       loading={loading}
       onScroll={onScroll}

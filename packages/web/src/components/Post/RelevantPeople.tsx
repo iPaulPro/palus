@@ -20,10 +20,15 @@ const RelevantPeople = ({ post }: RelevantPeopleProps) => {
   const [showMore, setShowMore] = useState(false);
 
   const accountAddresses = useMemo(() => {
-    const addresses = post.mentions
-      .filter((mention) => mention.__typename === "AccountMention")
-      .filter((mention) => mention.account !== currentAccount?.address)
-      .map((mention) => mention.account);
+    const addresses = post.mentions.reduce<string[]>((acc, mention) => {
+      if (
+        mention.__typename === "AccountMention" &&
+        mention.account !== currentAccount?.address
+      ) {
+        acc.push(mention.account);
+      }
+      return acc;
+    }, []);
 
     const commentOnAuthorAddress = post.commentOn?.author.address;
     if (

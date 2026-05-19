@@ -1,5 +1,6 @@
 import { KeyIcon } from "@heroicons/react/24/outline";
 import {
+  type AccountFragment,
   type ChallengeRequest,
   ManagedAccountsVisibility,
   useAccountsAvailableQuery,
@@ -81,9 +82,12 @@ const Login = ({ setHasAccounts }: LoginProps) => {
   const lastLogin = data?.lastLoggedInAccount;
 
   const remainingAccounts = lastLogin
-    ? allAccounts
-        .filter(({ account }) => account.address !== lastLogin.address)
-        .map(({ account }) => account)
+    ? allAccounts.reduce<AccountFragment[]>((acc, { account }) => {
+        if (account.address !== lastLogin.address) {
+          acc.push(account);
+        }
+        return acc;
+      }, [])
     : allAccounts.map(({ account }) => account);
 
   const accounts = lastLogin

@@ -26,6 +26,13 @@ interface AmountConfigProps {
   setCollectType: (data: CollectActionType) => void;
 }
 
+type Option = {
+  icon: string;
+  label: string;
+  selected: boolean;
+  value: string;
+};
+
 const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
   const { currentAccount } = useAccountStore();
   const { collectAction } = useCollectActionStore((state) => state);
@@ -56,14 +63,17 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
     form.reset({ amount: currentAmount });
   }, [enabled]);
 
-  const tokens = TOKENS.filter((token) => token.contractAddress !== "").map(
-    (token) => ({
-      icon: `${STATIC_IMAGES_URL}/${token.symbol.toLowerCase()}.svg`,
-      label: token.name,
-      selected: token.contractAddress === selectedToken,
-      value: token.contractAddress
-    })
-  );
+  const tokens = TOKENS.reduce<Option[]>((acc, token) => {
+    if (token.contractAddress !== "") {
+      acc.push({
+        icon: `${STATIC_IMAGES_URL}/${token.symbol.toLowerCase()}.svg`,
+        label: token.name,
+        selected: token.contractAddress === selectedToken,
+        value: token.contractAddress
+      });
+    }
+    return acc;
+  }, []);
 
   return (
     <div>

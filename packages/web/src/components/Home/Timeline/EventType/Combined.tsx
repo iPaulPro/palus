@@ -1,5 +1,5 @@
 import { SparklesIcon } from "@heroicons/react/24/outline";
-import type { TimelineItemFragment } from "@palus/indexer";
+import type { AccountFragment, TimelineItemFragment } from "@palus/indexer";
 import { Fragment, useMemo } from "react";
 import Accounts from "@/components/Shared/Account/Accounts";
 
@@ -14,12 +14,12 @@ const Combined = ({ timelineItem }: CombinedProps) => {
 
   const accounts = useMemo(
     () =>
-      reposts
-        .map((event) => event.author)
-        .filter(
-          (account, index, self) =>
-            index === self.findIndex((t) => t.address === account.address)
-        ),
+      reposts.reduce<AccountFragment[]>((acc, event) => {
+        if (!acc.some((a) => a.address === event.author.address)) {
+          acc.push(event.author);
+        }
+        return acc;
+      }, []),
     [reposts]
   );
 

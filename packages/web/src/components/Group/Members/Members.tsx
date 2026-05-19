@@ -1,5 +1,6 @@
 import { UsersIcon } from "@heroicons/react/24/outline";
 import {
+  type AccountFragment,
   type GroupFragment,
   type GroupMembersRequest,
   PageSize,
@@ -54,12 +55,18 @@ const Members = ({ group }: MembersProps) => {
     variables: { request: { address: group.address } }
   });
 
-  const adminAccounts = admins?.adminsFor?.items
-    .map((item) => item.account.address)
-    .filter(
-      (account) =>
-        account.toLowerCase() !== CONTRACTS.banMemberGroupRule.toLowerCase()
-    );
+  const adminAccounts = admins?.adminsFor?.items.reduce<AccountFragment[]>(
+    (acc, item) => {
+      if (
+        item.account.address.toLowerCase() !==
+        CONTRACTS.banMemberGroupRule.toLowerCase()
+      ) {
+        acc.push(item.account);
+      }
+      return acc;
+    },
+    []
+  );
 
   if (loading) {
     return <AccountListShimmer />;

@@ -109,12 +109,19 @@ const Details = ({
           {getAccount(account)
             .name.slice(0, 40)
             .split(/\s+/)
-            .filter(Boolean)
-            .map((namePart, index) => (
-              <span className="max-w-full break-words" key={namePart + index}>
-                {namePart}
-              </span>
-            ))}
+            .reduce<ReactNode[]>((acc, namePart, index) => {
+              if (namePart) {
+                acc.push(
+                  <span
+                    className="max-w-full break-words"
+                    key={namePart + index}
+                  >
+                    {namePart}
+                  </span>
+                );
+              }
+              return acc;
+            }, [])}
           {account.score < 9000 ? null : <TopAccount className="size-6" />}
         </H3>
         <div className="flex items-center gap-x-3">
