@@ -42,6 +42,7 @@ const PostActions = ({
       )}
       onClick={stopEventPropagation}
       onKeyDown={stopEventPropagation}
+      role="toolbar"
     >
       <div
         className={cn("items-center", {

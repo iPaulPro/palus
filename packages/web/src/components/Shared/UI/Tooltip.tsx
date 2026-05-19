@@ -43,16 +43,15 @@ const Tooltip = ({
         onOpenChange={isMobile ? setOpen : undefined}
         open={isMobile ? open : undefined}
       >
-        <RadixTooltip.Trigger asChild>
-          <span
-            className={className}
-            onClick={handleTriggerClick}
-            onKeyDown={(e) =>
-              (e.key === "Enter" || e.key === " ") && handleTriggerClick()
-            }
-          >
-            {children}
-          </span>
+        <RadixTooltip.Trigger
+          asChild
+          className={className}
+          onClick={handleTriggerClick}
+          onKeyDown={(e) =>
+            (e.key === "Enter" || e.key === " ") && handleTriggerClick()
+          }
+        >
+          {children}
         </RadixTooltip.Trigger>
         <RadixTooltip.Portal>
           <RadixTooltip.Content

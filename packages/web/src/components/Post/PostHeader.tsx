@@ -34,7 +34,7 @@ const PostHeader = ({
   const timestamp = timelineItem ? rootPost.timestamp : targetPost.timestamp;
 
   return (
-    <div
+    <header
       className="flex w-full items-start justify-between"
       onClick={stopEventPropagation}
       onKeyDown={stopEventPropagation}
@@ -65,7 +65,7 @@ const PostHeader = ({
           <XMarkIcon className="size-4 text-gray-500 dark:text-gray-200" />
         </button>
       ) : null}
-    </div>
+    </header>
   );
 };
 

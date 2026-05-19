@@ -32,6 +32,7 @@ const FollowUnfollowButton = ({
       className="contents flex-none"
       onClick={stopEventPropagation}
       onKeyDown={stopEventPropagation}
+      role="none"
     >
       {!hideFollowButton &&
         (account.operations?.isFollowedByMe ? null : (

@@ -21,7 +21,11 @@ const ActionType = ({ timelineItem }: ActionTypeProps) => {
   }
 
   return (
-    <span onClick={stopEventPropagation} onKeyDown={stopEventPropagation}>
+    <span
+      onClick={stopEventPropagation}
+      onKeyDown={stopEventPropagation}
+      role="note"
+    >
       {canCombined ? (
         <Combined timelineItem={timelineItem} />
       ) : reposts?.length ? (

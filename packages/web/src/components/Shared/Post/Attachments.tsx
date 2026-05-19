@@ -85,7 +85,7 @@ const Attachments = ({ asset, attachments, postId }: AttachmentsProps) => {
           className={cn("grid gap-2", getClass(displayDecision.length)?.row)}
         >
           {displayDecision.map((attachment, index) => (
-            <div
+            <figure
               className={cn(
                 getClass(displayDecision.length)?.aspect,
                 { "row-span-2": displayDecision.length === 3 && index === 0 },
@@ -101,7 +101,7 @@ const Attachments = ({ asset, attachments, postId }: AttachmentsProps) => {
                 setShowLightBox={setShowLightBox}
                 uri={attachment.uri}
               />
-            </div>
+            </figure>
           ))}
           <LightBox
             images={displayDecision?.map((attachment) => attachment.uri)}

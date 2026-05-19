@@ -121,7 +121,8 @@ const Audio = ({
   const playerDisabled = !isCurrentTrack && !isNew;
 
   return (
-    <div
+    <section
+      aria-label="Audio player"
       className="[@supports(-moz-appearance:none)]:!bg-none h-24 overflow-hidden rounded-xl border border-gray-200 bg-gray-500 p-0 sm:h-32 dark:border-gray-800"
       onClick={stopEventPropagation}
       onKeyDown={stopEventPropagation}
@@ -203,7 +204,7 @@ const Audio = ({
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 };
 

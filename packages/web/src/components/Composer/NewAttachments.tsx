@@ -75,7 +75,7 @@ const NewAttachments = ({
         const isVideo = attachment.type === "Video";
 
         return (
-          <div
+          <figure
             className={cn(
               isImage && getClass(attachmentsLength)?.aspect,
               attachmentsLength === 3 && index === 0 && "row-span-2",
@@ -134,7 +134,7 @@ const NewAttachments = ({
                 </button>
               </div>
             )}
-          </div>
+          </figure>
         );
       })}
     </div>
