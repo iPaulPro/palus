@@ -53,6 +53,10 @@ const ViewAccount = () => {
     }
   });
 
+  if (error) {
+    return <Custom500 />;
+  }
+
   const account = data?.account ?? cachedAccount;
 
   if ((!username && !address) || (loading && !cachedAccount)) {
@@ -61,10 +65,6 @@ const ViewAccount = () => {
 
   if (!account) {
     return <Custom404 />;
-  }
-
-  if (error) {
-    return <Custom500 />;
   }
 
   const isDeleted = isAccountDeleted(account);

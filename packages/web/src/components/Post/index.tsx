@@ -80,6 +80,10 @@ const ViewPost = () => {
     }
   });
 
+  if (error) {
+    return <Custom500 />;
+  }
+
   const post = data?.post ?? cachedPost;
   const hasHiddenComments = (comments?.postReferences.items.length || 0) > 0;
 
@@ -89,10 +93,6 @@ const ViewPost = () => {
 
   if (!post) {
     return <Custom404 />;
-  }
-
-  if (error) {
-    return <Custom500 />;
   }
 
   const targetPost: PostFragment = isRepost(post) ? post.repostOf : post;
