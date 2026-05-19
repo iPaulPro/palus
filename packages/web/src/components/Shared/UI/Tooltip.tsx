@@ -1,6 +1,6 @@
 import * as RadixTooltip from "@radix-ui/react-tooltip";
 import { useMediaQuery } from "@uidotdev/usehooks";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { memo, type ReactNode, useCallback, useState } from "react";
 import cn from "@/helpers/cn";
 import { IS_MOBILE } from "@/helpers/mediaQueries";
@@ -61,7 +61,7 @@ const Tooltip = ({
             side={placement}
             sideOffset={5}
           >
-            <motion.div
+            <m.div
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               initial={{ opacity: 0, scale: 0.95 }}
@@ -69,7 +69,7 @@ const Tooltip = ({
             >
               <span>{content}</span>
               <RadixTooltip.Arrow className="fill-gray-700" />
-            </motion.div>
+            </m.div>
           </RadixTooltip.Content>
         </RadixTooltip.Portal>
       </RadixTooltip.Root>

@@ -6,7 +6,7 @@ import {
   WhoReferencedPostOrderBy,
   type WhoReferencedPostRequest
 } from "@palus/indexer";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { useCallback } from "react";
 import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
@@ -80,7 +80,7 @@ const Reposts = ({ postId }: RepostsProps) => {
     <div className="max-h-[80vh] overflow-y-auto">
       <Virtualizer>
         {accounts.map((account, index) => (
-          <motion.div
+          <m.div
             animate="visible"
             className={cn(
               "divider p-5",
@@ -97,7 +97,7 @@ const Reposts = ({ postId }: RepostsProps) => {
               showBio
               showUserPreview={false}
             />
-          </motion.div>
+          </m.div>
         ))}
         {hasMore && <div className="h-0.5" ref={loadMoreRef} />}
       </Virtualizer>

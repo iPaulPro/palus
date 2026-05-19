@@ -1,6 +1,6 @@
 import { ClockIcon } from "@heroicons/react/24/outline";
 import dayjs from "dayjs";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { RangeSlider } from "@/components/Shared/UI";
 import { EXPANSION_EASE } from "@/helpers/variants";
@@ -30,7 +30,7 @@ const TimeLimitConfig = ({ setCollectType }: TimeLimitConfigProps) => {
         }
       />
       {collectAction.endsAt ? (
-        <motion.div
+        <m.div
           animate="visible"
           className="mt-4 ml-8 space-y-2 text-sm"
           initial="hidden"
@@ -60,7 +60,7 @@ const TimeLimitConfig = ({ setCollectType }: TimeLimitConfigProps) => {
             }
             showValueInThumb
           />
-        </motion.div>
+        </m.div>
       ) : null}
     </div>
   );

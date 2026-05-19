@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { createContext, useContext, useMemo } from "react";
 import useSwipeToDismiss, { SwipeDirection } from "@/hooks/useSwipeToDismiss";
@@ -48,13 +48,13 @@ function SwipeToDismiss({
 function Target({
   children,
   ...props
-}: ComponentPropsWithoutRef<typeof motion.div>) {
+}: ComponentPropsWithoutRef<typeof m.div>) {
   const { ref, motionProps } = useSwipeToDismissContext();
 
   return (
-    <motion.div ref={ref} {...motionProps} {...props}>
+    <m.div ref={ref} {...motionProps} {...props}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 

@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import type { ButtonHTMLAttributes, ReactNode } from "react";
 import { forwardRef, memo } from "react";
 import { Spinner } from "@/components/Shared/UI";
@@ -103,7 +103,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {...rest}
       >
         <AnimatePresence mode="wait">
-          <motion.div
+          <m.div
             animate={loading ? "loading" : "idle"}
             className="flex items-center gap-x-1.5"
             initial="idle"
@@ -115,9 +115,9 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           >
             {icon}
             {children}
-          </motion.div>
+          </m.div>
           {loading && (
-            <motion.div
+            <m.div
               animate={{ opacity: 1, y: 0 }}
               className="absolute flex items-center justify-center"
               exit={{ opacity: 0, y: 20 }}
@@ -125,7 +125,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
               transition={{ bounce: 0, duration: 0.2, type: "spring" }}
             >
               <Spinner size="xs" />
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
       </button>

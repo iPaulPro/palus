@@ -1,5 +1,5 @@
 import { StarIcon } from "@heroicons/react/24/outline";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Input } from "@/components/Shared/UI";
 import { EXPANSION_EASE } from "@/helpers/variants";
@@ -27,7 +27,7 @@ const CollectLimitConfig = ({ setCollectType }: CollectLimitConfigProps) => {
         }
       />
       {collectAction.collectLimit ? (
-        <motion.div
+        <m.div
           animate="visible"
           className="mt-4 ml-8 text-sm"
           initial="hidden"
@@ -50,7 +50,7 @@ const CollectLimitConfig = ({ setCollectType }: CollectLimitConfigProps) => {
             type="number"
             value={collectAction.collectLimit}
           />
-        </motion.div>
+        </m.div>
       ) : null}
     </div>
   );

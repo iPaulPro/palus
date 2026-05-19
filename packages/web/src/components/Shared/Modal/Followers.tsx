@@ -1,7 +1,7 @@
 import { UsersIcon } from "@heroicons/react/24/outline";
 import type { FollowersRequest } from "@palus/indexer";
 import { PageSize, useFollowersQuery } from "@palus/indexer";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { useCallback } from "react";
 import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
@@ -77,7 +77,7 @@ const Followers = ({ username, address }: FollowersProps) => {
     <div className="!h-[80vh] overflow-y-auto">
       <Virtualizer>
         {followers.map((follower, index) => (
-          <motion.div
+          <m.div
             animate="visible"
             className={cn(
               "divider p-5",
@@ -98,7 +98,7 @@ const Followers = ({ username, address }: FollowersProps) => {
               showBio
               showUserPreview={false}
             />
-          </motion.div>
+          </m.div>
         ))}
         {hasMore && <div className="h-0.5" ref={loadMoreRef} />}
       </Virtualizer>

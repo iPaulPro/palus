@@ -1,4 +1,4 @@
-import { MotionConfig, motion } from "motion/react";
+import { MotionConfig, m } from "motion/react";
 import {
   type KeyboardEvent,
   type MouseEvent,
@@ -45,7 +45,7 @@ const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
   return (
     <div className="no-scrollbar w-full min-w-0 overflow-scroll">
       <MotionConfig transition={{ bounce: 0, duration: 0.4, type: "spring" }}>
-        <motion.ul
+        <m.ul
           className={cn(
             "mb-0 grid min-w-full list-none auto-cols-max grid-flow-col gap-2 px-4 md:px-0",
             className
@@ -53,7 +53,7 @@ const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
           layout
         >
           {tabs.map((tab) => (
-            <motion.li
+            <m.li
               className="relative flex-none cursor-pointer px-3 py-1.5 text-sm outline-hidden transition-colors"
               key={tab.type}
               layout
@@ -69,7 +69,7 @@ const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
               tabIndex={0}
             >
               {active === tab.type ? (
-                <motion.div
+                <m.div
                   className="absolute inset-0 rounded-lg border border-border bg-card"
                   layoutId={layoutId}
                 />
@@ -82,9 +82,9 @@ const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
                 {tab.name}
                 {tab.suffix}
               </span>
-            </motion.li>
+            </m.li>
           ))}
-        </motion.ul>
+        </m.ul>
       </MotionConfig>
     </div>
   );

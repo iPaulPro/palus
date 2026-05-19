@@ -8,7 +8,7 @@ import {
   useGroupMembershipRequestsQuery,
   useRejectGroupMembershipRequestsMutation
 } from "@palus/indexer";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { useCallback, useState } from "react";
 import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
@@ -170,7 +170,7 @@ const Requests = ({ groupAddress }: Props) => {
     <div className="max-h-[80vh] overflow-y-auto">
       <Virtualizer>
         {requests.map((request, index) => (
-          <motion.div
+          <m.div
             animate="visible"
             className={cn(
               "divider flex items-center justify-between gap-x-4 p-5",
@@ -216,7 +216,7 @@ const Requests = ({ groupAddress }: Props) => {
                 </SelectContent>
               </SelectUI>
             )}
-          </motion.div>
+          </m.div>
         ))}
         {hasMore && <div className="h-0.5" ref={loadMoreRef} />}
       </Virtualizer>

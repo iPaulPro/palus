@@ -5,6 +5,7 @@ import {
   useMeQuery
 } from "@palus/indexer";
 import { useIsClient } from "@uidotdev/usehooks";
+import { domAnimation, LazyMotion } from "motion/react";
 import { memo, useCallback, useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
 import { Toaster, type ToasterProps } from "sonner";
@@ -76,7 +77,7 @@ const Layout = () => {
   }
 
   return (
-    <>
+    <LazyMotion features={domAnimation}>
       <Toaster
         icons={{
           error: <XCircleIcon className="size-5" />,
@@ -99,7 +100,7 @@ const Layout = () => {
         <BottomAudioPlayer />
         <BottomNavigation />
       </div>
-    </>
+    </LazyMotion>
   );
 };
 

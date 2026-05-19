@@ -1,7 +1,7 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import type { AccountFragment } from "@palus/indexer";
 import { useMediaQuery } from "@uidotdev/usehooks";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { Link } from "react-router";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
@@ -39,7 +39,7 @@ const MobileDrawerMenu = () => {
       onClick={handleCloseDrawer}
     >
       <AnimatePresence>
-        <motion.div
+        <m.div
           animate={{ opacity: 1, y: 0 }}
           className="fixed bottom-0"
           exit={{ opacity: 0, y: 100 }}
@@ -138,7 +138,7 @@ const MobileDrawerMenu = () => {
               </div>
             </SwipeToDismiss.Target>
           </SwipeToDismiss>
-        </motion.div>
+        </m.div>
       </AnimatePresence>
     </div>
   );

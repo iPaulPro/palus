@@ -1,4 +1,4 @@
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { isAddress } from "viem";
 import LicensePicker from "@/components/Composer/LicensePicker";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
@@ -73,7 +73,7 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
       <div className="divider" />
       {collectAction.enabled && (
         <>
-          <motion.div
+          <m.div
             animate="visible"
             className="m-5 overflow-hidden"
             initial="hidden"
@@ -94,7 +94,7 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
             <CollectLimitConfig setCollectType={setCollectType} />
             <TimeLimitConfig setCollectType={setCollectType} />
             <FollowersConfig setCollectType={setCollectType} />
-          </motion.div>
+          </m.div>
           <div className="divider" />
           <div className="m-5">
             <LicensePicker />

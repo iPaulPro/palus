@@ -1,5 +1,5 @@
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { useEffect, useState } from "react";
 import { FormProvider } from "react-hook-form";
 import { z } from "zod";
@@ -90,7 +90,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
         }}
       />
       {enabled ? (
-        <motion.div
+        <m.div
           animate="visible"
           className="mt-4 ml-8"
           initial="hidden"
@@ -165,7 +165,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
               </div>
             </div>
           </FormProvider>
-        </motion.div>
+        </m.div>
       ) : null}
     </div>
   );

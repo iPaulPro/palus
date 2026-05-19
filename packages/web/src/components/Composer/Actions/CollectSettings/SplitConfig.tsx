@@ -4,7 +4,7 @@ import {
   UsersIcon,
   XCircleIcon
 } from "@heroicons/react/24/outline";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { useState } from "react";
 import { isAddress } from "viem";
 import SearchAccounts from "@/components/Shared/Account/SearchAccounts";
@@ -127,7 +127,7 @@ const SplitConfig = ({
         setOn={toggleSplit}
       />
       {isToggleOn ? (
-        <motion.div
+        <m.div
           animate="visible"
           className="mt-4 ml-8 space-y-3"
           initial="hidden"
@@ -224,7 +224,7 @@ const SplitConfig = ({
           {isRecipientsDuplicated ? (
             <H6 className="text-red-500">Duplicate recipient address found</H6>
           ) : null}
-        </motion.div>
+        </m.div>
       ) : null}
     </div>
   );

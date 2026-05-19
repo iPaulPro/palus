@@ -6,7 +6,7 @@ import {
   useAuthenticateMutation,
   useChallengeMutation
 } from "@palus/indexer";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import {
   type Dispatch,
   type SetStateAction,
@@ -167,7 +167,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
         ) : accounts.length > 0 ? (
           <AnimatePresence mode="popLayout">
             {isExpanded && (
-              <motion.div
+              <m.div
                 animate="visible"
                 initial="hidden"
                 variants={{
@@ -184,7 +184,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
                   forceRounded
                 >
                   {accounts.map((account, index) => (
-                    <motion.div
+                    <m.div
                       className="flex items-center justify-between p-3"
                       custom={index}
                       key={account.address}
@@ -220,10 +220,10 @@ const Login = ({ setHasAccounts }: LoginProps) => {
                       >
                         Login
                       </Button>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </Card>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
         ) : (

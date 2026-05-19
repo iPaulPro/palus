@@ -4,7 +4,7 @@ import {
   PlayIcon
 } from "@heroicons/react/24/solid";
 import { useMediaQuery } from "@uidotdev/usehooks";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import { Link } from "react-router";
 import { useAudioPlayerContext } from "@/components/Common/Providers/AudioPlayerProvider";
 import AudioSeekBar from "@/components/Shared/Audio/AudioSeekBar";
@@ -53,7 +53,7 @@ const BottomAudioPlayer = () => {
   return (
     <AnimatePresence>
       {metadata && !isUnloaded ? (
-        <motion.div
+        <m.div
           animate={{ opacity: 1, y: 0 }}
           className={cn(
             "fixed inset-x-0 bottom-14 z-10 w-full px-2 sm:m-auto sm:w-96 md:bottom-8 lg:hidden",
@@ -125,7 +125,7 @@ const BottomAudioPlayer = () => {
               </div>
             </SwipeToDismiss.Target>
           </SwipeToDismiss>
-        </motion.div>
+        </m.div>
       ) : null}
     </AnimatePresence>
   );

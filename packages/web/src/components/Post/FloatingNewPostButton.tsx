@@ -1,6 +1,6 @@
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { useMediaQuery } from "@uidotdev/usehooks";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { useAudioPlayerContext } from "@/components/Common/Providers/AudioPlayerProvider";
 import { IS_STANDALONE } from "@/helpers/mediaQueries";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
@@ -32,7 +32,7 @@ const FloatingNewPostButton = ({
         : "8rem";
 
   return (
-    <motion.div
+    <m.div
       animate={{ bottom, y: isVisible ? 0 : 200 }}
       className="fixed right-5 block md:hidden"
       initial={{ bottom, y: 200 }}
@@ -45,7 +45,7 @@ const FloatingNewPostButton = ({
       >
         <PencilSquareIcon className="mb-0.5 ml-0.5 size-6" />
       </button>
-    </motion.div>
+    </m.div>
   );
 };
 

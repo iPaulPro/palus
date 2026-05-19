@@ -1,6 +1,6 @@
 import { UsersIcon } from "@heroicons/react/24/outline";
 import type { AccountFragment } from "@palus/indexer";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { Virtualizer } from "virtua";
 import DismissRecommendedAccount from "@/components/Shared/Account/DismissRecommendedAccount";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
@@ -30,7 +30,7 @@ const Suggested = ({ accounts }: SuggestedProps) => {
     <div className="max-h-[80vh] overflow-y-auto">
       <Virtualizer>
         {accounts.slice(5).map((account, index) => (
-          <motion.div
+          <m.div
             animate="visible"
             className={cn(
               "divider flex items-start space-x-3 p-5",
@@ -52,7 +52,7 @@ const Suggested = ({ accounts }: SuggestedProps) => {
             <div className="mt-3.5">
               <DismissRecommendedAccount account={account} />
             </div>
-          </motion.div>
+          </m.div>
         ))}
       </Virtualizer>
     </div>
