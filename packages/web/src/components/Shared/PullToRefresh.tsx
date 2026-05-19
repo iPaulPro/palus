@@ -10,32 +10,32 @@ interface PullToRefreshProps {
   onRefresh: () => Promise<any>;
 }
 
+const PullingContent = () => {
+  return (
+    <div className="flex h-24 w-full flex-col items-center gap-y-2 p-4">
+      <span className="text-sm">Keep pulling to refresh</span>
+      <div className="left-dash mt-1 grow" />
+      <ArrowDownIcon className="size-4" />
+    </div>
+  );
+};
+
+const RefreshingContent = () => {
+  return (
+    <div className="flex h-24 w-full items-center justify-center">
+      <Loader />
+    </div>
+  );
+};
+
+const Noop = async () => {};
+
 const PullToRefresh = ({ children, onRefresh }: PullToRefreshProps) => {
   const isSmallDevice = useMediaQuery(IS_MOBILE);
 
   if (!isSmallDevice) {
     return children;
   }
-
-  const PullingContent = () => {
-    return (
-      <div className="flex h-24 w-full flex-col items-center gap-y-2 p-4">
-        <span className="text-sm">Keep pulling to refresh</span>
-        <div className="left-dash mt-1 flex-grow" />
-        <ArrowDownIcon className="size-4" />
-      </div>
-    );
-  };
-
-  const RefreshingContent = () => {
-    return (
-      <div className="flex h-24 w-full items-center justify-center">
-        <Loader />
-      </div>
-    );
-  };
-
-  const Noop = async () => {};
 
   return (
     <SimplePullToRefresh

@@ -14,18 +14,21 @@ import { IS_STANDALONE } from "@/helpers/mediaQueries";
 import { useInstallPromptStore } from "@/store/non-persisted/alert/installPromptStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
-const SignedAccount = () => {
+const Avatar = () => {
   const { currentAccount } = useAccountStore();
-  const { event: installEvent } = useInstallPromptStore();
-  const isStandalone = useMediaQuery(IS_STANDALONE);
 
-  const Avatar = () => (
+  return (
     <Image
       alt={currentAccount?.address}
       className="size-9 cursor-pointer rounded-full border border-gray-200 object-cover dark:border-gray-800"
       src={getAvatar(currentAccount)}
     />
   );
+};
+
+const SignedAccount = () => {
+  const { event: installEvent } = useInstallPromptStore();
+  const isStandalone = useMediaQuery(IS_STANDALONE);
 
   return (
     <Menu as="div">
@@ -35,7 +38,7 @@ const SignedAccount = () => {
       <MenuTransition>
         <MenuItems
           anchor="bottom start"
-          className="z-[5] mt-2 w-48 origin-top-left rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-black"
+          className="z-5 mt-2 w-48 origin-top-left rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-black"
           static
         >
           <MenuItem

@@ -3,7 +3,7 @@ import type {
   AnyPostFragment,
   PostGroupInfoFragment
 } from "@palus/indexer";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { Link } from "react-router";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import AccountPreview from "@/components/Shared/Account/AccountPreview";
@@ -22,6 +22,8 @@ interface PostAccountProps {
 }
 
 const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
+  const date = useMemo(() => new Date(timestamp), [timestamp]);
+
   return (
     <div className="flex min-w-0 flex-col pr-4">
       <div className="flex items-center gap-x-1.5">
@@ -51,7 +53,7 @@ const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
       <div className="flex flex-wrap items-center gap-x-1 text-secondary text-sm">
         {timestamp ? (
           <PostLink className="hover:underline" post={post}>
-            <Tooltip content={new Date(timestamp).toLocaleString()}>
+            <Tooltip content={date.toLocaleString()}>
               {formatRelativeOrAbsolute(timestamp, "ago")}
             </Tooltip>
           </PostLink>

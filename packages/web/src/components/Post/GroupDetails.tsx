@@ -1,4 +1,8 @@
-import { type PostFragment, useFullGroupQuery } from "@palus/indexer";
+import {
+  type GroupFragment,
+  type PostFragment,
+  useFullGroupQuery
+} from "@palus/indexer";
 import { Link } from "react-router";
 import JoinLeaveButton from "@/components/Shared/Group/JoinLeaveButton";
 import Markup from "@/components/Shared/Markup";
@@ -13,6 +17,17 @@ import truncateByWords from "@/helpers/truncateByWords";
 interface Props {
   post: PostFragment;
 }
+
+const GroupAvatar = ({ group }: { group: GroupFragment }) => (
+  <Image
+    alt={group.address}
+    className="size-12 rounded-full border border-gray-200 bg-gray-200 object-cover dark:border-gray-800"
+    height={48}
+    loading="lazy"
+    src={getAvatar(group)}
+    width={48}
+  />
+);
 
 export const GroupDetails = ({ post }: Props) => {
   const groupInfo = post.feed.group;
@@ -44,24 +59,13 @@ export const GroupDetails = ({ post }: Props) => {
   const stats = data?.groupStats;
   if (!group) return null;
 
-  const GroupAvatar = () => (
-    <Image
-      alt={group.address}
-      className="size-12 rounded-full border border-gray-200 bg-gray-200 object-cover dark:border-gray-800"
-      height={48}
-      loading="lazy"
-      src={getAvatar(group)}
-      width={48}
-    />
-  );
-
   return (
     <Card as="aside" className="space-y-2 p-4">
       <div className="flex items-center">
         <Link to={`/g/${group.address}`}>
-          <GroupAvatar />
+          <GroupAvatar group={group} />
         </Link>
-        <div className="flex min-w-0 max-w-sm flex-grow flex-col justify-center gap-x-1 px-3">
+        <div className="flex min-w-0 max-w-sm grow flex-col justify-center gap-x-1 px-3">
           <Link to={`/g/${group.address}`}>
             <div className="truncate font-semibold">
               {group?.metadata?.name ?? "unnamed"}
@@ -78,7 +82,7 @@ export const GroupDetails = ({ post }: Props) => {
       </div>
       {group.metadata?.description && (
         <Markup
-          className="linkify markup break-words text-sm leading-6"
+          className="linkify markup wrap-break-word text-sm leading-6"
           mentions={getMentions(group.metadata.description)}
         >
           {truncateByWords(group.metadata?.description, 20)}

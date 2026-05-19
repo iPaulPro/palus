@@ -26,6 +26,32 @@ interface AttachmentsProps {
   postId: string;
 }
 
+const ImageComponent = ({
+  uri,
+  index,
+  setExpandedImageIndex,
+  setShowLightBox
+}: {
+  uri: string;
+  index: number;
+  setExpandedImageIndex: (index: number) => void;
+  setShowLightBox: (show: boolean) => void;
+}) => (
+  <Image
+    alt={imageKit(uri, TRANSFORMS.ATTACHMENT)}
+    className="max-h-75 cursor-pointer rounded-lg border border-gray-200 bg-gray-100 object-cover md:max-h-125 dark:border-gray-800 dark:bg-gray-800"
+    height={1000}
+    loading="lazy"
+    onClick={() => {
+      setExpandedImageIndex(index);
+      setShowLightBox(true);
+    }}
+    onError={({ currentTarget }) => (currentTarget.src = uri)}
+    src={imageKit(uri, TRANSFORMS.ATTACHMENT)}
+    width={1000}
+  />
+);
+
 const Attachments = ({ asset, attachments, postId }: AttachmentsProps) => {
   const [expandedImageIndex, setExpandedImageIndex] = useState<number>(0);
   const [showLightBox, setShowLightBox] = useState<boolean>(false);
@@ -52,22 +78,6 @@ const Attachments = ({ asset, attachments, postId }: AttachmentsProps) => {
 
   const displayDecision = determineDisplay();
 
-  const ImageComponent = ({ uri, index }: { uri: string; index: number }) => (
-    <Image
-      alt={imageKit(uri, TRANSFORMS.ATTACHMENT)}
-      className="max-h-[300px] cursor-pointer rounded-lg border border-gray-200 bg-gray-100 object-cover md:max-h-[500px] dark:border-gray-800 dark:bg-gray-800"
-      height={1000}
-      loading="lazy"
-      onClick={() => {
-        setExpandedImageIndex(index);
-        setShowLightBox(true);
-      }}
-      onError={({ currentTarget }) => (currentTarget.src = uri)}
-      src={imageKit(uri, TRANSFORMS.ATTACHMENT)}
-      width={1000}
-    />
-  );
-
   return (
     <div className="mt-3">
       {Array.isArray(displayDecision) && (
@@ -84,7 +94,12 @@ const Attachments = ({ asset, attachments, postId }: AttachmentsProps) => {
               key={attachment.uri}
               onClick={stopEventPropagation}
             >
-              <ImageComponent index={index} uri={attachment.uri} />
+              <ImageComponent
+                index={index}
+                setExpandedImageIndex={setExpandedImageIndex}
+                setShowLightBox={setShowLightBox}
+                uri={attachment.uri}
+              />
             </div>
           ))}
           <LightBox

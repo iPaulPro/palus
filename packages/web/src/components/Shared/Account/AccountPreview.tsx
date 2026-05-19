@@ -1,4 +1,8 @@
-import { type AccountStats, useFullAccountLazyQuery } from "@palus/indexer";
+import {
+  type AccountFragment,
+  type AccountStats,
+  useFullAccountLazyQuery
+} from "@palus/indexer";
 import * as HoverCard from "@radix-ui/react-hover-card";
 import plur from "plur";
 import type { ReactNode } from "react";
@@ -19,6 +23,102 @@ interface AccountPreviewProps {
   address?: string;
   showUserPreview?: boolean;
 }
+
+const UserAvatar = ({ account }: { account: AccountFragment }) => (
+  <Image
+    alt={account.address}
+    className="size-12 rounded-full border border-gray-200 bg-gray-200 object-cover dark:border-gray-800"
+    height={48}
+    loading="lazy"
+    src={getAvatar(account)}
+    width={48}
+  />
+);
+
+const UserName = ({ account }: { account: AccountFragment }) => (
+  <div>
+    <div className="flex min-w-0 max-w-sm items-center gap-1">
+      <div className="truncate">{getAccount(account).name}</div>
+      {account.score < 9000 ? null : <TopAccount />}
+    </div>
+    <span>
+      <Slug
+        className="text-sm"
+        prefix="@"
+        slug={getAccount(account).username}
+      />
+      {account.operations?.isFollowingMe && (
+        <span className="ml-2 rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
+          Follows you
+        </span>
+      )}
+    </span>
+  </div>
+);
+
+const Preview = ({
+  account,
+  address,
+  loading,
+  stats,
+  username
+}: {
+  account: AccountFragment | undefined | null;
+  address?: string;
+  loading: boolean;
+  stats: AccountStats;
+  username?: string;
+}) => {
+  if (loading) {
+    return (
+      <div className="flex flex-col">
+        <div className="flex p-3">
+          <div>{username || `#${address}`}</div>
+        </div>
+      </div>
+    );
+  }
+
+  if (!account) {
+    return <div className="flex h-12 items-center px-3">No account found</div>;
+  }
+
+  return (
+    <div className="space-y-3 p-4">
+      <div className="flex items-center justify-between">
+        <UserAvatar account={account} />
+        <FollowUnfollowButton account={account} small />
+      </div>
+      <UserName account={account} />
+      {account.metadata?.bio && (
+        <Markup
+          className="linkify markup wrap-break-word mt-2 text-sm leading-6"
+          mentions={getMentions(account.metadata.bio)}
+        >
+          {truncateByWords(account.metadata.bio, 20)}
+        </Markup>
+      )}
+      <div className="mt-4 flex items-center space-x-3">
+        <div className="flex items-center space-x-1">
+          <div className="text-base">
+            {nFormatter(stats.graphFollowStats?.following)}
+          </div>
+          <div className="text-gray-500 text-sm dark:text-gray-200">
+            Following
+          </div>
+        </div>
+        <div className="flex items-center space-x-1">
+          <div className="text-base">
+            {nFormatter(stats.graphFollowStats?.followers)}
+          </div>
+          <div className="text-gray-500 text-sm dark:text-gray-200">
+            {plur("Follower", stats.graphFollowStats?.followers)}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const AccountPreview = ({
   children,
@@ -59,92 +159,6 @@ const AccountPreview = ({
     return <span>{children}</span>;
   }
 
-  const Preview = () => {
-    if (loading) {
-      return (
-        <div className="flex flex-col">
-          <div className="flex p-3">
-            <div>{username || `#${address}`}</div>
-          </div>
-        </div>
-      );
-    }
-
-    if (!account) {
-      return (
-        <div className="flex h-12 items-center px-3">No account found</div>
-      );
-    }
-
-    const UserAvatar = () => (
-      <Image
-        alt={account.address}
-        className="size-12 rounded-full border border-gray-200 bg-gray-200 object-cover dark:border-gray-800"
-        height={48}
-        loading="lazy"
-        src={getAvatar(account)}
-        width={48}
-      />
-    );
-
-    const UserName = () => (
-      <div>
-        <div className="flex min-w-0 max-w-sm items-center gap-1">
-          <div className="truncate">{getAccount(account).name}</div>
-          {account.score < 9000 ? null : <TopAccount />}
-        </div>
-        <span>
-          <Slug
-            className="text-sm"
-            prefix="@"
-            slug={getAccount(account).username}
-          />
-          {account.operations?.isFollowingMe && (
-            <span className="ml-2 rounded-full bg-gray-200 px-2 py-0.5 text-xs dark:bg-gray-700">
-              Follows you
-            </span>
-          )}
-        </span>
-      </div>
-    );
-
-    return (
-      <div className="space-y-3 p-4">
-        <div className="flex items-center justify-between">
-          <UserAvatar />
-          <FollowUnfollowButton account={account} small />
-        </div>
-        <UserName />
-        {account.metadata?.bio && (
-          <Markup
-            className="linkify markup mt-2 break-words text-sm leading-6"
-            mentions={getMentions(account.metadata.bio)}
-          >
-            {truncateByWords(account.metadata.bio, 20)}
-          </Markup>
-        )}
-        <div className="mt-4 flex items-center space-x-3">
-          <div className="flex items-center space-x-1">
-            <div className="text-base">
-              {nFormatter(stats.graphFollowStats?.following)}
-            </div>
-            <div className="text-gray-500 text-sm dark:text-gray-200">
-              Following
-            </div>
-          </div>
-          <div className="flex items-center space-x-1">
-            <div className="text-base">
-              {nFormatter(stats.graphFollowStats?.followers)}
-            </div>
-            <div className="text-gray-500 text-sm dark:text-gray-200">
-              {plur("Follower", stats.graphFollowStats?.followers)}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   return (
     <span onFocus={onPreviewStart} onMouseOver={onPreviewStart}>
       <HoverCard.Root>
@@ -160,7 +174,13 @@ const AccountPreview = ({
           >
             <div>
               <Card forceRounded>
-                <Preview />
+                <Preview
+                  account={account}
+                  address={address}
+                  loading={loading}
+                  stats={stats}
+                  username={username}
+                />
               </Card>
             </div>
           </HoverCard.Content>
