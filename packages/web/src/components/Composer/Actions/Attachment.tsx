@@ -31,6 +31,50 @@ const VideoMimeType = [
   "video/quicktime"
 ];
 
+interface UploadOptionProps {
+  accept: string[];
+  disabled: boolean;
+  icon: JSX.Element;
+  idSuffix: string;
+  label: string;
+  onChange: (evt: ChangeEvent<HTMLInputElement>) => void;
+  uploadId: string;
+}
+
+const UploadOption = ({
+  accept,
+  disabled,
+  icon,
+  idSuffix,
+  label,
+  onChange,
+  uploadId
+}: UploadOptionProps) => (
+  <MenuItem
+    as="label"
+    className={({ focus }) =>
+      cn(
+        "menu-item flex! cursor-pointer items-center gap-1 space-x-1 rounded-lg",
+        { "dropdown-active": focus, "opacity-50": disabled }
+      )
+    }
+    disabled={disabled}
+    htmlFor={`${uploadId}_${idSuffix}`}
+  >
+    {icon}
+    <span className="text-sm">{label}</span>
+    <input
+      accept={accept.join(",")}
+      className="hidden"
+      disabled={disabled}
+      id={`${uploadId}_${idSuffix}`}
+      multiple={idSuffix === "image"}
+      onChange={onChange}
+      type="file"
+    />
+  </MenuItem>
+);
+
 interface AttachmentProps {
   anchor?: "top" | "bottom";
   disabled: boolean;
@@ -83,38 +127,6 @@ const Attachment = ({ anchor = "bottom", disabled }: AttachmentProps) => {
   const disableImageUpload = attachments.length >= MAX_IMAGE_UPLOAD;
   const disableOtherUpload = attachments.length > 0;
 
-  const renderUploadOption = (
-    idSuffix: string,
-    label: string,
-    icon: JSX.Element,
-    accept: string[],
-    disabled: boolean
-  ) => (
-    <MenuItem
-      as="label"
-      className={({ focus }) =>
-        cn(
-          "menu-item !flex cursor-pointer items-center gap-1 space-x-1 rounded-lg",
-          { "dropdown-active": focus, "opacity-50": disabled }
-        )
-      }
-      disabled={disabled}
-      htmlFor={`${id}_${idSuffix}`}
-    >
-      {icon}
-      <span className="text-sm">{label}</span>
-      <input
-        accept={accept.join(",")}
-        className="hidden"
-        disabled={disabled}
-        id={`${id}_${idSuffix}`}
-        multiple={idSuffix === "image"}
-        onChange={handleAttachment}
-        type="file"
-      />
-    </MenuItem>
-  );
-
   return (
     <>
       <Menu as="div">
@@ -140,31 +152,37 @@ const Attachment = ({ anchor = "bottom", disabled }: AttachmentProps) => {
         <MenuTransition show={showMenu}>
           <MenuItems
             anchor={anchor}
-            className="absolute z-[5] mt-2 rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-gray-900"
+            className="absolute z-5 mt-2 rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-gray-900"
             ref={dropdownRef}
             static
           >
-            {renderUploadOption(
-              "image",
-              "Upload image(s)",
-              <PhotoIcon className="size-4" />,
-              ImageMimeType,
-              disableImageUpload
-            )}
-            {renderUploadOption(
-              "video",
-              "Upload video",
-              <VideoCameraIcon className="size-4" />,
-              VideoMimeType,
-              disableOtherUpload
-            )}
-            {renderUploadOption(
-              "audio",
-              "Upload audio",
-              <MusicalNoteIcon className="size-4" />,
-              AudioMimeType,
-              disableOtherUpload
-            )}
+            <UploadOption
+              accept={ImageMimeType}
+              disabled={disableImageUpload}
+              icon={<PhotoIcon className="size-4" />}
+              idSuffix="image"
+              label="Upload image(s)"
+              onChange={handleAttachment}
+              uploadId={id}
+            />
+            <UploadOption
+              accept={VideoMimeType}
+              disabled={disableOtherUpload}
+              icon={<VideoCameraIcon className="size-4" />}
+              idSuffix="video"
+              label="Upload video"
+              onChange={handleAttachment}
+              uploadId={id}
+            />
+            <UploadOption
+              accept={AudioMimeType}
+              disabled={disableOtherUpload}
+              icon={<MusicalNoteIcon className="size-4" />}
+              idSuffix="audio"
+              label="Upload audio"
+              onChange={handleAttachment}
+              uploadId={id}
+            />
             <div className="divider" />
             <UrlAttachment
               disabled={disableOtherUpload}

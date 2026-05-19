@@ -85,31 +85,34 @@ const PollEditor = () => {
         </div>
       </div>
       <div className="mt-3 space-y-2">
-        {pollConfig.options.map((choice, index) => (
-          <div className="flex items-center gap-x-2 text-sm" key={index}>
-            <Input
-              iconRight={
-                index > 1 ? (
-                  <button
-                    className="flex"
-                    onClick={() => {
-                      removePollOption(index);
-                    }}
-                    type="button"
-                  >
-                    <XMarkIcon className="size-5 text-red-500" />
-                  </button>
-                ) : null
-              }
-              maxLength={25}
-              onChange={(event) => {
-                updatePollOption(index, event.target.value);
-              }}
-              placeholder={`Choice ${index + 1}`}
-              value={choice}
-            />
-          </div>
-        ))}
+        {pollConfig.options.map((choice, index) => {
+          const key = `${choice}_${index}`;
+          return (
+            <div className="flex items-center gap-x-2 text-sm" key={key}>
+              <Input
+                iconRight={
+                  index > 1 ? (
+                    <button
+                      className="flex"
+                      onClick={() => {
+                        removePollOption(index);
+                      }}
+                      type="button"
+                    >
+                      <XMarkIcon className="size-5 text-red-500" />
+                    </button>
+                  ) : null
+                }
+                maxLength={25}
+                onChange={(event) => {
+                  updatePollOption(index, event.target.value);
+                }}
+                placeholder={`Choice ${index + 1}`}
+                value={choice}
+              />
+            </div>
+          );
+        })}
         {pollConfig.options.length === 10 ? null : (
           <button
             className="mt-2 flex items-center gap-x-2 text-sm"

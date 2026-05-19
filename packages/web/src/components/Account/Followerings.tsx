@@ -1,6 +1,6 @@
 import { type AccountFragment, useAccountStatsQuery } from "@palus/indexer";
 import plur from "plur";
-import { type FC, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import Followers from "@/components/Shared/Modal/Followers";
 import Following from "@/components/Shared/Modal/Following";
@@ -41,25 +41,6 @@ const Followerings = ({ account }: FolloweringsProps) => {
 
   const stats = data.accountStats.graphFollowStats;
 
-  type ModalContentProps = {
-    username: string;
-    address: string;
-  };
-
-  const renderModal = (
-    show: boolean,
-    setShow: (value: boolean) => void,
-    title: string,
-    Content: FC<ModalContentProps>
-  ) => (
-    <Modal onClose={() => setShow(false)} show={show} title={title}>
-      <Content
-        address={String(account.address)}
-        username={getAccount(account).username}
-      />
-    </Modal>
-  );
-
   return (
     <div className="flex flex-wrap gap-x-6 gap-y-2 sm:gap-x-8">
       <button
@@ -92,18 +73,26 @@ const Followerings = ({ account }: FolloweringsProps) => {
           </HelpTooltip>
         </span>
       </div>
-      {renderModal(
-        showFollowingModal,
-        setShowFollowingModal,
-        "Following",
-        Following
-      )}
-      {renderModal(
-        showFollowersModal,
-        setShowFollowersModal,
-        "Followers",
-        Followers
-      )}
+      <Modal
+        onClose={() => setShowFollowingModal(false)}
+        show={showFollowingModal}
+        title={"Following"}
+      >
+        <Following
+          address={String(account.address)}
+          username={getAccount(account).username}
+        />
+      </Modal>
+      <Modal
+        onClose={() => setShowFollowersModal(false)}
+        show={showFollowersModal}
+        title={"Followers"}
+      >
+        <Followers
+          address={String(account.address)}
+          username={getAccount(account).username}
+        />
+      </Modal>
     </div>
   );
 };

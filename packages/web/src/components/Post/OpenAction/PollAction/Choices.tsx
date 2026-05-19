@@ -121,7 +121,7 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
                 }
               )}
               disabled={isSubmitting || !isPollLive || hasVoted}
-              key={index}
+              key={option.id}
               onClick={() => handleVote(option.id)}
               type="button"
             >

@@ -97,13 +97,16 @@ const PostActionExecutedNotification = ({
           {actionType === "voted on" && <ChartBarIcon className="size-6" />}
           {actionType === "acted on" && <BoltIcon className="size-6" />}
           <div className="flex items-center gap-x-1">
-            {actions.slice(0, 10).map((action, index: number) => {
+            {actions.slice(0, 10).map((action) => {
               const account = action.executedBy;
               if (!account) {
                 return null;
               }
               return (
-                <div className="not-first:-ml-2" key={index}>
+                <div
+                  className="not-first:-ml-2"
+                  key={`${account.address}-${action.executedAt}`}
+                >
                   <NotificationAccountAvatar account={account} />
                 </div>
               );

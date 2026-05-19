@@ -73,18 +73,6 @@ const ViewAccount = () => {
 
   const accountInfo = getAccount(account);
 
-  const renderAccountDetails = () => {
-    if (isDeleted || isBanned) return <DeletedDetails account={account} />;
-
-    return (
-      <Details
-        account={account}
-        hasBlockedMe={account?.operations?.hasBlockedMe || false}
-        isBlockedByMe={account?.operations?.isBlockedByMe || false}
-      />
-    );
-  };
-
   const renderEmptyState = () => {
     const message = isDeleted
       ? "Account Deleted"
@@ -110,7 +98,15 @@ const ViewAccount = () => {
       <Cover
         cover={account?.metadata?.coverPicture || `${STATIC_IMAGES_URL}/2.webp`}
       />
-      {renderAccountDetails()}
+      {isDeleted || isBanned ? (
+        <DeletedDetails account={account} />
+      ) : (
+        <Details
+          account={account}
+          hasBlockedMe={account?.operations?.hasBlockedMe || false}
+          isBlockedByMe={account?.operations?.isBlockedByMe || false}
+        />
+      )}
       {isDeleted || isBlockedByMe || isBanned ? (
         renderEmptyState()
       ) : (

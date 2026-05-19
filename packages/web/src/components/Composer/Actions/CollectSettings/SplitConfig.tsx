@@ -139,7 +139,10 @@ const SplitConfig = ({
         >
           <div className="space-y-2">
             {recipients.map((recipient, index) => (
-              <H6 className="flex items-center gap-x-2 font-normal" key={index}>
+              <H6
+                className="flex items-center gap-x-2 font-normal"
+                key={recipient.address}
+              >
                 <SearchAccounts
                   error={
                     recipient.address.length > 0 &&

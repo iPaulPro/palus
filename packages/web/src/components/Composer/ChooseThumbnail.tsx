@@ -163,12 +163,13 @@ const ChooseThumbnail = () => {
         {thumbnails.map(({ blobUrl, decentralizedUrl }, index) => {
           const isSelected = selectedThumbnailIndex === index;
           const isUploaded = decentralizedUrl === videoThumbnail.url;
+          const key = `${blobUrl}_${index}`;
 
           return (
             <button
               className="relative"
               disabled={isUploading}
-              key={`${blobUrl}_${index}`}
+              key={key}
               onClick={() => handleSelectThumbnail(index)}
               type="button"
             >
