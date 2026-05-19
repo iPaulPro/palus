@@ -35,7 +35,7 @@ const Wrapper = ({
 
   useEffect(() => {
     setShowMutualFollowersModal(false);
-  }, [location.key]);
+  }, [location]);
 
   return (
     <button

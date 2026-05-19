@@ -21,7 +21,7 @@ const Followerings = ({ account }: FolloweringsProps) => {
   useEffect(() => {
     setShowFollowersModal(false);
     setShowFollowingModal(false);
-  }, [location.key]);
+  }, [location]);
 
   const { data, loading } = useAccountStatsQuery({
     variables: { request: { account: account.address } }

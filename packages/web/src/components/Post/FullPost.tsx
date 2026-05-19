@@ -49,7 +49,7 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
     if (isComment && headerRef.current) {
       headerRef.current.scrollIntoView();
     }
-  }, [isComment, headerRef.current]);
+  }, [isComment]);
 
   const handleDownloadMedia = useCallback(async () => {
     if (!media) return;
@@ -62,7 +62,7 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-  }, [media]);
+  }, [media, post.id]);
 
   if (isBlockedByMe && !ignoreBlock) {
     return (

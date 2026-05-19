@@ -21,10 +21,7 @@ interface TabsProps {
 const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
   const tabRefs = useRef<Map<string, HTMLLIElement>>(new Map());
 
-  const activeTab = useMemo(
-    () => tabRefs.current.get(active),
-    [tabRefs.current, active]
-  );
+  const activeTab = useMemo(() => tabRefs.current.get(active), [active]);
 
   useLayoutEffect(() => {
     const activeTab = tabRefs.current.get(active);
