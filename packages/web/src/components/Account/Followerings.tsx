@@ -1,7 +1,6 @@
 import { type AccountFragment, useAccountStatsQuery } from "@palus/indexer";
 import plur from "plur";
-import { useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useState } from "react";
 import Followers from "@/components/Shared/Modal/Followers";
 import Following from "@/components/Shared/Modal/Following";
 import GraphStatsShimmer from "@/components/Shared/Shimmer/GraphStatsShimmer";
@@ -14,14 +13,8 @@ interface FolloweringsProps {
 }
 
 const Followerings = ({ account }: FolloweringsProps) => {
-  const location = useLocation();
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
-
-  useEffect(() => {
-    setShowFollowersModal(false);
-    setShowFollowingModal(false);
-  }, [location]);
 
   const { data, loading } = useAccountStatsQuery({
     variables: { request: { account: account.address } }

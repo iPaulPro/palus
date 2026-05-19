@@ -4,13 +4,7 @@ import {
   GroupRuleType,
   useUpdateGroupRulesMutation
 } from "@palus/indexer";
-import {
-  type RefObject,
-  useCallback,
-  useEffect,
-  useRef,
-  useState
-} from "react";
+import { type RefObject, useCallback, useRef, useState } from "react";
 import BackButton from "@/components/Shared/BackButton";
 import {
   Button,
@@ -34,7 +28,6 @@ interface SuperJoinProps {
 
 const SuperJoin = ({ group }: SuperJoinProps) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [amount, setAmount] = useState(0);
   const handleTransactionLifecycle = useTransactionLifecycle();
   const waitForTransactionToComplete = useWaitForTransactionToBeIndexed();
   const inputRef = useRef<HTMLInputElement>(null);
@@ -44,13 +37,12 @@ const SuperJoin = ({ group }: SuperJoinProps) => {
     ...group.rules.required,
     ...group.rules.anyOf
   ].find((rule) => rule.type === GroupRuleType.SimplePayment);
+
   const { amount: simplePaymentAmount } = getSimplePaymentDetails(
     group.rules as GroupRules
   );
 
-  useEffect(() => {
-    setAmount(simplePaymentAmount || 0);
-  }, [simplePaymentAmount]);
+  const [amount, setAmount] = useState(simplePaymentAmount ?? 0);
 
   const onCompleted = async (hash: string) => {
     try {

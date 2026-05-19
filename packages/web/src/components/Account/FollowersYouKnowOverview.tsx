@@ -1,6 +1,5 @@
 import { type AccountFragment, useFollowersYouKnowQuery } from "@palus/indexer";
-import { type ReactNode, useEffect, useMemo, useState } from "react";
-import { useLocation } from "react-router";
+import { type ReactNode, useMemo, useState } from "react";
 import FollowersYouKnow from "@/components/Shared/Modal/FollowersYouKnow";
 import FollowersYouKnowShimmer from "@/components/Shared/Shimmer/FollowersYouKnowShimmer";
 import { Modal, StackedAvatars } from "@/components/Shared/UI";
@@ -30,12 +29,6 @@ const Wrapper = ({
 } & FollowersYouKnowOverviewProps) => {
   const [showMutualFollowersModal, setShowMutualFollowersModal] =
     useState(false);
-
-  const location = useLocation();
-
-  useEffect(() => {
-    setShowMutualFollowersModal(false);
-  }, [location]);
 
   return (
     <button

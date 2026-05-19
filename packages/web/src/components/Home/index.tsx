@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import NewPost from "@/components/Composer/NewPost";
 import FloatingNewPostButton from "@/components/Post/FloatingNewPostButton";
 import PageLayout from "@/components/Shared/PageLayout";
@@ -16,10 +16,6 @@ const Home = () => {
   const { feedType } = useHomeTabStore();
   const loggedInWithAccount = Boolean(currentAccount);
   const [scrollOffset, setScrollOffset] = useState(0);
-
-  useEffect(() => {
-    setScrollOffset(0);
-  }, [feedType]);
 
   return (
     <PageLayout>

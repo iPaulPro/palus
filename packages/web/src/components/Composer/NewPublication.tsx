@@ -139,8 +139,14 @@ const NewPublication = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [postContentError, setPostContentError] = useState("");
   const [selectedGroup, setSelectedGroup] = useState<GroupFragment | undefined>(
-    group
+    undefined
   );
+
+  const prevGroupRef = useRef<GroupFragment | null>(null); // null = "never set"
+  if (prevGroupRef.current !== (group ?? null)) {
+    prevGroupRef.current = group ?? null;
+    setSelectedGroup(group);
+  }
 
   const notificationShareRef = useRef<HTMLDivElement>(null);
 
@@ -206,13 +212,11 @@ const NewPublication = ({
     onError
   });
 
-  useEffect(() => {
-    setSelectedGroup(group);
-  }, [group]);
-
-  useEffect(() => {
+  const audioPostRef = useRef(audioPost);
+  if (audioPostRef.current !== audioPost) {
+    audioPostRef.current = audioPost;
     setPostContentError("");
-  }, [audioPost]);
+  }
 
   useEffect(() => {
     if (!editingPost) return;

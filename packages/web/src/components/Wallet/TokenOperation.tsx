@@ -42,7 +42,9 @@ const TokenOperation = ({
   showModal,
   setShowModal
 }: TokenOperationProps) => {
-  const [selectedToken, setSelectedToken] = useState<string>(tokenAddress);
+  const [selectedToken, setSelectedToken] = useState<string>(
+    () => tokenAddress
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [maxValue, setMaxValue] = useState<string>("0");
   const [inputValue, setInputValue] = useState<string>("");
