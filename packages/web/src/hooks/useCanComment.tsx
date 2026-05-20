@@ -32,6 +32,7 @@ const collectorOnlyPostRuleContract = {
 };
 
 const useCanComment = ({ post }: PostRuleValidationProps) => {
+  // react-doctor-disable-next-line react-doctor/rendering-usetransition-loading
   const [isLoading, setIsLoading] = useState(false);
   const [canComment, setCanComment] = useState(false);
   const [reason, setReason] = useState<string | null>(null);

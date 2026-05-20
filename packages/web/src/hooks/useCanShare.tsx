@@ -25,6 +25,7 @@ const collectorOnlyPostRuleContract = {
 };
 
 const useCanShare = ({ post }: PostRuleValidationProps) => {
+  // react-doctor-disable-next-line react-doctor/rendering-usetransition-loading
   const [isLoading, setIsLoading] = useState(false);
   const [canRepost, setCanRepost] = useState(false);
   const [canQuote, setCanQuote] = useState(false);

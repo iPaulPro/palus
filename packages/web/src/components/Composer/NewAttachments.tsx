@@ -26,8 +26,10 @@ interface NewAttachmentsProps {
   isEditing?: boolean;
 }
 
+const EMPTY_ITEMS: NewAttachment[] = [];
+
 const NewAttachments = ({
-  attachments = [],
+  attachments = EMPTY_ITEMS,
   hideDelete = false,
   isEditing = false
 }: NewAttachmentsProps) => {
@@ -51,9 +53,8 @@ const NewAttachments = ({
   }, [videoRef, attachments]);
 
   const handleRemoveAttachment = (attachment: NewAttachment) => {
-    const arr = attachments;
     setAttachments(
-      arr.filter((element: NewAttachment) => element !== attachment)
+      attachments.filter((element: NewAttachment) => element !== attachment)
     );
   };
 

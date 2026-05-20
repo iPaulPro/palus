@@ -45,7 +45,7 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedOption, setSelectedOption] = useState<null | number>(null);
-  const [hasVoted, setHasVoted] = useState(
+  const [hasVoted, setHasVoted] = useState(() =>
     options.some((option) => option.voted)
   );
 

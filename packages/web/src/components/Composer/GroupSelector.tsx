@@ -81,7 +81,7 @@ const GroupSelector = ({ selected, onChange }: GroupSelectorProps) => {
   return (
     <SelectUI defaultValue="global" onValueChange={onValueChange}>
       <SelectTrigger
-        className="!h-6 w-fit border-none px-0 py-0 opacity-75 shadow-none"
+        className="!h-6 w-fit border-none p-0 opacity-75 shadow-none"
         size="sm"
       >
         <SelectValue />

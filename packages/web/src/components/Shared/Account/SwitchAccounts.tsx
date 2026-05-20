@@ -59,7 +59,7 @@ const SwitchAccounts = () => {
   }
 
   const accountsAvailable = data?.accountsAvailable.items || [];
-  const sortedAccounts = [...accountsAvailable].sort((a, b) => {
+  const sortedAccounts = [...accountsAvailable].toSorted((a, b) => {
     const authAddress = currentAccount?.address.toLowerCase();
     const aAddress = a.account.address.toLowerCase();
     const bAddress = b.account.address.toLowerCase();

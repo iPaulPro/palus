@@ -80,7 +80,7 @@ const MarqueeText: FC<MarqueeTextProps> = ({
   const measureRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [translateFrom, setTranslateFrom] = useState(0);
-  const [showItems, setShowItems] = useState(Children.toArray(children));
+  const [showItems, setShowItems] = useState(() => Children.toArray(children));
   const [initialDuration, setInitialDuration] = useState(() => duration);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isOverflowing, setIsOverflowing] = useState(false);

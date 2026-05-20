@@ -23,6 +23,14 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 const CARD_WIDTH = 480;
 const CARD_HEIGHT = 300;
 
+const formatNoDecimals = new Intl.NumberFormat("default", {
+  minimumFractionDigits: 0
+});
+
+const formatCurrency = new Intl.NumberFormat("default", {
+  minimumFractionDigits: 2
+});
+
 const NotificationShare = ({
   ref,
   ...props
@@ -46,9 +54,9 @@ const NotificationShare = ({
 
     const num = Number(value);
     if (len <= 2) {
-      return new Intl.NumberFormat("default", {
-        minimumFractionDigits: len === 1 ? 2 : 0
-      }).format(num);
+      return len === 1
+        ? formatCurrency.format(num)
+        : formatNoDecimals.format(num);
     }
 
     return value;

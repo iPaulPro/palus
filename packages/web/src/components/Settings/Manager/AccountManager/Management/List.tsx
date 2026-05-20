@@ -7,7 +7,7 @@ import {
   useHideManagedAccountMutation,
   useUnhideManagedAccountMutation
 } from "@palus/indexer";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { WindowVirtualizer } from "virtua";
 import { useConnection } from "wagmi";
@@ -39,22 +39,21 @@ const List = ({ managed = false }: ListProps) => {
     managedBy: address
   };
 
-  const { data, error, fetchMore, loading, refetch } =
-    useAccountsAvailableQuery({
-      variables: {
-        accountsAvailableRequest,
-        lastLoggedInAccountRequest
-      }
-    });
+  const { data, error, fetchMore, loading } = useAccountsAvailableQuery({
+    variables: {
+      accountsAvailableRequest,
+      lastLoggedInAccountRequest
+    }
+  });
 
   const [hideManagedAccount, { loading: hiding }] =
-    useHideManagedAccountMutation();
+    useHideManagedAccountMutation({
+      refetchQueries: ["AccountsAvailable"]
+    });
   const [unhideManagedAccount, { loading: unhiding }] =
-    useUnhideManagedAccountMutation();
-
-  useEffect(() => {
-    refetch();
-  }, [managed, refetch]);
+    useUnhideManagedAccountMutation({
+      refetchQueries: ["AccountsAvailable"]
+    });
 
   const accountsAvailable = data?.accountsAvailable.items;
   const pageInfo = data?.accountsAvailable?.pageInfo;
@@ -124,7 +123,6 @@ const List = ({ managed = false }: ListProps) => {
         await unhideManagedAccount({ variables: { request: { account } } });
         toast.success("Account is now managed");
       }
-      setTimeout(() => refetch(), 500);
     } catch (error) {
       errorToast(error);
     } finally {

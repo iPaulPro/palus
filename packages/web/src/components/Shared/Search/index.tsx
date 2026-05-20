@@ -170,7 +170,7 @@ const Search = ({
         <Input
           autoComplete="off"
           autoFocus={autoFocus}
-          className="search px-3 py-3 text-base sm:text-sm"
+          className="search p-3 text-base sm:text-sm"
           iconLeft={<MagnifyingGlassIcon />}
           iconRight={
             <XMarkIcon

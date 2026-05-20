@@ -27,10 +27,12 @@ interface MarkupProps {
   ref?: Ref<HTMLSpanElement>;
 }
 
+const EMPTY_ITEMS: PostMentionFragment[] = [];
+
 const Markup = ({
   children,
   className = "",
-  mentions = [],
+  mentions = EMPTY_ITEMS,
   strip = true,
   ref
 }: MarkupProps) => {
