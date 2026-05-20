@@ -60,10 +60,13 @@ const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
     toast.success("Post has been reposted!");
   };
 
-  const onError = useCallback((error: ApolloClientError) => {
-    setIsSubmitting(false);
-    errorToast(error);
-  }, []);
+  const onError = useCallback(
+    (error: ApolloClientError) => {
+      setIsSubmitting(false);
+      errorToast(error);
+    },
+    [setIsSubmitting]
+  );
 
   const [repost] = useRepostMutation({
     onCompleted: async ({ repost }) => {

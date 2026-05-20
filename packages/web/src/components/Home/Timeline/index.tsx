@@ -59,7 +59,7 @@ const Timeline = ({ onScroll }: TimelineProps) => {
           !timelineItem.primary.operations?.hasReported &&
           !bannedAccounts.includes(timelineItem.primary.author.address)
       ),
-    [feed]
+    [feed, bannedAccounts]
   );
 
   return (

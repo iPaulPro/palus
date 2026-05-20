@@ -52,7 +52,13 @@ const useUploadAttachments = () => {
         return [];
       }
     },
-    [addAttachments, removeAttachments, setIsUploading, updateAttachments]
+    [
+      addAttachments,
+      removeAttachments,
+      setIsUploading,
+      updateAttachments,
+      currentAccount?.address
+    ]
   );
 
   return { handleUploadAttachments };

@@ -209,7 +209,7 @@ const Navbar = () => {
 
   const handleAuthClick = useCallback(() => {
     setShowAuthModal(true);
-  }, []);
+  }, [setShowAuthModal]);
 
   const handleNewPostClick = () => {
     setShowNewPostModal(true);

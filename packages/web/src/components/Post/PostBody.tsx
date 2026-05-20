@@ -52,7 +52,7 @@ const PostBody = ({
     }
 
     return postData.content ?? "";
-  }, [postData, isArticle]);
+  }, [postData]);
 
   const filteredAttachments = postData?.attachments || [];
   const filteredAsset = postData?.asset;

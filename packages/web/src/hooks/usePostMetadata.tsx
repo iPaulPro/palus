@@ -139,10 +139,13 @@ const usePostMetadata = () => {
     [
       attachments,
       videoDurationInSeconds,
-      audioPost,
-      videoThumbnail,
       license,
-      contentWarning
+      contentWarning,
+      audioPost.artist,
+      audioPost.title,
+      audioPost.duration,
+      audioPost.cover,
+      videoThumbnail.url
     ]
   );
 

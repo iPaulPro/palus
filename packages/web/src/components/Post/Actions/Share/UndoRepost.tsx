@@ -46,10 +46,13 @@ const UndoRepost = ({
     toast.success("Undone repost");
   };
 
-  const onError = useCallback((error?: unknown) => {
-    setIsSubmitting(false);
-    errorToast(error);
-  }, []);
+  const onError = useCallback(
+    (error?: unknown) => {
+      setIsSubmitting(false);
+      errorToast(error);
+    },
+    [setIsSubmitting]
+  );
 
   const [undoRepost] = useDeletePostMutation({
     onCompleted: async ({ deletePost }) => {

@@ -48,7 +48,7 @@ const Editor = ({
       isComment ? "What's your response?" : undefined
     );
     return createEditor({ defaultContent, extension });
-  }, [defaultContent]);
+  }, [defaultContent, isComment]);
 
   useFocus(editor, isComment && !isInModal);
   useContentChange(editor);
@@ -92,7 +92,7 @@ const Editor = ({
           <EditorMenus />
           <div
             className={cn(
-              "ProseMirror relative box-border min-h-20 flex-1 leading-6 outline-0 sm:leading-[26px]",
+              "ProseMirror relative box-border min-h-20 flex-1 leading-6 outline-0 sm:leading-6.5",
               {
                 "h-full": fullHeight,
                 "mt-2": !hideGroupSelector,

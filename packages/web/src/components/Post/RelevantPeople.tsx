@@ -49,7 +49,13 @@ const RelevantPeople = ({ post }: RelevantPeopleProps) => {
     }
 
     return new Set(addresses);
-  }, [post, currentAccount]);
+  }, [
+    post.mentions,
+    currentAccount?.address,
+    post.commentOn?.author.address,
+    post.author.address,
+    post.root?.author.address
+  ]);
 
   const { data, error, loading } = useAccountsBulkQuery({
     skip: accountAddresses.size <= 0,

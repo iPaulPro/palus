@@ -57,7 +57,7 @@ const ForYou = ({ onScroll }: ForYouProps) => {
         }
         return acc;
       }, []),
-    [posts]
+    [posts, bannedAccounts]
   );
 
   return (

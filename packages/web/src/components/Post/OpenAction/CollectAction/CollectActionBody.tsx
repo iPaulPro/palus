@@ -63,25 +63,22 @@ const CollectActionBody = ({
 
   // Extract data safely with optional chaining
   const targetAction = useMemo(() => {
-    return data?.post?.__typename === "Post"
-      ? data?.post.actions.find(
+    if (!data) return null;
+    return data.post?.__typename === "Post"
+      ? data.post.actions.find(
           (action) => action.__typename === "SimpleCollectAction"
         )
       : data?.post?.__typename === "Repost"
-        ? data?.post?.repostOf?.actions.find(
+        ? data.post?.repostOf?.actions.find(
             (action) => action.__typename === "SimpleCollectAction"
           )
         : null;
   }, [data]);
 
   const collectAction = targetAction as SimpleCollectActionFragment;
-  const collectLimit = useMemo(
-    () => Number(collectAction?.collectLimit || 0),
-    [collectAction]
-  );
-  const amount = useMemo(
-    () => Number.parseFloat(collectAction?.payToCollect?.price?.value || "0"),
-    [collectAction]
+  const collectLimit = Number(collectAction?.collectLimit || 0);
+  const amount = Number.parseFloat(
+    collectAction?.payToCollect?.price?.value || "0"
   );
 
   const endTimestamp = collectAction?.endsAt;

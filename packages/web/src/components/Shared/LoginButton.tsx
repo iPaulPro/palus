@@ -16,10 +16,13 @@ const LoginButton = ({
 }: LoginButtonProps) => {
   const { setShowAuthModal } = useAuthModalStore();
 
-  const showAuth = useCallback((event: MouseEvent<HTMLButtonElement>) => {
-    event.stopPropagation();
-    return setShowAuthModal(true);
-  }, []);
+  const showAuth = useCallback(
+    (event: MouseEvent<HTMLButtonElement>) => {
+      event.stopPropagation();
+      return setShowAuthModal(true);
+    },
+    [setShowAuthModal]
+  );
 
   return (
     <Button

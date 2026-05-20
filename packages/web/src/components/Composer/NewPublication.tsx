@@ -82,10 +82,8 @@ const NewPublication = ({
   const { currentAccount } = useAccountStore();
   const { bannedAccounts } = useBannedAccountsStore();
 
-  // New post modal store
   const { setShow: setShowNewPostModal } = useNewPostModalStore();
 
-  // Post store
   const {
     postContent,
     editingPost,
@@ -101,28 +99,16 @@ const NewPublication = ({
     setNotificationShare
   } = usePostStore();
 
-  // Audio store
   const { audioPost, setAudioPost } = usePostAudioStore();
-
-  // Video store
   const { setVideoThumbnail, videoThumbnail } = usePostVideoStore();
-
-  // Attachment store
   const { addAttachments, attachments, isUploading, setAttachments } =
     usePostAttachmentStore();
-
-  // Poll store
   const { pollConfig, resetPollConfig, setShowPollEditor, showPollEditor } =
     usePostPollStore();
-
-  // License store
   const { setLicense } = usePostLicenseStore();
-
-  // Collect module store
   const { collectAction, reset: resetCollectSettings } = useCollectActionStore(
     (state) => state
   );
-
   const {
     followersOnly,
     followingOnly,
@@ -135,7 +121,6 @@ const NewPublication = ({
   } = usePostRulesStore();
   const { setContentWarning } = usePostContentWarningStore();
 
-  // States
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [postContentError, setPostContentError] = useState("");
   const [selectedGroup, setSelectedGroup] = useState<GroupFragment | undefined>(
@@ -195,11 +180,14 @@ const NewPublication = ({
     reset();
   };
 
-  const onError = useCallback((error?: unknown) => {
-    setIsSubmitting(false);
-    errorToast(error);
-    track("Create Post Error", { error });
-  }, []);
+  const onError = useCallback(
+    (error?: unknown) => {
+      setIsSubmitting(false);
+      errorToast(error);
+      track("Create Post Error", { error });
+    },
+    [track]
+  );
 
   const { createPost } = useCreatePost({
     commentOn: post,
@@ -320,7 +308,8 @@ const NewPublication = ({
       if (shareImage) {
         const upload = await uploadImage(shareImage, currentAccount.address);
         if (!upload.uri) {
-          throw new Error("Failed to upload image");
+          onError("Failed to upload image");
+          return;
         }
         attachment = {
           mimeType: "image/png",
@@ -336,7 +325,8 @@ const NewPublication = ({
         isCollectible: Boolean(collectAction.enabled)
       });
       if (!metadata) {
-        throw new Error("Failed to generate metadata");
+        onError("Failed to generate metadata");
+        return;
       }
       const contentUri = await uploadMetadata(metadata, currentAccount.address);
 
@@ -445,7 +435,7 @@ const NewPublication = ({
     <Card
       className={cn(
         {
-          "!drop-shadow-none flex h-full flex-col overflow-hidden": isModal
+          "flex h-full flex-col overflow-hidden drop-shadow-none!": isModal
         },
         className
       )}

@@ -33,7 +33,7 @@ const useDecodePoll = (
         .filter((a) => a.__typename === "UnknownPostAction")
         .find((a) => a.address === CONTRACTS.pollVoteAction) ?? null
     );
-  }, [post]);
+  }, [post.__typename, post.actions]);
 
   const { options, endsAtSeconds } = useMemo(() => {
     const config = pollAction?.config;
@@ -63,7 +63,7 @@ const useDecodePoll = (
       : null;
 
     return { endsAtSeconds, options };
-  }, [pollAction]);
+  }, [pollAction?.config]);
 
   const accountAddress = account?.address;
 
@@ -95,7 +95,7 @@ const useDecodePoll = (
         functionName: "getAllowMultipleAnswers" as const
       }
     ];
-  }, [contract, post.feed.address, post.id, accountAddress]);
+  }, [post.feed.address, post.id, accountAddress]);
 
   const queryOptions = useMemo(() => ({ contracts }), [contracts]);
 

@@ -91,7 +91,7 @@ const useMakePostCollectible = ({ post }: Props) => {
       await updateCache(toastId);
       return onCompleted();
     },
-    [waitForTransactionToComplete, updateCache, isComment]
+    [waitForTransactionToComplete, updateCache]
   );
 
   const [configurePostAction] = useConfigurePostActionMutation({
@@ -127,7 +127,7 @@ const useMakePostCollectible = ({ post }: Props) => {
         }
       });
     },
-    [configurePostAction, post.id]
+    [configurePostAction, post.id, setSubmittingPost]
   );
 
   return { isSubmitting: submittingPost === post.id, submit };

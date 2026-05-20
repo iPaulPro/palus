@@ -29,12 +29,15 @@ const RecentAccounts = ({ onAccountClick }: RecentAccountsProps) => {
     variables: { request: { addresses: recentAccounts } }
   });
 
-  const handleAccountClick = useCallback((account: AccountFragment) => {
-    setCachedAccount(account);
-    addAccount(account.address);
-    navigate(getAccount(account).link);
-    onAccountClick();
-  }, []);
+  const handleAccountClick = useCallback(
+    (account: AccountFragment) => {
+      setCachedAccount(account);
+      addAccount(account.address);
+      navigate(getAccount(account).link);
+      onAccountClick();
+    },
+    [setCachedAccount, addAccount, navigate, onAccountClick]
+  );
 
   if (!recentAccounts.length) {
     return null;

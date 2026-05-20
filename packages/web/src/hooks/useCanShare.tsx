@@ -162,7 +162,14 @@ const useCanShare = ({ post }: PostRuleValidationProps) => {
     } finally {
       setIsLoading(false);
     }
-  }, [post, config, currentAccount]);
+  }, [
+    config,
+    currentAccount,
+    post?.operations,
+    post?.feed.address,
+    post?.id,
+    post?.author.operations?.isFollowingMe
+  ]);
 
   useEffect(() => {
     validateCanReference();

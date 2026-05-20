@@ -64,11 +64,14 @@ export const useSendTip = ({
     track("Tip", { amount, type: post ? "Post" : "Account" });
   };
 
-  const onError = useCallback((error: ApolloClientError) => {
-    setIsSubmitting(false);
-    errorToast(error);
-    onFailure?.(error);
-  }, []);
+  const onError = useCallback(
+    (error: ApolloClientError) => {
+      setIsSubmitting(false);
+      errorToast(error);
+      onFailure?.(error);
+    },
+    [onFailure]
+  );
 
   const [executePostAction] = useExecutePostActionMutation({
     onCompleted: async ({ executePostAction }) => {

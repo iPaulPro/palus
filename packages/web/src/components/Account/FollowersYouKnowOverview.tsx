@@ -83,7 +83,7 @@ const FollowersYouKnowOverview = ({
       return `${names[0]}, ${names[1]}${count === 0 ? " and " : ", "}${names[2]}${count ? ` and ${count} other${count === 1 ? "" : "s"}` : ""}`;
 
     return `${names[0]}, ${names[1]}, ${names[2]} and others`;
-  }, [accounts]);
+  }, []);
 
   if (loading) {
     return <FollowersYouKnowShimmer />;

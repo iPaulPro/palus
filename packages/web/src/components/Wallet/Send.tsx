@@ -43,7 +43,7 @@ const Send = ({ balances, disabled, refetch }: SendProps) => {
           token.contractAddress.toLowerCase() ===
           selectedTokenAddress.toLowerCase()
       ) ?? AVAILABLE_TOKENS[0],
-    [AVAILABLE_TOKENS, selectedTokenAddress]
+    [selectedTokenAddress]
   );
 
   const { currentAccount } = useAccountStore();

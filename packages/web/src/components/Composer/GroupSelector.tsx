@@ -48,7 +48,7 @@ const GroupSelector = ({ selected, onChange }: GroupSelectorProps) => {
   });
 
   const options = useMemo(() => {
-    const groups = data?.groups?.items ?? [];
+    const groups = data?.groups.items ?? [];
     return groups
       .reduce<Option[]>((acc, group: GroupFragment) => {
         if (group.feed?.address !== "") {
@@ -62,7 +62,7 @@ const GroupSelector = ({ selected, onChange }: GroupSelectorProps) => {
         return acc;
       }, [])
       .sort((a, b) => a.label.localeCompare(b.label));
-  }, [data?.groups?.items, selected]);
+  }, [data?.groups.items, selected?.feed?.address]);
 
   if (!options.length) {
     return <div className="h-3" />;

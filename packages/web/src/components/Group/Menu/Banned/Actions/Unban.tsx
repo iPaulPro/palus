@@ -38,10 +38,13 @@ const UnbanAccount = ({
   const client = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const onError = useCallback((error: ApolloClientError) => {
-    setIsSubmitting(false);
-    errorToast(error);
-  }, []);
+  const onError = useCallback(
+    (error: ApolloClientError) => {
+      setIsSubmitting(false);
+      errorToast(error);
+    },
+    [setIsSubmitting]
+  );
 
   const updateCache = useCallback(() => {
     const currentData = client.cache.readQuery<GroupBannedAccountsQuery>({
@@ -66,7 +69,7 @@ const UnbanAccount = ({
       query: GroupBannedAccountsDocument,
       variables: { request: { group: groupAddress } }
     });
-  }, [account.address, groupAddress]);
+  }, [account.address, groupAddress, client.cache]);
 
   const onCompleted = () => {
     setIsSubmitting(false);
@@ -102,7 +105,7 @@ const UnbanAccount = ({
         }
       }).catch(onError);
     },
-    [account, groupAddress]
+    [groupAddress, setIsSubmitting, unbanAccounts, account.address, onError]
   );
 
   return (

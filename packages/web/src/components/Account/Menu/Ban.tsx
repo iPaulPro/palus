@@ -68,7 +68,7 @@ const Ban = ({ account }: Props) => {
         }
       }).catch(onError);
     },
-    [banAccounts, account.address]
+    [banAccounts, account.address, onError]
   );
 
   if (!currentAccount?.isAdmin || bannedAccounts.includes(account.address)) {
