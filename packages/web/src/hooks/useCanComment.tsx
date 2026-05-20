@@ -41,7 +41,7 @@ const useCanComment = ({ post }: PostRuleValidationProps) => {
   const { currentAccount } = useAccountStore();
 
   const validateCanComment = useCallback(async () => {
-    if (!currentAccount || !post?.operations) {
+    if (!currentAccount || !post?.operations || !config) {
       setIsLoading(false);
       setCanComment(false);
       setReason(null);

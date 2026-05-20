@@ -34,7 +34,7 @@ const useCanShare = ({ post }: PostRuleValidationProps) => {
   const { currentAccount } = useAccountStore();
 
   const validateCanReference = useCallback(async () => {
-    if (!currentAccount || !post?.operations) {
+    if (!currentAccount || !post?.operations || !config) {
       setIsLoading(false);
       setCanRepost(false);
       setCanQuote(false);
