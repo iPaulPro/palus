@@ -37,7 +37,7 @@ const Alert = ({
     <Transition as={Fragment} show={show}>
       <Dialog
         as="div"
-        className="fixed inset-0 z-10 overflow-y-auto"
+        className="fixed inset-0 z-50 overflow-y-auto"
         onClose={() => onClose?.()}
       >
         <div className="flex min-h-screen items-center justify-center p-4 text-center sm:block sm:p-0">
