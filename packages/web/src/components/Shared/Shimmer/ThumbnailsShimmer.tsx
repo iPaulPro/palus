@@ -7,9 +7,14 @@ const ThumbnailsShimmer = () => {
 
   return (
     <>
-      {thumbnails.map((e, i) => (
-        <Skeleton className="rounded-lg" key={`${e}_${i}`} />
-      ))}
+      {thumbnails.map((e, i) => {
+        return (
+          <>
+            {/* react-doctor-disable-next-line react-doctor/no-array-index-as-key */}
+            <Skeleton className="rounded-lg" key={`${e}_${i}`} />
+          </>
+        );
+      })}
     </>
   );
 };

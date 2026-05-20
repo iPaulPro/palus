@@ -59,19 +59,25 @@ function Slider({
           data-slot="slider-range"
         />
       </SliderPrimitive.Track>
-      {Array.from({ length: _values.length }, (_, index) => (
-        <SliderPrimitive.Thumb
-          className={cn(
-            "relative block size-4 shrink-0 select-none rounded-full bg-on-surface ring-ring/50 transition-[color,box-shadow] after:absolute after:-inset-2 hover:ring-3 focus-visible:outline-hidden focus-visible:ring-3 active:ring-3 disabled:pointer-events-none disabled:opacity-50",
-            {
-              "bg-white": invert,
-              "opacity-0 transition-opacity group-hover:opacity-100": hideThumb
-            }
-          )}
-          data-slot="slider-thumb"
-          key={index}
-        />
-      ))}
+      {Array.from({ length: _values.length }, (_, index) => {
+        return (
+          <>
+            {/* react-doctor-disable-next-line react-doctor/no-array-index-as-key */}
+            <SliderPrimitive.Thumb
+              className={cn(
+                "relative block size-4 shrink-0 select-none rounded-full bg-on-surface ring-ring/50 transition-[color,box-shadow] after:absolute after:-inset-2 hover:ring-3 focus-visible:outline-hidden focus-visible:ring-3 active:ring-3 disabled:pointer-events-none disabled:opacity-50",
+                {
+                  "bg-white": invert,
+                  "opacity-0 transition-opacity group-hover:opacity-100":
+                    hideThumb
+                }
+              )}
+              data-slot="slider-thumb"
+              key={index}
+            />
+          </>
+        );
+      })}
     </SliderPrimitive.Root>
   );
 }

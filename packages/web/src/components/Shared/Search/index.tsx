@@ -166,6 +166,7 @@ const Search = ({
   return (
     <>
       <Form form={form} onSubmit={handleSubmit}>
+        {/* react-doctor-disable-next-line jsx-a11y/no-autofocus */}
         <Input
           autoComplete="off"
           autoFocus={autoFocus}

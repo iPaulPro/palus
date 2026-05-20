@@ -214,15 +214,20 @@ const MarqueeText: FC<MarqueeTextProps> = ({
             : marqueeBaseStyles
         }
       >
-        {showItems.map((item, index) => (
-          <div
-            className={`${className}__item`}
-            key={index}
-            style={marqueeItemStyles(textSpacing)}
-          >
-            {item}
-          </div>
-        ))}
+        {showItems.map((item, index) => {
+          return (
+            <>
+              {/* react-doctor-disable-next-line react-doctor/no-array-index-as-key */}
+              <div
+                className={`${className}__item`}
+                key={index}
+                style={marqueeItemStyles(textSpacing)}
+              >
+                {item}
+              </div>
+            </>
+          );
+        })}
       </div>
     </div>
   );

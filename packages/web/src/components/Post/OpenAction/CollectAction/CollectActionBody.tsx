@@ -75,7 +75,6 @@ const CollectActionBody = ({
   }, [data]);
 
   const collectAction = targetAction as SimpleCollectActionFragment;
-  const endTimestamp = collectAction?.endsAt;
   const collectLimit = useMemo(
     () => Number(collectAction?.collectLimit || 0),
     [collectAction]
@@ -84,13 +83,16 @@ const CollectActionBody = ({
     () => Number.parseFloat(collectAction?.payToCollect?.price?.value || "0"),
     [collectAction]
   );
+
+  const endTimestamp = collectAction?.endsAt;
   const currency = collectAction?.payToCollect?.price?.asset?.contract.address;
   const symbol = collectAction?.payToCollect?.price?.asset?.symbol;
   const recipients = collectAction?.payToCollect?.recipients || [];
-
-  const percentageCollected = useMemo(() => {
-    return collectLimit > 0 ? (collects / collectLimit) * 100 : 0;
-  }, [collects, collectLimit]);
+  const percentageCollected =
+    collectLimit > 0 ? (collects / collectLimit) * 100 : 0;
+  const isAllCollected = collectLimit ? collects >= collectLimit : false;
+  const totalRevenue = amount * collects;
+  const palusFee = (amount * 0.025).toFixed(6);
 
   const isTokenEnabled = useMemo(() => {
     return enabledTokens?.includes(currency || "");
@@ -101,18 +103,6 @@ const CollectActionBody = ({
       ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
       : false;
   }, [endTimestamp]);
-
-  const isAllCollected = useMemo(() => {
-    return collectLimit ? collects >= collectLimit : false;
-  }, [collectLimit, collects]);
-
-  const totalRevenue = useMemo(() => {
-    return amount * collects;
-  }, [amount, collects]);
-
-  const palusFee = useMemo(() => {
-    return (amount * 0.025).toFixed(6);
-  }, [amount]);
 
   if (loading) {
     return <Loader className="my-10" />;

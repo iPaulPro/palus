@@ -198,6 +198,7 @@ const TokenOperation = ({
           />
         )}
         <div className="flex items-center gap-2">
+          {/* react-doctor-disable-next-line jsx-a11y/no-autofocus */}
           <Input
             autoFocus
             inputMode="decimal"

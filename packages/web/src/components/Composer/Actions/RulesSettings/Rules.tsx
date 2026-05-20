@@ -93,7 +93,7 @@ const Rules = ({ setShowModal, groupAddress }: RulesProps) => {
             icon={
               isGroupGatedFeed ? (
                 <Tooltip content="This group only allows members to reply">
-                  <InformationCircleIcon className="h-5 w-5 text-gray-400" />
+                  <InformationCircleIcon className="size-5 text-gray-400" />
                 </Tooltip>
               ) : null
             }

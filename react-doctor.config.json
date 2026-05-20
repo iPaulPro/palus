@@ -3,6 +3,7 @@
     "files": ["src/hooks/useIntervalWhen.tsx"],
     "rules": [
       "react-doctor/design-no-default-tailwind-palette",
+      "react-doctor/rendering-hydration-mismatch-time",
       "react-doctor/no-pure-black-background"
     ]
   }

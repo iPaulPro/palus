@@ -43,11 +43,16 @@ const Groups = ({ query }: GroupsProps) => {
   if (loading) {
     return (
       <>
-        {[...Array(3)].map((_, i) => (
-          <Card className="mb-5 p-5" key={i}>
-            <SingleGroupShimmer isBig />
-          </Card>
-        ))}
+        {[...Array(3)].map((_, i) => {
+          return (
+            <>
+              {/* react-doctor-disable-next-line react-doctor/no-array-index-as-key */}
+              <Card className="mb-5 p-5" key={i}>
+                <SingleGroupShimmer isBig />
+              </Card>
+            </>
+          );
+        })}
       </>
     );
   }

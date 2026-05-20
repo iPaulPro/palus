@@ -30,9 +30,9 @@ const Content = ({
       <div className="flex flex-col gap-y-1.5">
         <div className="flex items-center gap-x-2 font-bold text-lg">
           {isSignless ? (
-            <CheckCircleIcon className="inline h-6 w-6 text-green-500" />
+            <CheckCircleIcon className="inline size-6 text-green-500" />
           ) : (
-            <XCircleIcon className="inline h-6 w-6 text-red-500" />
+            <XCircleIcon className="inline size-6 text-red-500" />
           )}{" "}
           Signless transactions
         </div>
