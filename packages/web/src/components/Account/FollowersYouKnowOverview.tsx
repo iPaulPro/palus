@@ -74,7 +74,7 @@ const FollowersYouKnowOverview = ({
 
   const accountNames = useMemo(() => {
     const names = accounts.map((account) => getAccount(account.follower).name);
-    const count = names.length - 3;
+    const count = Math.max(0, names.length - 3);
 
     if (!names.length) return null;
     if (names.length === 1) return names[0];
