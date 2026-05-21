@@ -43,7 +43,7 @@ const Modal = ({
 }: ModalProps) => {
   return (
     <Dialog
-      className="relative z-50 transition duration-300 ease-out data-closed:opacity-0"
+      className="relative z-30 transition duration-300 ease-out data-closed:opacity-0"
       onClose={() => {
         if (!preventClose) {
           onClose?.();
