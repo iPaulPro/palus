@@ -5,7 +5,6 @@ import { useState } from "react";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import { Spinner, Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
-import humanize from "@/helpers/humanize";
 import nFormatter from "@/helpers/nFormatter";
 import { isRepost } from "@/helpers/postHelpers";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
@@ -53,15 +52,7 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
           {isSubmitting ? (
             <Spinner className="mr-0.5" size="xs" />
           ) : (
-            <Tooltip
-              content={
-                shares > 0
-                  ? `${humanize(shares)} Reposts and Quotes`
-                  : "Repost or Quote"
-              }
-              placement="top"
-              withDelay
-            >
+            <Tooltip content="Repost or Quote" placement="top" withDelay>
               <ArrowsRightLeftIcon className="size-5" />
             </Tooltip>
           )}

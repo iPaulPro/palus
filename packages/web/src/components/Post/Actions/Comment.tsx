@@ -4,7 +4,6 @@ import { memo } from "react";
 import { useNavigate } from "react-router";
 import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
-import humanize from "@/helpers/humanize";
 import nFormatter from "@/helpers/nFormatter";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
@@ -45,11 +44,7 @@ const Comment = ({ post, showCount }: CommentProps) => {
         }}
         type="button"
       >
-        <Tooltip
-          content={count > 0 ? `${humanize(count)} Comments` : "Comment"}
-          placement="top"
-          withDelay
-        >
+        <Tooltip content="Comment" placement="top" withDelay>
           <ChatBubbleLeftIcon className="size-5" />
         </Tooltip>
       </button>
