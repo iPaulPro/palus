@@ -7,7 +7,9 @@ import {
 import { useCallback, useState } from "react";
 import { useLocation } from "react-router";
 import { toast } from "sonner";
+import { ERRORS } from "@/data/errors";
 import errorToast from "@/helpers/errorToast";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { ApolloClientError } from "@/types/errors";
 
 interface BookmarkProps {
@@ -15,6 +17,7 @@ interface BookmarkProps {
 }
 
 const useToggleBookmark = ({ post }: BookmarkProps) => {
+  const { currentAccount } = useAccountStore();
   const { pathname } = useLocation();
   const hasBookmarked = post.operations?.hasBookmarked;
   const count = post.stats.bookmarks;
@@ -76,6 +79,10 @@ const useToggleBookmark = ({ post }: BookmarkProps) => {
   });
 
   const toggleBookmark = useCallback(async () => {
+    if (!currentAccount) {
+      return toast.error(ERRORS.LoginRequired);
+    }
+
     setIsLoading(true);
 
     if (hasBookmarked) {
@@ -83,7 +90,7 @@ const useToggleBookmark = ({ post }: BookmarkProps) => {
     }
 
     return bookmarkPost();
-  }, [hasBookmarked, undoBookmarkPost, bookmarkPost]);
+  }, [hasBookmarked, undoBookmarkPost, bookmarkPost, currentAccount]);
 
   return { count, hasBookmarked, isLoading, toggleBookmark };
 };
