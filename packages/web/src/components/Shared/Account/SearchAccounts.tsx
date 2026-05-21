@@ -105,7 +105,7 @@ const SearchAccounts = ({
       />
       {!hideDropdown && value.length > 0 && (
         <div className="absolute mt-2 flex w-[94%] max-w-md flex-col">
-          <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">
+          <Card className="z-2 max-h-[80vh] overflow-y-auto py-2">
             {loading ? (
               <Loader className="my-3" message="Searching users" small />
             ) : accounts && accounts.length > 0 ? (

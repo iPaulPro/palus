@@ -42,7 +42,7 @@ const TipAction = ({ currentAccount, post, showCount }: TipActionProps) => {
         <MenuTransition>
           <MenuItems
             anchor="bottom"
-            className="z-[5] w-max origin-top-left rounded-xl border border-gray-200 bg-white shadow-xl [--anchor-gap:0.5rem] [--anchor-padding:0.5rem] focus:outline-hidden dark:border-gray-800 dark:bg-gray-900"
+            className="z-5 w-max origin-top-left rounded-xl border border-gray-200 bg-white shadow-xl [--anchor-gap:0.5rem] [--anchor-padding:0.5rem] focus:outline-hidden dark:border-gray-800 dark:bg-gray-900"
             static
           >
             <MenuItem>
