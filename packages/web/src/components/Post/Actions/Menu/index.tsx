@@ -75,9 +75,13 @@ const PostMenu = ({ post }: PostMenuProps) => {
             </>
           ) : (
             <>
-              <Mute account={post.author} />
-              <Block account={post.author} />
-              <div className="divider" />
+              {currentAccount ? (
+                <>
+                  <Mute account={post.author} />
+                  <Block account={post.author} />
+                  <div className="divider" />
+                </>
+              ) : null}
               <Report post={post} />
             </>
           )}
