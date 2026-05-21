@@ -44,7 +44,7 @@ const SinglePost = ({
       })}
     >
       <PostWrapper
-        className={cn("w-full cursor-pointer p-4 pb-3 sm:p-6 sm:pb-5", {
+        className={cn("w-full cursor-pointer p-4 pb-3 sm:p-6 sm:pb-4", {
           "px-3 py-3 pb-2 sm:px-5 sm:py-4 sm:pb-3": embedded
         })}
         post={rootPost}
@@ -52,7 +52,7 @@ const SinglePost = ({
         {timelineItem ? (
           <ActionType timelineItem={timelineItem} />
         ) : isPinned ? (
-          <div className="text flex items-center gap-x-1.5 pb-2 text-secondary text-sm">
+          <div className="text flex items-center gap-x-1.5 pb-2 text-secondary text-sm sm:-mt-1">
             <PinIconFilled className="size-4" />
             Pinned
           </div>

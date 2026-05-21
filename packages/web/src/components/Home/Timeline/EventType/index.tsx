@@ -21,7 +21,8 @@ const ActionType = ({ timelineItem }: ActionTypeProps) => {
   }
 
   return (
-    <span
+    <div
+      className="sm:-mt-1"
       onClick={stopEventPropagation}
       onKeyDown={stopEventPropagation}
       role="note"
@@ -31,7 +32,7 @@ const ActionType = ({ timelineItem }: ActionTypeProps) => {
       ) : reposts?.length ? (
         <Reposted reposts={reposts} />
       ) : null}
-    </span>
+    </div>
   );
 };
 
