@@ -53,11 +53,15 @@ const PostMenu = ({ post }: PostMenuProps) => {
               <PinPost post={post} />
               <NotInterested post={post} />
               <HideComment post={post} />
-              <Bookmark post={post} />
+              <div className="sm:hidden">
+                <Bookmark post={post} />
+              </div>
               <div className="divider" />
             </>
           ) : null}
-          <Share post={post} />
+          <div className="sm:hidden">
+            <Share post={post} />
+          </div>
           <CopyPostText post={post} />
           <ViewMetadata post={post} />
           <div className="divider" />

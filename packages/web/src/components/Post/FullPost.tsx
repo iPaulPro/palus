@@ -83,7 +83,7 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
   }
 
   return (
-    <article className="px-4 pt-5 pb-3 md:p-6 md:pb-5">
+    <article className="px-4 pt-5 pb-3 md:p-6 md:pb-4">
       <PostType post={post} showType />
       <div className="flex w-full items-start gap-x-3" ref={headerRef}>
         <PostAvatar post={post} />

@@ -8,9 +8,11 @@ import cn from "@/helpers/cn";
 import { isRepost } from "@/helpers/postHelpers";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import Bookmark from "./Bookmark";
 import Comment from "./Comment";
 import Like from "./Like";
-import ShareMenu from "./Share";
+import Reference from "./Reference";
+import Share from "./Share";
 
 interface PostActionsProps {
   post: AnyPostFragment;
@@ -35,8 +37,9 @@ const PostActions = ({
   return (
     <span
       className={cn(
-        "mt-2 flex w-full flex-wrap items-center justify-between gap-3 sm:mt-4",
+        "mt-2 flex w-full flex-wrap items-center justify-between gap-3 sm:mt-2",
         {
+          "mt-2 sm:mt-4": showCount,
           "mt-3": showCount && !embedded
         }
       )}
@@ -45,14 +48,14 @@ const PostActions = ({
       role="toolbar"
     >
       <div
-        className={cn("items-center", {
-          "flex flex-grow flex-wrap gap-x-7": !showCount,
-          "flex w-full justify-between pr-2 sm:justify-start sm:gap-x-7 sm:pr-0":
+        className={cn("grow items-center", {
+          "flex flex-wrap gap-x-7": !showCount,
+          "flex justify-between pr-2 sm:justify-start sm:gap-x-7 sm:pr-0":
             showCount
         })}
       >
         <Comment post={targetPost} showCount={showCount} />
-        <ShareMenu post={post} showCount={showCount} />
+        <Reference post={post} showCount={showCount} />
         <Like
           currentAccount={currentAccount}
           post={targetPost}
@@ -69,8 +72,15 @@ const PostActions = ({
           <div className="block size-8 sm:hidden" />
         )}
       </div>
-      {showCount ? null : (
-        <div className="hidden sm:flex">
+      {showCount ? (
+        <div className="hidden items-center gap-x-3 sm:flex">
+          <Bookmark post={targetPost} showCount={showCount} />
+          <Share post={targetPost} />
+        </div>
+      ) : (
+        <div className="hidden gap-x-3 sm:flex">
+          <Bookmark post={targetPost} showCount={showCount} />
+          <Share post={targetPost} />
           {hasCollectAction ? (
             <SmallCollectButton post={targetPost} />
           ) : !targetPost.commentOn &&
