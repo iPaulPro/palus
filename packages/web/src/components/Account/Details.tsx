@@ -4,7 +4,7 @@ import type { AccountFragment } from "@palus/indexer";
 import dayjs from "dayjs";
 import type { ReactNode } from "react";
 import { useCallback, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import AccountOwner from "@/components/Account/AccountOwner";
 import FollowUnfollowButton from "@/components/Shared/Account/FollowUnfollowButton";
 import TipButton from "@/components/Shared/Account/TipButton";
@@ -69,7 +69,6 @@ const Details = ({
   account
 }: DetailsProps) => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { currentAccount } = useAccountStore();
   const [showLightBox, setShowLightBox] = useState<boolean>(false);
   const { theme } = useTheme();
@@ -154,7 +153,7 @@ const Details = ({
         </Markup>
       ) : null}
       <div className="mt-5 space-y-3">
-        <Followerings account={account} key={location.pathname} />
+        <Followerings account={account} />
         <div className="flex flex-wrap gap-x-5 gap-y-2">
           <AccountOwner ownerAddress={account.owner} />
           {!isBlockedByMe &&
@@ -202,7 +201,6 @@ const Details = ({
         {!isBlockedByMe && currentAccount?.address !== account.address ? (
           <FollowersYouKnowOverview
             address={account.address}
-            key={location.pathname}
             username={getAccount(account).username}
           />
         ) : null}

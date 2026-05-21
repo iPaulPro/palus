@@ -1,6 +1,6 @@
 import { NoSymbolIcon } from "@heroicons/react/24/outline";
 import { useAccountQuery } from "@palus/indexer";
-import { useParams, useSearchParams } from "react-router";
+import { useLocation, useParams, useSearchParams } from "react-router";
 import NewPost from "@/components/Composer/NewPost";
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
@@ -35,6 +35,8 @@ const ViewAccount = () => {
   const { currentAccount } = useAccountStore();
   const { cachedAccount, setCachedAccount } = useAccountLinkStore();
   const { bannedAccounts } = useBannedAccountsStore();
+
+  const location = useLocation();
 
   const { data, error, loading } = useAccountQuery({
     onCompleted: (data) => {
@@ -106,6 +108,7 @@ const ViewAccount = () => {
           account={account}
           hasBlockedMe={account?.operations?.hasBlockedMe || false}
           isBlockedByMe={account?.operations?.isBlockedByMe || false}
+          key={location.pathname}
         />
       )}
       {isDeleted || isBlockedByMe || isBanned ? (
