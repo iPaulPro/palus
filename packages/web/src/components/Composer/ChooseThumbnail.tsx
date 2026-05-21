@@ -25,6 +25,7 @@ const ChooseThumbnail = () => {
   const [imageUploading, setImageUploading] = useState(false);
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1);
   const [hidden, setHidden] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const { attachments } = usePostAttachmentStore();
   const { setVideoThumbnail, updateVideoThumbnail, videoThumbnail } =
@@ -37,7 +38,7 @@ const ChooseThumbnail = () => {
     updateVideoThumbnail({ uploading: true });
     const result = await uploadFile(fileToUpload, currentAccount?.address);
     if (!result.uri) {
-      toast.error("Failed to upload thumbnail");
+      return;
     }
     setVideoThumbnail({
       mimeType: fileToUpload.type || "image/jpeg",
@@ -60,6 +61,8 @@ const ChooseThumbnail = () => {
           const result = await uploadFile(file, currentAccount?.address);
           if (!result.uri) {
             toast.error("Failed to upload thumbnail");
+            setSelectedThumbnailIndex(-1);
+            return;
           }
           const url = result.uri;
           const mimeType = file.type || "image/jpeg";
@@ -80,6 +83,7 @@ const ChooseThumbnail = () => {
   };
 
   const generateThumbnails = async (fileToGenerate: File) => {
+    setIsGenerating(true);
     try {
       const thumbnailArray = await generateVideoThumbnails(
         fileToGenerate,
@@ -93,6 +97,8 @@ const ChooseThumbnail = () => {
       setSelectedThumbnailIndex(DEFAULT_THUMBNAIL_INDEX);
     } catch {
       setHidden(true);
+    } finally {
+      setIsGenerating(false);
     }
   };
 
@@ -119,6 +125,10 @@ const ChooseThumbnail = () => {
         setSelectedThumbnailIndex(-1);
         const file = event.target.files[0];
         const result = await uploadThumbnailToStorageNode(file);
+        if (!result?.uri) {
+          toast.error("Failed to upload thumbnail");
+          return;
+        }
         const preview = window.URL?.createObjectURL(file);
         setThumbnails((prev) => [
           { blobUrl: preview, decentralizedUrl: result.uri },
@@ -159,7 +169,9 @@ const ChooseThumbnail = () => {
             </>
           )}
         </label>
-        {thumbnails.length || hidden ? null : <ThumbnailsShimmer />}
+        {thumbnails.length || hidden || isGenerating ? null : (
+          <ThumbnailsShimmer />
+        )}
         {thumbnails.map(({ blobUrl, decentralizedUrl }, index) => {
           const isSelected = selectedThumbnailIndex === index;
           const isUploaded = decentralizedUrl === videoThumbnail.url;
@@ -181,12 +193,14 @@ const ChooseThumbnail = () => {
               />
               {decentralizedUrl && isSelected && isUploaded ? (
                 <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100/10">
-                  <CheckCircleIcon className="size-6" />
+                  <CheckCircleIcon className="size-6 rounded-full bg-white/70" />
                 </div>
               ) : null}
               {isUploading && isSelected && (
                 <div className="absolute inset-0 grid place-items-center rounded-xl bg-gray-100/10 backdrop-blur-md">
-                  <Spinner size="sm" />
+                  <div className="rounded-full bg-white/70">
+                    <Spinner size="sm" />
+                  </div>
                 </div>
               )}
             </button>

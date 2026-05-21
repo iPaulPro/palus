@@ -93,7 +93,7 @@ const NewAttachments = ({
             {isVideo ? (
               <>
                 <video
-                  className="w-full overflow-hidden rounded-xl"
+                  className="aspect-h-video max-h-72 w-full overflow-hidden rounded-xl bg-black"
                   controls
                   controlsList="nodownload noplaybackrate"
                   disablePictureInPicture

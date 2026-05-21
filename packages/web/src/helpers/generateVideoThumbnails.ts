@@ -30,7 +30,7 @@ const generateVideoThumbnails = async (
             const handleSeeked = () => {
               const ctx = canvas.getContext("2d");
               ctx?.drawImage(video, 0, 0, video.videoWidth, video.videoHeight);
-              resolve(canvas.toDataURL("image/png"));
+              resolve(canvas.toDataURL("image/jpeg", 0.8));
             };
             video.addEventListener("seeked", handleSeeked, { once: true });
             video.currentTime = time;

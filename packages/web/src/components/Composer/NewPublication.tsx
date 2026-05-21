@@ -100,7 +100,8 @@ const NewPublication = ({
   } = usePostStore();
 
   const { audioPost, setAudioPost } = usePostAudioStore();
-  const { setVideoThumbnail, videoThumbnail } = usePostVideoStore();
+  const { setVideoThumbnail, videoDurationInSeconds, videoThumbnail } =
+    usePostVideoStore();
   const { addAttachments, attachments, isUploading, setAttachments } =
     usePostAttachmentStore();
   const { pollConfig, resetPollConfig, setShowPollEditor, showPollEditor } =
@@ -144,6 +145,12 @@ const NewPublication = ({
   const isQuote = Boolean(quotedPost);
   const hasAudio = attachments[0]?.type === "Audio";
   const hasVideo = attachments[0]?.type === "Video";
+  const videoDuration = Number.parseFloat(videoDurationInSeconds);
+  const hasValidVideoMetadata =
+    !hasVideo ||
+    (Boolean(videoThumbnail.url) &&
+      Number.isFinite(videoDuration) &&
+      videoDuration > 0);
 
   const isStandalone = useMediaQuery(IS_STANDALONE);
   const isMobile = useMediaQuery(IS_MOBILE);
@@ -294,6 +301,11 @@ const NewPublication = ({
             isComment ? "Comment" : isQuote ? "Quote" : "Post"
           } should not be empty!`
         );
+      }
+
+      if (!hasValidVideoMetadata) {
+        setIsSubmitting(false);
+        return setPostContentError("A video thumbnail must be included.");
       }
 
       const baseMetadata = {
