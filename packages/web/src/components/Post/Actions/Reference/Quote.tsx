@@ -28,7 +28,7 @@ const Quote = ({ post }: QuoteProps) => {
       }
       onClick={() => {
         if (!currentAccount) {
-          return toast.error(ERRORS.SignWallet);
+          return toast.error(ERRORS.LoginRequired);
         }
         setQuotedPost(post);
         setShowNewPostModal(true);

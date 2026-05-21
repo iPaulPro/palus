@@ -85,7 +85,7 @@ const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
 
   const handleCreateRepost = async () => {
     if (!currentAccount) {
-      return toast.error(ERRORS.SignWallet);
+      return toast.error(ERRORS.LoginRequired);
     }
 
     setIsSubmitting(true);

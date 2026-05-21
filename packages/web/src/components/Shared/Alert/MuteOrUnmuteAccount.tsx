@@ -60,7 +60,7 @@ const MuteOrUnmuteAccount = () => {
 
   const muteOrUnmute = async () => {
     if (!currentAccount) {
-      return toast.error(ERRORS.SignWallet);
+      return toast.error(ERRORS.LoginRequired);
     }
 
     setIsSubmitting(true);
