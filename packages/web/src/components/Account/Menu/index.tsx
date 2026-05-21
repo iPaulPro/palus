@@ -3,13 +3,13 @@ import { EllipsisVerticalIcon } from "@heroicons/react/24/outline";
 import type { AccountFragment } from "@palus/indexer";
 import { Fragment } from "react";
 import OpenExplorer from "@/components/Account/Menu/OpenExplorer";
+import Block from "@/components/Shared/Menu/Block";
+import Mute from "@/components/Shared/Menu/Mute";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import Ban from "./Ban";
-import Block from "./Block";
 import CopyAddress from "./CopyAddress";
-import Mute from "./Mute";
 import Report from "./Report";
 import Share from "./Share";
 

@@ -4,6 +4,8 @@ import type { PostFragment } from "@palus/indexer";
 import { Fragment } from "react";
 import PinPost from "@/components/Post/Actions/Menu/PinPost";
 import ViewMetadata from "@/components/Post/Actions/Menu/ViewMetadata";
+import Block from "@/components/Shared/Menu/Block";
+import Mute from "@/components/Shared/Menu/Mute";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import cn from "@/helpers/cn";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
@@ -45,7 +47,7 @@ const PostMenu = ({ post }: PostMenuProps) => {
       <MenuTransition>
         <MenuItems
           anchor="bottom end"
-          className="z-[5] mt-2 w-max origin-top-right rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-gray-900"
+          className="z-5 mt-2 w-max min-w-44 origin-top-right rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-gray-900"
           static
         >
           {currentAccount ? (
@@ -72,7 +74,12 @@ const PostMenu = ({ post }: PostMenuProps) => {
               <Delete post={post} />
             </>
           ) : (
-            <Report post={post} />
+            <>
+              <Mute account={post.author} />
+              <Block account={post.author} />
+              <div className="divider" />
+              <Report post={post} />
+            </>
           )}
         </MenuItems>
       </MenuTransition>
