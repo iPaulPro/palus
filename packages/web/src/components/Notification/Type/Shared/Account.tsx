@@ -4,12 +4,14 @@ import AccountLink from "@/components/Shared/Account/AccountLink";
 import AccountPreview from "@/components/Shared/Account/AccountPreview";
 import TopAccount from "@/components/Shared/Badges/TopAccount";
 import { Image } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
 import getAccount from "@/helpers/getAccount";
 import getAvatar from "@/helpers/getAvatar";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 
 interface NotificationAccountProps {
   account: AccountFragment;
+  bold?: boolean;
 }
 
 export const NotificationAccountAvatar = memo(
@@ -38,7 +40,7 @@ export const NotificationAccountAvatar = memo(
 );
 
 export const NotificationAccountName = memo(
-  ({ account }: NotificationAccountProps) => {
+  ({ account, bold = true }: NotificationAccountProps) => {
     return (
       <AccountPreview
         address={account.address}
@@ -46,7 +48,12 @@ export const NotificationAccountName = memo(
       >
         <AccountLink
           account={account}
-          className="inline-flex items-center gap-0.5 font-bold outline-hidden hover:underline focus:underline"
+          className={cn(
+            "inline-flex items-center gap-0.5 outline-hidden hover:underline focus:underline",
+            {
+              "font-bold": bold
+            }
+          )}
           onClick={stopEventPropagation}
         >
           <span>{getAccount(account).name}</span>

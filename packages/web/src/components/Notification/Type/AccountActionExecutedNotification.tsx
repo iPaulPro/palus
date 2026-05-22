@@ -4,8 +4,12 @@ import type {
 } from "@palus/indexer";
 import plur from "plur";
 import { memo } from "react";
-import { NotificationAccountAvatar } from "@/components/Notification/Type/Shared/Account";
+import {
+  NotificationAccountAvatar,
+  NotificationAccountName
+} from "@/components/Notification/Type/Shared/Account";
 import AggregatedNotificationTitle from "@/components/Notification/Type/Shared/AggregatedNotificationTitle";
+import ExpandableNotification from "@/components/Notification/Type/Shared/ExpandableNotification";
 import Timestamp from "@/components/Notification/Type/Shared/Timestamp";
 import { TipIcon } from "@/components/Shared/Icons/TipIcon";
 import { Button } from "@/components/Shared/UI";
@@ -40,23 +44,18 @@ const AccountActionExecutedNotification = ({
     ? `and ${length} ${plur("other", length)} ${type} you`
     : `${type} you`;
 
-  const amount =
+  const singleAmount =
     firstAction && !moreThanOneAccount && isTippingActionExecuted(firstAction)
       ? firstAction.tipAmount
       : undefined;
 
-  const timestamp = notification.actions[0].executedAt;
-
   const { setShow: setShowNewPostModal } = useNewPostModalStore();
   const { setNotificationShare } = usePostStore();
 
-  const handleShare = () => {
-    const action = notification.actions[0];
-    if (!amount) {
-      return;
-    }
+  const handleShare = (action: (typeof actions)[number]) => {
+    if (!isTippingActionExecuted(action)) return;
     setNotificationShare({
-      amount,
+      amount: action.tipAmount,
       executedBy: action.executedBy,
       timestamp: new Date(action.executedAt),
       type: "account-tip"
@@ -68,59 +67,111 @@ const AccountActionExecutedNotification = ({
     return null;
   }
 
-  return (
-    <div className="space-y-2 px-4 py-5 md:p-5">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-x-3">
-          <TipIcon className="size-6" />
-          <div className="flex items-center gap-x-1">
-            {actions.slice(0, 10).map((action) => {
-              const account =
-                action.__typename === "TippingAccountActionExecuted"
-                  ? action.executedBy
-                  : undefined;
+  const isSingle = actions.length === 1;
 
-              if (!account) {
-                return null;
-              }
-
-              return (
-                <div
-                  className="not-first:-ml-2"
-                  key={`${account.address}-${action.executedAt}`}
-                >
-                  <NotificationAccountAvatar account={account} />
-                </div>
-              );
-            })}
-          </div>
-        </div>
-        <Timestamp isNew={isNew} timestamp={timestamp} />
+  const singlePreview =
+    isSingle && singleAmount ? (
+      <div className="flex justify-end pt-1">
+        <Button
+          data-umami-event="Notification Share"
+          data-umami-event-type="account-tip"
+          onClick={() => handleShare(firstAction)}
+          outline
+          size="sm"
+        >
+          Share
+        </Button>
       </div>
-      <div className="ml-9">
-        {firstAccount && (
+    ) : undefined;
+
+  return (
+    <ExpandableNotification
+      avatars={actions.slice(0, 10).map((action) => {
+        const account =
+          action.__typename === "TippingAccountActionExecuted"
+            ? action.executedBy
+            : undefined;
+
+        if (!account) {
+          return null;
+        }
+
+        return (
+          <div
+            className="not-first:-ml-2"
+            key={`${account.address}-${action.executedAt}`}
+          >
+            <NotificationAccountAvatar account={account} />
+          </div>
+        );
+      })}
+      expandable={!isSingle}
+      icon={<TipIcon className="size-6" />}
+      isNew={isNew}
+      preview={singlePreview}
+      timestamp={isSingle ? firstAction.executedAt : undefined}
+      title={
+        firstAccount ? (
           <AggregatedNotificationTitle
-            amount={amount}
+            amount={singleAmount}
             firstAccount={firstAccount}
             linkToType={`/accounts/${firstAccount.address}`}
             text={text}
           />
-        )}
-      </div>
-      {amount ? (
-        <div className="flex justify-end">
-          <Button
-            data-umami-event="Notification Share"
-            data-umami-event-type="account-tip"
-            onClick={handleShare}
-            outline
-            size="sm"
+        ) : undefined
+      }
+    >
+      {actions.map((action) => {
+        const account =
+          action.__typename === "TippingAccountActionExecuted"
+            ? action.executedBy
+            : undefined;
+
+        if (!account) {
+          return null;
+        }
+
+        const tipAmount = isTippingActionExecuted(action)
+          ? action.tipAmount
+          : undefined;
+
+        return (
+          <div
+            className="flex items-center justify-between gap-x-2"
+            key={`${account.address}-${action.executedAt}`}
           >
-            Share
-          </Button>
-        </div>
-      ) : null}
-    </div>
+            <div className="flex min-w-0 items-center gap-x-2">
+              <NotificationAccountAvatar account={account} />
+              <div className="min-w-0">
+                <NotificationAccountName account={account} bold={false} />
+                {tipAmount && (
+                  <p className="truncate text-secondary text-xs">
+                    {tipAmount.value} {tipAmount.asset.symbol}
+                  </p>
+                )}
+              </div>
+            </div>
+            <div className="flex shrink-0 items-center gap-x-2">
+              {tipAmount && (
+                <Button
+                  data-umami-event="Notification Share"
+                  data-umami-event-type="account-tip"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleShare(action);
+                  }}
+                  outline
+                  size="sm"
+                >
+                  Share
+                </Button>
+              )}
+              <Timestamp isNew={false} timestamp={action.executedAt} />
+            </div>
+          </div>
+        );
+      })}
+    </ExpandableNotification>
   );
 };
 

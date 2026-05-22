@@ -9,8 +9,12 @@ import type {
 } from "@palus/indexer";
 import plur from "plur";
 import { memo } from "react";
-import { NotificationAccountAvatar } from "@/components/Notification/Type/Shared/Account";
+import {
+  NotificationAccountAvatar,
+  NotificationAccountName
+} from "@/components/Notification/Type/Shared/Account";
 import AggregatedNotificationTitle from "@/components/Notification/Type/Shared/AggregatedNotificationTitle";
+import ExpandableNotification from "@/components/Notification/Type/Shared/ExpandableNotification";
 import Timestamp from "@/components/Notification/Type/Shared/Timestamp";
 import { TipIcon } from "@/components/Shared/Icons/TipIcon";
 import Markup from "@/components/Shared/Markup";
@@ -29,6 +33,28 @@ function isTippingActionExecuted(
   return action?.__typename === "TippingPostActionExecuted";
 }
 
+type PostAction = PostActionExecutedNotificationFragment["actions"][number];
+
+function getActionLabel(action: PostAction): string {
+  if (action.__typename === "SimpleCollectPostActionExecuted")
+    return "collected";
+  if (action.__typename === "TippingPostActionExecuted") return "tipped";
+  if (
+    action.__typename === "UnknownPostActionExecuted" &&
+    action.action.address === CONTRACTS.pollVoteAction
+  )
+    return "voted on";
+  return "acted on";
+}
+
+function getActionAmount(action: PostAction) {
+  if (action.__typename === "SimpleCollectPostActionExecuted")
+    return action.action.payToCollect?.price;
+  if (action.__typename === "TippingPostActionExecuted")
+    return action.tipAmount;
+  return undefined;
+}
+
 const PostActionExecutedNotification = ({
   notification,
   isNew
@@ -42,15 +68,7 @@ const PostActionExecutedNotification = ({
   const firstAccount = firstAction.executedBy;
   const length = actions.length - 1;
   const moreThanOneAccount = length > 0;
-  const actionType =
-    firstAction?.__typename === "SimpleCollectPostActionExecuted"
-      ? "collected"
-      : firstAction.__typename === "TippingPostActionExecuted"
-        ? "tipped"
-        : firstAction.__typename === "UnknownPostActionExecuted" &&
-            firstAction.action.address === CONTRACTS.pollVoteAction
-          ? "voted on"
-          : "acted on";
+  const actionType = getActionLabel(firstAction);
 
   const text = moreThanOneAccount
     ? `and ${length} ${plur("other", length)} ${actionType} your`
@@ -62,61 +80,95 @@ const PostActionExecutedNotification = ({
     firstAction && !moreThanOneAccount && isTippingActionExecuted(firstAction)
       ? firstAction.tipAmount
       : undefined;
-  const anyAmount =
-    firstAction.__typename === "SimpleCollectPostActionExecuted"
-      ? firstAction.action.payToCollect?.price
-      : firstAction.__typename === "TippingPostActionExecuted"
-        ? firstAction.tipAmount
-        : undefined;
-
-  const timestamp = notification.actions[0].executedAt;
 
   const { setShow: setShowNewPostModal } = useNewPostModalStore();
   const { setNotificationShare } = usePostStore();
 
-  const handleShare = () => {
-    const action = notification.actions[0];
-    if (!anyAmount) {
-      return;
-    }
+  const handleShare = (action: PostAction) => {
+    const actionAmount = getActionAmount(action);
+    if (!actionAmount) return;
     setNotificationShare({
-      amount: anyAmount,
+      amount: actionAmount,
       executedBy: action.executedBy,
       timestamp: new Date(action.executedAt),
-      type: tipAmount ? "post-tip" : "collect"
+      type: isTippingActionExecuted(action) ? "post-tip" : "collect"
     });
     setShowNewPostModal(true);
   };
 
-  return (
-    <div className="space-y-2 px-4 py-5 md:p-5">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center gap-x-3">
-          {actionType === "collected" && <ShoppingBagIcon className="size-6" />}
-          {actionType === "tipped" && <TipIcon className="size-6" />}
-          {actionType === "voted on" && <ChartBarIcon className="size-6" />}
-          {actionType === "acted on" && <BoltIcon className="size-6" />}
-          <div className="flex items-center gap-x-1">
-            {actions.slice(0, 10).map((action) => {
-              const account = action.executedBy;
-              if (!account) {
-                return null;
-              }
-              return (
-                <div
-                  className="not-first:-ml-2"
-                  key={`${account.address}-${action.executedAt}`}
-                >
-                  <NotificationAccountAvatar account={account} />
-                </div>
-              );
-            })}
-          </div>
+  const icon =
+    actionType === "collected" ? (
+      <ShoppingBagIcon className="size-6" />
+    ) : actionType === "tipped" ? (
+      <TipIcon className="size-6" />
+    ) : actionType === "voted on" ? (
+      <ChartBarIcon className="size-6" />
+    ) : (
+      <BoltIcon className="size-6" />
+    );
+
+  const postContent = (
+    <PostLink
+      className="linkify mt-2 line-clamp-2 text-gray-500 dark:text-gray-200"
+      post={post}
+    >
+      {filteredContent ? (
+        <Markup mentions={post.mentions}>{filteredContent}</Markup>
+      ) : postData?.asset ? (
+        <span>{truncateUrl(postData.asset.uri, 30)}</span>
+      ) : null}
+    </PostLink>
+  );
+
+  const isSingle = actions.length === 1;
+  const firstActionAmount = getActionAmount(firstAction);
+
+  const singlePreview = isSingle ? (
+    <>
+      {postContent}
+      {firstActionAmount && (
+        <div className="flex justify-end pt-2">
+          <Button
+            data-umami-event="Notification Share"
+            data-umami-event-type={
+              firstAction.__typename === "SimpleCollectPostActionExecuted"
+                ? "post-collected"
+                : "post-tip"
+            }
+            onClick={() => handleShare(firstAction)}
+            outline
+            size="sm"
+          >
+            Share
+          </Button>
         </div>
-        <Timestamp isNew={isNew} timestamp={timestamp} />
-      </div>
-      <div className="ml-9">
-        {firstAccount && (
+      )}
+    </>
+  ) : undefined;
+
+  return (
+    <ExpandableNotification
+      avatars={actions.slice(0, 10).map((action) => {
+        const account = action.executedBy;
+        if (!account) {
+          return null;
+        }
+        return (
+          <div
+            className="not-first:-ml-2"
+            key={`${account.address}-${action.executedAt}`}
+          >
+            <NotificationAccountAvatar account={account} />
+          </div>
+        );
+      })}
+      expandable={!isSingle}
+      icon={icon}
+      isNew={isNew}
+      preview={isSingle ? singlePreview : postContent}
+      timestamp={isSingle ? firstAction.executedAt : undefined}
+      title={
+        firstAccount ? (
           <AggregatedNotificationTitle
             amount={tipAmount}
             firstAccount={firstAccount}
@@ -124,38 +176,60 @@ const PostActionExecutedNotification = ({
             text={text}
             type={type}
           />
-        )}
-        <PostLink
-          className="linkify mt-2 line-clamp-2 text-gray-500 dark:text-gray-200"
-          post={post}
-        >
-          {filteredContent ? (
-            <Markup mentions={post.mentions}>{filteredContent}</Markup>
-          ) : postData?.asset ? (
-            <span>{truncateUrl(postData.asset.uri, 30)}</span>
-          ) : null}
-        </PostLink>
-        {anyAmount ? (
+        ) : undefined
+      }
+    >
+      {actions.map((action) => {
+        const account = action.executedBy;
+        if (!account) {
+          return null;
+        }
+        const actionLabel = getActionLabel(action);
+        const actionAmount = getActionAmount(action);
+        return (
           <div
-            className={`flex justify-end ${filteredContent.length ? "pt-2" : ""}`}
+            className="flex items-center justify-between gap-x-2"
+            key={`${account.address}-${action.executedAt}`}
           >
-            <Button
-              data-umami-event="Notification Share"
-              data-umami-event-type={
-                firstAction.__typename === "SimpleCollectPostActionExecuted"
-                  ? "post-collected"
-                  : "post-tip"
-              }
-              onClick={handleShare}
-              outline
-              size="sm"
-            >
-              Share
-            </Button>
+            <div className="flex min-w-0 items-center gap-x-2">
+              <NotificationAccountAvatar account={account} />
+              <div className="min-w-0">
+                <NotificationAccountName account={account} bold={false} />
+                {actionAmount ? (
+                  <p className="truncate text-secondary text-xs">
+                    {actionLabel}
+                    {actionAmount
+                      ? ` ${actionAmount.value} ${actionAmount.asset.symbol}`
+                      : ""}
+                  </p>
+                ) : null}
+              </div>
+            </div>
+            <div className="flex shrink-0 items-center gap-x-2">
+              {actionAmount && (
+                <Button
+                  data-umami-event="Notification Share"
+                  data-umami-event-type={
+                    action.__typename === "SimpleCollectPostActionExecuted"
+                      ? "post-collected"
+                      : "post-tip"
+                  }
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleShare(action);
+                  }}
+                  outline
+                  size="sm"
+                >
+                  Share
+                </Button>
+              )}
+              <Timestamp isNew={false} timestamp={action.executedAt} />
+            </div>
           </div>
-        ) : null}
-      </div>
-    </div>
+        );
+      })}
+    </ExpandableNotification>
   );
 };
 
