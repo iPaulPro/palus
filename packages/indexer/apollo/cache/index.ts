@@ -36,6 +36,7 @@ const cache = new InMemoryCache({
         groupStats: createCursorFieldPolicy(["request", ["group"]]),
         adminsFor: createCursorFieldPolicy(["request", ["address"]]),
         groupBannedAccounts: createCursorFieldPolicy(["request", ["group"]]),
+        followersYouKnow: createCursorFieldPolicy(["request", ["observer", "target"]]),
       }
     }
   }

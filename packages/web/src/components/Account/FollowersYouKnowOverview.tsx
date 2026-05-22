@@ -70,7 +70,7 @@ const FollowersYouKnowOverview = ({
     }
   });
 
-  const accounts = data?.followersYouKnow?.items.slice(0, 4) ?? [];
+  const accounts = data?.followersYouKnow?.items ?? [];
 
   const accountNames = useMemo(() => {
     const names = accounts.map((account) => getAccount(account.follower).name);
@@ -79,11 +79,11 @@ const FollowersYouKnowOverview = ({
     if (!names.length) return null;
     if (names.length === 1) return names[0];
     if (names.length === 2) return `${names[0]} and ${names[1]}`;
-    if (names.length === 3)
+    if (names.length < 50)
       return `${names[0]}, ${names[1]}${count === 0 ? " and " : ", "}${names[2]}${count ? ` and ${count} other${count === 1 ? "" : "s"}` : ""}`;
 
-    return `${names[0]}, ${names[1]}, ${names[2]} and others`;
-  }, []);
+    return `${names[0]}, ${names[1]}, ${names[2]} and many others`;
+  }, [accounts]);
 
   if (loading) {
     return <FollowersYouKnowShimmer />;
