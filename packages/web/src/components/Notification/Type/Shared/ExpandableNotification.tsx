@@ -14,6 +14,69 @@ interface ExpandableNotificationProps {
   timestamp?: string;
 }
 
+interface HeaderProps {
+  icon: ReactNode;
+  avatars: ReactNode;
+  isNew: boolean;
+  expandable: boolean;
+  isExpanded: boolean;
+  timestamp?: string;
+  onToggle: () => void;
+}
+
+const Header = ({
+  icon,
+  avatars,
+  isNew,
+  expandable,
+  isExpanded,
+  timestamp,
+  onToggle
+}: HeaderProps) => (
+  <div className="flex items-center justify-between">
+    <div className="flex items-center gap-x-3">
+      {icon}
+      <div className="flex items-center gap-x-1">{avatars}</div>
+    </div>
+    <div className="flex items-center gap-x-2">
+      {expandable ? (
+        <>
+          {isNew ? <div className="size-2 rounded-full bg-brand-500" /> : null}
+          <button
+            aria-label={isExpanded ? "Collapse" : "Expand"}
+            className="cursor-pointer p-0.5 text-secondary transition-colors hover:text-black dark:hover:text-white"
+            onClick={onToggle}
+            type="button"
+          >
+            <m.div
+              animate={{ rotate: isExpanded ? 180 : 0 }}
+              transition={{ duration: 0.2 }}
+            >
+              <ChevronDownIcon className="size-4" />
+            </m.div>
+          </button>
+        </>
+      ) : timestamp ? (
+        <Timestamp isNew={isNew} timestamp={timestamp} />
+      ) : isNew ? (
+        <div className="size-2 rounded-full bg-brand-500" />
+      ) : null}
+    </div>
+  </div>
+);
+
+interface BodyProps {
+  title: ReactNode;
+  preview?: ReactNode;
+}
+
+const Body = ({ title, preview }: BodyProps) => (
+  <div className="ml-9">
+    {title}
+    {preview}
+  </div>
+);
+
 const ExpandableNotification = ({
   icon,
   avatars,
@@ -33,53 +96,19 @@ const ExpandableNotification = ({
     setIsExpanded(next);
   };
 
-  const header = (
-    <div className="flex items-center justify-between">
-      <div className="flex items-center gap-x-3">
-        {icon}
-        <div className="flex items-center gap-x-1">{avatars}</div>
-      </div>
-      <div className="flex items-center gap-x-2">
-        {expandable ? (
-          <>
-            {isNew ? (
-              <div className="size-2 rounded-full bg-brand-500" />
-            ) : null}
-            <button
-              aria-label={isExpanded ? "Collapse" : "Expand"}
-              className="cursor-pointer p-0.5 text-secondary transition-colors hover:text-black dark:hover:text-white"
-              onClick={toggle}
-              type="button"
-            >
-              <m.div
-                animate={{ rotate: isExpanded ? 180 : 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                <ChevronDownIcon className="size-4" />
-              </m.div>
-            </button>
-          </>
-        ) : timestamp ? (
-          <Timestamp isNew={isNew} timestamp={timestamp} />
-        ) : isNew ? (
-          <div className="size-2 rounded-full bg-brand-500" />
-        ) : null}
-      </div>
-    </div>
-  );
-
-  const body = (
-    <div className="ml-9">
-      {title}
-      {preview}
-    </div>
-  );
-
   if (!expandable) {
     return (
       <div className="space-y-2 px-4 py-5 md:p-5">
-        {header}
-        {body}
+        <Header
+          avatars={avatars}
+          expandable={false}
+          icon={icon}
+          isExpanded={false}
+          isNew={isNew}
+          onToggle={toggle}
+          timestamp={timestamp}
+        />
+        <Body preview={preview} title={title} />
       </div>
     );
   }
@@ -90,8 +119,16 @@ const ExpandableNotification = ({
       onClick={toggle}
       type="button"
     >
-      {header}
-      {body}
+      <Header
+        avatars={avatars}
+        expandable={true}
+        icon={icon}
+        isExpanded={isExpanded}
+        isNew={isNew}
+        onToggle={toggle}
+        timestamp={timestamp}
+      />
+      <Body preview={preview} title={title} />
       <AnimatePresence initial={false}>
         {isExpanded && (
           <m.div

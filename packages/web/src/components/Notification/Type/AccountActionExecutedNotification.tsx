@@ -121,56 +121,58 @@ const AccountActionExecutedNotification = ({
         ) : undefined
       }
     >
-      {actions.map((action) => {
-        const account =
-          action.__typename === "TippingAccountActionExecuted"
-            ? action.executedBy
+      <div className="flex flex-col gap-y-4 sm:gap-y-3">
+        {actions.map((action) => {
+          const account =
+            action.__typename === "TippingAccountActionExecuted"
+              ? action.executedBy
+              : undefined;
+
+          if (!account) {
+            return null;
+          }
+
+          const tipAmount = isTippingActionExecuted(action)
+            ? action.tipAmount
             : undefined;
 
-        if (!account) {
-          return null;
-        }
-
-        const tipAmount = isTippingActionExecuted(action)
-          ? action.tipAmount
-          : undefined;
-
-        return (
-          <div
-            className="flex items-center justify-between gap-x-2"
-            key={`${account.address}-${action.executedAt}`}
-          >
-            <div className="flex min-w-0 items-center gap-x-2">
-              <NotificationAccountAvatar account={account} />
-              <div className="min-w-0">
-                <NotificationAccountName account={account} bold={false} />
+          return (
+            <div
+              className="flex items-center justify-between gap-x-2"
+              key={`${account.address}-${action.executedAt}`}
+            >
+              <div className="flex min-w-0 items-center gap-x-2">
+                <NotificationAccountAvatar account={account} />
+                <div className="min-w-0">
+                  <NotificationAccountName account={account} bold={false} />
+                  {tipAmount && (
+                    <p className="truncate text-secondary text-xs">
+                      {tipAmount.value} {tipAmount.asset.symbol}
+                    </p>
+                  )}
+                </div>
+              </div>
+              <div className="flex shrink-0 items-center gap-x-2">
                 {tipAmount && (
-                  <p className="truncate text-secondary text-xs">
-                    {tipAmount.value} {tipAmount.asset.symbol}
-                  </p>
+                  <Button
+                    data-umami-event="Notification Share"
+                    data-umami-event-type="account-tip"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleShare(action);
+                    }}
+                    outline
+                    size="sm"
+                  >
+                    Share
+                  </Button>
                 )}
+                <Timestamp isNew={false} timestamp={action.executedAt} />
               </div>
             </div>
-            <div className="flex shrink-0 items-center gap-x-2">
-              {tipAmount && (
-                <Button
-                  data-umami-event="Notification Share"
-                  data-umami-event-type="account-tip"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleShare(action);
-                  }}
-                  outline
-                  size="sm"
-                >
-                  Share
-                </Button>
-              )}
-              <Timestamp isNew={false} timestamp={action.executedAt} />
-            </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </ExpandableNotification>
   );
 };

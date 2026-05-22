@@ -23,12 +23,12 @@ export const NotificationAccountAvatar = memo(
       >
         <AccountLink
           account={account}
-          className="rounded-full outline-offset-2"
+          className="flex rounded-full outline-offset-2"
           onClick={stopEventPropagation}
         >
           <Image
             alt={account.address}
-            className="size-7 rounded-full border border-gray-200 bg-gray-200 object-cover sm:size-8 dark:border-gray-800"
+            className="size-7 flex-none rounded-full border border-gray-200 bg-gray-200 object-cover sm:size-8 dark:border-gray-800"
             height={32}
             src={getAvatar(account)}
             width={32}
@@ -49,14 +49,12 @@ export const NotificationAccountName = memo(
         <AccountLink
           account={account}
           className={cn(
-            "inline-flex items-center gap-0.5 outline-hidden hover:underline focus:underline",
-            {
-              "font-bold": bold
-            }
+            "inline-flex min-w-0 items-center gap-0.5 outline-hidden hover:underline focus:underline",
+            bold ? "font-bold" : "w-full"
           )}
           onClick={stopEventPropagation}
         >
-          <span>{getAccount(account).name}</span>
+          <span className="truncate">{getAccount(account).name}</span>
           {account.score < 9000 ? null : <TopAccount />}
         </AccountLink>
       </AccountPreview>

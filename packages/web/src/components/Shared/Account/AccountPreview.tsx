@@ -163,7 +163,7 @@ const AccountPreview = ({
     <span onFocus={onPreviewStart} onMouseOver={onPreviewStart}>
       <HoverCard.Root>
         <HoverCard.Trigger asChild>
-          <span>{children}</span>
+          <span className="min-w-0">{children}</span>
         </HoverCard.Trigger>
         <HoverCard.Portal>
           <HoverCard.Content

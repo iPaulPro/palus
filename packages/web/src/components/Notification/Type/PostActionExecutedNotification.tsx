@@ -179,56 +179,64 @@ const PostActionExecutedNotification = ({
         ) : undefined
       }
     >
-      {actions.map((action) => {
-        const account = action.executedBy;
-        if (!account) {
-          return null;
-        }
-        const actionLabel = getActionLabel(action);
-        const actionAmount = getActionAmount(action);
-        return (
-          <div
-            className="flex items-center justify-between gap-x-2"
-            key={`${account.address}-${action.executedAt}`}
-          >
-            <div className="flex min-w-0 items-center gap-x-2">
-              <NotificationAccountAvatar account={account} />
-              <div className="min-w-0">
-                <NotificationAccountName account={account} bold={false} />
-                {actionAmount ? (
-                  <p className="truncate text-secondary text-xs">
-                    {actionLabel}
-                    {actionAmount
-                      ? ` ${actionAmount.value} ${actionAmount.asset.symbol}`
-                      : ""}
-                  </p>
-                ) : null}
+      <div className="flex flex-col gap-y-4 sm:gap-y-3">
+        {actions.map((action) => {
+          const account = action.executedBy;
+          if (!account) {
+            return null;
+          }
+          const actionLabel = getActionLabel(action);
+          const actionAmount = getActionAmount(action);
+          return (
+            <div
+              className="flex items-center justify-between gap-x-2"
+              key={`${account.address}-${action.executedAt}`}
+            >
+              <div className="flex min-w-0 items-center gap-x-2">
+                <NotificationAccountAvatar account={account} />
+                <div className="min-w-0">
+                  <NotificationAccountName account={account} bold={false} />
+                  {actionAmount ? (
+                    <p className="truncate text-secondary text-xs">
+                      {actionLabel}
+                      {actionAmount
+                        ? ` ${actionAmount.value} ${actionAmount.asset.symbol}`
+                        : ""}
+                    </p>
+                  ) : null}
+                </div>
+              </div>
+              <div className="flex shrink-0 items-center gap-x-3">
+                {actionAmount && (
+                  <Button
+                    data-umami-event="Notification Share"
+                    data-umami-event-type={
+                      action.__typename === "SimpleCollectPostActionExecuted"
+                        ? "post-collected"
+                        : "post-tip"
+                    }
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleShare(action);
+                    }}
+                    outline
+                    size="sm"
+                  >
+                    Share
+                  </Button>
+                )}
+                <Timestamp isNew={false} timestamp={action.executedAt} />
               </div>
             </div>
-            <div className="flex shrink-0 items-center gap-x-2">
-              {actionAmount && (
-                <Button
-                  data-umami-event="Notification Share"
-                  data-umami-event-type={
-                    action.__typename === "SimpleCollectPostActionExecuted"
-                      ? "post-collected"
-                      : "post-tip"
-                  }
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleShare(action);
-                  }}
-                  outline
-                  size="sm"
-                >
-                  Share
-                </Button>
-              )}
-              <Timestamp isNew={false} timestamp={action.executedAt} />
-            </div>
-          </div>
-        );
-      })}
+          );
+        })}
+        <PostLink
+          className="pt-1 font-semibold text-brand-500 text-sm"
+          post={notification.post}
+        >
+          View post
+        </PostLink>
+      </div>
     </ExpandableNotification>
   );
 };

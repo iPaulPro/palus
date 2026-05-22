@@ -1,7 +1,14 @@
 import * as RadixTooltip from "@radix-ui/react-tooltip";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { m } from "motion/react";
-import { memo, type ReactNode, useCallback, useState } from "react";
+import {
+  type KeyboardEvent,
+  type MouseEvent,
+  memo,
+  type ReactNode,
+  useCallback,
+  useState
+} from "react";
 import cn from "@/helpers/cn";
 import { IS_MOBILE } from "@/helpers/mediaQueries";
 
@@ -25,9 +32,15 @@ const Tooltip = ({
   const isMobile = useMediaQuery(IS_MOBILE);
   const [open, setOpen] = useState(false);
 
-  const handleTriggerClick = useCallback(() => {
-    if (isMobile && showOnClick) setOpen((prev) => !prev);
-  }, [isMobile, showOnClick]);
+  const handleTriggerClick = useCallback(
+    (e: MouseEvent<Element> | KeyboardEvent<Element>) => {
+      if (isMobile && showOnClick) {
+        e.stopPropagation();
+        setOpen((prev) => !prev);
+      }
+    },
+    [isMobile, showOnClick]
+  );
 
   // Close on outside pointer-down when on mobile
   const handleContentPointerDownOutside = useCallback(() => {
@@ -48,7 +61,7 @@ const Tooltip = ({
           className={className}
           onClick={handleTriggerClick}
           onKeyDown={(e) =>
-            (e.key === "Enter" || e.key === " ") && handleTriggerClick()
+            (e.key === "Enter" || e.key === " ") && handleTriggerClick(e)
           }
         >
           <span>{children}</span>
