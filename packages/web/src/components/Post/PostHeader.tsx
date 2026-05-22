@@ -7,7 +7,6 @@ import type {
 import { memo } from "react";
 import PostMenu from "@/components/Post/Actions/Menu";
 import { isRepost } from "@/helpers/postHelpers";
-import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import PostAccount from "./PostAccount";
 
@@ -34,11 +33,7 @@ const PostHeader = ({
   const timestamp = timelineItem ? rootPost.timestamp : targetPost.timestamp;
 
   return (
-    <header
-      className="flex w-full items-start justify-between"
-      onClick={stopEventPropagation}
-      onKeyDown={stopEventPropagation}
-    >
+    <header className="flex w-full items-start justify-between">
       <PostAccount
         account={account}
         group={
@@ -56,7 +51,8 @@ const PostHeader = ({
         <button
           aria-label="Remove Quote"
           className="rounded-full border border-gray-200 p-1.5 hover:bg-gray-300/20 dark:border-gray-800"
-          onClick={() => {
+          onClick={(event) => {
+            event.stopPropagation();
             setIgnoreQuotedPostId(post.slug);
             setQuotedPost();
           }}

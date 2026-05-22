@@ -17,6 +17,7 @@ const PostLink = ({ post, children, onClick, ...props }: PostLinkProps) => {
       to={`/posts/${post.slug}`}
       {...props}
       onClick={(e) => {
+        e.stopPropagation();
         setCachedPost(post);
         onClick?.(e);
       }}

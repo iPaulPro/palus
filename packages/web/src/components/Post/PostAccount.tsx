@@ -13,6 +13,7 @@ import PostLink from "@/components/Shared/Post/PostLink";
 import { Tooltip } from "@/components/Shared/UI";
 import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
 import getAccount from "@/helpers/getAccount";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
 
 interface PostAccountProps {
   account: AccountFragment;
@@ -63,6 +64,8 @@ const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
             <span>in</span>
             <Link
               className="hover:underline focus:underline"
+              onClick={stopEventPropagation}
+              onKeyDown={stopEventPropagation}
               to={`/g/${group.address}`}
             >
               <GroupPreview
