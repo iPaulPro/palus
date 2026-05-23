@@ -161,11 +161,24 @@ const List = ({ feedType }: ListProps) => {
 
   useEffect(() => {
     const firstNotification = notifications?.[0];
-    if (!firstNotification || !("id" in firstNotification)) {
+    if (!currentAccount) {
+      if ("clearAppBadge" in navigator) {
+        navigator.clearAppBadge().catch();
+      }
+      return;
+    }
+    if (
+      !firstNotification ||
+      !("id" in firstNotification) ||
+      feedType !== NotificationFeedType.All
+    ) {
       return;
     }
     const timestamp = getNotificationTimestamp(firstNotification);
-    if (timestamp && currentAccount) {
+    const lastSeenTimestamp = getLastSeenNotificationTimestamp(
+      currentAccount.address
+    );
+    if (timestamp && (!lastSeenTimestamp || timestamp > lastSeenTimestamp)) {
       setLastSeenNotificationTimestamp(currentAccount.address, timestamp);
     }
     if ("clearAppBadge" in navigator) {
