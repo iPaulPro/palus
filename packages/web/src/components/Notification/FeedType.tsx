@@ -8,8 +8,7 @@ const tabs = [
   { name: "Mentions", type: NotificationFeedType.Mentions },
   { name: "Comments", type: NotificationFeedType.Comments },
   { name: "Likes", type: NotificationFeedType.Likes },
-  { name: "Actions", type: NotificationFeedType.Actions },
-  { name: "Rewards", type: NotificationFeedType.Rewards }
+  { name: "Actions", type: NotificationFeedType.Actions }
 ];
 
 const FeedType = () => {

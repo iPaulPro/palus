@@ -92,8 +92,6 @@ const List = ({ feedType }: ListProps) => {
           NotificationType.ExecutedPostAction,
           NotificationType.ExecutedAccountAction
         ];
-      case NotificationFeedType.Rewards:
-        return [NotificationType.TokenDistributed];
       default:
         return;
     }
