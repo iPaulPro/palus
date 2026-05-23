@@ -27,6 +27,7 @@ const FollowNotification = ({
     ? `and ${length} ${plur("other", length)} followed`
     : "followed";
   const type = "you";
+  const isSingle = followers.length === 1;
 
   return (
     <ExpandableNotification
@@ -35,8 +36,10 @@ const FollowNotification = ({
           <NotificationAccountAvatar account={follower.account} />
         </div>
       ))}
+      expandable={!isSingle}
       icon={<UserPlusIcon className="size-6" />}
       isNew={isNew}
+      timestamp={isSingle ? followers[0].followedAt : undefined}
       title={
         <AggregatedNotificationTitle
           firstAccount={firstAccount.account}

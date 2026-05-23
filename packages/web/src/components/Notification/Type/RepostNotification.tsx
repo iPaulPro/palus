@@ -31,6 +31,7 @@ const RepostNotification = ({
     ? `and ${length} ${plur("other", length)} reposted your`
     : "reposted your";
   const type = notification.post.commentOn ? "comment" : "post";
+  const isSingle = reposts.length === 1;
 
   return (
     <ExpandableNotification
@@ -39,6 +40,7 @@ const RepostNotification = ({
           <NotificationAccountAvatar account={repost.account} />
         </div>
       ))}
+      expandable={!isSingle}
       icon={<ArrowsRightLeftIcon className="size-6" />}
       isNew={isNew}
       preview={
@@ -55,6 +57,7 @@ const RepostNotification = ({
           ) : null}
         </PostLink>
       }
+      timestamp={isSingle ? reposts[0].repostedAt : undefined}
       title={
         <AggregatedNotificationTitle
           firstAccount={firstAccount}

@@ -31,6 +31,7 @@ const ReactionNotification = ({
     ? `and ${length} ${plur("other", length)} liked your`
     : "liked your";
   const type = notification.post.commentOn ? "comment" : "post";
+  const isSingle = reactions.length === 1;
 
   return (
     <ExpandableNotification
@@ -39,6 +40,7 @@ const ReactionNotification = ({
           <NotificationAccountAvatar account={reaction.account} />
         </div>
       ))}
+      expandable={!isSingle}
       icon={<HeartIcon className="size-6" />}
       isNew={isNew}
       preview={
@@ -55,6 +57,7 @@ const ReactionNotification = ({
           ) : null}
         </PostLink>
       }
+      timestamp={isSingle ? reactions[0].reactions[0].reactedAt : undefined}
       title={
         <AggregatedNotificationTitle
           firstAccount={firstAccount}
