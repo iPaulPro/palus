@@ -88,12 +88,10 @@ const ExpandableNotification = ({
   timestamp
 }: ExpandableNotificationProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
-  const expandedRef = useRef(false);
   const contentRef = useRef<HTMLDivElement>(null);
 
   const toggle = () => {
     const next = !isExpanded;
-    expandedRef.current = next;
     setIsExpanded(next);
   };
 
