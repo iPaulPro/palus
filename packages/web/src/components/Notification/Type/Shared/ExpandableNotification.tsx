@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { AnimatePresence, m } from "motion/react";
+import { m } from "motion/react";
 import { type ReactNode, useRef, useState } from "react";
 import Timestamp from "./Timestamp";
 
@@ -89,6 +89,7 @@ const ExpandableNotification = ({
 }: ExpandableNotificationProps) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const expandedRef = useRef(false);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   const toggle = () => {
     const next = !isExpanded;
@@ -129,19 +130,19 @@ const ExpandableNotification = ({
         timestamp={timestamp}
       />
       <Body preview={preview} title={title} />
-      <AnimatePresence initial={false}>
-        {isExpanded && (
-          <m.div
-            animate={{ height: "auto", opacity: 1 }}
-            className="ml-9 overflow-hidden"
-            exit={{ height: 0, opacity: 0 }}
-            initial={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
-          >
-            <div className="space-y-2 pt-2">{children}</div>
-          </m.div>
-        )}
-      </AnimatePresence>
+      <m.div
+        animate={{
+          height: isExpanded ? (contentRef.current?.scrollHeight ?? 0) : 0,
+          opacity: isExpanded ? 1 : 0
+        }}
+        className="ml-9 overflow-hidden"
+        initial={false}
+        transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
+      >
+        <div className="space-y-2 pt-2" ref={contentRef}>
+          {children}
+        </div>
+      </m.div>
     </button>
   );
 };
