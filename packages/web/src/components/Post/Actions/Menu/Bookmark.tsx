@@ -11,7 +11,10 @@ interface BookmarkProps {
 }
 
 const Bookmark = ({ post }: BookmarkProps) => {
-  const { hasBookmarked, toggleBookmark } = useToggleBookmark({ post });
+  const { hasBookmarked, toggleBookmark } = useToggleBookmark({
+    post,
+    showToast: true
+  });
 
   return (
     <MenuItem

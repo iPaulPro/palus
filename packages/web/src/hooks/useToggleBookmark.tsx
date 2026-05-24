@@ -4,7 +4,8 @@ import {
   useBookmarkPostMutation,
   useUndoBookmarkPostMutation
 } from "@palus/indexer";
-import { useCallback, useState } from "react";
+import { useCounter, useToggle } from "@uidotdev/usehooks";
+import { useCallback } from "react";
 import { useLocation } from "react-router";
 import { toast } from "sonner";
 import { ERRORS } from "@/data/errors";
@@ -14,23 +15,25 @@ import type { ApolloClientError } from "@/types/errors";
 
 interface BookmarkProps {
   post: PostFragment;
+  showToast?: boolean;
 }
 
-const useToggleBookmark = ({ post }: BookmarkProps) => {
+const useToggleBookmark = ({ post, showToast = false }: BookmarkProps) => {
   const { currentAccount } = useAccountStore();
   const { pathname } = useLocation();
-  const hasBookmarked = post.operations?.hasBookmarked;
-  const count = post.stats.bookmarks;
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [hasBookmarked, toggleHasBookmarked] = useToggle(
+    post.operations?.hasBookmarked
+  );
+  const [count, { increment, decrement }] = useCounter(post.stats.bookmarks);
 
   const updateCache = useCallback(
-    (cache: ApolloCache<NormalizedCacheObject>, hasBookmarked: boolean) => {
+    (cache: ApolloCache<NormalizedCacheObject>, added: boolean) => {
       if (!post.operations) {
         return;
       }
 
       cache.modify({
-        fields: { hasBookmarked: () => hasBookmarked },
+        fields: { hasBookmarked: () => added },
         id: cache.identify(post.operations)
       });
 
@@ -38,7 +41,7 @@ const useToggleBookmark = ({ post }: BookmarkProps) => {
         fields: {
           stats: (existingData) => ({
             ...existingData,
-            bookmarks: hasBookmarked
+            bookmarks: added
               ? existingData.bookmarks + 1
               : existingData.bookmarks - 1
           })
@@ -54,26 +57,38 @@ const useToggleBookmark = ({ post }: BookmarkProps) => {
     [post, pathname]
   );
 
-  const onError = useCallback((error: ApolloClientError) => {
-    setIsLoading(false);
-    errorToast(error);
-  }, []);
+  const onError = useCallback(
+    (error: ApolloClientError) => {
+      toggleHasBookmarked();
+      errorToast(error);
+    },
+    [toggleHasBookmarked]
+  );
 
-  const onCompleted = useCallback((added: boolean) => {
-    toast.success(added ? "Post bookmarked!" : "Removed post bookmark!");
-    setIsLoading(false);
-  }, []);
+  const onCompleted = useCallback(
+    (bookmarked: boolean) => {
+      if (!showToast) return;
+      toast.success(bookmarked ? "Post bookmarked!" : "Removed post bookmark");
+    },
+    [showToast]
+  );
 
   const [bookmarkPost] = useBookmarkPostMutation({
     onCompleted: () => onCompleted(true),
-    onError,
+    onError: (error) => {
+      decrement();
+      onError(error);
+    },
     update: (cache) => updateCache(cache, true),
     variables: { request: { post: post.id } }
   });
 
   const [undoBookmarkPost] = useUndoBookmarkPostMutation({
     onCompleted: () => onCompleted(false),
-    onError,
+    onError: (error) => {
+      increment();
+      onError(error);
+    },
     update: (cache) => updateCache(cache, false),
     variables: { request: { post: post.id } }
   });
@@ -83,16 +98,26 @@ const useToggleBookmark = ({ post }: BookmarkProps) => {
       return toast.error(ERRORS.LoginRequired);
     }
 
-    setIsLoading(true);
+    toggleHasBookmarked();
 
     if (hasBookmarked) {
+      decrement();
       return undoBookmarkPost();
     }
 
+    increment();
     return bookmarkPost();
-  }, [hasBookmarked, undoBookmarkPost, bookmarkPost, currentAccount]);
+  }, [
+    hasBookmarked,
+    toggleHasBookmarked,
+    increment,
+    decrement,
+    undoBookmarkPost,
+    bookmarkPost,
+    currentAccount
+  ]);
 
-  return { count, hasBookmarked, isLoading, toggleBookmark };
+  return { count, hasBookmarked, toggleBookmark };
 };
 
 export default useToggleBookmark;
