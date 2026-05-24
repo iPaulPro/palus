@@ -53,6 +53,10 @@ const codeSplittingGroups = [
   {
     name: "tailwind",
     test: /node_modules\/(?:tailwindcss|tailwind-merge|@tailwindcss\/|clsx|class-variance-authority)/
+  },
+  {
+    name: "shared-components",
+    test: /src\/components\/Shared/
   }
 ];
 
