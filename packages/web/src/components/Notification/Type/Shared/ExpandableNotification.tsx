@@ -33,18 +33,18 @@ const Header = ({
   timestamp,
   onToggle
 }: HeaderProps) => (
-  <div className="flex items-center justify-between">
+  <div className="flex items-center justify-between gap-x-4">
     <div className="flex items-center gap-x-3">
       {icon}
       <div className="flex items-center gap-x-1">{avatars}</div>
     </div>
-    <div className="flex items-center gap-x-2">
+    <div className="flex grow items-center justify-end gap-x-2">
       {expandable ? (
         <>
           {isNew ? <div className="size-2 rounded-full bg-brand-500" /> : null}
           <button
             aria-label={isExpanded ? "Collapse" : "Expand"}
-            className="cursor-pointer p-0.5 text-secondary transition-colors hover:text-black dark:hover:text-white"
+            className="flex h-8 w-full cursor-pointer items-center justify-end text-secondary transition-colors hover:text-black dark:hover:text-white"
             onClick={onToggle}
             type="button"
           >
@@ -113,11 +113,7 @@ const ExpandableNotification = ({
   }
 
   return (
-    <button
-      className="w-full space-y-2 px-4 py-5 text-left md:p-5"
-      onClick={toggle}
-      type="button"
-    >
+    <div className="w-full space-y-2 px-4 py-5 text-left md:p-5">
       <Header
         avatars={avatars}
         expandable={true}
@@ -141,7 +137,7 @@ const ExpandableNotification = ({
           {children}
         </div>
       </m.div>
-    </button>
+    </div>
   );
 };
 
