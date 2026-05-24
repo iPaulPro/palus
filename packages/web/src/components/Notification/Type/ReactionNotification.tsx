@@ -22,7 +22,12 @@ const ReactionNotification = ({
   const metadata = notification.post.metadata;
   const postData = getPostData(metadata);
   const filteredContent = postData?.content || "";
-  const reactions = notification.reactions;
+  const seen = new Set<string>();
+  const reactions = notification.reactions.filter((r) => {
+    if (seen.has(r.account.address)) return false;
+    seen.add(r.account.address);
+    return true;
+  });
   const firstAccount = reactions?.[0]?.account;
   const length = reactions.length - 1;
   const moreThanOneAccount = length > 0;

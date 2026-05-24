@@ -18,7 +18,12 @@ const FollowNotification = ({
   isNew
 }: NotificationProps<FollowNotificationFragment>) => {
   const { currentAccount } = useAccountStore();
-  const followers = notification.followers;
+  const seen = new Set<string>();
+  const followers = notification.followers.filter((f) => {
+    if (seen.has(f.account.address)) return false;
+    seen.add(f.account.address);
+    return true;
+  });
   const firstAccount = followers?.[0];
   const length = followers.length - 1;
   const moreThanOneAccount = length > 0;
