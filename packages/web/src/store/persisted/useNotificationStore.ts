@@ -4,7 +4,7 @@ import { createPersistedTrackedStore } from "@/store/createTrackedStore";
 interface State {
   lastSeenNotificationTimestamps: Record<string, string>;
   notificationRefreshSignal: number;
-  getLastSeenNotificationTimestamp: (address: string) => string;
+  getLastSeenNotificationTimestamp: (address: string) => string | undefined;
   setLastSeenNotificationTimestamp: (
     address: string,
     timestamp: string
@@ -15,7 +15,7 @@ interface State {
 const { useStore: useNotificationStore } = createPersistedTrackedStore<State>(
   (set, get) => ({
     getLastSeenNotificationTimestamp: (address) =>
-      get().lastSeenNotificationTimestamps[address] ?? new Date().toISOString(),
+      get().lastSeenNotificationTimestamps[address],
     incrementNotificationRefreshSignal: () =>
       set((state) => ({
         notificationRefreshSignal: state.notificationRefreshSignal + 1

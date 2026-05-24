@@ -59,10 +59,9 @@ const List = ({ feedType }: ListProps) => {
 
   const currentSeenTimestamp = useCallback(
     () =>
-      currentAccount
-        ? getLastSeenNotificationTimestamp(currentAccount.address)
-        : new Date().toISOString(),
-    [currentAccount, getLastSeenNotificationTimestamp]
+      getLastSeenNotificationTimestamp(currentAccount?.address) ??
+      new Date().toISOString(),
+    [getLastSeenNotificationTimestamp, currentAccount?.address]
   );
 
   const seenAtMountRef = useRef(currentSeenTimestamp());
@@ -244,7 +243,7 @@ const List = ({ feedType }: ListProps) => {
             return Component ? (
               <Component
                 isNew={new Date(timestamp) > new Date(seenAtMountRef.current)}
-                key={notification.id}
+                key={`${notification.id}-${timestamp}`}
                 notification={notification as never}
               />
             ) : null;
