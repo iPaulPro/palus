@@ -38,24 +38,22 @@ const Header = ({
       {icon}
       <div className="flex items-center gap-x-1">{avatars}</div>
     </div>
-    <div className="flex grow items-center justify-end gap-x-2">
+    <div className="flex grow items-center justify-end">
       {expandable ? (
-        <>
+        <button
+          aria-label={isExpanded ? "Collapse" : "Expand"}
+          className="flex h-8 w-full grow cursor-pointer items-center justify-end gap-x-2 text-secondary transition-colors hover:text-black dark:hover:text-white"
+          onClick={onToggle}
+          type="button"
+        >
           {isNew ? <div className="size-2 rounded-full bg-brand-500" /> : null}
-          <button
-            aria-label={isExpanded ? "Collapse" : "Expand"}
-            className="flex h-8 w-full cursor-pointer items-center justify-end text-secondary transition-colors hover:text-black dark:hover:text-white"
-            onClick={onToggle}
-            type="button"
+          <m.div
+            animate={{ rotate: isExpanded ? 180 : 0 }}
+            transition={{ duration: 0.2 }}
           >
-            <m.div
-              animate={{ rotate: isExpanded ? 180 : 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              <ChevronDownIcon className="size-4" />
-            </m.div>
-          </button>
-        </>
+            <ChevronDownIcon className="size-4" />
+          </m.div>
+        </button>
       ) : timestamp ? (
         <Timestamp isNew={isNew} timestamp={timestamp} />
       ) : isNew ? (
