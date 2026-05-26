@@ -3,6 +3,7 @@ import { memo } from "react";
 import { Link } from "react-router";
 import Skeleton from "@/components/Shared/Skeleton";
 import { Image } from "@/components/Shared/UI";
+import cn from "@/helpers/cn";
 import useOembed from "@/hooks/useOembed";
 
 interface OEmbedProps {
@@ -28,7 +29,12 @@ const OEmbed = ({ url }: OEmbedProps) => {
   if (isLoading) {
     return (
       <Skeleton
-        className={`mt-4 w-full rounded-xl md:w-2/3 ${isSpotify || isTikTok || isYouTube ? "h-56" : "h-16"}`}
+        className={cn("mt-4 h-16 w-full rounded-xl md:w-2/3", {
+          "h-38 md:w-4/5": isSpotify && parsedUrl.pathname.startsWith("/track"),
+          "h-50 md:h-88 md:w-full": isYouTube,
+          "h-60 md:w-4/5": isTikTok,
+          "h-88 md:w-4/5": isSpotify && parsedUrl.pathname.startsWith("/album")
+        })}
       />
     );
   }
