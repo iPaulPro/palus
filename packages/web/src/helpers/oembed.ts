@@ -39,6 +39,21 @@ const fetchLinkPreview = async (url: string): Promise<Oembed | null> => {
       version: "1.0"
     };
   } catch {
+    // Direct fetch failed (likely CORS) — fall back to server-side proxy
+    return fetchLinkPreviewViaProxy(url);
+  }
+};
+
+const fetchLinkPreviewViaProxy = async (
+  url: string
+): Promise<Oembed | null> => {
+  try {
+    const response = await fetch(`/oembed?url=${encodeURIComponent(url)}`);
+    if (!response.ok) {
+      return null;
+    }
+    return (await response.json()) as Oembed;
+  } catch {
     return null;
   }
 };
@@ -47,7 +62,7 @@ export const getOembed = async (
   url: string,
   isSmallDevice?: boolean
 ): Promise<Oembed | null> => {
-  const youtubeEmbedUrl = `https://www.youtube.com/oembed?maxwidth=${isSmallDevice ? "300" : "420"}&format=json&url=`;
+  const youtubeEmbedUrl = `https://www.youtube.com/oembed?maxwidth=${isSmallDevice ? "360" : "420"}&format=json&url=`;
 
   let oembedUrl: string | null = null;
 
@@ -55,13 +70,22 @@ export const getOembed = async (
     const parsedUrl = new URL(url);
     const hostname = parsedUrl.hostname;
 
-    if (hostname.includes("youtube.com") || hostname.includes("youtu.be")) {
+    if (hostname.startsWith("youtube.com") || hostname.startsWith("youtu.be")) {
       oembedUrl = `${youtubeEmbedUrl}${url}`;
-    } else if (hostname.includes("twitter.com") || hostname.includes("x.com")) {
+    } else if (
+      hostname.startsWith("twitter.com") ||
+      hostname.startsWith("x.com")
+    ) {
       oembedUrl = `${X_OEMBED_URL}${url}`;
-    } else if (hostname.includes("tiktok.com")) {
+    } else if (
+      hostname.startsWith("tiktok.com") ||
+      hostname.startsWith("www.tiktok.com")
+    ) {
       oembedUrl = `${TIK_TOK_URL}${url}`;
-    } else if (hostname.includes("spotify.com")) {
+    } else if (
+      hostname.startsWith("spotify.com") ||
+      hostname.startsWith("open.spotify.com")
+    ) {
       oembedUrl = `${SPOTIFY_URL}${url}`;
     }
   } catch {

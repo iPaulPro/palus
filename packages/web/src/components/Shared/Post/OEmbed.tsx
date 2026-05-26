@@ -1,5 +1,7 @@
 import { memo } from "react";
+import { Link } from "react-router";
 import Skeleton from "@/components/Shared/Skeleton";
+import { Image } from "@/components/Shared/UI";
 import useOembed from "@/hooks/useOembed";
 
 interface OEmbedProps {
@@ -13,25 +15,38 @@ const OEmbed = ({ url }: OEmbedProps) => {
   const hostname = parsedUrl.hostname;
 
   const isYouTube =
-    hostname.includes("youtube.com") || hostname.includes("youtu.be");
-  const isSpotify = hostname.includes("spotify.com");
-  const isTikTok = hostname.includes("tiktok.com");
+    hostname.startsWith("youtube.com") || hostname.startsWith("youtu.be");
+  const isSpotify =
+    hostname.startsWith("spotify.com") ||
+    hostname.startsWith("open.spotify.com");
+  const isTikTok =
+    hostname.startsWith("tiktok.com") || hostname.startsWith("www.tiktok.com");
   const isTwitter =
-    hostname.includes("twitter.com") || hostname.includes("x.com");
+    hostname.startsWith("twitter.com") || hostname.startsWith("x.com");
 
   if (isLoading) {
     return (
       <Skeleton
-        className={`mt-4 w-full rounded-xl md:w-2/3 ${isSpotify || isTikTok || isYouTube ? "h-56" : "h-24"}`}
+        className={`mt-4 w-full rounded-xl md:w-2/3 ${isSpotify || isTikTok || isYouTube ? "h-56" : "h-16"}`}
       />
     );
   }
 
   if (!oembed) {
     return (
-      <div className="mt-4 h-20 w-full rounded-xl border border-border p-4 md:w-2/3">
-        Fallback link
-      </div>
+      <Link to={url}>
+        <div className="group mt-4 flex h-16 w-full min-w-0 items-center rounded-xl border border-border md:w-2/3">
+          <div className="flex h-full items-center border-border border-r px-4">
+            <Image
+              className="size-5 shrink-0"
+              src={`https://${hostname}/favicon.ico`}
+            />
+          </div>
+          <div className="truncate px-6 text-secondary group-hover:text-on-surface">
+            {url}
+          </div>
+        </div>
+      </Link>
     );
   }
 
@@ -44,10 +59,19 @@ const OEmbed = ({ url }: OEmbedProps) => {
     );
   }
 
+  if (isSpotify && oembed.html) {
+    return (
+      <div
+        className="not-prose oembed-html mt-4 w-full md:w-2/3"
+        dangerouslySetInnerHTML={{ __html: oembed.html }}
+      />
+    );
+  }
+
   if (isTwitter && oembed.html) {
     return (
       <a
-        className="not-prose oembed-html mt-4 block w-full text-sm md:w-2/3"
+        className="not-prose oembed-html mt-4 flex min-h-16 w-full items-center rounded-xl border border-border p-3 text-sm md:w-2/3"
         dangerouslySetInnerHTML={{ __html: oembed.html }}
         href={url}
         onClick={(e) => {
