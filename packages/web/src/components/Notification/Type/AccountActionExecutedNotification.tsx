@@ -25,7 +25,8 @@ function isTippingActionExecuted(
 
 const AccountActionExecutedNotification = ({
   notification,
-  isNew
+  isNew,
+  seenAtTimestamp
 }: NotificationProps<AccountActionExecutedNotificationFragment>) => {
   const actions = notification.actions;
   const firstAction = actions[0];
@@ -167,7 +168,10 @@ const AccountActionExecutedNotification = ({
                     Share
                   </Button>
                 )}
-                <Timestamp isNew={false} timestamp={action.executedAt} />
+                <Timestamp
+                  isNew={action.executedAt > seenAtTimestamp}
+                  timestamp={action.executedAt}
+                />
               </div>
             </div>
           );

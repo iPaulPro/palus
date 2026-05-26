@@ -47,6 +47,7 @@ export type ShareAction = {
 export interface NotificationProps<T> {
   notification: T;
   isNew: boolean;
+  seenAtTimestamp: string;
 }
 
 export type AnyNotificationFragment =

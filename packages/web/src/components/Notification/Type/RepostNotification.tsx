@@ -17,7 +17,8 @@ import type { NotificationProps } from "@/types/palus";
 
 const RepostNotification = ({
   notification,
-  isNew
+  isNew,
+  seenAtTimestamp
 }: NotificationProps<RepostNotificationFragment>) => {
   const metadata = notification.post.metadata;
   const postData = getPostData(metadata);
@@ -76,7 +77,10 @@ const RepostNotification = ({
             <NotificationAccountAvatar account={repost.account} />
             <NotificationAccountName account={repost.account} bold={false} />
           </div>
-          <Timestamp isNew={false} timestamp={repost.repostedAt} />
+          <Timestamp
+            isNew={repost.repostedAt > seenAtTimestamp}
+            timestamp={repost.repostedAt}
+          />
         </div>
       ))}
     </ExpandableNotification>

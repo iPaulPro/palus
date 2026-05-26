@@ -17,7 +17,8 @@ import type { NotificationProps } from "@/types/palus";
 
 const ReactionNotification = ({
   notification,
-  isNew
+  isNew,
+  seenAtTimestamp
 }: NotificationProps<ReactionNotificationFragment>) => {
   const metadata = notification.post.metadata;
   const postData = getPostData(metadata);
@@ -86,7 +87,7 @@ const ReactionNotification = ({
               />
             </div>
             <Timestamp
-              isNew={false}
+              isNew={r.reactedAt > seenAtTimestamp}
               timestamp={reaction.reactions[0].reactedAt}
             />
           </div>

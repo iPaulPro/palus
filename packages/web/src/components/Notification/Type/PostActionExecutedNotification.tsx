@@ -57,7 +57,8 @@ function getActionAmount(action: PostAction) {
 
 const PostActionExecutedNotification = ({
   notification,
-  isNew
+  isNew,
+  seenAtTimestamp
 }: NotificationProps<PostActionExecutedNotificationFragment>) => {
   const post = notification.post;
   const { metadata } = post;
@@ -225,7 +226,10 @@ const PostActionExecutedNotification = ({
                     Share
                   </Button>
                 )}
-                <Timestamp isNew={false} timestamp={action.executedAt} />
+                <Timestamp
+                  isNew={action.executedAt > seenAtTimestamp}
+                  timestamp={action.executedAt}
+                />
               </div>
             </div>
           );

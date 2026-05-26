@@ -15,7 +15,8 @@ import type { NotificationProps } from "@/types/palus";
 
 const FollowNotification = ({
   notification,
-  isNew
+  isNew,
+  seenAtTimestamp
 }: NotificationProps<FollowNotificationFragment>) => {
   const { currentAccount } = useAccountStore();
   const seen = new Set<string>();
@@ -63,7 +64,10 @@ const FollowNotification = ({
             <NotificationAccountAvatar account={follower.account} />
             <NotificationAccountName account={follower.account} bold={false} />
           </div>
-          <Timestamp isNew={false} timestamp={follower.followedAt} />
+          <Timestamp
+            isNew={follower.followedAt > seenAtTimestamp}
+            timestamp={follower.followedAt}
+          />
         </div>
       ))}
     </ExpandableNotification>

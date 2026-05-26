@@ -242,9 +242,10 @@ const List = ({ feedType }: ListProps) => {
 
             return Component ? (
               <Component
-                isNew={new Date(timestamp) > new Date(seenAtMountRef.current)}
+                isNew={timestamp > seenAtMountRef.current}
                 key={`${notification.id}-${timestamp}`}
                 notification={notification as never}
+                seenAtTimestamp={seenAtMountRef.current}
               />
             ) : null;
           })}
