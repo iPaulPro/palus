@@ -5,7 +5,21 @@ const CORS_HEADERS = {
   "Content-Type": "application/json"
 };
 
+const ALLOWED_ORIGINS = /^https:\/\/([a-zA-Z0-9-]+\.)?palus\.app$/;
+const DEV_ORIGIN = "http://localhost:4783";
+
+const isAllowedOrigin = (origin: string | null): boolean => {
+  if (!origin) return false;
+  return ALLOWED_ORIGINS.test(origin) || origin === DEV_ORIGIN;
+};
+
 export const onRequestGet: PagesFunction = async (context) => {
+  const origin = context.request.headers.get("Origin");
+
+  if (!isAllowedOrigin(origin)) {
+    return new Response(null, { status: 403 });
+  }
+
   const requestUrl = new URL(context.request.url);
   const targetUrl = requestUrl.searchParams.get("url");
 
