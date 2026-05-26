@@ -5,7 +5,8 @@ const CORS_HEADERS = {
   "Content-Type": "application/json"
 };
 
-const ALLOWED_ORIGINS = /^https:\/\/([a-zA-Z0-9-]+\.)?palus\.app$/;
+const ALLOWED_ORIGINS =
+  /^https:\/\/(([a-zA-Z0-9-]+\.)?palus\.app|[a-zA-Z0-9-]+\.pages\.palus\.dev)$/;
 const DEV_ORIGIN = "http://localhost:4783";
 
 const isAllowedOrigin = (origin: string | null): boolean => {
