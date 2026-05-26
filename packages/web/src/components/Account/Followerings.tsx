@@ -1,11 +1,10 @@
 import { type AccountFragment, useAccountStatsQuery } from "@palus/indexer";
 import plur from "plur";
-import { type FC, useEffect, useState } from "react";
-import { useLocation } from "react-router";
+import { useState } from "react";
 import Followers from "@/components/Shared/Modal/Followers";
 import Following from "@/components/Shared/Modal/Following";
 import GraphStatsShimmer from "@/components/Shared/Shimmer/GraphStatsShimmer";
-import { Modal } from "@/components/Shared/UI";
+import { HelpTooltip, Modal } from "@/components/Shared/UI";
 import getAccount from "@/helpers/getAccount";
 import humanize from "@/helpers/humanize";
 
@@ -14,14 +13,8 @@ interface FolloweringsProps {
 }
 
 const Followerings = ({ account }: FolloweringsProps) => {
-  const location = useLocation();
   const [showFollowingModal, setShowFollowingModal] = useState(false);
   const [showFollowersModal, setShowFollowersModal] = useState(false);
-
-  useEffect(() => {
-    setShowFollowersModal(false);
-    setShowFollowingModal(false);
-  }, [location.key]);
 
   const { data, loading } = useAccountStatsQuery({
     variables: { request: { account: account.address } }
@@ -41,27 +34,8 @@ const Followerings = ({ account }: FolloweringsProps) => {
 
   const stats = data.accountStats.graphFollowStats;
 
-  type ModalContentProps = {
-    username: string;
-    address: string;
-  };
-
-  const renderModal = (
-    show: boolean,
-    setShow: (value: boolean) => void,
-    title: string,
-    Content: FC<ModalContentProps>
-  ) => (
-    <Modal onClose={() => setShow(false)} show={show} title={title}>
-      <Content
-        address={String(account.address)}
-        username={getAccount(account).username}
-      />
-    </Modal>
-  );
-
   return (
-    <div className="flex flex-wrap gap-x-8 gap-y-2">
+    <div className="flex flex-wrap gap-x-6 gap-y-2 sm:gap-x-8">
       <button
         className="flex gap-x-1"
         onClick={() => setShowFollowingModal(true)}
@@ -82,20 +56,36 @@ const Followerings = ({ account }: FolloweringsProps) => {
       </button>
       <div className="flex gap-x-1">
         <span className="font-bold">{account.score}</span>
-        <span className="text-gray-500 dark:text-gray-200">Account Score</span>
+        <span className="flex items-center gap-x-1 text-gray-500 dark:text-gray-200">
+          Score
+          <HelpTooltip>
+            Account Score is calculated using a set of machine learning
+            algorithms that consider factors like follower graphs, content, and
+            other variables. Higher scores suggest a positive and active
+            presence within the ecosystem.
+          </HelpTooltip>
+        </span>
       </div>
-      {renderModal(
-        showFollowingModal,
-        setShowFollowingModal,
-        "Following",
-        Following
-      )}
-      {renderModal(
-        showFollowersModal,
-        setShowFollowersModal,
-        "Followers",
-        Followers
-      )}
+      <Modal
+        onClose={() => setShowFollowingModal(false)}
+        show={showFollowingModal}
+        title={"Following"}
+      >
+        <Following
+          address={String(account.address)}
+          username={getAccount(account).username}
+        />
+      </Modal>
+      <Modal
+        onClose={() => setShowFollowersModal(false)}
+        show={showFollowersModal}
+        title={"Followers"}
+      >
+        <Followers
+          address={String(account.address)}
+          username={getAccount(account).username}
+        />
+      </Modal>
     </div>
   );
 };

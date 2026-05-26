@@ -1,7 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import { AnimatePresence, motion } from "motion/react";
-import type { ButtonHTMLAttributes, ReactNode } from "react";
-import { forwardRef, memo } from "react";
+import { AnimatePresence, m } from "motion/react";
+import type { ButtonHTMLAttributes, ReactNode, Ref } from "react";
+import { memo } from "react";
 import { Spinner } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 
@@ -77,60 +77,57 @@ interface ButtonProps
   children?: ReactNode;
   icon?: ReactNode;
   loading?: boolean;
+  ref?: Ref<HTMLButtonElement>;
 }
 
-const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      children,
-      className,
-      disabled,
-      icon,
-      outline,
-      size,
-      variant,
-      loading,
-      ...rest
-    },
-    ref
-  ) => {
-    return (
-      <button
-        className={buttonVariants({ className, outline, size, variant })}
-        disabled={disabled}
-        ref={ref}
-        type={rest.type}
-        {...rest}
-      >
-        <AnimatePresence mode="wait">
-          <motion.div
-            animate={loading ? "loading" : "idle"}
-            className="flex items-center gap-x-1.5"
-            initial="idle"
+const Button = ({
+  children,
+  className,
+  disabled,
+  icon,
+  outline,
+  size,
+  variant,
+  loading,
+  ref,
+  ...rest
+}: ButtonProps) => {
+  return (
+    <button
+      className={cn(buttonVariants({ outline, size, variant }), className)}
+      disabled={disabled}
+      ref={ref}
+      type={rest.type}
+      {...rest}
+    >
+      <AnimatePresence mode="wait">
+        <m.div
+          animate={loading ? "loading" : "idle"}
+          className="flex items-center gap-x-1.5"
+          initial="idle"
+          transition={{ bounce: 0, duration: 0.2, type: "spring" }}
+          variants={{
+            idle: { opacity: 1, y: 0 },
+            loading: { opacity: 0, y: -20 }
+          }}
+        >
+          {icon}
+          {children}
+        </m.div>
+        {loading && (
+          <m.div
+            animate={{ opacity: 1, y: 0 }}
+            className="absolute flex items-center justify-center"
+            exit={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 20 }}
             transition={{ bounce: 0, duration: 0.2, type: "spring" }}
-            variants={{
-              idle: { opacity: 1, y: 0 },
-              loading: { opacity: 0, y: -20 }
-            }}
           >
-            {icon}
-            {children}
-          </motion.div>
-          {loading && (
-            <motion.div
-              animate={{ opacity: 1, y: 0 }}
-              className="absolute flex items-center justify-center"
-              exit={{ opacity: 0, y: 20 }}
-              initial={{ opacity: 0, y: 20 }}
-              transition={{ bounce: 0, duration: 0.2, type: "spring" }}
-            >
-              <Spinner size="xs" />
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </button>
-    );
-  }
-);
+            <Spinner size="xs" />
+          </m.div>
+        )}
+      </AnimatePresence>
+    </button>
+  );
+};
 
 export default memo(Button);

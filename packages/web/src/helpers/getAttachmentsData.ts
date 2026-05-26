@@ -13,20 +13,23 @@ const getAttachmentsData = (
     switch (attachment.__typename) {
       case "MediaImage":
         return {
-          type: "Image",
+          kind: "Image",
+          type: attachment.imageType,
           uri: sanitizeDStorageUrl(attachment.item)
         } satisfies AttachmentData;
       case "MediaVideo":
         return {
           coverUri: sanitizeDStorageUrl(attachment.cover),
-          type: "Video",
+          kind: "Video",
+          type: attachment.videoType,
           uri: sanitizeDStorageUrl(attachment.item)
         } satisfies AttachmentData;
       case "MediaAudio":
         return {
           artist: attachment.artist,
           coverUri: sanitizeDStorageUrl(attachment.cover),
-          type: "Audio",
+          kind: "Audio",
+          type: attachment.audioType,
           uri: sanitizeDStorageUrl(attachment.item)
         } satisfies AttachmentData;
       default:

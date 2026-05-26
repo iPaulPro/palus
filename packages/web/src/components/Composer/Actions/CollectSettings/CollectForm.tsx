@@ -1,5 +1,4 @@
-import { motion } from "motion/react";
-import type { Dispatch, SetStateAction } from "react";
+import { m } from "motion/react";
 import { isAddress } from "viem";
 import LicensePicker from "@/components/Composer/LicensePicker";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
@@ -15,11 +14,12 @@ import SplitConfig from "./SplitConfig";
 import TimeLimitConfig from "./TimeLimitConfig";
 
 interface CollectFormProps {
-  setShowModal: Dispatch<SetStateAction<boolean>>;
+  setShowModal: (show: boolean) => void;
+  onSubmit?: (values: CollectActionType) => void;
 }
 
-const CollectForm = ({ setShowModal }: CollectFormProps) => {
-  const { collectAction, setCollectAction, reset } = useCollectActionStore();
+const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
+  const { collectAction, updateCollectAction, reset } = useCollectActionStore();
   const { setLicense } = usePostLicenseStore();
 
   const recipients = collectAction.payToCollect?.recipients || [];
@@ -32,7 +32,9 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
       ({ address }) => address && !isAddress(address)
     ),
     hasZeroPrice:
-      collectAction.payToCollect && collectAction.payToCollect.native <= 0,
+      collectAction.payToCollect &&
+      (collectAction.payToCollect.native <= 0 ||
+        collectAction.payToCollect.erc20?.value <= 0),
     hasZeroSplits: recipients.some(({ percent }) => percent === 0),
     isRecipientsDuplicated:
       new Set(recipients.map(({ address }) => address)).size !==
@@ -40,7 +42,7 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
   };
 
   const setCollectType = (data: CollectActionType) => {
-    setCollectAction({ ...collectAction, ...data });
+    updateCollectAction(data);
   };
 
   const toggleCollect = () => {
@@ -71,7 +73,7 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
       <div className="divider" />
       {collectAction.enabled && (
         <>
-          <motion.div
+          <m.div
             animate="visible"
             className="m-5 overflow-hidden"
             initial="hidden"
@@ -82,7 +84,8 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
             }}
           >
             <AmountConfig setCollectType={setCollectType} />
-            {collectAction.payToCollect?.native && (
+            {(collectAction.payToCollect?.native ||
+              collectAction.payToCollect?.erc20?.value) && (
               <SplitConfig
                 isRecipientsDuplicated={validationChecks.isRecipientsDuplicated}
                 setCollectType={setCollectType}
@@ -91,7 +94,7 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
             <CollectLimitConfig setCollectType={setCollectType} />
             <TimeLimitConfig setCollectType={setCollectType} />
             <FollowersConfig setCollectType={setCollectType} />
-          </motion.div>
+          </m.div>
           <div className="divider" />
           <div className="m-5">
             <LicensePicker />
@@ -99,15 +102,22 @@ const CollectForm = ({ setShowModal }: CollectFormProps) => {
           <div className="divider" />
         </>
       )}
-      <div className="flex space-x-2 p-5">
+      <div className="flex gap-x-2 p-5">
         <Button className="ml-auto" onClick={handleClose} outline>
           {collectAction.enabled ? "Reset" : "Cancel"}
         </Button>
         <Button
           disabled={Object.values(validationChecks).some(Boolean)}
-          onClick={() => setShowModal(false)}
+          onClick={() => {
+            if (onSubmit && collectAction.enabled) {
+              onSubmit(collectAction);
+              setLicense(null);
+              reset();
+            }
+            setShowModal(false);
+          }}
         >
-          Save
+          {onSubmit && collectAction.enabled ? "Submit" : "Save"}
         </Button>
       </div>
     </>

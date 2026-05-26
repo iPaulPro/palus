@@ -3,9 +3,11 @@ import {
   BellIcon as BellOutline,
   BookmarkIcon as BookmarkOutline,
   HomeIcon as HomeOutline,
+  MagnifyingGlassIcon,
   PencilSquareIcon,
   UserCircleIcon,
   UserGroupIcon as UserGroupOutline,
+  UserIcon,
   WalletIcon as WalletOutline
 } from "@heroicons/react/24/outline";
 import {
@@ -66,11 +68,21 @@ const navigationItems = {
     solid: <UserGroupSolid className="size-6" />,
     title: "Groups"
   },
+  "/me": {
+    outline: <UserIcon className="size-6" />,
+    solid: <UserIcon className="size-6" />,
+    title: "Profile"
+  },
   "/notifications": {
     outline: <BellOutline className="size-6" />,
     refreshDocs: [NotificationsDocument, NotificationIndicatorDocument],
     solid: <BellSolid className="size-6" />,
     title: "Notifications"
+  },
+  "/search": {
+    outline: <MagnifyingGlassIcon className="size-6" />,
+    solid: <MagnifyingGlassIcon className="size-6" />,
+    title: "Search"
   },
   "/wallet": {
     outline: <WalletOutline className="size-6" />,
@@ -82,12 +94,15 @@ const navigationItems = {
 
 interface NavItemProps {
   url: string;
+  item: string;
   icon: ReactNode;
   onClick?: (e: MouseEvent<HTMLAnchorElement>) => void;
 }
 
-const NavItem = memo(({ icon, onClick, url }: NavItemProps) => (
-  <Tooltip content={navigationItems[url as keyof typeof navigationItems].title}>
+const NavItem = memo(({ icon, onClick, item, url }: NavItemProps) => (
+  <Tooltip
+    content={navigationItems[item as keyof typeof navigationItems].title}
+  >
     <Link onClick={onClick} to={url}>
       {icon}
     </Link>
@@ -98,13 +113,15 @@ const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
   const { pathname } = useLocation();
   const hasNewNotifications = useHasNewNotifications();
   const { incrementNotificationRefreshSignal } = useNotificationStore();
+  const { currentAccount } = useAccountStore();
   const client = useApolloClient();
   const [refreshingRoute, setRefreshingRoute] = useState<string | null>(null);
   const routes = [
     "/",
+    "/search",
     // "/explore",
     ...(isLoggedIn
-      ? ["/notifications", "/wallet", "/groups", "/bookmarks"]
+      ? ["/notifications", "/wallet", "/groups", "/bookmarks", "/me"]
       : [])
   ];
 
@@ -120,6 +137,13 @@ const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
           icon = <Spinner className="my-0.5" size="sm" />;
         }
 
+        let resolvedRoute = route;
+        if (route === "/me" && currentAccount) {
+          resolvedRoute = currentAccount.username
+            ? `/u/${currentAccount.username.localName}`
+            : `/account/${currentAccount.address}`;
+        }
+
         const iconWithIndicator =
           route === "/notifications" ? (
             <span className="relative">
@@ -132,7 +156,7 @@ const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
             icon
           );
 
-        const handleClick = async (e: MouseEvent<HTMLAnchorElement>) => {
+        const onNavItemClick = async (e: MouseEvent<HTMLAnchorElement>) => {
           const item = navigationItems[route as keyof typeof navigationItems];
           const isSameRoute = pathname === route;
           if (!isSameRoute || !("refreshDocs" in item) || !item.refreshDocs) {
@@ -156,9 +180,10 @@ const NavItems = memo(({ isLoggedIn }: { isLoggedIn: boolean }) => {
         return (
           <NavItem
             icon={iconWithIndicator}
+            item={route}
             key={route}
-            onClick={handleClick}
-            url={route}
+            onClick={onNavItemClick}
+            url={resolvedRoute}
           />
         );
       })}
@@ -184,7 +209,7 @@ const Navbar = () => {
 
   const handleAuthClick = useCallback(() => {
     setShowAuthModal(true);
-  }, []);
+  }, [setShowAuthModal]);
 
   const handleNewPostClick = () => {
     setShowNewPostModal(true);

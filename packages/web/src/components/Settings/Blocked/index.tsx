@@ -13,7 +13,7 @@ const BlockedSettings = () => {
   }
 
   return (
-    <PageLayout title="Blocked accounts">
+    <PageLayout title="Blocked accounts" zeroTopMargin>
       <Card>
         <CardHeader
           icon={<BackButton path="/settings" />}

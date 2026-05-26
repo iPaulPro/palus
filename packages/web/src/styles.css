@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "shadcn/tailwind.css";
 @plugin "@tailwindcss/aspect-ratio";
 @plugin "@tailwindcss/forms";
 @custom-variant dark (&:where(.dark, .dark *));
@@ -17,12 +18,13 @@
   --color-brand-600: #055e87;
   --color-brand-700: #0b4e6f;
 
-  --color-surface: #f9fafb;
+  --color-surface: #f4f4f6;
   --color-on-surface: #000000;
   --color-secondary: #6a7282;
   --color-border: #e5e7eb;
   --color-card: #ffffff;
   --color-accent: oklch(87.2% 0.01 258.338 / 0.2);
+  --color-muted: rgba(0, 0, 0, 0.3);
 }
 
 .dark {
@@ -38,6 +40,7 @@
   --color-secondary: #d1d5dc;
   --color-border: #1e2939;
   --color-card: #101828;
+  --color-muted: rgba(249, 250, 251, 0.3);
 }
 
 @keyframes shimmer {
@@ -50,6 +53,12 @@
   }
 }
 
+@keyframes marqueeScroll {
+  to {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 @layer base {
   html {
     @apply font-sofia-pro text-on-surface;
@@ -58,6 +67,12 @@
 
   body {
     @apply bg-surface;
+  }
+
+  input,
+  textarea,
+  div[contenteditable="true"] {
+    @apply caret-brand-500;
   }
 }
 
@@ -144,23 +159,6 @@
     }
   }
 
-  /** CSS overrides for plyr audio **/
-  .plyr__progress__buffer {
-    @apply !bg-white;
-  }
-
-  .plyr--audio .plyr__controls {
-    @apply !bg-transparent !text-white;
-  }
-
-  .plyr--audio .plyr__control {
-    @apply hover:!bg-transparent;
-  }
-
-  .plyr--audio.plyr--full-ui input[type="range"] {
-    @apply !text-white;
-  }
-
   .pb-safe {
     padding-bottom: env(safe-area-inset-bottom);
   }
@@ -168,7 +166,12 @@
   /* Markup styles */
   .markup > p,
   .markup > ul,
-  .markup > ol {
+  .markup > ol,
+  .markup > h2,
+  .markup > h3,
+  .markup > h4,
+  .markup > h5,
+  .markup > h6 {
     word-break: break-word;
     @apply leading-[26px];
     @apply [&:not(:last-child)]:mb-3;
@@ -194,12 +197,41 @@
     @apply mb-3;
   }
 
+  .markup > p > img {
+    @apply rounded-xl;
+  }
+
+  .markup > h1 {
+    @apply text-2xl font-bold mb-4;
+  }
+
+  .markup > h2 {
+    @apply text-xl font-bold;
+  }
+
+  .markup > h3 {
+    @apply text-lg font-semibold;
+  }
+
+  .markup > h4 {
+    @apply text-base font-semibold;
+  }
+
+  .markup > h5,
+  .markup > h6 {
+    @apply font-semibold;
+  }
+
   .full-page-post-markup > p,
   .full-page-post-markup ul,
   .full-page-post-markup ol {
     @apply text-[15px] sm:text-[17px];
     @apply !leading-7 sm:leading-[26px];
     @apply [&:not(:last-child)]:mb-3 sm:[&:not(:last-child)]:mb-4;
+  }
+
+  .full-page-post-markup > h1 {
+    @apply text-center;
   }
 
   .virtual-divider-list-window {
@@ -234,6 +266,25 @@
 
   .touch-callout-none {
     -webkit-touch-callout: none;
+  }
+
+  .search {
+    anchor-name: --search;
+  }
+
+  .suggestions {
+    position: fixed;
+    top: anchor(--search bottom);
+    margin-top: 0.25rem;
+  }
+}
+
+@utility card-drop-shadow {
+  filter: drop-shadow(0 20px 13px rgb(229 231 235 / 0.7))
+    drop-shadow(0 8px 5px rgb(229 231 235 / 0.5));
+  @variant dark {
+    filter: drop-shadow(0 20px 13px rgb(0 0 0 / 0.3))
+      drop-shadow(0 8px 5px rgb(0 0 0 / 0.2));
   }
 
   .twitter-tweet {

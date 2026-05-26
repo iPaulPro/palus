@@ -23,6 +23,7 @@ const AccountLink = ({
       to={link}
       {...props}
       onClick={(e) => {
+        e.stopPropagation();
         setCachedAccount(account);
         onClick?.(e);
       }}

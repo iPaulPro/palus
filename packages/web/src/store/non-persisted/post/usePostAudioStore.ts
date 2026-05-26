@@ -5,11 +5,13 @@ interface AudioPost {
   cover: string;
   mimeType: string;
   title: string;
+  duration: number;
 }
 
 export const DEFAULT_AUDIO_POST: AudioPost = {
   artist: "",
   cover: "",
+  duration: 0,
   mimeType: "",
   title: ""
 };
@@ -17,11 +19,14 @@ export const DEFAULT_AUDIO_POST: AudioPost = {
 interface State {
   audioPost: AudioPost;
   setAudioPost: (audioPost: AudioPost) => void;
+  updateAudioPost: (partial: Partial<AudioPost>) => void;
 }
 
 const { useStore: usePostAudioStore } = createTrackedStore<State>((set) => ({
   audioPost: DEFAULT_AUDIO_POST,
-  setAudioPost: (audioPost) => set(() => ({ audioPost }))
+  setAudioPost: (audioPost) => set(() => ({ audioPost })),
+  updateAudioPost: (partial) =>
+    set((state) => ({ audioPost: { ...state.audioPost, ...partial } }))
 }));
 
 export { usePostAudioStore };

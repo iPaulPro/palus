@@ -7,8 +7,9 @@ import {
 } from "@palus/indexer";
 import { useCallback, useState } from "react";
 import { useConnection } from "wagmi";
+import WalletSelector from "@/components/Shared/Auth/WalletSelector";
 import Loader from "@/components/Shared/Loader";
-import { ErrorMessage, Spinner, WarningMessage } from "@/components/Shared/UI";
+import { ErrorMessage, Spinner } from "@/components/Shared/UI";
 import { ERRORS } from "@/data/errors";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
@@ -47,11 +48,9 @@ const SwitchAccounts = () => {
 
   if (!address) {
     return (
-      <WarningMessage
-        className="m-5"
-        message="Connect your wallet to switch accounts"
-        title="No wallet connected"
-      />
+      <div className="p-4">
+        <WalletSelector />
+      </div>
     );
   }
 
@@ -60,7 +59,7 @@ const SwitchAccounts = () => {
   }
 
   const accountsAvailable = data?.accountsAvailable.items || [];
-  const sortedAccounts = [...accountsAvailable].sort((a, b) => {
+  const sortedAccounts = [...accountsAvailable].toSorted((a, b) => {
     const authAddress = currentAccount?.address.toLowerCase();
     const aAddress = a.account.address.toLowerCase();
     const bAddress = b.account.address.toLowerCase();
@@ -117,7 +116,7 @@ const SwitchAccounts = () => {
       />
       {sortedAccounts.map((accountAvailable, index) => (
         <button
-          className="flex w-full cursor-pointer items-center justify-between space-x-2 rounded-lg py-3 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
+          className="flex w-full cursor-pointer items-center justify-between gap-x-2 rounded-lg py-3 pr-4 pl-3 text-gray-700 hover:bg-gray-100 dark:text-gray-200 dark:hover:bg-gray-800"
           disabled={
             currentAccount?.address === accountAvailable.account.address
           }

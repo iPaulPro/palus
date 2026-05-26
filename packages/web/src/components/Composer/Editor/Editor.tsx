@@ -1,12 +1,9 @@
-import { Image } from "@/components/Shared/UI";
-import getAvatar from "@/helpers/getAvatar";
 import { defineEditorExtension } from "@/helpers/prosekit/extension";
 import { htmlFromMarkdown } from "@/helpers/prosekit/markdown";
 import useContentChange from "@/hooks/prosekit/useContentChange";
 import useFocus from "@/hooks/prosekit/useFocus";
 import { usePaste } from "@/hooks/prosekit/usePaste";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 import "prosekit/basic/style.css";
 import type { GroupFragment } from "@palus/indexer";
 import { createEditor } from "prosekit/core";
@@ -38,7 +35,6 @@ const Editor = ({
   isInModal,
   fullHeight
 }: EditorProps) => {
-  const { currentAccount } = useAccountStore();
   const { postContent } = usePostStore();
   const defaultMarkdownRef = useRef(postContent);
 
@@ -48,9 +44,11 @@ const Editor = ({
   }, []);
 
   const editor = useMemo(() => {
-    const extension = defineEditorExtension();
+    const extension = defineEditorExtension(
+      isComment ? "What's your response?" : undefined
+    );
     return createEditor({ defaultContent, extension });
-  }, [defaultContent]);
+  }, [defaultContent, isComment]);
 
   useFocus(editor, isComment && !isInModal);
   useContentChange(editor);
@@ -76,18 +74,14 @@ const Editor = ({
     <ProseKit editor={editor}>
       <div
         className={cn(
-          "box-border flex w-full justify-stretch overflow-x-hidden px-3 md:px-5",
+          "box-border flex w-full justify-stretch overflow-x-hidden px-4 md:px-5",
           {
             "h-full": fullHeight,
+            "pt-2": isInModal && isComment,
             "pt-4": !isInModal
           }
         )}
       >
-        <Image
-          alt={currentAccount?.address}
-          className="mt-1 mr-3 size-11 rounded-full border border-gray-200 bg-gray-200 object-cover dark:border-gray-800"
-          src={getAvatar(currentAccount)}
-        />
         <div className="flex flex-1 flex-col overflow-x-hidden">
           {hideGroupSelector ? null : (
             <GroupSelector
@@ -98,9 +92,10 @@ const Editor = ({
           <EditorMenus />
           <div
             className={cn(
-              "ProseMirror relative box-border min-h-20 flex-1 leading-6 outline-0 sm:leading-[26px]",
+              "ProseMirror relative box-border min-h-20 flex-1 leading-6 outline-0 sm:leading-6.5",
               {
                 "h-full": fullHeight,
+                "mt-2": !hideGroupSelector,
                 "mt-3": hideGroupSelector
               }
             )}

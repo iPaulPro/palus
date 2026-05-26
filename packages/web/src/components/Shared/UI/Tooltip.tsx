@@ -1,13 +1,24 @@
 import * as RadixTooltip from "@radix-ui/react-tooltip";
-import { motion } from "motion/react";
-import { memo, type ReactNode } from "react";
+import { useMediaQuery } from "@uidotdev/usehooks";
+import { m } from "motion/react";
+import {
+  type KeyboardEvent,
+  type MouseEvent,
+  memo,
+  type ReactNode,
+  useCallback,
+  useState
+} from "react";
+import cn from "@/helpers/cn";
+import { IS_MOBILE } from "@/helpers/mediaQueries";
 
 interface TooltipProps {
   children: ReactNode;
   className?: string;
-  content: ReactNode;
+  content: ReactNode | string;
   placement?: "bottom" | "left" | "right" | "top";
   withDelay?: boolean;
+  showOnClick?: boolean;
 }
 
 const Tooltip = ({
@@ -15,25 +26,60 @@ const Tooltip = ({
   className = "",
   content,
   placement = "right",
-  withDelay = false
+  withDelay = false,
+  showOnClick = false
 }: TooltipProps) => {
+  const isMobile = useMediaQuery(IS_MOBILE);
+  const [open, setOpen] = useState(false);
+
+  const handleTriggerClick = useCallback(
+    (e: MouseEvent<Element> | KeyboardEvent<Element>) => {
+      if (isMobile && showOnClick) {
+        e.stopPropagation();
+        setOpen((prev) => !prev);
+      }
+    },
+    [isMobile, showOnClick]
+  );
+
+  // Close on outside pointer-down when on mobile
+  const handleContentPointerDownOutside = useCallback(() => {
+    if (isMobile) setOpen(false);
+  }, [isMobile]);
+
   return (
     <RadixTooltip.Provider
       delayDuration={withDelay ? 600 : 0}
       skipDelayDuration={withDelay ? 0 : 600}
     >
-      <RadixTooltip.Root>
-        <RadixTooltip.Trigger asChild>
-          <span className={className}>{children}</span>
+      <RadixTooltip.Root
+        onOpenChange={isMobile ? setOpen : undefined}
+        open={isMobile ? open : undefined}
+      >
+        <RadixTooltip.Trigger
+          asChild
+          className={className}
+          onClick={handleTriggerClick}
+          onKeyDown={(e) =>
+            (e.key === "Enter" || e.key === " ") && handleTriggerClick(e)
+          }
+        >
+          <span>{children}</span>
         </RadixTooltip.Trigger>
         <RadixTooltip.Portal>
           <RadixTooltip.Content
             asChild
-            className="!rounded-lg !text-xs !leading-6 z-10 hidden bg-gray-700 px-3 py-0.5 text-white tracking-wide sm:block"
+            className={cn(
+              "z-50 max-w-96 rounded-lg! bg-gray-700 px-4 py-3 text-white text-xs! leading-6! tracking-wide",
+              {
+                "px-3 py-1": typeof content === "string" && content.length < 50
+              }
+            )}
+            onPointerDownOutside={handleContentPointerDownOutside}
             side={placement}
             sideOffset={5}
           >
-            <motion.div
+            <m.div
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
               initial={{ opacity: 0, scale: 0.95 }}
@@ -41,7 +87,7 @@ const Tooltip = ({
             >
               <span>{content}</span>
               <RadixTooltip.Arrow className="fill-gray-700" />
-            </motion.div>
+            </m.div>
           </RadixTooltip.Content>
         </RadixTooltip.Portal>
       </RadixTooltip.Root>

@@ -5,9 +5,11 @@ import {
   useMeQuery
 } from "@palus/indexer";
 import { useIsClient } from "@uidotdev/usehooks";
+import { domAnimation, LazyMotion } from "motion/react";
 import { memo, useCallback, useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
 import { Toaster, type ToasterProps } from "sonner";
+import BottomAudioPlayer from "@/components/Shared/Audio/BottomAudioPlayer";
 import FullPageLoader from "@/components/Shared/FullPageLoader";
 import GlobalAlerts from "@/components/Shared/GlobalAlerts";
 import GlobalModals from "@/components/Shared/GlobalModals";
@@ -75,7 +77,7 @@ const Layout = () => {
   }
 
   return (
-    <>
+    <LazyMotion features={domAnimation}>
       <Toaster
         icons={{
           error: <XCircleIcon className="size-5" />,
@@ -92,12 +94,13 @@ const Layout = () => {
       <GlobalModals />
       <GlobalAlerts />
       <ReloadTabsWatcher />
-      <div className="mx-auto flex w-full max-w-6xl items-start gap-x-5 px-0 md:px-5">
+      <div className="mx-auto flex w-full max-w-6xl items-start gap-x-6 px-0 md:px-5">
         <Navbar />
         <Outlet />
+        <BottomAudioPlayer />
         <BottomNavigation />
       </div>
-    </>
+    </LazyMotion>
   );
 };
 

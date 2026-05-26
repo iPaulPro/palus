@@ -12,7 +12,7 @@ const SmallSingleAccountShimmer = ({
   smallAvatar = false
 }: SmallSingleAccountShimmerProps) => {
   return (
-    <div className="flex items-center space-x-3">
+    <div className="flex items-center gap-x-3">
       <Skeleton
         className={cn(smallAvatar ? "size-4" : "size-6", "rounded-full")}
       />

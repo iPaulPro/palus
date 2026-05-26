@@ -27,6 +27,9 @@ const useEditPost = ({ onCompleted, onError }: EditPostProps) => {
       });
 
       if (!data?.post) {
+        toast.error("Post is still processing. Please refresh in a moment.", {
+          id: toastId
+        });
         return;
       }
 
@@ -37,16 +40,22 @@ const useEditPost = ({ onCompleted, onError }: EditPostProps) => {
         id: cache.identify(data.post)
       });
     },
-    [getPost, cache, editingPost]
+    [getPost, cache, editingPost?.id, setEditingPost]
   );
 
   const onCompletedWithTransaction = useCallback(
-    (hash: string) => {
+    async (hash: string) => {
       const toastId = toast.loading("Editing post...");
-      waitForTransactionToComplete(hash).then(() => updateCache(toastId));
+      try {
+        await waitForTransactionToComplete(hash);
+      } catch (e: any) {
+        toast.error(e.message, { id: toastId });
+        return onError(e);
+      }
+      await updateCache(toastId);
       return onCompleted();
     },
-    [waitForTransactionToComplete, updateCache, onCompleted]
+    [waitForTransactionToComplete, updateCache, onCompleted, onError]
   );
 
   // Onchain mutations

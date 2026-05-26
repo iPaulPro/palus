@@ -1,9 +1,9 @@
 import {
   type AccountFragment,
-  type PostMentionFragment,
+  type PostFragment,
   useAccountsBulkQuery
 } from "@palus/indexer";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import SingleAccountShimmer from "@/components/Shared/Shimmer/SingleAccountShimmer";
 import Skeleton from "@/components/Shared/Skeleton";
@@ -12,34 +12,64 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 import MoreRelevantPeople from "./MoreRelevantPeople";
 
 interface RelevantPeopleProps {
-  mentions: PostMentionFragment[];
+  post: PostFragment;
 }
 
-const RelevantPeople = ({ mentions }: RelevantPeopleProps) => {
+const RelevantPeople = ({ post }: RelevantPeopleProps) => {
   const { currentAccount } = useAccountStore();
   const [showMore, setShowMore] = useState(false);
 
-  const accountAddresses = mentions.map((accountMention) =>
-    accountMention.__typename === "AccountMention"
-      ? accountMention.account
-      : accountMention.replace.from
-  );
+  const accountAddresses = useMemo(() => {
+    const addresses = post.mentions.reduce<string[]>((acc, mention) => {
+      if (
+        mention.__typename === "AccountMention" &&
+        mention.account !== currentAccount?.address
+      ) {
+        acc.push(mention.account);
+      }
+      return acc;
+    }, []);
+
+    const commentOnAuthorAddress = post.commentOn?.author.address;
+    if (
+      commentOnAuthorAddress &&
+      commentOnAuthorAddress !== currentAccount?.address &&
+      commentOnAuthorAddress !== post.author.address
+    ) {
+      addresses.push(commentOnAuthorAddress);
+    }
+
+    const rootAuthorAddress = post.root?.author.address;
+    if (
+      rootAuthorAddress &&
+      rootAuthorAddress !== currentAccount?.address &&
+      rootAuthorAddress !== post.author.address
+    ) {
+      addresses.push(rootAuthorAddress);
+    }
+
+    return new Set(addresses);
+  }, [
+    post.mentions,
+    currentAccount?.address,
+    post.commentOn?.author.address,
+    post.author.address,
+    post.root?.author.address
+  ]);
 
   const { data, error, loading } = useAccountsBulkQuery({
-    skip: accountAddresses.length <= 0,
-    variables: { request: { addresses: accountAddresses } }
+    skip: accountAddresses.size <= 0,
+    variables: { request: { addresses: Array.from(accountAddresses) } }
   });
 
-  if (accountAddresses.length <= 0) {
+  if (accountAddresses.size <= 0) {
     return null;
   }
 
   if (loading) {
     return (
       <Card as="aside" className="space-y-4 p-5">
-        <SingleAccountShimmer showFollowUnfollowButton />
-        <SingleAccountShimmer showFollowUnfollowButton />
-        <SingleAccountShimmer showFollowUnfollowButton />
+        <div className="font-bold text-lg">Relevant Accounts</div>
         <SingleAccountShimmer showFollowUnfollowButton />
         <SingleAccountShimmer showFollowUnfollowButton />
         <div className="pt-2 pb-1">
@@ -58,6 +88,7 @@ const RelevantPeople = ({ mentions }: RelevantPeopleProps) => {
   return (
     <>
       <Card as="aside" className="space-y-4 p-5">
+        <div className="font-bold text-lg">Relevant Accounts</div>
         <ErrorMessage error={error} title="Failed to load relevant people" />
         {firstAccounts?.map((account) => (
           <div className="truncate" key={account?.address}>

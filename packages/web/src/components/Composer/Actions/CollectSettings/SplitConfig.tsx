@@ -4,7 +4,7 @@ import {
   UsersIcon,
   XCircleIcon
 } from "@heroicons/react/24/outline";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { useState } from "react";
 import { isAddress } from "viem";
 import SearchAccounts from "@/components/Shared/Account/SearchAccounts";
@@ -127,7 +127,7 @@ const SplitConfig = ({
         setOn={toggleSplit}
       />
       {isToggleOn ? (
-        <motion.div
+        <m.div
           animate="visible"
           className="mt-4 ml-8 space-y-3"
           initial="hidden"
@@ -140,8 +140,8 @@ const SplitConfig = ({
           <div className="space-y-2">
             {recipients.map((recipient, index) => (
               <H6
-                className="flex items-center space-x-2 font-normal"
-                key={index}
+                className="flex items-center gap-x-2 font-normal"
+                key={recipient.address}
               >
                 <SearchAccounts
                   error={
@@ -150,7 +150,7 @@ const SplitConfig = ({
                   }
                   hideDropdown={isAddress(recipient.address)}
                   onAccountSelected={(account) =>
-                    updateRecipient(index, account.owner)
+                    updateRecipient(index, account.address)
                   }
                   onChange={(event) =>
                     updateRecipient(index, event.target.value)
@@ -227,7 +227,7 @@ const SplitConfig = ({
           {isRecipientsDuplicated ? (
             <H6 className="text-red-500">Duplicate recipient address found</H6>
           ) : null}
-        </motion.div>
+        </m.div>
       ) : null}
     </div>
   );

@@ -11,6 +11,7 @@ export { default as HelpTooltip } from "./HelpTooltip";
 export { default as Image } from "./Image";
 export { default as Input } from "./Input";
 export { default as LightBox } from "./LightBox";
+export { default as MarqueeText } from "./MarqueeText";
 export { default as Modal } from "./Modal";
 export { default as RangeSlider } from "./RangeSlider";
 export { default as Select } from "./Select";
@@ -26,8 +27,10 @@ export {
   SelectTrigger,
   SelectValue
 } from "./SelectUI";
+export { Slider } from "./Slider";
 export { default as Spinner } from "./Spinner";
 export { default as StackedAvatars } from "./StackedAvatars";
+export { SwipeDirection, SwipeToDismiss } from "./SwipeToDismiss";
 export { default as Tabs } from "./Tabs";
 export { default as TextArea } from "./TextArea";
 export { default as Toggle } from "./Toggle";

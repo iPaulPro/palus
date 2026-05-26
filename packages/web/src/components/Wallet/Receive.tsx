@@ -25,7 +25,7 @@ const Receive = ({ modalOpen, setModalOpen }: Props) => {
   const qr = useMemo(() => {
     if (!currentAccount) return null;
     return encodeQR(currentAccount?.address, "svg", { ecc: "high" });
-  }, [currentAccount?.address]);
+  }, [currentAccount]);
 
   if (!qr || !currentAccount) return null;
 

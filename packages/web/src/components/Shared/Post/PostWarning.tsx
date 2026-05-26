@@ -9,11 +9,16 @@ interface PostWarningProps {
 const PostWarning = ({ message, setIgnore }: PostWarningProps) => {
   return (
     <Card
-      className="!bg-gray-100 dark:!bg-gray-800 m-5 flex items-center justify-between px-4"
+      className="!bg-gray-100 dark:!bg-gray-800 m-5 flex flex-row items-center justify-between gap-3 px-3 py-2"
       forceRounded
     >
-      <div className="py-3 text-sm">{message}</div>
-      <Button onClick={() => setIgnore(true)} outline size="sm">
+      <div className="truncate text-sm">{message}</div>
+      <Button
+        className="shrink-0"
+        onClick={() => setIgnore(true)}
+        outline
+        size="sm"
+      >
         Show post
       </Button>
     </Card>

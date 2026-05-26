@@ -5,7 +5,7 @@ import {
   WhoExecutedActionOnPostOrderBy,
   type WhoExecutedActionOnPostRequest
 } from "@palus/indexer";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { useCallback, useMemo } from "react";
 import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
@@ -91,7 +91,7 @@ const PostExecutors = ({ postId, filter }: PostExecutorsProps) => {
     <div className="max-h-[80vh] overflow-y-auto">
       <Virtualizer>
         {accounts.map((action, index) => (
-          <motion.div
+          <m.div
             animate="visible"
             className={cn(
               "divider p-5",
@@ -111,7 +111,7 @@ const PostExecutors = ({ postId, filter }: PostExecutorsProps) => {
               }
               showUserPreview
             />
-          </motion.div>
+          </m.div>
         ))}
         {hasMore && <div className="h-0.5" ref={loadMoreRef} />}
       </Virtualizer>

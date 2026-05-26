@@ -1,5 +1,6 @@
 import {
   PageSize,
+  type PostFragment,
   PostReferenceType,
   PostVisibilityFilter,
   useHiddenCommentsQuery,
@@ -11,6 +12,9 @@ import { create } from "zustand";
 import CommentFeed from "@/components/Comment/CommentFeed";
 import NoneRelevantFeed from "@/components/Comment/NoneRelevantFeed";
 import NewPublication from "@/components/Composer/NewPublication";
+import CollectibleDetails from "@/components/Post/CollectibleDetails";
+import GroupDetails from "@/components/Post/GroupDetails";
+import PostMetadataDetails from "@/components/Post/PostMetadataDetails";
 import Custom404 from "@/components/Shared/404";
 import Custom500 from "@/components/Shared/500";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
@@ -76,6 +80,10 @@ const ViewPost = () => {
     }
   });
 
+  if (error) {
+    return <Custom500 />;
+  }
+
   const post = data?.post ?? cachedPost;
   const hasHiddenComments = (comments?.postReferences.items.length || 0) > 0;
 
@@ -87,11 +95,7 @@ const ViewPost = () => {
     return <Custom404 />;
   }
 
-  if (error) {
-    return <Custom500 />;
-  }
-
-  const targetPost = isRepost(post) ? post.repostOf : post;
+  const targetPost: PostFragment = isRepost(post) ? post.repostOf : post;
 
   return (
     <PageLayout
@@ -109,13 +113,16 @@ const ViewPost = () => {
               showBio
             />
           </Card>
-          <RelevantPeople mentions={targetPost.mentions} />
+          <GroupDetails post={targetPost} />
+          <RelevantPeople post={targetPost} />
+          <PostMetadataDetails post={targetPost} />
+          <CollectibleDetails post={targetPost} />
           <Footer />
         </div>
       }
       title={`${targetPost.__typename} by ${
         getAccount(targetPost.author).username
-      } • Palus`}
+      }`}
       zeroTopMargin
     >
       <div className="space-y-5">

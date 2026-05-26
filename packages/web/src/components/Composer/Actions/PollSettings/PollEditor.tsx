@@ -6,18 +6,25 @@ import { Button, Card, Input, Modal, Tooltip } from "@/components/Shared/UI";
 import { usePostPollStore } from "@/store/non-persisted/post/usePostPollStore";
 
 const PollEditor = () => {
-  const { pollConfig, resetPollConfig, setPollConfig, setShowPollEditor } =
-    usePostPollStore();
+  const {
+    pollConfig,
+    resetPollConfig,
+    updatePollConfig,
+    addPollOption,
+    removePollOption,
+    updatePollOption,
+    setShowPollEditor
+  } = usePostPollStore();
   const [showPollLengthModal, setShowPollLengthModal] = useState(false);
 
   return (
-    <Card className="m-5 px-5 py-3" forceRounded>
+    <Card className="m-5 px-5 py-3 sm:w-4/5" forceRounded>
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-2 text-sm">
+        <div className="flex items-center gap-x-2 text-sm">
           <Bars3BottomLeftIcon className="size-4" />
           <b>Poll</b>
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center gap-x-3">
           <Button
             icon={<ClockIcon className="size-4" />}
             onClick={() => setShowPollLengthModal(true)}
@@ -37,15 +44,12 @@ const PollEditor = () => {
                 max={365}
                 min={1}
                 onChange={(e) => {
-                  setPollConfig({
-                    ...pollConfig,
-                    durationInDays: Number(e.target.value)
-                  });
+                  updatePollConfig({ durationInDays: Number(e.target.value) });
                 }}
                 type="number"
                 value={pollConfig.durationInDays}
               />
-              <div className="mt-5 flex space-x-2">
+              <div className="mt-5 flex gap-x-2">
                 <Button
                   className="ml-auto"
                   onClick={() => {
@@ -81,42 +85,39 @@ const PollEditor = () => {
         </div>
       </div>
       <div className="mt-3 space-y-2">
-        {pollConfig.options.map((choice, index) => (
-          <div className="flex items-center space-x-2 text-sm" key={index}>
-            <Input
-              iconRight={
-                index > 1 ? (
-                  <button
-                    className="flex"
-                    onClick={() => {
-                      const newOptions = [...pollConfig.options];
-                      newOptions.splice(index, 1);
-                      setPollConfig({ ...pollConfig, options: newOptions });
-                    }}
-                    type="button"
-                  >
-                    <XMarkIcon className="size-5 text-red-500" />
-                  </button>
-                ) : null
-              }
-              maxLength={25}
-              onChange={(event) => {
-                const newOptions = [...pollConfig.options];
-                newOptions[index] = event.target.value;
-                setPollConfig({ ...pollConfig, options: newOptions });
-              }}
-              placeholder={`Choice ${index + 1}`}
-              value={choice}
-            />
-          </div>
-        ))}
+        {pollConfig.options.map((choice, index) => {
+          const key = `${choice}_${index}`;
+          return (
+            <div className="flex items-center gap-x-2 text-sm" key={key}>
+              <Input
+                iconRight={
+                  index > 1 ? (
+                    <button
+                      className="flex"
+                      onClick={() => {
+                        removePollOption(index);
+                      }}
+                      type="button"
+                    >
+                      <XMarkIcon className="size-5 text-red-500" />
+                    </button>
+                  ) : null
+                }
+                maxLength={25}
+                onChange={(event) => {
+                  updatePollOption(index, event.target.value);
+                }}
+                placeholder={`Choice ${index + 1}`}
+                value={choice}
+              />
+            </div>
+          );
+        })}
         {pollConfig.options.length === 10 ? null : (
           <button
-            className="mt-2 flex items-center space-x-2 text-sm"
+            className="mt-2 flex items-center gap-x-2 text-sm"
             onClick={() => {
-              const newOptions = [...pollConfig.options];
-              newOptions.push("");
-              setPollConfig({ ...pollConfig, options: newOptions });
+              addPollOption();
             }}
             type="button"
           >

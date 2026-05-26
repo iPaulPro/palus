@@ -7851,7 +7851,7 @@ export type ReferencedPostFragment = {
       } & LoggedInPostOperationsFragment)
     | null;
   actions: Array<
-    | { __typename: "SimpleCollectAction" }
+    | ({ __typename: "SimpleCollectAction" } & SimpleCollectActionFragment)
     | ({ __typename: "UnknownPostAction" } & UnknownPostActionFragment)
   >;
   mentions: Array<
@@ -7887,7 +7887,9 @@ export type SimpleCollectActionFragment = {
   __typename?: "SimpleCollectAction";
   address: any;
   collectLimit?: number | null;
+  collectNftAddress: any;
   endsAt?: any | null;
+  isImmutable: boolean;
   payToCollect?:
     | ({ __typename?: "PayToCollectConfig" } & PayToCollectConfigFragment)
     | null;
@@ -8166,15 +8168,22 @@ export type MediaAudioFragment = {
   item: any;
   cover?: any | null;
   license?: MetadataLicenseType | null;
+  duration?: number | null;
+  audioType: MediaAudioType;
 };
 
-export type MediaImageFragment = { __typename?: "MediaImage"; item: any };
+export type MediaImageFragment = {
+  __typename?: "MediaImage";
+  item: any;
+  imageType: MediaImageType;
+};
 
 export type MediaVideoFragment = {
   __typename?: "MediaVideo";
   item: any;
   cover?: any | null;
   license?: MetadataLicenseType | null;
+  videoType: MediaVideoType;
 };
 
 export type SelfFundedTransactionRequestFragment = {
@@ -8966,6 +8975,23 @@ export type BookmarkPostMutation = {
   bookmarkPost: any;
 };
 
+export type ConfigurePostActionMutationVariables = Exact<{
+  request: ConfigurePostActionRequest;
+}>;
+
+export type ConfigurePostActionMutation = {
+  __typename?: "Mutation";
+  configurePostAction:
+    | { __typename?: "ConfigurePostActionResponse"; hash: any }
+    | ({
+        __typename?: "SelfFundedTransactionRequest";
+      } & SelfFundedTransactionRequestFragment)
+    | ({
+        __typename?: "SponsoredTransactionRequest";
+      } & SponsoredTransactionRequestFragment)
+    | ({ __typename?: "TransactionWillFail" } & TransactionWillFailFragment);
+};
+
 export type CreatePostMutationVariables = Exact<{
   request: CreatePostRequest;
 }>;
@@ -9470,6 +9496,24 @@ export type TokenDistributionsQuery = {
     pageInfo: {
       __typename?: "PaginatedResultInfo";
     } & PaginatedResultInfoFragment;
+  };
+};
+
+export type TopAccountsQueryVariables = Exact<{
+  request: PostsRequest;
+}>;
+
+export type TopAccountsQuery = {
+  __typename?: "Query";
+  posts: {
+    __typename?: "PaginatedAnyPostsResult";
+    items: Array<
+      | {
+          __typename?: "Post";
+          author: { __typename?: "Account" } & AccountFragment;
+        }
+      | { __typename?: "Repost" }
+    >;
   };
 };
 
@@ -10012,11 +10056,13 @@ export const MediaVideoFragmentDoc = `
   item
   cover
   license
+  videoType: type
 }
     `;
 export const MediaImageFragmentDoc = `
     fragment MediaImage on MediaImage {
   item
+  imageType: type
 }
     `;
 export const MediaAudioFragmentDoc = `
@@ -10025,6 +10071,8 @@ export const MediaAudioFragmentDoc = `
   item
   cover
   license
+  audioType: type
+  duration
 }
     `;
 export const AnyMediaFragmentDoc = `
@@ -10408,6 +10456,66 @@ export const LoggedInPostOperationsFragmentDoc = `
   }
 }
     `;
+export const Erc20AmountFragmentDoc = `
+    fragment Erc20Amount on Erc20Amount {
+  asset {
+    contract {
+      address
+    }
+    decimals
+    name
+    symbol
+  }
+  value
+}
+    `;
+export const NativeAmountFragmentDoc = `
+    fragment NativeAmount on NativeAmount {
+  asset {
+    contract {
+      address
+    }
+    decimals
+    name
+    symbol
+  }
+  value
+}
+    `;
+export const PayableAmountFragmentDoc = `
+    fragment PayableAmount on PayableAmount {
+  ... on Erc20Amount {
+    ...Erc20Amount
+  }
+  ... on NativeAmount {
+    ...NativeAmount
+  }
+}
+    `;
+export const PayToCollectConfigFragmentDoc = `
+    fragment PayToCollectConfig on PayToCollectConfig {
+  referralShare
+  recipients {
+    address
+    percent
+  }
+  price {
+    ...PayableAmount
+  }
+}
+    `;
+export const SimpleCollectActionFragmentDoc = `
+    fragment SimpleCollectAction on SimpleCollectAction {
+  address
+  collectLimit
+  collectNftAddress
+  endsAt
+  isImmutable
+  payToCollect {
+    ...PayToCollectConfig
+  }
+}
+    `;
 export const UnknownPostActionFragmentDoc = `
     fragment UnknownPostAction on UnknownPostAction {
   __typename
@@ -10453,7 +10561,7 @@ export const ReferencedPostFragmentDoc = `
   slug
   isDeleted
   isEdited
-  contentUri
+  contentUri(request: {useSnapshot: false})
   feed {
     ...PostFeedInfo
   }
@@ -10476,6 +10584,7 @@ export const ReferencedPostFragmentDoc = `
   }
   actions {
     __typename
+    ...SimpleCollectAction
     ...UnknownPostAction
   }
   mentions {
@@ -10541,42 +10650,6 @@ export const GroupMemberFragmentDoc = `
     fragment GroupMember on GroupMember {
   account {
     ...Account
-  }
-}
-    `;
-export const Erc20AmountFragmentDoc = `
-    fragment Erc20Amount on Erc20Amount {
-  asset {
-    contract {
-      address
-    }
-    decimals
-    name
-    symbol
-  }
-  value
-}
-    `;
-export const NativeAmountFragmentDoc = `
-    fragment NativeAmount on NativeAmount {
-  asset {
-    contract {
-      address
-    }
-    decimals
-    name
-    symbol
-  }
-  value
-}
-    `;
-export const PayableAmountFragmentDoc = `
-    fragment PayableAmount on PayableAmount {
-  ... on Erc20Amount {
-    ...Erc20Amount
-  }
-  ... on NativeAmount {
-    ...NativeAmount
   }
 }
     `;
@@ -10716,18 +10789,6 @@ export const MentionNotificationFragmentDoc = `
   }
 }
     `;
-export const PayToCollectConfigFragmentDoc = `
-    fragment PayToCollectConfig on PayToCollectConfig {
-  referralShare
-  recipients {
-    address
-    percent
-  }
-  price {
-    ...PayableAmount
-  }
-}
-    `;
 export const PostActionExecutedNotificationFragmentDoc = `
     fragment PostActionExecutedNotification on PostActionExecutedNotification {
   id
@@ -10822,16 +10883,6 @@ export const AnyPostFragmentDoc = `
   }
   ... on Repost {
     ...Repost
-  }
-}
-    `;
-export const SimpleCollectActionFragmentDoc = `
-    fragment SimpleCollectAction on SimpleCollectAction {
-  address
-  collectLimit
-  endsAt
-  payToCollect {
-    ...PayToCollectConfig
   }
 }
     `;
@@ -11695,6 +11746,26 @@ export const BookmarkPostDocument = `
   bookmarkPost(request: $request)
 }
     `;
+export const ConfigurePostActionDocument = `
+    mutation ConfigurePostAction($request: ConfigurePostActionRequest!) {
+  configurePostAction(request: $request) {
+    ... on ConfigurePostActionResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}
+    ${SelfFundedTransactionRequestFragmentDoc}
+${SponsoredTransactionRequestFragmentDoc}
+${TransactionWillFailFragmentDoc}`;
 export const CreatePostDocument = `
     mutation CreatePost($request: CreatePostRequest!) {
   post(request: $request) {
@@ -12257,6 +12328,11 @@ ${PostOperationValidationUnknownFragmentDoc}
 ${PostOperationValidationRuleFragmentDoc}
 ${PostRuleFragmentDoc}
 ${FeedRuleFragmentDoc}
+${SimpleCollectActionFragmentDoc}
+${PayToCollectConfigFragmentDoc}
+${PayableAmountFragmentDoc}
+${Erc20AmountFragmentDoc}
+${NativeAmountFragmentDoc}
 ${UnknownPostActionFragmentDoc}
 ${PostMentionFragmentDoc}
 ${AccountMentionFragmentDoc}
@@ -12268,10 +12344,6 @@ ${QuoteNotificationFragmentDoc}
 ${ReactionNotificationFragmentDoc}
 ${RepostNotificationFragmentDoc}
 ${PostActionExecutedNotificationFragmentDoc}
-${PayToCollectConfigFragmentDoc}
-${PayableAmountFragmentDoc}
-${Erc20AmountFragmentDoc}
-${NativeAmountFragmentDoc}
 ${AccountActionExecutedNotificationFragmentDoc}
 ${TokenDistributedNotificationFragmentDoc}
 ${GroupMembershipRequestRejectedNotificationFragmentDoc}
@@ -12300,6 +12372,25 @@ export const TokenDistributionsDocument = `
 ${Erc20AmountFragmentDoc}
 ${NativeAmountFragmentDoc}
 ${PaginatedResultInfoFragmentDoc}`;
+export const TopAccountsDocument = `
+    query TopAccounts($request: PostsRequest!) {
+  posts(request: $request) {
+    items {
+      ... on Post {
+        author {
+          ...Account
+        }
+      }
+    }
+  }
+}
+    ${AccountFragmentDoc}
+${AccountFollowRuleFragmentDoc}
+${AnyKeyValueFragmentDoc}
+${LoggedInAccountOperationsFragmentDoc}
+${AccountMetadataFragmentDoc}
+${MetadataAttributeFragmentDoc}
+${UsernameFragmentDoc}`;
 export const UsernameDocument = `
     query Username($request: UsernameRequest!) {
   username(request: $request) {
@@ -12565,6 +12656,11 @@ ${PostOperationValidationUnknownFragmentDoc}
 ${PostOperationValidationRuleFragmentDoc}
 ${PostRuleFragmentDoc}
 ${FeedRuleFragmentDoc}
+${SimpleCollectActionFragmentDoc}
+${PayToCollectConfigFragmentDoc}
+${PayableAmountFragmentDoc}
+${Erc20AmountFragmentDoc}
+${NativeAmountFragmentDoc}
 ${UnknownPostActionFragmentDoc}
 ${PostMentionFragmentDoc}
 ${AccountMentionFragmentDoc}
@@ -12625,6 +12721,11 @@ ${PostOperationValidationUnknownFragmentDoc}
 ${PostOperationValidationRuleFragmentDoc}
 ${PostRuleFragmentDoc}
 ${FeedRuleFragmentDoc}
+${SimpleCollectActionFragmentDoc}
+${PayToCollectConfigFragmentDoc}
+${PayableAmountFragmentDoc}
+${Erc20AmountFragmentDoc}
+${NativeAmountFragmentDoc}
 ${UnknownPostActionFragmentDoc}
 ${PostMentionFragmentDoc}
 ${AccountMentionFragmentDoc}
@@ -12712,6 +12813,11 @@ ${PostOperationValidationUnknownFragmentDoc}
 ${PostOperationValidationRuleFragmentDoc}
 ${PostRuleFragmentDoc}
 ${FeedRuleFragmentDoc}
+${SimpleCollectActionFragmentDoc}
+${PayToCollectConfigFragmentDoc}
+${PayableAmountFragmentDoc}
+${Erc20AmountFragmentDoc}
+${NativeAmountFragmentDoc}
 ${UnknownPostActionFragmentDoc}
 ${PostMentionFragmentDoc}
 ${AccountMentionFragmentDoc}
@@ -12771,6 +12877,11 @@ ${PostOperationValidationUnknownFragmentDoc}
 ${PostOperationValidationRuleFragmentDoc}
 ${PostRuleFragmentDoc}
 ${FeedRuleFragmentDoc}
+${SimpleCollectActionFragmentDoc}
+${PayToCollectConfigFragmentDoc}
+${PayableAmountFragmentDoc}
+${Erc20AmountFragmentDoc}
+${NativeAmountFragmentDoc}
 ${UnknownPostActionFragmentDoc}
 ${PostMentionFragmentDoc}
 ${AccountMentionFragmentDoc}
@@ -12852,6 +12963,11 @@ ${PostOperationValidationUnknownFragmentDoc}
 ${PostOperationValidationRuleFragmentDoc}
 ${PostRuleFragmentDoc}
 ${FeedRuleFragmentDoc}
+${SimpleCollectActionFragmentDoc}
+${PayToCollectConfigFragmentDoc}
+${PayableAmountFragmentDoc}
+${Erc20AmountFragmentDoc}
+${NativeAmountFragmentDoc}
 ${UnknownPostActionFragmentDoc}
 ${PostMentionFragmentDoc}
 ${AccountMentionFragmentDoc}
@@ -12912,6 +13028,11 @@ ${PostOperationValidationUnknownFragmentDoc}
 ${PostOperationValidationRuleFragmentDoc}
 ${PostRuleFragmentDoc}
 ${FeedRuleFragmentDoc}
+${SimpleCollectActionFragmentDoc}
+${PayToCollectConfigFragmentDoc}
+${PayableAmountFragmentDoc}
+${Erc20AmountFragmentDoc}
+${NativeAmountFragmentDoc}
 ${UnknownPostActionFragmentDoc}
 ${PostMentionFragmentDoc}
 ${AccountMentionFragmentDoc}
@@ -12972,6 +13093,11 @@ ${PostOperationValidationUnknownFragmentDoc}
 ${PostOperationValidationRuleFragmentDoc}
 ${PostRuleFragmentDoc}
 ${FeedRuleFragmentDoc}
+${SimpleCollectActionFragmentDoc}
+${PayToCollectConfigFragmentDoc}
+${PayableAmountFragmentDoc}
+${Erc20AmountFragmentDoc}
+${NativeAmountFragmentDoc}
 ${UnknownPostActionFragmentDoc}
 ${PostMentionFragmentDoc}
 ${AccountMentionFragmentDoc}
@@ -13484,6 +13610,24 @@ export function getSdk(
             variables
           }),
         "ConfigureAccountAction",
+        "mutation",
+        variables
+      );
+    },
+    ConfigurePostAction(
+      variables: ConfigurePostActionMutationVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+      signal?: RequestInit["signal"]
+    ): Promise<ConfigurePostActionMutation> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<ConfigurePostActionMutation>({
+            document: ConfigurePostActionDocument,
+            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
+            signal,
+            variables
+          }),
+        "ConfigurePostAction",
         "mutation",
         variables
       );
@@ -14474,6 +14618,24 @@ export function getSdk(
             variables
           }),
         "TokenDistributions",
+        "query",
+        variables
+      );
+    },
+    TopAccounts(
+      variables: TopAccountsQueryVariables,
+      requestHeaders?: GraphQLClientRequestHeaders,
+      signal?: RequestInit["signal"]
+    ): Promise<TopAccountsQuery> {
+      return withWrapper(
+        (wrappedRequestHeaders) =>
+          client.request<TopAccountsQuery>({
+            document: TopAccountsDocument,
+            requestHeaders: { ...requestHeaders, ...wrappedRequestHeaders },
+            signal,
+            variables
+          }),
+        "TopAccounts",
         "query",
         variables
       );

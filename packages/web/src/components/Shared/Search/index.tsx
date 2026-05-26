@@ -164,11 +164,13 @@ const Search = ({
   }, [debouncedSearchText]);
 
   return (
-    <div className="w-full">
+    <>
       <Form form={form} onSubmit={handleSubmit}>
+        {/* react-doctor-disable-next-line jsx-a11y/no-autofocus */}
         <Input
+          autoComplete="off"
           autoFocus={autoFocus}
-          className="px-3 py-3 text-base sm:text-sm"
+          className="search p-3 text-base sm:text-sm"
           iconLeft={<MagnifyingGlassIcon />}
           iconRight={
             <XMarkIcon
@@ -180,11 +182,12 @@ const Search = ({
           onKeyDown={handleKeyDown}
           placeholder={placeholder}
           type="text"
+          wrapperClassName="card-drop-shadow md:rounded-2xl md:border-none"
           {...form.register("query")}
         />
       </Form>
       {pathname !== "/search" && showDropdown ? (
-        <div className="fixed z-10 mt-2 w-[360px]" ref={dropdownRef}>
+        <div className="suggestions z-10 w-88" ref={dropdownRef}>
           <Card className="max-h-[80vh] overflow-y-auto py-2">
             {!debouncedSearchText && (
               <RecentAccounts onAccountClick={handleReset} />
@@ -195,12 +198,18 @@ const Search = ({
               <>
                 {accounts.map((account, index) => (
                   <div
+                    aria-selected={index === selectedIndex}
                     className={cn(
                       "cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800",
                       index === selectedIndex && "bg-gray-100 dark:bg-gray-800"
                     )}
                     key={account.address}
                     onClick={() => handleSelectAccount(account)}
+                    onKeyDown={(e) =>
+                      e.key === "Enter" && handleSelectAccount(account)
+                    }
+                    role="option"
+                    tabIndex={0}
                   >
                     <SingleAccount
                       account={account}
@@ -221,7 +230,7 @@ const Search = ({
           </Card>
         </div>
       ) : null}
-    </div>
+    </>
   );
 };
 

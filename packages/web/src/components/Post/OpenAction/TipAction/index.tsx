@@ -19,7 +19,7 @@ const TipAction = ({ currentAccount, post, showCount }: TipActionProps) => {
   const { tips } = post.stats;
 
   return (
-    <div className="flex items-center space-x-1 text-gray-500 dark:text-gray-200">
+    <div className="flex items-center gap-x-1 text-gray-500 dark:text-gray-200">
       {/* @ts-ignore */}
       <Menu as="div" className="relative">
         <MenuButton
@@ -42,7 +42,7 @@ const TipAction = ({ currentAccount, post, showCount }: TipActionProps) => {
         <MenuTransition>
           <MenuItems
             anchor="bottom"
-            className="z-[5] w-max origin-top-left rounded-xl border border-gray-200 bg-white shadow-xl [--anchor-gap:0.5rem] [--anchor-padding:0.5rem] focus:outline-hidden dark:border-gray-800 dark:bg-gray-900"
+            className="z-5 w-max origin-top-left rounded-xl border border-gray-200 bg-white shadow-xl [--anchor-gap:0.5rem] [--anchor-padding:0.5rem] focus:outline-hidden dark:border-gray-800 dark:bg-gray-900"
             static
           >
             <MenuItem>

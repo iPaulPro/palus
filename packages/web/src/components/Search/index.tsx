@@ -32,6 +32,7 @@ const Search = () => {
   return (
     <PageLayout hideSearch sidebar={<Sidebar />} title="Search">
       <div className="px-4 md:px-0">
+        {/* react-doctor-disable-next-line jsx-a11y/no-autofocus */}
         <SearchInput autoFocus query={query} />
       </div>
       <FeedType feedType={feedType as SearchTabFocus} />

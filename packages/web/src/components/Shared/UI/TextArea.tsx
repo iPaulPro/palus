@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import type { ComponentProps } from "react";
-import { forwardRef, memo, useId } from "react";
+import type { ComponentProps, Ref } from "react";
+import { memo, useId } from "react";
 import cn from "@/helpers/cn";
 import { FieldError } from "./Form";
 
@@ -26,25 +26,30 @@ interface TextAreaProps
   extends ComponentProps<"textarea">,
     VariantProps<typeof textAreaVariants> {
   label?: string;
+  ref?: Ref<HTMLTextAreaElement>;
 }
 
-const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  ({ className, error, label, ...props }, ref) => {
-    const id = useId();
+const TextArea = ({
+  className,
+  error,
+  label,
+  ref,
+  ...props
+}: TextAreaProps) => {
+  const id = useId();
 
-    return (
-      <label className="w-full" htmlFor={id}>
-        {label ? <div className="label">{label}</div> : null}
-        <textarea
-          className={cn(textAreaVariants({ className, error }))}
-          id={id}
-          ref={ref}
-          {...props}
-        />
-        {props.name ? <FieldError name={props.name} /> : null}
-      </label>
-    );
-  }
-);
+  return (
+    <label className="w-full" htmlFor={id}>
+      {label ? <div className="label">{label}</div> : null}
+      <textarea
+        className={cn(textAreaVariants({ className, error }))}
+        id={id}
+        ref={ref}
+        {...props}
+      />
+      {props.name ? <FieldError name={props.name} /> : null}
+    </label>
+  );
+};
 
 export default memo(TextArea);

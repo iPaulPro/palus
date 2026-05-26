@@ -5,7 +5,6 @@ import { useState } from "react";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import { Spinner, Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
-import humanize from "@/helpers/humanize";
 import nFormatter from "@/helpers/nFormatter";
 import { isRepost } from "@/helpers/postHelpers";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
@@ -34,11 +33,11 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
   const { canRepost, canQuote } = useCanShare({ post: targetPost });
 
   if (!canRepost && !canQuote) {
-    return null;
+    return <div className="order-last block size-8 sm:hidden" />;
   }
 
   return (
-    <div className="flex items-center space-x-1">
+    <div className="flex items-center gap-x-1">
       <Menu as="div" className="relative">
         <MenuButton
           aria-label="Repost"
@@ -53,15 +52,7 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
           {isSubmitting ? (
             <Spinner className="mr-0.5" size="xs" />
           ) : (
-            <Tooltip
-              content={
-                shares > 0
-                  ? `${humanize(shares)} Reposts and Quotes`
-                  : "Repost or Quote"
-              }
-              placement="top"
-              withDelay
-            >
+            <Tooltip content="Repost or Quote" placement="top" withDelay>
               <ArrowsRightLeftIcon className="size-5" />
             </Tooltip>
           )}
@@ -69,7 +60,7 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
         <MenuTransition>
           <MenuItems
             anchor="bottom start"
-            className="z-[5] mt-2 w-max origin-top-left rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-gray-900"
+            className="z-5 mt-2 w-max origin-top-left rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-gray-900"
             static
           >
             {canRepost && (

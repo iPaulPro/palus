@@ -109,7 +109,7 @@ const Copyright = () => {
                   Designated Copyright Agent:
                 </p>
                 <p className="leading-7">
-                  Palus Designated Copyright Agent: Yoginth
+                  Palus Designated Copyright Agent: Paul
                 </p>
                 <p className="linkify leading-7">
                   Email:{" "}

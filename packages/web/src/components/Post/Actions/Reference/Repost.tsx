@@ -60,10 +60,13 @@ const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
     toast.success("Post has been reposted!");
   };
 
-  const onError = useCallback((error: ApolloClientError) => {
-    setIsSubmitting(false);
-    errorToast(error);
-  }, []);
+  const onError = useCallback(
+    (error: ApolloClientError) => {
+      setIsSubmitting(false);
+      errorToast(error);
+    },
+    [setIsSubmitting]
+  );
 
   const [repost] = useRepostMutation({
     onCompleted: async ({ repost }) => {
@@ -82,7 +85,7 @@ const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
 
   const handleCreateRepost = async () => {
     if (!currentAccount) {
-      return toast.error(ERRORS.SignWallet);
+      return toast.error(ERRORS.LoginRequired);
     }
 
     setIsSubmitting(true);
@@ -102,7 +105,7 @@ const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
       disabled={isSubmitting}
       onClick={handleCreateRepost}
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         <ArrowsRightLeftIcon className="size-4" />
         <div>{hasReposted ? "Repost again" : "Repost"}</div>
       </div>

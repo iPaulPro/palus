@@ -105,21 +105,22 @@ const SearchAccounts = ({
       />
       {!hideDropdown && value.length > 0 && (
         <div className="absolute mt-2 flex w-[94%] max-w-md flex-col">
-          <Card className="z-[2] max-h-[80vh] overflow-y-auto py-2">
+          <Card className="z-2 max-h-[80vh] overflow-y-auto py-2">
             {loading ? (
               <Loader className="my-3" message="Searching users" small />
             ) : accounts && accounts.length > 0 ? (
               displayedAccounts?.map((account, index) => (
-                <div
+                <button
                   className={cn(
-                    "cursor-pointer px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800",
+                    "w-full cursor-pointer px-4 py-2 text-left hover:bg-gray-100 dark:hover:bg-gray-800",
                     index === selectedIndex && "bg-gray-100 dark:bg-gray-800"
                   )}
                   key={account.address}
                   onClick={() => onAccountSelected(account)}
+                  type="button"
                 >
                   <SmallSingleAccount account={account} />
-                </div>
+                </button>
               ))
             ) : (
               <div className="px-4 py-2">No matching users</div>

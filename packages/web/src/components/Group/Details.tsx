@@ -30,12 +30,12 @@ const Details = ({ group }: DetailsProps) => {
   }, []);
 
   return (
-    <div className="mb-4 space-y-3 px-4 md:px-0">
+    <div className="mb-4 space-y-2 px-4 md:space-y-3 md:px-2">
       <div className="flex items-start justify-between">
-        <div className="relative -mt-24 ml-5 size-32 sm:-mt-24 sm:size-36">
+        <div className="relative -mt-20 ml-2 size-28 sm:-mt-24 sm:size-36 md:ml-4">
           <Image
             alt={group.address}
-            className="size-32 cursor-pointer rounded-xl bg-gray-200 object-cover ring-3 ring-gray-50 sm:size-36 dark:bg-gray-700 dark:ring-black"
+            className="size-28 cursor-pointer rounded-xl bg-gray-200 object-cover ring-3 ring-gray-50 sm:size-36 md:size-32 dark:bg-gray-700 dark:ring-black"
             height={128}
             onClick={handleShowLightBox}
             src={getAvatar(group, TRANSFORMS.AVATAR_BIG)}
@@ -81,7 +81,7 @@ const Details = ({ group }: DetailsProps) => {
           </span>
         </div>
       </div>
-      <div className="flex flex-wrap items-center gap-x-8 gap-y-2">
+      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pt-2 sm:gap-x-8">
         <MembersCount group={group} />
         <AdminCount group={group} />
         {group.owner === currentAccount?.address && (

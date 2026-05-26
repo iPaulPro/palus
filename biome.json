@@ -30,8 +30,13 @@
       "!**/generated.ts",
       "!**/expo-env.d.ts",
       "!**/package.json",
+      "!docs/**/*",
       "!packages/web/src/assets/**/*",
-      "!packages/web/public/site.webmanifest"
+      "!packages/web/public/site.webmanifest",
+      "!packages/web/src/helpers/metaMaskSdkConnector.ts",
+      "!packages/web/src/helpers/howlCache.ts",
+      "!packages/web/src/store/non-persisted/audio/HowlStore.ts",
+      "!packages/web/src/types/howl.ts"
     ]
   },
   "formatter": {

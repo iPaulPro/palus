@@ -1,13 +1,13 @@
-import { MotionConfig, motion } from "motion/react";
+import { MotionConfig, m } from "motion/react";
 import {
   type KeyboardEvent,
   type MouseEvent,
   memo,
   type ReactNode,
   useLayoutEffect,
+  useMemo,
   useRef
 } from "react";
-import { ScrollArea } from "@/components/Shared/UI/ScrollArea";
 import cn from "@/helpers/cn";
 
 interface TabsProps {
@@ -21,28 +21,18 @@ interface TabsProps {
 const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
   const tabRefs = useRef<Map<string, HTMLLIElement>>(new Map());
 
+  const activeTab = useMemo(() => tabRefs.current.get(active), [active]);
+
   useLayoutEffect(() => {
     const activeTab = tabRefs.current.get(active);
     if (activeTab) {
-      const viewport = activeTab.closest('[data-slot="scroll-area-viewport"]');
-      if (viewport) {
-        const viewportRect = viewport.getBoundingClientRect();
-        const tabRect = activeTab.getBoundingClientRect();
-
-        const scrollLeft =
-          tabRect.left -
-          viewportRect.left +
-          viewport.scrollLeft -
-          viewportRect.width / 2 +
-          tabRect.width / 2;
-
-        viewport.scrollTo({
-          behavior: "smooth",
-          left: scrollLeft
-        });
-      }
+      activeTab.scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center"
+      });
     }
-  }, [active]);
+  }, [activeTab]);
 
   const handleAction = (
     e: MouseEvent<HTMLLIElement> | KeyboardEvent<HTMLLIElement>,
@@ -53,9 +43,9 @@ const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
   };
 
   return (
-    <ScrollArea className="w-full min-w-0">
+    <div className="no-scrollbar w-full min-w-0 overflow-scroll">
       <MotionConfig transition={{ bounce: 0, duration: 0.4, type: "spring" }}>
-        <motion.ul
+        <m.ul
           className={cn(
             "mb-0 grid min-w-full list-none auto-cols-max grid-flow-col gap-2 px-4 md:px-0",
             className
@@ -63,7 +53,7 @@ const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
           layout
         >
           {tabs.map((tab) => (
-            <motion.li
+            <m.li
               className="relative flex-none cursor-pointer px-3 py-1.5 text-sm outline-hidden transition-colors"
               key={tab.type}
               layout
@@ -79,20 +69,24 @@ const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
               tabIndex={0}
             >
               {active === tab.type ? (
-                <motion.div
-                  className="absolute inset-0 rounded-lg bg-gray-300 dark:bg-gray-300/20"
+                <m.div
+                  className="absolute inset-0 rounded-lg border border-border bg-card"
                   layoutId={layoutId}
                 />
               ) : null}
-              <span className="relative flex items-center gap-2 text-inherit">
+              <span
+                className={cn("relative flex items-center gap-2 text-inherit", {
+                  "text-secondary": active !== tab.type
+                })}
+              >
                 {tab.name}
                 {tab.suffix}
               </span>
-            </motion.li>
+            </m.li>
           ))}
-        </motion.ul>
+        </m.ul>
       </MotionConfig>
-    </ScrollArea>
+    </div>
   );
 };
 

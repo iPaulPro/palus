@@ -73,7 +73,7 @@ const ExploreFeed = ({ focus, onScroll }: ExploreFeedProps) => {
           !post.operations?.hasReported &&
           !bannedAccounts.includes(post.author.address)
       ),
-    [posts]
+    [posts, bannedAccounts]
   );
 
   return (

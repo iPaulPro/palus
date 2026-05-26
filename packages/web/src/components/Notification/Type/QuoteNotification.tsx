@@ -26,9 +26,9 @@ const QuoteNotification = ({
   return (
     <div className="space-y-2 px-4 py-5 md:p-5">
       <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center gap-x-3">
           <ChatBubbleBottomCenterTextIcon className="size-6" />
-          <div className="flex items-center space-x-1">
+          <div className="flex items-center gap-x-1">
             <NotificationAccountAvatar account={firstAccount} />
           </div>
         </div>

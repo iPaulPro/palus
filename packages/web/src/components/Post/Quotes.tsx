@@ -50,25 +50,25 @@ const Quotes = ({ post }: QuotesProps) => {
   const loadMoreRef = useLoadMoreOnIntersect(handleEndReached);
 
   if (error) {
-    return <ErrorMessage error={error} title="Failed to load comment feed" />;
+    return <ErrorMessage error={error} title="Failed to quotes" />;
   }
 
   return (
-    <Card>
-      <CardHeader icon={<BackButton />} title="Quotes" />
+    <>
+      <Card>
+        <CardHeader icon={<BackButton />} title="Quotes" />
+      </Card>
       {loading ? (
         <PostsShimmer hideCard />
       ) : error ? (
-        <ErrorMessage error={error} title="Failed to load comment feed" />
+        <ErrorMessage error={error} title="Failed to quotes" />
       ) : quotes.length ? (
-        <div className="virtual-divider-list-window">
-          <WindowVirtualizer>
-            {quotes.map((quote) => (
-              <SinglePost key={quote.id} post={quote} showType={false} />
-            ))}
-            {hasMore && <div className="h-0.5" ref={loadMoreRef} />}
-          </WindowVirtualizer>
-        </div>
+        <WindowVirtualizer>
+          {quotes.map((quote) => (
+            <SinglePost key={quote.id} post={quote} showType={false} />
+          ))}
+          {hasMore && <div className="h-0.5" ref={loadMoreRef} />}
+        </WindowVirtualizer>
       ) : (
         <EmptyState
           hideCard
@@ -76,7 +76,7 @@ const Quotes = ({ post }: QuotesProps) => {
           message="Be the first one to quote!"
         />
       )}
-    </Card>
+    </>
   );
 };
 

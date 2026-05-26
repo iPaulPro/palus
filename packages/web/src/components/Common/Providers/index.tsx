@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import type { ReactNode } from "react";
 import { HelmetProvider } from "react-helmet-async";
 import ErrorBoundary from "@/components/Common/ErrorBoundary";
+import { AudioPlayerProvider } from "@/components/Common/Providers/AudioPlayerProvider";
 import authLink from "@/helpers/authLink";
 import { ThemeProvider } from "@/hooks/useTheme";
 import Web3Provider from "./Web3Provider";
@@ -25,7 +26,9 @@ const Providers = ({ children }: ProvidersProps) => {
         <QueryClientProvider client={queryClient}>
           <ApolloProvider client={lensApolloClient}>
             <HelmetProvider>
-              <ThemeProvider>{children}</ThemeProvider>
+              <AudioPlayerProvider>
+                <ThemeProvider>{children}</ThemeProvider>
+              </AudioPlayerProvider>
             </HelmetProvider>
           </ApolloProvider>
         </QueryClientProvider>

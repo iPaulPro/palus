@@ -19,7 +19,12 @@ const PostType = ({ post, showType }: PostTypeProps) => {
   }
 
   return (
-    <span onClick={stopEventPropagation}>
+    <div
+      className="sm:-mt-1"
+      onClick={stopEventPropagation}
+      onKeyDown={stopEventPropagation}
+      role="note"
+    >
       {type === "Post" && post.root && post.root.id !== post.commentOn?.id ? (
         <Root root={post.root} />
       ) : null}
@@ -27,7 +32,7 @@ const PostType = ({ post, showType }: PostTypeProps) => {
       {targetPost.commentOn ? (
         <Commented commentOn={targetPost.commentOn} />
       ) : null}
-    </span>
+    </div>
   );
 };
 

@@ -11,7 +11,7 @@ interface ThemeSwitchProps {
 const ThemeSwitch = ({ className = "", onClick }: ThemeSwitchProps) => {
   const { toggleTheme, theme } = useTheme();
 
-  const handleClick = useCallback(() => {
+  const switchThemes = useCallback(() => {
     toggleTheme();
     onClick?.();
   }, [toggleTheme, onClick]);
@@ -22,7 +22,7 @@ const ThemeSwitch = ({ className = "", onClick }: ThemeSwitchProps) => {
         "flex w-full items-center space-x-1.5 px-2 py-1.5 text-left text-gray-700 text-sm dark:text-gray-200",
         className
       )}
-      onClick={handleClick}
+      onClick={switchThemes}
       type="button"
     >
       {theme === "light" ? (

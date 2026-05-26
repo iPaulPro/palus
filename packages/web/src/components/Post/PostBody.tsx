@@ -1,7 +1,7 @@
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { getSrc } from "@livepeer/react/external";
 import { type AnyPostFragment, ContentWarning } from "@palus/indexer";
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useMemo, useRef, useState } from "react";
 import HiddenPost from "@/components/Post/HiddenPost";
 import PollAction from "@/components/Post/OpenAction/PollAction";
 import Quote from "@/components/Shared/Embed/Quote";
@@ -15,6 +15,7 @@ import { CONTRACTS } from "@/data/contracts";
 import cn from "@/helpers/cn";
 import getPostData from "@/helpers/getPostData";
 import getURLs from "@/helpers/getURLs";
+import { type PlateNode, plateToMd } from "@/helpers/plateToMd";
 import { isRepost } from "@/helpers/postHelpers";
 
 interface PostBodyProps {
@@ -33,9 +34,30 @@ const PostBody = ({
   const targetPost = isRepost(post) ? post.repostOf : post;
   const { metadata } = targetPost;
 
-  const filteredContent = getPostData(metadata)?.content || "";
-  const filteredAttachments = getPostData(metadata)?.attachments || [];
-  const filteredAsset = getPostData(metadata)?.asset;
+  const postData = getPostData(metadata);
+  const isArticle = targetPost.metadata.__typename === "ArticleMetadata";
+
+  const filteredContent = useMemo(() => {
+    if (!postData) return "";
+
+    const contentJson = postData.attributes?.find(
+      (attr) => attr.key === "contentJson"
+    )?.value;
+    if (isArticle && contentJson) {
+      try {
+        const parsed = JSON.parse(contentJson) as PlateNode[];
+        const md = plateToMd(parsed);
+        return md;
+      } catch {
+        // ignore
+      }
+    }
+
+    return postData.content ?? "";
+  }, [postData]);
+
+  const filteredAttachments = postData?.attachments || [];
+  const filteredAsset = postData?.asset;
 
   const markupRef = useRef<HTMLElement>(null);
   const [isClamped, setIsClamped] = useState(false);
@@ -110,17 +132,21 @@ const PostBody = ({
         >
           <Markup
             className={cn(
-              { "line-clamp-2": embedded, "line-clamp-7": showMore },
+              {
+                "line-clamp-2": embedded,
+                "line-clamp-7": showMore && !embedded
+              },
               "markup linkify break-words",
               contentClassName
             )}
             mentions={targetPost.mentions}
             ref={markupRef}
+            strip={!isArticle}
           >
             {filteredContent}
           </Markup>
-          {isClamped ? (
-            <div className="flex items-center space-x-1 pt-1 font-semibold text-brand-500 text-sm">
+          {isClamped && !embedded ? (
+            <div className="flex items-center gap-x-1 pt-1 font-semibold text-brand-500 text-sm">
               <PostLink post={post}>Show more</PostLink>
             </div>
           ) : null}
@@ -141,6 +167,7 @@ const PostBody = ({
             <Attachments
               asset={filteredAsset}
               attachments={filteredAttachments}
+              postId={targetPost.slug}
             />
           ) : null}
           {showLive && !embedded ? (

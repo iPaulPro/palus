@@ -11,7 +11,7 @@ const DeveloperSettings = () => {
   }
 
   return (
-    <PageLayout title="Developer settings">
+    <PageLayout title="Developer settings" zeroTopMargin>
       <Tokens />
     </PageLayout>
   );

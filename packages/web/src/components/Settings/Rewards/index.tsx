@@ -13,7 +13,7 @@ const RewardsSettings = () => {
   }
 
   return (
-    <PageLayout title="Rewards">
+    <PageLayout title="Rewards" zeroTopMargin>
       <Card>
         <CardHeader icon={<BackButton path="/settings" />} title="Rewards" />
         <List />

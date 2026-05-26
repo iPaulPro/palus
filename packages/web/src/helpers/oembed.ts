@@ -18,9 +18,7 @@ const fetchLinkPreview = async (url: string): Promise<Oembed | null> => {
       doc
         .querySelector(`meta[property="${property}"]`)
         ?.getAttribute("content") ??
-      doc
-        .querySelector(`meta[name="${property}"]`)
-        ?.getAttribute("content") ??
+      doc.querySelector(`meta[name="${property}"]`)?.getAttribute("content") ??
       null;
 
     const title = getMeta("og:title") ?? doc.title ?? null;

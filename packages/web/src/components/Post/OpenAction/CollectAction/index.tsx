@@ -1,10 +1,8 @@
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import type { PostFragment } from "@palus/indexer";
-import plur from "plur";
 import { useState } from "react";
 import { Modal, Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
-import humanize from "@/helpers/humanize";
 import nFormatter from "@/helpers/nFormatter";
 import CollectActionBody from "./CollectActionBody";
 
@@ -28,11 +26,7 @@ const CollectAction = ({ post, showCount }: CollectActionProps) => {
         onClick={() => setShowCollectModal(true)}
         type="button"
       >
-        <Tooltip
-          content={`${humanize(collects)} ${plur("Collect", collects)}`}
-          placement="top"
-          withDelay
-        >
+        <Tooltip content="Collect" placement="top" withDelay>
           <ShoppingBagIcon
             className={cn("size-5", {
               "text-brand-500": hasSimpleCollected

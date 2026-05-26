@@ -1,10 +1,11 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import {
   type AccountFragment,
-  PageSize,
-  useAccountRecommendationsQuery
+  type PostFragment,
+  PostType,
+  useTopAccountsQuery
 } from "@palus/indexer";
-import { memo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import Suggested from "@/components/Home/Suggested";
 import DismissRecommendedAccount from "@/components/Shared/Account/DismissRecommendedAccount";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
@@ -21,15 +22,37 @@ const WhoToFollow = () => {
   const { bannedAccounts } = useBannedAccountsStore();
   const [showMore, setShowMore] = useState(false);
 
-  const { data, error, loading } = useAccountRecommendationsQuery({
+  // const { data, error, loading } = useAccountRecommendationsQuery({
+  //   variables: {
+  //     request: {
+  //       account: currentAccount?.address,
+  //       pageSize: PageSize.Fifty,
+  //       shuffle: true
+  //     }
+  //   }
+  // });
+
+  // TODO revert back to useAccountRecommendationsQuery when API is fixed
+  const { data, error, loading } = useTopAccountsQuery({
     variables: {
       request: {
-        account: currentAccount?.address,
-        pageSize: PageSize.Fifty,
-        shuffle: true
+        filter: {
+          accountScore: {
+            atLeast: 9000
+          },
+          postTypes: [PostType.Root]
+        }
       }
     }
   });
+
+  const accounts = useMemo(() => {
+    const authors = data?.posts.items.map(
+      (post) => (post as PostFragment).author
+    );
+    const uniqueAuthors = new Set(authors);
+    return Array.from(uniqueAuthors);
+  }, [data?.posts.items]);
 
   if (loading) {
     return (
@@ -52,17 +75,18 @@ const WhoToFollow = () => {
     );
   }
 
-  if (!data?.mlAccountRecommendations.items.length) {
+  if (!accounts.length) {
     return null;
   }
 
-  const recommendedAccounts = data?.mlAccountRecommendations.items.filter(
+  const recommendedAccounts = accounts.filter(
     (account) =>
       !account.operations?.isBlockedByMe &&
       !account.operations?.isMutedByMe &&
       !account.operations?.isFollowedByMe &&
       !account.operations?.hasBlockedMe &&
-      !bannedAccounts.includes(account.address)
+      !bannedAccounts.includes(account.address) &&
+      account.address !== currentAccount?.address
   ) as AccountFragment[];
 
   if (!recommendedAccounts?.length) {
@@ -71,7 +95,7 @@ const WhoToFollow = () => {
 
   return (
     <>
-      <Card className="space-y-4 p-5">
+      <Card className="max-w-88 space-y-4 p-5">
         <Title />
         <ErrorMessage error={error} title="Failed to load recommendations" />
         {recommendedAccounts?.slice(0, 5).map((account) => (
@@ -87,7 +111,7 @@ const WhoToFollow = () => {
         ))}
         {recommendedAccounts.length > 5 && (
           <button
-            className="font-bold text-gray-500 dark:text-gray-200"
+            className="text-start font-bold text-gray-500 dark:text-gray-200"
             onClick={() => setShowMore(true)}
             type="button"
           >

@@ -7,13 +7,18 @@ import {
   useHideManagedAccountMutation,
   useUnhideManagedAccountMutation
 } from "@palus/indexer";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { WindowVirtualizer } from "virtua";
-import { useAccount } from "wagmi";
+import { useConnection } from "wagmi";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
-import { Button, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import {
+  Button,
+  EmptyState,
+  ErrorMessage,
+  Tooltip
+} from "@/components/Shared/UI";
 import errorToast from "@/helpers/errorToast";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 
@@ -22,7 +27,7 @@ interface ListProps {
 }
 
 const List = ({ managed = false }: ListProps) => {
-  const { address } = useAccount();
+  const { address } = useConnection();
   const [updatingAccount, setUpdatingAccount] = useState<string | null>(null);
 
   const lastLoggedInAccountRequest: LastLoggedInAccountRequest = { address };
@@ -30,25 +35,25 @@ const List = ({ managed = false }: ListProps) => {
     hiddenFilter: managed
       ? ManagedAccountsVisibility.NoneHidden
       : ManagedAccountsVisibility.HiddenOnly,
+    includeOwned: managed,
     managedBy: address
   };
 
-  const { data, error, fetchMore, loading, refetch } =
-    useAccountsAvailableQuery({
-      variables: {
-        accountsAvailableRequest,
-        lastLoggedInAccountRequest
-      }
-    });
+  const { data, error, fetchMore, loading } = useAccountsAvailableQuery({
+    variables: {
+      accountsAvailableRequest,
+      lastLoggedInAccountRequest
+    }
+  });
 
   const [hideManagedAccount, { loading: hiding }] =
-    useHideManagedAccountMutation();
+    useHideManagedAccountMutation({
+      refetchQueries: ["AccountsAvailable"]
+    });
   const [unhideManagedAccount, { loading: unhiding }] =
-    useUnhideManagedAccountMutation();
-
-  useEffect(() => {
-    refetch();
-  }, [managed, refetch]);
+    useUnhideManagedAccountMutation({
+      refetchQueries: ["AccountsAvailable"]
+    });
 
   const accountsAvailable = data?.accountsAvailable.items;
   const pageInfo = data?.accountsAvailable?.pageInfo;
@@ -87,7 +92,7 @@ const List = ({ managed = false }: ListProps) => {
         title={
           managed
             ? "Failed to load managed accounts"
-            : "Failed to load un-managed accounts"
+            : "Failed to load hidden accounts"
         }
       />
     );
@@ -100,8 +105,8 @@ const List = ({ managed = false }: ListProps) => {
         icon={<UsersIcon className="size-8" />}
         message={
           managed
-            ? "You are not managing any accounts!"
-            : "You are not un-managing any accounts!"
+            ? "You are not managing any accounts"
+            : "You have no hidden managed accounts"
         }
       />
     );
@@ -113,12 +118,11 @@ const List = ({ managed = false }: ListProps) => {
     try {
       if (managed) {
         await hideManagedAccount({ variables: { request: { account } } });
-        toast.success("Account is now un-managed");
+        toast.success("Account is now hidden");
       } else {
         await unhideManagedAccount({ variables: { request: { account } } });
         toast.success("Account is now managed");
       }
-      setTimeout(() => refetch(), 500);
     } catch (error) {
       errorToast(error);
     } finally {
@@ -139,20 +143,29 @@ const List = ({ managed = false }: ListProps) => {
             hideUnfollowButton
           />
           {address !== accountAvailable.account.owner && (
-            <Button
-              disabled={hiding || unhiding}
-              loading={
-                (hiding || unhiding) &&
-                updatingAccount === accountAvailable.account.address
+            <Tooltip
+              content={
+                managed
+                  ? "Hidden accounts won't show up when logging in"
+                  : "Un-hide to log in as this account again"
               }
-              onClick={() =>
-                handleToggleManagement(accountAvailable.account.address)
-              }
-              outline
-              size="sm"
+              placement={"top"}
             >
-              {managed ? "Un-manage" : "Manage"}
-            </Button>
+              <Button
+                disabled={hiding || unhiding}
+                loading={
+                  (hiding || unhiding) &&
+                  updatingAccount === accountAvailable.account.address
+                }
+                onClick={() =>
+                  handleToggleManagement(accountAvailable.account.address)
+                }
+                outline
+                size="sm"
+              >
+                {managed ? "Hide" : "Un-hide"}
+              </Button>
+            </Tooltip>
           )}
         </div>
       ))}

@@ -17,19 +17,15 @@ interface SmallSingleAccountProps {
   timestamp?: Date;
 }
 
-const SmallSingleAccount = ({
-  hideSlug = false,
-  linkToAccount = false,
-  account,
-  smallAvatar = false,
-  timestamp
-}: SmallSingleAccountProps) => {
-  const UserAvatar = () => (
+const UserAvatar = (props: SmallSingleAccountProps) => {
+  const { account, smallAvatar } = props;
+
+  return (
     <Image
       alt={account.address}
       className={cn(
         smallAvatar ? "size-4" : "size-6",
-        "rounded-full border border-gray-200 bg-gray-200 object-cover object-cover dark:border-gray-800"
+        "rounded-full border border-gray-200 bg-gray-200 object-cover dark:border-gray-800"
       )}
       height={smallAvatar ? 16 : 24}
       loading="lazy"
@@ -37,8 +33,11 @@ const SmallSingleAccount = ({
       width={smallAvatar ? 16 : 24}
     />
   );
+};
 
-  const UserName = () => (
+const UserName = (props: SmallSingleAccountProps) => {
+  const { hideSlug, account, timestamp } = props;
+  return (
     <div className="flex max-w-full flex-wrap items-center">
       <div
         className={cn(
@@ -64,20 +63,23 @@ const SmallSingleAccount = ({
       )}
     </div>
   );
+};
 
-  const AccountInfo = () => (
-    <div className="flex items-center space-x-1">
-      <UserAvatar />
-      <UserName />
-    </div>
-  );
+const AccountInfo = (props: SmallSingleAccountProps) => (
+  <div className="flex items-center gap-x-1">
+    <UserAvatar {...props} />
+    <UserName {...props} />
+  </div>
+);
 
+const SmallSingleAccount = (props: SmallSingleAccountProps) => {
+  const { account, linkToAccount } = props;
   return linkToAccount ? (
     <AccountLink account={account}>
-      <AccountInfo />
+      <AccountInfo {...props} />
     </AccountLink>
   ) : (
-    <AccountInfo />
+    <AccountInfo {...props} />
   );
 };
 

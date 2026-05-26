@@ -1,32 +1,18 @@
-import { useConnections, useSwitchChain } from "wagmi";
+import { useConnection, useSwitchChain } from "wagmi";
 import { CHAIN } from "@/data/constants";
-import logger from "@/helpers/logger";
-
-interface HandleWrongNetworkParams {
-  chainId?: number;
-}
 
 const useHandleWrongNetwork = () => {
-  const activeConnection = useConnections();
+  const { isConnected, chainId } = useConnection();
   const { mutateAsync: switchChainAsync } = useSwitchChain();
-  const isConnected = () => activeConnection[0] !== undefined;
 
-  const handleWrongNetwork = async (params?: HandleWrongNetworkParams) => {
-    const chainId = params?.chainId ?? CHAIN.id;
-
-    const isWrongNetwork = () => activeConnection[0]?.chainId !== chainId;
-
-    if (!isConnected()) {
-      logger.warn("No active connection found.");
-      return;
+  const handleWrongNetwork = async () => {
+    // First check if connected, otherwise useSwitchChain just changes the wagmi config
+    if (!isConnected) {
+      throw new Error("No connected wallet found.");
     }
 
-    if (isWrongNetwork()) {
-      try {
-        await switchChainAsync({ chainId });
-      } catch (error) {
-        logger.error("Failed to switch chains:", error);
-      }
+    if (chainId !== CHAIN.id) {
+      await switchChainAsync({ chainId: CHAIN.id });
     }
   };
 

@@ -19,13 +19,12 @@ const codeSplittingGroups = [
   { name: "motion", test: /node_modules\/(?:motion|framer-motion)/ },
   { name: "zod", test: /node_modules\/zod/ },
   { name: "headlessui", test: /node_modules\/@headlessui\// },
-  { name: "plyr", test: /node_modules\/plyr-react/ },
   {
     name: "ui",
-    test: /node_modules\/(?:@radix-ui\/|sonner|virtua|html-to-image|browser-image-compression|plur|dayjs|qr)/
+    test: /node_modules\/(?:@radix-ui\/|sonner|virtua|html-to-image|browser-image-compression|plur|dayjs|qr|shadcn)/
   },
   { name: "hls-js", test: /node_modules\/hls\.js/ },
-  { name: "livepeer", test: /node_modules\/@livepeer\// },
+  { name: "media", test: /node_modules\/(?:@livepeer\/|howler)/ },
   { name: "phosphor", test: /node_modules\/@phosphor-icons\// },
   { name: "heroicons", test: /node_modules\/@heroicons\// },
   { name: "metamask", test: /node_modules\/@metamask\// },
@@ -54,6 +53,10 @@ const codeSplittingGroups = [
   {
     name: "tailwind",
     test: /node_modules\/(?:tailwindcss|tailwind-merge|@tailwindcss\/|clsx|class-variance-authority)/
+  },
+  {
+    name: "shared-components",
+    test: /src\/components\/Shared/
   }
 ];
 
@@ -75,8 +78,8 @@ export default defineConfig(({ mode }) => {
     plugins: [
       react(),
       tailwindcss()
-      // basicSsl()
-      // visualizer({
+      //, basicSsl()
+      //, visualizer({
       //   filename: "dist/stats.html",
       //   open: true,
       //   template: "flamegraph"
@@ -88,8 +91,8 @@ export default defineConfig(({ mode }) => {
     resolve: {
       tsconfigPaths: true
     }
-    // server: {
-    //   host: true, // Enables access from other devices on the network
+    //, server: {
+    //   host: true,
     //   https: true
     // }
   };

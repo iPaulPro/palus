@@ -41,10 +41,13 @@ const AddRemoveAdmin = ({
   const client = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const onError = useCallback((error: ApolloClientError) => {
-    setIsSubmitting(false);
-    errorToast(error);
-  }, []);
+  const onError = useCallback(
+    (error: ApolloClientError) => {
+      setIsSubmitting(false);
+      errorToast(error);
+    },
+    [setIsSubmitting]
+  );
 
   const updateCache = useCallback(
     (isRemoval: boolean) => {
@@ -76,7 +79,7 @@ const AddRemoveAdmin = ({
         variables: { request: { address: groupAddress } }
       });
     },
-    [client, groupAddress, account]
+    [groupAddress, account, client.cache]
   );
 
   const onCompleted = async (isRemoval: boolean) => {
@@ -111,7 +114,7 @@ const AddRemoveAdmin = ({
 
   const isAdmin = admins?.some((admin) => admin.address === account.address);
 
-  const handleClick = useCallback(
+  const addOrRemoveAdmin = useCallback(
     async (event: MouseEvent) => {
       stopEventPropagation(event);
       setIsSubmitting(true);
@@ -137,7 +140,14 @@ const AddRemoveAdmin = ({
         }
       });
     },
-    [account]
+    [
+      setIsSubmitting,
+      isAdmin,
+      removeAdmins,
+      groupAddress,
+      account.address,
+      addAdmins
+    ]
   );
 
   return (
@@ -145,7 +155,7 @@ const AddRemoveAdmin = ({
       as="div"
       className={menuItemClassName}
       disabled={isSubmitting}
-      onClick={handleClick}
+      onClick={addOrRemoveAdmin}
     >
       {isSubmitting ? (
         <Loader small />

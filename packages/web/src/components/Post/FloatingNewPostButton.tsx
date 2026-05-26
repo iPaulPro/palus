@@ -1,7 +1,7 @@
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { useMediaQuery } from "@uidotdev/usehooks";
-import { motion } from "motion/react";
-import cn from "@/helpers/cn";
+import { m } from "motion/react";
+import { useAudioPlayerContext } from "@/components/Common/Providers/AudioPlayerProvider";
 import { IS_STANDALONE } from "@/helpers/mediaQueries";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
 
@@ -13,6 +13,7 @@ const FloatingNewPostButton = ({
   scrollOffset
 }: FloatingNewPostButtonProps) => {
   const { setShow: setShowNewPostModal } = useNewPostModalStore();
+  const { isUnloaded } = useAudioPlayerContext();
 
   const isVisible = scrollOffset >= 200;
   const isStandalone = useMediaQuery(IS_STANDALONE);
@@ -21,13 +22,20 @@ const FloatingNewPostButton = ({
     setShowNewPostModal(true);
   };
 
+  const bottom =
+    isStandalone && !isUnloaded
+      ? "10rem"
+      : isUnloaded
+        ? isStandalone
+          ? "6rem"
+          : "4rem"
+        : "8rem";
+
   return (
-    <motion.div
-      animate={{ y: isVisible ? 0 : 200 }}
-      className={cn("fixed right-5 bottom-20 block md:hidden", {
-        "bottom-24": isStandalone
-      })}
-      initial={{ y: 200 }}
+    <m.div
+      animate={{ bottom, y: isVisible ? 0 : 200 }}
+      className="fixed right-5 block md:hidden"
+      initial={{ bottom, y: 200 }}
       transition={{ damping: 20, stiffness: 260, type: "spring" }}
     >
       <button
@@ -37,7 +45,7 @@ const FloatingNewPostButton = ({
       >
         <PencilSquareIcon className="mb-0.5 ml-0.5 size-6" />
       </button>
-    </motion.div>
+    </m.div>
   );
 };
 

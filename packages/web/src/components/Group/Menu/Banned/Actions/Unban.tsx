@@ -38,10 +38,13 @@ const UnbanAccount = ({
   const client = useApolloClient();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
-  const onError = useCallback((error: ApolloClientError) => {
-    setIsSubmitting(false);
-    errorToast(error);
-  }, []);
+  const onError = useCallback(
+    (error: ApolloClientError) => {
+      setIsSubmitting(false);
+      errorToast(error);
+    },
+    [setIsSubmitting]
+  );
 
   const updateCache = useCallback(() => {
     const currentData = client.cache.readQuery<GroupBannedAccountsQuery>({
@@ -66,7 +69,7 @@ const UnbanAccount = ({
       query: GroupBannedAccountsDocument,
       variables: { request: { group: groupAddress } }
     });
-  }, [account.address, groupAddress]);
+  }, [account.address, groupAddress, client.cache]);
 
   const onCompleted = () => {
     setIsSubmitting(false);
@@ -89,20 +92,20 @@ const UnbanAccount = ({
     onError
   });
 
-  const handleClick = useCallback(
-    async (event: MouseEvent) => {
+  const unbanAccount = useCallback(
+    (event: MouseEvent) => {
       stopEventPropagation(event);
       setIsSubmitting(true);
-      await unbanAccounts({
+      unbanAccounts({
         variables: {
           request: {
             accounts: [account.address],
             group: groupAddress
           }
         }
-      });
+      }).catch(onError);
     },
-    [account, groupAddress]
+    [groupAddress, setIsSubmitting, unbanAccounts, account.address, onError]
   );
 
   return (
@@ -110,7 +113,7 @@ const UnbanAccount = ({
       as="div"
       className={menuItemClassName}
       disabled={isSubmitting}
-      onClick={handleClick}
+      onClick={unbanAccount}
     >
       {isSubmitting ? <Loader small /> : <UserMinusIcon className="size-4" />}
       <div>Unban account</div>

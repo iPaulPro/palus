@@ -1,20 +1,19 @@
-import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import type {
   AccountFragment,
   AnyPostFragment,
   PostGroupInfoFragment
 } from "@palus/indexer";
-import { memo } from "react";
+import { memo, useMemo } from "react";
 import { Link } from "react-router";
 import AccountLink from "@/components/Shared/Account/AccountLink";
 import AccountPreview from "@/components/Shared/Account/AccountPreview";
 import TopAccount from "@/components/Shared/Badges/TopAccount";
+import GroupPreview from "@/components/Shared/Group/GroupPreview";
 import PostLink from "@/components/Shared/Post/PostLink";
-import { Image, Tooltip } from "@/components/Shared/UI";
-import { TRANSFORMS } from "@/data/constants";
+import { Tooltip } from "@/components/Shared/UI";
 import formatRelativeOrAbsolute from "@/helpers/datetime/formatRelativeOrAbsolute";
 import getAccount from "@/helpers/getAccount";
-import getAvatar from "@/helpers/getAvatar";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
 
 interface PostAccountProps {
   account: AccountFragment;
@@ -24,59 +23,60 @@ interface PostAccountProps {
 }
 
 const PostAccount = ({ account, group, post, timestamp }: PostAccountProps) => {
+  const date = useMemo(() => new Date(timestamp), [timestamp]);
+
   return (
-    <div className="flex flex-col">
-      <div className="flex flex-wrap items-center gap-x-1.5">
+    <div className="flex min-w-0 flex-col pr-4">
+      <div className="flex items-center gap-x-1.5">
         <AccountLink
           account={account}
-          className="outline-hidden hover:underline focus:underline"
+          className="min-w-0 outline-hidden hover:underline focus:underline"
         >
           <AccountPreview
             address={account.address}
             showUserPreview
             username={account.username?.localName}
           >
-            <div className="flex min-w-0 flex-wrap items-center gap-x-1">
-              <div className="flex items-center gap-x-0.5">
-                <span className="line-clamp-1 font-semibold">
+            <div className="flex min-w-0 items-center gap-x-1">
+              <div className="flex min-w-0 items-center gap-x-0.5 [flex-shrink:9999]">
+                <span className="truncate font-semibold">
                   {getAccount(account).name}
                 </span>
-                {account.score < 9000 ? null : <TopAccount />}
               </div>
-              <span className="text-gray-500 dark:text-gray-400">
+              {account.score < 9000 ? null : <TopAccount />}
+              <span className="truncate text-gray-500 dark:text-gray-400">
                 @{getAccount(account).username}
               </span>
             </div>
           </AccountPreview>
         </AccountLink>
+      </div>
+      <div className="flex flex-wrap items-center gap-x-1 text-secondary text-sm">
+        {timestamp ? (
+          <PostLink className="hover:underline" post={post}>
+            <Tooltip content={date.toLocaleString()}>
+              {formatRelativeOrAbsolute(timestamp, "ago")}
+            </Tooltip>
+          </PostLink>
+        ) : null}
         {group?.metadata ? (
-          <>
-            <ChevronRightIcon
-              className="size-3 text-secondary"
-              strokeWidth={3}
-            />
+          <div className="flex items-center gap-x-1">
+            <span>in</span>
             <Link
-              className="flex items-center gap-x-1 hover:underline focus:underline"
+              className="hover:underline focus:underline"
+              onClick={stopEventPropagation}
+              onKeyDown={stopEventPropagation}
               to={`/g/${group.address}`}
             >
-              <Image
-                alt={group.metadata.name}
-                className="size-4 rounded-sm object-cover"
-                src={getAvatar(group, TRANSFORMS.AVATAR_TINY)}
-              />
-              <span className="truncate text-sm">{group.metadata.name}</span>
+              <GroupPreview
+                address={group.address}
+                className="flex items-center gap-x-1"
+                name={group.metadata?.name}
+              >
+                <span className="truncate">#{group.metadata.name}</span>
+              </GroupPreview>
             </Link>
-          </>
-        ) : null}
-        {timestamp ? (
-          <span className="text-gray-500 dark:text-gray-200">
-            &#8729;{" "}
-            <PostLink className="text-sm hover:underline" post={post}>
-              <Tooltip content={new Date(timestamp).toLocaleString()}>
-                {formatRelativeOrAbsolute(timestamp)}
-              </Tooltip>
-            </PostLink>
-          </span>
+          </div>
         ) : null}
       </div>
     </div>

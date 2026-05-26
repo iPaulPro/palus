@@ -9,12 +9,13 @@ const GroupSuccess = () => {
   const { groupAddress, setShowCreateGroupModal } = useCreateGroupStore();
 
   useEffect(() => {
-    setTimeout(() => {
+    const id = setTimeout(() => {
       if (groupAddress) {
         setShowCreateGroupModal(false);
         navigate(`/g/${groupAddress}`);
       }
     }, 3000);
+    return () => clearTimeout(id);
   }, [groupAddress]);
 
   return (
@@ -31,7 +32,7 @@ const GroupSuccess = () => {
         width={56}
       />
       <i className="mt-8 text-gray-500 dark:text-gray-200">
-        We are taking you to your group...
+        We are taking you to your group…
       </i>
     </div>
   );

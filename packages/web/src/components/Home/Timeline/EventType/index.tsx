@@ -21,13 +21,18 @@ const ActionType = ({ timelineItem }: ActionTypeProps) => {
   }
 
   return (
-    <span onClick={stopEventPropagation}>
+    <div
+      className="sm:-mt-1"
+      onClick={stopEventPropagation}
+      onKeyDown={stopEventPropagation}
+      role="note"
+    >
       {canCombined ? (
         <Combined timelineItem={timelineItem} />
       ) : reposts?.length ? (
         <Reposted reposts={reposts} />
       ) : null}
-    </span>
+    </div>
   );
 };
 

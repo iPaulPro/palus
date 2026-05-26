@@ -1,4 +1,4 @@
-import { useAccount } from "wagmi";
+import { useConnection } from "wagmi";
 import Signless from "@/components/Settings/Manager/Signless";
 import BackButton from "@/components/Shared/BackButton";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
@@ -10,7 +10,7 @@ import AccountManager from "./AccountManager";
 
 const ManagerSettings = () => {
   const { currentAccount } = useAccountStore();
-  const { address } = useAccount();
+  const { address } = useConnection();
   const disabled = currentAccount?.owner !== address;
 
   if (!currentAccount) {
@@ -18,22 +18,15 @@ const ManagerSettings = () => {
   }
 
   return (
-    <PageLayout title="Manager settings">
+    <PageLayout title="Manager settings" zeroTopMargin>
       <Card>
         <CardHeader
           icon={<BackButton path="/settings" />}
           title="Manager settings"
         />
-        {disabled ? (
-          <WrongWallet />
-        ) : (
-          <>
-            <Signless />
-            <div className="divider" />
-            <AccountManager />
-          </>
-        )}
+        {disabled ? <WrongWallet /> : <Signless />}
       </Card>
+      <AccountManager />
     </PageLayout>
   );
 };

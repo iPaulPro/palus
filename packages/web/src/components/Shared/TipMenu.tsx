@@ -102,7 +102,7 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
     <Form form={form} onSubmit={() => handleTip()}>
       <div className="m-4 space-y-3">
         <div className="space-y-2">
-          <div className="flex items-center space-x-1 text-gray-500 text-xs dark:text-gray-200">
+          <div className="flex items-center gap-x-1 text-gray-500 text-xs dark:text-gray-200">
             <span>Balance:</span>
             <span>
               {balanceFormatted ? (

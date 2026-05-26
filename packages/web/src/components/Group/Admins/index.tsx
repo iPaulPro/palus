@@ -1,4 +1,8 @@
-import { type GroupFragment, useAdminsForQuery } from "@palus/indexer";
+import {
+  type AccountFragment,
+  type GroupFragment,
+  useAdminsForQuery
+} from "@palus/indexer";
 import plur from "plur";
 import { useState } from "react";
 import { Modal } from "@/components/Shared/UI";
@@ -17,13 +21,18 @@ const AdminCount = ({ group }: AdminsProps) => {
     variables: { request: { address: group.address } }
   });
 
-  const accounts = data?.adminsFor?.items
-    .map((item) => item.account)
-    .filter(
-      (account) =>
-        account.address.toLowerCase() !==
+  const accounts = data?.adminsFor?.items.reduce<AccountFragment[]>(
+    (acc, item) => {
+      if (
+        item.account.address.toLowerCase() !==
         CONTRACTS.banMemberGroupRule.toLowerCase()
-    );
+      ) {
+        acc.push(item.account);
+      }
+      return acc;
+    },
+    []
+  );
   const len = accounts?.length ?? 0;
 
   if (len === 0) {

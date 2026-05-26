@@ -29,38 +29,21 @@ interface SingleAccountProps {
   action?: ReactNode;
 }
 
-const SingleAccount = ({
-  className,
-  hideFollowButton = false,
-  hideUnfollowButton = false,
-  isBig = false,
-  linkToAccount = true,
+const UserName = ({
   account,
-  showBio = false,
-  showUserPreview = true,
-  showAddress = false,
-  action
-}: SingleAccountProps) => {
-  const UserAvatar = () => (
-    <Image
-      alt={account.address}
-      className={cn(
-        isBig ? "size-14" : "size-11",
-        "flex-none rounded-full border border-gray-200 bg-gray-200 object-cover dark:border-gray-800"
-      )}
-      height={isBig ? 56 : 44}
-      loading="lazy"
-      src={getAvatar(account)}
-      width={isBig ? 56 : 44}
-    />
-  );
-
+  isBig,
+  showAddress
+}: {
+  account: AccountFragment;
+  showAddress?: boolean;
+  isBig: boolean;
+}) => {
   const copyAddress = useCopyToClipboard(
     account.address,
     "Address copied to clipboard!"
   );
 
-  const UserName = () => (
+  return (
     <div className="min-w-0">
       <div
         className={cn("flex min-w-0 flex-col", {
@@ -95,29 +78,82 @@ const SingleAccount = ({
       )}
     </div>
   );
+};
 
-  const AccountInfo = () => (
-    <AccountPreview
-      address={account.address}
-      showUserPreview={showUserPreview}
-      username={account.username?.localName}
-    >
-      <div className="flex items-center gap-x-3">
-        <UserAvatar />
-        <UserName />
-      </div>
-    </AccountPreview>
-  );
+const AccountInfo = ({
+  account,
+  isBig,
+  showAddress,
+  showUserPreview
+}: {
+  account: AccountFragment;
+  showAddress?: boolean;
+  isBig: boolean;
+  showUserPreview: boolean;
+}) => (
+  <AccountPreview
+    address={account.address}
+    showUserPreview={showUserPreview}
+    username={account.username?.localName}
+  >
+    <div className="flex items-center gap-x-3">
+      <UserAvatar account={account} isBig={isBig} />
+      <UserName account={account} isBig={isBig} showAddress={showAddress} />
+    </div>
+  </AccountPreview>
+);
 
+const UserAvatar = ({
+  account,
+  isBig
+}: {
+  account: AccountFragment;
+  isBig: boolean;
+}) => (
+  <Image
+    alt={account.address}
+    className={cn(
+      isBig ? "size-14" : "size-11",
+      "flex-none rounded-full border border-gray-200 bg-gray-200 object-cover dark:border-gray-800"
+    )}
+    height={isBig ? 56 : 44}
+    loading="lazy"
+    src={getAvatar(account)}
+    width={isBig ? 56 : 44}
+  />
+);
+
+const SingleAccount = ({
+  className,
+  hideFollowButton = false,
+  hideUnfollowButton = false,
+  isBig = false,
+  linkToAccount = true,
+  account,
+  showBio = false,
+  showUserPreview = true,
+  showAddress = false,
+  action
+}: SingleAccountProps) => {
   return (
     <div className={cn("flex min-w-0 flex-col gap-y-2", className)}>
       <div className="flex items-center justify-between gap-4">
         {linkToAccount && account.address ? (
           <AccountLink account={account} className="min-w-0">
-            <AccountInfo />
+            <AccountInfo
+              account={account}
+              isBig={isBig}
+              showAddress={showAddress}
+              showUserPreview={showUserPreview}
+            />
           </AccountLink>
         ) : (
-          <AccountInfo />
+          <AccountInfo
+            account={account}
+            isBig={isBig}
+            showAddress={showAddress}
+            showUserPreview={showUserPreview}
+          />
         )}
         <div className="flex items-center gap-x-2">
           <FollowUnfollowButton
@@ -132,7 +168,7 @@ const SingleAccount = ({
       {showBio && account?.metadata?.bio && (
         <div
           className={cn(
-            isBig ? "text-base" : "text-sm",
+            isBig ? "line-clamp-5 text-base" : "line-clamp-3 text-sm",
             "mt-2",
             "linkify leading-6"
           )}

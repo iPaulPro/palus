@@ -1,6 +1,6 @@
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import { useAccountsBulkQuery } from "@palus/indexer";
-import { memo } from "react";
+import { type AccountFragment, useAccountsBulkQuery } from "@palus/indexer";
+import { memo, useCallback } from "react";
 import { useNavigate } from "react-router";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
@@ -29,6 +29,16 @@ const RecentAccounts = ({ onAccountClick }: RecentAccountsProps) => {
     variables: { request: { addresses: recentAccounts } }
   });
 
+  const handleAccountClick = useCallback(
+    (account: AccountFragment) => {
+      setCachedAccount(account);
+      addAccount(account.address);
+      navigate(getAccount(account).link);
+      onAccountClick();
+    },
+    [setCachedAccount, addAccount, navigate, onAccountClick]
+  );
+
   if (!recentAccounts.length) {
     return null;
   }
@@ -47,37 +57,45 @@ const RecentAccounts = ({ onAccountClick }: RecentAccountsProps) => {
               <H6 className="text-gray-500 dark:text-gray-200">Clear all</H6>
             </button>
           </div>
-          {accounts.map((account) => (
-            <div
-              className="flex cursor-pointer items-center space-x-3 truncate px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-              key={account.address}
-              onClick={() => {
-                setCachedAccount(account);
-                addAccount(account.address);
-                navigate(getAccount(account).link);
-                onAccountClick();
-              }}
-            >
-              <div className="w-full">
-                <SingleAccount
-                  account={account}
-                  hideFollowButton
-                  hideUnfollowButton
-                  linkToAccount={false}
-                  showUserPreview={false}
-                />
-              </div>
-              <button
-                onClick={(event) => {
-                  stopEventPropagation(event);
-                  clearAccount(account.address);
+          <div role="listbox">
+            {accounts.map((account) => (
+              <div
+                aria-selected={false}
+                className="flex cursor-pointer items-center gap-x-3 truncate px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                key={account.address}
+                onClick={() => {
+                  handleAccountClick(account);
                 }}
-                type="reset"
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    handleAccountClick(account);
+                  }
+                }}
+                role="option"
+                tabIndex={0}
               >
-                <XMarkIcon className="size-4 text-gray-500" />
-              </button>
-            </div>
-          ))}
+                <div className="w-full">
+                  <SingleAccount
+                    account={account}
+                    hideFollowButton
+                    hideUnfollowButton
+                    linkToAccount={false}
+                    showUserPreview={false}
+                  />
+                </div>
+                <button
+                  onClick={(event) => {
+                    stopEventPropagation(event);
+                    clearAccount(account.address);
+                  }}
+                  type="reset"
+                >
+                  <XMarkIcon className="size-4 text-gray-500" />
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
       )}
       <div className="divider my-2" />

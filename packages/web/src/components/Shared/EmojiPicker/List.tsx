@@ -23,10 +23,6 @@ const List = ({ setEmoji }: ListProps) => {
 
   const close = useClose();
 
-  const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchText(event.target.value);
-  };
-
   const handleClearSearch = (e: MouseEvent) => {
     e.preventDefault();
     stopEventPropagation(e);
@@ -40,6 +36,7 @@ const List = ({ setEmoji }: ListProps) => {
   return (
     <div>
       <div className="w-full p-2 pt-4 pb-0">
+        {/* react-doctor-disable-next-line jsx-a11y/no-autofocus */}
         <Input
           autoFocus
           className="px-3 py-2 text-base sm:text-sm"
@@ -53,7 +50,9 @@ const List = ({ setEmoji }: ListProps) => {
               onClick={handleClearSearch}
             />
           }
-          onChange={handleChange}
+          onChange={(event: ChangeEvent<HTMLInputElement>) =>
+            setSearchText(event.target.value)
+          }
           onClick={(e) => {
             e.preventDefault();
             stopEventPropagation(e);

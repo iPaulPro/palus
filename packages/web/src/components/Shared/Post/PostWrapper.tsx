@@ -23,7 +23,7 @@ const PostWrapper = ({
   const { setCachedPost } = usePostLinkStore();
   const rootRef = useRef<HTMLElement>(null);
 
-  const handleClick = () => {
+  const goToPost = () => {
     if (disableClick) return;
     const selection = window.getSelection();
     if (!selection?.toString().length) {
@@ -38,7 +38,15 @@ const PostWrapper = ({
   };
 
   return (
-    <article className={className} onClick={handleClick} ref={rootRef}>
+    <article
+      className={className}
+      onClick={goToPost}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") goToPost();
+      }}
+      ref={rootRef}
+      tabIndex={disableClick ? undefined : 0}
+    >
       {children}
     </article>
   );

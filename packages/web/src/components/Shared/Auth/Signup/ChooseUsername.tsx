@@ -12,7 +12,6 @@ import {
   useCreateAccountWithUsernameMutation
 } from "@palus/indexer";
 import { useCallback, useState } from "react";
-import { toast } from "sonner";
 import { useConnection, useSignMessage } from "wagmi";
 import { z } from "zod";
 import AuthMessage from "@/components/Shared/Auth/AuthMessage";
@@ -113,7 +112,12 @@ const ChooseUsername = () => {
   }: z.infer<typeof ValidationSchema>) => {
     try {
       setIsSubmitting(true);
-      await handleWrongNetwork();
+
+      try {
+        await handleWrongNetwork();
+      } catch {
+        return onError({ message: ERRORS.SignWallet });
+      }
 
       const challenge = await loadChallenge({
         variables: {
@@ -122,7 +126,7 @@ const ChooseUsername = () => {
       });
 
       if (!challenge?.data?.challenge?.text) {
-        return toast.error(ERRORS.SomethingWentWrong);
+        return onError({ message: ERRORS.SomethingWentWrong });
       }
 
       // Get signature
@@ -182,29 +186,29 @@ const ChooseUsername = () => {
           />
           {canCheck && !isInvalid ? (
             isAvailable === false ? (
-              <div className="mt-2 flex items-center space-x-1 text-red-500 text-sm">
+              <div className="mt-2 flex items-center gap-x-1 text-red-500 text-sm">
                 <FaceFrownIcon className="size-4" />
                 <b>Username not available!</b>
               </div>
             ) : isAvailable === true ? (
-              <div className="mt-2 flex items-center space-x-1 text-green-500 text-sm">
+              <div className="mt-2 flex items-center gap-x-1 text-green-500 text-sm">
                 <CheckIcon className="size-4" />
                 <b>You're in luck - it's available!</b>
               </div>
             ) : null
           ) : canCheck && isInvalid ? (
-            <div className="mt-2 flex items-center space-x-1 text-red-500 text-sm">
+            <div className="mt-2 flex items-center gap-x-1 text-red-500 text-sm">
               <ExclamationTriangleIcon className="size-4" />
               <b>{form.formState.errors.username?.message?.toString()}</b>
             </div>
           ) : (
-            <div className="mt-2 flex items-center space-x-1 text-gray-500 text-sm dark:text-gray-200">
+            <div className="mt-2 flex items-center gap-x-1 text-gray-500 text-sm dark:text-gray-200">
               <FaceSmileIcon className="size-4" />
               <b>Hope you get a good one!</b>
             </div>
           )}
         </div>
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center gap-x-3">
           <Button
             className="w-full"
             disabled={disabled}

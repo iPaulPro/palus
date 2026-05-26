@@ -16,9 +16,13 @@ const setAppBadge = (count: number) => {
 
 const useHasNewNotifications = () => {
   const { currentAccount } = useAccountStore();
-  const { lastSeenNotificationTimestamp } = useNotificationStore();
+  const { getLastSeenNotificationTimestamp } = useNotificationStore();
   const { includeLowScore } = usePreferencesStore();
   const documentVisible = useVisibilityChange();
+
+  const lastSeenNotificationTimestamp = getLastSeenNotificationTimestamp(
+    currentAccount?.address
+  );
 
   const { data, refetch } = useNotificationIndicatorQuery({
     fetchPolicy: "no-cache",
@@ -41,7 +45,7 @@ const useHasNewNotifications = () => {
     const newNotifications = data?.notifications.items.filter(
       (n) =>
         getNotificationTimestamp(n as AnyNotificationFragment) >
-        lastSeenNotificationTimestamp
+        (lastSeenNotificationTimestamp ?? new Date().toISOString())
     );
 
     const count = newNotifications?.length ?? 0;

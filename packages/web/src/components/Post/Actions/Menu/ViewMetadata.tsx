@@ -23,7 +23,7 @@ const ViewMetadata = ({ post }: Props) => {
       onClick={stopEventPropagation}
     >
       <Link
-        className="flex items-center space-x-2"
+        className="flex items-center gap-x-2"
         rel="noopener noreferrer"
         target="_blank"
         to={sanitizeDStorageUrl(post.contentUri)}

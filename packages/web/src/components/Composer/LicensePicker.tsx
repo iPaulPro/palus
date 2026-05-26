@@ -3,20 +3,28 @@ import { Select, Tooltip } from "@/components/Shared/UI";
 import getAssetLicense from "@/helpers/getAssetLicense";
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
 
+type Option = {
+  label: string;
+  selected: boolean;
+  value: MetadataLicenseType;
+};
+
 const LicensePicker = () => {
   const { license, setLicense } = usePostLicenseStore();
 
-  const otherOptions: {
-    label: string;
-    selected: boolean;
-    value: MetadataLicenseType;
-  }[] = Object.values(MetadataLicenseType)
-    .filter((type) => getAssetLicense(type))
-    .map((type) => ({
-      label: getAssetLicense(type)?.label ?? "",
-      selected: license === type,
-      value: type
-    }));
+  const otherOptions: Option[] = Object.values(MetadataLicenseType).reduce<
+    Option[]
+  >((acc, type) => {
+    const assetLicense = getAssetLicense(type);
+    if (assetLicense) {
+      acc.push({
+        label: assetLicense.label ?? "",
+        selected: license === type,
+        value: type
+      });
+    }
+    return acc;
+  }, []);
 
   const options: {
     label: string;

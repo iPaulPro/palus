@@ -46,10 +46,13 @@ const UndoRepost = ({
     toast.success("Undone repost");
   };
 
-  const onError = useCallback((error?: unknown) => {
-    setIsSubmitting(false);
-    errorToast(error);
-  }, []);
+  const onError = useCallback(
+    (error?: unknown) => {
+      setIsSubmitting(false);
+      errorToast(error);
+    },
+    [setIsSubmitting]
+  );
 
   const [undoRepost] = useDeletePostMutation({
     onCompleted: async ({ deletePost }) => {
@@ -89,7 +92,7 @@ const UndoRepost = ({
       disabled={isSubmitting}
       onClick={handleUndoRepost}
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         <ArrowsRightLeftIcon className="size-4" />
         <div>Undo repost</div>
       </div>

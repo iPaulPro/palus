@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Managed from "@/components/Settings/Manager/AccountManager/Management/Managed";
 import Unmanaged from "@/components/Settings/Manager/AccountManager/Management/Unmanaged";
-import { Button, Modal, Tabs } from "@/components/Shared/UI";
+import { Button, Card, Modal, Tabs } from "@/components/Shared/UI";
 import AddAccountManager from "./AddAccountManager";
 import Managers from "./Managers";
 
@@ -17,13 +17,13 @@ const AccountManager = () => {
 
   const tabs = [
     { name: "Managers", type: Type.MANAGERS },
-    { name: "Managed", type: Type.MANAGED },
-    { name: "Un-managed", type: Type.UNMANAGED }
+    { name: "Managed Accounts", type: Type.MANAGED },
+    { name: "Hidden", type: Type.UNMANAGED }
   ];
 
   return (
-    <div className="linkify space-y-2">
-      <div className="mx-5 mt-5 flex flex-wrap items-center justify-between gap-5">
+    <div className="linkify space-y-3">
+      <div className="md:px-2">
         <Tabs
           active={type}
           layoutId="account_manager_tab"
@@ -33,9 +33,15 @@ const AccountManager = () => {
           }}
           tabs={tabs}
         />
+      </div>
+      <Card>
         {type === Type.MANAGERS && (
-          <>
-            <Button onClick={() => setShowAddManagerModal(true)} size="sm">
+          <div className="px-4 pt-5">
+            <Button
+              className="w-fit"
+              onClick={() => setShowAddManagerModal(true)}
+              size="sm"
+            >
               Add manager
             </Button>
             <Modal
@@ -47,12 +53,12 @@ const AccountManager = () => {
                 setShowAddManagerModal={setShowAddManagerModal}
               />
             </Modal>
-          </>
+          </div>
         )}
-      </div>
-      {type === Type.MANAGERS && <Managers />}
-      {type === Type.MANAGED && <Managed />}
-      {type === Type.UNMANAGED && <Unmanaged />}
+        {type === Type.MANAGERS && <Managers />}
+        {type === Type.MANAGED && <Managed />}
+        {type === Type.UNMANAGED && <Unmanaged />}
+      </Card>
     </div>
   );
 };

@@ -13,7 +13,7 @@ const SessionsSettings = () => {
   }
 
   return (
-    <PageLayout title="Sessions settings">
+    <PageLayout title="Sessions settings" zeroTopMargin>
       <Card>
         <CardHeader icon={<BackButton path="/settings" />} title="Sessions" />
         <List />

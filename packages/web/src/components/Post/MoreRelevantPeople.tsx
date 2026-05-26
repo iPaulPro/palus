@@ -1,5 +1,5 @@
 import type { AccountFragment } from "@palus/indexer";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import cn from "@/helpers/cn";
@@ -17,7 +17,7 @@ const MoreRelevantPeople = ({ accounts }: MoreRelevantPeopleProps) => {
     <div className="max-h-[80vh] overflow-y-auto">
       <Virtualizer>
         {accounts.slice(5).map((account, index) => (
-          <motion.div
+          <m.div
             animate="visible"
             className={cn(
               "divider p-5",
@@ -34,7 +34,7 @@ const MoreRelevantPeople = ({ accounts }: MoreRelevantPeopleProps) => {
               showBio
               showUserPreview={false}
             />
-          </motion.div>
+          </m.div>
         ))}
       </Virtualizer>
     </div>

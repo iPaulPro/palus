@@ -75,7 +75,7 @@ const Like = ({ currentAccount, post, showCount }: LikeProps) => {
 
   const handleCreateLike = async () => {
     if (!currentAccount) {
-      return toast.error(ERRORS.SignWallet);
+      return toast.error(ERRORS.LoginRequired);
     }
 
     toggleReact();

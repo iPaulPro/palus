@@ -1,12 +1,13 @@
 import { KeyIcon } from "@heroicons/react/24/outline";
 import {
+  type AccountFragment,
   type ChallengeRequest,
   ManagedAccountsVisibility,
   useAccountsAvailableQuery,
   useAuthenticateMutation,
   useChallengeMutation
 } from "@palus/indexer";
-import { AnimatePresence, motion } from "motion/react";
+import { AnimatePresence, m } from "motion/react";
 import {
   type Dispatch,
   type SetStateAction,
@@ -14,7 +15,6 @@ import {
   useEffect,
   useState
 } from "react";
-import { toast } from "sonner";
 import { useConnection, useDisconnect, useSignMessage } from "wagmi";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import Loader from "@/components/Shared/Loader";
@@ -82,9 +82,12 @@ const Login = ({ setHasAccounts }: LoginProps) => {
   const lastLogin = data?.lastLoggedInAccount;
 
   const remainingAccounts = lastLogin
-    ? allAccounts
-        .filter(({ account }) => account.address !== lastLogin.address)
-        .map(({ account }) => account)
+    ? allAccounts.reduce<AccountFragment[]>((acc, { account }) => {
+        if (account.address !== lastLogin.address) {
+          acc.push(account);
+        }
+        return acc;
+      }, [])
     : allAccounts.map(({ account }) => account);
 
   const accounts = lastLogin
@@ -107,7 +110,12 @@ const Login = ({ setHasAccounts }: LoginProps) => {
     try {
       setLoggingInAccountId(account || null);
       setIsSubmitting(true);
-      await handleWrongNetwork();
+
+      try {
+        await handleWrongNetwork();
+      } catch {
+        return onError({ message: ERRORS.SignWallet });
+      }
 
       // Get challenge
       const challenge = await loadChallenge({
@@ -115,7 +123,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
       });
 
       if (!challenge?.data?.challenge?.text) {
-        return toast.error(ERRORS.SomethingWentWrong);
+        return onError({ message: ERRORS.SomethingWentWrong });
       }
 
       // Get signature
@@ -163,7 +171,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
         ) : accounts.length > 0 ? (
           <AnimatePresence mode="popLayout">
             {isExpanded && (
-              <motion.div
+              <m.div
                 animate="visible"
                 initial="hidden"
                 variants={{
@@ -180,7 +188,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
                   forceRounded
                 >
                   {accounts.map((account, index) => (
-                    <motion.div
+                    <m.div
                       className="flex items-center justify-between p-3"
                       custom={index}
                       key={account.address}
@@ -216,17 +224,17 @@ const Login = ({ setHasAccounts }: LoginProps) => {
                       >
                         Login
                       </Button>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </Card>
-              </motion.div>
+              </m.div>
             )}
           </AnimatePresence>
         ) : (
           <SignupCard />
         )}
         <button
-          className="flex items-center space-x-1 text-sm underline"
+          className="flex items-center gap-x-1 text-sm underline"
           onClick={() => disconnect?.()}
           type="reset"
         >

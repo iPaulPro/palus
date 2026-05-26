@@ -44,3 +44,5 @@ dist
 node-compile-cache/
 
 .wrangler
+
+docs

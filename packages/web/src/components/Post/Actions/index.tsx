@@ -1,5 +1,6 @@
 import type { AnyPostFragment } from "@palus/indexer";
 import { memo } from "react";
+import MakeCollectible from "@/components/Composer/Actions/CollectSettings/MakeCollectible";
 import CollectAction from "@/components/Post/OpenAction/CollectAction";
 import SmallCollectButton from "@/components/Post/OpenAction/CollectAction/SmallCollectButton";
 import TipAction from "@/components/Post/OpenAction/TipAction";
@@ -7,16 +8,23 @@ import cn from "@/helpers/cn";
 import { isRepost } from "@/helpers/postHelpers";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
+import Bookmark from "./Bookmark";
 import Comment from "./Comment";
 import Like from "./Like";
-import ShareMenu from "./Share";
+import Reference from "./Reference";
+import Share from "./Share";
 
 interface PostActionsProps {
   post: AnyPostFragment;
   showCount?: boolean;
+  embedded?: boolean;
 }
 
-const PostActions = ({ post, showCount = true }: PostActionsProps) => {
+const PostActions = ({
+  post,
+  showCount = true,
+  embedded
+}: PostActionsProps) => {
   const { currentAccount } = useAccountStore();
   const targetPost = isRepost(post) ? post.repostOf : post;
   const hasPostAction = (targetPost.actions?.length || 0) > 0;
@@ -25,36 +33,29 @@ const PostActions = ({ post, showCount = true }: PostActionsProps) => {
     targetPost.actions.some(
       (action) => action.__typename === "SimpleCollectAction"
     );
-  const canRepost =
-    targetPost.operations?.canRepost.__typename ===
-    "PostOperationValidationPassed";
-  const canQuote =
-    targetPost.operations?.canQuote.__typename ===
-    "PostOperationValidationPassed";
-  const showShareMenu = canRepost || canQuote;
-  const isPostFromCurrentAccount =
-    currentAccount?.address === targetPost.author.address;
 
   return (
     <span
-      className="mt-3 flex w-full flex-wrap items-center justify-between gap-3"
+      className={cn(
+        "mt-2 flex w-full flex-wrap items-center justify-between gap-3 sm:mt-2",
+        {
+          "mt-2 sm:mt-4": showCount,
+          "mt-3": showCount && !embedded
+        }
+      )}
       onClick={stopEventPropagation}
+      onKeyDown={stopEventPropagation}
+      role="toolbar"
     >
-      <span
-        className={cn("flex flex-grow flex-wrap items-center", {
-          "gap-x-4 sm:gap-x-5":
-            showCount &&
-            (!showShareMenu || !hasCollectAction || isPostFromCurrentAccount),
-          "gap-x-7": !showCount,
-          "justify-between pr-2 sm:justify-start sm:gap-x-6":
-            showCount &&
-            showShareMenu &&
-            hasCollectAction &&
-            !isPostFromCurrentAccount
+      <div
+        className={cn("grow items-center", {
+          "flex flex-wrap gap-x-7": !showCount,
+          "flex justify-between pr-2 sm:justify-start sm:gap-x-7 sm:pr-0":
+            showCount
         })}
       >
         <Comment post={targetPost} showCount={showCount} />
-        <ShareMenu post={post} showCount={showCount} />
+        <Reference post={post} showCount={showCount} />
         <Like
           currentAccount={currentAccount}
           post={targetPost}
@@ -67,13 +68,27 @@ const PostActions = ({ post, showCount = true }: PostActionsProps) => {
         />
         {hasCollectAction ? (
           <CollectAction post={targetPost} showCount={showCount} />
-        ) : null}
-      </span>
-      {!showCount && hasCollectAction ? (
-        <div className="hidden sm:flex sm:pr-2">
-          <SmallCollectButton post={targetPost} />
+        ) : (
+          <div className="block size-8 sm:hidden" />
+        )}
+      </div>
+      {showCount ? (
+        <div className="hidden items-center gap-x-3 sm:flex">
+          <Bookmark post={targetPost} showCount={showCount} />
+          <Share post={targetPost} />
         </div>
-      ) : null}
+      ) : (
+        <div className="hidden gap-x-3 sm:flex">
+          <Bookmark post={targetPost} showCount={showCount} />
+          <Share post={targetPost} />
+          {hasCollectAction ? (
+            <SmallCollectButton post={targetPost} />
+          ) : !targetPost.commentOn &&
+            currentAccount?.address === targetPost.author.address ? (
+            <MakeCollectible post={targetPost} />
+          ) : null}
+        </div>
+      )}
     </span>
   );
 };

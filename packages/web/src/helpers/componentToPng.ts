@@ -22,7 +22,7 @@ export const componentToPng = async (
       );
     },
     height: options.height,
-    pixelRatio: 3,
+    pixelRatio: 2,
     style: {
       transform: "scale(1)"
     },

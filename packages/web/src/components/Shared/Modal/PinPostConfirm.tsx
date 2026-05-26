@@ -3,7 +3,7 @@ import {
   useExecuteAccountActionMutation
 } from "@palus/indexer";
 import { useQueryClient } from "@tanstack/react-query";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { useConfig, useReadContract } from "wagmi";
 import { readContractQueryOptions } from "wagmi/query";
@@ -24,7 +24,6 @@ const PinPostConfirm = () => {
   const { currentAccount } = useAccountStore();
   const { setShowPinPostModal, post, isPinned } = usePinPostModalStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isConfigured, setIsConfigured] = useState(false);
 
   const config = useConfig();
   const queryClient = useQueryClient();
@@ -40,9 +39,8 @@ const PinPostConfirm = () => {
     }
   });
 
-  useEffect(() => {
-    setIsConfigured(isActionConfigured ?? false);
-  }, [isActionConfigured]);
+  const [newlyConfigured, setNewlyConfigured] = useState(false);
+  const isConfigured = newlyConfigured || (isActionConfigured ?? false);
 
   const handleTransactionLifecycle = useTransactionLifecycle();
 
@@ -63,7 +61,7 @@ const PinPostConfirm = () => {
 
   const onConfigureCompleted = () => {
     setIsSubmitting(false);
-    setIsConfigured(true);
+    setNewlyConfigured(true);
   };
 
   const onExecuteCompleted = () => {

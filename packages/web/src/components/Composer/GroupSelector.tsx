@@ -25,6 +25,13 @@ interface GroupSelectorProps {
   onChange: (group: GroupFragment | undefined) => void;
 }
 
+type Option = {
+  icon: string;
+  label: string;
+  selected: boolean;
+  value: GroupFragment | { address: string };
+};
+
 const GroupSelector = ({ selected, onChange }: GroupSelectorProps) => {
   const { currentAccount } = useAccountStore();
   const { setGroupGate } = usePostRulesStore();
@@ -41,16 +48,21 @@ const GroupSelector = ({ selected, onChange }: GroupSelectorProps) => {
   });
 
   const options = useMemo(() => {
-    const groups = data?.groups?.items ?? [];
+    const groups = data?.groups.items ?? [];
     return groups
-      .map((group: GroupFragment) => ({
-        icon: getAvatar(group),
-        label: group.metadata?.name ?? group.address,
-        selected: group.feed?.address === selected?.feed?.address,
-        value: group ?? ""
-      }))
-      .filter((option) => option.value.feed?.address !== "");
-  }, [data?.groups?.items, selected]);
+      .reduce<Option[]>((acc, group: GroupFragment) => {
+        if (group.feed?.address !== "") {
+          acc.push({
+            icon: getAvatar(group),
+            label: group.metadata?.name ?? group.address,
+            selected: group.feed?.address === selected?.feed?.address,
+            value: group
+          });
+        }
+        return acc;
+      }, [])
+      .sort((a, b) => a.label.localeCompare(b.label));
+  }, [data?.groups.items, selected?.feed?.address]);
 
   if (!options.length) {
     return <div className="h-3" />;
@@ -69,7 +81,7 @@ const GroupSelector = ({ selected, onChange }: GroupSelectorProps) => {
   return (
     <SelectUI defaultValue="global" onValueChange={onValueChange}>
       <SelectTrigger
-        className="!h-6 w-fit border-none px-0 py-0 opacity-75 shadow-none"
+        className="!h-6 w-fit border-none p-0 opacity-75 shadow-none"
         size="sm"
       >
         <SelectValue />

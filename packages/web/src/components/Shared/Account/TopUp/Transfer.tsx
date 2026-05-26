@@ -32,9 +32,10 @@ const Transfer = ({ token }: TransferProps) => {
   const { setShowFundModal, amountToTopUp } = useFundModalStore();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [txHash, setTxHash] = useState<Hex | null>(null);
   const [amount, setAmount] = useState(amountToTopUp ?? 1);
   const [other, setOther] = useState(!!amountToTopUp);
+
+  const txHash = useRef<Hex | null>(null);
 
   const inputRef = useRef<HTMLInputElement>(null);
   usePreventScrollOnNumberInput(inputRef as RefObject<HTMLInputElement>);
@@ -64,7 +65,7 @@ const Transfer = ({ token }: TransferProps) => {
     setAmount(2);
     setOther(false);
     setIsSubmitting(false);
-    setTxHash(null);
+    txHash.current = null;
     setShowFundModal({ showFundModal: false });
     toast.success("Deposit successful");
     track("Token operation", { deposit: symbol });
@@ -76,13 +77,21 @@ const Transfer = ({ token }: TransferProps) => {
   }, []);
 
   const { data: transactionReceipt } = useWaitForTransactionReceipt({
-    hash: txHash as Hex,
-    query: { enabled: Boolean(txHash) }
+    hash: txHash.current as Hex,
+    query: { enabled: Boolean(txHash.current) }
   });
 
   useEffect(() => {
-    if (transactionReceipt?.status === "success") {
+    if (!transactionReceipt) return;
+
+    if (transactionReceipt.status === "success") {
       onCompleted();
+    } else if (transactionReceipt.status === "reverted") {
+      onError({
+        message: "Transaction reverted",
+        name: transactionReceipt.transactionHash
+      });
+      txHash.current = null;
     }
   }, [transactionReceipt]);
 
@@ -96,7 +105,9 @@ const Transfer = ({ token }: TransferProps) => {
       }
 
       return await handleTransactionLifecycle({
-        onCompleted: (hash) => setTxHash(hash as Hex),
+        onCompleted: (hash) => {
+          txHash.current = hash as Hex;
+        },
         onError,
         transactionData: deposit
       });
@@ -157,7 +168,7 @@ const Transfer = ({ token }: TransferProps) => {
       </div>
       <div className="divider" />
       <div className="space-y-5 p-5">
-        <div className="flex space-x-4 text-sm">
+        <div className="flex gap-x-4 text-sm">
           <Button
             className="w-full"
             onClick={() => handleSetAmount(1)}

@@ -23,11 +23,15 @@ const getClass = (attachments: number) => {
 interface NewAttachmentsProps {
   attachments: NewAttachment[];
   hideDelete?: boolean;
+  isEditing?: boolean;
 }
 
+const EMPTY_ITEMS: NewAttachment[] = [];
+
 const NewAttachments = ({
-  attachments = [],
-  hideDelete = false
+  attachments = EMPTY_ITEMS,
+  hideDelete = false,
+  isEditing = false
 }: NewAttachmentsProps) => {
   const { setAttachments } = usePostAttachmentStore();
   const { setVideoDurationInSeconds } = usePostVideoStore();
@@ -49,9 +53,8 @@ const NewAttachments = ({
   }, [videoRef, attachments]);
 
   const handleRemoveAttachment = (attachment: NewAttachment) => {
-    const arr = attachments;
     setAttachments(
-      arr.filter((element: NewAttachment) => element !== attachment)
+      attachments.filter((element: NewAttachment) => element !== attachment)
     );
   };
 
@@ -73,7 +76,7 @@ const NewAttachments = ({
         const isVideo = attachment.type === "Video";
 
         return (
-          <div
+          <figure
             className={cn(
               isImage && getClass(attachmentsLength)?.aspect,
               attachmentsLength === 3 && index === 0 && "row-span-2",
@@ -85,11 +88,12 @@ const NewAttachments = ({
             )}
             key={attachment.id}
             onClick={stopEventPropagation}
+            onKeyDown={stopEventPropagation}
           >
             {isVideo ? (
               <>
                 <video
-                  className="w-full overflow-hidden rounded-xl"
+                  className="aspect-h-video max-h-72 w-full overflow-hidden rounded-xl bg-black"
                   controls
                   controlsList="nodownload noplaybackrate"
                   disablePictureInPicture
@@ -100,7 +104,13 @@ const NewAttachments = ({
                 <ChooseThumbnail />
               </>
             ) : isAudio ? (
-              <Audio isNew poster="" src={attachment.previewUri} />
+              <Audio
+                isEditing={isEditing}
+                isNew={!isEditing}
+                poster=""
+                src={attachment.previewUri}
+                type={attachment.file?.name.split(".").slice(-1)[0] || "mp3"}
+              />
             ) : isImage ? (
               <Image
                 alt={attachment.previewUri}
@@ -125,7 +135,7 @@ const NewAttachments = ({
                 </button>
               </div>
             )}
-          </div>
+          </figure>
         );
       })}
     </div>

@@ -4,8 +4,8 @@ import {
   ChevronRightIcon
 } from "@heroicons/react/24/outline";
 import {
-  forwardRef,
   type HTMLAttributes,
+  type Ref,
   useEffect,
   useMemo,
   useRef,
@@ -23,10 +23,18 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 const CARD_WIDTH = 480;
 const CARD_HEIGHT = 300;
 
-const NotificationShare = forwardRef<
-  HTMLDivElement,
-  HTMLAttributes<HTMLDivElement>
->((props, ref) => {
+const formatNoDecimals = new Intl.NumberFormat("default", {
+  minimumFractionDigits: 0
+});
+
+const formatCurrency = new Intl.NumberFormat("default", {
+  minimumFractionDigits: 2
+});
+
+const NotificationShare = ({
+  ref,
+  ...props
+}: HTMLAttributes<HTMLDivElement> & { ref?: Ref<HTMLDivElement> }) => {
   const [bgIndex, setBgIndex] = useState(0);
   const [scale, setScale] = useState(1);
   const [amountFontSize, setAmountFontSize] = useState(64);
@@ -46,9 +54,9 @@ const NotificationShare = forwardRef<
 
     const num = Number(value);
     if (len <= 2) {
-      return new Intl.NumberFormat("default", {
-        minimumFractionDigits: len === 1 ? 2 : 0
-      }).format(num);
+      return len === 1
+        ? formatCurrency.format(num)
+        : formatNoDecimals.format(num);
     }
 
     return value;
@@ -230,6 +238,6 @@ const NotificationShare = forwardRef<
       </div>
     </div>
   );
-});
+};
 
 export default NotificationShare;

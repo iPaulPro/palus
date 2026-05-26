@@ -3,7 +3,7 @@ import type { WindowVirtualizerHandle } from "virtua";
 import CachedWindowVirtualizer from "@/components/Shared/CachedWindowVirtualizer";
 import PullToRefresh from "@/components/Shared/PullToRefresh";
 import PostsShimmer from "@/components/Shared/Shimmer/PostsShimmer";
-import { Card, EmptyState, ErrorMessage } from "@/components/Shared/UI";
+import { EmptyState, ErrorMessage } from "@/components/Shared/UI";
 import useLoadMoreOnIntersect from "@/hooks/useLoadMoreOnIntersect";
 
 interface PostFeedProps<T extends { id: string }> {
@@ -58,18 +58,16 @@ const PostFeed = <T extends { id: string }>({
 
   return (
     <PullToRefresh onRefresh={refetch}>
-      <Card className="virtual-divider-list-window">
-        <CachedWindowVirtualizer
-          alwaysRestore={alwaysRestoreScroll}
-          cacheKey={cacheKey}
-          onScroll={onScroll}
-          ref={ref}
-        >
-          {pin}
-          {items.map((item) => renderItem(item))}
-          {hasMore && <div className="h-0.5" ref={loadMoreRef} />}
-        </CachedWindowVirtualizer>
-      </Card>
+      <CachedWindowVirtualizer
+        alwaysRestore={alwaysRestoreScroll}
+        cacheKey={cacheKey}
+        onScroll={onScroll}
+        ref={ref}
+      >
+        {pin}
+        {items.map((item) => renderItem(item))}
+        {hasMore && <div className="h-0.5" ref={loadMoreRef} />}
+      </CachedWindowVirtualizer>
     </PullToRefresh>
   );
 };

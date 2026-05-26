@@ -1,12 +1,13 @@
 import { UsersIcon } from "@heroicons/react/24/outline";
 import {
+  type AccountFragment,
   type GroupFragment,
   type GroupMembersRequest,
   PageSize,
   useAdminsForQuery,
   useGroupMembersQuery
 } from "@palus/indexer";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { useCallback } from "react";
 import { Virtualizer } from "virtua";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
@@ -54,12 +55,18 @@ const Members = ({ group }: MembersProps) => {
     variables: { request: { address: group.address } }
   });
 
-  const adminAccounts = admins?.adminsFor?.items
-    .map((item) => item.account.address)
-    .filter(
-      (account) =>
-        account.toLowerCase() !== CONTRACTS.banMemberGroupRule.toLowerCase()
-    );
+  const adminAccounts = admins?.adminsFor?.items.reduce<AccountFragment[]>(
+    (acc, item) => {
+      if (
+        item.account.address.toLowerCase() !==
+        CONTRACTS.banMemberGroupRule.toLowerCase()
+      ) {
+        acc.push(item.account);
+      }
+      return acc;
+    },
+    []
+  );
 
   if (loading) {
     return <AccountListShimmer />;
@@ -89,7 +96,7 @@ const Members = ({ group }: MembersProps) => {
     <div className="max-h-[80vh] overflow-y-auto">
       <Virtualizer>
         {groupMembers.map((member, index) => (
-          <motion.div
+          <m.div
             animate="visible"
             className={cn(
               "divider p-5",
@@ -115,7 +122,7 @@ const Members = ({ group }: MembersProps) => {
                 currentAccount?.address === member.account.address
               }
             />
-          </motion.div>
+          </m.div>
         ))}
         {hasMore && <div className="h-0.5" ref={loadMoreRef} />}
       </Virtualizer>

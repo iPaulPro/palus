@@ -8,21 +8,27 @@ interface AccountsProps {
   accounts: AccountFragment[];
 }
 
-const Accounts = ({ context, accounts }: AccountsProps) => {
-  const Wrapper = ({ children }: { children: ReactNode }) => (
-    <>
-      {children}
-      {context && <span> {context}</span>}
-    </>
-  );
+const Wrapper = ({
+  children,
+  context
+}: {
+  children: ReactNode;
+  context?: string;
+}) => (
+  <>
+    {children}
+    {context && <span> {context}</span>}
+  </>
+);
 
+const Accounts = ({ context, accounts }: AccountsProps) => {
   const accountOne = accounts[0];
   const accountTwo = accounts[1];
   const accountThree = accounts[2];
 
   if (accounts.length === 1) {
     return (
-      <Wrapper>
+      <Wrapper context={context}>
         <FallbackAccountName account={accountOne} />
       </Wrapper>
     );

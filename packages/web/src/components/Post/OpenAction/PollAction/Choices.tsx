@@ -1,7 +1,7 @@
-import { TrophyIcon } from "@heroicons/react/24/outline";
 import {
   Bars3BottomLeftIcon,
-  CheckCircleIcon
+  CheckCircleIcon,
+  TrophyIcon
 } from "@heroicons/react/24/solid";
 import {
   type PostFragment,
@@ -45,7 +45,7 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedOption, setSelectedOption] = useState<null | number>(null);
-  const [hasVoted, setHasVoted] = useState(
+  const [hasVoted, setHasVoted] = useState(() =>
     options.some((option) => option.voted)
   );
 
@@ -109,19 +109,19 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
 
   return (
     <>
-      <Card forceRounded onClick={stopEventPropagation}>
+      <Card className="sm:w-4/5" forceRounded onClick={stopEventPropagation}>
         <ScrollArea className="max-h-72 overflow-y-auto p-2">
-          {options.map((option, index) => (
+          {options.map((option) => (
             <button
               className={cn(
                 "not-last:mb-2.5 flex w-full items-center space-x-2.5 rounded-xl p-2 text-left text-sm enabled:hover:bg-gray-100 dark:enabled:hover:bg-gray-800",
                 {
-                  "border border-gray-300 dark:border-gray-700":
+                  "border border-gray-400 dark:border-gray-600":
                     !isPollLive && option.voteCount === highestVoteCount
                 }
               )}
               disabled={isSubmitting || !isPollLive || hasVoted}
-              key={index}
+              key={option.id}
               onClick={() => handleVote(option.id)}
               type="button"
             >
@@ -132,7 +132,7 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
                   className={cn(
                     option.voted || (hasVoted && option.id === selectedOption)
                       ? "text-brand-400"
-                      : "text-secondary",
+                      : "text-muted",
                     "size-6"
                   )}
                 />
@@ -142,7 +142,7 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
                   <div className="font-bold">{option.text}</div>
                   <div className="flex items-center gap-x-1">
                     {!isPollLive && option.voteCount === highestVoteCount ? (
-                      <TrophyIcon className="size-4 text-secondary" />
+                      <TrophyIcon className="size-4 text-brand-500" />
                     ) : null}
                     <Tooltip content={option.voteCount}>
                       <span className="text-secondary">
@@ -158,7 +158,12 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
                 </div>
                 <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300 dark:bg-gray-700">
                   <div
-                    className="bg-brand-400"
+                    className={cn(
+                      option.voted || (hasVoted && option.id === selectedOption)
+                        ? "bg-brand-400"
+                        : "bg-secondary",
+                      "h-6"
+                    )}
                     style={{
                       width: `${(option.voteCount / totalVoteCount) * 100}%`
                     }}
@@ -169,7 +174,7 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
           ))}
         </ScrollArea>
         <div className="flex items-center justify-between border-border border-t px-5 py-3">
-          <div className="flex items-center space-x-2 text-secondary text-xs">
+          <div className="flex items-center gap-x-2 text-secondary text-xs">
             <Bars3BottomLeftIcon className="size-4" />
             <button
               onClick={() => setShowPostExecutorsModal(true)}

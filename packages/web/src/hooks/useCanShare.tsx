@@ -25,6 +25,7 @@ const collectorOnlyPostRuleContract = {
 };
 
 const useCanShare = ({ post }: PostRuleValidationProps) => {
+  // react-doctor-disable-next-line react-doctor/rendering-usetransition-loading
   const [isLoading, setIsLoading] = useState(false);
   const [canRepost, setCanRepost] = useState(false);
   const [canQuote, setCanQuote] = useState(false);
@@ -33,7 +34,7 @@ const useCanShare = ({ post }: PostRuleValidationProps) => {
   const { currentAccount } = useAccountStore();
 
   const validateCanReference = useCallback(async () => {
-    if (!currentAccount || !post?.operations) {
+    if (!currentAccount || !post?.operations || !config) {
       setIsLoading(false);
       setCanRepost(false);
       setCanQuote(false);
@@ -161,7 +162,14 @@ const useCanShare = ({ post }: PostRuleValidationProps) => {
     } finally {
       setIsLoading(false);
     }
-  }, [post, config, currentAccount]);
+  }, [
+    config,
+    currentAccount,
+    post?.operations,
+    post?.feed.address,
+    post?.id,
+    post?.author.operations?.isFollowingMe
+  ]);
 
   useEffect(() => {
     validateCanReference();

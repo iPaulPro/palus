@@ -1,7 +1,8 @@
 import { PhotoIcon } from "@heroicons/react/24/outline";
+import { MediaImageMimeType } from "@lens-protocol/metadata";
 import type { ChangeEvent, Ref } from "react";
 import { useCallback, useState } from "react";
-import { Image, Spinner } from "@/components/Shared/UI";
+import { Image, LightBox, Spinner } from "@/components/Shared/UI";
 import { TRANSFORMS } from "@/data/constants";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
@@ -15,17 +16,22 @@ interface CoverImageProps {
   cover: string;
   imageRef: Ref<HTMLImageElement>;
   isNew: boolean;
+  isEditing: boolean;
   setCover: (previewUri: string, url: string, mimeType: string) => void;
 }
+
+const ImageMimeType = Object.values(MediaImageMimeType);
 
 const CoverImage = ({
   cover,
   imageRef,
-  isNew = false,
+  isNew,
+  isEditing,
   setCover
 }: CoverImageProps) => {
   const { currentAccount } = useAccountStore();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showLightBox, setShowLightBox] = useState(false);
 
   const onError = useCallback((error: ApolloClientError) => {
     setIsSubmitting(false);
@@ -45,48 +51,54 @@ const CoverImage = ({
         );
       } catch (error) {
         onError(error as ApolloClientError);
+      } finally {
+        setIsSubmitting(false);
       }
     }
   };
 
+  const coverSrc = imageKit(sanitizeDStorageUrl(cover), TRANSFORMS.ATTACHMENT);
+
   return (
-    <div className="group relative w-full flex-none overflow-hidden md:w-fit">
+    <div className="group relative h-full flex-none overflow-hidden">
       <button
-        className="flex w-full justify-center focus:outline-hidden md:w-fit"
+        className="flex h-full justify-center focus:outline-hidden"
         type="button"
       >
         <Image
           alt={`attachment-audio-cover-${cover}`}
-          className="aspect-square w-64 max-w-[calc(100%-1rem)] rounded-lg object-cover md:size-36 md:max-w-full md:rounded-none"
+          className="aspect-square h-full object-cover"
           draggable={false}
+          onClick={() => setShowLightBox(true)}
           onError={({ currentTarget }) => {
             currentTarget.src = cover ? sanitizeDStorageUrl(cover) : cover;
           }}
           ref={imageRef}
-          src={
-            cover
-              ? imageKit(sanitizeDStorageUrl(cover), TRANSFORMS.ATTACHMENT)
-              : cover
-          }
+          src={cover ? coverSrc : cover}
+        />
+        <LightBox
+          images={[coverSrc]}
+          onClose={() => setShowLightBox(false)}
+          show={showLightBox}
         />
       </button>
-      {isNew && (
+      {(isNew || isEditing) && (
         <label
           className={cn(
-            { invisible: cover, visible: isSubmitting && !cover },
-            "absolute top-0 grid size-24 cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible md:size-40 dark:bg-gray-900"
+            { invisible: cover, visible: isSubmitting },
+            "absolute top-0 grid aspect-square h-full cursor-pointer place-items-center bg-gray-100 backdrop-blur-lg group-hover:visible dark:bg-gray-900"
           )}
         >
-          {isSubmitting && !cover ? (
+          {isSubmitting ? (
             <Spinner size="sm" />
           ) : (
             <div className="flex flex-col items-center text-sm opacity-60">
               <PhotoIcon className="size-5" />
-              <span>Add cover</span>
+              <span>{cover ? "Change cover" : "Add cover"}</span>
             </div>
           )}
           <input
-            accept=".png, .jpg, .jpeg, .svg"
+            accept={ImageMimeType.join()}
             className="hidden w-full"
             onChange={onChange}
             type="file"

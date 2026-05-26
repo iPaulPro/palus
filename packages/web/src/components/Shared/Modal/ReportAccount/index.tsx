@@ -59,7 +59,11 @@ const ReportAccount = ({ account }: ReportAccountProps) => {
   };
 
   return (
-    <div onClick={stopEventPropagation}>
+    <section
+      aria-label="Report account"
+      onClick={stopEventPropagation}
+      onKeyDown={stopEventPropagation}
+    >
       {data?.reportAccount === null ? (
         <EmptyState
           hideCard
@@ -121,7 +125,7 @@ const ReportAccount = ({ account }: ReportAccountProps) => {
           </Form>
         </div>
       ) : null}
-    </div>
+    </section>
   );
 };
 

@@ -27,7 +27,7 @@ interface Props {
 
 const Ban = ({ account }: Props) => {
   const { currentAccount } = useAccountStore();
-  const { bannedAccounts, setBannedAccounts } = useBannedAccountsStore();
+  const { bannedAccounts, addBannedAccount } = useBannedAccountsStore();
   const handleTransactionLifecycle = useTransactionLifecycle();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -38,7 +38,7 @@ const Ban = ({ account }: Props) => {
 
   const onCompleted = () => {
     setIsSubmitting(false);
-    setBannedAccounts([...bannedAccounts, account.address]);
+    addBannedAccount(account.address);
   };
 
   const [banAccounts] = useBanGroupAccountsMutation({
@@ -56,7 +56,7 @@ const Ban = ({ account }: Props) => {
     onError
   });
 
-  const handleClick = useCallback(
+  const banAccount = useCallback(
     (event: MouseEvent) => {
       stopEventPropagation(event);
       banAccounts({
@@ -66,9 +66,9 @@ const Ban = ({ account }: Props) => {
             group: ADMIN_GROUP_ADDRESS
           }
         }
-      });
+      }).catch(onError);
     },
-    [account]
+    [banAccounts, account.address, onError]
   );
 
   if (!currentAccount?.isAdmin || bannedAccounts.includes(account.address)) {
@@ -80,7 +80,7 @@ const Ban = ({ account }: Props) => {
       as="div"
       className={menuItemClassName}
       disabled={isSubmitting}
-      onClick={handleClick}
+      onClick={banAccount}
     >
       {isSubmitting ? <Loader small /> : <NoSymbolIcon className="size-4" />}
       <div>Ban account</div>

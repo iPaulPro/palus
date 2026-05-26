@@ -1,7 +1,8 @@
 import {
-  forwardRef,
   type ReactNode,
-  useImperativeHandle,
+  type Ref,
+  type RefObject,
+  useCallback,
   useLayoutEffect,
   useMemo,
   useRef
@@ -18,22 +19,40 @@ interface CachedWindowVirtualizerProps {
   children: ReactNode;
   onScroll?: (scrollOffset: number) => void;
   alwaysRestore?: boolean;
+  ref?: Ref<WindowVirtualizerHandle>;
 }
 
 // Track which keys have been "cleared" during this JS session to allow
 // restoration after subsequent SPA navigations even if the initial load was a reload.
 const sessionHandledKeys = new Set<string>();
 
-const CachedWindowVirtualizer = forwardRef<
-  WindowVirtualizerHandle,
-  CachedWindowVirtualizerProps
->(({ cacheKey, children, onScroll, alwaysRestore = false }, ref) => {
+// Track which keys have already had scroll restoration performed this session,
+// so that remounting the component (e.g. after a comment is posted and the feed
+// transitions from empty → populated) does not re-trigger a scroll-to-top.
+const restoredKeys = new Set<string>();
+
+const CachedWindowVirtualizer = ({
+  cacheKey,
+  children,
+  onScroll,
+  alwaysRestore = false,
+  ref
+}: CachedWindowVirtualizerProps) => {
   const innerRef = useRef<WindowVirtualizerHandle>(null);
-  const isRestored = useRef(false);
   const navType = useNavigationType();
   const shouldRestore = alwaysRestore || navType === "POP";
 
-  useImperativeHandle(ref, () => innerRef.current as WindowVirtualizerHandle);
+  const mergedRef = useCallback(
+    (node: WindowVirtualizerHandle | null) => {
+      (innerRef as RefObject<WindowVirtualizerHandle | null>).current = node;
+      if (typeof ref === "function") {
+        ref(node);
+      } else if (ref) {
+        (ref as RefObject<WindowVirtualizerHandle | null>).current = node;
+      }
+    },
+    [ref]
+  );
 
   const [offset, cache] = useMemo(() => {
     // Check if the page was refreshed
@@ -60,20 +79,13 @@ const CachedWindowVirtualizer = forwardRef<
     }
   }, [cacheKey]);
 
-  // Reset restoration flag if the cacheKey changes (e.g., switching feeds)
-  const lastKey = useRef(cacheKey);
-  if (lastKey.current !== cacheKey) {
-    isRestored.current = false;
-    lastKey.current = cacheKey;
-  }
-
   useLayoutEffect(() => {
     const handle = innerRef.current;
     if (!handle) return;
 
-    if (!isRestored.current && shouldRestore) {
+    if (!restoredKeys.has(cacheKey) && shouldRestore) {
       window.scrollTo(0, offset);
-      isRestored.current = true;
+      restoredKeys.add(cacheKey);
     }
 
     let scrollY = window.scrollY;
@@ -85,21 +97,20 @@ const CachedWindowVirtualizer = forwardRef<
     return () => {
       window.removeEventListener("scroll", onScroll);
       sessionStorage.setItem(cacheKey, JSON.stringify([scrollY, handle.cache]));
+      restoredKeys.delete(cacheKey);
     };
   }, [cacheKey, offset, shouldRestore]);
 
   return (
-    <div className="virtual-divider-list-window">
-      <WindowVirtualizer
-        bufferSize={1200}
-        cache={cache}
-        onScroll={() => onScroll?.(innerRef.current?.scrollOffset ?? 0)}
-        ref={innerRef}
-      >
-        {children}
-      </WindowVirtualizer>
-    </div>
+    <WindowVirtualizer
+      bufferSize={1200}
+      cache={cache}
+      onScroll={() => onScroll?.(innerRef.current?.scrollOffset ?? 0)}
+      ref={mergedRef}
+    >
+      {children}
+    </WindowVirtualizer>
   );
-});
+};
 
 export default CachedWindowVirtualizer;

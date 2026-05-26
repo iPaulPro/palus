@@ -37,7 +37,7 @@ const Posts = ({ query }: PostsProps) => {
           !bannedAccounts.includes(post.author.address)
         );
       }),
-    [posts]
+    [posts, bannedAccounts]
   );
 
   const handleEndReached = useCallback(async () => {

@@ -32,7 +32,7 @@ const CopyPostText = ({ post }: CopyPostTextProps) => {
         copyContent();
       }}
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         <ClipboardDocumentIcon className="size-4" />
         <div>{post.commentOn ? "Copy comment text" : "Copy post text"}</div>
       </div>

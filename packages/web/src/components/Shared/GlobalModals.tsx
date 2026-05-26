@@ -1,4 +1,5 @@
 import { useMediaQuery } from "@uidotdev/usehooks";
+import CollectForm from "@/components/Composer/Actions/CollectSettings/CollectForm";
 import NewPublication from "@/components/Composer/NewPublication";
 import SuperFollow from "@/components/Shared/Account/SuperFollow";
 import SwitchAccounts from "@/components/Shared/Account/SwitchAccounts";
@@ -15,6 +16,7 @@ import { Modal } from "@/components/Shared/UI";
 import getAccount from "@/helpers/getAccount";
 import { IS_MOBILE } from "@/helpers/mediaQueries";
 import { useAuthModalStore } from "@/store/non-persisted/modal/useAuthModalStore";
+import { useCollectFormModalStore } from "@/store/non-persisted/modal/useCollectFormModalStore";
 import { useCreateGroupStore } from "@/store/non-persisted/modal/useCreateGroupStore";
 import { useFundModalStore } from "@/store/non-persisted/modal/useFundModalStore";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
@@ -24,7 +26,9 @@ import { useReportPostModalStore } from "@/store/non-persisted/modal/useReportPo
 import { useSuperFollowModalStore } from "@/store/non-persisted/modal/useSuperFollowModalStore";
 import { useSuperJoinModalStore } from "@/store/non-persisted/modal/useSuperJoinModalStore";
 import { useSwitchAccountModalStore } from "@/store/non-persisted/modal/useSwitchAccountModalStore";
+import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
+import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import Auth from "./Auth";
 
@@ -70,6 +74,13 @@ const GlobalModals = () => {
   } = useCreateGroupStore();
   const { isPinned, showPinPostModal, setShowPinPostModal } =
     usePinPostModalStore();
+  const {
+    showCollectFormModal,
+    setShowCollectFormModal,
+    onSubmit: onSubmitCollectForm
+  } = useCollectFormModalStore();
+  const { reset: resetCollectForm } = useCollectActionStore((state) => state);
+  const { setLicense } = usePostLicenseStore();
 
   const authModalTitle =
     authModalType === "signup"
@@ -112,15 +123,16 @@ const GlobalModals = () => {
         <Auth />
       </Modal>
       <Modal
-        afterLeave={() => {
+        onClose={() => {
+          setShowNewPostModal(false);
           setPostContent("");
           setEditingPost(undefined);
           setQuotedPost(undefined);
           setParentPost(undefined);
           setNotificationShare(undefined);
           setAttachments([]);
+          resetCollectForm();
         }}
-        onClose={() => setShowNewPostModal(false)}
         preventClose={true}
         show={showNewPostModal}
         size={isSmallDevice ? "full" : "md"}
@@ -162,10 +174,10 @@ const GlobalModals = () => {
         <SuperFollow />
       </Modal>
       <Modal
-        afterLeave={() => {
+        onClose={() => {
+          setShowCreateGroupModal(false);
           setGroupScreen("details");
         }}
-        onClose={() => setShowCreateGroupModal(false)}
         show={showCreateGroupModal}
         title={groupScreen === "details" ? "Create a group" : undefined}
       >
@@ -184,6 +196,20 @@ const GlobalModals = () => {
         title={isPinned ? "Unpin post from profile?" : "Pin post to profile?"}
       >
         <PinPostConfirm />
+      </Modal>
+      <Modal
+        onClose={() => {
+          setShowCollectFormModal(false);
+          setLicense(null);
+          resetCollectForm();
+        }}
+        show={showCollectFormModal}
+        title="Collect Settings"
+      >
+        <CollectForm
+          onSubmit={onSubmitCollectForm}
+          setShowModal={setShowCollectFormModal}
+        />
       </Modal>
     </>
   );

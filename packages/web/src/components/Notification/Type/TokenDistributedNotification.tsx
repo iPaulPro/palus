@@ -13,7 +13,7 @@ const TokenDistributedNotification = ({
 
   return (
     <div className="flex items-center justify-between px-4 py-5 md:p-5">
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center gap-x-3">
         <GiftIcon className="size-6" />
         <div>
           You have received {amount.value} {amount.asset.symbol}

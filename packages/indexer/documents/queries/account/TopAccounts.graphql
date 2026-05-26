@@ -1,0 +1,11 @@
+query TopAccounts($request: PostsRequest!) {
+  posts(request: $request) {
+    items {
+      ... on Post {
+        author {
+          ...Account
+        }
+      }
+    }
+  }
+}

@@ -38,6 +38,9 @@ const useCreatePost = ({
       });
 
       if (!data?.post) {
+        toast.error("Post is still processing. Please refresh in a moment.", {
+          id: toastId
+        });
         return;
       }
 
@@ -62,14 +65,20 @@ const useCreatePost = ({
   );
 
   const onCompletedWithTransaction = useCallback(
-    (hash: string) => {
+    async (hash: string) => {
       const toastId = toast.loading(
         `${isComment ? "Comment" : "Post"} processing...`
       );
-      waitForTransactionToComplete(hash).then(() => updateCache(hash, toastId));
+      try {
+        await waitForTransactionToComplete(hash);
+      } catch (e: any) {
+        toast.error(e.message, { id: toastId });
+        return onError(e);
+      }
+      await updateCache(hash, toastId);
       return onCompleted();
     },
-    [waitForTransactionToComplete, updateCache, onCompleted, isComment]
+    [waitForTransactionToComplete, updateCache, onCompleted, isComment, onError]
   );
 
   // Onchain mutations

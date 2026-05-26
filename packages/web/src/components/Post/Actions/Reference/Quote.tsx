@@ -28,13 +28,13 @@ const Quote = ({ post }: QuoteProps) => {
       }
       onClick={() => {
         if (!currentAccount) {
-          return toast.error(ERRORS.SignWallet);
+          return toast.error(ERRORS.LoginRequired);
         }
         setQuotedPost(post);
         setShowNewPostModal(true);
       }}
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         <ChatBubbleBottomCenterTextIcon className="size-4" />
         <div>{post.commentOn ? "Quote comment" : "Quote post"}</div>
       </div>

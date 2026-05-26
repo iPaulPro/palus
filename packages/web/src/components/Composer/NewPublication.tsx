@@ -34,7 +34,7 @@ import getMentions from "@/helpers/getMentions";
 import getPostData from "@/helpers/getPostData";
 import getURLs from "@/helpers/getURLs";
 import { getPostIdFromLensUrl } from "@/helpers/lensURLs";
-import { IS_STANDALONE } from "@/helpers/mediaQueries";
+import { IS_MOBILE, IS_STANDALONE } from "@/helpers/mediaQueries";
 import pollActionParams from "@/helpers/pollActionParams";
 import postRuleParams from "@/helpers/postRuleParams";
 import { uploadImage } from "@/helpers/uploadFiles";
@@ -82,10 +82,8 @@ const NewPublication = ({
   const { currentAccount } = useAccountStore();
   const { bannedAccounts } = useBannedAccountsStore();
 
-  // New post modal store
   const { setShow: setShowNewPostModal } = useNewPostModalStore();
 
-  // Post store
   const {
     postContent,
     editingPost,
@@ -101,28 +99,17 @@ const NewPublication = ({
     setNotificationShare
   } = usePostStore();
 
-  // Audio store
   const { audioPost, setAudioPost } = usePostAudioStore();
-
-  // Video store
-  const { setVideoThumbnail, videoThumbnail } = usePostVideoStore();
-
-  // Attachment store
+  const { setVideoThumbnail, videoDurationInSeconds, videoThumbnail } =
+    usePostVideoStore();
   const { addAttachments, attachments, isUploading, setAttachments } =
     usePostAttachmentStore();
-
-  // Poll store
   const { pollConfig, resetPollConfig, setShowPollEditor, showPollEditor } =
     usePostPollStore();
-
-  // License store
   const { setLicense } = usePostLicenseStore();
-
-  // Collect module store
   const { collectAction, reset: resetCollectSettings } = useCollectActionStore(
     (state) => state
   );
-
   const {
     followersOnly,
     followingOnly,
@@ -135,12 +122,17 @@ const NewPublication = ({
   } = usePostRulesStore();
   const { setContentWarning } = usePostContentWarningStore();
 
-  // States
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [postContentError, setPostContentError] = useState("");
   const [selectedGroup, setSelectedGroup] = useState<GroupFragment | undefined>(
-    group
+    undefined
   );
+
+  const prevGroupRef = useRef<GroupFragment | null>(null); // null = "never set"
+  if (prevGroupRef.current !== (group ?? null)) {
+    prevGroupRef.current = group ?? null;
+    setSelectedGroup(group);
+  }
 
   const notificationShareRef = useRef<HTMLDivElement>(null);
 
@@ -153,8 +145,15 @@ const NewPublication = ({
   const isQuote = Boolean(quotedPost);
   const hasAudio = attachments[0]?.type === "Audio";
   const hasVideo = attachments[0]?.type === "Video";
+  const videoDuration = Number.parseFloat(videoDurationInSeconds);
+  const hasValidVideoMetadata =
+    !hasVideo ||
+    (Boolean(videoThumbnail.url) &&
+      Number.isFinite(videoDuration) &&
+      videoDuration > 0);
 
   const isStandalone = useMediaQuery(IS_STANDALONE);
+  const isMobile = useMediaQuery(IS_MOBILE);
 
   const [getPost] = usePostLazyQuery();
   const debouncedPostContent = useDebounce(postContent, 1000);
@@ -188,11 +187,14 @@ const NewPublication = ({
     reset();
   };
 
-  const onError = useCallback((error?: unknown) => {
-    setIsSubmitting(false);
-    errorToast(error);
-    track("Create Post Error", { error });
-  }, []);
+  const onError = useCallback(
+    (error?: unknown) => {
+      setIsSubmitting(false);
+      errorToast(error);
+      track("Create Post Error", { error });
+    },
+    [track]
+  );
 
   const { createPost } = useCreatePost({
     commentOn: post,
@@ -205,13 +207,11 @@ const NewPublication = ({
     onError
   });
 
-  useEffect(() => {
-    setSelectedGroup(group);
-  }, [group]);
-
-  useEffect(() => {
+  const audioPostRef = useRef(audioPost);
+  if (audioPostRef.current !== audioPost) {
+    audioPostRef.current = audioPost;
     setPostContentError("");
-  }, [audioPost]);
+  }
 
   useEffect(() => {
     if (!editingPost) return;
@@ -303,6 +303,11 @@ const NewPublication = ({
         );
       }
 
+      if (!hasValidVideoMetadata) {
+        setIsSubmitting(false);
+        return setPostContentError("A video thumbnail must be included.");
+      }
+
       const baseMetadata = {
         content: postContent.length > 0 ? postContent : undefined,
         title: hasAudio
@@ -315,7 +320,8 @@ const NewPublication = ({
       if (shareImage) {
         const upload = await uploadImage(shareImage, currentAccount.address);
         if (!upload.uri) {
-          throw new Error("Failed to upload image");
+          onError("Failed to upload image");
+          return;
         }
         attachment = {
           mimeType: "image/png",
@@ -331,7 +337,8 @@ const NewPublication = ({
         isCollectible: Boolean(collectAction.enabled)
       });
       if (!metadata) {
-        throw new Error("Failed to generate metadata");
+        onError("Failed to generate metadata");
+        return;
       }
       const contentUri = await uploadMetadata(metadata, currentAccount.address);
 
@@ -439,20 +446,23 @@ const NewPublication = ({
   ) : (
     <Card
       className={cn(
-        { "flex h-full flex-col overflow-hidden pt-4": isModal },
+        {
+          "flex h-full flex-col overflow-hidden drop-shadow-none!": isModal
+        },
         className
       )}
     >
-      {parentPost && isModal ? (
-        <div className="mx-3 shrink-0 md:mx-5">
-          <ThreadBody embedded post={parentPost} />
-        </div>
-      ) : null}
       <div
         className={cn("min-h-0 flex-1 overflow-y-auto", {
-          isModal: "overscroll-contain"
+          "overscroll-contain": isMobile && isModal,
+          "pt-4": isModal
         })}
       >
+        {parentPost && isModal ? (
+          <div className="mx-3 shrink-0 md:mx-5">
+            <ThreadBody embedded post={parentPost} />
+          </div>
+        ) : null}
         <Editor
           fullHeight={
             isModal &&
@@ -474,11 +484,14 @@ const NewPublication = ({
         ) : null}
         {showPollEditor ? <PollEditor /> : null}
         {notificationShare ? (
-          <div className="pr-5 pb-5 pl-16 sm:pl-18">
+          <div className="px-4 pb-5 sm:w-4/5 sm:px-5">
             <NotificationShare ref={notificationShareRef} />
           </div>
         ) : (
-          <NewAttachments attachments={attachments} />
+          <NewAttachments
+            attachments={attachments}
+            isEditing={Boolean(editingPost)}
+          />
         )}
         {quotedPost ? (
           <Wrapper className="m-5" zeroPadding>
@@ -488,7 +501,7 @@ const NewPublication = ({
       </div>
       <div className="block shrink-0 items-center border-border border-t px-5 py-3 sm:flex">
         <div
-          className={cn("flex w-full items-center space-x-5", {
+          className={cn("flex w-full items-center space-x-5 bg-card", {
             "pb-6 sm:pb-0": isStandalone && isModal
           })}
         >

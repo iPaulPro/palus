@@ -1,6 +1,6 @@
 import { UserGroupIcon } from "@heroicons/react/24/outline";
 import type { AccountFragment, GroupFragment } from "@palus/indexer";
-import { motion } from "motion/react";
+import { m } from "motion/react";
 import { Virtualizer } from "virtua";
 import AdminActions from "@/components/Group/Members/Actions";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
@@ -50,7 +50,7 @@ const Admins = ({ accounts, group, loading, error }: AdminAccountsProps) => {
     <div className="max-h-[80vh] overflow-y-auto">
       <Virtualizer>
         {accounts.map((account, index) => (
-          <motion.div
+          <m.div
             animate="visible"
             className={cn(
               "divider p-5",
@@ -72,7 +72,7 @@ const Admins = ({ accounts, group, loading, error }: AdminAccountsProps) => {
               hideFollowButton={currentAccount?.address === account.address}
               hideUnfollowButton={currentAccount?.address === account.address}
             />
-          </motion.div>
+          </m.div>
         ))}
       </Virtualizer>
     </div>

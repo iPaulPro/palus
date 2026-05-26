@@ -37,17 +37,21 @@ const useAccountMentionQuery = (query: string): MentionAccount[] => {
       const search = data?.accounts;
       const accountsSearchResult = search;
       const accounts = accountsSearchResult?.items;
-      const accountsResults = (accounts ?? [])
-        .filter((account) => !account.operations?.isBlockedByMe)
-        .map(
-          (account): MentionAccount => ({
-            address: account.address,
-            name: getAccount(account).name,
-            picture: getAvatar(account),
-            score: account.score,
-            username: getAccount(account).username
-          })
-        );
+      const accountsResults = (accounts ?? []).reduce<MentionAccount[]>(
+        (acc, account) => {
+          if (!account.operations?.isBlockedByMe) {
+            acc.push({
+              address: account.address,
+              name: getAccount(account).name,
+              picture: getAvatar(account),
+              score: account.score,
+              username: getAccount(account).username
+            });
+          }
+          return acc;
+        },
+        []
+      );
 
       setResults(accountsResults);
     });

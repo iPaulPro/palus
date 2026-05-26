@@ -20,7 +20,7 @@ const Block = ({ account }: BlockProps) => {
   const { setShowBlockOrUnblockAlert } = useBlockAlertStore();
   const isBlockedByMe = account.operations?.isBlockedByMe;
 
-  const handleClick = useCallback(
+  const toggleBlock = useCallback(
     (event: MouseEvent) => {
       stopEventPropagation(event);
       setShowBlockOrUnblockAlert(true, account);
@@ -29,7 +29,7 @@ const Block = ({ account }: BlockProps) => {
   );
 
   return (
-    <MenuItem as="div" className={menuItemClassName} onClick={handleClick}>
+    <MenuItem as="div" className={menuItemClassName} onClick={toggleBlock}>
       <NoSymbolIcon className="size-4" />
       <div>{isBlockedByMe ? "Unblock" : "Block"} account</div>
     </MenuItem>

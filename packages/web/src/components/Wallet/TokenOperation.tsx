@@ -42,7 +42,9 @@ const TokenOperation = ({
   showModal,
   setShowModal
 }: TokenOperationProps) => {
-  const [selectedToken, setSelectedToken] = useState<string>(tokenAddress);
+  const [selectedToken, setSelectedToken] = useState<string>(
+    () => tokenAddress
+  );
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [maxValue, setMaxValue] = useState<string>("0");
   const [inputValue, setInputValue] = useState<string>("");
@@ -196,6 +198,7 @@ const TokenOperation = ({
           />
         )}
         <div className="flex items-center gap-2">
+          {/* react-doctor-disable-next-line jsx-a11y/no-autofocus */}
           <Input
             autoFocus
             inputMode="decimal"

@@ -1,4 +1,8 @@
-import type { ContentWarning, PostMetadataFragment } from "@palus/indexer";
+import type {
+  ContentWarning,
+  MetadataAttribute,
+  PostMetadataFragment
+} from "@palus/indexer";
 import { PLACEHOLDER_IMAGE } from "@/data/constants";
 import type { AttachmentData } from "@/types/misc";
 import getAttachmentsData from "./getAttachmentsData";
@@ -9,6 +13,7 @@ const getPostData = (
 ): {
   asset?: AttachmentData;
   attachments?: AttachmentData[];
+  attributes?: MetadataAttribute[];
   content?: string;
   contentWarning?: ContentWarning | null;
 } | null => {
@@ -25,22 +30,26 @@ const getPostData = (
     case "SpaceMetadata":
       return {
         attachments: getAttachmentsData(metadata.attachments),
+        attributes: metadata.attributes,
         content: metadata.content,
         contentWarning: metadata.contentWarning
       };
     case "TextOnlyMetadata":
     case "StoryMetadata":
       return {
+        attributes: metadata.attributes,
         content: metadata.content,
         contentWarning: metadata.contentWarning
       };
     case "ImageMetadata":
       return {
         asset: {
-          type: "Image",
+          kind: "Image",
+          type: metadata.image.imageType,
           uri: sanitizeDStorageUrl(metadata.image.item)
         },
         attachments: getAttachmentsData(metadata.attachments),
+        attributes: metadata.attributes,
         content: metadata.content,
         contentWarning: metadata.contentWarning
       };
@@ -56,10 +65,13 @@ const getPostData = (
               audioAttachments?.coverUri ||
               PLACEHOLDER_IMAGE
           ),
+          duration: metadata.audio.duration ?? 0,
+          kind: "Audio",
           title: metadata.title || "Untitled",
-          type: "Audio",
+          type: metadata.audio.audioType,
           uri: metadata.audio.item || audioAttachments?.uri
         },
+        attributes: metadata.attributes,
         content: metadata.content,
         contentWarning: metadata.contentWarning
       };
@@ -72,9 +84,11 @@ const getPostData = (
           coverUri: sanitizeDStorageUrl(
             metadata.video.cover || videoAttachments?.coverUri
           ),
-          type: "Video",
+          kind: "Video",
+          type: metadata.video.videoType,
           uri: sanitizeDStorageUrl(metadata.video.item || videoAttachments?.uri)
         },
+        attributes: metadata.attributes,
         content: metadata.content,
         contentWarning: metadata.contentWarning
       };

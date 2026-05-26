@@ -1,0 +1,16 @@
+mutation ConfigurePostAction($request: ConfigurePostActionRequest!) {
+  configurePostAction(request: $request) {
+    ... on ConfigurePostActionResponse {
+      hash
+    }
+    ... on SelfFundedTransactionRequest {
+      ...SelfFundedTransactionRequest
+    }
+    ... on SponsoredTransactionRequest {
+      ...SponsoredTransactionRequest
+    }
+    ... on TransactionWillFail {
+      ...TransactionWillFail
+    }
+  }
+}

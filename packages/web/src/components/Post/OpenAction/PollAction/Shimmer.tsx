@@ -8,7 +8,7 @@ interface PollActionShimmerProps {
 
 const PollActionShimmer = ({ optionCount }: PollActionShimmerProps) => {
   return (
-    <Card forceRounded>
+    <Card className="sm:w-4/5" forceRounded>
       <div className="max-h-72 space-y-3 overflow-hidden px-2 pt-3 pb-2">
         {Array.from({ length: optionCount }).map((_, index) => (
           <div
@@ -33,7 +33,7 @@ const PollActionShimmer = ({ optionCount }: PollActionShimmerProps) => {
         ))}
       </div>
       <div className="flex items-center justify-between border-border border-t px-5 py-2">
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-x-2">
           <Bars3BottomLeftIcon className="size-4" />
           <Skeleton className="h-4 w-10 rounded-lg" />
           <span>·</span>

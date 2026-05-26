@@ -30,6 +30,39 @@ interface DetailsProps {
   account: AccountFragment;
 }
 
+const AccountAttribute = ({
+  attribute,
+  icon,
+  isBlockedByMe,
+  account
+}: {
+  attribute: "location" | "website" | "x";
+  icon: ReactNode;
+  isBlockedByMe: boolean;
+  account: AccountFragment;
+}) => {
+  if (isBlockedByMe) return null;
+
+  const value = getAccountAttribute(attribute, account?.metadata?.attributes);
+  if (!value) return null;
+
+  return (
+    <MetaDetails icon={icon}>
+      <Link
+        rel="noreferrer noopener"
+        target="_blank"
+        to={
+          attribute === "website"
+            ? `https://${value.replace(/https?:\/\//, "")}`
+            : `https://x.com/${value.replace("https://x.com/", "")}`
+        }
+      >
+        {value.replace(/https?:\/\//, "")}
+      </Link>
+    </MetaDetails>
+  );
+};
+
 const Details = ({
   isBlockedByMe = false,
   hasBlockedMe = false,
@@ -48,39 +81,13 @@ const Details = ({
     setShowLightBox(false);
   }, []);
 
-  const renderAccountAttribute = (
-    attribute: "location" | "website" | "x",
-    icon: ReactNode
-  ) => {
-    if (isBlockedByMe) return null;
-
-    const value = getAccountAttribute(attribute, account?.metadata?.attributes);
-    if (!value) return null;
-
-    return (
-      <MetaDetails icon={icon}>
-        <Link
-          rel="noreferrer noopener"
-          target="_blank"
-          to={
-            attribute === "website"
-              ? `https://${value.replace(/https?:\/\//, "")}`
-              : `https://x.com/${value.replace("https://x.com/", "")}`
-          }
-        >
-          {value.replace(/https?:\/\//, "")}
-        </Link>
-      </MetaDetails>
-    );
-  };
-
   return (
-    <div className="mb-4 space-y-2 px-4 md:space-y-3 md:px-0">
+    <div className="mb-4 space-y-2 px-4 md:space-y-3 md:px-2">
       <div className="flex items-start justify-between">
-        <div className="relative -mt-14 ml-4 size-20 sm:-mt-24 sm:size-36 md:ml-5">
+        <div className="relative -mt-20 ml-2 size-28 sm:-mt-24 sm:size-36 md:ml-4">
           <Image
             alt={account.address}
-            className="size-20 cursor-pointer rounded-full bg-gray-200 object-cover ring-3 ring-gray-50 sm:size-36 dark:bg-gray-700 dark:ring-black"
+            className="size-28 cursor-pointer rounded-full bg-gray-200 object-cover ring-3 ring-gray-50 sm:size-36 dark:bg-gray-700 dark:ring-black"
             height={128}
             onClick={handleShowLightBox}
             src={getAvatar(account, TRANSFORMS.AVATAR_BIG)}
@@ -104,12 +111,27 @@ const Details = ({
           <AccountMenu account={account} />
         </div>
       </div>
-      <div className="space-y-1 md:py-2">
-        <div className="flex items-center gap-1.5">
-          <H3 className="truncate">{getAccount(account).name}</H3>
+      <div className="pb-2 sm:space-y-1 md:py-2">
+        <H3 className="flex flex-wrap items-center gap-x-1.5 pr-6 font-bold text-2xl sm:py-0">
+          {getAccount(account)
+            .name.slice(0, 40)
+            .split(/\s+/)
+            .reduce<ReactNode[]>((acc, namePart, index) => {
+              if (namePart) {
+                acc.push(
+                  <span
+                    className="wrap-break-word max-w-full"
+                    key={namePart + index}
+                  >
+                    {namePart}
+                  </span>
+                );
+              }
+              return acc;
+            }, [])}
           {account.score < 9000 ? null : <TopAccount className="size-6" />}
-        </div>
-        <div className="flex items-center space-x-3">
+        </H3>
+        <div className="flex items-center gap-x-3">
           <Slug
             className="text-sm sm:text-base"
             prefix="@"
@@ -130,14 +152,8 @@ const Details = ({
           {account?.metadata.bio}
         </Markup>
       ) : null}
-      <div className="mt-4 space-y-5">
+      <div className="mt-5 space-y-3">
         <Followerings account={account} />
-        {!isBlockedByMe && currentAccount?.address !== account.address ? (
-          <FollowersYouKnowOverview
-            address={account.address}
-            username={getAccount(account).username}
-          />
-        ) : null}
         <div className="flex flex-wrap gap-x-5 gap-y-2">
           <AccountOwner ownerAddress={account.owner} />
           {!isBlockedByMe &&
@@ -146,23 +162,32 @@ const Details = ({
                 {getAccountAttribute("location", account?.metadata?.attributes)}
               </MetaDetails>
             )}
-          {renderAccountAttribute("website", <LinkIcon className="size-4" />)}
-          {renderAccountAttribute(
-            "x",
-            <svg
-              className="size-4"
-              viewBox="0 0 248 204"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <title>Twitter logo</title>
-              <path
-                d="M221.95 51.29c.15 2.17.15 4.34.15 6.53 0 66.73-50.8 143.69-143.69 143.69v-.04c-27.44.04-54.31-7.82-77.41-22.64 3.99.48 8 .72 12.02.73 22.74.02 44.83-7.61 62.72-21.66-21.61-.41-40.56-14.5-47.18-35.07 7.57 1.46 15.37 1.16 22.8-.87-23.56-4.76-40.51-25.46-40.51-49.5v-.64c7.02 3.91 14.88 6.08 22.92 6.32C11.58 63.31 4.74 33.79 18.14 10.71c25.64 31.55 63.47 50.73 104.08 52.76-4.07-17.54 1.49-35.92 14.61-48.25 20.34-19.12 52.33-18.14 71.45 2.19 11.31-2.23 22.15-6.38 32.07-12.26-3.77 11.69-11.66 21.62-22.2 27.93 10.01-1.18 19.79-3.86 29-7.95-6.78 10.16-15.32 19.01-25.2 26.16z"
-                fill="none"
-                stroke={theme === "dark" ? "white" : "black"}
-                strokeWidth="16"
-              />
-            </svg>
-          )}
+          <AccountAttribute
+            account={account}
+            attribute="website"
+            icon={<LinkIcon className="size-4" />}
+            isBlockedByMe={isBlockedByMe}
+          />
+          <AccountAttribute
+            account={account}
+            attribute="x"
+            icon={
+              <svg
+                className="size-4"
+                viewBox="0 0 248 204"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <title>Twitter logo</title>
+                <path
+                  d="M221.95 51.29c.15 2.17.15 4.34.15 6.53 0 66.73-50.8 143.69-143.69 143.69v-.04c-27.44.04-54.31-7.82-77.41-22.64 3.99.48 8 .72 12.02.73 22.74.02 44.83-7.61 62.72-21.66-21.61-.41-40.56-14.5-47.18-35.07 7.57 1.46 15.37 1.16 22.8-.87-23.56-4.76-40.51-25.46-40.51-49.5v-.64c7.02 3.91 14.88 6.08 22.92 6.32C11.58 63.31 4.74 33.79 18.14 10.71c25.64 31.55 63.47 50.73 104.08 52.76-4.07-17.54 1.49-35.92 14.61-48.25 20.34-19.12 52.33-18.14 71.45 2.19 11.31-2.23 22.15-6.38 32.07-12.26-3.77 11.69-11.66 21.62-22.2 27.93 10.01-1.18 19.79-3.86 29-7.95-6.78 10.16-15.32 19.01-25.2 26.16z"
+                  fill="none"
+                  stroke={theme === "dark" ? "white" : "black"}
+                  strokeWidth="16"
+                />
+              </svg>
+            }
+            isBlockedByMe={isBlockedByMe}
+          />
           <div className="flex items-center gap-x-1">
             <CalendarIcon className="mr-1 size-4" />
             <span>Joined</span>
@@ -173,6 +198,12 @@ const Details = ({
             </Tooltip>
           </div>
         </div>
+        {!isBlockedByMe && currentAccount?.address !== account.address ? (
+          <FollowersYouKnowOverview
+            address={account.address}
+            username={getAccount(account).username}
+          />
+        ) : null}
       </div>
     </div>
   );

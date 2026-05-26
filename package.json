@@ -12,6 +12,7 @@
     "dep:check": "pnpm dlx sherif@latest",
     "dep:fix": "pnpm dlx sherif@latest --fix",
     "dev": "pnpm --recursive --parallel run dev",
+    "doctor": "pnpm dlx react-doctor@latest --verbose --full",
     "prepare": "husky install",
     "sort": "node ./script/sort-package-json.mjs",
     "start": "pnpm --recursive --parallel run start",
@@ -19,12 +20,12 @@
     "typecheck:functions": "pnpm --recursive --parallel run typecheck:functions"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.10",
+    "@biomejs/biome": "2.4.15",
     "husky": "9.1.7",
-    "vite": "8.0.5"
+    "vite": "8.0.12"
   },
-  "packageManager": "pnpm@10.17.1",
+  "packageManager": "pnpm@11.1.2",
   "engines": {
-    "node": ">=18.x <=22.x"
+    "node": ">=22.13.0 <23.0.0"
   }
 }

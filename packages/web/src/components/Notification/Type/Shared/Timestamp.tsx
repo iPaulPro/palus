@@ -14,6 +14,7 @@ const Timestamp = ({ timestamp, isNew }: Props) => {
       <Tooltip
         content={dayjs(timestamp).format("MMM D, YYYY h:mm A")}
         placement="left"
+        showOnClick={true}
       >
         <div className="text-secondary text-sm">
           {formatRelativeOrAbsolute(timestamp)}

@@ -26,6 +26,10 @@ const useWaitForTransactionToBeIndexed = () => {
           return;
         }
 
+        if (data?.transactionStatus.__typename === "FailedTransactionStatus") {
+          throw new Error(data.transactionStatus.reason);
+        }
+
         await new Promise((resolve) => setTimeout(resolve, delay));
         delay = Math.min(delay * 2, MAX_DELAY);
       }

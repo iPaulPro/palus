@@ -51,7 +51,11 @@ const ReportPost = ({ postId }: ReportPostProps) => {
   };
 
   return (
-    <div onClick={stopEventPropagation}>
+    <section
+      aria-label="Report post"
+      onClick={stopEventPropagation}
+      onKeyDown={stopEventPropagation}
+    >
       {data?.reportPost === null ? (
         <EmptyState
           hideCard
@@ -102,7 +106,7 @@ const ReportPost = ({ postId }: ReportPostProps) => {
           </Form>
         </div>
       ) : null}
-    </div>
+    </section>
   );
 };
 

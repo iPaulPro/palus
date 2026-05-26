@@ -26,7 +26,7 @@ const Report = ({ post }: ReportProps) => {
         setShowReportPostModal(true, post.id);
       }}
     >
-      <div className="flex items-center space-x-2">
+      <div className="flex items-center gap-x-2">
         <ExclamationTriangleIcon className="size-4" />
         <div>Report post</div>
       </div>

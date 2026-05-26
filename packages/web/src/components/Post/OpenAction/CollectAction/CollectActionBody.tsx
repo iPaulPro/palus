@@ -63,34 +63,33 @@ const CollectActionBody = ({
 
   // Extract data safely with optional chaining
   const targetAction = useMemo(() => {
-    return data?.post?.__typename === "Post"
-      ? data?.post.actions.find(
+    if (!data) return null;
+    return data.post?.__typename === "Post"
+      ? data.post.actions.find(
           (action) => action.__typename === "SimpleCollectAction"
         )
       : data?.post?.__typename === "Repost"
-        ? data?.post?.repostOf?.actions.find(
+        ? data.post?.repostOf?.actions.find(
             (action) => action.__typename === "SimpleCollectAction"
           )
         : null;
   }, [data]);
 
   const collectAction = targetAction as SimpleCollectActionFragment;
+  const collectLimit = Number(collectAction?.collectLimit || 0);
+  const amount = Number.parseFloat(
+    collectAction?.payToCollect?.price?.value || "0"
+  );
+
   const endTimestamp = collectAction?.endsAt;
-  const collectLimit = useMemo(
-    () => Number(collectAction?.collectLimit || 0),
-    [collectAction]
-  );
-  const amount = useMemo(
-    () => Number.parseFloat(collectAction?.payToCollect?.price?.value || "0"),
-    [collectAction]
-  );
   const currency = collectAction?.payToCollect?.price?.asset?.contract.address;
   const symbol = collectAction?.payToCollect?.price?.asset?.symbol;
   const recipients = collectAction?.payToCollect?.recipients || [];
-
-  const percentageCollected = useMemo(() => {
-    return collectLimit > 0 ? (collects / collectLimit) * 100 : 0;
-  }, [collects, collectLimit]);
+  const percentageCollected =
+    collectLimit > 0 ? (collects / collectLimit) * 100 : 0;
+  const isAllCollected = collectLimit ? collects >= collectLimit : false;
+  const totalRevenue = amount * collects;
+  const palusFee = (amount * 0.025).toFixed(6);
 
   const isTokenEnabled = useMemo(() => {
     return enabledTokens?.includes(currency || "");
@@ -101,18 +100,6 @@ const CollectActionBody = ({
       ? new Date(endTimestamp).getTime() / 1000 < new Date().getTime() / 1000
       : false;
   }, [endTimestamp]);
-
-  const isAllCollected = useMemo(() => {
-    return collectLimit ? collects >= collectLimit : false;
-  }, [collectLimit, collects]);
-
-  const totalRevenue = useMemo(() => {
-    return amount * collects;
-  }, [amount, collects]);
-
-  const palusFee = useMemo(() => {
-    return (amount * 0.025).toFixed(6);
-  }, [amount]);
 
   if (loading) {
     return <Loader className="my-10" />;
@@ -138,7 +125,7 @@ const CollectActionBody = ({
           <WarningMessage
             className="mb-5"
             message={
-              <div className="flex items-center space-x-1.5">
+              <div className="flex items-center gap-x-1.5">
                 <CheckCircleIcon className="size-4" />
                 <span>This collection has been sold out</span>
               </div>
@@ -148,7 +135,7 @@ const CollectActionBody = ({
           <WarningMessage
             className="mb-5"
             message={
-              <div className="flex items-center space-x-1.5">
+              <div className="flex items-center gap-x-1.5">
                 <ClockIcon className="size-4" />
                 <span>This collection has ended</span>
               </div>
@@ -162,7 +149,7 @@ const CollectActionBody = ({
           </H4>
         </div>
         {amount ? (
-          <div className="flex items-center space-x-1.5 py-2">
+          <div className="flex items-center gap-x-1.5 py-2">
             {isTokenEnabled ? (
               <img
                 alt={symbol}
@@ -182,7 +169,7 @@ const CollectActionBody = ({
             <div className="mt-2">
               <HelpTooltip>
                 <div className="py-1">
-                  <div className="flex items-start justify-between space-x-10">
+                  <div className="flex items-start justify-between gap-x-10">
                     <div>Palus</div>
                     <b>
                       ~{palusFee} {symbol} (2.5%)
@@ -194,8 +181,8 @@ const CollectActionBody = ({
           </div>
         ) : null}
         <div className="space-y-1.5">
-          <div className="block items-center space-y-1 sm:flex sm:space-x-5">
-            <div className="flex items-center space-x-2">
+          <div className="block items-center gap-y-1 sm:flex sm:gap-x-5">
+            <div className="flex items-center gap-x-2">
               <UsersIcon className="size-4 text-gray-500 dark:text-gray-200" />
               <button
                 className="font-bold"
@@ -206,7 +193,7 @@ const CollectActionBody = ({
               </button>
             </div>
             {collectLimit && !isAllCollected ? (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-x-2">
                 <PhotoIcon className="size-4 text-gray-500 dark:text-gray-200" />
                 <div className="font-bold">
                   {collectLimit - collects} available
@@ -215,7 +202,7 @@ const CollectActionBody = ({
             ) : null}
           </div>
           {endTimestamp && !isAllCollected ? (
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center gap-x-2">
               <ClockIcon className="size-4 text-gray-500 dark:text-gray-200" />
               <div className="space-x-1.5">
                 <span>{isSaleEnded ? "Sale ended on:" : "Sale ends:"}</span>
@@ -230,7 +217,7 @@ const CollectActionBody = ({
             </div>
           ) : null}
           {collectAction.address ? (
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center gap-x-2">
               <PuzzlePieceIcon className="size-4 text-gray-500 dark:text-gray-200" />
               <div className="space-x-1.5">
                 <span>NFT:</span>
@@ -246,7 +233,7 @@ const CollectActionBody = ({
             </div>
           ) : null}
           {amount ? (
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center gap-x-2">
               <CurrencyDollarIcon className="size-4 text-gray-500 dark:text-gray-200" />
               <div className="space-x-1.5">
                 <span>Revenue:</span>
@@ -263,7 +250,7 @@ const CollectActionBody = ({
           ) : null}
           {recipients.length > 1 ? <Splits recipients={recipients} /> : null}
         </div>
-        <div className="flex items-center space-x-2">
+        <div className="flex items-center gap-x-2">
           <CollectActionButton
             collects={collects}
             onCollectSuccess={() => {

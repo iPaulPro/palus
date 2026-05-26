@@ -8,18 +8,11 @@ interface PostsShimmerProps {
 }
 
 const PostsShimmer = ({ hideCard = false }: PostsShimmerProps) => {
-  return (
-    <Card
-      className={cn(
-        { "!border-0": hideCard },
-        "divide-y divide-gray-200 dark:divide-gray-800"
-      )}
-    >
-      {Array.from({ length: 3 }).map((_, index) => (
-        <PostShimmer key={index} />
-      ))}
+  return Array.from({ length: 3 }).map((_, index) => (
+    <Card className={cn("mb-4", { "!border-0": hideCard })} key={index}>
+      <PostShimmer />
     </Card>
-  );
+  ));
 };
 
 export default memo(PostsShimmer);

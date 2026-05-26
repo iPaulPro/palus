@@ -23,25 +23,52 @@ const getClass = (attachments: number) => {
 interface AttachmentsProps {
   asset?: AttachmentData;
   attachments: AttachmentData[];
+  postId: string;
 }
 
-const Attachments = ({ asset, attachments }: AttachmentsProps) => {
+const ImageComponent = ({
+  uri,
+  index,
+  setExpandedImageIndex,
+  setShowLightBox
+}: {
+  uri: string;
+  index: number;
+  setExpandedImageIndex: (index: number) => void;
+  setShowLightBox: (show: boolean) => void;
+}) => (
+  <Image
+    alt={imageKit(uri, TRANSFORMS.ATTACHMENT)}
+    className="max-h-75 cursor-pointer rounded-lg border border-gray-200 bg-gray-100 object-cover md:max-h-125 dark:border-gray-800 dark:bg-gray-800"
+    height={1000}
+    loading="lazy"
+    onClick={() => {
+      setExpandedImageIndex(index);
+      setShowLightBox(true);
+    }}
+    onError={({ currentTarget }) => (currentTarget.src = uri)}
+    src={imageKit(uri, TRANSFORMS.ATTACHMENT)}
+    width={1000}
+  />
+);
+
+const Attachments = ({ asset, attachments, postId }: AttachmentsProps) => {
   const [expandedImageIndex, setExpandedImageIndex] = useState<number>(0);
   const [showLightBox, setShowLightBox] = useState<boolean>(false);
   const processedAttachments = attachments.slice(0, 10);
 
-  const assetType = asset?.type;
+  const assetKind = asset?.kind;
   const hasImageAttachment =
-    processedAttachments.some((attachment) => attachment.type === "Image") ||
-    assetType === "Image";
+    processedAttachments.some((attachment) => attachment.kind === "Image") ||
+    assetKind === "Image";
 
   const determineDisplay = () => {
-    if (assetType === "Video") return "displayVideoAsset";
-    if (assetType === "Audio") return "displayAudioAsset";
+    if (assetKind === "Video") return "displayVideoAsset";
+    if (assetKind === "Audio") return "displayAudioAsset";
     if (hasImageAttachment) {
       const imageAttachments = processedAttachments.filter(
         (attachment) =>
-          attachment.type === "Image" && attachment.uri !== asset?.uri
+          attachment.kind === "Image" && attachment.uri !== asset?.uri
       );
       if (asset?.uri) imageAttachments.unshift(asset);
       return [...new Set(imageAttachments)];
@@ -51,22 +78,6 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
 
   const displayDecision = determineDisplay();
 
-  const ImageComponent = ({ uri, index }: { uri: string; index: number }) => (
-    <Image
-      alt={imageKit(uri, TRANSFORMS.ATTACHMENT)}
-      className="max-h-[300px] cursor-pointer rounded-lg border border-gray-200 bg-gray-100 object-cover md:max-h-[500px] dark:border-gray-800 dark:bg-gray-800"
-      height={1000}
-      loading="lazy"
-      onClick={() => {
-        setExpandedImageIndex(index);
-        setShowLightBox(true);
-      }}
-      onError={({ currentTarget }) => (currentTarget.src = uri)}
-      src={imageKit(uri, TRANSFORMS.ATTACHMENT)}
-      width={1000}
-    />
-  );
-
   return (
     <div className="mt-3">
       {Array.isArray(displayDecision) && (
@@ -74,7 +85,7 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
           className={cn("grid gap-2", getClass(displayDecision.length)?.row)}
         >
           {displayDecision.map((attachment, index) => (
-            <div
+            <figure
               className={cn(
                 getClass(displayDecision.length)?.aspect,
                 { "row-span-2": displayDecision.length === 3 && index === 0 },
@@ -82,9 +93,15 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
               )}
               key={attachment.uri}
               onClick={stopEventPropagation}
+              onKeyDown={stopEventPropagation}
             >
-              <ImageComponent index={index} uri={attachment.uri} />
-            </div>
+              <ImageComponent
+                index={index}
+                setExpandedImageIndex={setExpandedImageIndex}
+                setShowLightBox={setShowLightBox}
+                uri={attachment.uri}
+              />
+            </figure>
           ))}
           <LightBox
             images={displayDecision?.map((attachment) => attachment.uri)}
@@ -109,12 +126,16 @@ const Attachments = ({ asset, attachments }: AttachmentsProps) => {
         />
       )}
       {displayDecision === "displayAudioAsset" && (
-        <Audio
-          artist={asset?.artist}
-          poster={asset?.coverUri as string}
-          src={asset?.uri as string}
-          title={asset?.title}
-        />
+        <div className="sm:w-4/5">
+          <Audio
+            artist={asset?.artist ?? undefined}
+            poster={asset?.coverUri as string}
+            postId={postId}
+            src={asset?.uri as string}
+            title={asset?.title}
+            type={asset?.type}
+          />
+        </div>
       )}
     </div>
   );

@@ -106,10 +106,10 @@ const LinkUsername = () => {
           className="flex flex-wrap items-center justify-between gap-3"
           key={username.value}
         >
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center gap-x-2">
             <Slug className="font-bold" prefix="@" slug={username.value} />
             {username.linkedTo ? (
-              <div className="flex items-center space-x-2">
+              <div className="flex items-center gap-x-2">
                 <span>·</span>
                 <div>Linked to</div>
                 <LazySmallSingleAccount address={username.linkedTo} />

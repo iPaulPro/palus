@@ -8,13 +8,14 @@ const links = [
   { href: "/guidelines", label: "Guidelines" },
   { href: "/u/palus", label: "@palus" },
   { href: "https://github.com/ipaulpro/palus", label: "GitHub" },
-  { href: "/support", label: "Support" }
+  { href: "/support", label: "Support" },
+  { href: "https://lens.xyz", label: "Lens" }
 ];
 
 const Footer = () => {
   return (
-    <footer className="flex flex-wrap gap-x-[12px] gap-y-2 px-3 text-sm lg:px-0">
-      <span className="font-bold text-gray-500 dark:text-gray-200">
+    <footer className="mt-6 flex flex-wrap items-center justify-center gap-x-[12px] gap-y-2 px-3 text-sm sm:justify-start lg:px-0">
+      <span className="font-bold text-secondary">
         &copy; {currentYear} Palus.app
       </span>
       {links.map(({ href, label }) => (

@@ -77,7 +77,12 @@ const SuperFollow = () => {
   }, [simplePaymentAmount, form]);
 
   const onCompleted = async (hash: string) => {
-    await waitForTransactionToComplete(hash);
+    try {
+      await waitForTransactionToComplete(hash);
+    } catch (e: any) {
+      errorToast(e);
+      return;
+    }
     const accountData = await getCurrentAccountDetails();
     setCurrentAccount(accountData?.data?.me.loggedInAs.account);
     toast.success("Setting updated");
@@ -187,7 +192,7 @@ const SuperFollow = () => {
           type="number"
           {...form.register("amount")}
         />
-        <div className="flex justify-end space-x-2">
+        <div className="flex justify-end gap-x-2">
           {simplePaymentRule && (
             <Button
               disabled={Boolean(isSubmitting)}

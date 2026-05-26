@@ -18,63 +18,56 @@ interface SingleGroupProps {
   group: GroupFragment;
 }
 
-const SingleGroup = ({
-  hideJoinButton = false,
-  hideLeaveButton = false,
-  isBig = false,
-  linkToGroup = true,
-  showDescription = false,
-  group
-}: SingleGroupProps) => {
-  const GroupAvatar = () => (
-    <Image
-      alt={group.address}
-      className={cn(
-        isBig ? "size-14" : "size-11",
-        "rounded-lg border border-gray-200 bg-gray-200 object-cover dark:border-gray-800"
-      )}
-      height={isBig ? 56 : 44}
-      loading="lazy"
-      src={getAvatar(group, TRANSFORMS.AVATAR_BIG)}
-      width={isBig ? 56 : 44}
-    />
-  );
+const GroupAvatar = (props: SingleGroupProps) => (
+  <Image
+    alt={props.group.address}
+    className={cn(
+      props.isBig ? "size-14" : "size-11",
+      "rounded-lg border border-gray-200 bg-gray-200 object-cover dark:border-gray-800"
+    )}
+    height={props.isBig ? 56 : 44}
+    loading="lazy"
+    src={getAvatar(props.group, TRANSFORMS.AVATAR_BIG)}
+    width={props.isBig ? 56 : 44}
+  />
+);
 
-  const GroupInfo = () => (
-    <div className="flex items-center space-x-3">
-      <GroupAvatar />
-      <div>
-        <div className="truncate font-bold">{group.metadata?.name}</div>
-        {showDescription && group.metadata?.description && (
-          <div
-            className="linkify mt-1 text-base leading-6"
-            style={{ wordBreak: "break-word" }}
+const GroupInfo = (props: SingleGroupProps) => (
+  <div className="flex items-center gap-x-3">
+    <GroupAvatar group={props.group} />
+    <div>
+      <div className="truncate font-bold">{props.group.metadata?.name}</div>
+      {props.showDescription && props.group.metadata?.description && (
+        <div
+          className="linkify mt-1 text-base leading-6"
+          style={{ wordBreak: "break-word" }}
+        >
+          <Markup
+            className="line-clamp-1"
+            mentions={getMentions(props.group.metadata.description)}
           >
-            <Markup
-              className="line-clamp-1"
-              mentions={getMentions(group.metadata.description)}
-            >
-              {group.metadata.description}
-            </Markup>
-          </div>
-        )}
-      </div>
+            {props.group.metadata.description}
+          </Markup>
+        </div>
+      )}
     </div>
-  );
+  </div>
+);
 
+const SingleGroup = ({ linkToGroup = true, ...props }: SingleGroupProps) => {
   return (
     <div className="flex items-center justify-between gap-x-4">
       {linkToGroup ? (
-        <Link to={`/g/${group.address}`}>
-          <GroupInfo />
+        <Link to={`/g/${props.group.address}`}>
+          <GroupInfo {...props} />
         </Link>
       ) : (
-        <GroupInfo />
+        <GroupInfo {...props} />
       )}
       <JoinLeaveButton
-        group={group}
-        hideJoinButton={hideJoinButton}
-        hideLeaveButton={hideLeaveButton}
+        group={props.group}
+        hideJoinButton={props.hideJoinButton}
+        hideLeaveButton={props.hideLeaveButton}
         small
       />
     </div>

@@ -11,7 +11,7 @@ const Sidebar = () => {
   const loggedOut = !loggedInWithAccount;
 
   return (
-    <>
+    <div className="w-88">
       {loggedOut && <SignupCard />}
       {loggedInWithAccount && (
         <>
@@ -20,7 +20,7 @@ const Sidebar = () => {
         </>
       )}
       <Footer />
-    </>
+    </div>
   );
 };
 

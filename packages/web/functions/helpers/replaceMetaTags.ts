@@ -3,8 +3,7 @@ import type { Metadata } from "../types";
 export const replaceMetaTags = async (
   url: URL,
   response: Response,
-  meta: Metadata,
-  cardType: "summary_large_image" | "summary"
+  meta: Metadata
 ): Promise<string> => {
   const html = await response.text();
   const cleaned = html.replace(
@@ -19,7 +18,7 @@ export const replaceMetaTags = async (
      <meta property="og:description" content="${escapeHtmlAttr(meta.description)}" />
      <meta property="og:image" content="${escapeHtmlAttr(meta.image)}" />
      <meta property="og:url" content="${url.href}" />
-     <meta name="twitter:card" content="${cardType}" />
+     <meta name="twitter:card" content="${meta.cardType}" />
      <meta name="twitter:title" content="${escapeHtmlAttr(meta.title)}" />
      <meta name="twitter:description" content="${escapeHtmlAttr(meta.description)}" />
      <meta name="twitter:image" content="${escapeHtmlAttr(meta.image)}" />

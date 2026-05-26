@@ -51,7 +51,7 @@ const GroupFeed = ({ feed }: GroupFeedProps) => {
           !bannedAccounts.includes(post.author.address)
         );
       }),
-    [posts]
+    [posts, bannedAccounts]
   );
 
   return (

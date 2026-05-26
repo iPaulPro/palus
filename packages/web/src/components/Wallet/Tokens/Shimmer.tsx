@@ -1,9 +1,9 @@
 import Skeleton from "@/components/Shared/Skeleton";
 
 const TokensShimmer = () => {
-  return Array.from({ length: 2 }).map((_, index) => (
+  return Array.from({ length: 5 }).map((_, index) => (
     <div
-      className="flex items-center justify-between px-5 py-2 sm:px-0"
+      className="flex items-center justify-between py-1.5 sm:px-2"
       key={index}
     >
       <div className="flex items-center gap-x-2">

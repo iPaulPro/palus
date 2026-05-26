@@ -32,6 +32,7 @@ const collectorOnlyPostRuleContract = {
 };
 
 const useCanComment = ({ post }: PostRuleValidationProps) => {
+  // react-doctor-disable-next-line react-doctor/rendering-usetransition-loading
   const [isLoading, setIsLoading] = useState(false);
   const [canComment, setCanComment] = useState(false);
   const [reason, setReason] = useState<string | null>(null);
@@ -40,7 +41,7 @@ const useCanComment = ({ post }: PostRuleValidationProps) => {
   const { currentAccount } = useAccountStore();
 
   const validateCanComment = useCallback(async () => {
-    if (!currentAccount || !post?.operations) {
+    if (!currentAccount || !post?.operations || !config) {
       setIsLoading(false);
       setCanComment(false);
       setReason(null);
@@ -152,7 +153,14 @@ const useCanComment = ({ post }: PostRuleValidationProps) => {
     setIsLoading(false);
     setCanComment(false);
     setReason(null);
-  }, [post, config, currentAccount]);
+  }, [
+    config,
+    currentAccount,
+    post?.operations,
+    post?.feed.address,
+    post?.id,
+    post?.author.operations?.isFollowingMe
+  ]);
 
   useEffect(() => {
     validateCanComment();

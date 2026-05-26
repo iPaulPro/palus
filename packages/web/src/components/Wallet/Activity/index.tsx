@@ -104,7 +104,7 @@ const Activity = ({ account }: ActivityProps) => {
           {transactions.map((item) => (
             <Link
               className={
-                "mb-1 flex items-center justify-between rounded-lg px-3 py-2 hover:bg-gray-300/20 sm:p-2"
+                "mb-1 flex items-center justify-between rounded-lg px-0 py-2 hover:bg-gray-300/20 sm:p-2"
               }
               key={`${item.hash}`}
               rel="noreferrer noopener"

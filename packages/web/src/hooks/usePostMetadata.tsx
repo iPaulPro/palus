@@ -87,6 +87,12 @@ const usePostMetadata = () => {
             ...(audioPost.artist && {
               artist: audioPost.artist
             }),
+            ...(audioPost.title && {
+              title: audioPost.title
+            }),
+            ...(audioPost.duration > 0 && {
+              duration: audioPost.duration
+            }),
             cover: audioPost.cover,
             item: primaryAttachment.uri,
             type: primaryAttachment.mimeType,
@@ -133,10 +139,13 @@ const usePostMetadata = () => {
     [
       attachments,
       videoDurationInSeconds,
-      audioPost,
-      videoThumbnail,
       license,
-      contentWarning
+      contentWarning,
+      audioPost.artist,
+      audioPost.title,
+      audioPost.duration,
+      audioPost.cover,
+      videoThumbnail.url
     ]
   );
 

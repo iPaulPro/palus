@@ -25,7 +25,12 @@ const JoinLeaveButton = ({
   }
 
   return (
-    <div className="contents" onClick={stopEventPropagation}>
+    <div
+      className="contents"
+      onClick={stopEventPropagation}
+      onKeyDown={stopEventPropagation}
+      role="none"
+    >
       {!hideJoinButton &&
         (group.operations?.isMember ||
         group.operations?.hasRequestedMembership ? null : (

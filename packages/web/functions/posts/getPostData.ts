@@ -19,9 +19,6 @@ const getPostData = (
     case "CheckingInMetadata":
     case "SpaceMetadata":
     case "StoryMetadata":
-      return {
-        content: metadata.content
-      };
     case "TextOnlyMetadata":
       return {
         content: metadata.content

@@ -71,11 +71,15 @@ const Wallet = () => {
       request: {
         address: currentAccount?.address,
         includeNative: true,
-        tokens: TOKENS.filter(
-          (token) =>
+        tokens: TOKENS.reduce<string[]>((acc, token) => {
+          if (
             token.contractAddress !== "" &&
             token.contractAddress !== CONTRACTS.nativeToken
-        ).map((token) => token.contractAddress)
+          ) {
+            acc.push(token.contractAddress);
+          }
+          return acc;
+        }, [])
       }
     }
   });
@@ -128,8 +132,12 @@ const Wallet = () => {
 
   return (
     <>
-      <PageLayout zeroTopMargin>
-        <Card>
+      <PageLayout
+        className="space-y-1 md:space-y-2"
+        title="Account wallet"
+        zeroTopMargin
+      >
+        <Card className="pb-4">
           <CardHeader title="Account Wallet" />
           <div className="flex items-center justify-between px-5 pt-4">
             <button
@@ -221,7 +229,7 @@ const Wallet = () => {
               </Tooltip>
             </div>
           )}
-          <div className="flex justify-center gap-x-4 px-5 py-2">
+          <div className="flex justify-center gap-x-4 px-4 pt-2 sm:px-5 sm:pb-2">
             <Deposit
               disabled={!canTransfer || loading || !!error}
               refetch={refetch}
@@ -243,19 +251,21 @@ const Wallet = () => {
               owner wallet to enable transfers.
             </div>
           )}
-          <div className="flex flex-col gap-y-2 pt-4 sm:p-5">
-            <Tabs
-              active={activeTab}
-              className="border-border border-y py-2 sm:px-0"
-              layoutId="wallet-tabs"
-              setActive={(type) => {
-                setActiveTab(type);
-                setSearchParams(
-                  type === WalletTab.Tokens ? {} : { tab: type.toLowerCase() }
-                );
-              }}
-              tabs={tabs}
-            />
+        </Card>
+        <Tabs
+          active={activeTab}
+          className="py-2 md:px-4"
+          layoutId="wallet-tabs"
+          setActive={(type) => {
+            setActiveTab(type);
+            setSearchParams(
+              type === WalletTab.Tokens ? {} : { tab: type.toLowerCase() }
+            );
+          }}
+          tabs={tabs}
+        />
+        <Card>
+          <div className="flex flex-col gap-y-2 px-4 py-3 sm:p-4">
             {activeTab === WalletTab.Tokens ? (
               loading ? (
                 <TokensShimmer />

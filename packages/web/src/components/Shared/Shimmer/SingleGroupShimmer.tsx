@@ -15,7 +15,7 @@ const SingleGroupShimmer = ({
 }: SingleGroupShimmerProps) => {
   return (
     <div className={cn("flex items-center justify-between", className)}>
-      <div className="flex items-center space-x-3">
+      <div className="flex items-center gap-x-3">
         <Skeleton className={cn(isBig ? "size-14" : "size-11", "rounded-lg")} />
         <div className="space-y-4 py-1">
           <Skeleton className="h-3 w-28 rounded-lg" />
