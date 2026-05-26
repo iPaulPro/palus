@@ -5,17 +5,45 @@ const CORS_HEADERS = {
   "Content-Type": "application/json"
 };
 
-const ALLOWED_ORIGINS =
-  /^https:\/\/(([a-zA-Z0-9-]+\.)?palus\.app|[a-zA-Z0-9-]+\.palus\.pages\.dev)$/;
 const DEV_ORIGIN = "http://localhost:4783";
 
-const isAllowedOrigin = (origin: string | null): boolean => {
-  if (!origin) return false;
-  return ALLOWED_ORIGINS.test(origin) || origin === DEV_ORIGIN;
+const getRequestOrigin = (request: Request): string | null => {
+  const origin = request.headers.get("Origin");
+  if (origin) return origin;
+
+  const referer = request.headers.get("Referer");
+  if (!referer) return null;
+
+  try {
+    return new URL(referer).origin;
+  } catch {
+    return null;
+  }
+};
+
+const isAllowedOrigin = (value: string | null): value is string => {
+  if (!value) return false;
+  if (value === DEV_ORIGIN) return true;
+
+  let url: URL;
+  try {
+    url = new URL(value);
+  } catch {
+    return false;
+  }
+
+  if (url.protocol !== "https:") return false;
+
+  const { hostname } = url;
+  return (
+    hostname === "palus.app" ||
+    hostname.endsWith(".palus.app") ||
+    hostname.endsWith(".palus.pages.dev")
+  );
 };
 
 export const onRequestGet: PagesFunction = async (context) => {
-  const origin = context.request.headers.get("Origin");
+  const origin = getRequestOrigin(context.request);
 
   if (!isAllowedOrigin(origin)) {
     return new Response(null, { status: 403 });
