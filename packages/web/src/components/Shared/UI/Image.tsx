@@ -10,9 +10,11 @@ import { PLACEHOLDER_IMAGE } from "@/data/constants";
 const Image = ({
   ref,
   onError,
+  fallback,
   ...props
 }: DetailedHTMLProps<ImgHTMLAttributes<HTMLImageElement>, HTMLImageElement> & {
   ref?: Ref<HTMLImageElement>;
+  fallback?: string;
 }) => {
   const [imageLoadFailed, setImageLoadFailed] = useState(false);
 
@@ -39,7 +41,7 @@ const Image = ({
       alt={props.alt || ""}
       onError={handleError}
       ref={ref}
-      src={imageLoadFailed ? PLACEHOLDER_IMAGE : props.src}
+      src={imageLoadFailed ? (fallback ?? PLACEHOLDER_IMAGE) : props.src}
     />
   );
 };

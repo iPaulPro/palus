@@ -1,7 +1,7 @@
 import getFavicon from "@/helpers/getFavicon";
 import type { Oembed } from "@/types/oembed";
 
-const X_OEMBED_URL = "https://publish.twitter.com/oembed?omit_script=true&url=";
+const X_OEMBED_URL = "https://publish.x.com/oembed?omit_script=true&url=";
 const TIK_TOK_URL = "https://www.tiktok.com/oembed?url=";
 const SPOTIFY_URL = "https://open.spotify.com/oembed?url=";
 

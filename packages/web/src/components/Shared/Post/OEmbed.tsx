@@ -1,3 +1,4 @@
+import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { memo } from "react";
 import { Link } from "react-router";
 import Skeleton from "@/components/Shared/Skeleton";
@@ -35,16 +36,19 @@ const OEmbed = ({ url }: OEmbedProps) => {
   if (!oembed) {
     return (
       <Link to={url}>
-        <div className="group mt-4 flex h-16 w-full min-w-0 items-center rounded-xl border border-border md:w-2/3">
-          <div className="flex h-full items-center border-border border-r px-4">
+        <div className="group mt-4 flex h-16 w-full min-w-0 items-center rounded-xl border border-border bg-accent md:w-2/3">
+          <div className="flex h-full flex-none items-center border-border border-r px-4">
             <Image
+              alt="Shared link"
               className="size-5 shrink-0"
+              fallback="/images/link.svg"
               src={`https://${hostname}/favicon.ico`}
             />
           </div>
-          <div className="truncate px-6 text-secondary group-hover:text-on-surface">
+          <div className="truncate px-4 font-semibold text-on-surface group-hover:text-secondary">
             {url}
           </div>
+          <ArrowTopRightOnSquareIcon className="mr-4 size-4 flex-none text-on-surface group-hover:text-secondary" />
         </div>
       </Link>
     );
@@ -53,7 +57,7 @@ const OEmbed = ({ url }: OEmbedProps) => {
   if (isYouTube && oembed.html) {
     return (
       <div
-        className="not-prose oembed-html mt-4 w-full md:w-2/3"
+        className="not-prose youtube mt-4 w-full"
         dangerouslySetInnerHTML={{ __html: oembed.html }}
       />
     );
@@ -62,7 +66,7 @@ const OEmbed = ({ url }: OEmbedProps) => {
   if (isSpotify && oembed.html) {
     return (
       <div
-        className="not-prose oembed-html mt-4 w-full md:w-2/3"
+        className="not-prose oembed-html mt-4 w-full md:w-4/5"
         dangerouslySetInnerHTML={{ __html: oembed.html }}
       />
     );
@@ -70,15 +74,9 @@ const OEmbed = ({ url }: OEmbedProps) => {
 
   if (isTwitter && oembed.html) {
     return (
-      <a
-        className="not-prose oembed-html mt-4 flex min-h-16 w-full items-center rounded-xl border border-border p-3 text-sm md:w-2/3"
+      <div
+        className="not-prose tweet mt-4 flex min-h-16 w-full items-center rounded-xl md:w-2/3"
         dangerouslySetInnerHTML={{ __html: oembed.html }}
-        href={url}
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-        rel="noreferrer"
-        target="_blank"
       />
     );
   }
@@ -100,7 +98,7 @@ const OEmbed = ({ url }: OEmbedProps) => {
           src={oembed.thumbnail_url}
         />
       )}
-      <div className="flex flex-col gap-y-1 p-3">
+      <div className="flex flex-col gap-y-1 bg-accent p-3">
         {oembed.title && (
           <span className="line-clamp-1 font-bold text-sm">{oembed.title}</span>
         )}
