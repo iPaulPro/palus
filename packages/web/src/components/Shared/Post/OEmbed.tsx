@@ -33,6 +33,7 @@ const OEmbed = ({ url }: OEmbedProps) => {
           "h-38 md:w-4/5": isSpotify && parsedUrl.pathname.startsWith("/track"),
           "h-50 md:h-88 md:w-full": isYouTube,
           "h-60 md:w-4/5": isTikTok,
+          "h-64 md:w-4/5": isTwitter,
           "h-88 md:w-4/5": isSpotify && parsedUrl.pathname.startsWith("/album")
         })}
       />
@@ -81,7 +82,7 @@ const OEmbed = ({ url }: OEmbedProps) => {
   if (isTwitter && oembed.html) {
     return (
       <div
-        className="not-prose tweet mt-4 flex min-h-16 w-full items-center rounded-xl md:w-2/3"
+        className="not-prose tweet mt-4 flex min-h-16 w-full items-center rounded-xl border border-gray-200 p-5 pb-8 md:w-4/5 dark:border-gray-800"
         dangerouslySetInnerHTML={{ __html: oembed.html }}
       />
     );

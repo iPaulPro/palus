@@ -283,7 +283,6 @@
     background-repeat: no-repeat;
     background-position: bottom 0.5rem right 0.5rem;
     background-size: 1.25rem 1.25rem;
-    @apply border border-gray-200 dark:border-gray-800 rounded-xl p-4 pb-8;
   }
 
   .twitter-tweet {
@@ -291,7 +290,11 @@
   }
 
   .twitter-tweet p {
-    @apply mb-2 text-on-surface;
+    @apply mb-4 text-on-surface;
+  }
+
+  .twitter-tweet a:hover {
+    @apply text-brand-500;
   }
 
   .twitter-tweet p a {
