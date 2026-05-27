@@ -4,7 +4,9 @@ import { Link } from "react-router";
 import Skeleton from "@/components/Shared/Skeleton";
 import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
+import { getExternalLink } from "@/helpers/getExternalLink";
 import useOembed from "@/hooks/useOembed";
+import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 
 interface OEmbedProps {
   url: string;
@@ -12,6 +14,7 @@ interface OEmbedProps {
 
 const OEmbed = ({ url }: OEmbedProps) => {
   const { data: oembed, isPending: isLoading } = useOembed(url);
+  const { replaceLensLinks } = usePreferencesStore();
 
   const parsedUrl = new URL(url);
   const hostname = parsedUrl.hostname;
@@ -30,32 +33,44 @@ const OEmbed = ({ url }: OEmbedProps) => {
     return (
       <Skeleton
         className={cn("mt-4 h-16 w-full rounded-xl md:w-2/3", {
-          "h-38 md:w-4/5": isSpotify && parsedUrl.pathname.startsWith("/track"),
+          "h-38 md:w-5/6": isSpotify && parsedUrl.pathname.startsWith("/track"),
           "h-50 md:h-88 md:w-full": isYouTube,
           "h-60 md:w-4/5": isTikTok,
           "h-64 md:w-4/5": isTwitter,
-          "h-88 md:w-4/5": isSpotify && parsedUrl.pathname.startsWith("/album")
+          "h-88 md:w-5/6": isSpotify && parsedUrl.pathname.startsWith("/album")
         })}
       />
     );
   }
 
+  const link = getExternalLink(url, replaceLensLinks);
+
   if (!oembed) {
     return (
-      <Link to={url}>
+      <Link
+        onClick={(e) => e.stopPropagation()}
+        rel="noopener"
+        target={link.includes(location.host) ? "_self" : "_blank"}
+        to={link}
+      >
         <div className="group mt-4 flex h-16 w-full min-w-0 items-center rounded-xl border border-border bg-accent md:w-2/3">
           <div className="flex h-full flex-none items-center border-border border-r px-4">
             <Image
               alt="Shared link"
-              className="size-5 shrink-0"
+              className="size-5 shrink-0 rounded"
               fallback="/images/link.svg"
               src={`https://${hostname}/favicon.ico`}
             />
           </div>
-          <div className="truncate px-4 font-semibold text-on-surface group-hover:text-secondary">
-            {url}
+          <div className="flex min-w-0 flex-col justify-center px-4">
+            <div className="flex items-center gap-x-1 text-secondary text-sm">
+              <span>Shared link</span>
+              <ArrowTopRightOnSquareIcon className="inline size-3" />
+            </div>
+            <div className="truncate font-semibold text-on-surface text-sm group-hover:text-secondary">
+              {url}
+            </div>
           </div>
-          <ArrowTopRightOnSquareIcon className="mr-4 size-4 flex-none text-on-surface group-hover:text-secondary" />
         </div>
       </Link>
     );
@@ -64,7 +79,7 @@ const OEmbed = ({ url }: OEmbedProps) => {
   if (isYouTube && oembed.html) {
     return (
       <div
-        className="not-prose youtube mt-4 w-full"
+        className="not-prose youtube mt-4 min-h-50 w-full md:min-h-88"
         dangerouslySetInnerHTML={{ __html: oembed.html }}
       />
     );
@@ -73,7 +88,10 @@ const OEmbed = ({ url }: OEmbedProps) => {
   if (isSpotify && oembed.html) {
     return (
       <div
-        className="not-prose oembed-html mt-4 w-full md:w-4/5"
+        className={cn("not-prose oembed-html mt-4 w-5/6", {
+          "min-h-38": parsedUrl.pathname.startsWith("/track"),
+          "min-h-88": parsedUrl.pathname.startsWith("/album")
+        })}
         dangerouslySetInnerHTML={{ __html: oembed.html }}
       />
     );
@@ -82,26 +100,29 @@ const OEmbed = ({ url }: OEmbedProps) => {
   if (isTwitter && oembed.html) {
     return (
       <div
-        className="not-prose tweet mt-4 flex min-h-16 w-full items-center rounded-xl border border-gray-200 p-5 pb-8 md:w-4/5 dark:border-gray-800"
+        className="not-prose tweet mt-4 flex min-h-16 w-full items-center rounded-xl border border-border bg-accent p-5 pb-8"
         dangerouslySetInnerHTML={{ __html: oembed.html }}
       />
     );
   }
 
   return (
-    <a
-      className="not-prose mt-4 flex w-full flex-col rounded-xl border border-gray-200 md:w-2/3 dark:border-gray-800"
-      href={url}
-      onClick={(e) => {
-        e.stopPropagation();
-      }}
-      rel="noreferrer"
-      target="_blank"
+    <Link
+      className={cn(
+        "not-prose mt-4 flex min-h-16 w-full flex-col rounded-xl border border-border md:w-2/3",
+        {
+          "min-h-56": Boolean(oembed.thumbnail_url)
+        }
+      )}
+      onClick={(e) => e.stopPropagation()}
+      rel="noopener"
+      target={link.includes(location.host) ? "_self" : "_blank"}
+      to={link}
     >
       {oembed.thumbnail_url && (
         <img
           alt={oembed.title}
-          className="max-h-40 w-full rounded-t-xl object-cover"
+          className="h-40 w-full rounded-t-xl bg-accent object-cover"
           src={oembed.thumbnail_url}
         />
       )}
@@ -143,7 +164,7 @@ const OEmbed = ({ url }: OEmbedProps) => {
           </span>
         </div>
       </div>
-    </a>
+    </Link>
   );
 };
 
