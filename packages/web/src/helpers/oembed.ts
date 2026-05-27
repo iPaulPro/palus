@@ -1,3 +1,4 @@
+import { decode } from "html-entities";
 import getFavicon from "@/helpers/getFavicon";
 import type { Oembed } from "@/types/oembed";
 
@@ -21,7 +22,7 @@ const fetchLinkPreview = async (url: string): Promise<Oembed | null> => {
       doc.querySelector(`meta[name="${property}"]`)?.getAttribute("content") ??
       null;
 
-    const title = getMeta("og:title") ?? doc.title ?? null;
+    const title = getMeta("og:title") ?? decode(doc.title) ?? null;
     const thumbnailUrl = getMeta("og:image");
     const providerName =
       getMeta("og:site_name") ?? new URL(url).hostname ?? null;

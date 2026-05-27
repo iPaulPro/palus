@@ -149,6 +149,9 @@ importers:
       howler:
         specifier: 2.2.4
         version: 2.2.4
+      html-entities:
+        specifier: 2.6.0
+        version: 2.6.0
       html-to-image:
         specifier: 1.11.13
         version: 1.11.13
@@ -268,8 +271,8 @@ importers:
         version: 5.0.12(@types/react@19.2.14)(immer@10.2.0)(react@19.2.6)(use-sync-external-store@1.6.0(react@19.2.6))
     devDependencies:
       '@cloudflare/workers-types':
-        specifier: 4.20260305.1
-        version: 4.20260305.1
+        specifier: 4.20260526.1
+        version: 4.20260526.1
       '@palus/config':
         specifier: workspace:*
         version: link:../config
@@ -311,7 +314,7 @@ importers:
         version: 8.0.12(@types/node@25.7.0)(esbuild@0.27.3)(jiti@2.6.1)(yaml@2.8.2)
       wrangler:
         specifier: 4.95.0
-        version: 4.95.0(@cloudflare/workers-types@4.20260305.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)
+        version: 4.95.0(@cloudflare/workers-types@4.20260526.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6)
 
 packages:
 
@@ -866,8 +869,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@cloudflare/workers-types@4.20260305.1':
-    resolution: {integrity: sha512-835BZaIcgjuYIUqgOWJSpwQxFSJ8g/X1OCZFLO7bmirM6TGmVgIGwiGItBgkjUXXCPrYzJEldsJkuFuK7ePuMw==}
+  '@cloudflare/workers-types@4.20260526.1':
+    resolution: {integrity: sha512-pQZBjD7p6C5R1ZPkSywA2yiZnL/LVfqdPKLQLdbEItro4ekmMuGXQv72vHkHIT3GeZmEgZktMA0JoWn2fBKmXw==}
 
   '@coinbase/cdp-sdk@1.45.0':
     resolution: {integrity: sha512-4fgGOhyN9g/pTDE9NtsKUapwFsubrk9wafz8ltmBqSwWqLZWfWxXkVmzMYYFAf+qeGf/X9JqJtmvDVaHFlXWlw==}
@@ -4694,6 +4697,9 @@ packages:
   howler@2.2.4:
     resolution: {integrity: sha512-iARIBPgcQrwtEr+tALF+rapJ8qSc+Set2GJQl7xT1MQzWaVkFebdJhR3alVlSiUf5U7nAANKuj3aWpwerocD5w==}
 
+  html-entities@2.6.0:
+    resolution: {integrity: sha512-kig+rMn/QOVRvr7c86gQ8lWXq+Hkv6CbAH1hLu+RG338StTpE8Z0b44SDVaqVu7HGKf27frdmUYEs9hTUX/cLQ==}
+
   html-to-image@1.11.13:
     resolution: {integrity: sha512-cuOPoI7WApyhBElTTb9oqsawRvZ0rHhaHwghRLlTuffoD1B2aDemlCruLeZrUIIdvG7gs9xeELEPm6PhuASqrg==}
 
@@ -8036,7 +8042,7 @@ snapshots:
   '@cloudflare/workerd-windows-64@1.20260526.1':
     optional: true
 
-  '@cloudflare/workers-types@4.20260305.1': {}
+  '@cloudflare/workers-types@4.20260526.1': {}
 
   '@coinbase/cdp-sdk@1.45.0(bufferutil@4.1.0)(typescript@5.9.3)(utf-8-validate@6.0.6)':
     dependencies:
@@ -13222,6 +13228,8 @@ snapshots:
 
   howler@2.2.4: {}
 
+  html-entities@2.6.0: {}
+
   html-to-image@1.11.13: {}
 
   html-url-attributes@3.0.1: {}
@@ -15867,7 +15875,7 @@ snapshots:
       '@cloudflare/workerd-linux-arm64': 1.20260526.1
       '@cloudflare/workerd-windows-64': 1.20260526.1
 
-  wrangler@4.95.0(@cloudflare/workers-types@4.20260305.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6):
+  wrangler@4.95.0(@cloudflare/workers-types@4.20260526.1)(bufferutil@4.1.0)(utf-8-validate@6.0.6):
     dependencies:
       '@cloudflare/kv-asset-handler': 0.5.0
       '@cloudflare/unenv-preset': 2.16.1(unenv@2.0.0-rc.24)(workerd@1.20260526.1)
@@ -15879,7 +15887,7 @@ snapshots:
       unenv: 2.0.0-rc.24
       workerd: 1.20260526.1
     optionalDependencies:
-      '@cloudflare/workers-types': 4.20260305.1
+      '@cloudflare/workers-types': 4.20260526.1
       fsevents: 2.3.3
     transitivePeerDependencies:
       - bufferutil

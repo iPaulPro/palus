@@ -40,6 +40,7 @@
     "clsx": "2.1.1",
     "dayjs": "1.11.20",
     "howler": "2.2.4",
+    "html-entities": "2.6.0",
     "html-to-image": "1.11.13",
     "lens-modules": "3.1.7",
     "mdast-util-to-markdown": "2.1.2",
@@ -81,7 +82,7 @@
     "zustand": "5.0.12"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "4.20260305.1",
+    "@cloudflare/workers-types": "4.20260526.1",
     "@palus/config": "workspace:*",
     "@tailwindcss/aspect-ratio": "0.4.2",
     "@tailwindcss/forms": "0.5.11",

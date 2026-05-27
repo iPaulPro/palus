@@ -1,3 +1,5 @@
+import { decode } from "html-entities";
+
 const FAVICON_BASE_URL = "https://external-content.duckduckgo.com/ip3";
 
 const CORS_HEADERS = {
@@ -81,46 +83,29 @@ export const onRequestGet: PagesFunction = async (context) => {
       });
     }
 
-    const html = await response.text();
+    const meta: Record<string, string> = {};
+    const state = { title: "" };
 
-    const getMeta = (property: string): string | null => {
-      const ogMatch = html.match(
-        new RegExp(
-          `<meta[^>]+property=["']${property}["'][^>]+content=["']([^"']+)["']`,
-          "i"
-        )
-      );
-      if (ogMatch) return ogMatch[1];
+    await new HTMLRewriter()
+      .on("meta", {
+        element(el) {
+          const key = el.getAttribute("property") ?? el.getAttribute("name");
+          const content = el.getAttribute("content");
+          if (key && content) meta[key] = content;
+        }
+      })
+      .on("title", {
+        text(chunk) {
+          state.title += chunk.text;
+        }
+      })
+      .transform(response)
+      .text();
 
-      const nameMatch = html.match(
-        new RegExp(
-          `<meta[^>]+name=["']${property}["'][^>]+content=["']([^"']+)["']`,
-          "i"
-        )
-      );
-      if (nameMatch) return nameMatch[1];
+    const getMeta = (key: string): string | null => meta[key] ?? null;
 
-      // Also try content before property/name attribute order
-      const ogMatchAlt = html.match(
-        new RegExp(
-          `<meta[^>]+content=["']([^"']+)["'][^>]+property=["']${property}["']`,
-          "i"
-        )
-      );
-      if (ogMatchAlt) return ogMatchAlt[1];
-
-      const nameMatchAlt = html.match(
-        new RegExp(
-          `<meta[^>]+content=["']([^"']+)["'][^>]+name=["']${property}["']`,
-          "i"
-        )
-      );
-      return nameMatchAlt ? nameMatchAlt[1] : null;
-    };
-
-    const titleMatch = html.match(/<title[^>]*>([^<]+)<\/title>/i);
-
-    const title = getMeta("og:title") ?? titleMatch?.[1]?.trim() ?? null;
+    const pageTitle = state.title.trim() ? decode(state.title.trim()) : null;
+    const title = getMeta("og:title") ?? pageTitle;
     const thumbnailUrl = getMeta("og:image");
     const providerName = getMeta("og:site_name") ?? parsedUrl.hostname;
     const favicon = `${FAVICON_BASE_URL}/${parsedUrl.hostname}.ico`;
@@ -136,7 +121,7 @@ export const onRequestGet: PagesFunction = async (context) => {
       favicon_url: favicon,
       ...(providerName && { provider_name: providerName }),
       ...(thumbnailUrl && { thumbnail_url: thumbnailUrl }),
-      ...(title && { title }),
+      ...(title && { title: decode(title) }),
       type: "link",
       version: "1.0"
     };

@@ -4,6 +4,9 @@ import react from "@vitejs/plugin-react";
 import { defineConfig, loadEnv } from "vite";
 
 const codeSplittingGroups = [
+  { name: "zod", test: /node_modules\/zod/ },
+  { name: "phosphor", test: /node_modules\/@phosphor-icons\// },
+  { name: "heroicons", test: /node_modules\/@heroicons\// },
   { name: "apollo", test: /node_modules\/@apollo\// },
   { name: "indexer", test: /packages\/indexer/ },
   {
@@ -17,7 +20,6 @@ const codeSplittingGroups = [
   { name: "viem", test: /node_modules\/viem/ },
   { name: "wagmi", test: /node_modules\/(?:wagmi|@wagmi\/)/ },
   { name: "motion", test: /node_modules\/(?:motion|framer-motion)/ },
-  { name: "zod", test: /node_modules\/zod/ },
   { name: "headlessui", test: /node_modules\/@headlessui\// },
   {
     name: "ui",
@@ -25,8 +27,6 @@ const codeSplittingGroups = [
   },
   { name: "hls-js", test: /node_modules\/hls\.js/ },
   { name: "media", test: /node_modules\/(?:@livepeer\/|howler)/ },
-  { name: "phosphor", test: /node_modules\/@phosphor-icons\// },
-  { name: "heroicons", test: /node_modules\/@heroicons\// },
   { name: "metamask", test: /node_modules\/@metamask\// },
   { name: "lens", test: /node_modules\/(?:@lens-chain|@lens-protocol)\// },
   { name: "lens-modules", test: /node_modules\/lens-modules/ },
@@ -54,6 +54,7 @@ const codeSplittingGroups = [
     name: "tailwind",
     test: /node_modules\/(?:tailwindcss|tailwind-merge|@tailwindcss\/|clsx|class-variance-authority)/
   },
+  { name: "html-entities", test: /node_modules\/html-entities/ },
   {
     name: "shared-components",
     test: /src\/components\/Shared/
@@ -91,9 +92,5 @@ export default defineConfig(({ mode }) => {
     resolve: {
       tsconfigPaths: true
     }
-    //, server: {
-    //   host: true,
-    //   https: true
-    // }
   };
 });
