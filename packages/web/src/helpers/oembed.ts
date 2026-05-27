@@ -1,5 +1,4 @@
 import { decode } from "html-entities";
-import getFavicon from "@/helpers/getFavicon";
 import type { Oembed } from "@/types/oembed";
 
 const X_OEMBED_URL = "https://publish.x.com/oembed?omit_script=true&url=";
@@ -22,17 +21,24 @@ const fetchLinkPreview = async (url: string): Promise<Oembed | null> => {
       doc.querySelector(`meta[name="${property}"]`)?.getAttribute("content") ??
       null;
 
+    const { hostname } = new URL(url);
     const title = getMeta("og:title") ?? decode(doc.title) ?? null;
     const thumbnailUrl = getMeta("og:image");
-    const providerName =
-      getMeta("og:site_name") ?? new URL(url).hostname ?? null;
+    const providerName = getMeta("og:site_name") ?? hostname ?? null;
 
     if (!title && !thumbnailUrl) {
       return null;
     }
 
+    const iconHref = doc
+      .querySelector('link[rel="icon"]')
+      ?.getAttribute("href");
+    const faviconUrl = iconHref
+      ? new URL(iconHref, url).href
+      : `https://${hostname}/favicon.ico`;
+
     return {
-      favicon_url: getFavicon(url),
+      favicon_url: faviconUrl,
       ...(providerName && { provider_name: providerName }),
       ...(thumbnailUrl && { thumbnail_url: thumbnailUrl }),
       ...(title && { title }),

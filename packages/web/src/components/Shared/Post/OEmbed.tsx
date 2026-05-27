@@ -100,7 +100,7 @@ const OEmbed = ({ url }: OEmbedProps) => {
   if (isTwitter && oembed.html) {
     return (
       <div
-        className="not-prose tweet mt-4 flex min-h-16 w-full items-center rounded-xl border border-border bg-accent p-5 pb-8"
+        className="not-prose tweet mt-4 flex min-h-16 w-full items-center rounded-xl border border-border bg-accent p-5 pb-8 md:w-4/5"
         dangerouslySetInnerHTML={{ __html: oembed.html }}
       />
     );
@@ -120,20 +120,18 @@ const OEmbed = ({ url }: OEmbedProps) => {
       to={link}
     >
       {oembed.thumbnail_url && (
-        <img
+        <Image
           alt={oembed.title}
-          className="h-40 w-full rounded-t-xl bg-accent object-cover"
+          className="h-40 w-full rounded-t-xl border-border border-b bg-accent object-cover"
           src={oembed.thumbnail_url}
         />
       )}
-      <div className="flex flex-col gap-y-1 bg-accent p-3">
+      <div className="flex flex-col gap-y-1 rounded-b-xl bg-accent p-3">
         {oembed.title && (
           <span className="line-clamp-1 font-bold text-sm">{oembed.title}</span>
         )}
         {oembed.author_name && (
-          <span className="text-gray-500 text-xs dark:text-gray-400">
-            {oembed.author_name}
-          </span>
+          <span className="text-secondary text-xs">{oembed.author_name}</span>
         )}
         <div className="flex items-center space-x-1">
           {isSpotify ? (
@@ -151,16 +149,19 @@ const OEmbed = ({ url }: OEmbedProps) => {
               width={12}
             />
           ) : oembed.favicon_url ? (
-            <img
+            <Image
               alt={oembed.provider_name || "Favicon"}
+              fallback="/images/link.svg"
               height={12}
               src={oembed.favicon_url}
               width={12}
             />
           ) : null}
-          <span className="text-gray-500 text-xs dark:text-gray-400">
-            {oembed.provider_name && `${oembed.provider_name} - `}
-            {new URL(oembed.provider_url ?? url).hostname}
+          <span className="text-secondary text-xs">
+            {oembed.provider_name && oembed.provider_name !== hostname
+              ? `${oembed.provider_name} - `
+              : null}
+            {hostname}
           </span>
         </div>
       </div>

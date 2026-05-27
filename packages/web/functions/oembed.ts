@@ -1,7 +1,5 @@
 import { decode } from "html-entities";
 
-const FAVICON_BASE_URL = "https://external-content.duckduckgo.com/ip3";
-
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Content-Type": "application/json"
@@ -84,7 +82,7 @@ export const onRequestGet: PagesFunction = async (context) => {
     }
 
     const meta: Record<string, string> = {};
-    const state = { title: "" };
+    const state = { iconHref: "", title: "" };
 
     await new HTMLRewriter()
       .on("meta", {
@@ -92,6 +90,13 @@ export const onRequestGet: PagesFunction = async (context) => {
           const key = el.getAttribute("property") ?? el.getAttribute("name");
           const content = el.getAttribute("content");
           if (key && content) meta[key] = content;
+        }
+      })
+      .on('link[rel="icon"]', {
+        element(el) {
+          if (!state.iconHref) {
+            state.iconHref = el.getAttribute("href") ?? "";
+          }
         }
       })
       .on("title", {
@@ -108,7 +113,9 @@ export const onRequestGet: PagesFunction = async (context) => {
     const title = getMeta("og:title") ?? pageTitle;
     const thumbnailUrl = getMeta("og:image");
     const providerName = getMeta("og:site_name") ?? parsedUrl.hostname;
-    const favicon = `${FAVICON_BASE_URL}/${parsedUrl.hostname}.ico`;
+    const favicon = state.iconHref
+      ? new URL(state.iconHref, targetUrl).href
+      : `https://${parsedUrl.hostname}/favicon.ico`;
 
     if (!title && !thumbnailUrl) {
       return new Response(JSON.stringify({ error: "No metadata found" }), {
