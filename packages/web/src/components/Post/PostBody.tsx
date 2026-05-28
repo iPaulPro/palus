@@ -46,8 +46,7 @@ const PostBody = ({
     if (isArticle && contentJson) {
       try {
         const parsed = JSON.parse(contentJson) as PlateNode[];
-        const md = plateToMd(parsed);
-        return md;
+        return plateToMd(parsed);
       } catch {
         // ignore
       }
@@ -69,8 +68,10 @@ const PostBody = ({
     }
   }, [filteredContent]);
 
-  const urls = getURLs(filteredContent);
-  const hasURLs = urls.length > 0;
+  const sharingLink = useMemo(() => {
+    const showSharingLink = metadata.__typename === "LinkMetadata";
+    return showSharingLink ? metadata.sharingLink : getURLs(filteredContent)[0];
+  }, [filteredContent, metadata]);
 
   const unknownActions =
     post.__typename === "Post"
@@ -82,14 +83,10 @@ const PostBody = ({
     (action) => action.address === CONTRACTS.pollVoteAction
   );
 
-  // Show live if it's there
   const showLive = metadata.__typename === "LivestreamMetadata";
-  // Show attachments if they're there
   const showAttachments = filteredAttachments.length > 0 || filteredAsset;
-  const showSharingLink = metadata.__typename === "LinkMetadata";
   const showOembed =
-    !showSharingLink &&
-    hasURLs &&
+    Boolean(sharingLink) &&
     !showLive &&
     !showAttachments &&
     !embedded &&
@@ -126,7 +123,7 @@ const PostBody = ({
         <HiddenPost />
       ) : (
         <div
-          className={cn("break-words", {
+          className={cn("wrap-break-word", {
             "opacity-50 blur-2xl": contentWarning && !showCensored
           })}
         >
@@ -136,7 +133,7 @@ const PostBody = ({
                 "line-clamp-2": embedded,
                 "line-clamp-7": showMore && !embedded
               },
-              "markup linkify break-words",
+              "markup linkify wrap-break-word",
               contentClassName
             )}
             mentions={targetPost.mentions}
@@ -175,7 +172,7 @@ const PostBody = ({
               <Video src={getSrc(metadata.liveUrl || metadata.playbackUrl)} />
             </div>
           ) : null}
-          {showOembed ? <OEmbed url={urls[0]} /> : null}
+          {showOembed ? <OEmbed url={sharingLink} /> : null}
           {targetPost.quoteOf && !embedded ? (
             <Quote post={targetPost.quoteOf} />
           ) : null}
