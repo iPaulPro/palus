@@ -36,7 +36,7 @@ const MobileDrawerMenu = () => {
 
   return (
     <div
-      className="fixed inset-0 z-10 bg-gray-500/75 dark:bg-gray-900/80"
+      className="fixed inset-0 z-20 bg-gray-500/75 dark:bg-gray-900/80"
       onClick={handleCloseDrawer}
       onKeyDown={(e) => e.key === "Escape" && handleCloseDrawer()}
       role="presentation"

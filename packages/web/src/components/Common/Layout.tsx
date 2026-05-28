@@ -5,7 +5,7 @@ import {
   useMeQuery
 } from "@palus/indexer";
 import { useIsClient } from "@uidotdev/usehooks";
-import { domAnimation, LazyMotion } from "motion/react";
+import { domMax, LazyMotion } from "motion/react";
 import { memo, useCallback, useEffect } from "react";
 import { Outlet, useLocation } from "react-router";
 import { Toaster, type ToasterProps } from "sonner";
@@ -77,7 +77,7 @@ const Layout = () => {
   }
 
   return (
-    <LazyMotion features={domAnimation}>
+    <LazyMotion features={domMax}>
       <Toaster
         icons={{
           error: <XCircleIcon className="size-5" />,
