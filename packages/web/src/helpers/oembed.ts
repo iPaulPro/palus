@@ -77,6 +77,10 @@ export const getOembed = async (
     const parsedUrl = new URL(url);
     const hostname = parsedUrl.hostname;
 
+    if (hostname === "palus.app") {
+      return fetchLinkPreviewViaProxy(url);
+    }
+
     if (hostname.startsWith("youtube.com") || hostname.startsWith("youtu.be")) {
       oembedUrl = `${youtubeEmbedUrl}${url}`;
     } else if (
