@@ -128,6 +128,11 @@ const MarqueeText: FC<MarqueeTextProps> = ({
     computeLayout();
   }, [computeLayout]);
 
+  // Recompute when textSpacing changes (affects measure element DOM, not computeLayout body)
+  useEffect(() => {
+    computeLayout();
+  }, [textSpacing]); // eslint-disable-line react-hooks/exhaustive-deps
+
   // Recompute on container resize
   useEffect(() => {
     const container = containerRef.current;
@@ -198,7 +203,11 @@ const MarqueeText: FC<MarqueeTextProps> = ({
           visibility: "hidden"
         }}
       >
-        {children}
+        {Children.toArray(children).map((child, index) => (
+          <div key={index} style={marqueeItemStyles(textSpacing)}>
+            {child}
+          </div>
+        ))}
       </div>
       <div
         className={`${className}__items`}
