@@ -71,7 +71,7 @@ export const onRequestGet: PagesFunction = async (context) => {
 
   try {
     const response = await fetch(targetUrl, {
-      headers: { "User-Agent": "Mozilla/5.0 (compatible; Palus/1.0)" }
+      headers: { "User-Agent": "Mozilla/5.0 (compatible; PalusBot/1.0)" }
     });
 
     if (!response.ok) {
