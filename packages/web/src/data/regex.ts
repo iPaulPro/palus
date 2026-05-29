@@ -7,8 +7,8 @@ const RESTRICTED_SYMBOLS = "☑️✓✔✅";
 const MATCH_BEHIND = regexLookbehindAvailable ? "(?<=^|\\s)" : "";
 
 const MENTION_NAMESPACE = "\\w+\\/";
-const MENTION_BODY = "([\\dA-Za-z]\\w{1,25})";
-const EDITOR_MENTION = "([\\dA-Za-z]\\w*)"; // This will start searching for mentions after the first character
+const MENTION_BODY = "([\\dA-Za-z][\\w-]{1,25})";
+const EDITOR_MENTION = "([\\dA-Za-z][\\w-]*)"; // This will start searching for mentions after the first character
 
 export const Regex = {
   // Match string like @lens/someone.
@@ -23,8 +23,7 @@ export const Regex = {
   groupMention: /#(0x[a-fA-F0-9]{40})/g,
   // modified version of https://stackoverflow.com/a/6041965/961254 to support unicode international characters
   url: /\b(http|https):\/\/([\p{L}\p{N}_-]+(?:(?:\.[\p{L}\p{N}_-]+)+))([\p{L}\p{N}_.,@?^=%&:/~+#-]*[\p{L}\p{N}_@?^=%&/~+#-])/gu,
-  username: /^[\dA-Za-z]\w{1,25}$/g,
-  usernameValidator: /^[a-zA-Z0-9-]{1,50}$/
+  username: /^[a-zA-Z0-9-][\w-]{1,50}$/
 };
 
 export const EditorRegex = {

@@ -38,8 +38,7 @@ const ValidationSchema = z.object({
     .min(3, { message: "Username must be at least 3 characters long" })
     .max(26, { message: "Username must be at most 26 characters long" })
     .regex(Regex.username, {
-      message:
-        "Username must start with a letter/number, only _ allowed in between"
+      message: "Username may contain only alphanumeric characters and hyphens"
     })
 });
 
