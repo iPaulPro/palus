@@ -1,25 +1,33 @@
 import { createTrackedStore } from "@/store/createTrackedStore";
 
+export interface RuleState {
+  repliesRestricted: boolean;
+  repostsRestricted: boolean;
+  quotesRestricted: boolean;
+}
+
 interface State {
-  collectorsOnly: boolean;
-  followersOnly: boolean;
-  followingOnly: boolean;
+  collectorsOnly?: RuleState;
+  followersOnly?: RuleState;
+  followingOnly?: RuleState;
   groupGate?: string;
-  setCollectorsOnly: (collectorsOnly: boolean) => void;
-  setFollowersOnly: (followersOnly: boolean) => void;
-  setFollowingOnly: (followingOnly: boolean) => void;
+  setCollectorsOnly: (collectorsOnly?: RuleState) => void;
+  setFollowersOnly: (followersOnly?: RuleState) => void;
+  setFollowingOnly: (followingOnly?: RuleState) => void;
   setGroupGate: (groupGate?: string) => void;
 }
 
 const { useStore: usePostRulesStore } = createTrackedStore<State>((set) => ({
-  collectorsOnly: false,
-  followersOnly: false,
-  followingOnly: false,
+  collectorsOnly: undefined,
+  followersOnly: undefined,
+  followingOnly: undefined,
   groupGate: undefined,
-  setCollectorsOnly: (collectorsOnly: boolean) =>
+  setCollectorsOnly: (collectorsOnly?: RuleState) =>
     set(() => ({ collectorsOnly })),
-  setFollowersOnly: (followersOnly: boolean) => set(() => ({ followersOnly })),
-  setFollowingOnly: (followingOnly: boolean) => set(() => ({ followingOnly })),
+  setFollowersOnly: (followersOnly?: RuleState) =>
+    set(() => ({ followersOnly })),
+  setFollowingOnly: (followingOnly?: RuleState) =>
+    set(() => ({ followingOnly })),
   setGroupGate: (groupGate?: string) => set(() => ({ groupGate }))
 }));
 

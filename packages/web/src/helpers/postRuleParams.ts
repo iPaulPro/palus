@@ -1,6 +1,7 @@
 import { PostRuleExecuteOn, type PostRulesConfigInput } from "@palus/indexer";
 import { CONTRACTS } from "@/data/contracts";
 import { toKeyValueInput } from "@/helpers/keyValueInput";
+import type { RuleState } from "@/store/non-persisted/post/usePostRulesStore";
 
 const postRuleParams = ({
   collectorsOnly,
@@ -8,9 +9,9 @@ const postRuleParams = ({
   followingOnly,
   groupGate
 }: {
-  collectorsOnly: boolean;
-  followersOnly: boolean;
-  followingOnly: boolean;
+  collectorsOnly?: RuleState;
+  followersOnly?: RuleState;
+  followingOnly?: RuleState;
   groupGate?: string;
 }): PostRulesConfigInput | undefined => {
   if (!followingOnly && !followingOnly && !groupGate && !collectorsOnly) {
@@ -22,9 +23,9 @@ const postRuleParams = ({
   if (followersOnly) {
     rules.required.push({
       followersOnlyRule: {
-        quotesRestricted: true,
-        repliesRestricted: true,
-        repostRestricted: true
+        quotesRestricted: followersOnly.quotesRestricted,
+        repliesRestricted: followersOnly.repliesRestricted,
+        repostRestricted: followersOnly.repostsRestricted
       }
     });
   }
@@ -39,9 +40,21 @@ const postRuleParams = ({
             "address",
             CONTRACTS.lensGlobalGraph
           ),
-          toKeyValueInput("lens.param.repliesRestricted", "bool", true),
-          toKeyValueInput("lens.param.repostsRestricted", "bool", true),
-          toKeyValueInput("lens.param.quotesRestricted", "bool", true)
+          toKeyValueInput(
+            "lens.param.repliesRestricted",
+            "bool",
+            followingOnly.repliesRestricted
+          ),
+          toKeyValueInput(
+            "lens.param.repostsRestricted",
+            "bool",
+            followingOnly.repostsRestricted
+          ),
+          toKeyValueInput(
+            "lens.param.quotesRestricted",
+            "bool",
+            followingOnly.quotesRestricted
+          )
         ]
       }
     });
@@ -66,9 +79,21 @@ const postRuleParams = ({
             "address",
             CONTRACTS.simpleCollectAction
           ),
-          toKeyValueInput("lens.param.repliesRestricted", "bool", true),
-          toKeyValueInput("lens.param.repostsRestricted", "bool", false),
-          toKeyValueInput("lens.param.quotesRestricted", "bool", false)
+          toKeyValueInput(
+            "lens.param.repliesRestricted",
+            "bool",
+            collectorsOnly.repliesRestricted
+          ),
+          toKeyValueInput(
+            "lens.param.repostsRestricted",
+            "bool",
+            collectorsOnly.repostsRestricted
+          ),
+          toKeyValueInput(
+            "lens.param.quotesRestricted",
+            "bool",
+            collectorsOnly.quotesRestricted
+          )
         ]
       }
     });

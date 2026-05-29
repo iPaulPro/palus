@@ -1,6 +1,7 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps, Ref } from "react";
 import { memo, useId } from "react";
+import cn from "@/helpers/cn";
 
 const checkboxVariants = cva(
   "outline-0 focus:ring-0 mr-2 cursor-pointer rounded transition duration-200 dark:text-gray-500",
@@ -20,12 +21,14 @@ interface CheckboxProps
     VariantProps<typeof checkboxVariants> {
   className?: string;
   label?: string;
+  labelClassName?: string;
   ref?: Ref<HTMLInputElement>;
 }
 
 const Checkbox = ({
   className = "",
   label,
+  labelClassName = "",
   disabled,
   ref,
   ...props
@@ -43,7 +46,10 @@ const Checkbox = ({
         {...props}
       />
       <label
-        className="inline-block cursor-pointer whitespace-nowrap"
+        className={cn(
+          "inline-block cursor-pointer whitespace-nowrap",
+          labelClassName
+        )}
         htmlFor={id}
       >
         {label}

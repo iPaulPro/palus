@@ -15,7 +15,7 @@ const switchVariants = cva(
     variants: {
       checked: {
         false: "bg-gray-200 dark:bg-gray-500",
-        true: "bg-black dark:bg-white"
+        true: "bg-brand-500"
       },
       disabled: { false: "", true: "cursor-not-allowed opacity-50" }
     }

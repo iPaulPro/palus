@@ -69,6 +69,11 @@
     @apply bg-surface;
   }
 
+  input[type="checkbox"],
+  input[type="radio"] {
+    @apply text-brand-500;
+  }
+
   input,
   textarea,
   div[contenteditable="true"] {

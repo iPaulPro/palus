@@ -167,10 +167,10 @@ const NewPublication = ({
     setIgnoreQuotedPostId(undefined);
     setEditingPost(undefined);
     setParentPost(undefined);
-    setFollowersOnly(false);
-    setFollowingOnly(false);
+    setFollowersOnly(undefined);
+    setFollowingOnly(undefined);
     setGroupGate(undefined);
-    setCollectorsOnly(false);
+    setCollectorsOnly(undefined);
     setContentWarning(undefined);
     setShowPollEditor(false);
     setNotificationShare(undefined);
