@@ -66,6 +66,9 @@ export default defineConfig(({ mode }) => {
   return {
     build: {
       rolldownOptions: {
+        checks: {
+          invalidAnnotation: false
+        },
         output: {
           codeSplitting: {
             groups: codeSplittingGroups
