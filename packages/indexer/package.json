@@ -20,9 +20,9 @@
     "@graphql-codegen/typescript-operations": "5.0.9",
     "@graphql-codegen/typescript-react-apollo": "4.4.1",
     "@palus/config": "workspace:*",
-    "@types/node": "24.12.2",
+    "@types/node": "25.9.1",
     "graphql-request": "7.4.0",
     "typescript": "5.9.3",
-    "ws": "8.20.0"
+    "ws": "8.21.0"
   }
 }

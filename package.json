@@ -20,11 +20,11 @@
     "typecheck:functions": "pnpm --recursive --parallel run typecheck:functions"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.15",
+    "@biomejs/biome": "2.4.16",
     "husky": "9.1.7",
-    "vite": "8.0.12"
+    "vite": "8.0.14"
   },
-  "packageManager": "pnpm@11.1.2",
+  "packageManager": "pnpm@11.4.0",
   "engines": {
     "node": ">=22.13.0 <23.0.0"
   }

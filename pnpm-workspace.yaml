@@ -8,3 +8,8 @@ allowBuilds:
   sharp: false
   utf-8-validate: false
   workerd: true
+ignoredOptionalDependencies:
+  - "@base-org/account"
+  - "@safe-global/safe-apps-provider"
+  - "@safe-global/safe-apps-sdk"
+  - "@lit/react"

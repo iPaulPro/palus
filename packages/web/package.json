@@ -78,7 +78,7 @@
     "virtua": "0.49.1",
     "wagmi": "3.6.1",
     "zod": "4.4.3",
-    "zustand": "5.0.14"
+    "zustand": "5.0.13"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "4.20260526.1",
