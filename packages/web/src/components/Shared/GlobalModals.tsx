@@ -28,8 +28,19 @@ import { useSuperJoinModalStore } from "@/store/non-persisted/modal/useSuperJoin
 import { useSwitchAccountModalStore } from "@/store/non-persisted/modal/useSwitchAccountModalStore";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
+import {
+  DEFAULT_AUDIO_POST,
+  usePostAudioStore
+} from "@/store/non-persisted/post/usePostAudioStore";
+import { usePostContentWarningStore } from "@/store/non-persisted/post/usePostContentWarningStore";
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
+import { usePostPollStore } from "@/store/non-persisted/post/usePostPollStore";
+import { usePostRulesStore } from "@/store/non-persisted/post/usePostRulesStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
+import {
+  DEFAULT_VIDEO_THUMBNAIL,
+  usePostVideoStore
+} from "@/store/non-persisted/post/usePostVideoStore";
 import Auth from "./Auth";
 
 const GlobalModals = () => {
@@ -43,6 +54,7 @@ const GlobalModals = () => {
     quotedPost,
     setEditingPost,
     setQuotedPost,
+    setIgnoreQuotedPostId,
     setPostContent,
     setParentPost,
     setNotificationShare
@@ -81,6 +93,16 @@ const GlobalModals = () => {
   } = useCollectFormModalStore();
   const { reset: resetCollectForm } = useCollectActionStore((state) => state);
   const { setLicense } = usePostLicenseStore();
+  const {
+    setFollowersOnly,
+    setFollowingOnly,
+    setGroupGate,
+    setCollectorsOnly
+  } = usePostRulesStore();
+  const { setContentWarning } = usePostContentWarningStore();
+  const { resetPollConfig, setShowPollEditor } = usePostPollStore();
+  const { setAudioPost } = usePostAudioStore();
+  const { setVideoThumbnail, setVideoDurationInSeconds } = usePostVideoStore();
 
   const authModalTitle =
     authModalType === "signup"
@@ -90,6 +112,29 @@ const GlobalModals = () => {
       : null;
 
   const isSmallDevice = useMediaQuery(IS_MOBILE);
+
+  const resetPostState = () => {
+    setShowNewPostModal(false);
+    setPostContent("");
+    setAttachments([]);
+    setQuotedPost(undefined);
+    setIgnoreQuotedPostId(undefined);
+    setEditingPost(undefined);
+    setParentPost(undefined);
+    setFollowersOnly(undefined);
+    setFollowingOnly(undefined);
+    setGroupGate(undefined);
+    setCollectorsOnly(undefined);
+    setContentWarning(undefined);
+    setShowPollEditor(false);
+    setNotificationShare(undefined);
+    resetPollConfig();
+    setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
+    setVideoDurationInSeconds("0");
+    setAudioPost(DEFAULT_AUDIO_POST);
+    setLicense(null);
+    resetCollectForm();
+  };
 
   return (
     <>
@@ -123,16 +168,7 @@ const GlobalModals = () => {
         <Auth />
       </Modal>
       <Modal
-        onClose={() => {
-          setShowNewPostModal(false);
-          setPostContent("");
-          setEditingPost(undefined);
-          setQuotedPost(undefined);
-          setParentPost(undefined);
-          setNotificationShare(undefined);
-          setAttachments([]);
-          resetCollectForm();
-        }}
+        onClose={resetPostState}
         preventClose={true}
         show={showNewPostModal}
         size={isSmallDevice ? "full" : "md"}

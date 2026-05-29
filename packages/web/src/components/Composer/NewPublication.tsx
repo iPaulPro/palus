@@ -100,8 +100,12 @@ const NewPublication = ({
   } = usePostStore();
 
   const { audioPost, setAudioPost } = usePostAudioStore();
-  const { setVideoThumbnail, videoDurationInSeconds, videoThumbnail } =
-    usePostVideoStore();
+  const {
+    setVideoThumbnail,
+    setVideoDurationInSeconds,
+    videoDurationInSeconds,
+    videoThumbnail
+  } = usePostVideoStore();
   const { addAttachments, attachments, isUploading, setAttachments } =
     usePostAttachmentStore();
   const { pollConfig, resetPollConfig, setShowPollEditor, showPollEditor } =
@@ -176,6 +180,7 @@ const NewPublication = ({
     setNotificationShare(undefined);
     resetPollConfig();
     setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
+    setVideoDurationInSeconds("0");
     setAudioPost(DEFAULT_AUDIO_POST);
     setLicense(null);
     resetCollectSettings();
