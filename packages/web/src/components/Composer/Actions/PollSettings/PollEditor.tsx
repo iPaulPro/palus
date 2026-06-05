@@ -86,9 +86,8 @@ const PollEditor = () => {
       </div>
       <div className="mt-3 space-y-2">
         {pollConfig.options.map((choice, index) => {
-          const key = `${choice}_${index}`;
           return (
-            <div className="flex items-center gap-x-2 text-sm" key={key}>
+            <div className="flex items-center gap-x-2 text-sm" key={index}>
               <Input
                 iconRight={
                   index > 1 ? (
