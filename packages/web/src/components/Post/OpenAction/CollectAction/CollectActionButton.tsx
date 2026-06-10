@@ -200,6 +200,7 @@ const CollectActionButton = ({
       className="mt-5 w-full justify-center"
       disabled={isSubmitting}
       loading={isSubmitting}
+      loadingText={amount > 0 ? "Waiting on wallet signature…" : "Processing…"}
       onClick={handleCreateCollect}
     >
       Collect now

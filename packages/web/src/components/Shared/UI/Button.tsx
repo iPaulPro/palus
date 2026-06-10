@@ -77,6 +77,7 @@ interface ButtonProps
   children?: ReactNode;
   icon?: ReactNode;
   loading?: boolean;
+  loadingText?: string;
   ref?: Ref<HTMLButtonElement>;
 }
 
@@ -89,6 +90,7 @@ const Button = ({
   size,
   variant,
   loading,
+  loadingText,
   ref,
   ...rest
 }: ButtonProps) => {
@@ -117,12 +119,13 @@ const Button = ({
         {loading && (
           <m.div
             animate={{ opacity: 1, y: 0 }}
-            className="absolute flex items-center justify-center"
+            className="absolute flex items-center justify-center gap-x-1.5"
             exit={{ opacity: 0, y: 20 }}
             initial={{ opacity: 0, y: 20 }}
             transition={{ bounce: 0, duration: 0.2, type: "spring" }}
           >
             <Spinner size="xs" />
+            {loadingText && <span>{loadingText}</span>}
           </m.div>
         )}
       </AnimatePresence>

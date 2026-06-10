@@ -8,15 +8,8 @@ import { z } from "zod";
 import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import LoginButton from "@/components/Shared/LoginButton";
 import Skeleton from "@/components/Shared/Skeleton";
-import {
-  Button,
-  Form,
-  Input,
-  Spinner,
-  useZodForm
-} from "@/components/Shared/UI";
+import { Button, Form, Input, useZodForm } from "@/components/Shared/UI";
 import { NATIVE_TOKEN_SYMBOL } from "@/data/constants";
-import cn from "@/helpers/cn";
 import usePreventScrollOnNumberInput from "@/hooks/usePreventScrollOnNumberInput";
 import { useSendTip } from "@/hooks/useSendTip";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
@@ -186,17 +179,14 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
           </div>
         ) : null}
         <div className="pt-1">
-          {isSubmitting || balanceLoading ? (
-            <Button
-              className={cn("flex justify-center", submitButtonClassName)}
-              disabled
-              icon={<Spinner className="my-0.5" size="xs" />}
-              type="button"
-            />
-          ) : canTip ? (
+          {canTip || balanceLoading ? (
             <Button
               className={submitButtonClassName}
               disabled={!amount || isSubmitting || !canTip}
+              loading={isSubmitting || balanceLoading}
+              loadingText={
+                isSubmitting ? "Waiting for wallet signature…" : "Loading…"
+              }
               type="submit"
             >
               <b>Tip ${formatter.format(amount)}</b>
