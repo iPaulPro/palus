@@ -10,17 +10,13 @@ import { useHomeTabStore } from "@/store/persisted/useHomeTabStore";
 
 const Settings: FC = () => {
   const { feedType } = useHomeTabStore();
-  const [showNotificationSettings, setShowNotificationSettings] =
-    useState(false);
-
-  const handleOpenSettings = () => setShowNotificationSettings(true);
-  const handleCloseSettings = () => setShowNotificationSettings(false);
+  const [showSettings, setShowSettings] = useState(false);
 
   return (
     <>
       <button
         className="mx-3 rounded-md p-1 hover:bg-gray-300/20 sm:mx-0"
-        onClick={handleOpenSettings}
+        onClick={() => setShowSettings(true)}
         type="button"
       >
         <Tooltip content="Feed settings" placement="top">
@@ -28,8 +24,8 @@ const Settings: FC = () => {
         </Tooltip>
       </button>
       <Modal
-        onClose={handleCloseSettings}
-        show={showNotificationSettings}
+        onClose={() => setShowSettings(false)}
+        show={showSettings}
         size="xs"
         title="Feed settings"
       >
