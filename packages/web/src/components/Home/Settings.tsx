@@ -23,7 +23,7 @@ const Settings: FC = () => {
         onClick={handleOpenSettings}
         type="button"
       >
-        <Tooltip content="Timeline settings" placement="top">
+        <Tooltip content="Feed settings" placement="top">
           <AdjustmentsHorizontalIcon className="ld-text-gray-500 size-5" />
         </Tooltip>
       </button>
@@ -31,7 +31,7 @@ const Settings: FC = () => {
         onClose={handleCloseSettings}
         show={showNotificationSettings}
         size="xs"
-        title="Timeline settings"
+        title="Feed settings"
       >
         <div className="flex flex-col gap-y-4 p-5">
           {feedType === HomeFeedType.TIMELINE && (
