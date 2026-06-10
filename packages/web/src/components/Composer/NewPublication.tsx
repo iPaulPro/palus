@@ -339,7 +339,8 @@ const NewPublication = ({
       const metadata = getMetadata({
         attachment,
         baseMetadata,
-        isCollectible: Boolean(collectAction.enabled)
+        isCollectible: Boolean(collectAction.enabled),
+        tags: shareImage ? ["palus-tip"] : undefined
       });
       if (!metadata) {
         onError("Failed to generate metadata");

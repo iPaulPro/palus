@@ -17,6 +17,7 @@ interface UsePostMetadataProps {
   baseMetadata: any;
   attachment?: NewAttachment;
   isCollectible: boolean;
+  tags?: string[];
 }
 
 const usePostMetadata = () => {
@@ -33,7 +34,12 @@ const usePostMetadata = () => {
     }));
 
   const getMetadata = useCallback(
-    ({ baseMetadata, attachment, isCollectible }: UsePostMetadataProps) => {
+    ({
+      baseMetadata,
+      attachment,
+      isCollectible,
+      tags
+    }: UsePostMetadataProps) => {
       const primaryAttachment = attachment ?? attachments[0];
       const hasAttachments = Boolean(primaryAttachment);
       const isImage = primaryAttachment?.type === "Image";
@@ -44,11 +50,13 @@ const usePostMetadata = () => {
         return baseMetadata.content?.length > 2000
           ? article({
               ...baseMetadata,
-              ...(contentWarning && { contentWarning })
+              ...(contentWarning && { contentWarning }),
+              tags
             })
           : textOnly({
               ...baseMetadata,
-              ...(contentWarning && { contentWarning })
+              ...(contentWarning && { contentWarning }),
+              tags
             });
       }
 
@@ -72,7 +80,8 @@ const usePostMetadata = () => {
               image: primaryAttachment.uri,
               name: baseMetadata.title
             }
-          })
+          }),
+          tags
         });
       }
 
@@ -105,7 +114,8 @@ const usePostMetadata = () => {
               image: audioPost.cover,
               name: baseMetadata.title
             }
-          })
+          }),
+          tags
         });
       }
 
@@ -130,7 +140,8 @@ const usePostMetadata = () => {
               image: audioPost.cover,
               name: baseMetadata.title
             }
-          })
+          }),
+          tags
         });
       }
 
