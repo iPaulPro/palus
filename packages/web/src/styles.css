@@ -313,6 +313,10 @@
     aspect-ratio: 16 / 9;
     @apply w-full h-auto rounded-xl;
   }
+
+  [data-radix-popper-content-wrapper] {
+    @apply z-50!;
+  }
 }
 
 @utility card-drop-shadow {
