@@ -7,7 +7,7 @@ export const CONTRACTS = {
     ? lensDeployments.testnet.ActionHub.address
     : lensDeployments.mainnet.ActionHub.address,
   app: IS_TESTNET
-    ? "0xC75A89145d765c396fd75CbD16380Eb184Bd2ca7"
+    ? "0xC75A89145d765c396fd75CbD16380Eb184Bd2ca7" // global test app
     : "0xCa01Da446811d76aa7aD885e5fa39DF2031096cB",
   banMemberGroupRule: IS_TESTNET
     ? lensDeployments.testnet.BanMemberGroupRule.address
@@ -24,6 +24,9 @@ export const CONTRACTS = {
   groupGatedPostRule: IS_TESTNET
     ? "0x83F5E3bb7209111002eB6C98A89a9869cD63a0e1"
     : "0x4450451C88DdfE41880D2b702c3Cf8D4d394432F",
+  heyApp: IS_TESTNET
+    ? "0xC75A89145d765c396fd75CbD16380Eb184Bd2ca7" // global test app
+    : "0x1eFA8F82d9E919F6b6A5f1701131c9Cb1a943BAA",
   lensGlobalGraph: IS_TESTNET
     ? lensDeployments.testnet.LensGlobalGraph.address
     : lensDeployments.mainnet.LensGlobalGraph.address,

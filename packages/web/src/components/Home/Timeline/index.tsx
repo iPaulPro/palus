@@ -7,6 +7,7 @@ import {
 import { memo, useCallback, useMemo } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
+import { CONTRACTS } from "@/data/contracts";
 import cn from "@/helpers/cn";
 import getPostData from "@/helpers/getPostData";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
@@ -19,7 +20,7 @@ interface TimelineProps {
 
 const Timeline = ({ onScroll }: TimelineProps) => {
   const { currentAccount } = useAccountStore();
-  const { includeCommentsInTimeline, hideShareImagePosts } =
+  const { includeCommentsInTimeline, hideHeyPosts, hideShareImagePosts } =
     usePreferencesStore();
   const { bannedAccounts } = useBannedAccountsStore();
 
@@ -67,10 +68,11 @@ const Timeline = ({ onScroll }: TimelineProps) => {
             postData?.tags?.some(
               (tag) => tag === "palus-tip" || tag === "ORB-TIP"
             )
-          )
+          ) &&
+          !(hideHeyPosts && post.app?.address === CONTRACTS.heyApp)
         );
       }),
-    [feed, bannedAccounts, hideShareImagePosts]
+    [feed, bannedAccounts, hideShareImagePosts, hideHeyPosts]
   );
 
   return (

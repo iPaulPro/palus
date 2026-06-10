@@ -7812,6 +7812,7 @@ export type ReferencedPostFragment = {
   feed: { __typename?: "PostFeedInfo" } & PostFeedInfoFragment;
   app?: {
     __typename?: "App";
+    address: any;
     metadata?: { __typename?: "AppMetadata"; name: string } | null;
   } | null;
   author: { __typename?: "Account" } & AccountFragment;
@@ -10566,6 +10567,7 @@ export const ReferencedPostFragmentDoc = `
     ...PostFeedInfo
   }
   app {
+    address
     metadata {
       name
     }

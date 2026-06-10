@@ -7508,7 +7508,7 @@ export type PostStatsFragment = { __typename: 'PostStats', bookmarks: number, co
 export type ReferencedPostFragment = { __typename: 'Post', id: any, slug: any, isDeleted: boolean, isEdited: boolean, contentUri: any, timestamp: any, feed: (
     { __typename: 'PostFeedInfo' }
     & PostFeedInfoFragment
-  ), app?: { __typename: 'App', metadata?: { __typename: 'AppMetadata', name: string } | null } | null, author: (
+  ), app?: { __typename: 'App', address: any, metadata?: { __typename: 'AppMetadata', name: string } | null } | null, author: (
     { __typename: 'Account' }
     & AccountFragment
   ), metadata:
@@ -10252,6 +10252,7 @@ export const ReferencedPostFragmentDoc = gql`
     ...PostFeedInfo
   }
   app {
+    address
     metadata {
       name
     }

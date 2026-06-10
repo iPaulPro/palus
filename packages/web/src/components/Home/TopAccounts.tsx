@@ -9,6 +9,7 @@ import {
 import { memo, useCallback, useMemo } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
+import { CONTRACTS } from "@/data/contracts";
 import getPostData from "@/helpers/getPostData";
 import { isRepost } from "@/helpers/postHelpers";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
@@ -20,7 +21,7 @@ interface TopAccountsProps {
 
 const TopAccounts = ({ onScroll }: TopAccountsProps) => {
   const { bannedAccounts } = useBannedAccountsStore();
-  const { hideShareImagePosts } = usePreferencesStore();
+  const { hideHeyPosts, hideShareImagePosts } = usePreferencesStore();
 
   const request: PostsRequest = useMemo(
     () => ({
@@ -66,10 +67,11 @@ const TopAccounts = ({ onScroll }: TopAccountsProps) => {
             postData?.tags?.some(
               (tag) => tag === "palus-tip" || tag === "ORB-TIP"
             )
-          )
+          ) &&
+          !(hideHeyPosts && targetPost.app?.address === CONTRACTS.heyApp)
         );
       }),
-    [posts, bannedAccounts, hideShareImagePosts]
+    [posts, bannedAccounts, hideShareImagePosts, hideHeyPosts]
   );
 
   return (

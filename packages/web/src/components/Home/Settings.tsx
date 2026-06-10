@@ -1,6 +1,7 @@
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 import type { FC } from "react";
 import { useState } from "react";
+import HideHeyPostsToggle from "@/components/Shared/Settings/HideHeyPostsToggle";
 import HideShareImagePostsToggle from "@/components/Shared/Settings/HideShareImagePostsToggle";
 import IncludeCommentsTimelineToggle from "@/components/Shared/Settings/IncludeCommentsTimelineToggle";
 import { Modal, Tooltip } from "@/components/Shared/UI";
@@ -37,6 +38,7 @@ const Settings: FC = () => {
             <IncludeCommentsTimelineToggle />
           )}
           <HideShareImagePostsToggle />
+          <HideHeyPostsToggle />
         </div>
       </Modal>
     </>

@@ -9,6 +9,7 @@ fragment ReferencedPost on Post {
     ...PostFeedInfo
   }
   app {
+    address
     metadata {
       name
     }

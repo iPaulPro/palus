@@ -1,6 +1,7 @@
 import BackButton from "@/components/Shared/BackButton";
 import NotLoggedIn from "@/components/Shared/NotLoggedIn";
 import PageLayout from "@/components/Shared/PageLayout";
+import HideHeyPostsToggle from "@/components/Shared/Settings/HideHeyPostsToggle";
 import HideShareImagePostsToggle from "@/components/Shared/Settings/HideShareImagePostsToggle";
 import LowSignalNotificationToggle from "@/components/Shared/Settings/LowSignalNotificationToggle";
 import { Card, CardHeader } from "@/components/Shared/UI";
@@ -25,6 +26,7 @@ const PreferencesSettings = () => {
           <LowSignalNotificationToggle />
           <ReplaceLensLinksToggle />
           <HideShareImagePostsToggle />
+          <HideHeyPostsToggle />
         </div>
       </Card>
     </PageLayout>
