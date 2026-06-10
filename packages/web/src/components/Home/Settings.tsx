@@ -1,6 +1,7 @@
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 import type { FC } from "react";
 import { useState } from "react";
+import HideShareImagePostsToggle from "@/components/Shared/Settings/HideShareImagePostsToggle";
 import IncludeCommentsTimelineToggle from "@/components/Shared/Settings/IncludeCommentsTimelineToggle";
 import { Modal, Tooltip } from "@/components/Shared/UI";
 import { HomeFeedType } from "@/data/enums";
@@ -13,10 +14,6 @@ const Settings: FC = () => {
 
   const handleOpenSettings = () => setShowNotificationSettings(true);
   const handleCloseSettings = () => setShowNotificationSettings(false);
-
-  if (feedType !== HomeFeedType.TIMELINE) {
-    return null;
-  }
 
   return (
     <>
@@ -35,8 +32,11 @@ const Settings: FC = () => {
         size="xs"
         title="Timeline settings"
       >
-        <div className="p-5">
-          <IncludeCommentsTimelineToggle />
+        <div className="flex flex-col gap-y-4 p-5">
+          {feedType === HomeFeedType.TIMELINE && (
+            <IncludeCommentsTimelineToggle />
+          )}
+          <HideShareImagePostsToggle />
         </div>
       </Modal>
     </>

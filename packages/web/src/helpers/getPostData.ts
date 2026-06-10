@@ -16,6 +16,7 @@ const getPostData = (
   attributes?: MetadataAttribute[];
   content?: string;
   contentWarning?: ContentWarning | null;
+  tags?: string[] | null;
 } | null => {
   switch (metadata.__typename) {
     case "ArticleMetadata":
@@ -32,14 +33,16 @@ const getPostData = (
         attachments: getAttachmentsData(metadata.attachments),
         attributes: metadata.attributes,
         content: metadata.content,
-        contentWarning: metadata.contentWarning
+        contentWarning: metadata.contentWarning,
+        tags: metadata.tags
       };
     case "TextOnlyMetadata":
     case "StoryMetadata":
       return {
         attributes: metadata.attributes,
         content: metadata.content,
-        contentWarning: metadata.contentWarning
+        contentWarning: metadata.contentWarning,
+        tags: metadata.tags
       };
     case "ImageMetadata":
       return {
@@ -51,7 +54,8 @@ const getPostData = (
         attachments: getAttachmentsData(metadata.attachments),
         attributes: metadata.attributes,
         content: metadata.content,
-        contentWarning: metadata.contentWarning
+        contentWarning: metadata.contentWarning,
+        tags: metadata.tags
       };
     case "AudioMetadata": {
       const audioAttachments = getAttachmentsData(metadata.attachments)[0];
@@ -73,7 +77,8 @@ const getPostData = (
         },
         attributes: metadata.attributes,
         content: metadata.content,
-        contentWarning: metadata.contentWarning
+        contentWarning: metadata.contentWarning,
+        tags: metadata.tags
       };
     }
     case "VideoMetadata": {
@@ -90,7 +95,8 @@ const getPostData = (
         },
         attributes: metadata.attributes,
         content: metadata.content,
-        contentWarning: metadata.contentWarning
+        contentWarning: metadata.contentWarning,
+        tags: metadata.tags
       };
     }
     default:

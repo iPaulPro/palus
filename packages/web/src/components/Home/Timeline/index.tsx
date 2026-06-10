@@ -8,6 +8,7 @@ import { memo, useCallback, useMemo } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
 import cn from "@/helpers/cn";
+import getPostData from "@/helpers/getPostData";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
@@ -18,7 +19,8 @@ interface TimelineProps {
 
 const Timeline = ({ onScroll }: TimelineProps) => {
   const { currentAccount } = useAccountStore();
-  const { includeCommentsInTimeline } = usePreferencesStore();
+  const { includeCommentsInTimeline, hideShareImagePosts } =
+    usePreferencesStore();
   const { bannedAccounts } = useBannedAccountsStore();
 
   const request: TimelineRequest = {
@@ -52,14 +54,23 @@ const Timeline = ({ onScroll }: TimelineProps) => {
 
   const filteredPosts = useMemo(
     () =>
-      (feed ?? []).filter(
-        (timelineItem) =>
-          !timelineItem.primary.author.operations?.isBlockedByMe &&
-          !timelineItem.primary.author.operations?.isMutedByMe &&
-          !timelineItem.primary.operations?.hasReported &&
-          !bannedAccounts.includes(timelineItem.primary.author.address)
-      ),
-    [feed, bannedAccounts]
+      (feed ?? []).filter((timelineItem) => {
+        const post = timelineItem.primary;
+        const postData = getPostData(post.metadata);
+        return (
+          !post.author.operations?.isBlockedByMe &&
+          !post.author.operations?.isMutedByMe &&
+          !post.operations?.hasReported &&
+          !bannedAccounts.includes(post.author.address) &&
+          !(
+            hideShareImagePosts &&
+            postData?.tags?.some(
+              (tag) => tag === "palus-tip" || tag === "ORB-TIP"
+            )
+          )
+        );
+      }),
+    [feed, bannedAccounts, hideShareImagePosts]
   );
 
   return (

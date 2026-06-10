@@ -9,7 +9,10 @@ import {
 import { memo, useCallback, useMemo } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
+import getPostData from "@/helpers/getPostData";
+import { isRepost } from "@/helpers/postHelpers";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
+import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 
 interface TopAccountsProps {
   onScroll?: (scrollOffset: number) => void;
@@ -17,6 +20,7 @@ interface TopAccountsProps {
 
 const TopAccounts = ({ onScroll }: TopAccountsProps) => {
   const { bannedAccounts } = useBannedAccountsStore();
+  const { hideShareImagePosts } = usePreferencesStore();
 
   const request: PostsRequest = useMemo(
     () => ({
@@ -49,15 +53,23 @@ const TopAccounts = ({ onScroll }: TopAccountsProps) => {
 
   const filteredPosts = useMemo(
     () =>
-      (posts ?? []).filter(
-        (post) =>
+      (posts ?? []).filter((post) => {
+        const targetPost = isRepost(post) ? post.repostOf : post;
+        const postData = getPostData(targetPost.metadata);
+        return (
           !post.author.operations?.isBlockedByMe &&
           !post.author.operations?.isMutedByMe &&
-          post.__typename === "Post" &&
-          !post.operations?.hasReported &&
-          !bannedAccounts.includes(post.author.address)
-      ),
-    [posts, bannedAccounts]
+          !targetPost.operations?.hasReported &&
+          !bannedAccounts.includes(post.author.address) &&
+          !(
+            hideShareImagePosts &&
+            postData?.tags?.some(
+              (tag) => tag === "palus-tip" || tag === "ORB-TIP"
+            )
+          )
+        );
+      }),
+    [posts, bannedAccounts, hideShareImagePosts]
   );
 
   return (
