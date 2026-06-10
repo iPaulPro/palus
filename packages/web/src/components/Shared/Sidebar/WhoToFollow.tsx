@@ -124,7 +124,7 @@ const WhoToFollow = () => {
         show={showMore}
         title="Suggested for you"
       >
-        <Suggested accounts={recommendedAccounts} />
+        <Suggested accounts={recommendedAccounts} setShowMore={setShowMore} />
       </Modal>
     </>
   );

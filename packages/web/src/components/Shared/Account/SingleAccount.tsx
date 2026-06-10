@@ -27,6 +27,7 @@ interface SingleAccountProps {
   showUserPreview?: boolean;
   showAddress?: boolean;
   action?: ReactNode;
+  onClick?: () => void;
 }
 
 const UserName = ({
@@ -133,13 +134,14 @@ const SingleAccount = ({
   showBio = false,
   showUserPreview = true,
   showAddress = false,
-  action
+  action,
+  onClick
 }: SingleAccountProps) => {
   return (
     <div className={cn("flex min-w-0 flex-col gap-y-2", className)}>
       <div className="flex items-center justify-between gap-4">
         {linkToAccount && account.address ? (
-          <AccountLink account={account} className="min-w-0">
+          <AccountLink account={account} className="min-w-0" onClick={onClick}>
             <AccountInfo
               account={account}
               isBig={isBig}

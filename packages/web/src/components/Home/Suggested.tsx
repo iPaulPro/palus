@@ -11,9 +11,10 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface SuggestedProps {
   accounts: AccountFragment[];
+  setShowMore: (showMore: boolean) => void;
 }
 
-const Suggested = ({ accounts }: SuggestedProps) => {
+const Suggested = ({ accounts, setShowMore }: SuggestedProps) => {
   const { currentAccount } = useAccountStore();
 
   if (!accounts.length) {
@@ -45,6 +46,7 @@ const Suggested = ({ accounts }: SuggestedProps) => {
                 account={account}
                 hideFollowButton={currentAccount?.address === account.address}
                 hideUnfollowButton={currentAccount?.address === account.address}
+                onClick={() => setShowMore(false)}
                 showBio
                 showUserPreview={false}
               />
