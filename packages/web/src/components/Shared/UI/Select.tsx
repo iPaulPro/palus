@@ -44,7 +44,7 @@ const Select = ({
       <div className="relative">
         <ListboxButton
           className={cn(
-            "flex w-full items-center justify-between space-x-3 rounded-xl border border-gray-300 bg-white px-3 py-2 text-left outline-hidden focus:border-gray-500 focus:ring-gray-400 dark:border-gray-800 dark:bg-gray-800",
+            "flex w-full items-center justify-between space-x-3 rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-left outline-hidden focus:border-gray-500 focus:ring-gray-400 dark:border-gray-800 dark:bg-gray-800",
             className
           )}
         >

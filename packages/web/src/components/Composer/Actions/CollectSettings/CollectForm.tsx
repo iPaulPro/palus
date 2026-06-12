@@ -1,5 +1,6 @@
 import { m } from "motion/react";
 import { isAddress } from "viem";
+import ReferralShareConfig from "@/components/Composer/Actions/CollectSettings/ReferralShareConfig";
 import LicensePicker from "@/components/Composer/LicensePicker";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Button } from "@/components/Shared/UI";
@@ -35,6 +36,10 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
       collectAction.payToCollect &&
       (collectAction.payToCollect.native <= 0 ||
         collectAction.payToCollect.erc20?.value <= 0),
+    hasZeroReferralShare:
+      collectAction.payToCollect?.referralShare !== undefined &&
+      collectAction.payToCollect?.referralShare !== null &&
+      collectAction.payToCollect?.referralShare <= 0,
     hasZeroSplits: recipients.some(({ percent }) => percent === 0),
     isRecipientsDuplicated:
       new Set(recipients.map(({ address }) => address)).size !==
@@ -86,10 +91,15 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
             <AmountConfig setCollectType={setCollectType} />
             {(collectAction.payToCollect?.native ||
               collectAction.payToCollect?.erc20?.value) && (
-              <SplitConfig
-                isRecipientsDuplicated={validationChecks.isRecipientsDuplicated}
-                setCollectType={setCollectType}
-              />
+              <>
+                <SplitConfig
+                  isRecipientsDuplicated={
+                    validationChecks.isRecipientsDuplicated
+                  }
+                  setCollectType={setCollectType}
+                />
+                <ReferralShareConfig setCollectType={setCollectType} />
+              </>
             )}
             <CollectLimitConfig setCollectType={setCollectType} />
             <TimeLimitConfig setCollectType={setCollectType} />

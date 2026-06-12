@@ -27,6 +27,8 @@ interface CollectActionButtonProps {
   referrals?: string[];
 }
 
+const PLATFORM_FEE = 2; // 2%
+
 const CollectActionButton = ({
   collects,
   onCollectSuccess = () => {},
@@ -136,19 +138,24 @@ const CollectActionButton = ({
   });
 
   const buildReferrals = () => {
-    const referralShare = collectAction?.referralShare ?? 0;
+    // 2% for the Palus platform fees after the 1.5% lens fees cut (total 3.47% fees);
+    // the rest goes to the referrals if any
+    const referralShare = (collectAction?.referralShare ?? 0) + PLATFORM_FEE;
 
-    if (!referralShare || referralShare <= 3) {
+    if (!referralShare || referralShare <= PLATFORM_FEE) {
       return [{ address: PALUS_TREASURY, percent: 100 }];
     }
 
-    // Treasury takes the first 3% of amount; as a fraction of the referral pool
-    // (which is referralShare% of amount): treasuryPercent = (3 / referralShare) * 100
-    const treasuryPercent = Math.round((3 / referralShare) * 100);
+    // Treasury takes the first 2% of amount; as a fraction of the referral pool
+    // (which is referralShare% of amount)
+    const treasuryPercent = Math.round((PLATFORM_FEE / referralShare) * 100);
     const remainingPercent = 100 - treasuryPercent;
 
     if (!referrals?.length) {
-      return [{ address: PALUS_TREASURY, percent: treasuryPercent }];
+      return [
+        { address: PALUS_TREASURY, percent: treasuryPercent },
+        { address: post.author.address, percent: remainingPercent }
+      ];
     }
 
     const perReferralPercent = Math.floor(remainingPercent / referrals.length);

@@ -66,7 +66,13 @@ const GroupFeed = ({ feed }: GroupFeedProps) => {
       kind="group"
       loading={loading}
       refetch={refetch}
-      renderItem={(post) => <SinglePost key={post.id} post={post} />}
+      renderItem={(post) => (
+        <SinglePost
+          key={post.id}
+          post={post}
+          referrals={isRepost(post) ? [post.author.address] : undefined}
+        />
+      )}
     />
   );
 };

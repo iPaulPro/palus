@@ -16,6 +16,7 @@ import { pinPostAccountActionAbi } from "@/data/abis/pinPostAccountActionAbi";
 import { CHAIN } from "@/data/constants";
 import { CONTRACTS } from "@/data/contracts";
 import { AccountFeedType } from "@/data/enums";
+import { isRepost } from "@/helpers/postHelpers";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
 
 interface AccountFeedProps {
@@ -163,7 +164,13 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
         ) : null
       }
       refetch={refetch}
-      renderItem={(post) => <SinglePost key={post.id} post={post} />}
+      renderItem={(post) => (
+        <SinglePost
+          key={post.id}
+          post={post}
+          referrals={isRepost(post) ? [post.author.address] : undefined}
+        />
+      )}
     />
   );
 };

@@ -90,8 +90,7 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
                   native: "1",
                   recipients: [
                     { address: currentAccount?.address, percent: 100 }
-                  ], // 2.45% for the Palus platform fees after the 1.5% lens fees cut
-                  referralShare: 3
+                  ]
                 })
           });
           if (!collectAction.payToCollect) {
@@ -114,6 +113,8 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
             <div className="flex gap-x-2 text-sm">
               <Input
                 autoComplete="off"
+                className="no-spinner text-right"
+                iconRight="$"
                 label="Price"
                 min="0"
                 placeholder="0.5"
@@ -175,6 +176,9 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
               </div>
             </div>
           </FormProvider>
+          <div className="pt-2 text-orange-600 text-sm">
+            3.5% fee for Lens Protocol (1.5%) and Palus (2%) deducted
+          </div>
         </m.div>
       ) : null}
     </div>
