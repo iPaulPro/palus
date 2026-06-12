@@ -9,13 +9,15 @@ export type Token = {
   symbol: string;
 };
 
+export const NATIVE_TOKEN = {
+  contractAddress: CONTRACTS.nativeToken,
+  decimals: 18,
+  name: IS_TESTNET ? "GRASS" : "GHO",
+  symbol: IS_TESTNET ? "GRASS" : "GHO"
+};
+
 export const TOKENS: Token[] = [
-  {
-    contractAddress: CONTRACTS.nativeToken,
-    decimals: 18,
-    name: IS_TESTNET ? "GRASS" : "GHO",
-    symbol: IS_TESTNET ? "GRASS" : "GHO"
-  },
+  NATIVE_TOKEN,
   {
     contractAddress: CONTRACTS.weth,
     decimals: 18,

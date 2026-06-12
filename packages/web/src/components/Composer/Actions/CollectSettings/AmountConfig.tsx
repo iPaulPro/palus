@@ -1,26 +1,18 @@
 import { CurrencyDollarIcon } from "@heroicons/react/24/outline";
 import { m } from "motion/react";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { FormProvider } from "react-hook-form";
+import { parseUnits } from "viem";
 import { z } from "zod";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Input, Select, useZodForm } from "@/components/Shared/UI";
 import { STATIC_IMAGES_URL } from "@/data/constants";
 import { CONTRACTS } from "@/data/contracts";
-import { TOKENS } from "@/data/tokens";
+import { findToken, NATIVE_TOKEN, TOKENS } from "@/data/tokens";
 import { EXPANSION_EASE } from "@/helpers/variants";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { CollectActionType } from "@/types/palus";
-
-const ValidationSchema = z.object({
-  amount: z
-    .string()
-    .min(1, { message: "Price is required" })
-    .refine((val) => !Number.isNaN(Number(val)) && Number(val) > 0, {
-      message: "Price must be greater than zero"
-    })
-});
 
 interface AmountConfigProps {
   setCollectType: (data: CollectActionType) => void;
@@ -52,17 +44,6 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
         : collectAction.payToCollect?.erc20?.value) ?? "1")
     : "1";
 
-  const form = useZodForm({
-    defaultValues: { amount: currentAmount },
-    schema: ValidationSchema
-  });
-
-  const amount = form.watch("amount") || "0";
-
-  useEffect(() => {
-    form.reset({ amount: currentAmount });
-  }, [enabled]);
-
   const tokens = TOKENS.reduce<Option[]>((acc, token) => {
     if (token.contractAddress !== "") {
       acc.push({
@@ -74,6 +55,33 @@ const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
     }
     return acc;
   }, []);
+
+  const schema = useMemo(() => {
+    const token = findToken(selectedToken);
+    return z.object({
+      amount: z
+        .string()
+        .min(1, { message: "Price is required" })
+        .refine(
+          (val) =>
+            parseUnits(val, token?.decimals ?? NATIVE_TOKEN.decimals) > 0n,
+          {
+            message: "Price must be greater than zero"
+          }
+        )
+    });
+  }, [selectedToken]);
+
+  const form = useZodForm({
+    defaultValues: { amount: currentAmount },
+    schema
+  });
+
+  const amount = form.watch("amount") || "0";
+
+  useEffect(() => {
+    form.reset({ amount: currentAmount });
+  }, [enabled]);
 
   return (
     <div>
