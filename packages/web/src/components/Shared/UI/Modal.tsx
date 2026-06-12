@@ -55,34 +55,55 @@ const Modal = ({
         className="fixed inset-0 bg-gray-500/75 dark:bg-gray-900/80"
         onClick={stopEventPropagation}
       />
-      <div
-        className={`fixed flex items-center justify-center ${
-          size === "full"
-            ? "top-[var(--vvt)] left-0 h-[var(--vvh)] w-full overflow-hidden overscroll-contain p-0"
-            : "inset-0 w-screen overflow-y-auto p-4"
-        }`}
-      >
-        <DialogPanel className={modalVariants({ size })}>
-          {title ? (
-            <DialogTitle className="divider flex items-center justify-between px-5 py-3.5">
-              <b>{title}</b>
-              {onClose ? (
-                <button
-                  className="rounded-full p-1 text-gray-800 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onClose();
-                  }}
-                  type="button"
-                >
-                  <XMarkIcon className="size-5" />
-                </button>
+      {size === "full" ? (
+        <div className="fixed top-[var(--vvt)] left-0 flex h-[var(--vvh)] w-full items-center justify-center overflow-hidden overscroll-contain p-0">
+          <DialogPanel className={modalVariants({ size })}>
+            {title ? (
+              <DialogTitle className="divider flex items-center justify-between px-5 py-3.5">
+                <b>{title}</b>
+                {onClose ? (
+                  <button
+                    className="rounded-full p-1 text-gray-800 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      onClose();
+                    }}
+                    type="button"
+                  >
+                    <XMarkIcon className="size-5" />
+                  </button>
+                ) : null}
+              </DialogTitle>
+            ) : null}
+            {children}
+          </DialogPanel>
+        </div>
+      ) : (
+        <div className="fixed inset-0 w-screen overflow-y-auto p-4">
+          <div className="flex min-h-full items-center justify-center">
+            <DialogPanel className={modalVariants({ size })}>
+              {title ? (
+                <DialogTitle className="divider flex items-center justify-between px-5 py-3.5">
+                  <b>{title}</b>
+                  {onClose ? (
+                    <button
+                      className="rounded-full p-1 text-gray-800 hover:bg-gray-200 dark:text-gray-100 dark:hover:bg-gray-700"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onClose();
+                      }}
+                      type="button"
+                    >
+                      <XMarkIcon className="size-5" />
+                    </button>
+                  ) : null}
+                </DialogTitle>
               ) : null}
-            </DialogTitle>
-          ) : null}
-          {children}
-        </DialogPanel>
-      </div>
+              {children}
+            </DialogPanel>
+          </div>
+        </div>
+      )}
     </Dialog>
   );
 };
