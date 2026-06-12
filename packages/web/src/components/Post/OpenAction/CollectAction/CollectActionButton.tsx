@@ -11,7 +11,7 @@ import type { Address } from "viem";
 import TopUpButton from "@/components/Shared/Account/TopUp/Button";
 import LoginButton from "@/components/Shared/LoginButton";
 import { Button, Spinner } from "@/components/Shared/UI";
-import { PALUS_TREASURY } from "@/data/constants";
+import { PALUS_TREASURY, PLATFORM_COLLECT_FEE } from "@/data/constants";
 import { CONTRACTS } from "@/data/contracts";
 import errorToast from "@/helpers/errorToast";
 import getCollectActionData from "@/helpers/getCollectActionData";
@@ -26,8 +26,6 @@ interface CollectActionButtonProps {
   post: PostFragment;
   referrals?: string[];
 }
-
-const PLATFORM_FEE = 2; // 2%
 
 const CollectActionButton = ({
   collects,
@@ -140,15 +138,17 @@ const CollectActionButton = ({
   const buildReferrals = () => {
     // 2% for the Palus platform fees after the 1.5% lens fees cut (total 3.47% fees);
     // the rest goes to the referrals if any
-    const referralShare = (collectAction?.referralShare ?? 0) + PLATFORM_FEE;
+    const referralShare = collectAction?.referralShare;
 
-    if (!referralShare || referralShare <= PLATFORM_FEE) {
+    if (!referralShare || referralShare <= PLATFORM_COLLECT_FEE) {
       return [{ address: PALUS_TREASURY, percent: 100 }];
     }
 
     // Treasury takes the first 2% of amount; as a fraction of the referral pool
     // (which is referralShare% of amount)
-    const treasuryPercent = Math.round((PLATFORM_FEE / referralShare) * 100);
+    const treasuryPercent = Math.round(
+      (PLATFORM_COLLECT_FEE / referralShare) * 100
+    );
     const remainingPercent = 100 - treasuryPercent;
 
     if (!referrals?.length) {
