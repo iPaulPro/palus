@@ -9,9 +9,10 @@ import CollectActionBody from "./CollectActionBody";
 interface CollectActionProps {
   post: PostFragment;
   showCount?: boolean;
+  referrals?: string[];
 }
 
-const CollectAction = ({ post, showCount }: CollectActionProps) => {
+const CollectAction = ({ post, showCount, referrals }: CollectActionProps) => {
   const [showCollectModal, setShowCollectModal] = useState(false);
   const { collects } = post.stats;
   const hasSimpleCollected = post.operations?.hasSimpleCollected;
@@ -53,6 +54,7 @@ const CollectAction = ({ post, showCount }: CollectActionProps) => {
       >
         <CollectActionBody
           post={post}
+          referrals={referrals}
           setShowCollectModal={setShowCollectModal}
         />
       </Modal>

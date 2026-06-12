@@ -10,6 +10,7 @@ interface CollectActionData {
   collectLimit?: number;
   endsAt?: string;
   recipients?: RecipientPercent[];
+  referralShare?: number | null;
 }
 
 const getCollectActionData = (
@@ -27,7 +28,8 @@ const getCollectActionData = (
     collectLimit: Number(collectLimit),
     endsAt,
     price: Number.parseFloat(payToCollect?.price?.value ?? "0"),
-    recipients: payToCollect?.recipients ?? []
+    recipients: payToCollect?.recipients ?? [],
+    referralShare: payToCollect?.referralShare
   };
 };
 

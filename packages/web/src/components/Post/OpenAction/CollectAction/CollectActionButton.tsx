@@ -24,13 +24,15 @@ interface CollectActionButtonProps {
   onCollectSuccess?: () => void;
   postAction: SimpleCollectActionFragment;
   post: PostFragment;
+  referrals?: string[];
 }
 
 const CollectActionButton = ({
   collects,
   onCollectSuccess = () => {},
   postAction,
-  post
+  post,
+  referrals
 }: CollectActionButtonProps) => {
   const collectAction = getCollectActionData(postAction);
   const { currentAccount } = useAccountStore();
@@ -133,6 +135,31 @@ const CollectActionButton = ({
     onError
   });
 
+  const buildReferrals = () => {
+    const referralShare = collectAction?.referralShare ?? 0;
+
+    if (!referralShare || referralShare <= 3) {
+      return [{ address: PALUS_TREASURY, percent: 100 }];
+    }
+
+    // Treasury takes the first 3% of amount; as a fraction of the referral pool
+    // (which is referralShare% of amount): treasuryPercent = (3 / referralShare) * 100
+    const treasuryPercent = Math.round((3 / referralShare) * 100);
+    const remainingPercent = 100 - treasuryPercent;
+
+    if (!referrals?.length) {
+      return [{ address: PALUS_TREASURY, percent: treasuryPercent }];
+    }
+
+    const perReferralPercent = Math.floor(remainingPercent / referrals.length);
+    const leftover = remainingPercent - perReferralPercent * referrals.length;
+
+    return [
+      { address: PALUS_TREASURY, percent: treasuryPercent + leftover },
+      ...referrals.map((address) => ({ address, percent: perReferralPercent }))
+    ];
+  };
+
   const handleCreateCollect = async () => {
     setIsSubmitting(true);
 
@@ -141,7 +168,7 @@ const CollectActionButton = ({
         request: {
           action: {
             simpleCollect: {
-              referrals: [{ address: PALUS_TREASURY, percent: 100 }],
+              referrals: buildReferrals(),
               selected: true
             }
           },

@@ -18,12 +18,14 @@ interface PostActionsProps {
   post: AnyPostFragment;
   showCount?: boolean;
   embedded?: boolean;
+  referrals?: string[];
 }
 
 const PostActions = ({
   post,
   showCount = true,
-  embedded
+  embedded,
+  referrals
 }: PostActionsProps) => {
   const { currentAccount } = useAccountStore();
   const targetPost = isRepost(post) ? post.repostOf : post;
@@ -67,7 +69,11 @@ const PostActions = ({
           showCount={showCount}
         />
         {hasCollectAction ? (
-          <CollectAction post={targetPost} showCount={showCount} />
+          <CollectAction
+            post={targetPost}
+            referrals={referrals}
+            showCount={showCount}
+          />
         ) : (
           <div className="block size-8 sm:hidden" />
         )}

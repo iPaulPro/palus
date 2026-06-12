@@ -22,6 +22,7 @@ interface SinglePostProps {
   showType?: boolean;
   embedded?: boolean;
   isPinned?: boolean;
+  referrals?: string[];
 }
 
 const SinglePost = ({
@@ -30,7 +31,8 @@ const SinglePost = ({
   showMore = true,
   showType = true,
   embedded = false,
-  isPinned = false
+  isPinned = false,
+  referrals
 }: SinglePostProps) => {
   const rootPost = timelineItem ? timelineItem?.primary : post;
   const hasComments = Boolean(timelineItem?.comments?.length);
@@ -93,7 +95,11 @@ const SinglePost = ({
                 </div>
               ) : null}
               <PostBody post={rootPost} showMore={showMore} />
-              <PostActions embedded={embedded} post={rootPost} />
+              <PostActions
+                embedded={embedded}
+                post={rootPost}
+                referrals={referrals}
+              />
             </>
           )}
         </div>

@@ -91,12 +91,16 @@ const Timeline = ({ onScroll }: TimelineProps) => {
       refetch={refetch}
       renderItem={(timelineItem) => {
         const commentsToShow = timelineItem.comments.slice(0, 3);
+        const referrals = timelineItem.reposts.map(
+          (repost) => repost.author.address
+        );
 
         return (
           <>
             <SinglePost
               key={timelineItem.id}
               post={timelineItem.primary}
+              referrals={referrals}
               timelineItem={timelineItem}
             />
             {timelineItem.comments.length === 0

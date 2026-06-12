@@ -123,7 +123,11 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
             <PostStats post={targetPost} />
             <div className="divider" />
             <div className="flex items-center justify-between">
-              <PostActions post={targetPost} showCount={false} />
+              <PostActions
+                post={targetPost}
+                referrals={isRepost(post) ? [post.author.address] : undefined}
+                showCount={false}
+              />
               {hasHiddenComments ? (
                 <div className="mt-2">
                   <button

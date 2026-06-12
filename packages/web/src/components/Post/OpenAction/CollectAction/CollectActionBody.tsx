@@ -42,11 +42,13 @@ import Splits from "./Splits";
 interface CollectActionBodyProps {
   post: AnyPostFragment;
   setShowCollectModal: Dispatch<SetStateAction<boolean>>;
+  referrals?: string[];
 }
 
 const CollectActionBody = ({
   post,
-  setShowCollectModal
+  setShowCollectModal,
+  referrals
 }: CollectActionBodyProps) => {
   const [showCollectorsModal, setShowCollectorsModal] = useState(false);
   const targetPost = isRepost(post) ? post?.repostOf : post;
@@ -259,6 +261,7 @@ const CollectActionBody = ({
             }}
             post={targetPost}
             postAction={collectAction}
+            referrals={referrals}
           />
         </div>
       </div>
