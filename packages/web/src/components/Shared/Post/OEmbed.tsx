@@ -1,10 +1,14 @@
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
+import { usePostQuery } from "@palus/indexer";
 import { memo } from "react";
 import { Link } from "react-router";
+import Quote from "@/components/Shared/Embed/Quote";
 import Skeleton from "@/components/Shared/Skeleton";
 import { Image } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import { getExternalLink } from "@/helpers/getExternalLink";
+import { getPostIdFromLensUrl } from "@/helpers/lensURLs";
+import { isRepost } from "@/helpers/postHelpers";
 import useOembed from "@/hooks/useOembed";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 
@@ -29,7 +33,13 @@ const OEmbed = ({ url }: OEmbedProps) => {
   const isTwitter =
     hostname.startsWith("twitter.com") || hostname.startsWith("x.com");
 
-  if (isLoading) {
+  const postId = getPostIdFromLensUrl(url);
+  const { data: lensPost, loading: loadingPost } = usePostQuery({
+    skip: !postId,
+    variables: { request: { post: postId } }
+  });
+
+  if (isLoading || loadingPost) {
     return (
       <Skeleton
         className={cn("mt-4 h-16 w-full rounded-xl md:w-2/3", {
@@ -41,6 +51,13 @@ const OEmbed = ({ url }: OEmbedProps) => {
         })}
       />
     );
+  }
+
+  if (lensPost?.post) {
+    const post = isRepost(lensPost.post)
+      ? lensPost.post.repostOf
+      : lensPost.post;
+    return <Quote post={post} />;
   }
 
   const link = getExternalLink(url, replaceLensLinks);
