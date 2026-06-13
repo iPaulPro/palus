@@ -27,6 +27,9 @@ export const CONTRACTS = {
   heyApp: IS_TESTNET
     ? "0xC75A89145d765c396fd75CbD16380Eb184Bd2ca7" // global test app
     : "0x1eFA8F82d9E919F6b6A5f1701131c9Cb1a943BAA",
+  lensGlobalFeed: IS_TESTNET
+    ? lensDeployments.testnet.LensGlobalFeed.address
+    : lensDeployments.mainnet.LensGlobalFeed.address,
   lensGlobalGraph: IS_TESTNET
     ? lensDeployments.testnet.LensGlobalGraph.address
     : lensDeployments.mainnet.LensGlobalGraph.address,

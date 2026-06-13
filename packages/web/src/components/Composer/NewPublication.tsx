@@ -24,6 +24,7 @@ import { AudioPostSchema } from "@/components/Shared/Audio";
 import Wrapper from "@/components/Shared/Embed/Wrapper";
 import EmojiPicker from "@/components/Shared/EmojiPicker";
 import { Button, Card, H6, WarningMessage } from "@/components/Shared/UI";
+import { CONTRACTS } from "@/data/contracts";
 import { ERRORS } from "@/data/errors";
 import cn from "@/helpers/cn";
 import collectActionParams from "@/helpers/collectActionParams";
@@ -40,6 +41,7 @@ import postRuleParams from "@/helpers/postRuleParams";
 import { uploadImage } from "@/helpers/uploadFiles";
 import uploadMetadata from "@/helpers/uploadMetadata";
 import useCanComment from "@/hooks/useCanComment";
+import useCanShare from "@/hooks/useCanShare";
 import useCreatePost from "@/hooks/useCreatePost";
 import useEditPost from "@/hooks/useEditPost";
 import usePostMetadata from "@/hooks/usePostMetadata";
@@ -142,6 +144,7 @@ const NewPublication = ({
 
   const editor = useEditorContext();
   const getMetadata = usePostMetadata();
+  const { validateAsync } = useCanShare({ post });
 
   const { track } = useUmami();
 
@@ -245,13 +248,26 @@ const NewPublication = ({
           variables: { request: { post: postId } }
         });
         if (data?.post && data.post.__typename === "Post") {
-          setQuotedPost(data.post);
+          const { canQuote } = await validateAsync(data?.post);
+          if (
+            canQuote &&
+            (data.post.feed.address === selectedGroup?.feed?.address ||
+              data.post.feed.address === CONTRACTS.lensGlobalFeed)
+          ) {
+            setQuotedPost(data.post);
+          }
         }
       }
     };
 
     lookForPostIdInURLs();
-  }, [isQuote, ignoreQuotedPostId, debouncedPostContent, postContent]);
+  }, [
+    isQuote,
+    ignoreQuotedPostId,
+    debouncedPostContent,
+    postContent,
+    selectedGroup
+  ]);
 
   useEffect(() => {
     if (postContent.length > 25000) {
