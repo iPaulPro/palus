@@ -15,7 +15,7 @@ const Settings: FC = () => {
   return (
     <>
       <button
-        className="mx-3 rounded-md p-1 hover:bg-gray-300/20 sm:mx-0"
+        className="rounded-md p-1 hover:bg-gray-300/20 sm:mx-0"
         onClick={() => setShowSettings(true)}
         type="button"
       >
