@@ -187,7 +187,7 @@ const UrlAttachmentModal = ({
             </Button>
           )}
           {preview && (
-            <Button className="w-fit" onClick={handleAttach} type="button">
+            <Button className="w-fit" onClick={handleAttach}>
               Attach
             </Button>
           )}

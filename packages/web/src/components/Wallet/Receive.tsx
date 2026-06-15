@@ -55,7 +55,7 @@ const Receive = ({ modalOpen, setModalOpen }: Props) => {
           Use this address to receive assets to{" "}
           <strong>your account on Lens Chain</strong>
         </p>
-        <Button onClick={copyAddress} outline type="button">
+        <Button onClick={copyAddress} outline>
           <Square2StackIcon className="size-4" />
           Copy address
         </Button>

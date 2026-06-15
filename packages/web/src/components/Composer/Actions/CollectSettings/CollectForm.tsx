@@ -67,7 +67,7 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
               message: "Share must be greater than zero if enabled"
             })
         : z.any(),
-      token: z.string()
+      token: z.any()
     });
   }, [collectAction.payToCollect, collectAction.collectLimit]);
 
@@ -173,10 +173,13 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
         </>
       )}
       <div className="flex gap-x-2 p-5">
-        <Button className="ml-auto" onClick={handleClose} outline type="button">
+        <Button className="ml-auto" onClick={handleClose} outline>
           {collectAction.enabled ? "Reset" : "Cancel"}
         </Button>
-        <Button disabled={Object.values(validationChecks).some(Boolean)}>
+        <Button
+          disabled={Object.values(validationChecks).some(Boolean)}
+          type="submit"
+        >
           {onSubmit && collectAction.enabled ? "Submit" : "Save"}
         </Button>
       </div>

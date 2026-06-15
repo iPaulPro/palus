@@ -113,7 +113,6 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
             onClick={() => handleSetAmount(0.01)}
             outline={amount !== 0.01}
             size="sm"
-            type="button"
           >
             $0.01
           </Button>
@@ -123,7 +122,6 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
             onClick={() => handleSetAmount(0.1)}
             outline={amount !== 0.1}
             size="sm"
-            type="button"
           >
             $0.10
           </Button>
@@ -133,7 +131,6 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
             onClick={() => handleSetAmount(0.5)}
             outline={amount !== 0.5}
             size="sm"
-            type="button"
           >
             $0.50
           </Button>
@@ -143,7 +140,6 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
             onClick={() => handleSetAmount(1)}
             outline={amount !== 1}
             size="sm"
-            type="button"
           >
             $1
           </Button>
@@ -156,7 +152,6 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
             }}
             outline={!other}
             size="sm"
-            type="button"
           >
             &#8230;
           </Button>

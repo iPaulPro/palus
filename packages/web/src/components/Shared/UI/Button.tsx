@@ -99,7 +99,7 @@ const Button = ({
       className={cn(buttonVariants({ outline, size, variant }), className)}
       disabled={disabled}
       ref={ref}
-      type={rest.type}
+      type={rest.type ?? "button"}
       {...rest}
     >
       <AnimatePresence mode="wait">
