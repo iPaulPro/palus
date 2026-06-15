@@ -1,9 +1,12 @@
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowsRightLeftIcon,
+  InformationCircleIcon
+} from "@heroicons/react/24/outline";
 import { m } from "motion/react";
-import { FormProvider } from "react-hook-form";
-import { z } from "zod";
+import { type ChangeEvent, useCallback, useEffect, useState } from "react";
+import { useFormContext } from "react-hook-form";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
-import { Input, useZodForm } from "@/components/Shared/UI";
+import { Input } from "@/components/Shared/UI";
 import { EXPANSION_EASE } from "@/helpers/variants";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import type { CollectActionType } from "@/types/palus";
@@ -12,31 +15,35 @@ interface CollectReferralConfigProps {
   setCollectType: (data: CollectActionType) => void;
 }
 
-const ValidationSchema = z.object({
-  referralShare: z
-    .string()
-    .min(1, { message: "Share must be set if enabled" })
-    .refine((val) => !Number.isNaN(Number(val)) && Number(val) > 0, {
-      message: "Share must be greater than zero"
-    })
-});
+const FIELD_NAME = "referralShare";
 
 const ReferralShareConfig = ({
   setCollectType
 }: CollectReferralConfigProps) => {
   const { collectAction } = useCollectActionStore((state) => state);
+  const [enabled, setEnabled] = useState(
+    Boolean(collectAction.payToCollect?.referralShare)
+  );
 
-  const hasReferralShare =
-    collectAction.payToCollect?.referralShare !== null &&
-    collectAction.payToCollect?.referralShare !== undefined;
+  const { register, getFieldState, resetField } = useFormContext();
 
-  const form = useZodForm({
-    defaultValues: {
-      referralShare:
-        collectAction.payToCollect?.referralShare?.toString() ?? undefined
+  const onChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      if (!collectAction.payToCollect) return;
+      const referralShare = e.target.value;
+      setCollectType({
+        payToCollect: {
+          ...collectAction.payToCollect,
+          referralShare: referralShare ? Number(referralShare) : undefined
+        }
+      });
     },
-    schema: ValidationSchema
-  });
+    [collectAction.payToCollect, setCollectType]
+  );
+
+  useEffect(() => {
+    resetField(FIELD_NAME);
+  }, [enabled]);
 
   return (
     <div className="mt-5">
@@ -44,20 +51,19 @@ const ReferralShareConfig = ({
         description="Share the collect fee with accounts that repost"
         heading="Referral share"
         icon={<ArrowsRightLeftIcon className="size-5" />}
-        on={hasReferralShare}
+        on={enabled}
         setOn={(on) => {
+          setEnabled(on);
           if (!collectAction.payToCollect) return;
           setCollectType({
             payToCollect: {
               ...collectAction.payToCollect,
-              referralShare: on
-                ? (collectAction.payToCollect.referralShare ?? 0)
-                : null
+              referralShare: collectAction.payToCollect.referralShare
             }
           });
         }}
       />
-      {hasReferralShare ? (
+      {enabled ? (
         <m.div
           animate="visible"
           className="mt-4 ml-8 text-sm"
@@ -68,30 +74,22 @@ const ReferralShareConfig = ({
             visible: { height: "auto", opacity: 1, y: 0 }
           }}
         >
-          <FormProvider {...form}>
-            <Input
-              autoComplete="off"
-              className="no-spinner text-right"
-              iconRight="%"
-              label="Referral share"
-              max="100"
-              min="1"
-              {...form.register("referralShare", {
-                onChange: (event) => {
-                  if (!collectAction.payToCollect) return;
-                  setCollectType({
-                    payToCollect: {
-                      ...collectAction.payToCollect,
-                      referralShare: Number(event.target.value || 0)
-                    }
-                  });
-                }
-              })}
-              placeholder="5"
-              type="number"
-            />
-          </FormProvider>
-          <div className="pt-2 text-orange-600 text-sm">
+          <Input
+            autoComplete="off"
+            className="no-spinner text-right"
+            error={Boolean(getFieldState(FIELD_NAME).error)}
+            iconRight="%"
+            label="Referral share"
+            max="100"
+            min="0"
+            onWheel={(e) => e.currentTarget.blur()}
+            placeholder="5"
+            step="any"
+            type="number"
+            {...register(FIELD_NAME, { onChange })}
+          />
+          <div className="flex items-center gap-x-1 pt-2 text-secondary text-sm">
+            <InformationCircleIcon className="inline size-4" />
             This is <b>after</b> the 3.5% fee taken by Lens and Palus
           </div>
         </m.div>

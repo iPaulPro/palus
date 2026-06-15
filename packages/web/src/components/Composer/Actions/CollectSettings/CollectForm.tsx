@@ -1,9 +1,13 @@
 import { m } from "motion/react";
-import { isAddress } from "viem";
+import { useCallback, useMemo } from "react";
+import { isAddress, parseUnits } from "viem";
+import { z } from "zod";
 import ReferralShareConfig from "@/components/Composer/Actions/CollectSettings/ReferralShareConfig";
 import LicensePicker from "@/components/Composer/LicensePicker";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
-import { Button } from "@/components/Shared/UI";
+import { Button, Form, useZodForm } from "@/components/Shared/UI";
+import { CONTRACTS } from "@/data/contracts";
+import { findToken, NATIVE_TOKEN } from "@/data/tokens";
 import { EXPANSION_EASE } from "@/helpers/variants";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
@@ -26,20 +30,67 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
   const recipients = collectAction.payToCollect?.recipients || [];
   const splitTotal = recipients.reduce((acc, { percent }) => acc + percent, 0);
 
+  const validationSchema = useMemo(() => {
+    const token = findToken(
+      collectAction.payToCollect?.erc20?.currency ?? CONTRACTS.nativeToken
+    );
+    const hasReferralShare =
+      collectAction.payToCollect?.referralShare !== null &&
+      collectAction.payToCollect?.referralShare !== undefined;
+    return z.object({
+      amount: collectAction.payToCollect
+        ? z
+            .string()
+            .min(1, { message: "Price is required" })
+            .refine(
+              (val) =>
+                val !== undefined &&
+                parseUnits(val, token?.decimals ?? NATIVE_TOKEN.decimals) > 0n,
+              {
+                message: "Price must be greater than zero"
+              }
+            )
+        : z.any(),
+      collectLimit: collectAction.collectLimit
+        ? z
+            .string()
+            .min(1, { message: "Collect limit must be set if enabled" })
+            .refine((val) => !Number.isNaN(Number(val)) && Number(val) > 0, {
+              message: "Collect limit must be greater than zero if enabled"
+            })
+        : z.any(),
+      referralShare: hasReferralShare
+        ? z
+            .string()
+            .min(1, { message: "Share must be set if enabled" })
+            .refine((val) => !Number.isNaN(Number(val)) && Number(val) > 0, {
+              message: "Share must be greater than zero if enabled"
+            })
+        : z.any(),
+      token: z.string()
+    });
+  }, [collectAction.payToCollect, collectAction.collectLimit]);
+
+  const form = useZodForm({
+    defaultValues: {
+      amount:
+        collectAction.payToCollect?.native ??
+        collectAction.payToCollect?.erc20?.value,
+      collectLimit: collectAction.collectLimit,
+      referralShare: collectAction.payToCollect?.referralShare?.toString(),
+      token: collectAction.payToCollect?.native
+        ? CONTRACTS.nativeToken
+        : collectAction.payToCollect?.erc20?.currency
+    },
+    schema: validationSchema
+  });
+
   const validationChecks = {
     hasEmptyRecipients: recipients.some(({ address }) => !address),
     hasImproperSplits: recipients.length > 1 && splitTotal !== 100,
     hasInvalidEthAddress: recipients.some(
       ({ address }) => address && !isAddress(address)
     ),
-    hasZeroPrice:
-      collectAction.payToCollect &&
-      (collectAction.payToCollect.native <= 0 ||
-        collectAction.payToCollect.erc20?.value <= 0),
-    hasZeroReferralShare:
-      collectAction.payToCollect?.referralShare !== undefined &&
-      collectAction.payToCollect?.referralShare !== null &&
-      collectAction.payToCollect?.referralShare <= 0,
     hasZeroSplits: recipients.some(({ percent }) => percent === 0),
     isRecipientsDuplicated:
       new Set(recipients.map(({ address }) => address)).size !==
@@ -65,8 +116,17 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
     reset();
   };
 
+  const handleSubmit = useCallback(() => {
+    if (onSubmit && collectAction.enabled) {
+      onSubmit(collectAction);
+      setLicense(null);
+      reset();
+    }
+    setShowModal(false);
+  }, [onSubmit, collectAction, setLicense, reset, setShowModal]);
+
   return (
-    <>
+    <Form form={form} onSubmit={handleSubmit}>
       <div className="p-5">
         <ToggleWithHelper
           description="This post can be collected"
@@ -113,24 +173,14 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
         </>
       )}
       <div className="flex gap-x-2 p-5">
-        <Button className="ml-auto" onClick={handleClose} outline>
+        <Button className="ml-auto" onClick={handleClose} outline type="button">
           {collectAction.enabled ? "Reset" : "Cancel"}
         </Button>
-        <Button
-          disabled={Object.values(validationChecks).some(Boolean)}
-          onClick={() => {
-            if (onSubmit && collectAction.enabled) {
-              onSubmit(collectAction);
-              setLicense(null);
-              reset();
-            }
-            setShowModal(false);
-          }}
-        >
+        <Button disabled={Object.values(validationChecks).some(Boolean)}>
           {onSubmit && collectAction.enabled ? "Submit" : "Save"}
         </Button>
       </div>
-    </>
+    </Form>
   );
 };
 

@@ -9,7 +9,7 @@ import { useState } from "react";
 import { isAddress } from "viem";
 import SearchAccounts from "@/components/Shared/Account/SearchAccounts";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
-import { Button, H6, Input } from "@/components/Shared/UI";
+import { Button, Input } from "@/components/Shared/UI";
 import { ADDRESS_PLACEHOLDER } from "@/data/constants";
 import splitNumber from "@/helpers/splitNumber";
 import { EXPANSION_EASE } from "@/helpers/variants";
@@ -139,7 +139,7 @@ const SplitConfig = ({
         >
           <div className="space-y-2">
             {recipients.map((recipient, index) => (
-              <H6
+              <div
                 className="flex items-center gap-x-2 font-normal"
                 key={recipient.address}
               >
@@ -160,6 +160,7 @@ const SplitConfig = ({
                 />
                 <div className="w-1/3">
                   <Input
+                    className="no-spinner text-right"
                     iconRight="%"
                     max="100"
                     min="1"
@@ -170,6 +171,7 @@ const SplitConfig = ({
                         "percent"
                       )
                     }
+                    onWheel={(e) => e.currentTarget.blur()}
                     placeholder="5"
                     type="number"
                     value={recipient.percent}
@@ -181,7 +183,7 @@ const SplitConfig = ({
                 >
                   <XCircleIcon className="size-5" />
                 </button>
-              </H6>
+              </div>
             ))}
           </div>
           <div className="flex items-center justify-between">
@@ -215,17 +217,19 @@ const SplitConfig = ({
             </Button>
           </div>
           {splitTotal > 100 ? (
-            <H6 className="text-red-500">
+            <span className="font-bold text-red-500 text-sm">
               Splits cannot exceed 100%. Total: <span>{splitTotal}</span>%
-            </H6>
+            </span>
           ) : null}
           {splitTotal < 100 ? (
-            <H6 className="text-red-500">
+            <span className="font-bold text-red-500 text-sm">
               Splits cannot be less than 100%. Total: <span>{splitTotal}</span>%
-            </H6>
+            </span>
           ) : null}
           {isRecipientsDuplicated ? (
-            <H6 className="text-red-500">Duplicate recipient address found</H6>
+            <span className="font-bold text-red-500 text-sm">
+              Duplicate recipient address found
+            </span>
           ) : null}
         </m.div>
       ) : null}
