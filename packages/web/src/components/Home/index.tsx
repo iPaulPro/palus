@@ -1,5 +1,6 @@
 import { useState } from "react";
 import NewPost from "@/components/Composer/NewPost";
+import AllPosts from "@/components/Home/AllPosts";
 import FloatingNewPostButton from "@/components/Post/FloatingNewPostButton";
 import PageLayout from "@/components/Shared/PageLayout";
 import { HomeFeedType } from "@/data/enums";
@@ -29,6 +30,8 @@ const Home = () => {
             <TopAccounts onScroll={setScrollOffset} />
           ) : feedType === HomeFeedType.FORYOU ? (
             <ForYou onScroll={setScrollOffset} />
+          ) : feedType === HomeFeedType.ALL_POSTS ? (
+            <AllPosts onScroll={setScrollOffset} />
           ) : null}
           <FloatingNewPostButton scrollOffset={scrollOffset} />
         </>

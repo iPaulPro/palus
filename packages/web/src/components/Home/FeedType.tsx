@@ -12,7 +12,8 @@ const FeedType = () => {
   const tabs = [
     { name: "Timeline", type: HomeFeedType.TIMELINE },
     // { name: "For You", type: HomeFeedType.FORYOU },
-    { name: "Top Accounts", type: HomeFeedType.TOP_ACCOUNTS }
+    { name: "Top Accounts", type: HomeFeedType.TOP_ACCOUNTS },
+    { name: "All Posts", type: HomeFeedType.ALL_POSTS }
   ];
 
   useEffect(() => {

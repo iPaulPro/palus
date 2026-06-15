@@ -2,7 +2,8 @@ export enum HomeFeedType {
   FOLLOWING = "FOLLOWING",
   FORYOU = "FORYOU",
   TIMELINE = "TIMELINE",
-  TOP_ACCOUNTS = "TOP_ACCOUNTS"
+  TOP_ACCOUNTS = "TOP_ACCOUNTS",
+  ALL_POSTS = "ALL_POSTS"
 }
 
 export enum AccountFeedType {
