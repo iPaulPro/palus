@@ -141,7 +141,7 @@ const SplitConfig = ({
             {recipients.map((recipient, index) => (
               <div
                 className="flex items-center gap-x-2 font-normal"
-                key={recipient.address}
+                key={index}
               >
                 <SearchAccounts
                   error={
