@@ -26,7 +26,13 @@ export const getExternalLink = (url: string, replaceLinks: boolean) => {
         break;
       case "hey.xyz":
       case "lenster.xyz":
-        localPath = pathname;
+        if (
+          pathname.startsWith("/posts/") ||
+          pathname.startsWith("/u/") ||
+          pathname.startsWith("/g/")
+        ) {
+          localPath = pathname;
+        }
         break;
       case "firefly.social":
         if (pathname.startsWith("/post/lens/")) {
