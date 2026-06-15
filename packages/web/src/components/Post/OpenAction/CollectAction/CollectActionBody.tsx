@@ -95,8 +95,12 @@ const CollectActionBody = ({
   const lensFee = amount * 0.015;
   const palusFee = (amount - lensFee) * (PLATFORM_COLLECT_FEE / 100);
   const referralShare = Number(collectAction?.payToCollect?.referralShare ?? 0);
+  const treasuryPercent = Math.round(
+    (PLATFORM_COLLECT_FEE / referralShare) * 100
+  );
+  const remainingPercent = 100 - treasuryPercent;
   const referralAmount =
-    (amount - lensFee) * ((referralShare - PLATFORM_COLLECT_FEE) / 100);
+    (amount - lensFee) * (referralShare / 100) * (remainingPercent / 100);
 
   const isTokenEnabled = useMemo(() => {
     return enabledTokens?.includes(currency || "");
