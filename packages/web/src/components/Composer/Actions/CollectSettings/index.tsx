@@ -10,6 +10,7 @@ const CollectSettings = () => {
   const { reset, collectAction } = useCollectActionStore((state) => state);
   const { setLicense } = usePostLicenseStore();
   const [showModal, setShowModal] = useState(false);
+  const [hasCollect, setHasCollect] = useState(false);
 
   return (
     <>
@@ -17,7 +18,10 @@ const CollectSettings = () => {
         <button
           aria-label="Collect Module"
           className="flex items-center rounded-full outline-offset-8"
-          onClick={() => setShowModal(!showModal)}
+          onClick={() => {
+            setHasCollect(Boolean(collectAction.enabled));
+            setShowModal(!showModal);
+          }}
           type="button"
         >
           {collectAction.enabled ? (
@@ -30,8 +34,10 @@ const CollectSettings = () => {
       <Modal
         onClose={() => {
           setShowModal(false);
-          setLicense(null);
-          reset();
+          if (!hasCollect) {
+            setLicense(null);
+            reset();
+          }
         }}
         show={showModal}
         title="Collect Settings"

@@ -180,7 +180,7 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
           disabled={Object.values(validationChecks).some(Boolean)}
           type="submit"
         >
-          {onSubmit && collectAction.enabled ? "Submit" : "Save"}
+          {onSubmit && collectAction.enabled ? "Submit" : "Done"}
         </Button>
       </div>
     </Form>
