@@ -8,6 +8,7 @@ import { toast } from "sonner";
 import { ERRORS } from "@/data/errors";
 import cn from "@/helpers/cn";
 import errorToast from "@/helpers/errorToast";
+import nFormatter from "@/helpers/nFormatter";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { ApolloClientError } from "@/types/errors";
@@ -16,9 +17,15 @@ interface RepostProps {
   isSubmitting: boolean;
   post: PostFragment;
   setIsSubmitting: Dispatch<SetStateAction<boolean>>;
+  referralShare: number;
 }
 
-const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
+const Repost = ({
+  isSubmitting,
+  post,
+  setIsSubmitting,
+  referralShare
+}: RepostProps) => {
   const { currentAccount } = useAccountStore();
   const hasReposted =
     post.operations?.hasReposted.optimistic ||
@@ -108,6 +115,9 @@ const Repost = ({ isSubmitting, post, setIsSubmitting }: RepostProps) => {
       <div className="flex items-center gap-x-2">
         <ArrowsRightLeftIcon className="size-4" />
         <div>{hasReposted ? "Repost again" : "Repost"}</div>
+        <span className="text-secondary">
+          {referralShare > 0 && `(${nFormatter(referralShare)}% referral)`}
+        </span>
       </div>
     </MenuItem>
   );

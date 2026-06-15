@@ -1,9 +1,13 @@
 import { Menu, MenuButton, MenuItems } from "@headlessui/react";
-import { ArrowsRightLeftIcon } from "@heroicons/react/24/outline";
+import {
+  ArrowsRightLeftIcon,
+  CurrencyDollarIcon
+} from "@heroicons/react/24/outline";
 import type { AnyPostFragment } from "@palus/indexer";
 import { useState } from "react";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import { Spinner, Tooltip } from "@/components/Shared/UI";
+import { PLATFORM_COLLECT_FEE } from "@/data/constants";
 import cn from "@/helpers/cn";
 import nFormatter from "@/helpers/nFormatter";
 import { isRepost } from "@/helpers/postHelpers";
@@ -30,6 +34,14 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
   const hasShared = hasReposted || hasQuoted;
   const shares = targetPost.stats.reposts + targetPost.stats.quotes;
 
+  const collectAction = targetPost.actions.find(
+    (action) => action.__typename === "SimpleCollectAction"
+  );
+  const referralShare =
+    Number(collectAction?.payToCollect?.referralShare ?? 0) -
+    PLATFORM_COLLECT_FEE;
+  const hasReferralShare = referralShare > 0;
+
   const { canRepost, canQuote } = useCanShare({ post: targetPost });
 
   if (!canRepost && !canQuote) {
@@ -52,8 +64,24 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
           {isSubmitting ? (
             <Spinner className="mr-0.5" size="xs" />
           ) : (
-            <Tooltip content="Repost or Quote" placement="top" withDelay>
-              <ArrowsRightLeftIcon className="size-5" />
+            <Tooltip
+              content={
+                hasReferralShare ? "Repost to Earn or Quote" : "Repost or Quote"
+              }
+              placement="top"
+              withDelay
+            >
+              <div
+                className={cn("flex items-center gap-x-1", {
+                  "rounded-full border border-border px-1 py-0.5":
+                    hasReferralShare
+                })}
+              >
+                <ArrowsRightLeftIcon className="size-5" />
+                {hasReferralShare && (
+                  <CurrencyDollarIcon className="size-5 text-green-700 dark:text-green-500" />
+                )}
+              </div>
             </Tooltip>
           )}
         </MenuButton>
@@ -67,6 +95,7 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
               <Repost
                 isSubmitting={isSubmitting}
                 post={targetPost}
+                referralShare={referralShare}
                 setIsSubmitting={setIsSubmitting}
               />
             )}
