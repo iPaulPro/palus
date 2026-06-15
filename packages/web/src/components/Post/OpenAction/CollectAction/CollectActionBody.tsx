@@ -1,10 +1,11 @@
 import {
+  ArrowsRightLeftIcon,
   CheckCircleIcon,
   ClockIcon,
   CurrencyDollarIcon,
-  PhotoIcon,
+  LinkIcon,
   PuzzlePieceIcon,
-  UsersIcon
+  StarIcon
 } from "@heroicons/react/24/outline";
 import {
   type AnyPostFragment,
@@ -13,7 +14,6 @@ import {
 } from "@palus/indexer";
 import { useCounter } from "@uidotdev/usehooks";
 import dayjs from "dayjs";
-import plur from "plur";
 import { type Dispatch, type SetStateAction, useMemo, useState } from "react";
 import { Link } from "react-router";
 import CountdownTimer from "@/components/Shared/CountdownTimer";
@@ -28,9 +28,10 @@ import {
   Tooltip,
   WarningMessage
 } from "@/components/Shared/UI";
-import { BLOCK_EXPLORER_URL } from "@/data/constants";
+import { BLOCK_EXPLORER_URL, PLATFORM_COLLECT_FEE } from "@/data/constants";
 import { TOKENS } from "@/data/tokens";
 import formatAddress from "@/helpers/formatAddress";
+import { formatWithZeroSubscript } from "@/helpers/formatValues";
 import getAccount from "@/helpers/getAccount";
 import getTokenImage from "@/helpers/getTokenImage";
 import humanize from "@/helpers/humanize";
@@ -91,7 +92,11 @@ const CollectActionBody = ({
     collectLimit > 0 ? (collects / collectLimit) * 100 : 0;
   const isAllCollected = collectLimit ? collects >= collectLimit : false;
   const totalRevenue = amount * collects;
-  const palusFee = (amount * 0.025).toFixed(6);
+  const lensFee = amount * 0.015;
+  const palusFee = (amount - lensFee) * (PLATFORM_COLLECT_FEE / 100);
+  const referralShare = Number(collectAction?.payToCollect?.referralShare ?? 0);
+  const referralAmount =
+    (amount - lensFee) * ((referralShare - PLATFORM_COLLECT_FEE) / 100);
 
   const isTokenEnabled = useMemo(() => {
     return enabledTokens?.includes(currency || "");
@@ -165,18 +170,33 @@ const CollectActionBody = ({
               <CurrencyDollarIcon className="size-7" />
             )}
             <span className="space-x-1">
-              <H3 as="span">{amount}</H3>
+              <H3 as="span">
+                {formatWithZeroSubscript(
+                  collectAction?.payToCollect?.price?.value || "0"
+                )}
+              </H3>
               <span className="text-xs">{symbol}</span>
             </span>
             <div className="mt-2">
               <HelpTooltip>
                 <div className="py-1">
                   <div className="flex items-start justify-between gap-x-10">
-                    <div>Palus</div>
+                    <div>Lens Fee</div>
                     <b>
-                      ~{palusFee} {symbol} (2.5%)
+                      ~{formatWithZeroSubscript(lensFee.toString())} {symbol}{" "}
+                      (1.5%)
                     </b>
                   </div>
+                  {referralShare >= PLATFORM_COLLECT_FEE ? (
+                    <div className="flex items-start justify-between gap-x-10">
+                      <div>Palus Fee</div>
+                      <b>
+                        ~{formatWithZeroSubscript(palusFee.toString())} {symbol}{" "}
+                        ({PLATFORM_COLLECT_FEE}
+                        %)
+                      </b>
+                    </div>
+                  ) : null}
                 </div>
               </HelpTooltip>
             </div>
@@ -185,18 +205,18 @@ const CollectActionBody = ({
         <div className="space-y-1.5">
           <div className="block items-center gap-y-1 sm:flex sm:gap-x-5">
             <div className="flex items-center gap-x-2">
-              <UsersIcon className="size-4 text-gray-500 dark:text-gray-200" />
+              <PuzzlePieceIcon className="size-4 text-gray-500 dark:text-gray-200" />
               <button
                 className="font-bold"
                 onClick={() => setShowCollectorsModal(true)}
                 type="button"
               >
-                {humanize(collects)} {plur("collector", collects)}
+                {humanize(collects)} minted
               </button>
             </div>
             {collectLimit && !isAllCollected ? (
               <div className="flex items-center gap-x-2">
-                <PhotoIcon className="size-4 text-gray-500 dark:text-gray-200" />
+                <StarIcon className="size-4 text-gray-500 dark:text-gray-200" />
                 <div className="font-bold">
                   {collectLimit - collects} available
                 </div>
@@ -220,7 +240,7 @@ const CollectActionBody = ({
           ) : null}
           {collectAction.address ? (
             <div className="flex items-center gap-x-2">
-              <PuzzlePieceIcon className="size-4 text-gray-500 dark:text-gray-200" />
+              <LinkIcon className="size-4 text-gray-500 dark:text-gray-200" />
               <div className="space-x-1.5">
                 <span>NFT:</span>
                 <Link
@@ -251,6 +271,33 @@ const CollectActionBody = ({
             </div>
           ) : null}
           {recipients.length > 1 ? <Splits recipients={recipients} /> : null}
+          {referralShare > PLATFORM_COLLECT_FEE ? (
+            <div className="flex items-center gap-x-2">
+              <ArrowsRightLeftIcon className="size-4 text-gray-500 dark:text-gray-200" />
+              <div className="space-x-1.5">
+                <span>Referral share:</span>
+                <span className="font-bold text-gray-600">
+                  {nFormatter(referralShare - PLATFORM_COLLECT_FEE)}%
+                </span>
+              </div>
+              <HelpTooltip>
+                <div>
+                  Earn{" "}
+                  <b>
+                    {formatWithZeroSubscript(referralAmount.toString())}{" "}
+                    {symbol}{" "}
+                  </b>
+                  per collect!
+                </div>
+                <span>
+                  Repost to earn referral share. You earn when someone collects
+                  from your repost. Up to{" "}
+                  {nFormatter(referralShare - PLATFORM_COLLECT_FEE)}% per
+                  collect, after fees.
+                </span>
+              </HelpTooltip>
+            </div>
+          ) : null}
         </div>
         <div className="flex items-center gap-x-2">
           <CollectActionButton
