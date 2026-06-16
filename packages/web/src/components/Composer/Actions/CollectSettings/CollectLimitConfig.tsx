@@ -1,7 +1,7 @@
 import { StarIcon } from "@heroicons/react/24/outline";
 import { m } from "motion/react";
 import plur from "plur";
-import { useEffect, useState } from "react";
+import { type ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Input } from "@/components/Shared/UI";
@@ -23,9 +23,16 @@ const CollectLimitConfig = ({ setCollectType }: CollectLimitConfigProps) => {
 
   const collectLimit = watch(FIELD_NAME);
 
-  useEffect(() => {
-    setCollectType({ collectLimit });
-  }, [collectLimit]);
+  const onChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const collectLimit = e.target.value;
+      setCollectType({
+        ...collectAction,
+        collectLimit: collectLimit ? Number(collectLimit) : undefined
+      });
+    },
+    [setCollectType, collectAction]
+  );
 
   useEffect(() => {
     resetField(FIELD_NAME);
@@ -64,7 +71,7 @@ const CollectLimitConfig = ({ setCollectType }: CollectLimitConfigProps) => {
             onWheel={(e) => e.currentTarget.blur()}
             placeholder="5"
             type="number"
-            {...register(FIELD_NAME)}
+            {...register(FIELD_NAME, { onChange })}
           />
         </m.div>
       ) : null}

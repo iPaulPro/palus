@@ -55,7 +55,9 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
           aria-label="Repost"
           className={cn(
             hasShared
-              ? "text-brand-500 hover:bg-brand-300/20"
+              ? hasReferralShare
+                ? "text-green-700 dark:text-green-500"
+                : "text-brand-500 hover:bg-brand-300/20"
               : "text-gray-500 hover:bg-gray-300/20 dark:text-gray-200",
             "rounded-full p-1.5 outline-offset-2"
           )}
