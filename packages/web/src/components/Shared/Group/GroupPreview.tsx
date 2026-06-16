@@ -3,7 +3,7 @@ import {
   type GroupStatsResponse,
   useFullGroupLazyQuery
 } from "@palus/indexer";
-import * as HoverCard from "@radix-ui/react-hover-card";
+import { HoverCard } from "radix-ui";
 import type { ReactNode } from "react";
 import JoinLeaveButton from "@/components/Shared/Group/JoinLeaveButton";
 import Markup from "@/components/Shared/Markup";

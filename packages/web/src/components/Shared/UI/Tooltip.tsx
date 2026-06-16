@@ -1,6 +1,6 @@
-import * as RadixTooltip from "@radix-ui/react-tooltip";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { m } from "motion/react";
+import { Tooltip as RadixTooltip } from "radix-ui";
 import {
   type KeyboardEvent,
   type MouseEvent,

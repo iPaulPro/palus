@@ -3,8 +3,8 @@ import {
   type AccountStats,
   useFullAccountLazyQuery
 } from "@palus/indexer";
-import * as HoverCard from "@radix-ui/react-hover-card";
 import plur from "plur";
+import { HoverCard } from "radix-ui";
 import type { ReactNode } from "react";
 import TopAccount from "@/components/Shared/Badges/TopAccount";
 import Markup from "@/components/Shared/Markup";
