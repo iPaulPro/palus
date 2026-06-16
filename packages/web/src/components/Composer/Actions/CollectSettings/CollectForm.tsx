@@ -37,6 +37,9 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
     const hasReferralShare =
       collectAction.payToCollect?.referralShare !== null &&
       collectAction.payToCollect?.referralShare !== undefined;
+    const hasCollectLimit =
+      collectAction.collectLimit !== null &&
+      collectAction.collectLimit !== undefined;
     return z.object({
       amount: collectAction.payToCollect
         ? z
@@ -51,7 +54,7 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
               }
             )
         : z.any(),
-      collectLimit: collectAction.collectLimit
+      collectLimit: hasCollectLimit
         ? z
             .string()
             .min(1, { message: "Collect limit must be set if enabled" })
