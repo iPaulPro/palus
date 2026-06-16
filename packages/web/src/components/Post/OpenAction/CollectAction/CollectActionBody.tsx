@@ -232,7 +232,7 @@ const CollectActionBody = ({
               <ClockIcon className="size-4 text-gray-500 dark:text-gray-200" />
               <div className="space-x-1.5">
                 <span>{isSaleEnded ? "Sale ended on:" : "Sale ends:"}</span>
-                <span className="font-bold text-gray-600">
+                <span className="font-bold text-secondary">
                   {isSaleEnded ? (
                     `${dayjs(endTimestamp).format("MMM D, YYYY, h:mm A")}`
                   ) : (
@@ -248,7 +248,7 @@ const CollectActionBody = ({
               <div className="space-x-1.5">
                 <span>NFT:</span>
                 <Link
-                  className="font-bold text-gray-600"
+                  className="font-bold text-secondary"
                   rel="noreferrer noopener"
                   target="_blank"
                   to={`${BLOCK_EXPLORER_URL}/address/${collectAction.address}`}
@@ -267,7 +267,7 @@ const CollectActionBody = ({
                   content={`${humanize(totalRevenue)} ${symbol}`}
                   placement="top"
                 >
-                  <span className="font-bold text-gray-600">
+                  <span className="font-bold text-secondary">
                     {nFormatter(totalRevenue)} {symbol}
                   </span>
                 </Tooltip>
@@ -280,7 +280,7 @@ const CollectActionBody = ({
               <ArrowsRightLeftIcon className="size-4 text-gray-500 dark:text-gray-200" />
               <div className="space-x-1.5">
                 <span>Referral share:</span>
-                <span className="font-bold text-gray-600">
+                <span className="font-bold text-secondary">
                   {nFormatter(referralShare - PLATFORM_COLLECT_FEE)}%
                 </span>
               </div>
