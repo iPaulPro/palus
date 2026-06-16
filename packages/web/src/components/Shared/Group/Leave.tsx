@@ -98,8 +98,8 @@ const Leave = ({ group, small }: LeaveProps) => {
         disabled={isSubmitting}
         loading={isSubmitting}
         onClick={() => setModalOpen(true)}
-        outline
         size={small ? "sm" : "md"}
+        variant="outline"
       >
         Leave
       </Button>

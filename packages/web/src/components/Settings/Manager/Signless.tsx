@@ -47,7 +47,6 @@ const Content = ({
         disabled={isSubmitting}
         loading={isSubmitting}
         onClick={handleToggleSignless}
-        outline={isSignless}
         variant={isSignless ? "danger" : "primary"}
       >
         {isSignless ? "Disable Signless" : "Enable Signless"}

@@ -137,8 +137,8 @@ const PostActionExecutedNotification = ({
                 : "post-tip"
             }
             onClick={() => handleShare(firstAction)}
-            outline
             size="sm"
+            variant="outline"
           >
             Share
           </Button>
@@ -220,8 +220,8 @@ const PostActionExecutedNotification = ({
                       e.stopPropagation();
                       handleShare(action);
                     }}
-                    outline
                     size="sm"
+                    variant="outline"
                   >
                     Share
                   </Button>

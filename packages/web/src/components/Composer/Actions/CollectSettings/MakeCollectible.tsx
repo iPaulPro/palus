@@ -35,7 +35,7 @@ const MakeCollectible = ({ post }: Props) => {
         setLicense(null);
         setShowCollectFormModal(true, submit);
       }}
-      outline
+      variant="outline"
     >
       Make Collectible
     </Button>

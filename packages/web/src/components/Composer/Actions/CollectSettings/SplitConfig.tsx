@@ -201,8 +201,8 @@ const SplitConfig = ({
                     }
                   });
                 }}
-                outline
                 size="sm"
+                variant="outline"
               >
                 Add recipient
               </Button>
@@ -210,8 +210,8 @@ const SplitConfig = ({
             <Button
               icon={<ArrowsRightLeftIcon className="size-3" />}
               onClick={handleSplitEvenly}
-              outline
               size="sm"
+              variant="outline"
             >
               Split evenly
             </Button>

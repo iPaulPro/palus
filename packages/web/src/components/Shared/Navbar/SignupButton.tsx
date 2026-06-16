@@ -17,8 +17,8 @@ const SignupButton = ({ className }: SignupButtonProps) => {
         setScreen("choose");
         setShowAuthModal(true, "signup");
       }}
-      outline
       size="md"
+      variant="outline"
     >
       Signup
     </Button>

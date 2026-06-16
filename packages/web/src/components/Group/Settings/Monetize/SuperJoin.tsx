@@ -137,7 +137,7 @@ const SuperJoin = ({ group }: SuperJoinProps) => {
               disabled={isSubmitting}
               loading={isSubmitting}
               onClick={() => handleUpdateRule(true)}
-              outline
+              variant="outline"
             >
               Remove
             </Button>

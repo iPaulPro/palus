@@ -121,7 +121,7 @@ const LinkUsername = () => {
               disabled={linkingUsername === username.localName}
               loading={linkingUsername === username.localName}
               onClick={() => handleLink(username.localName)}
-              outline
+              variant="outline"
             >
               Link
             </Button>

@@ -111,8 +111,8 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
             className="flex-1 py-2 sm:py-1"
             disabled={amountDisabled}
             onClick={() => handleSetAmount(0.01)}
-            outline={amount !== 0.01}
             size="sm"
+            variant={amount === 0.01 ? "primary" : "outline"}
           >
             $0.01
           </Button>
@@ -120,8 +120,8 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
             className="flex-1"
             disabled={amountDisabled}
             onClick={() => handleSetAmount(0.1)}
-            outline={amount !== 0.1}
             size="sm"
+            variant={amount === 0.1 ? "primary" : "outline"}
           >
             $0.10
           </Button>
@@ -129,8 +129,8 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
             className="flex-1"
             disabled={amountDisabled}
             onClick={() => handleSetAmount(0.5)}
-            outline={amount !== 0.5}
             size="sm"
+            variant={amount === 0.5 ? "primary" : "outline"}
           >
             $0.50
           </Button>
@@ -138,8 +138,8 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
             className="flex-1"
             disabled={amountDisabled}
             onClick={() => handleSetAmount(1)}
-            outline={amount !== 1}
             size="sm"
+            variant={amount === 1 ? "primary" : "outline"}
           >
             $1
           </Button>
@@ -150,8 +150,8 @@ const TipMenu = ({ closePopover, post, account }: TipMenuProps) => {
               handleSetAmount(other ? 0.01 : 5);
               setOther(!other);
             }}
-            outline={!other}
             size="sm"
+            variant={other ? "primary" : "outline"}
           >
             &#8230;
           </Button>

@@ -16,8 +16,8 @@ const PostWarning = ({ message, setIgnore }: PostWarningProps) => {
       <Button
         className="shrink-0"
         onClick={() => setIgnore(true)}
-        outline
         size="sm"
+        variant="outline"
       >
         Show post
       </Button>

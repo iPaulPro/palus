@@ -79,8 +79,8 @@ const CancelGroupMembershipRequest = ({
       disabled={isSubmitting}
       loading={isSubmitting}
       onClick={handleCancelGroupMembershipRequest}
-      outline
       size={small ? "sm" : "md"}
+      variant="outline"
     >
       Cancel Request
     </Button>

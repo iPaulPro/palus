@@ -77,8 +77,8 @@ const AccountActionExecutedNotification = ({
           data-umami-event="Notification Share"
           data-umami-event-type="account-tip"
           onClick={() => handleShare(firstAction)}
-          outline
           size="sm"
+          variant="outline"
         >
           Share
         </Button>
@@ -162,8 +162,8 @@ const AccountActionExecutedNotification = ({
                       e.stopPropagation();
                       handleShare(action);
                     }}
-                    outline
                     size="sm"
+                    variant="outline"
                   >
                     Share
                   </Button>

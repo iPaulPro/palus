@@ -137,8 +137,8 @@ const Join = ({
       disabled={isSubmitting}
       loading={isSubmitting}
       onClick={handleJoin}
-      outline
       size={small ? "sm" : "md"}
+      variant="outline"
     >
       {title}
     </Button>

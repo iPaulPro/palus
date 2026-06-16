@@ -1,7 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import { AnimatePresence, m } from "motion/react";
 import type { ButtonHTMLAttributes, ReactNode, Ref } from "react";
-import { memo } from "react";
 import { Spinner } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 
@@ -9,7 +8,7 @@ const buttonVariants = cva(
   "rounded-full font-bold inline-flex items-center justify-center relative overflow-hidden disabled:opacity-50",
   {
     compoundVariants: [
-      // Non-outline Primary
+      // Primary
       {
         class: cn(
           "text-white hover:text-white active:text-gray-100",
@@ -19,10 +18,9 @@ const buttonVariants = cva(
           "dark:bg-white dark:hover:bg-gray-200 dark:active:bg-gray-200",
           "dark:border-white dark:hover:border-gray-100 dark:active:border-gray-200"
         ),
-        outline: false,
         variant: "primary"
       },
-      // Outline Primary
+      // Outline
       {
         class: cn(
           "text-gray-950 active:text-gray-500",
@@ -30,23 +28,9 @@ const buttonVariants = cva(
           "dark:text-white dark:active:text-gray-700",
           "dark:border-gray-800 dark:hover:border-gray-600"
         ),
-        outline: true,
-        variant: "primary"
+        variant: "outline"
       },
-      // Non-outline Danger
-      {
-        class: cn(
-          "text-white hover:text-white active:text-gray-100",
-          "bg-red-600 hover:bg-red-700 active:bg-red-800",
-          "border border-red-600 hover:border-red-700 active:border-red-800",
-          "dark:text-white dark:hover:text-white dark:active:text-gray-100",
-          "dark:bg-red-500 dark:hover:bg-red-400 dark:active:bg-red-600",
-          "dark:border-red-500 dark:hover:border-red-400 dark:active:border-red-600"
-        ),
-        outline: false,
-        variant: "danger"
-      },
-      // Outline Danger
+      // Danger
       {
         class: cn(
           "text-red-600 active:text-red-700",
@@ -54,19 +38,21 @@ const buttonVariants = cva(
           "dark:text-red-500 dark:active:text-red-400",
           "dark:border-red-500 dark:hover:border-red-400"
         ),
-        outline: true,
         variant: "danger"
       }
     ],
     defaultVariants: {
-      outline: false,
       size: "md",
       variant: "primary"
     },
     variants: {
-      outline: { false: "", true: "" },
-      size: { lg: "px-5 py-1.5", md: "px-4 py-1", sm: "px-3 py-0.5 text-sm" },
-      variant: { danger: "", primary: "" }
+      size: {
+        icon: "size-8",
+        lg: "px-5 py-1.5",
+        md: "px-4 py-1",
+        sm: "px-3 py-0.5 text-sm"
+      },
+      variant: { danger: "", outline: "", primary: "" }
     }
   }
 );
@@ -86,7 +72,6 @@ const Button = ({
   className,
   disabled,
   icon,
-  outline,
   size,
   variant,
   loading,
@@ -96,7 +81,7 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <button
-      className={cn(buttonVariants({ outline, size, variant }), className)}
+      className={cn(buttonVariants({ size, variant }), className)}
       disabled={disabled}
       ref={ref}
       type={rest.type ?? "button"}
@@ -133,4 +118,4 @@ const Button = ({
   );
 };
 
-export default memo(Button);
+export { Button, buttonVariants };

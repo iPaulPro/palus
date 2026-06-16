@@ -31,7 +31,7 @@ const FeedType = ({ feedType, setFeedType }: FeedTypeProps) => {
       <Button
         className="!px-1.5 block sm:hidden"
         onClick={() => setShowCreateGroupModal(true)}
-        outline
+        variant="outline"
       >
         <PlusIcon className="size-5" />
       </Button>

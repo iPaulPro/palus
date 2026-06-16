@@ -172,28 +172,28 @@ const Transfer = ({ token }: TransferProps) => {
           <Button
             className="w-full"
             onClick={() => handleSetAmount(1)}
-            outline={amount !== 1}
+            variant={amount === 1 ? "primary" : "outline"}
           >
             1
           </Button>
           <Button
             className="w-full"
             onClick={() => handleSetAmount(2)}
-            outline={amount !== 2}
+            variant={amount === 2 ? "primary" : "outline"}
           >
             2
           </Button>
           <Button
             className="w-full"
             onClick={() => handleSetAmount(5)}
-            outline={amount !== 5}
+            variant={amount === 5 ? "primary" : "outline"}
           >
             5
           </Button>
           <Button
             className="w-full"
             onClick={() => handleSetAmount(numericTokenBalance)}
-            outline={amount !== numericTokenBalance}
+            variant={amount === numericTokenBalance ? "primary" : "outline"}
           >
             Max
           </Button>
@@ -203,7 +203,7 @@ const Transfer = ({ token }: TransferProps) => {
               handleSetAmount(other ? 1 : 10);
               setOther(!other);
             }}
-            outline={!other}
+            variant={other ? "primary" : "outline"}
           >
             Other
           </Button>

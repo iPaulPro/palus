@@ -68,7 +68,7 @@ const UnlinkUsername = () => {
         disabled={unlinking}
         loading={unlinking}
         onClick={handleUnlink}
-        outline
+        variant="outline"
       >
         Un-link {getAccount(currentAccount).username}
       </Button>

@@ -28,8 +28,8 @@ const PollEditor = () => {
           <Button
             icon={<ClockIcon className="size-4" />}
             onClick={() => setShowPollLengthModal(true)}
-            outline
             size="sm"
+            variant="outline"
           >
             {pollConfig.durationInDays} {plur("day", pollConfig.durationInDays)}
           </Button>
@@ -56,7 +56,6 @@ const PollEditor = () => {
                     resetPollConfig();
                     setShowPollLengthModal(false);
                   }}
-                  outline
                   variant="danger"
                 >
                   Cancel

@@ -198,7 +198,7 @@ const SuperFollow = () => {
               disabled={Boolean(isSubmitting)}
               loading={isSubmitting === "remove"}
               onClick={handleRemove}
-              outline
+              variant="outline"
             >
               Remove
             </Button>

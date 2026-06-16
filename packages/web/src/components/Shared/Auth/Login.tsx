@@ -220,7 +220,7 @@ const Login = ({ setHasAccounts }: LoginProps) => {
                           isSubmitting && loggingInAccountId === account.address
                         }
                         onClick={() => handleSign(account.address)}
-                        outline
+                        variant="outline"
                       >
                         Login
                       </Button>

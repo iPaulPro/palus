@@ -15,7 +15,7 @@ const SmallCollectButton = ({ post }: SmallCollectButtonProps) => {
 
   return (
     <>
-      <Button onClick={() => setShowCollectModal(true)} outline>
+      <Button onClick={() => setShowCollectModal(true)} variant="outline">
         {hasSimpleCollected ? (
           <ShoppingBagIconSolid className="size-4 text-brand-500" />
         ) : (

@@ -160,8 +160,8 @@ const List = ({ managed = false }: ListProps) => {
                 onClick={() =>
                   handleToggleManagement(accountAvailable.account.address)
                 }
-                outline
                 size="sm"
+                variant="outline"
               >
                 {managed ? "Hide" : "Un-hide"}
               </Button>

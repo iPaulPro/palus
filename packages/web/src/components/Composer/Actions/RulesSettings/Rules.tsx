@@ -233,7 +233,7 @@ const Rules = ({ setShowModal, groupAddress }: RulesProps) => {
             setCollectorsOnly(undefined);
             setShowModal(false);
           }}
-          outline
+          variant="outline"
         >
           Reset
         </Button>

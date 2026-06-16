@@ -182,7 +182,7 @@ const PinPostConfirm = () => {
           Pins are visible across all Lens apps.
         </div>
         <div className="flex justify-end gap-3">
-          <Button onClick={() => setShowPinPostModal(false)} outline>
+          <Button onClick={() => setShowPinPostModal(false)} variant="outline">
             Cancel
           </Button>
           <Button
@@ -213,7 +213,7 @@ const PinPostConfirm = () => {
         </div>
       )}
       <div className="flex justify-end gap-3">
-        <Button onClick={() => setShowPinPostModal(false)} outline>
+        <Button onClick={() => setShowPinPostModal(false)} variant="outline">
           Cancel
         </Button>
         <Button

@@ -81,8 +81,8 @@ const TokenBalance = ({
               e.preventDefault();
               onClick();
             }}
-            outline
             size="sm"
+            variant="outline"
           >
             {buttonLabel}
           </Button>

@@ -24,7 +24,7 @@ const TipButton = ({ account }: TipButtonProps) => {
         aria-label="Tip"
         as={Button}
         onClick={stopEventPropagation}
-        outline
+        variant="outline"
       >
         <Tooltip content="Tip" placement="top" withDelay>
           <TipIcon className="-mx-2 my-1 size-4 text-gray-500" />

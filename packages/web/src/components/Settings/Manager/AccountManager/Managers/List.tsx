@@ -138,7 +138,7 @@ const List = () => {
             disabled={removingManager?.manager === accountManager.manager}
             loading={removingManager?.manager === accountManager.manager}
             onClick={() => handleRemoveManager(accountManager)}
-            outline
+            variant="outline"
           >
             Remove
           </Button>

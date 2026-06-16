@@ -5,7 +5,7 @@ import { memo } from "react";
 import cn from "@/helpers/cn";
 
 const thumbVariants = cva(
-  "block bg-gray-900 focus:outline-hidden active:scale-110",
+  "block bg-brand-600 dark:bg-brand-700 focus:outline-hidden active:scale-110",
   {
     defaultVariants: { showValueInThumb: false },
     variants: {

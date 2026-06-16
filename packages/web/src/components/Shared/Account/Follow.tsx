@@ -92,8 +92,8 @@ const Follow = ({
       disabled={isSubmitting}
       loading={isSubmitting}
       onClick={handleCreateFollow}
-      outline
       size={small ? "sm" : "md"}
+      variant="outline"
     >
       {title}
     </Button>

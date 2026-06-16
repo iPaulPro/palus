@@ -1,7 +1,14 @@
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { getSrc } from "@livepeer/react/external";
 import { type AnyPostFragment, ContentWarning } from "@palus/indexer";
-import { memo, useEffect, useMemo, useRef, useState } from "react";
+import {
+  type MouseEvent,
+  memo,
+  useEffect,
+  useMemo,
+  useRef,
+  useState
+} from "react";
 import HiddenPost from "@/components/Post/HiddenPost";
 import PollAction from "@/components/Post/OpenAction/PollAction";
 import Quote from "@/components/Shared/Embed/Quote";
@@ -109,7 +116,7 @@ const PostBody = ({
       {contentWarning && !showCensored && (
         <div className="absolute z-10 flex h-full min-h-12 w-full items-center justify-center">
           <Button
-            onClick={(event) => {
+            onClick={(event: MouseEvent<HTMLButtonElement>) => {
               event.stopPropagation();
               setShowCensored(true);
             }}

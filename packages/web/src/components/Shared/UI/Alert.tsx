@@ -77,8 +77,8 @@ const Alert = ({
                   className="w-full"
                   disabled={isPerformingAction}
                   onClick={onClose}
-                  outline
                   size="lg"
+                  variant="outline"
                 >
                   {cancelText}
                 </Button>
