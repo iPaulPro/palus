@@ -123,10 +123,10 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
       collectLimit: collectAction.collectLimit,
       endAtDate: collectAction.endsAt
         ? new Date(collectAction.endsAt)
-        : new Date(),
+        : undefined,
       endAtTime: collectAction.endsAt
         ? dayjs(collectAction.endsAt).format("HH:mm:ss")
-        : "12:00:00",
+        : undefined,
       referralShare: collectAction.payToCollect?.referralShare?.toString(),
       token: collectAction.payToCollect?.native
         ? CONTRACTS.nativeToken
