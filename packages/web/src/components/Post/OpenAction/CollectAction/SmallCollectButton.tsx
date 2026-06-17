@@ -7,9 +7,10 @@ import CollectActionBody from "./CollectActionBody";
 
 interface SmallCollectButtonProps {
   post: PostFragment;
+  referrals?: string[];
 }
 
-const SmallCollectButton = ({ post }: SmallCollectButtonProps) => {
+const SmallCollectButton = ({ post, referrals }: SmallCollectButtonProps) => {
   const [showCollectModal, setShowCollectModal] = useState(false);
   const hasSimpleCollected = post.operations?.hasSimpleCollected;
 
@@ -30,6 +31,7 @@ const SmallCollectButton = ({ post }: SmallCollectButtonProps) => {
       >
         <CollectActionBody
           post={post}
+          referrals={referrals}
           setShowCollectModal={setShowCollectModal}
         />
       </Modal>

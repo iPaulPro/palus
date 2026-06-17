@@ -88,7 +88,7 @@ const PostActions = ({
           <Bookmark post={targetPost} showCount={showCount} />
           <Share post={targetPost} />
           {hasCollectAction ? (
-            <SmallCollectButton post={targetPost} />
+            <SmallCollectButton post={targetPost} referrals={referrals} />
           ) : !targetPost.commentOn &&
             currentAccount?.address === targetPost.author.address ? (
             <MakeCollectible post={targetPost} />
