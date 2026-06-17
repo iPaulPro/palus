@@ -1,5 +1,6 @@
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { usePostQuery } from "@palus/indexer";
+import { useIntersectionObserver } from "@uidotdev/usehooks";
 import { memo } from "react";
 import { Link } from "react-router";
 import Quote from "@/components/Shared/Embed/Quote";
@@ -19,6 +20,10 @@ interface OEmbedProps {
 const OEmbed = ({ url }: OEmbedProps) => {
   const { data: oembed, isPending: isLoading } = useOembed(url);
   const { replaceLensLinks } = usePreferencesStore();
+  const [ref, entry] = useIntersectionObserver({
+    root: null,
+    threshold: 0
+  });
 
   const parsedUrl = new URL(url);
   const hostname = parsedUrl.hostname;
@@ -105,7 +110,7 @@ const OEmbed = ({ url }: OEmbedProps) => {
   if (isSpotify && oembed.html) {
     return (
       <div
-        className={cn("not-prose oembed-html mt-4 w-5/6", {
+        className={cn("not-prose oembed-html mt-4 w-full md:w-5/6", {
           "min-h-38": parsedUrl.pathname.startsWith("/track"),
           "min-h-88": parsedUrl.pathname.startsWith("/album")
         })}
@@ -132,11 +137,12 @@ const OEmbed = ({ url }: OEmbedProps) => {
         }
       )}
       onClick={(e) => e.stopPropagation()}
+      ref={ref}
       rel="noopener"
       target={link.includes(location.host) ? "_self" : "_blank"}
       to={link}
     >
-      {oembed.thumbnail_url && (
+      {oembed.thumbnail_url && entry?.isIntersecting && (
         <Image
           alt={oembed.title}
           className="h-40 w-full rounded-t-xl border-border border-b bg-accent object-cover"

@@ -103,7 +103,6 @@ const CachedWindowVirtualizer = ({
 
   return (
     <WindowVirtualizer
-      bufferSize={1200}
       cache={cache}
       onScroll={() => onScroll?.(innerRef.current?.scrollOffset ?? 0)}
       ref={mergedRef}

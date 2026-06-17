@@ -5,8 +5,8 @@
   "license": "GPL-3.0",
   "scripts": {
     "build": "vite build",
-    "dev": "vite dev --port 4783",
-    "dev:host": "vite dev --port 4783 --host",
+    "dev": "vite dev --port 4783 & wrangler pages dev --port 8787",
+    "dev:host": "vite dev --port 4783 --host & wrangler pages dev --port 8787",
     "start": "vite preview --port 4783",
     "typecheck": "tsc --pretty",
     "typecheck:functions": "tsc --pretty --project functions/tsconfig.json",

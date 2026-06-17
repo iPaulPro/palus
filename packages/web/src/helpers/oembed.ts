@@ -1,4 +1,5 @@
 import { decode } from "html-entities";
+import { API_URL } from "@/data/constants";
 import type { Oembed } from "@/types/oembed";
 
 const X_OEMBED_URL = "https://publish.x.com/oembed?omit_script=true&url=";
@@ -55,7 +56,9 @@ const fetchLinkPreviewViaProxy = async (
   url: string
 ): Promise<Oembed | null> => {
   try {
-    const response = await fetch(`/oembed?url=${encodeURIComponent(url)}`);
+    const response = await fetch(
+      `${API_URL}/oembed?url=${encodeURIComponent(url)}`
+    );
     if (!response.ok) {
       return null;
     }
