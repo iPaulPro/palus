@@ -34,7 +34,7 @@ export const STORAGE_NODE_URL = "https://api.grove.storage/";
 export const IPFS_GATEWAY = "https://gw.ipfs-lens.dev/ipfs/";
 
 // Tokens / Keys
-export const WALLETCONNECT_PROJECT_ID = "3f7a1aceea44f6ca49f43842e86107a8";
+export const WALLETCONNECT_PROJECT_ID = "03a00eaa6ae180122f4cf2f8ee751a9f";
 export const GIPHY_KEY = "eaoaaG2iuww7FHhcPegV5nYSILTl8lvc"; // Read only safe key
 export const INFURA_API_KEY = "7a63a964ef5c4c228b02b387e1a8d74f";
 export const THIRD_WEB_CLIENT_ID = "50f0da09fdc3c0f9ae25464c55babfdb";
