@@ -90,7 +90,9 @@ const ReferralShareConfig = ({
           />
           <div className="flex items-center gap-x-1 pt-2 text-secondary text-sm">
             <InformationCircleIcon className="inline size-4" />
-            This is <b>after</b> the 3.5% fee taken by Lens and Palus
+            <span>
+              This is <b>after</b> the 3.5% fee taken by Lens and Palus
+            </span>
           </div>
         </m.div>
       ) : null}

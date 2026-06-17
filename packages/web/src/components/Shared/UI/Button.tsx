@@ -30,6 +30,14 @@ const buttonVariants = cva(
         ),
         variant: "outline"
       },
+      // Ghost
+      {
+        class: cn(
+          "text-gray-950 active:text-gray-500 hover:text-gray-600",
+          "dark:text-white dark:active:text-gray-700 dark:hover:text-gray-300"
+        ),
+        variant: "ghost"
+      },
       // Danger
       {
         class: cn(
@@ -52,7 +60,7 @@ const buttonVariants = cva(
         md: "px-4 py-1",
         sm: "px-3 py-0.5 text-sm"
       },
-      variant: { danger: "", outline: "", primary: "" }
+      variant: { danger: "", ghost: "", outline: "", primary: "" }
     }
   }
 );

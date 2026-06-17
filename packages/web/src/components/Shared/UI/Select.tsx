@@ -19,7 +19,7 @@ interface SelectProps {
   options?: {
     disabled?: boolean;
     helper?: string;
-    icon?: string;
+    icon?: ReactNode | string;
     label: string;
     htmlLabel?: ReactNode;
     selected?: boolean;
@@ -49,13 +49,16 @@ const Select = ({
           )}
         >
           <span className="flex items-center gap-x-2">
-            {selected?.icon && (
-              <img
-                alt={selected?.label}
-                className={iconClassName}
-                src={selected?.icon}
-              />
-            )}
+            {selected?.icon &&
+              (typeof selected.icon === "string" ? (
+                <img
+                  alt={selected.label}
+                  className={iconClassName}
+                  src={selected.icon}
+                />
+              ) : (
+                selected.icon
+              ))}
             <span>{selected?.htmlLabel || selected?.label}</span>
           </span>
           <ChevronDownIcon className="mr-1 size-5 text-gray-400" />
@@ -105,13 +108,16 @@ const Select = ({
                       <div className="mx-2 flex flex-col gap-y-0 py-1.5">
                         <span className="flex w-full items-center justify-between gap-x-3 text-gray-700 dark:text-gray-200">
                           <span className="flex items-center gap-x-2">
-                            {option.icon && (
-                              <img
-                                alt={option.label}
-                                className={iconClassName}
-                                src={option.icon}
-                              />
-                            )}
+                            {option.icon &&
+                              (typeof option.icon === "string" ? (
+                                <img
+                                  alt={option.label}
+                                  className={iconClassName}
+                                  src={option.icon}
+                                />
+                              ) : (
+                                option.icon
+                              ))}
                             <span className="block truncate">
                               {option.htmlLabel || option.label}
                             </span>

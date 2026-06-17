@@ -1,3 +1,4 @@
+import dayjs from "dayjs";
 import { m } from "motion/react";
 import { useCallback, useMemo } from "react";
 import { isAddress, parseUnits } from "viem";
@@ -40,39 +41,79 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
     const hasCollectLimit =
       collectAction.collectLimit !== null &&
       collectAction.collectLimit !== undefined;
-    return z.object({
-      amount: collectAction.payToCollect
-        ? z
-            .string()
-            .min(1, { message: "Price is required" })
-            .refine(
-              (val) =>
-                val !== undefined &&
-                parseUnits(val, token?.decimals ?? NATIVE_TOKEN.decimals) > 0n,
-              {
-                message: "Price must be greater than zero"
-              }
-            )
-        : z.any(),
-      collectLimit: hasCollectLimit
-        ? z
-            .string()
-            .min(1, { message: "Collect limit must be set if enabled" })
-            .refine((val) => !Number.isNaN(Number(val)) && Number(val) > 0, {
-              message: "Collect limit must be greater than zero if enabled"
-            })
-        : z.any(),
-      referralShare: hasReferralShare
-        ? z
-            .string()
-            .min(1, { message: "Share must be set if enabled" })
-            .refine((val) => !Number.isNaN(Number(val)) && Number(val) > 0, {
-              message: "Share must be greater than zero if enabled"
-            })
-        : z.any(),
-      token: z.any()
-    });
-  }, [collectAction.payToCollect, collectAction.collectLimit]);
+    return z
+      .object({
+        amount: collectAction.payToCollect
+          ? z
+              .string()
+              .min(1, { message: "Price is required" })
+              .refine(
+                (val) =>
+                  val !== undefined &&
+                  parseUnits(val, token?.decimals ?? NATIVE_TOKEN.decimals) >
+                    0n,
+                {
+                  message: "Price must be greater than zero"
+                }
+              )
+          : z.any(),
+        collectLimit: hasCollectLimit
+          ? z
+              .string()
+              .min(1, { message: "Collect limit must be set if enabled" })
+              .refine((val) => !Number.isNaN(Number(val)) && Number(val) > 0, {
+                message: "Collect limit must be greater than zero if enabled"
+              })
+          : z.any(),
+        endAtDate: collectAction.endsAt ? z.date() : z.any(),
+        endAtTime: collectAction.endsAt ? z.string() : z.any(),
+        referralShare: hasReferralShare
+          ? z
+              .string()
+              .min(1, { message: "Share must be set if enabled" })
+              .refine((val) => !Number.isNaN(Number(val)) && Number(val) > 0, {
+                message: "Share must be greater than zero if enabled"
+              })
+          : z.any(),
+        token: z.any()
+      })
+      .superRefine((data, ctx) => {
+        const { endAtDate, endAtTime } = data;
+        if (!endAtDate || !endAtTime) return;
+
+        const isDateInPast = dayjs(endAtDate as Date)
+          .startOf("day")
+          .isBefore(dayjs().startOf("day"));
+        if (isDateInPast) {
+          ctx.addIssue({
+            code: "custom",
+            message: "End date cannot be in the past",
+            path: ["endAtDate"]
+          });
+        }
+
+        const [hours, minutes, seconds] = (endAtTime as string)
+          .split(":")
+          .map(Number);
+        const newEndAt = dayjs(endAtDate as Date)
+          .hour(hours)
+          .minute(minutes)
+          .second(seconds)
+          .millisecond(0);
+        if (!newEndAt.isAfter(dayjs())) {
+          ctx.addIssue({
+            code: "custom",
+            message: "End time must be in the future",
+            path: ["endAtTime"]
+          });
+        }
+      });
+  }, [
+    collectAction.payToCollect,
+    collectAction.collectLimit,
+    collectAction.payToCollect?.referralShare,
+    collectAction.endsAt
+  ]);
 
   const form = useZodForm({
     defaultValues: {
@@ -80,6 +121,12 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
         collectAction.payToCollect?.native ??
         collectAction.payToCollect?.erc20?.value,
       collectLimit: collectAction.collectLimit,
+      endAtDate: collectAction.endsAt
+        ? new Date(collectAction.endsAt)
+        : new Date(),
+      endAtTime: collectAction.endsAt
+        ? dayjs(collectAction.endsAt).format("HH:mm:ss")
+        : "12:00:00",
       referralShare: collectAction.payToCollect?.referralShare?.toString(),
       token: collectAction.payToCollect?.native
         ? CONTRACTS.nativeToken
@@ -165,7 +212,7 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
               </>
             )}
             <CollectLimitConfig setCollectType={setCollectType} />
-            <TimeLimitConfig setCollectType={setCollectType} />
+            <TimeLimitConfig />
             <FollowersConfig setCollectType={setCollectType} />
           </m.div>
           <div className="divider" />

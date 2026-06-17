@@ -1,6 +1,6 @@
 export { default as Alert } from "./Alert";
 export { default as Badge } from "./Badge";
-export { default as Button } from "./Button";
+export { Button, buttonVariants } from "./Button";
 export { default as Card } from "./Card";
 export { default as CardHeader } from "./CardHeader";
 export { default as Checkbox } from "./Checkbox";
@@ -10,9 +10,19 @@ export { Form, useZodForm } from "./Form";
 export { default as HelpTooltip } from "./HelpTooltip";
 export { default as Image } from "./Image";
 export { default as Input } from "./Input";
+export { Label } from "./Label";
 export { default as LightBox } from "./LightBox";
 export { default as MarqueeText } from "./MarqueeText";
 export { default as Modal } from "./Modal";
+export {
+  Popover,
+  PopoverAnchor,
+  PopoverContent,
+  PopoverDescription,
+  PopoverHeader,
+  PopoverTitle,
+  PopoverTrigger
+} from "./Popover";
 export { default as RangeSlider } from "./RangeSlider";
 export { default as Select } from "./Select";
 export {
