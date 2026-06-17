@@ -83,7 +83,7 @@ const TimeLimitConfig = () => {
       const value = e.target.value;
       if (!collectAction.endsAt) return;
 
-      const [hours, minutes, seconds] = value.split(":").map(Number);
+      const [hours, minutes, seconds = 0] = value.split(":").map(Number);
       const newEndsAt = dayjs(collectAction.endsAt)
         .hour(hours)
         .minute(minutes)

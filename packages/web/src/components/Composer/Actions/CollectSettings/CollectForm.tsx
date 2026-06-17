@@ -92,7 +92,7 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
           });
         }
 
-        const [hours, minutes, seconds] = (endAtTime as string)
+        const [hours, minutes, seconds = 0] = (endAtTime as string)
           .split(":")
           .map(Number);
         const newEndAt = dayjs(endAtDate as Date)
