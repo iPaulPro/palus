@@ -68,7 +68,7 @@ function PopoverDescription({
 }: React.ComponentProps<"p">) {
   return (
     <p
-      className={cn("text-muted-foreground", className)}
+      className={cn("text-secondary", className)}
       data-slot="popover-description"
       {...props}
     />
