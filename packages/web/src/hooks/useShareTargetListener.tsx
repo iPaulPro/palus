@@ -7,7 +7,7 @@ import { useAccountStore } from "@/store/persisted/useAccountStore";
 const useShareTargetListener = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { setShow: setShowNewPostModal } = useNewPostModalStore();
-  const { setPostContent } = usePostStore();
+  const { setPostContent, setSharingLink } = usePostStore();
   const { currentAccount } = useAccountStore();
 
   useEffect(() => {
@@ -16,9 +16,9 @@ const useShareTargetListener = () => {
     if (searchParams.has("text")) {
       const text = searchParams.get("text");
       const url = searchParams.get("url");
-      const content = `${text}${url ? `\n\n${url}` : ""}`;
+      if (url) setSharingLink(url.startsWith("http") ? url : `https://${url}`);
+      if (text) setPostContent(text);
       setShowNewPostModal(true);
-      setPostContent(content);
       setSearchParams();
     }
   }, [searchParams, currentAccount]);

@@ -9,12 +9,14 @@ interface State {
   parentPost?: PostFragment;
   ignoreQuotedPostId?: string;
   notificationShare?: ShareAction;
+  sharingLink?: string;
   setPostContent: (postContent: string) => void;
   setQuotedPost: (quotedPost?: PostFragment) => void;
   setEditingPost: (editingPost?: PostFragment) => void;
   setParentPost: (parentPost?: PostFragment) => void;
   setIgnoreQuotedPostId: (ignoreQuotedPostId?: string) => void;
   setNotificationShare: (notificationShare?: ShareAction) => void;
+  setSharingLink: (sharingLink?: string) => void;
 }
 
 const { useStore: usePostStore } = createTrackedStore<State>((set) => ({
@@ -31,7 +33,9 @@ const { useStore: usePostStore } = createTrackedStore<State>((set) => ({
     set(() => ({ notificationShare })),
   setParentPost: (parentPost) => set(() => ({ parentPost })),
   setPostContent: (postContent) => set(() => ({ postContent })),
-  setQuotedPost: (quotedPost) => set(() => ({ quotedPost }))
+  setQuotedPost: (quotedPost) => set(() => ({ quotedPost })),
+  setSharingLink: (sharingLink) => set(() => ({ sharingLink })),
+  sharingLink: undefined
 }));
 
 export { usePostStore };

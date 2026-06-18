@@ -57,7 +57,8 @@ const GlobalModals = () => {
     setIgnoreQuotedPostId,
     setPostContent,
     setParentPost,
-    setNotificationShare
+    setNotificationShare,
+    setSharingLink
   } = usePostStore();
   const { setAttachments } = usePostAttachmentStore();
   const { authModalType, showAuthModal, setShowAuthModal } =
@@ -128,6 +129,7 @@ const GlobalModals = () => {
     setContentWarning(undefined);
     setShowPollEditor(false);
     setNotificationShare(undefined);
+    setSharingLink(undefined);
     resetPollConfig();
     setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
     setVideoDurationInSeconds("0");

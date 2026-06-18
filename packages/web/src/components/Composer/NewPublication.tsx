@@ -23,6 +23,7 @@ import ThreadBody from "@/components/Post/ThreadBody";
 import { AudioPostSchema } from "@/components/Shared/Audio";
 import Wrapper from "@/components/Shared/Embed/Wrapper";
 import EmojiPicker from "@/components/Shared/EmojiPicker";
+import OEmbed from "@/components/Shared/Post/OEmbed";
 import { Button, Card, H6, WarningMessage } from "@/components/Shared/UI";
 import { CONTRACTS } from "@/data/contracts";
 import { ERRORS } from "@/data/errors";
@@ -93,12 +94,14 @@ const NewPublication = ({
     parentPost,
     ignoreQuotedPostId,
     notificationShare,
+    sharingLink,
     setPostContent,
     setEditingPost,
     setParentPost,
     setQuotedPost,
     setIgnoreQuotedPostId,
-    setNotificationShare
+    setNotificationShare,
+    setSharingLink
   } = usePostStore();
 
   const { audioPost, setAudioPost } = usePostAudioStore();
@@ -181,6 +184,7 @@ const NewPublication = ({
     setContentWarning(undefined);
     setShowPollEditor(false);
     setNotificationShare(undefined);
+    setSharingLink(undefined);
     resetPollConfig();
     setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
     setVideoDurationInSeconds("0");
@@ -232,7 +236,8 @@ const NewPublication = ({
       isQuote ||
       !postContent ||
       !debouncedPostContent ||
-      debouncedPostContent !== postContent
+      debouncedPostContent !== postContent ||
+      sharingLink
     ) {
       return;
     }
@@ -356,6 +361,7 @@ const NewPublication = ({
         attachment,
         baseMetadata,
         isCollectible: Boolean(collectAction.enabled),
+        sharingLink,
         tags: shareImage ? ["palus-tip"] : undefined
       });
       if (!metadata) {
@@ -519,6 +525,11 @@ const NewPublication = ({
           <Wrapper className="m-5" zeroPadding>
             <QuotedPost isNew post={quotedPost} />
           </Wrapper>
+        ) : null}
+        {sharingLink ? (
+          <div className="px-4 pb-5">
+            <OEmbed url={sharingLink} />
+          </div>
         ) : null}
       </div>
       <div className="block shrink-0 items-center border-border border-t px-5 py-3 sm:flex">

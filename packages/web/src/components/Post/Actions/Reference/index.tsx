@@ -1,10 +1,11 @@
-import { Menu, MenuButton, MenuItems } from "@headlessui/react";
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import {
   ArrowsRightLeftIcon,
-  CurrencyDollarIcon
+  CurrencyDollarIcon,
+  LinkIcon
 } from "@heroicons/react/24/outline";
 import type { AnyPostFragment } from "@palus/indexer";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import { Spinner, Tooltip } from "@/components/Shared/UI";
 import { PLATFORM_COLLECT_FEE } from "@/data/constants";
@@ -13,6 +14,8 @@ import nFormatter from "@/helpers/nFormatter";
 import { isRepost } from "@/helpers/postHelpers";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import useCanShare from "@/hooks/useCanShare";
+import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
+import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import Quote from "./Quote";
 import Repost from "./Repost";
 import UndoRepost from "./UndoRepost";
@@ -40,13 +43,21 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
   const referralShare =
     Number(collectAction?.payToCollect?.referralShare ?? 0) -
     PLATFORM_COLLECT_FEE;
-  const hasReferralShare = referralShare > 0;
+  const hasReferralShare =
+    referralShare > 0 &&
+    (!collectAction?.endsAt || collectAction.endsAt > new Date().toISOString());
 
   const { canRepost, canQuote } = useCanShare({ post: targetPost });
+  const canShare = canRepost || canQuote;
 
-  if (!canRepost && !canQuote) {
-    return <div className="order-last block size-8 sm:hidden" />;
-  }
+  const { setSharingLink } = usePostStore();
+  const { setShow: setShowNewPostModal } = useNewPostModalStore();
+
+  const handleShareLink = useCallback(() => {
+    const shareLink = `https://palus.app/posts/${targetPost.slug}`;
+    setSharingLink(shareLink);
+    setShowNewPostModal(true);
+  }, [setSharingLink, setShowNewPostModal]);
 
   return (
     <div className="flex items-center gap-x-1">
@@ -68,7 +79,11 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
           ) : (
             <Tooltip
               content={
-                hasReferralShare ? "Repost to Earn or Quote" : "Repost or Quote"
+                canRepost && hasReferralShare
+                  ? "Repost to Earn or Quote"
+                  : canShare
+                    ? "Repost or Quote"
+                    : "Share Post Link"
               }
               placement="top"
               withDelay
@@ -76,11 +91,11 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
               <div
                 className={cn("flex items-center gap-x-1", {
                   "rounded-full border border-border px-1 py-0.5":
-                    hasReferralShare
+                    canRepost && hasReferralShare
                 })}
               >
                 <ArrowsRightLeftIcon className="size-5" />
-                {hasReferralShare && (
+                {canRepost && hasReferralShare && (
                   <CurrencyDollarIcon className="size-5 text-green-700 dark:text-green-500" />
                 )}
               </div>
@@ -108,6 +123,24 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
                 post={post}
                 setIsSubmitting={setIsSubmitting}
               />
+            )}
+            {!canQuote && (
+              <MenuItem
+                as="div"
+                className={({ focus }) =>
+                  cn(
+                    { "dropdown-active": focus },
+                    "m-2 block cursor-pointer rounded-lg px-4 py-1.5 text-sm"
+                  )
+                }
+                disabled={isSubmitting}
+                onClick={handleShareLink}
+              >
+                <div className="flex items-center gap-x-2">
+                  <LinkIcon className="size-4" />
+                  Share Link
+                </div>
+              </MenuItem>
             )}
           </MenuItems>
         </MenuTransition>

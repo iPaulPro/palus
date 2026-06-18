@@ -2,6 +2,7 @@ import {
   article,
   audio,
   image,
+  link,
   textOnly,
   video
 } from "@lens-protocol/metadata";
@@ -18,6 +19,7 @@ interface UsePostMetadataProps {
   attachment?: NewAttachment;
   isCollectible: boolean;
   tags?: string[];
+  sharingLink?: string;
 }
 
 const usePostMetadata = () => {
@@ -38,8 +40,18 @@ const usePostMetadata = () => {
       baseMetadata,
       attachment,
       isCollectible,
-      tags
+      tags,
+      sharingLink
     }: UsePostMetadataProps) => {
+      if (sharingLink) {
+        return link({
+          ...baseMetadata,
+          ...(contentWarning && { contentWarning }),
+          sharingLink,
+          tags
+        });
+      }
+
       const primaryAttachment = attachment ?? attachments[0];
       const hasAttachments = Boolean(primaryAttachment);
       const isImage = primaryAttachment?.type === "Image";
