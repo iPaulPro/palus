@@ -1,14 +1,18 @@
+import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
 import {
   BoltIcon,
   ChartBarIcon,
+  ChatBubbleLeftIcon,
+  PencilSquareIcon,
   ShoppingBagIcon
 } from "@heroicons/react/24/outline";
 import type {
   PostActionExecutedNotificationFragment,
+  PostFragment,
   TippingPostActionExecuted
 } from "@palus/indexer";
 import plur from "plur";
-import { memo } from "react";
+import { Fragment, memo } from "react";
 import {
   NotificationAccountAvatar,
   NotificationAccountName
@@ -18,10 +22,13 @@ import ExpandableNotification from "@/components/Notification/Type/Shared/Expand
 import Timestamp from "@/components/Notification/Type/Shared/Timestamp";
 import { TipIcon } from "@/components/Shared/Icons/TipIcon";
 import Markup from "@/components/Shared/Markup";
+import MenuTransition from "@/components/Shared/MenuTransition";
 import PostLink from "@/components/Shared/Post/PostLink";
 import { Button } from "@/components/Shared/UI";
 import { CONTRACTS } from "@/data/contracts";
+import cn from "@/helpers/cn";
 import getPostData from "@/helpers/getPostData";
+import stopEventPropagation from "@/helpers/stopEventPropagation";
 import truncateUrl from "@/helpers/truncateUrl";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
@@ -55,6 +62,94 @@ function getActionAmount(action: PostAction) {
   return undefined;
 }
 
+const ShareMenu = ({
+  action,
+  post
+}: {
+  action: PostAction;
+  post?: PostFragment;
+}) => {
+  const { setNotificationShare, setParentPost } = usePostStore();
+  const { setShow: setShowNewPostModal } = useNewPostModalStore();
+
+  const handleShare = (post?: PostFragment) => {
+    const actionAmount = getActionAmount(action);
+    if (!actionAmount) return;
+    setNotificationShare({
+      amount: actionAmount,
+      executedBy: action.executedBy,
+      timestamp: new Date(action.executedAt),
+      type: isTippingActionExecuted(action) ? "post-tip" : "collect"
+    });
+    if (post) setParentPost(post);
+    setShowNewPostModal(true);
+  };
+
+  return (
+    <Menu as="div" className="relative">
+      <MenuButton as={Fragment}>
+        <Button
+          data-umami-event="Notification Share"
+          data-umami-event-type={
+            action.__typename === "SimpleCollectPostActionExecuted"
+              ? "post-collected"
+              : "post-tip"
+          }
+          onClick={stopEventPropagation}
+          size="sm"
+          variant="outline"
+        >
+          Share
+        </Button>
+      </MenuButton>
+      <MenuTransition>
+        <MenuItems
+          anchor="bottom end"
+          className="z-5 mt-2 w-max min-w-44 origin-top-right rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-gray-900"
+          static
+        >
+          <MenuItem
+            as="div"
+            className={({ focus }) =>
+              cn(
+                { "dropdown-active": focus },
+                "m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm"
+              )
+            }
+            onClick={(e) => {
+              stopEventPropagation(e);
+              handleShare();
+            }}
+          >
+            <div className="flex items-center gap-x-2">
+              <PencilSquareIcon className="size-4" />
+              Share as a new post
+            </div>
+          </MenuItem>
+          <MenuItem
+            as="div"
+            className={({ focus }) =>
+              cn(
+                { "dropdown-active": focus },
+                "m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-sm"
+              )
+            }
+            onClick={(e) => {
+              stopEventPropagation(e);
+              handleShare(post);
+            }}
+          >
+            <div className="flex items-center gap-x-2">
+              <ChatBubbleLeftIcon className="size-4" />
+              Share as a comment
+            </div>
+          </MenuItem>
+        </MenuItems>
+      </MenuTransition>
+    </Menu>
+  );
+};
+
 const PostActionExecutedNotification = ({
   notification,
   isNew,
@@ -81,21 +176,6 @@ const PostActionExecutedNotification = ({
     firstAction && !moreThanOneAccount && isTippingActionExecuted(firstAction)
       ? firstAction.tipAmount
       : undefined;
-
-  const { setShow: setShowNewPostModal } = useNewPostModalStore();
-  const { setNotificationShare } = usePostStore();
-
-  const handleShare = (action: PostAction) => {
-    const actionAmount = getActionAmount(action);
-    if (!actionAmount) return;
-    setNotificationShare({
-      amount: actionAmount,
-      executedBy: action.executedBy,
-      timestamp: new Date(action.executedAt),
-      type: isTippingActionExecuted(action) ? "post-tip" : "collect"
-    });
-    setShowNewPostModal(true);
-  };
 
   const icon =
     actionType === "collected" ? (
@@ -129,19 +209,7 @@ const PostActionExecutedNotification = ({
       {postContent}
       {firstActionAmount && (
         <div className="flex justify-end pt-2">
-          <Button
-            data-umami-event="Notification Share"
-            data-umami-event-type={
-              firstAction.__typename === "SimpleCollectPostActionExecuted"
-                ? "post-collected"
-                : "post-tip"
-            }
-            onClick={() => handleShare(firstAction)}
-            size="sm"
-            variant="outline"
-          >
-            Share
-          </Button>
+          <ShareMenu action={firstAction} post={post} />
         </div>
       )}
     </>
@@ -208,24 +276,7 @@ const PostActionExecutedNotification = ({
                 </div>
               </div>
               <div className="flex shrink-0 items-center gap-x-3">
-                {actionAmount && (
-                  <Button
-                    data-umami-event="Notification Share"
-                    data-umami-event-type={
-                      action.__typename === "SimpleCollectPostActionExecuted"
-                        ? "post-collected"
-                        : "post-tip"
-                    }
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      handleShare(action);
-                    }}
-                    size="sm"
-                    variant="outline"
-                  >
-                    Share
-                  </Button>
-                )}
+                {actionAmount && <ShareMenu action={action} post={post} />}
                 <Timestamp
                   isNew={action.executedAt > seenAtTimestamp}
                   timestamp={action.executedAt}
