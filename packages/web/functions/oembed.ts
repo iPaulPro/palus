@@ -127,7 +127,7 @@ export const onRequestGet: PagesFunction = async (context) => {
     const result = {
       favicon_url: favicon,
       ...(providerName && { provider_name: providerName }),
-      ...(thumbnailUrl && { thumbnail_url: thumbnailUrl }),
+      ...(thumbnailUrl && { thumbnail_url: decode(thumbnailUrl) }),
       ...(title && { title: decode(title) }),
       type: "link",
       version: "1.0"

@@ -23,7 +23,7 @@ const fetchLinkPreview = async (url: string): Promise<Oembed | null> => {
       null;
 
     const { hostname } = new URL(url);
-    const title = getMeta("og:title") ?? decode(doc.title) ?? null;
+    const title = getMeta("og:title") ?? doc.title ?? null;
     const thumbnailUrl = getMeta("og:image");
     const providerName = getMeta("og:site_name") ?? hostname ?? null;
 
@@ -41,8 +41,8 @@ const fetchLinkPreview = async (url: string): Promise<Oembed | null> => {
     return {
       favicon_url: faviconUrl,
       ...(providerName && { provider_name: providerName }),
-      ...(thumbnailUrl && { thumbnail_url: thumbnailUrl }),
-      ...(title && { title }),
+      ...(thumbnailUrl && { thumbnail_url: decode(thumbnailUrl) }),
+      ...(title && { title: decode(title) }),
       type: "link",
       version: "1.0"
     };
