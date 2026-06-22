@@ -1,6 +1,5 @@
 import { ArrowTopRightOnSquareIcon } from "@heroicons/react/24/outline";
 import { usePostQuery } from "@palus/indexer";
-import { useIntersectionObserver } from "@uidotdev/usehooks";
 import { memo } from "react";
 import { Link } from "react-router";
 import Quote from "@/components/Shared/Embed/Quote";
@@ -20,10 +19,6 @@ interface OEmbedProps {
 const OEmbed = ({ url }: OEmbedProps) => {
   const { data: oembed, isPending: isLoading } = useOembed(url);
   const { replaceLensLinks } = usePreferencesStore();
-  const [ref, entry] = useIntersectionObserver({
-    root: null,
-    threshold: 0
-  });
 
   const parsedUrl = new URL(url);
   const hostname = parsedUrl.hostname;
@@ -133,19 +128,18 @@ const OEmbed = ({ url }: OEmbedProps) => {
       className={cn(
         "not-prose mt-4 flex min-h-16 w-full flex-col rounded-xl border border-border md:w-2/3",
         {
-          "min-h-56": Boolean(oembed.thumbnail_url)
+          "min-h-64": Boolean(oembed.thumbnail_url)
         }
       )}
       onClick={(e) => e.stopPropagation()}
-      ref={ref}
       rel="noopener"
       target={link.includes(location.host) ? "_self" : "_blank"}
       to={link}
     >
-      {oembed.thumbnail_url && entry?.isIntersecting && (
+      {oembed.thumbnail_url && (
         <Image
           alt={oembed.title}
-          className="h-40 w-full rounded-t-xl border-border border-b bg-accent object-cover"
+          className="h-48 w-full rounded-t-xl border-border border-b bg-accent object-cover"
           src={oembed.thumbnail_url}
         />
       )}
