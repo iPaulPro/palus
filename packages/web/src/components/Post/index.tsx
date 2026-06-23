@@ -96,6 +96,7 @@ const ViewPost = () => {
   }
 
   const targetPost: PostFragment = isRepost(post) ? post.repostOf : post;
+  const isArticle = targetPost?.metadata.__typename === "ArticleMetadata";
 
   return (
     <PageLayout
@@ -120,7 +121,7 @@ const ViewPost = () => {
           <Footer />
         </div>
       }
-      title={`${targetPost.__typename} by ${
+      title={`${isArticle ? "Article" : "Post"} by ${
         getAccount(targetPost.author).username
       }`}
       zeroTopMargin
@@ -131,7 +132,10 @@ const ViewPost = () => {
         ) : (
           <>
             <Card>
-              <CardHeader icon={<BackButton />} title="Post" />
+              <CardHeader
+                icon={<BackButton />}
+                title={isArticle ? "Article" : "Post"}
+              />
               <FullPost
                 hasHiddenComments={hasHiddenComments}
                 key={post?.id}

@@ -1,4 +1,7 @@
-import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
+import {
+  ExclamationCircleIcon,
+  NewspaperIcon
+} from "@heroicons/react/24/outline";
 import { getSrc } from "@livepeer/react/external";
 import { type AnyPostFragment, ContentWarning } from "@palus/indexer";
 import {
@@ -97,7 +100,8 @@ const PostBody = ({
     !showLive &&
     !showAttachments &&
     !embedded &&
-    !targetPost.quoteOf;
+    !targetPost.quoteOf &&
+    !isArticle;
 
   const [showCensored, setShowCensored] = useState(false);
   const contentWarning =
@@ -134,6 +138,16 @@ const PostBody = ({
             "opacity-50 blur-2xl": contentWarning && !showCensored
           })}
         >
+          {isClamped && isArticle ? (
+            <div
+              className={
+                "mb-1 flex w-fit items-center gap-x-1.5 rounded-lg border border-border bg-accent px-3 py-0.5 font-semibold text-sm"
+              }
+            >
+              <NewspaperIcon className="size-4" />
+              Article
+            </div>
+          ) : null}
           <Markup
             className={cn(
               {
