@@ -6,6 +6,7 @@ import type {
 import { getWalletClient } from "@wagmi/core";
 import { sendEip712Transaction, sendTransaction } from "viem/zksync";
 import { useConfig } from "wagmi";
+import { CHAIN } from "@/data/constants";
 import { ERROR_NAMES, ERRORS } from "@/data/errors";
 import getTransactionData from "@/helpers/getTransactionData";
 import type { ApolloClientError } from "@/types/errors";
@@ -39,22 +40,18 @@ const useTransactionLifecycle = () => {
     }
 
     try {
-      await handleWrongNetwork();
-    } catch {
-      return onError({
-        message: ERRORS.SignWallet,
-        name: transactionData.__typename
+      const walletClient = await getWalletClient(config, {
+        chainId: CHAIN.id
       });
-    }
-
-    try {
-      const walletClient = await getWalletClient(config);
       if (!walletClient) {
         return onError({
           message: ERRORS.SignWallet,
           name: transactionData.__typename
         });
       }
+
+      await handleWrongNetwork();
+
       return onCompleted(
         await sendEip712Transaction(walletClient, {
           account: walletClient.account,

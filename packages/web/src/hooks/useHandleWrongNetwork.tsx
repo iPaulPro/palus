@@ -12,7 +12,11 @@ const useHandleWrongNetwork = () => {
     }
 
     if (chainId !== CHAIN.id) {
-      await switchChainAsync({ chainId: CHAIN.id });
+      try {
+        await switchChainAsync({ chainId: CHAIN.id });
+      } catch {
+        // some wallets don't support this
+      }
     }
   };
 
