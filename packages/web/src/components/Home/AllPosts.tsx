@@ -13,6 +13,7 @@ import { CONTRACTS } from "@/data/contracts";
 import getPostData from "@/helpers/getPostData";
 import { isRepost } from "@/helpers/postHelpers";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { usePreferencesStore } from "@/store/persisted/usePreferencesStore";
 
 interface AllPostsProps {
@@ -22,6 +23,7 @@ interface AllPostsProps {
 const AllPosts = ({ onScroll }: AllPostsProps) => {
   const { bannedAccounts } = useBannedAccountsStore();
   const { hideHeyPosts, hideShareImagePosts } = usePreferencesStore();
+  const { currentAccount } = useAccountStore();
 
   const request: PostsRequest = useMemo(
     () => ({
@@ -55,6 +57,7 @@ const AllPosts = ({ onScroll }: AllPostsProps) => {
         const targetPost = isRepost(post) ? post.repostOf : post;
         const postData = getPostData(targetPost.metadata);
         return (
+          post.author.address !== currentAccount?.address &&
           !post.author.operations?.isBlockedByMe &&
           !post.author.operations?.isMutedByMe &&
           !targetPost.operations?.hasReported &&
@@ -68,7 +71,13 @@ const AllPosts = ({ onScroll }: AllPostsProps) => {
           !(hideHeyPosts && targetPost.app?.address === CONTRACTS.heyApp)
         );
       }),
-    [posts, bannedAccounts, hideShareImagePosts, hideHeyPosts]
+    [
+      posts,
+      bannedAccounts,
+      hideShareImagePosts,
+      hideHeyPosts,
+      currentAccount?.address
+    ]
   );
 
   return (
