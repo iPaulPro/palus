@@ -3,6 +3,8 @@ import {
   defineBaseKeymap,
   defineHistory,
   defineNodeSpec,
+  definePasteHandler,
+  definePlugin,
   union
 } from "prosekit/core";
 import { defineBold } from "prosekit/extensions/bold";
@@ -13,7 +15,8 @@ import { defineLinkMarkRule, defineLinkSpec } from "prosekit/extensions/link";
 import {
   defineList,
   defineListInputRules,
-  defineListKeymap
+  defineListKeymap,
+  ListDOMSerializer
 } from "prosekit/extensions/list";
 import type { MentionAttrs } from "prosekit/extensions/mention";
 import { defineMentionCommands } from "prosekit/extensions/mention";
@@ -23,7 +26,36 @@ import { definePlaceholder } from "prosekit/extensions/placeholder";
 import { defineStrike } from "prosekit/extensions/strike";
 import { defineText } from "prosekit/extensions/text";
 import { defineVirtualSelection } from "prosekit/extensions/virtual-selection";
+import { Plugin } from "prosekit/pm/state";
 import { LENS_NAMESPACE } from "@/data/constants";
+import {
+  htmlFromMarkdown,
+  markdownFromHTML
+} from "@/helpers/prosekit/markdown";
+
+const defineMarkdownPaste = () => {
+  return definePasteHandler((view, event) => {
+    const html = event.clipboardData?.getData("text/html");
+    const text = event.clipboardData?.getData("text/plain");
+    if (html || !text) return false;
+    return view.pasteHTML(htmlFromMarkdown(text));
+  });
+};
+
+const defineMarkdownClipboard = () => {
+  return definePlugin(({ schema }) => {
+    const serializer = ListDOMSerializer.fromSchema(schema);
+    return new Plugin({
+      props: {
+        clipboardTextSerializer: (slice) => {
+          const div = document.createElement("div");
+          serializer.serializeFragment(slice.content, {}, div);
+          return markdownFromHTML(div.innerHTML);
+        }
+      }
+    });
+  });
+};
 
 const defineAutoLink = () => {
   return union([defineLinkSpec(), defineLinkMarkRule()]);
@@ -101,7 +133,9 @@ export const defineEditorExtension = (placeholder = "What's new?") => {
     definePlaceholder({ placeholder, strategy: "doc" }),
     defineList(),
     defineListInputRules(),
-    defineListKeymap()
+    defineListKeymap(),
+    defineMarkdownClipboard(),
+    defineMarkdownPaste()
   ]);
 };
 
