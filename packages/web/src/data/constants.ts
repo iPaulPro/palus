@@ -1,4 +1,5 @@
 import { chains } from "@lens-chain/sdk/viem";
+import { NATIVE_TOKEN } from "@/data/tokens";
 
 export const IS_TESTNET = import.meta.env.VITE_USE_TESTNET === "true";
 export const CHAIN = IS_TESTNET ? chains.testnet : chains.mainnet;
@@ -46,7 +47,7 @@ export const INFURA_API_KEY = "7a63a964ef5c4c228b02b387e1a8d74f";
 export const THIRD_WEB_CLIENT_ID = "50f0da09fdc3c0f9ae25464c55babfdb";
 
 export const LENS_NAMESPACE = "lens/";
-export const NATIVE_TOKEN_SYMBOL = IS_TESTNET ? "GRASS" : "GHO";
+export const NATIVE_TOKEN_SYMBOL = NATIVE_TOKEN.symbol;
 
 export const MAX_IMAGE_UPLOAD = 8;
 

@@ -25,8 +25,10 @@ import Wrapper from "@/components/Shared/Embed/Wrapper";
 import EmojiPicker from "@/components/Shared/EmojiPicker";
 import OEmbed from "@/components/Shared/Post/OEmbed";
 import { Button, Card, H6, WarningMessage } from "@/components/Shared/UI";
+import { NATIVE_TOKEN_SYMBOL, PLATFORM_COLLECT_FEE } from "@/data/constants";
 import { CONTRACTS } from "@/data/contracts";
 import { ERRORS } from "@/data/errors";
+import { findToken } from "@/data/tokens";
 import cn from "@/helpers/cn";
 import collectActionParams from "@/helpers/collectActionParams";
 import { componentToPng } from "@/helpers/componentToPng";
@@ -406,7 +408,21 @@ const NewPublication = ({
           followingOnly,
           groupGate: Boolean(groupGate)
         },
-        type: metadata.lens.mainContentFocus
+        type: metadata.lens.mainContentFocus,
+        ...(collectAction.enabled && {
+          collectFollowerOnly: Boolean(collectAction.followerOnly),
+          collectLimited: Boolean(collectAction.collectLimit),
+          collectTimed: Boolean(collectAction.endsAt),
+          ...(collectAction.payToCollect && {
+            collectRecipients: collectAction.payToCollect.recipients.length,
+            collectReferralShare:
+              (collectAction.payToCollect.referralShare ??
+                PLATFORM_COLLECT_FEE) - PLATFORM_COLLECT_FEE,
+            collectToken: collectAction.payToCollect.native
+              ? NATIVE_TOKEN_SYMBOL
+              : findToken(collectAction.payToCollect.erc20?.currency)?.symbol
+          })
+        })
       });
 
       return await createPost({
