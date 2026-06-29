@@ -34,8 +34,8 @@ const ReactionNotification = ({
   const moreThanOneAccount = length > 0;
 
   const text = moreThanOneAccount
-    ? `and ${length} ${plur("other", length)} liked your`
-    : "liked your";
+    ? `and ${length} ${plur("other", length)} reacted to your`
+    : `${reactions[0].reactions[0].reaction === "UPVOTE" ? "liked" : "disliked"} your`;
   const type = notification.post.commentOn ? "comment" : "post";
   const isSingle = reactions.length === 1;
 
@@ -79,12 +79,19 @@ const ReactionNotification = ({
             className="flex items-center justify-between"
             key={`${reaction.account.address}-${r.reactedAt}`}
           >
-            <div className="flex items-center gap-x-2">
+            <div className="flex min-w-0 items-center gap-x-2">
               <NotificationAccountAvatar account={reaction.account} />
-              <NotificationAccountName
-                account={reaction.account}
-                bold={false}
-              />
+              <div className="min-w-0">
+                <NotificationAccountName
+                  account={reaction.account}
+                  bold={false}
+                />
+                <p className="truncate text-secondary text-xs">
+                  {reaction.reactions[0].reaction === "UPVOTE"
+                    ? "Liked"
+                    : "Disliked"}
+                </p>
+              </div>
             </div>
             <Timestamp
               isNew={r.reactedAt > seenAtTimestamp}

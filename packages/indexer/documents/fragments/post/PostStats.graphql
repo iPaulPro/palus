@@ -2,7 +2,7 @@ fragment PostStats on PostStats {
   bookmarks
   comments
   quotes
-  reactions
+  reactions(request: { type: UPVOTE })
   reposts
   collects
   tips

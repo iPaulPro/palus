@@ -10361,7 +10361,7 @@ export const PostStatsFragmentDoc = `
   bookmarks
   comments
   quotes
-  reactions
+  reactions(request: {type: UPVOTE})
   reposts
   collects
   tips

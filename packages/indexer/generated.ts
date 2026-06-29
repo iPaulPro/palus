@@ -10040,7 +10040,7 @@ export const PostStatsFragmentDoc = gql`
   bookmarks
   comments
   quotes
-  reactions
+  reactions(request: {type: UPVOTE})
   reposts
   collects
   tips
