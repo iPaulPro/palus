@@ -1,7 +1,6 @@
 import { toast } from "sonner";
 import generateUUID from "@/helpers/generateUUID";
 import type { NewAttachment } from "@/types/misc";
-import compressImage from "./compressImage";
 
 const BYTES_IN_MB = 1_000_000;
 const MAX_UPLOAD_LIMIT = 125 * BYTES_IN_MB;
@@ -33,20 +32,6 @@ export const validateFileSize = (file: File): boolean => {
   }
 
   return true;
-};
-
-export const compressFiles = async (files: File[]): Promise<File[]> => {
-  return Promise.all(
-    files.map(async (file) => {
-      if (file.type.includes("image") && !file.type.includes("gif")) {
-        return await compressImage(file, {
-          maxSizeMB: 8,
-          maxWidthOrHeight: 6000
-        });
-      }
-      return file;
-    })
-  );
 };
 
 export const createPreviewAttachments = (files: File[]): NewAttachment[] => {

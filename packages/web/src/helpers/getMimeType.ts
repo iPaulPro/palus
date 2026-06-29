@@ -6,9 +6,9 @@ import {
 import { MediaAudioType, MediaImageType, MediaVideoType } from "@palus/indexer";
 
 export const getMimeType = (
-  mediaAudioType: MediaAudioType | MediaVideoType | MediaImageType
+  mediaType: MediaAudioType | MediaVideoType | MediaImageType
 ): MediaAudioMimeType | MediaVideoMimeType | MediaImageMimeType => {
-  switch (mediaAudioType) {
+  switch (mediaType) {
     // Audio
     case MediaAudioType.AudioAac:
       return MediaAudioMimeType.AAC;

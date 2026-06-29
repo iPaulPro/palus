@@ -8,11 +8,11 @@ import {
 } from "@lens-protocol/metadata";
 import { useCallback } from "react";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
+import { usePostAudioStore } from "@/store/non-persisted/post/usePostAudioStore";
 import { usePostContentWarningStore } from "@/store/non-persisted/post/usePostContentWarningStore";
 import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
 import { usePostVideoStore } from "@/store/non-persisted/post/usePostVideoStore";
 import type { NewAttachment } from "@/types/misc";
-import { usePostAudioStore } from "../store/non-persisted/post/usePostAudioStore";
 
 interface UsePostMetadataProps {
   baseMetadata: any;
