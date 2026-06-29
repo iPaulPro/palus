@@ -7,6 +7,10 @@ import retryLink from "./retryLink";
 export const createApolloClient = (authLink?: ApolloLink) =>
   new ApolloClient({
     cache,
+    defaultOptions: {
+      query: { errorPolicy: "all" },
+      watchQuery: { errorPolicy: "all" }
+    },
     devtools: {
       enabled: import.meta.env.DEV
     },

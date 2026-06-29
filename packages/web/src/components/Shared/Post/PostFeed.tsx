@@ -52,7 +52,7 @@ const PostFeed = <T extends { id: string }>({
     return <EmptyState icon={emptyIcon} message={emptyMessage} />;
   }
 
-  if (error) {
+  if (error && !items) {
     return <ErrorMessage error={error} title={errorTitle} />;
   }
 
