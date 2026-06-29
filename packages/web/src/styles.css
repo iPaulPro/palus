@@ -162,7 +162,7 @@
     }
 
     & .prosemirror-flat-list {
-      @apply last-of-type:!mb-4;
+      @apply last-of-type:mb-4!;
     }
   }
 
@@ -180,18 +180,20 @@
   .markup > h5,
   .markup > h6 {
     word-break: break-word;
-    @apply leading-[26px];
-    @apply [&:not(:last-child)]:mb-3;
+    @apply leading-6.5;
+    @apply not-last:mb-3;
   }
 
   .markup ul,
   .full-page-post-markup ul {
-    @apply list-disc pl-5;
+    margin-inline-start: 1lh;
+    @apply list-disc;
   }
 
   .markup ol,
   .full-page-post-markup ol {
-    @apply list-decimal pl-4;
+    margin-inline-start: 1lh;
+    @apply list-decimal;
   }
 
   .markup li,
@@ -233,8 +235,8 @@
   .full-page-post-markup ul,
   .full-page-post-markup ol {
     @apply text-[15px] sm:text-[17px];
-    @apply !leading-7 sm:leading-[26px];
-    @apply [&:not(:last-child)]:mb-3 sm:[&:not(:last-child)]:mb-4;
+    @apply leading-7! sm:leading-6.5;
+    @apply not-last:mb-3 sm:not-last:mb-4;
   }
 
   .virtual-divider-list-window {
