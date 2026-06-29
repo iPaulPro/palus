@@ -296,7 +296,8 @@
     font-family:
       -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
       sans-serif;
-    @apply mb-4 text-on-surface;
+    word-break: break-word;
+    @apply mb-4 text-on-surface wrap-break-word;
   }
 
   .twitter-tweet a:hover {
