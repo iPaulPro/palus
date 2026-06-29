@@ -21,14 +21,17 @@ const Report = ({ post }: ReportProps) => {
           "m-2 block cursor-pointer rounded-lg px-2 py-1.5 text-red-500 text-sm"
         )
       }
+      disabled={post.operations?.hasReported}
       onClick={(event) => {
         stopEventPropagation(event);
-        setShowReportPostModal(true, post.id);
+        if (!post.operations?.hasReported) {
+          setShowReportPostModal(true, post.id);
+        }
       }}
     >
       <div className="flex items-center gap-x-2">
         <ExclamationTriangleIcon className="size-4" />
-        <div>Report post</div>
+        <div>{post.operations?.hasReported ? "Reported" : "Report post"}</div>
       </div>
     </MenuItem>
   );
