@@ -48,32 +48,34 @@ const UploadOption = ({
   disabled,
   onChange,
   onClick
-}: UploadOptionProps) => (
-  <MenuItem
-    as="label"
-    className={({ focus }) =>
-      cn(
-        "menu-item flex! cursor-pointer items-center gap-1 space-x-1 rounded-lg",
-        { "dropdown-active": focus, "opacity-50": disabled }
-      )
-    }
-    disabled={disabled}
-    htmlFor="upload-media"
-    onClick={onClick}
-  >
-    <PaperClipIcon className="size-4" />
-    <span className="text-sm">Upload media</span>
-    <input
-      accept={accept.join(",")}
-      className="hidden"
+}: UploadOptionProps) => {
+  return (
+    <MenuItem
+      as="label"
+      className={({ focus }) =>
+        cn(
+          "menu-item flex! cursor-pointer items-center gap-1 space-x-1 rounded-lg",
+          { "dropdown-active": focus, "opacity-50": disabled }
+        )
+      }
       disabled={disabled}
-      id="upload-media"
-      multiple={true}
-      onChange={onChange}
-      type="file"
-    />
-  </MenuItem>
-);
+      htmlFor="upload-media"
+      onClick={onClick}
+    >
+      <PaperClipIcon className="size-4" />
+      <span className="text-sm">Upload media</span>
+      <input
+        accept={accept.join(",")}
+        className="hidden"
+        disabled={disabled}
+        id="upload-media"
+        multiple={true}
+        onChange={onChange}
+        type="file"
+      />
+    </MenuItem>
+  );
+};
 
 interface AttachmentProps {
   anchor?: AnchorProps;
@@ -174,7 +176,6 @@ const Attachment = ({
                 isImageAttachments ? disableImageUpload : disableOtherUpload
               }
               onChange={handleAttachment}
-              onClick={() => setShowMenu(false)}
             />
             <MenuItem
               as="div"
