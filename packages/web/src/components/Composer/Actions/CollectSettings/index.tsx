@@ -14,7 +14,7 @@ const CollectSettings = () => {
 
   return (
     <>
-      <Tooltip content="Collect" placement="top" withDelay>
+      <Tooltip content="Collect Settings" placement="top" withDelay>
         <button
           aria-label="Collect Module"
           className="flex items-center rounded-full outline-offset-8"

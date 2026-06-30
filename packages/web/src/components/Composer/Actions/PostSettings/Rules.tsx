@@ -8,6 +8,7 @@ import Checkbox from "@/components/Shared/UI/Checkbox";
 import { CONTRACTS } from "@/data/contracts";
 import { EXPANSION_EASE } from "@/helpers/variants";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
+import { usePostContentWarningStore } from "@/store/non-persisted/post/usePostContentWarningStore";
 import {
   type RuleState,
   usePostRulesStore
@@ -112,6 +113,7 @@ const Rules = ({ setShowModal, groupAddress }: RulesProps) => {
     setGroupGate,
     setCollectorsOnly
   } = usePostRulesStore();
+  const { setContentWarning } = usePostContentWarningStore();
 
   const { collectAction } = useCollectActionStore();
 
@@ -149,7 +151,7 @@ const Rules = ({ setShowModal, groupAddress }: RulesProps) => {
 
   return (
     <>
-      <div className="m-5 space-y-5">
+      <div className="space-y-5 px-5 pb-6">
         <div>
           <ToggleWithHelper
             description="Only people who follow you can reply, quote, or repost"
@@ -185,16 +187,18 @@ const Rules = ({ setShowModal, groupAddress }: RulesProps) => {
             description="Only members of the group can reply"
             disabled={isGroupGatedFeed || groupLoading}
             heading={
-              <span className="font-semibold">
+              <span className="flex items-center gap-x-2 font-semibold">
                 Restrict to <span className="font-bold">group members</span>
+                {isGroupGatedFeed ? (
+                  <Tooltip
+                    content="This group only allows members to reply"
+                    placement="top"
+                    showOnClick
+                  >
+                    <InformationCircleIcon className="size-5 text-gray-400" />
+                  </Tooltip>
+                ) : null}
               </span>
-            }
-            icon={
-              isGroupGatedFeed ? (
-                <Tooltip content="This group only allows members to reply">
-                  <InformationCircleIcon className="size-5 text-gray-400" />
-                </Tooltip>
-              ) : null
             }
             on={!!groupGate || isGroupGatedFeed}
             setOn={() =>
@@ -231,13 +235,14 @@ const Rules = ({ setShowModal, groupAddress }: RulesProps) => {
             setFollowingOnly(undefined);
             setGroupGate(undefined);
             setCollectorsOnly(undefined);
+            setContentWarning(undefined);
             setShowModal(false);
           }}
           variant="outline"
         >
           Reset
         </Button>
-        <Button onClick={() => setShowModal(false)}>Save</Button>
+        <Button onClick={() => setShowModal(false)}>Done</Button>
       </div>
     </>
   );

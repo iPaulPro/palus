@@ -10,11 +10,8 @@ import { useHotkeys } from "react-hotkeys-hook";
 import { toast } from "sonner";
 import Attachment from "@/components/Composer/Actions/Attachment";
 import CollectSettings from "@/components/Composer/Actions/CollectSettings";
-import ContentWarning from "@/components/Composer/Actions/ContentWarning";
-import Gif from "@/components/Composer/Actions/Gif";
-import PollSettings from "@/components/Composer/Actions/PollSettings";
 import PollEditor from "@/components/Composer/Actions/PollSettings/PollEditor";
-import RulesSettings from "@/components/Composer/Actions/RulesSettings";
+import PostSettings from "@/components/Composer/Actions/PostSettings";
 import NewAttachments from "@/components/Composer/NewAttachments";
 import NotificationShare from "@/components/Composer/NotificationShare";
 import Shimmer from "@/components/Composer/Shimmer";
@@ -550,13 +547,14 @@ const NewPublication = ({
       </div>
       <div className="block shrink-0 items-center border-border border-t px-5 py-3 sm:flex">
         <div
-          className={cn("flex w-full items-center space-x-5 bg-card", {
+          className={cn("flex w-full items-center gap-x-6 bg-card sm:gap-x-5", {
             "pb-6 sm:pb-0": isStandalone && isModal
           })}
         >
           <Attachment
-            anchor={isModal ? "top" : "bottom"}
+            anchor={isModal ? "top" : "bottom start"}
             disabled={Boolean(notificationShare)}
+            setGifAttachment={setGifAttachment}
           />
           <EmojiPicker
             anchor={isModal ? "top start" : "bottom start"}
@@ -564,20 +562,10 @@ const NewPublication = ({
               editor?.insertText(emoji);
             }}
           />
-          <Gif
-            disabled={Boolean(notificationShare)}
-            setGifAttachment={(gif: IGif) => setGifAttachment(gif)}
-          />
-          <ContentWarning />
-          {editingPost ? null : (
-            <>
-              <PollSettings />
-              <CollectSettings />
-            </>
-          )}
-          <div className="flex w-full items-center justify-end gap-x-4">
+          {editingPost ? null : <CollectSettings />}
+          <div className="flex w-full items-center justify-end gap-x-5">
             {editingPost || isComment ? null : (
-              <RulesSettings group={selectedGroup} />
+              <PostSettings group={selectedGroup} />
             )}
             <Button
               className="flex-none"

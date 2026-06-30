@@ -1,25 +1,30 @@
 import { Menu, MenuButton, MenuItem, MenuItems } from "@headlessui/react";
+import type { AnchorProps } from "@headlessui/react/dist/internal/floating";
 import {
-  MusicalNoteIcon,
-  PhotoIcon,
-  VideoCameraIcon
+  ChartBarIcon,
+  GifIcon,
+  PaperClipIcon,
+  PlusCircleIcon
 } from "@heroicons/react/24/outline";
+import { ChartBarIcon as ChartBarIconSolid } from "@heroicons/react/24/solid";
 import {
   MediaAudioMimeType,
   MediaImageMimeType
 } from "@lens-protocol/metadata";
 import { useClickAway } from "@uidotdev/usehooks";
-import type { ChangeEvent, JSX, RefObject } from "react";
-import { memo, useId, useState } from "react";
+import type { ChangeEvent, RefObject } from "react";
+import { memo, useState } from "react";
 import { toast } from "sonner";
+import GifSelector from "@/components/Composer/Actions/Gif/GifSelector";
 import MenuTransition from "@/components/Shared/MenuTransition";
-import { Spinner, Tooltip } from "@/components/Shared/UI";
+import { Modal, Spinner, Tooltip } from "@/components/Shared/UI";
 import { MAX_IMAGE_UPLOAD } from "@/data/constants";
 import cn from "@/helpers/cn";
 import useUploadAttachments from "@/hooks/useUploadAttachments";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
-import UrlAttachment from "./UrlAttachment";
-import UrlAttachmentModal from "./UrlAttachment/Modal";
+import { usePostPollStore } from "@/store/non-persisted/post/usePostPollStore";
+import { usePostStore } from "@/store/non-persisted/post/usePostStore";
+import type { IGif } from "@/types/giphy";
 
 const ImageMimeType = Object.values(MediaImageMimeType);
 const AudioMimeType = Object.values(MediaAudioMimeType);
@@ -34,21 +39,15 @@ const VideoMimeType = [
 interface UploadOptionProps {
   accept: string[];
   disabled: boolean;
-  icon: JSX.Element;
-  idSuffix: string;
-  label: string;
   onChange: (evt: ChangeEvent<HTMLInputElement>) => void;
-  uploadId: string;
+  onClick?: () => void;
 }
 
 const UploadOption = ({
   accept,
   disabled,
-  icon,
-  idSuffix,
-  label,
   onChange,
-  uploadId
+  onClick
 }: UploadOptionProps) => (
   <MenuItem
     as="label"
@@ -59,16 +58,17 @@ const UploadOption = ({
       )
     }
     disabled={disabled}
-    htmlFor={`${uploadId}_${idSuffix}`}
+    htmlFor="upload-media"
+    onClick={onClick}
   >
-    {icon}
-    <span className="text-sm">{label}</span>
+    <PaperClipIcon className="size-4" />
+    <span className="text-sm">Upload media</span>
     <input
       accept={accept.join(",")}
       className="hidden"
       disabled={disabled}
-      id={`${uploadId}_${idSuffix}`}
-      multiple={idSuffix === "image"}
+      id="upload-media"
+      multiple={true}
       onChange={onChange}
       type="file"
     />
@@ -76,29 +76,40 @@ const UploadOption = ({
 );
 
 interface AttachmentProps {
-  anchor?: "top" | "bottom";
+  anchor?: AnchorProps;
   disabled: boolean;
+  setGifAttachment: (gif: IGif) => void;
 }
 
-const Attachment = ({ anchor = "bottom", disabled }: AttachmentProps) => {
+const Attachment = ({
+  anchor = "bottom",
+  disabled,
+  setGifAttachment
+}: AttachmentProps) => {
   const { attachments, isUploading } = usePostAttachmentStore();
+  const { resetPollConfig, setShowPollEditor, showPollEditor } =
+    usePostPollStore();
+  const { editingPost } = usePostStore();
+
   const { handleUploadAttachments } = useUploadAttachments();
   const [showMenu, setShowMenu] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const id = useId();
   const dropdownRef = useClickAway(() =>
     setShowMenu(false)
   ) as RefObject<HTMLDivElement>;
 
+  const allowedTypes = [...ImageMimeType, ...AudioMimeType, ...VideoMimeType];
+
   const isTypeAllowed = (files: FileList) =>
-    Array.from(files).every((file) =>
-      [...ImageMimeType, ...AudioMimeType, ...VideoMimeType].includes(file.type)
-    );
+    Array.from(files).every((file) => allowedTypes.includes(file.type));
 
   const isUploadAllowed = (files: FileList) => {
     const isImage = files[0]?.type.startsWith("image");
+    const areAllImages = Array.from(files).every((file) =>
+      file.type.startsWith("image")
+    );
     return isImage
-      ? attachments.length + files.length <= MAX_IMAGE_UPLOAD
+      ? attachments.length + files.length <= MAX_IMAGE_UPLOAD && areAllImages
       : files.length === 1;
   };
 
@@ -114,7 +125,7 @@ const Attachment = ({ anchor = "bottom", disabled }: AttachmentProps) => {
       );
     }
     if (!isTypeAllowed(files)) {
-      return toast.error("File format not allowed.");
+      return toast.error("File format not supported");
     }
     try {
       await handleUploadAttachments(files);
@@ -124,6 +135,7 @@ const Attachment = ({ anchor = "bottom", disabled }: AttachmentProps) => {
     }
   };
 
+  const isImageAttachments = attachments[0]?.type === "Image";
   const disableImageUpload = attachments.length >= MAX_IMAGE_UPLOAD;
   const disableOtherUpload = attachments.length > 0;
 
@@ -132,7 +144,7 @@ const Attachment = ({ anchor = "bottom", disabled }: AttachmentProps) => {
       <Menu as="div">
         <Tooltip
           className="flex items-center"
-          content="Media"
+          content="Attachments"
           placement="top"
           withDelay
         >
@@ -145,7 +157,7 @@ const Attachment = ({ anchor = "bottom", disabled }: AttachmentProps) => {
             {isUploading ? (
               <Spinner size="sm" />
             ) : (
-              <PhotoIcon className="size-5" />
+              <PlusCircleIcon className="size-5.5" />
             )}
           </MenuButton>
         </Tooltip>
@@ -157,41 +169,74 @@ const Attachment = ({ anchor = "bottom", disabled }: AttachmentProps) => {
             static
           >
             <UploadOption
-              accept={ImageMimeType}
-              disabled={disableImageUpload}
-              icon={<PhotoIcon className="size-4" />}
-              idSuffix="image"
-              label="Upload image(s)"
+              accept={isImageAttachments ? ImageMimeType : allowedTypes}
+              disabled={
+                isImageAttachments ? disableImageUpload : disableOtherUpload
+              }
               onChange={handleAttachment}
-              uploadId={id}
+              onClick={() => setShowMenu(false)}
             />
-            <UploadOption
-              accept={VideoMimeType}
-              disabled={disableOtherUpload}
-              icon={<VideoCameraIcon className="size-4" />}
-              idSuffix="video"
-              label="Upload video"
-              onChange={handleAttachment}
-              uploadId={id}
-            />
-            <UploadOption
-              accept={AudioMimeType}
-              disabled={disableOtherUpload}
-              icon={<MusicalNoteIcon className="size-4" />}
-              idSuffix="audio"
-              label="Upload audio"
-              onChange={handleAttachment}
-              uploadId={id}
-            />
-            <div className="divider" />
-            <UrlAttachment
-              disabled={disableOtherUpload}
-              setShowModal={setShowModal}
-            />
+            <MenuItem
+              as="div"
+              className={({ focus }) =>
+                cn(
+                  { "dropdown-active": focus, "opacity-50": disabled },
+                  "m-2 flex cursor-pointer items-center gap-x-2 rounded-lg px-2 py-1.5 text-sm"
+                )
+              }
+              disabled={disabled || disableImageUpload}
+              onClick={() => {
+                setShowMenu(false);
+                setShowModal(true);
+              }}
+            >
+              <GifIcon className="size-4" />
+              <span className="text-sm">Add a GIF</span>
+            </MenuItem>
+            {!editingPost && (
+              <>
+                <div className="divider" />
+                <MenuItem
+                  as="div"
+                  className={({ focus }) =>
+                    cn(
+                      { "dropdown-active": focus, "opacity-50": disabled },
+                      "m-2 flex cursor-pointer items-center gap-x-2 rounded-lg px-2 py-1.5 text-sm"
+                    )
+                  }
+                  onClick={() => {
+                    setShowMenu(false);
+                    resetPollConfig();
+                    setShowPollEditor(!showPollEditor);
+                  }}
+                >
+                  {showPollEditor ? (
+                    <>
+                      <ChartBarIconSolid className="size-4 text-brand-400" />
+                      <span className="text-sm">Remove poll</span>
+                    </>
+                  ) : (
+                    <>
+                      <ChartBarIcon className="size-4" />
+                      <span className="text-sm">Add a poll</span>
+                    </>
+                  )}
+                </MenuItem>
+              </>
+            )}
           </MenuItems>
         </MenuTransition>
       </Menu>
-      <UrlAttachmentModal setShowModal={setShowModal} showModal={showModal} />
+      <Modal
+        onClose={() => setShowModal(false)}
+        show={showModal}
+        title="Select GIF"
+      >
+        <GifSelector
+          setGifAttachment={setGifAttachment}
+          setShowModal={setShowModal}
+        />
+      </Modal>
     </>
   );
 };

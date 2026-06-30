@@ -9,6 +9,7 @@ import { EditorRegex } from "@/data/regex";
 import cn from "@/helpers/cn";
 import type { EditorExtension } from "@/helpers/prosekit/extension";
 import useEmojis from "@/hooks/prosekit/useEmojis";
+import useUmami from "@/hooks/useUmami";
 import type { Emoji } from "@/types/misc";
 
 interface EmojiItemProps {
@@ -36,9 +37,11 @@ const EmojiPicker = () => {
   const editor = useEditor<EditorExtension>();
   const [query, setQuery] = useState("");
   const { emojis } = useEmojis({ query });
+  const { track } = useUmami();
 
   const handleInsert = (emoji: Emoji) => {
     editor.commands.insertText({ text: emoji.e });
+    track("Emoji Inserted");
   };
 
   return (
