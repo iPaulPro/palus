@@ -151,7 +151,7 @@ const Rules = ({ setShowModal, groupAddress }: RulesProps) => {
 
   return (
     <>
-      <div className="space-y-5 px-5 pb-6">
+      <div className="space-y-5 px-5 pt-1 pb-6">
         <div>
           <ToggleWithHelper
             description="Only people who follow you can reply, quote, or repost"
