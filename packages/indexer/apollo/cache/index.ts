@@ -8,6 +8,11 @@ const cache = new InMemoryCache({
     AccountManager: { keyFields: ["manager"] },
     Account: { keyFields: ["address"] },
     Group: { keyFields: ["address"] },
+    PostStats: {
+      fields: {
+        reactions: { keyArgs: false }
+      }
+    },
     Query: {
       fields: {
         timeline: createCursorFieldPolicy(["request", ["account", "filter"]]),
