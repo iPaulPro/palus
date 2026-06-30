@@ -69,7 +69,8 @@ const Timeline = ({ onScroll }: TimelineProps) => {
               (tag) => tag === "palus-tip" || tag === "ORB-TIP"
             )
           ) &&
-          !(hideHeyPosts && post.app?.address === CONTRACTS.heyApp)
+          !(hideHeyPosts && post.app?.address === CONTRACTS.heyApp) &&
+          !post.isDeleted
         );
       }),
     [feed, bannedAccounts, hideShareImagePosts, hideHeyPosts]
