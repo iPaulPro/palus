@@ -127,7 +127,11 @@ const AccountFeed = ({ username, address, type }: AccountFeedProps) => {
       ? !post.commentOn
       : post.__typename === "Post" && post.commentOn
         ? !bannedAccounts.includes(post.commentOn.author.address)
-        : !bannedAccounts.includes(post.author.address)
+        : !bannedAccounts.includes(post.author.address) &&
+          !(
+            post.__typename === "Repost" &&
+            bannedAccounts.includes(post.repostOf.author.address)
+          )
   );
   const pageInfo = data?.posts?.pageInfo;
   const hasMore = pageInfo?.next;

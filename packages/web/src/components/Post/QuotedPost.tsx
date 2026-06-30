@@ -6,6 +6,7 @@ import {
   getBlockedByMeMessage,
   getMutedByMeMessage
 } from "@/helpers/getBlockedMessage";
+import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
 import HiddenPost from "./HiddenPost";
 import PostAvatar from "./PostAvatar";
 import PostBody from "./PostBody";
@@ -17,8 +18,11 @@ interface QuotedPostProps {
 }
 
 const QuotedPost = ({ isNew = false, post }: QuotedPostProps) => {
+  const { bannedAccounts } = useBannedAccountsStore();
+
   const isBlockedByMe = post.author.operations?.isBlockedByMe;
   const isMutedByMe = post.author.operations?.isMutedByMe;
+  const isBanned = bannedAccounts.includes(post.author.address);
 
   const [ignoreBlock, setIgnoreBlock] = useState(false);
   const [ignoreMute, setIgnoreMute] = useState(false);
@@ -39,6 +43,10 @@ const QuotedPost = ({ isNew = false, post }: QuotedPostProps) => {
         setIgnore={setIgnoreMute}
       />
     );
+  }
+
+  if (isBanned) {
+    return <PostWarning message="Post author banned" />;
   }
 
   return (
