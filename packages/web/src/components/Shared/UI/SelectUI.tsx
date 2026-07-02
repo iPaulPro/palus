@@ -1,10 +1,5 @@
-"use client";
-
-import {
-  CheckIcon,
-  ChevronDownIcon,
-  ChevronUpIcon
-} from "@heroicons/react/24/solid";
+import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/16/solid";
+import { CheckIcon } from "@heroicons/react/24/solid";
 import { Select as SelectPrimitive } from "radix-ui";
 import type * as React from "react";
 import cn from "@/helpers/cn";
@@ -38,7 +33,7 @@ function SelectTrigger({
   return (
     <SelectPrimitive.Trigger
       className={cn(
-        "flex w-fit items-center justify-between gap-2 whitespace-nowrap rounded-lg border border-gray-200 bg-transparent px-2 py-1 text-sm shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-gray-400 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 data-[size=default]:h-9 data-[size=sm]:h-8 data-[placeholder]:text-muted-foreground *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1 dark:border-gray-800 dark:bg-input/30 dark:aria-invalid:ring-destructive/40 dark:focus-visible:border-gray-500 dark:hover:bg-input/50 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0",
+        "flex w-fit items-center justify-between gap-1 whitespace-nowrap rounded-lg border border-gray-200 bg-transparent px-2 py-1 text-sm shadow-xs outline-none transition-[color,box-shadow] focus-visible:border-gray-400 disabled:cursor-not-allowed disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 data-[size=default]:h-9 data-[size=sm]:h-8 data-[placeholder]:text-muted-foreground *:data-[slot=select-value]:line-clamp-1 *:data-[slot=select-value]:flex *:data-[slot=select-value]:items-center *:data-[slot=select-value]:gap-1 dark:border-gray-800 dark:bg-input/30 dark:aria-invalid:ring-destructive/40 dark:focus-visible:border-gray-500 dark:hover:bg-input/50 [&_svg:not([class*='size-'])]:size-4 [&_svg:not([class*='text-'])]:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0",
         className
       )}
       data-size={size}
@@ -47,7 +42,7 @@ function SelectTrigger({
     >
       {children}
       <SelectPrimitive.Icon asChild>
-        <ChevronDownIcon className="size-4 text-secondary" />
+        <ChevronDownIcon className="size-5 text-secondary" />
       </SelectPrimitive.Icon>
     </SelectPrimitive.Trigger>
   );

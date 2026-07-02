@@ -5,8 +5,8 @@ import {
   ListboxOptions,
   Transition
 } from "@headlessui/react";
+import { CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/16/solid";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
-import { CheckCircleIcon, ChevronDownIcon } from "@heroicons/react/24/solid";
 import { Fragment, memo, type ReactNode, useState } from "react";
 import { Input } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
@@ -15,6 +15,7 @@ interface SelectProps {
   className?: string;
   defaultValue?: string;
   iconClassName?: string;
+  listBoxClassName?: string;
   onChange: (value: any) => any;
   options?: {
     disabled?: boolean;
@@ -26,15 +27,18 @@ interface SelectProps {
     value: number | string;
   }[];
   showSearch?: boolean;
+  size?: "sm" | "md" | "lg";
 }
 
 const Select = ({
   className,
   defaultValue,
   iconClassName,
+  listBoxClassName,
   onChange,
   options,
-  showSearch = false
+  showSearch = false,
+  size = "md"
 }: SelectProps) => {
   const [searchValue, setSearchValue] = useState("");
   const selected = options?.find((option) => option.selected) || options?.[0];
@@ -44,7 +48,9 @@ const Select = ({
       <div className="relative">
         <ListboxButton
           className={cn(
-            "flex w-full items-center justify-between space-x-3 rounded-xl border border-gray-300 bg-white px-3 py-2.5 text-left outline-hidden focus:border-gray-500 focus:ring-gray-400 dark:border-gray-800 dark:bg-gray-800",
+            "flex w-full items-center justify-between gap-x-3 rounded-xl border border-gray-300 bg-white py-2.5 pr-2 pl-3 text-left outline-hidden focus:border-gray-500 focus:ring-gray-400 dark:border-gray-800 dark:bg-gray-800",
+            size === "sm" && "gap-x-1 py-0.5 text-sm",
+            size === "lg" && "py-3 text-lg",
             className
           )}
         >
@@ -61,7 +67,14 @@ const Select = ({
               ))}
             <span>{selected?.htmlLabel || selected?.label}</span>
           </span>
-          <ChevronDownIcon className="mr-1 size-5 text-gray-400" />
+          <ChevronDownIcon
+            className={cn(
+              "mr-1 text-secondary",
+              size === "sm" && "mr-0 size-5",
+              size === "md" && "size-5",
+              size === "lg" && "size-6"
+            )}
+          />
         </ListboxButton>
         <Transition
           as={Fragment}
@@ -72,7 +85,12 @@ const Select = ({
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95"
         >
-          <ListboxOptions className="no-scrollbar absolute z-5 mt-2 max-h-60 w-full overflow-auto rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-gray-900">
+          <ListboxOptions
+            className={cn(
+              "no-scrollbar absolute z-5 mt-2 max-h-60 w-full overflow-auto rounded-xl border border-gray-200 bg-white shadow-xs focus:outline-hidden dark:border-gray-800 dark:bg-gray-900",
+              listBoxClassName
+            )}
+          >
             {showSearch ? (
               <div className="mx-4 mt-4">
                 <Input
