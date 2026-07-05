@@ -92,20 +92,23 @@ const PinPostConfirm = () => {
     }
   });
 
-  const [executeAccountAction] = useExecuteAccountActionMutation({
-    onCompleted: async ({ executeAccountAction }) => {
-      if (executeAccountAction.__typename === "ExecuteAccountActionResponse") {
-        return onExecuteCompleted();
-      }
+  const [executeAccountAction, executeRequest] =
+    useExecuteAccountActionMutation({
+      onCompleted: async ({ executeAccountAction }) => {
+        if (
+          executeAccountAction.__typename === "ExecuteAccountActionResponse"
+        ) {
+          return onExecuteCompleted();
+        }
 
-      return await handleTransactionLifecycle({
-        onCompleted: onExecuteCompleted,
-        onError,
-        transactionData: executeAccountAction
-      });
-    },
-    onError
-  });
+        return await handleTransactionLifecycle({
+          onCompleted: onExecuteCompleted,
+          onError,
+          transactionData: executeAccountAction
+        });
+      },
+      onError
+    });
 
   const handleConfigureAction = async () => {
     const account = currentAccount?.address;
@@ -213,14 +216,22 @@ const PinPostConfirm = () => {
         </div>
       )}
       <div className="flex justify-end gap-3">
-        <Button onClick={() => setShowPinPostModal(false)} variant="outline">
+        <Button
+          onClick={() => {
+            if (executeRequest.called) executeRequest.reset();
+            setShowPinPostModal(false);
+          }}
+          variant="outline"
+        >
           Cancel
         </Button>
         <Button
+          className={isSubmitting ? "w-full" : "w-fit"}
           data-umami-event="Pin Post"
           data-umami-event-type={isPinned ? "Unpin" : "Pin"}
           disabled={isSubmitting}
           loading={isSubmitting}
+          loadingText="Waiting for wallet signature…"
           onClick={handleTogglePinPost}
         >
           {isPinned ? "Unpin" : "Pin"}
