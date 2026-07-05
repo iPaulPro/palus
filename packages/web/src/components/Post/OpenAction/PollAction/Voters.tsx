@@ -33,9 +33,9 @@ const contract = {
 
 const Voters = ({ poll, post }: VotersProps) => {
   const [activeTab, setActiveTab] = useState(0);
-  const [votedOptionsMap, setVotedOptionsMap] = useState<Map<Address, number>>(
-    new Map()
-  );
+  const [votedOptionsMap, setVotedOptionsMap] = useState<
+    Map<Address, number[]>
+  >(new Map());
   const fetchedAddressesRef = useRef<Set<Address>>(new Set());
   const { currentAccount } = useAccountStore();
 
@@ -97,14 +97,24 @@ const Voters = ({ poll, post }: VotersProps) => {
   // Track which query we've already processed
   const processedQueryKeyRef = useRef<string>("");
 
+  // Single-answer polls report the voted option index via `getVotedOption`;
+  // multiple-answer polls report a boolean per option via `getVotedOptions`.
+  const votedFunctionName = useMemo(
+    () =>
+      poll.allowMultipleAnswers
+        ? ("getVotedOptions" as const)
+        : ("getVotedOption" as const),
+    [poll.allowMultipleAnswers]
+  );
+
   const contracts = useMemo(
     () =>
       newAccounts.map((action) => ({
         ...contract,
         args: [post.feed.address, post.id, action.account.address],
-        functionName: "getVotedOption" as const
+        functionName: votedFunctionName
       })),
-    [newAccounts, post.feed.address, post.id]
+    [newAccounts, post.feed.address, post.id, votedFunctionName]
   );
 
   const {
@@ -134,16 +144,23 @@ const Voters = ({ poll, post }: VotersProps) => {
       return;
     }
 
-    const newEntries: [Address, number][] = [];
+    const newEntries: [Address, number[]][] = [];
     for (let i = 0; i < pendingAddresses.length; i++) {
       const address = pendingAddresses[i];
       if (fetchedAddressesRef.current.has(address)) continue;
 
       const result = votedOptions[i]?.result;
-      if (result !== undefined && typeof result === "number") {
-        newEntries.push([address, result]);
-        fetchedAddressesRef.current.add(address);
-      }
+      if (result === undefined) continue;
+
+      const votedIds = poll.allowMultipleAnswers
+        ? (result as boolean[]).reduce<number[]>((ids, voted, id) => {
+            if (voted) ids.push(id);
+            return ids;
+          }, [])
+        : [result as number];
+
+      newEntries.push([address, votedIds]);
+      fetchedAddressesRef.current.add(address);
     }
 
     // Mark as processed even if no new entries (to prevent re-running)
@@ -153,8 +170,8 @@ const Voters = ({ poll, post }: VotersProps) => {
     if (newEntries.length > 0) {
       setVotedOptionsMap((prev) => {
         const updated = new Map(prev);
-        for (const [addr, option] of newEntries) {
-          updated.set(addr, option);
+        for (const [addr, options] of newEntries) {
+          updated.set(addr, options);
         }
         return updated;
       });
@@ -165,15 +182,16 @@ const Voters = ({ poll, post }: VotersProps) => {
     isFetching,
     pendingAddresses,
     queryKey,
-    dataUpdatedAt
+    dataUpdatedAt,
+    poll.allowMultipleAnswers
   ]);
 
   const filteredAccounts = useMemo(() => {
     if (votedOptionsMap.size === 0) return uniqueAccounts;
 
     return uniqueAccounts.filter((action) => {
-      const votedOption = votedOptionsMap.get(action.account.address);
-      return votedOption === activeTab;
+      const votedIds = votedOptionsMap.get(action.account.address);
+      return votedIds?.includes(activeTab) ?? false;
     });
   }, [uniqueAccounts, activeTab, votedOptionsMap]);
 
@@ -223,7 +241,7 @@ const Voters = ({ poll, post }: VotersProps) => {
           tabs={tabs}
         />
       </div>
-      <div className="flex-grow overflow-y-auto">
+      <div className="grow overflow-y-auto">
         {filteredAccounts.length === 0 ? (
           <div className="center flex h-full p-5">
             <EmptyState
