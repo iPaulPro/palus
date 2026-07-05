@@ -58,9 +58,12 @@ const useTransactionLifecycle = () => {
           ...getTransactionData(transactionData.raw, { sponsored: true })
         })
       );
-    } catch {
+    } catch (e) {
       return onError({
-        message: ERRORS.SomethingWentWrong,
+        message:
+          e instanceof Error && "details" in e
+            ? (e.details as string)
+            : ERRORS.SomethingWentWrong,
         name: ERROR_NAMES.UnknownError
       });
     }
