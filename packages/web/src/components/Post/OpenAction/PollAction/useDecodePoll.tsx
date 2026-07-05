@@ -11,6 +11,9 @@ import type { Poll } from "@/types/palus";
 
 const OPTIONS_KEY = keccak256(stringToBytes("lens.param.options"));
 const END_TS_KEY = keccak256(stringToBytes("lens.param.endTimestamp"));
+const ALLOW_MULTIPLE_ANSWERS_KEY = keccak256(
+  stringToBytes("lens.param.allowMultipleAnswers")
+);
 
 const contract = {
   abi: pollVoteActionAbi,
@@ -35,17 +38,22 @@ const useDecodePoll = (
     );
   }, [post.__typename, post.actions]);
 
-  const { options, endsAtSeconds } = useMemo(() => {
+  const { options, endsAtSeconds, allowMultipleAnswers } = useMemo(() => {
     const config = pollAction?.config;
-    if (!config)
+    if (!config) {
       return {
+        allowMultipleAnswers: false,
         endsAtSeconds: null as bigint | null,
         options: null as string[] | null
       };
+    }
 
     const encodedOptions = config.find((kv) => kv.key === OPTIONS_KEY)?.data;
     const encodedEndTimestamp = config.find(
       (kv) => kv.key === END_TS_KEY
+    )?.data;
+    const encodedAllowMultipleAnswers = config.find(
+      (kv) => kv.key === ALLOW_MULTIPLE_ANSWERS_KEY
     )?.data;
 
     const options = encodedOptions
@@ -62,7 +70,14 @@ const useDecodePoll = (
         )[0] as bigint)
       : null;
 
-    return { endsAtSeconds, options };
+    const allowMultipleAnswers = encodedAllowMultipleAnswers
+      ? (decodeAbiParameters(
+          [{ type: "bool" }],
+          encodedAllowMultipleAnswers
+        )[0] as boolean)
+      : false;
+
+    return { allowMultipleAnswers, endsAtSeconds, options };
   }, [pollAction?.config]);
 
   const accountAddress = account?.address;
@@ -88,11 +103,6 @@ const useDecodePoll = (
         ...contract,
         args: [post.feed.address, post.id, accountAddress],
         functionName: "getVotedOptions" as const
-      },
-      {
-        ...contract,
-        args: [post.feed.address, post.id],
-        functionName: "getAllowMultipleAnswers" as const
       }
     ];
   }, [post.feed.address, post.id, accountAddress]);
@@ -101,7 +111,7 @@ const useDecodePoll = (
 
   const { data, isLoading, refetch } = useReadContracts(queryOptions);
 
-  const updatePollCache = (votedOptionIndex: number) => {
+  const updatePollCache = (votedOptions: number[]) => {
     const { queryKey } = readContractsQueryOptions(config, {
       ...queryOptions,
       chainId: CHAIN.id
@@ -114,7 +124,9 @@ const useDecodePoll = (
 
       if (newData[0]?.result) {
         const counts = [...(newData[0].result as bigint[])];
-        counts[votedOptionIndex] = (counts[votedOptionIndex] || 0n) + 1n;
+        for (const option of votedOptions) {
+          counts[option] = (counts[option] || 0n) + 1n;
+        }
         newData[0] = { ...newData[0], result: counts };
       }
 
@@ -122,7 +134,7 @@ const useDecodePoll = (
 
       newData[2] = {
         ...newData[2],
-        result: votedOptionIndex,
+        result: votedOptions,
         status: "success"
       };
 
@@ -137,31 +149,28 @@ const useDecodePoll = (
     const hasVoted = data?.[1].result as boolean | undefined;
     const votedOption = data?.[2].result as number | undefined;
     const votedOptions = data?.[3].result as boolean[] | undefined;
-    const allowMultipleAnswers = data?.[4].result as boolean | undefined;
 
     const endsAt = endsAtSeconds
       ? new Date(Number(endsAtSeconds) * 1000)
       : new Date();
 
     return {
+      allowMultipleAnswers,
       endsAt,
       id: post.id,
-      options: voteCounts
-        ? options.map((text, index) => ({
-            id: index,
-            text,
-            voteCount: Number(voteCounts[index] ?? 0n),
-            voted: allowMultipleAnswers
-              ? votedOptions?.[index] === true
-              : Boolean(hasVoted) && votedOption === index
-          }))
-        : []
+      options: options.map((text, id) => ({
+        id,
+        text,
+        voteCount: Number(voteCounts?.[id] ?? 0n),
+        voted: allowMultipleAnswers
+          ? votedOptions?.[id] === true
+          : Boolean(hasVoted) && votedOption === id
+      }))
     };
-  }, [options, endsAtSeconds, data, post.id]);
+  }, [options, endsAtSeconds, data, post.id, allowMultipleAnswers]);
 
   return {
     isLoading,
-    optionsCount: options?.length ?? 0,
     poll,
     refetch,
     updatePollCache

@@ -35,7 +35,14 @@ export type Poll = {
   id: number;
   endsAt: Date;
   options: PollOption[];
+  allowMultipleAnswers: boolean;
 };
+
+export interface PollConfig {
+  durationInDays: number | undefined;
+  options: string[];
+  allowMultipleAnswers: boolean;
+}
 
 export type ShareAction = {
   type: "collect" | "post-tip" | "account-tip";

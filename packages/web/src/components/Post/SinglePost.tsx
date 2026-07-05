@@ -80,7 +80,7 @@ const SinglePost = ({
             />
           </div>
         </div>
-        <div className={cn("pt-4", { "pt-2": embedded })}>
+        <div className={cn("pt-3", { "pt-2": embedded })}>
           {post.isDeleted ? (
             <HiddenPost type={post.__typename} />
           ) : bannedAccounts.includes(post.author.address) ? (

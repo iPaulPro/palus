@@ -11,13 +11,13 @@ interface PollActionProps {
 const PollAction = ({ post }: PollActionProps) => {
   const { currentAccount } = useAccountStore();
 
-  const { isLoading, optionsCount, poll, updatePollCache } = useDecodePoll(
+  const { isLoading, poll, updatePollCache } = useDecodePoll(
     post,
     currentAccount
   );
 
   if (isLoading) {
-    return <PollActionShimmer optionCount={optionsCount} />;
+    return <PollActionShimmer optionCount={poll?.options.length ?? 0} />;
   }
 
   if (!poll) {

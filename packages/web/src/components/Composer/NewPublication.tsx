@@ -458,7 +458,7 @@ const NewPublication = ({
   const isSubmitDisabledByPoll = showPollEditor
     ? !pollConfig.options.length ||
       pollConfig.options.some((option) => !option.length) ||
-      pollConfig.durationInDays < 1
+      (pollConfig.durationInDays ?? 0) < 1
     : false;
 
   if (currentAccount && bannedAccounts.includes(currentAccount.address)) {

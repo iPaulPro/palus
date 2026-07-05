@@ -2,7 +2,8 @@ import type { UnknownActionConfigInput } from "@palus/indexer";
 import dayjs from "dayjs";
 import { CONTRACTS } from "@/data/contracts";
 import { toKeyValueInput } from "@/helpers/keyValueInput";
-import type { PollConfig } from "@/store/non-persisted/post/usePostPollStore";
+import { DEFAULT_DURATION_DAYS } from "@/store/non-persisted/post/usePostPollStore";
+import type { PollConfig } from "@/types/palus";
 
 const pollActionParams = (pollConfig: PollConfig) => {
   return {
@@ -13,9 +14,17 @@ const pollActionParams = (pollConfig: PollConfig) => {
         toKeyValueInput(
           "lens.param.endTimestamp",
           "uint72",
-          BigInt(dayjs().add(pollConfig.durationInDays, "day").unix())
+          BigInt(
+            dayjs()
+              .add(pollConfig.durationInDays ?? DEFAULT_DURATION_DAYS, "day")
+              .unix()
+          )
         ),
-        toKeyValueInput("lens.param.allowMultipleAnswers", "bool", false)
+        toKeyValueInput(
+          "lens.param.allowMultipleAnswers",
+          "bool",
+          pollConfig.allowMultipleAnswers
+        )
       ]
     } satisfies UnknownActionConfigInput
   };

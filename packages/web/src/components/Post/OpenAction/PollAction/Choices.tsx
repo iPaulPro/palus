@@ -12,7 +12,14 @@ import plur from "plur";
 import { useCallback, useState } from "react";
 import { toast } from "sonner";
 import { encodeAbiParameters, keccak256, stringToBytes } from "viem";
-import { Card, Modal, Spinner, Tooltip } from "@/components/Shared/UI";
+import {
+  Button,
+  Card,
+  HelpTooltip,
+  Modal,
+  Spinner,
+  Tooltip
+} from "@/components/Shared/UI";
 import { ScrollArea } from "@/components/Shared/UI/ScrollArea";
 import { CONTRACTS } from "@/data/contracts";
 import cn from "@/helpers/cn";
@@ -28,11 +35,11 @@ import Voters from "./Voters";
 interface ChoicesProps {
   poll: Poll;
   post: PostFragment;
-  onVoteSuccess?: (choiceIndex: number) => void;
+  onVoteSuccess?: (choices: number[]) => void;
 }
 
 const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
-  const { endsAt, options } = poll;
+  const { endsAt, options, allowMultipleAnswers } = poll;
   const [showPostExecutorsModal, setShowPostExecutorsModal] = useState(false);
 
   const totalVoteCount = options.reduce((acc, { voteCount }) => {
@@ -44,7 +51,7 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
   );
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<null | number>(null);
+  const [selectedOptions, setSelectedOptions] = useState<null | number[]>(null);
   const [hasVoted, setHasVoted] = useState(() =>
     options.some((option) => option.voted)
   );
@@ -54,8 +61,8 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
   const onCompleted = () => {
     setHasVoted(true);
     setIsSubmitting(false);
-    if (selectedOption !== null) {
-      onVoteSuccess?.(selectedOption);
+    if (selectedOptions !== null) {
+      onVoteSuccess?.(selectedOptions);
     }
     toast.success("Voted successfully!");
   };
@@ -80,9 +87,12 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
     onError
   });
 
-  const handleVote = async (optionId: number) => {
+  const handleVote = async () => {
+    if (!selectedOptions || selectedOptions.length === 0) {
+      return;
+    }
+
     setIsSubmitting(true);
-    setSelectedOption(optionId);
 
     return await executePostAction({
       variables: {
@@ -94,7 +104,7 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
                 {
                   data: encodeAbiParameters(
                     [{ name: "options", type: "uint8[]" }],
-                    [[optionId]]
+                    [selectedOptions]
                   ),
                   key: keccak256(stringToBytes("lens.param.voteOptions"))
                 }
@@ -116,21 +126,33 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
               className={cn(
                 "not-last:mb-2.5 flex w-full items-center space-x-2.5 rounded-xl p-2 text-left text-sm enabled:hover:bg-gray-100 dark:enabled:hover:bg-gray-800",
                 {
+                  "bg-accent":
+                    selectedOptions?.includes(option.id) && !hasVoted,
                   "border border-gray-400 dark:border-gray-600":
                     !isPollLive && option.voteCount === highestVoteCount
                 }
               )}
               disabled={isSubmitting || !isPollLive || hasVoted}
               key={option.id}
-              onClick={() => handleVote(option.id)}
+              onClick={() =>
+                setSelectedOptions((selected) => {
+                  if (selected?.includes(option.id)) {
+                    return selected.filter((id) => id !== option.id);
+                  }
+                  if (allowMultipleAnswers) {
+                    return selected ? [...selected, option.id] : [option.id];
+                  }
+                  return [option.id];
+                })
+              }
               type="button"
             >
-              {isSubmitting && option.id === selectedOption ? (
+              {isSubmitting && selectedOptions?.includes(option.id) ? (
                 <Spinner size="sm" />
               ) : (
                 <CheckCircleIcon
                   className={cn(
-                    option.voted || (hasVoted && option.id === selectedOption)
+                    option.voted || selectedOptions?.includes(option.id)
                       ? "text-brand-400"
                       : "text-muted",
                     "size-6"
@@ -159,7 +181,7 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
                 <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300 dark:bg-gray-700">
                   <div
                     className={cn(
-                      option.voted || (hasVoted && option.id === selectedOption)
+                      option.voted || selectedOptions?.includes(option.id)
                         ? "bg-brand-400"
                         : "bg-secondary",
                       "h-6"
@@ -173,9 +195,9 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
             </button>
           ))}
         </ScrollArea>
-        <div className="flex items-center justify-between border-border border-t px-5 py-3">
-          <div className="flex items-center gap-x-2 text-secondary text-xs">
-            <Bars3BottomLeftIcon className="size-4" />
+        <div className="flex h-12 items-center justify-between gap-x-2 border-border border-t px-4">
+          <div className="flex flex-wrap items-center gap-x-1 text-secondary text-xs">
+            <Bars3BottomLeftIcon className="mr-2 size-4" />
             <button
               onClick={() => setShowPostExecutorsModal(true)}
               type="button"
@@ -193,7 +215,29 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
                 <span>Poll ended</span>
               )}
             </Tooltip>
+            {poll.allowMultipleAnswers && (
+              <>
+                <span>·</span>
+                <span>Multiple</span>
+                <HelpTooltip>
+                  You can select more than one option when voting
+                </HelpTooltip>
+              </>
+            )}
           </div>
+          {selectedOptions &&
+            selectedOptions.length > 0 &&
+            !hasVoted &&
+            isPollLive && (
+              <Button
+                className="m-0 shrink-0"
+                disabled={isSubmitting}
+                onClick={handleVote}
+                size="sm"
+              >
+                Submit vote
+              </Button>
+            )}
         </div>
       </Card>
       <Modal

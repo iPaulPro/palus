@@ -141,7 +141,7 @@ const Select = ({
                             </span>
                           </span>
                           {selected ? (
-                            <CheckCircleIcon className="size-5" />
+                            <CheckCircleIcon className="size-5 text-brand-500" />
                           ) : null}
                         </span>
                         {option.helper ? (

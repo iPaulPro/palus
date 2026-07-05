@@ -49,7 +49,7 @@ const ThreadBody = ({
           ) : bannedAccounts.includes(post.author.address) ? (
             <BannedAuthorPost />
           ) : (
-            <div className="pt-4">
+            <div className="pt-3">
               <PostBody embedded={embedded} post={post} showMore={showMore} />
               {embedded ? null : <PostActions post={post} />}
             </div>

@@ -91,7 +91,7 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
           <PostHeader post={targetPost} />
         </div>
       </div>
-      <div className="pt-4">
+      <div className="pt-3">
         {targetPost.isDeleted ? (
           <HiddenPost type={targetPost.__typename} />
         ) : bannedAccounts.includes(post.author.address) ? (

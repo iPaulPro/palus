@@ -1,9 +1,7 @@
 import { createTrackedStore } from "@/store/createTrackedStore";
+import type { PollConfig } from "@/types/palus";
 
-export interface PollConfig {
-  durationInDays: number;
-  options: string[];
-}
+export const DEFAULT_DURATION_DAYS = 7;
 
 interface State {
   pollConfig: PollConfig;
@@ -25,7 +23,11 @@ const { useStore: usePostPollStore } = createTrackedStore<State>((set) => ({
         options: [...state.pollConfig.options, ""]
       }
     })),
-  pollConfig: { durationInDays: 7, options: ["", ""] },
+  pollConfig: {
+    allowMultipleAnswers: false,
+    durationInDays: DEFAULT_DURATION_DAYS,
+    options: ["", ""]
+  },
   removePollOption: (index) =>
     set((state) => ({
       pollConfig: {
@@ -34,7 +36,13 @@ const { useStore: usePostPollStore } = createTrackedStore<State>((set) => ({
       }
     })),
   resetPollConfig: () =>
-    set(() => ({ pollConfig: { durationInDays: 7, options: ["", ""] } })),
+    set(() => ({
+      pollConfig: {
+        allowMultipleAnswers: false,
+        durationInDays: DEFAULT_DURATION_DAYS,
+        options: ["", ""]
+      }
+    })),
   setPollConfig: (pollConfig) => set(() => ({ pollConfig })),
   setShowPollEditor: (showPollEditor) => set(() => ({ showPollEditor })),
   showPollEditor: false,
