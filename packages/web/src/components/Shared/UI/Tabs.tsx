@@ -2,7 +2,6 @@ import { MotionConfig, m } from "motion/react";
 import {
   type KeyboardEvent,
   type MouseEvent,
-  memo,
   type ReactNode,
   useLayoutEffect,
   useMemo,
@@ -10,15 +9,29 @@ import {
 } from "react";
 import cn from "@/helpers/cn";
 
+interface Tab {
+  name: string;
+  type: string;
+  suffix?: ReactNode;
+}
+
 interface TabsProps {
-  tabs: { name: string; type: string; suffix?: ReactNode }[];
+  tabs: Tab[];
   active: string;
   setActive: (type: string) => void;
   layoutId: string;
   className?: string;
+  tabClassName?: string;
 }
 
-const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
+const Tabs = ({
+  tabs,
+  active,
+  setActive,
+  layoutId,
+  className,
+  tabClassName
+}: TabsProps) => {
   const tabRefs = useRef<Map<string, HTMLLIElement>>(new Map());
 
   const activeTab = useMemo(() => tabRefs.current.get(active), [active]);
@@ -54,7 +67,10 @@ const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
         >
           {tabs.map((tab) => (
             <m.li
-              className="relative flex-none cursor-pointer px-3 py-1.5 text-sm outline-hidden transition-colors"
+              className={cn(
+                "relative flex-none cursor-pointer px-3 py-1.5 text-sm outline-hidden transition-colors",
+                tabClassName
+              )}
               key={tab.type}
               layout
               onClick={(e) => handleAction(e, tab.type)}
@@ -90,4 +106,4 @@ const Tabs = ({ tabs, active, setActive, layoutId, className }: TabsProps) => {
   );
 };
 
-export default memo(Tabs);
+export { type Tab, Tabs };

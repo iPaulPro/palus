@@ -41,7 +41,7 @@ export { Slider } from "./Slider";
 export { default as Spinner } from "./Spinner";
 export { default as StackedAvatars } from "./StackedAvatars";
 export { SwipeDirection, SwipeToDismiss } from "./SwipeToDismiss";
-export { default as Tabs } from "./Tabs";
+export { type Tab, Tabs } from "./Tabs";
 export { default as TextArea } from "./TextArea";
 export { default as Toggle } from "./Toggle";
 export { default as Tooltip } from "./Tooltip";

@@ -15,7 +15,7 @@ import { IS_MOBILE } from "@/helpers/mediaQueries";
 interface TooltipProps {
   children: ReactNode;
   className?: string;
-  content: ReactNode | string;
+  content: ReactNode | string | undefined;
   placement?: "bottom" | "left" | "right" | "top";
   withDelay?: boolean;
   showOnClick?: boolean;
@@ -46,6 +46,10 @@ const Tooltip = ({
   const handleContentPointerDownOutside = useCallback(() => {
     if (isMobile) setOpen(false);
   }, [isMobile]);
+
+  if (!content) {
+    return <>{children}</>;
+  }
 
   return (
     <RadixTooltip.Provider

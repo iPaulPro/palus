@@ -1,3 +1,4 @@
+import { TrophyIcon } from "@heroicons/react/24/outline";
 import { Bars3BottomLeftIcon } from "@heroicons/react/24/solid";
 import {
   type PostFragment,
@@ -5,13 +6,19 @@ import {
   WhoExecutedActionOnPostOrderBy,
   type WhoExecutedActionOnPostRequest
 } from "@palus/indexer";
+import plur from "plur";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Address } from "viem";
 import { Virtualizer } from "virtua";
 import { useReadContracts } from "wagmi";
 import SingleAccount from "@/components/Shared/Account/SingleAccount";
 import AccountListShimmer from "@/components/Shared/Shimmer/AccountListShimmer";
-import { EmptyState, ErrorMessage, Tabs } from "@/components/Shared/UI";
+import {
+  EmptyState,
+  ErrorMessage,
+  type Tab,
+  Tabs
+} from "@/components/Shared/UI";
 import { pollVoteActionAbi } from "@/data/abis/pollVoteActionAbi";
 import { CHAIN } from "@/data/constants";
 import { CONTRACTS } from "@/data/contracts";
@@ -32,12 +39,19 @@ const contract = {
 } as const;
 
 const Voters = ({ poll, post }: VotersProps) => {
+  const { endsAt, options } = poll;
+
   const [activeTab, setActiveTab] = useState(0);
   const [votedOptionsMap, setVotedOptionsMap] = useState<
     Map<Address, number[]>
   >(new Map());
   const fetchedAddressesRef = useRef<Set<Address>>(new Set());
   const { currentAccount } = useAccountStore();
+
+  const isPollLive = new Date(endsAt) > new Date();
+  const highestVoteCount = Math.max(
+    ...options.map((option) => option.voteCount)
+  );
 
   const request: WhoExecutedActionOnPostRequest = useMemo(
     () => ({
@@ -53,8 +67,12 @@ const Voters = ({ poll, post }: VotersProps) => {
     variables: { request }
   });
 
-  const tabs = poll.options.map((option) => ({
-    name: `${option.text.length > 15 ? `${option.text.slice(0, 15).trim()}…` : option.text} (${option.voteCount})`,
+  const tabs: Tab[] = poll.options.map((option) => ({
+    name: `${option.text.length > 15 ? `${option.text.slice(0, 15).trim()}…` : option.text}`,
+    suffix:
+      !isPollLive && option.voteCount === highestVoteCount ? (
+        <TrophyIcon className="size-3" />
+      ) : null,
     type: option.id.toString()
   }));
 
@@ -233,11 +251,12 @@ const Voters = ({ poll, post }: VotersProps) => {
 
   return (
     <div className="flex h-[60vh] flex-col">
-      <div className="divider p-2">
+      <div className="divider bg-surface p-2">
         <Tabs
           active={activeTab.toString()}
           layoutId="voters-tabs"
           setActive={(type) => setActiveTab(Number(type))}
+          tabClassName="min-w-14 flex center"
           tabs={tabs}
         />
       </div>
@@ -252,6 +271,14 @@ const Voters = ({ poll, post }: VotersProps) => {
           </div>
         ) : (
           <Virtualizer>
+            <div className="flex w-full items-center gap-x-2 border-border border-b bg-white px-4 py-1 text-sm">
+              {!isPollLive &&
+              options[activeTab].voteCount === highestVoteCount ? (
+                <span className="text-secondary">Winner</span>
+              ) : null}
+              {options[activeTab].voteCount}{" "}
+              {plur("vote", poll.options[activeTab].voteCount)}
+            </div>
             {filteredAccounts.map((action, index) => (
               <div
                 className={cn(

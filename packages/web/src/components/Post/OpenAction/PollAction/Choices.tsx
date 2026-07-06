@@ -121,81 +121,97 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
     <>
       <Card className="sm:w-4/5" forceRounded onClick={stopEventPropagation}>
         <ScrollArea className="max-h-72 overflow-y-auto p-2">
-          {options.map((option) => (
-            <button
-              className={cn(
-                "not-last:mb-2.5 flex w-full items-center space-x-2.5 rounded-xl p-2 text-left text-sm enabled:hover:bg-gray-100 dark:enabled:hover:bg-gray-800",
-                {
-                  "bg-accent":
-                    selectedOptions?.includes(option.id) && !hasVoted,
-                  "border border-gray-400 dark:border-gray-600":
-                    !isPollLive && option.voteCount === highestVoteCount
+          {options.map((option) => {
+            const isSelected = selectedOptions?.includes(option.id);
+            const isWinner =
+              !isPollLive && option.voteCount === highestVoteCount;
+
+            return (
+              <button
+                className={cn(
+                  "not-last:mb-2.5 flex w-full items-center gap-x-2.5 rounded-xl p-2 text-left text-sm enabled:hover:bg-gray-100 dark:enabled:hover:bg-gray-800",
+                  {
+                    "bg-gray-100 dark:bg-gray-800": isSelected && !hasVoted,
+                    "border border-gray-400 dark:border-gray-600": isWinner
+                  }
+                )}
+                disabled={isSubmitting || !isPollLive || hasVoted}
+                key={option.id}
+                onClick={() =>
+                  setSelectedOptions((selected) => {
+                    if (selected?.includes(option.id)) {
+                      return selected.filter((id) => id !== option.id);
+                    }
+                    if (allowMultipleAnswers) {
+                      return selected ? [...selected, option.id] : [option.id];
+                    }
+                    return [option.id];
+                  })
                 }
-              )}
-              disabled={isSubmitting || !isPollLive || hasVoted}
-              key={option.id}
-              onClick={() =>
-                setSelectedOptions((selected) => {
-                  if (selected?.includes(option.id)) {
-                    return selected.filter((id) => id !== option.id);
-                  }
-                  if (allowMultipleAnswers) {
-                    return selected ? [...selected, option.id] : [option.id];
-                  }
-                  return [option.id];
-                })
-              }
-              type="button"
-            >
-              {isSubmitting && selectedOptions?.includes(option.id) ? (
-                <Spinner size="sm" />
-              ) : (
-                <CheckCircleIcon
-                  className={cn(
-                    option.voted || selectedOptions?.includes(option.id)
-                      ? "text-brand-400"
-                      : "text-muted",
-                    "size-6"
-                  )}
-                />
-              )}
-              <div className="w-full space-y-2">
-                <div className="flex items-center justify-between gap-x-2">
-                  <div className="font-bold">{option.text}</div>
-                  <div className="flex items-center gap-x-1">
-                    {!isPollLive && option.voteCount === highestVoteCount ? (
-                      <TrophyIcon className="size-4 text-brand-500" />
-                    ) : null}
-                    <Tooltip content={option.voteCount}>
-                      <span className="text-secondary">
-                        {option.voteCount
-                          ? ((option.voteCount / totalVoteCount) * 100).toFixed(
-                              0
-                            )
-                          : 0}
-                        %
-                      </span>
-                    </Tooltip>
-                  </div>
-                </div>
-                <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300 dark:bg-gray-700">
+                type="button"
+              >
+                {isSubmitting && isSelected ? (
+                  <Spinner size="sm" />
+                ) : option.voted || isSelected || isWinner ? (
+                  <Tooltip
+                    content={
+                      option.voted ? "You voted for this option" : undefined
+                    }
+                  >
+                    <CheckCircleIcon
+                      className={`size-6 ${option.voted ? "text-brand-400" : isWinner ? "text-secondary" : "text-on-surface"}`}
+                    />
+                  </Tooltip>
+                ) : (
                   <div
                     className={cn(
-                      option.voted || selectedOptions?.includes(option.id)
-                        ? "bg-brand-400"
-                        : "bg-secondary",
-                      "h-6"
+                      "mx-0.5 aspect-1 size-4.5 rounded-full border-2 border-muted"
                     )}
-                    style={{
-                      width: `${(option.voteCount / totalVoteCount) * 100}%`
-                    }}
                   />
+                )}
+                <div className="w-full space-y-2">
+                  <div className="flex items-center justify-between gap-x-2">
+                    <div className="font-bold">{option.text}</div>
+                    <div className="flex items-center gap-x-1">
+                      {isWinner ? (
+                        <Tooltip content="Winning option">
+                          <TrophyIcon
+                            className={`size-4 ${option.voted ? "text-brand-500" : "text-secondary"}`}
+                          />
+                        </Tooltip>
+                      ) : null}
+                      <Tooltip
+                        content={`${option.voteCount} ${plur("vote", option.voteCount)}`}
+                      >
+                        <span className="text-secondary">
+                          {option.voteCount
+                            ? (
+                                (option.voteCount / totalVoteCount) *
+                                100
+                              ).toFixed(0)
+                            : 0}
+                          %
+                        </span>
+                      </Tooltip>
+                    </div>
+                  </div>
+                  <div className="flex h-2.5 overflow-hidden rounded-full bg-gray-300 dark:bg-gray-700">
+                    <div
+                      className={cn(
+                        option.voted ? "bg-brand-400" : "bg-secondary",
+                        "h-6"
+                      )}
+                      style={{
+                        width: `${(option.voteCount / totalVoteCount) * 100}%`
+                      }}
+                    />
+                  </div>
                 </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            );
+          })}
         </ScrollArea>
-        <div className="flex h-12 items-center justify-between gap-x-2 border-border border-t px-4">
+        <div className="flex h-12 items-center justify-between gap-x-2 border-border border-t px-4 sm:h-10">
           <div className="flex flex-wrap items-center gap-x-1 text-secondary text-xs">
             <Bars3BottomLeftIcon className="mr-2 size-4" />
             <button
@@ -208,7 +224,10 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
               </span>
             </button>
             <span>·</span>
-            <Tooltip content={dayjs(endsAt).format("MMM D, YYYY, h:mm A")}>
+            <Tooltip
+              content={dayjs(endsAt).format("MMM D, YYYY, h:mm A")}
+              showOnClick
+            >
               {isPollLive ? (
                 <span>{getTimetoNow(new Date(endsAt))} left</span>
               ) : (
