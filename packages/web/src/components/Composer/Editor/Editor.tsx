@@ -117,10 +117,9 @@ const Editor = ({
           <EditorMenus />
           <div
             className={cn(
-              "ProseMirror relative box-border min-h-20 flex-1 leading-6 outline-0 sm:leading-6.5",
+              "ProseMirror relative mt-1 box-border min-h-20 flex-1 leading-6 outline-0 sm:leading-6.5",
               {
-                "h-full": fullHeight,
-                "mt-1": !isInModal
+                "h-full": fullHeight
               }
             )}
             ref={editor.mount}

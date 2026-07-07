@@ -500,7 +500,7 @@ const NewPublication = ({
         })}
       >
         {parentPost && isModal ? (
-          <div className="mx-3 mb-1 shrink-0 md:mx-5">
+          <div className="mx-3 shrink-0 md:mx-5">
             <ThreadBody embedded post={parentPost} />
           </div>
         ) : null}
