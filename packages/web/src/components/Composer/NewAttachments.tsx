@@ -68,7 +68,10 @@ const NewAttachments = ({
 
   return attachmentsLength === 0 ? null : (
     <div
-      className={cn(getClass(attachmentsLength)?.row, "mt-3 grid gap-2", "m-5")}
+      className={cn(
+        getClass(attachmentsLength)?.row,
+        "mx-5 mt-1 mb-5 grid gap-2"
+      )}
     >
       {slicedAttachments?.map((attachment: NewAttachment, index: number) => {
         const isImage = attachment.type === "Image";

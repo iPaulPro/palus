@@ -500,7 +500,7 @@ const NewPublication = ({
         })}
       >
         {parentPost && isModal ? (
-          <div className="mx-3 shrink-0 md:mx-5">
+          <div className="mx-3 mb-1 shrink-0 md:mx-5">
             <ThreadBody embedded post={parentPost} />
           </div>
         ) : null}
@@ -545,7 +545,7 @@ const NewPublication = ({
           </div>
         ) : null}
       </div>
-      <div className="block shrink-0 items-center border-border border-t px-5 py-3 sm:flex">
+      <div className="block shrink-0 items-center border-border border-t px-5 py-2 sm:flex">
         <div
           className={cn("flex w-full items-center gap-x-6 bg-card sm:gap-x-5", {
             "pb-6 sm:pb-0": isStandalone && isModal

@@ -5,12 +5,19 @@ import useFocus from "@/hooks/prosekit/useFocus";
 import { usePaste } from "@/hooks/prosekit/usePaste";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import "prosekit/basic/style.css";
-import type { GroupFragment } from "@palus/indexer";
+import {
+  type GroupFragment,
+  GroupsOrderBy,
+  type GroupsRequest,
+  PageSize,
+  useGroupsQuery
+} from "@palus/indexer";
 import { createEditor } from "prosekit/core";
 import { ProseKit } from "prosekit/react";
 import { useEffect, useMemo, useRef } from "react";
 import GroupSelector from "@/components/Composer/GroupSelector";
 import cn from "@/helpers/cn";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { useEditorHandle } from "./EditorHandle";
 import EditorMenus from "./EditorMenus";
 
@@ -35,6 +42,7 @@ const Editor = ({
   isInModal,
   fullHeight
 }: EditorProps) => {
+  const { currentAccount } = useAccountStore();
   const { postContent } = usePostStore();
   const defaultMarkdownRef = useRef(postContent);
 
@@ -55,6 +63,17 @@ const Editor = ({
   usePaste(editor);
   useEditorHandle(editor);
 
+  const request: GroupsRequest = {
+    filter: { member: currentAccount?.address },
+    orderBy: GroupsOrderBy.LatestFirst,
+    pageSize: PageSize.Fifty
+  };
+
+  const { data: groupData } = useGroupsQuery({
+    skip: !currentAccount,
+    variables: { request }
+  });
+
   useEffect(() => {
     const handleResize = () => {
       if (editor.view?.hasFocus()) {
@@ -68,13 +87,18 @@ const Editor = ({
     };
   }, [editor]);
 
-  const hideGroupSelector = isComment || group || isQuote || isEditing;
+  const hideGroupSelector =
+    isComment ||
+    group ||
+    isQuote ||
+    isEditing ||
+    !groupData?.groups.items?.length;
 
   return (
     <ProseKit editor={editor}>
       <div
         className={cn(
-          "box-border flex w-full justify-stretch overflow-x-hidden px-4 md:px-5",
+          "box-border flex w-full justify-stretch overflow-x-hidden px-4 pb-1 md:px-5",
           {
             "h-full": fullHeight,
             "pt-2": isInModal && isComment,
@@ -85,6 +109,7 @@ const Editor = ({
         <div className="flex flex-1 flex-col overflow-x-hidden">
           {hideGroupSelector ? null : (
             <GroupSelector
+              groups={groupData?.groups.items}
               onChange={setSelectedGroup}
               selected={selectedGroup}
             />
@@ -95,8 +120,7 @@ const Editor = ({
               "ProseMirror relative box-border min-h-20 flex-1 leading-6 outline-0 sm:leading-6.5",
               {
                 "h-full": fullHeight,
-                "mt-2": !hideGroupSelector,
-                "mt-3": hideGroupSelector
+                "mt-1": !isInModal
               }
             )}
             ref={editor.mount}

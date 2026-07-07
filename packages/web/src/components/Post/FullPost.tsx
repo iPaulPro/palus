@@ -83,7 +83,7 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
   }
 
   return (
-    <article className="px-4 pt-5 pb-3 md:p-6 md:pb-4">
+    <article className="px-4 pt-5 pb-3 md:p-6 md:pb-3">
       <PostType post={post} showType />
       <div className="flex w-full items-start gap-x-3" ref={headerRef}>
         <PostAvatar post={post} />
@@ -97,12 +97,12 @@ const FullPost = ({ hasHiddenComments, post }: FullPostProps) => {
         ) : bannedAccounts.includes(post.author.address) ? (
           <BannedAuthorPost />
         ) : (
-          <div className="flex flex-col sm:gap-y-1">
+          <div className="flex flex-col">
             <PostBody
               contentClassName="full-page-post-markup"
               post={targetPost}
             />
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-between sm:mt-2">
               <div className="my-3 flex items-center text-gray-500 text-sm dark:text-gray-200">
                 {dayjs(timestamp).format("h:mm A · MMM D, YYYY")}
                 {targetPost.isEdited ? " · Edited" : null}

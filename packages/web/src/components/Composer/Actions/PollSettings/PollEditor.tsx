@@ -40,7 +40,10 @@ const PollEditor = () => {
   );
 
   return (
-    <Card className="m-4 px-4 py-3 sm:m-5 sm:w-4/5" forceRounded>
+    <Card
+      className="m-4 px-4 py-3 sm:mx-5 sm:mt-1 sm:mb-5 sm:w-4/5"
+      forceRounded
+    >
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-x-2 text-sm">
           <Bars3BottomLeftIcon className="size-4" />

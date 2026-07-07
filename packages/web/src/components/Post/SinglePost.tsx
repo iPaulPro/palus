@@ -46,8 +46,8 @@ const SinglePost = ({
       })}
     >
       <PostWrapper
-        className={cn("w-full cursor-pointer p-4 pb-3 sm:p-6 sm:pb-4", {
-          "px-3 py-3 pb-2 sm:px-5 sm:py-4 sm:pb-3": embedded
+        className={cn("w-full cursor-pointer p-4 pb-3 sm:p-6 sm:pb-3", {
+          "px-3 py-3 pb-2 sm:px-5 sm:pt-4": embedded
         })}
         post={rootPost}
       >

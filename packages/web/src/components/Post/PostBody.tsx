@@ -170,7 +170,7 @@ const PostBody = ({
           ) : null}
           {unknownActions?.length && !embedded ? (
             pollAction && post.__typename === "Post" ? (
-              <div className="pt-3 pb-2">
+              <div className="pt-3">
                 <PollAction post={post} />
               </div>
             ) : (

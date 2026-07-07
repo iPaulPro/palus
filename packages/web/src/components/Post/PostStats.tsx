@@ -1,4 +1,5 @@
 import type { PostFragment } from "@palus/indexer";
+import { Calligraph } from "calligraph";
 import plur from "plur";
 import { memo, useCallback, useState } from "react";
 import { Link } from "react-router";
@@ -10,7 +11,12 @@ import { Modal } from "@/components/Shared/UI";
 const AnimatedNumber = ({ name, value }: { name: string; value: number }) => {
   return (
     <span className="flex items-center gap-x-1">
-      <span className="font-bold text-black dark:text-white">{value}</span>
+      <Calligraph
+        className="font-bold text-black dark:text-white"
+        variant="number"
+      >
+        {value}
+      </Calligraph>
       {plur(name, value)}
     </span>
   );

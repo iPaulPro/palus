@@ -59,7 +59,7 @@ const Modal = ({
         <div className="fixed top-[var(--vvt)] left-0 flex h-[var(--vvh)] w-full items-center justify-center overflow-hidden overscroll-contain p-0">
           <DialogPanel className={modalVariants({ size })}>
             {title ? (
-              <DialogTitle className="divider flex items-center justify-between px-5 py-3.5">
+              <DialogTitle className="divider flex items-center justify-between px-5 py-3">
                 <b>{title}</b>
                 {onClose ? (
                   <button
@@ -83,7 +83,7 @@ const Modal = ({
           <div className="flex min-h-full items-center justify-center">
             <DialogPanel className={modalVariants({ size })}>
               {title ? (
-                <DialogTitle className="divider flex items-center justify-between px-5 py-3.5">
+                <DialogTitle className="divider flex items-center justify-between px-5 py-3">
                   <b>{title}</b>
                   {onClose ? (
                     <button

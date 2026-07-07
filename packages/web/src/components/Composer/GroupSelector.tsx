@@ -1,10 +1,4 @@
-import {
-  type GroupFragment,
-  GroupsOrderBy,
-  type GroupsRequest,
-  PageSize,
-  useGroupsQuery
-} from "@palus/indexer";
+import type { GroupFragment } from "@palus/indexer";
 import { memo, useMemo } from "react";
 import {
   SelectContent,
@@ -18,9 +12,9 @@ import {
 } from "@/components/Shared/UI";
 import getAvatar from "@/helpers/getAvatar";
 import { usePostRulesStore } from "@/store/non-persisted/post/usePostRulesStore";
-import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface GroupSelectorProps {
+  groups: GroupFragment[] | undefined;
   selected?: GroupFragment;
   onChange: (group: GroupFragment | undefined) => void;
 }
@@ -32,23 +26,11 @@ type Option = {
   value: GroupFragment | { address: string };
 };
 
-const GroupSelector = ({ selected, onChange }: GroupSelectorProps) => {
-  const { currentAccount } = useAccountStore();
+const GroupSelector = ({ groups, selected, onChange }: GroupSelectorProps) => {
   const { setGroupGate } = usePostRulesStore();
 
-  const request: GroupsRequest = {
-    filter: { member: currentAccount?.address },
-    orderBy: GroupsOrderBy.LatestFirst,
-    pageSize: PageSize.Fifty
-  };
-
-  const { data } = useGroupsQuery({
-    skip: !currentAccount,
-    variables: { request }
-  });
-
   const options = useMemo(() => {
-    const groups = data?.groups.items ?? [];
+    if (!groups) return [];
     return groups
       .reduce<Option[]>((acc, group: GroupFragment) => {
         if (group.feed?.address !== "") {
@@ -62,16 +44,14 @@ const GroupSelector = ({ selected, onChange }: GroupSelectorProps) => {
         return acc;
       }, [])
       .sort((a, b) => a.label.localeCompare(b.label));
-  }, [data?.groups.items, selected?.feed?.address]);
+  }, [groups, selected?.feed?.address]);
 
   if (!options.length) {
     return <div className="h-3" />;
   }
 
   const onValueChange = (value: string) => {
-    const selectedGroup = data?.groups?.items?.find(
-      (item) => item.address === value
-    );
+    const selectedGroup = groups?.find((group) => group.address === value);
     onChange(selectedGroup);
     if (!selectedGroup) {
       setGroupGate(undefined);

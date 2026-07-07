@@ -39,9 +39,9 @@ const PostActions = ({
   return (
     <span
       className={cn(
-        "mt-2 flex w-full flex-wrap items-center justify-between gap-3 sm:mt-2",
+        "mt-2 flex w-full flex-wrap items-center justify-between gap-3",
         {
-          "mt-2 sm:mt-4": showCount,
+          "mt-2 sm:mt-3": showCount,
           "mt-3": showCount && !embedded
         }
       )}
