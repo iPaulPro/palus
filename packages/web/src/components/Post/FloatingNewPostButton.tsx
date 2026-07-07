@@ -2,7 +2,7 @@ import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import { useMediaQuery } from "@uidotdev/usehooks";
 import { m } from "motion/react";
 import { useAudioPlayerContext } from "@/components/Common/Providers/AudioPlayerProvider";
-import { IS_STANDALONE } from "@/helpers/mediaQueries";
+import { IS_MOBILE } from "@/helpers/mediaQueries";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
 
 interface FloatingNewPostButtonProps {
@@ -16,17 +16,17 @@ const FloatingNewPostButton = ({
   const { isUnloaded } = useAudioPlayerContext();
 
   const isVisible = scrollOffset >= 200;
-  const isStandalone = useMediaQuery(IS_STANDALONE);
+  const isMobile = useMediaQuery(IS_MOBILE);
 
   const onClick = () => {
     setShowNewPostModal(true);
   };
 
   const bottom =
-    isStandalone && !isUnloaded
+    isMobile && !isUnloaded
       ? "10rem"
       : isUnloaded
-        ? isStandalone
+        ? isMobile
           ? "6rem"
           : "4rem"
         : "8rem";
