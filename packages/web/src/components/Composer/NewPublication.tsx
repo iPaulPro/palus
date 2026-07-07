@@ -557,7 +557,7 @@ const NewPublication = ({
             setGifAttachment={setGifAttachment}
           />
           <EmojiPicker
-            anchor={isModal ? "top start" : "bottom start"}
+            align={isMobile ? "center" : "start"}
             setEmoji={(emoji: string) => {
               editor?.insertText(emoji);
             }}
