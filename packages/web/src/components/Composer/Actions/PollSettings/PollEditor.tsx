@@ -59,7 +59,7 @@ const PollEditor = () => {
             size="sm"
           />
           <Input
-            className="no-spinner field-sizing-content min-w-4 max-w-12 py-0 pr-0.5 pl-1.5 text-center font-bold sm:max-w-24"
+            className="sm:no-spinner field-sizing-content min-w-4 max-w-10 py-0 pr-0.5 pl-1.5 text-center font-bold sm:max-w-24"
             iconLeft={<ClockIcon className="size-4" />}
             iconRight={
               <span className="font-bold text-on-surface text-sm">

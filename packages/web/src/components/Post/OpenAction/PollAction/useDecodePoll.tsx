@@ -7,6 +7,7 @@ import { readContractsQueryOptions } from "wagmi/query";
 import { pollVoteActionAbi } from "@/data/abis/pollVoteActionAbi";
 import { CHAIN } from "@/data/constants";
 import { CONTRACTS } from "@/data/contracts";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { Poll } from "@/types/palus";
 
 const OPTIONS_KEY = keccak256(stringToBytes("lens.param.options"));
@@ -27,6 +28,7 @@ const useDecodePoll = (
 ) => {
   const config = useConfig();
   const queryClient = useQueryClient();
+  const { currentAccount } = useAccountStore();
 
   const pollAction = useMemo(() => {
     if (post.__typename !== "Post") return null;
@@ -43,8 +45,8 @@ const useDecodePoll = (
     if (!config) {
       return {
         allowMultipleAnswers: false,
-        endsAtSeconds: null as bigint | null,
-        options: null as string[] | null
+        endsAtSeconds: null,
+        options: null
       };
     }
 
@@ -107,7 +109,10 @@ const useDecodePoll = (
     ];
   }, [post.feed.address, post.id, accountAddress]);
 
-  const queryOptions = useMemo(() => ({ contracts }), [contracts]);
+  const queryOptions = useMemo(
+    () => ({ contracts, query: { enabled: Boolean(currentAccount) } }),
+    [contracts, currentAccount]
+  );
 
   const { data, isLoading, refetch } = useReadContracts(queryOptions);
 
@@ -127,14 +132,18 @@ const useDecodePoll = (
         for (const option of votedOptions) {
           counts[option] = (counts[option] || 0n) + 1n;
         }
-        newData[0] = { ...newData[0], result: counts };
+        newData[0] = { result: counts, status: "success" };
       }
 
-      newData[1] = { ...newData[1], result: true, status: "success" };
+      newData[1] = { result: true, status: "success" };
 
       newData[2] = {
-        ...newData[2],
-        result: votedOptions,
+        result: votedOptions[0],
+        status: "success"
+      };
+
+      newData[3] = {
+        result: options?.map((_option, id) => votedOptions.includes(id)) ?? [],
         status: "success"
       };
 

@@ -28,6 +28,7 @@ import errorToast from "@/helpers/errorToast";
 import humanize from "@/helpers/humanize";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
+import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { ApolloClientError } from "@/types/errors";
 import type { Poll } from "@/types/palus";
 import Voters from "./Voters";
@@ -56,6 +57,7 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
     options.some((option) => option.voted)
   );
 
+  const { currentAccount } = useAccountStore();
   const handleTransactionLifecycle = useTransactionLifecycle();
 
   const onCompleted = () => {
@@ -151,7 +153,7 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
                 type="button"
               >
                 {isSubmitting && isSelected ? (
-                  <Spinner size="sm" />
+                  <Spinner className="mx-0.5" size="sm" />
                 ) : option.voted || isSelected || isWinner ? (
                   <Tooltip
                     content={
@@ -250,11 +252,11 @@ const Choices = ({ poll, post, onVoteSuccess }: ChoicesProps) => {
             isPollLive && (
               <Button
                 className="m-0 shrink-0"
-                disabled={isSubmitting}
+                disabled={isSubmitting || !currentAccount}
                 onClick={handleVote}
                 size="sm"
               >
-                Submit vote
+                {currentAccount ? "Submit vote" : "Log in to vote"}
               </Button>
             )}
         </div>
