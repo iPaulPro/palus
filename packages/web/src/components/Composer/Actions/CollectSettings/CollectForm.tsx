@@ -11,6 +11,7 @@ import { CONTRACTS } from "@/data/contracts";
 import { findToken, NATIVE_TOKEN } from "@/data/tokens";
 import { EXPANSION_EASE } from "@/helpers/variants";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
+import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import type { CollectActionType } from "@/types/palus";
 import AmountConfig from "./AmountConfig";
 import CollectLimitConfig from "./CollectLimitConfig";
@@ -25,6 +26,7 @@ interface CollectFormProps {
 
 const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
   const { collectAction, updateCollectAction, reset } = useCollectActionStore();
+  const { attachments } = usePostAttachmentStore();
 
   const recipients = collectAction.payToCollect?.recipients || [];
   const splitTotal = recipients.reduce((acc, { percent }) => acc + percent, 0);
@@ -210,10 +212,14 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
             <TimeLimitConfig />
             <FollowersConfig setCollectType={setCollectType} />
           </m.div>
-          <div className="divider" />
-          <div className="m-5">
-            <LicensePicker />
-          </div>
+          {attachments.length > 0 && (
+            <>
+              <div className="divider" />
+              <div className="mx-5">
+                <LicensePicker />
+              </div>
+            </>
+          )}
           <div className="divider" />
         </>
       )}

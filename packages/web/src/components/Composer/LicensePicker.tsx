@@ -49,10 +49,11 @@ const LicensePicker = () => {
         <Tooltip
           content={
             <div className="max-w-xs py-2 leading-5">
-              Creator licenses dictate the use, sharing, and distribution of
-              music, art and other intellectual property - ranging from
-              restrictive to permissive. Once given, you can't change the
-              license.
+              Collectible licenses dictate the use, sharing, and distribution of
+              media attached to this post, ranging from restrictive to
+              permissive. <br />
+              <br />
+              <strong>The license cannot be changed after publishing.</strong>
             </div>
           }
           placement="top"
