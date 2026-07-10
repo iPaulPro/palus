@@ -15,12 +15,14 @@ import GlobalAlerts from "@/components/Shared/GlobalAlerts";
 import GlobalModals from "@/components/Shared/GlobalModals";
 import Navbar from "@/components/Shared/Navbar";
 import BottomNavigation from "@/components/Shared/Navbar/BottomNavigation";
+import MobileDrawerMenu from "@/components/Shared/Navbar/MobileDrawerMenu";
 import { Spinner } from "@/components/Shared/UI";
 import { ADMIN_GROUP_ADDRESS } from "@/data/constants";
 import reloadAllTabs from "@/helpers/reloadAllTabs";
 import useShareTargetListener from "@/hooks/useShareTargetListener";
 import { useTheme } from "@/hooks/useTheme";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
+import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import { hydrateAuthTokens, signOut } from "@/store/persisted/useAuthStore";
 import ReloadTabsWatcher from "./ReloadTabsWatcher";
@@ -33,6 +35,7 @@ const Layout = () => {
   const isMounted = useIsClient();
   const { accessToken } = hydrateAuthTokens();
   const { setBannedAccounts } = useBannedAccountsStore();
+  const { show: showMobileDrawer } = useMobileDrawerModalStore();
 
   useShareTargetListener();
 
@@ -97,9 +100,10 @@ const Layout = () => {
       <div className="mx-auto flex w-full max-w-6xl items-start gap-x-6 px-0 md:px-5">
         <Navbar />
         <Outlet />
-        <BottomAudioPlayer />
-        <BottomNavigation />
       </div>
+      <BottomAudioPlayer />
+      {showMobileDrawer && <MobileDrawerMenu />}
+      <BottomNavigation />
     </LazyMotion>
   );
 };

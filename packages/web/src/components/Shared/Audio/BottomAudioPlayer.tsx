@@ -3,7 +3,6 @@ import {
   PauseIcon,
   PlayIcon
 } from "@heroicons/react/24/solid";
-import { useMediaQuery } from "@uidotdev/usehooks";
 import { AnimatePresence, m } from "motion/react";
 import { Link } from "react-router";
 import { useAudioPlayerContext } from "@/components/Common/Providers/AudioPlayerProvider";
@@ -16,9 +15,7 @@ import {
   SwipeToDismiss
 } from "@/components/Shared/UI";
 import { TRANSFORMS } from "@/data/constants";
-import cn from "@/helpers/cn";
 import imageKit from "@/helpers/imageKit";
-import { IS_STANDALONE } from "@/helpers/mediaQueries";
 import { useAudioMetadataStore } from "@/store/non-persisted/audio/useAudioMetadataStore";
 
 const FallbackPoster = () => {
@@ -40,7 +37,6 @@ const BottomAudioPlayer = () => {
     stop
   } = useAudioPlayerContext();
   const { metadata } = useAudioMetadataStore();
-  const isStandalone = useMediaQuery(IS_STANDALONE);
 
   const artist = metadata?.artist ?? "Unknown artist";
   const title = metadata?.title ?? "Untitled";
@@ -55,15 +51,11 @@ const BottomAudioPlayer = () => {
       {metadata && !isUnloaded ? (
         <m.div
           animate={{ opacity: 1, y: 0 }}
-          className={cn(
-            "fixed inset-x-0 bottom-14 z-10 w-full px-2 sm:m-auto sm:w-96 md:bottom-8 lg:hidden",
-            {
-              "bottom-22": isStandalone
-            }
-          )}
+          className="fixed inset-x-0 bottom-14 z-10 mb-8 w-full px-2 sm:m-auto sm:w-96 md:bottom-8 lg:hidden"
           exit={{ opacity: 0, y: 100 }}
           initial={{ opacity: 0, y: 100 }}
           key={metadata.postId}
+          style={{ bottom: "calc(1.5rem + env(safe-area-inset-bottom))" }}
           transition={{ damping: 20, stiffness: 260, type: "spring" }}
         >
           <SwipeToDismiss

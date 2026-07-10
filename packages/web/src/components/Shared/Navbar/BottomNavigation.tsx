@@ -18,7 +18,6 @@ import getAvatar from "@/helpers/getAvatar";
 import useHasNewNotifications from "@/hooks/useHasNewNotifications";
 import { useMobileDrawerModalStore } from "@/store/non-persisted/modal/useMobileDrawerModalStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
-import MobileDrawerMenu from "./MobileDrawerMenu";
 
 interface NavigationItemProps {
   path: string;
@@ -57,8 +56,7 @@ const NavigationItem = ({
 const BottomNavigation = () => {
   const { pathname } = useLocation();
   const { currentAccount } = useAccountStore();
-  const { show: showMobileDrawer, setShow: setShowMobileDrawer } =
-    useMobileDrawerModalStore();
+  const { setShow: setShowMobileDrawer } = useMobileDrawerModalStore();
   const hasNewNotifications = useHasNewNotifications();
 
   const navigate = useNavigate();
@@ -110,7 +108,6 @@ const BottomNavigation = () => {
 
   return (
     <nav className="fixed inset-x-0 bottom-0 z-20 border-gray-200 border-t bg-card pb-safe md:hidden dark:border-gray-800">
-      {showMobileDrawer && <MobileDrawerMenu />}
       <div className="flex justify-between">
         {navigationItems.map(({ path, label, outline, solid }) => (
           <NavigationItem
