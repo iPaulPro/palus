@@ -3,12 +3,10 @@ import { ShoppingBagIcon as ShoppingBagIconSolid } from "@heroicons/react/24/sol
 import { useState } from "react";
 import { Modal, Tooltip } from "@/components/Shared/UI";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
-import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
 import CollectForm from "./CollectForm";
 
 const CollectSettings = () => {
   const { reset, collectAction } = useCollectActionStore((state) => state);
-  const { setLicense } = usePostLicenseStore();
   const [showModal, setShowModal] = useState(false);
   const [hasCollect, setHasCollect] = useState(false);
 
@@ -35,7 +33,6 @@ const CollectSettings = () => {
         onClose={() => {
           setShowModal(false);
           if (!hasCollect) {
-            setLicense(null);
             reset();
           }
         }}

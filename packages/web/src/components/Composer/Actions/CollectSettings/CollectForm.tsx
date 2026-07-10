@@ -11,7 +11,6 @@ import { CONTRACTS } from "@/data/contracts";
 import { findToken, NATIVE_TOKEN } from "@/data/tokens";
 import { EXPANSION_EASE } from "@/helpers/variants";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
-import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
 import type { CollectActionType } from "@/types/palus";
 import AmountConfig from "./AmountConfig";
 import CollectLimitConfig from "./CollectLimitConfig";
@@ -26,7 +25,6 @@ interface CollectFormProps {
 
 const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
   const { collectAction, updateCollectAction, reset } = useCollectActionStore();
-  const { setLicense } = usePostLicenseStore();
 
   const recipients = collectAction.payToCollect?.recipients || [];
   const splitTotal = recipients.reduce((acc, { percent }) => acc + percent, 0);
@@ -153,7 +151,6 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
 
   const toggleCollect = () => {
     if (collectAction.enabled) {
-      setLicense(null);
       reset();
     } else {
       setCollectType({ enabled: true });
@@ -162,18 +159,16 @@ const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
 
   const handleClose = () => {
     setShowModal(false);
-    setLicense(null);
     reset();
   };
 
   const handleSubmit = useCallback(() => {
     if (onSubmit && collectAction.enabled) {
       onSubmit(collectAction);
-      setLicense(null);
       reset();
     }
     setShowModal(false);
-  }, [onSubmit, collectAction, setLicense, reset, setShowModal]);
+  }, [onSubmit, collectAction, reset, setShowModal]);
 
   return (
     <Form form={form} onSubmit={handleSubmit}>

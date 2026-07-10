@@ -1,7 +1,7 @@
 import { MetadataLicenseType } from "@palus/indexer";
 import { Select, Tooltip } from "@/components/Shared/UI";
 import getAssetLicense from "@/helpers/getAssetLicense";
-import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
+import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 
 type Option = {
   label: string;
@@ -10,7 +10,9 @@ type Option = {
 };
 
 const LicensePicker = () => {
-  const { license, setLicense } = usePostLicenseStore();
+  const { updateCollectAction, collectAction } = useCollectActionStore(
+    (state) => state
+  );
 
   const otherOptions: Option[] = Object.values(MetadataLicenseType).reduce<
     Option[]
@@ -19,7 +21,7 @@ const LicensePicker = () => {
     if (assetLicense) {
       acc.push({
         label: assetLicense.label ?? "",
-        selected: license === type,
+        selected: collectAction.license === type,
         value: type
       });
     }
@@ -33,7 +35,7 @@ const LicensePicker = () => {
   }[] = [
     {
       label: "All rights reserved",
-      selected: license === null,
+      selected: collectAction.license === null,
       value: null
     },
     ...otherOptions
@@ -61,11 +63,13 @@ const LicensePicker = () => {
         </Tooltip>
       </div>
       <Select
-        onChange={(value) => setLicense(value as MetadataLicenseType)}
+        onChange={(value) =>
+          updateCollectAction({ license: value as MetadataLicenseType })
+        }
         options={options as any}
       />
       <div className="linkify mt-2 text-gray-500 text-sm dark:text-gray-200">
-        {getAssetLicense(license)?.helper ||
+        {getAssetLicense(collectAction.license)?.helper ||
           "You are not granting a license to the collector and retain all rights."}
       </div>
     </div>

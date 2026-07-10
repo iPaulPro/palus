@@ -6,6 +6,7 @@ const INITIAL_COLLECT_ACTION: CollectActionType = {
   enabled: false,
   endsAt: null,
   followerOnly: false,
+  license: null,
   payToCollect: undefined
 };
 

@@ -33,7 +33,6 @@ import {
   usePostAudioStore
 } from "@/store/non-persisted/post/usePostAudioStore";
 import { usePostContentWarningStore } from "@/store/non-persisted/post/usePostContentWarningStore";
-import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
 import { usePostPollStore } from "@/store/non-persisted/post/usePostPollStore";
 import { usePostRulesStore } from "@/store/non-persisted/post/usePostRulesStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
@@ -93,7 +92,6 @@ const GlobalModals = () => {
     onSubmit: onSubmitCollectForm
   } = useCollectFormModalStore();
   const { reset: resetCollectForm } = useCollectActionStore((state) => state);
-  const { setLicense } = usePostLicenseStore();
   const {
     setFollowersOnly,
     setFollowingOnly,
@@ -134,7 +132,6 @@ const GlobalModals = () => {
     setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
     setVideoDurationInSeconds("0");
     setAudioPost(DEFAULT_AUDIO_POST);
-    setLicense(null);
     resetCollectForm();
   };
 
@@ -238,7 +235,6 @@ const GlobalModals = () => {
       <Modal
         onClose={() => {
           setShowCollectFormModal(false);
-          setLicense(null);
           resetCollectForm();
         }}
         show={showCollectFormModal}

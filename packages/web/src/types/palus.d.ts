@@ -7,6 +7,7 @@ import type {
   GroupMembershipRequestApprovedNotificationFragment,
   GroupMembershipRequestRejectedNotificationFragment,
   MentionNotificationFragment,
+  MetadataLicenseType,
   NativeAmountFragment,
   PayToCollectInput,
   PostActionExecutedNotificationFragment,
@@ -22,6 +23,7 @@ export type CollectActionType = {
   collectLimit?: null | number;
   followerOnly?: boolean;
   endsAt?: null | string;
+  license?: MetadataLicenseType | null;
 };
 
 type PollOption = {

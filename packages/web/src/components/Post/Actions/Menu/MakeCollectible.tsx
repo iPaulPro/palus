@@ -7,7 +7,6 @@ import stopEventPropagation from "@/helpers/stopEventPropagation";
 import useMakePostCollectible from "@/hooks/useMakePostCollectible";
 import { useCollectFormModalStore } from "@/store/non-persisted/modal/useCollectFormModalStore";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
-import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
 
 interface Props {
   post: PostFragment;
@@ -17,9 +16,7 @@ const MakeCollectible = ({ post }: Props) => {
   const { setShowCollectFormModal, submittingPost } =
     useCollectFormModalStore();
   const { submit, isSubmitting } = useMakePostCollectible({ post });
-
   const { reset } = useCollectActionStore((state) => state);
-  const { setLicense } = usePostLicenseStore();
 
   if (
     post.actions.find((action) => action.__typename === "SimpleCollectAction")
@@ -49,7 +46,6 @@ const MakeCollectible = ({ post }: Props) => {
       onClick={(event) => {
         stopEventPropagation(event);
         reset();
-        setLicense(null);
         setShowCollectFormModal(true, submit);
       }}
     >

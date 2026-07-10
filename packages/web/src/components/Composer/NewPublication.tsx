@@ -55,7 +55,6 @@ import {
   usePostAudioStore
 } from "@/store/non-persisted/post/usePostAudioStore";
 import { usePostContentWarningStore } from "@/store/non-persisted/post/usePostContentWarningStore";
-import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
 import { usePostPollStore } from "@/store/non-persisted/post/usePostPollStore";
 import { usePostRulesStore } from "@/store/non-persisted/post/usePostRulesStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
@@ -114,7 +113,6 @@ const NewPublication = ({
     usePostAttachmentStore();
   const { pollConfig, resetPollConfig, setShowPollEditor, showPollEditor } =
     usePostPollStore();
-  const { setLicense } = usePostLicenseStore();
   const { collectAction, reset: resetCollectSettings } = useCollectActionStore(
     (state) => state
   );
@@ -188,7 +186,6 @@ const NewPublication = ({
     setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
     setVideoDurationInSeconds("0");
     setAudioPost(DEFAULT_AUDIO_POST);
-    setLicense(null);
     resetCollectSettings();
     setSelectedGroup(group);
     setShowNewPostModal(false);

@@ -7,10 +7,10 @@ import {
   video
 } from "@lens-protocol/metadata";
 import { useCallback } from "react";
+import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import { usePostAudioStore } from "@/store/non-persisted/post/usePostAudioStore";
 import { usePostContentWarningStore } from "@/store/non-persisted/post/usePostContentWarningStore";
-import { usePostLicenseStore } from "@/store/non-persisted/post/usePostLicenseStore";
 import { usePostVideoStore } from "@/store/non-persisted/post/usePostVideoStore";
 import type { NewAttachment } from "@/types/misc";
 
@@ -25,9 +25,9 @@ interface UsePostMetadataProps {
 const usePostMetadata = () => {
   const { videoDurationInSeconds, videoThumbnail } = usePostVideoStore();
   const { audioPost } = usePostAudioStore();
-  const { license } = usePostLicenseStore();
   const { attachments } = usePostAttachmentStore();
   const { contentWarning } = usePostContentWarningStore();
+  const { collectAction } = useCollectActionStore((state) => state);
 
   const formatAttachments = () =>
     attachments.slice(1).map(({ mimeType, uri }) => ({
@@ -82,7 +82,7 @@ const usePostMetadata = () => {
           }),
           ...(contentWarning && { contentWarning }),
           image: {
-            ...(license && { license }),
+            ...(collectAction.license && { license: collectAction.license }),
             item: primaryAttachment.uri,
             type: primaryAttachment.mimeType
           },
@@ -117,7 +117,7 @@ const usePostMetadata = () => {
             cover: audioPost.cover,
             item: primaryAttachment.uri,
             type: primaryAttachment.mimeType,
-            ...(license && { license })
+            ...(collectAction.license && { license: collectAction.license })
           },
           ...(isCollectible && {
             nft: {
@@ -143,7 +143,7 @@ const usePostMetadata = () => {
             duration: Number.parseInt(videoDurationInSeconds, 10),
             item: primaryAttachment.uri,
             type: primaryAttachment.mimeType,
-            ...(license && { license })
+            ...(collectAction.license && { license: collectAction.license })
           },
           ...(isCollectible && {
             nft: {
@@ -162,13 +162,13 @@ const usePostMetadata = () => {
     [
       attachments,
       videoDurationInSeconds,
-      license,
       contentWarning,
       audioPost.artist,
       audioPost.title,
       audioPost.duration,
       audioPost.cover,
-      videoThumbnail.url
+      videoThumbnail.url,
+      collectAction.license
     ]
   );
 
