@@ -32,7 +32,6 @@ import {
   DEFAULT_AUDIO_POST,
   usePostAudioStore
 } from "@/store/non-persisted/post/usePostAudioStore";
-import { usePostContentWarningStore } from "@/store/non-persisted/post/usePostContentWarningStore";
 import { usePostPollStore } from "@/store/non-persisted/post/usePostPollStore";
 import { usePostRulesStore } from "@/store/non-persisted/post/usePostRulesStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
@@ -98,7 +97,7 @@ const GlobalModals = () => {
     setGroupGate,
     setCollectorsOnly
   } = usePostRulesStore();
-  const { setContentWarning } = usePostContentWarningStore();
+  const { setContentWarning } = usePostStore();
   const { resetPollConfig, setShowPollEditor } = usePostPollStore();
   const { setAudioPost } = usePostAudioStore();
   const { setVideoThumbnail, setVideoDurationInSeconds } = usePostVideoStore();

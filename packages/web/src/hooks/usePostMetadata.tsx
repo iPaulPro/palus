@@ -10,7 +10,7 @@ import { useCallback } from "react";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import { usePostAudioStore } from "@/store/non-persisted/post/usePostAudioStore";
-import { usePostContentWarningStore } from "@/store/non-persisted/post/usePostContentWarningStore";
+import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import { usePostVideoStore } from "@/store/non-persisted/post/usePostVideoStore";
 import type { NewAttachment } from "@/types/misc";
 
@@ -26,7 +26,7 @@ const usePostMetadata = () => {
   const { videoDurationInSeconds, videoThumbnail } = usePostVideoStore();
   const { audioPost } = usePostAudioStore();
   const { attachments } = usePostAttachmentStore();
-  const { contentWarning } = usePostContentWarningStore();
+  const { contentWarning } = usePostStore();
   const { collectAction } = useCollectActionStore((state) => state);
 
   const formatAttachments = () =>

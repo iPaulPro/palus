@@ -3,8 +3,8 @@ import type { GroupFragment } from "@palus/indexer";
 import { useState } from "react";
 import { Modal, Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
-import { usePostContentWarningStore } from "@/store/non-persisted/post/usePostContentWarningStore";
 import { usePostRulesStore } from "@/store/non-persisted/post/usePostRulesStore";
+import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import ContentWarning from "./ContentWarning";
 import Rules from "./Rules";
 
@@ -16,7 +16,7 @@ const PostSettings = ({ group }: RulesSettingsProps) => {
   const [showModal, setShowModal] = useState(false);
   const { collectorsOnly, followersOnly, followingOnly, groupGate } =
     usePostRulesStore();
-  const { contentWarning } = usePostContentWarningStore();
+  const { contentWarning } = usePostStore();
 
   const hasRules =
     followersOnly || followingOnly || groupGate || collectorsOnly;

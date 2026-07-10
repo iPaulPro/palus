@@ -1,9 +1,9 @@
 import { ContentWarning as ContentWarningType } from "@palus/indexer";
 import { Select } from "@/components/Shared/UI";
-import { usePostContentWarningStore } from "@/store/non-persisted/post/usePostContentWarningStore";
+import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 
 const ContentWarning = () => {
-  const { contentWarning, setContentWarning } = usePostContentWarningStore();
+  const { contentWarning, setContentWarning } = usePostStore();
 
   const options = [
     {

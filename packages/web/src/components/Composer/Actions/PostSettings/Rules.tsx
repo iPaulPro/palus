@@ -8,11 +8,11 @@ import Checkbox from "@/components/Shared/UI/Checkbox";
 import { CONTRACTS } from "@/data/contracts";
 import { EXPANSION_EASE } from "@/helpers/variants";
 import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
-import { usePostContentWarningStore } from "@/store/non-persisted/post/usePostContentWarningStore";
 import {
   type RuleState,
   usePostRulesStore
 } from "@/store/non-persisted/post/usePostRulesStore";
+import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 
 const ALL_RESTRICTED: RuleState = {
   quotesRestricted: true,
@@ -113,7 +113,7 @@ const Rules = ({ setShowModal, groupAddress }: RulesProps) => {
     setGroupGate,
     setCollectorsOnly
   } = usePostRulesStore();
-  const { setContentWarning } = usePostContentWarningStore();
+  const { setContentWarning } = usePostStore();
 
   const { collectAction } = useCollectActionStore();
 

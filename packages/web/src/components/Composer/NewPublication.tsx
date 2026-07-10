@@ -54,7 +54,6 @@ import {
   DEFAULT_AUDIO_POST,
   usePostAudioStore
 } from "@/store/non-persisted/post/usePostAudioStore";
-import { usePostContentWarningStore } from "@/store/non-persisted/post/usePostContentWarningStore";
 import { usePostPollStore } from "@/store/non-persisted/post/usePostPollStore";
 import { usePostRulesStore } from "@/store/non-persisted/post/usePostRulesStore";
 import { usePostStore } from "@/store/non-persisted/post/usePostStore";
@@ -99,7 +98,8 @@ const NewPublication = ({
     setQuotedPost,
     setIgnoreQuotedPostId,
     setNotificationShare,
-    setSharingLink
+    setSharingLink,
+    setContentWarning
   } = usePostStore();
 
   const { audioPost, setAudioPost } = usePostAudioStore();
@@ -126,7 +126,6 @@ const NewPublication = ({
     setGroupGate,
     setCollectorsOnly
   } = usePostRulesStore();
-  const { setContentWarning } = usePostContentWarningStore();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [postContentError, setPostContentError] = useState("");
