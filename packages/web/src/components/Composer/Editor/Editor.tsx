@@ -1,9 +1,9 @@
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import { defineEditorExtension } from "@/helpers/prosekit/extension";
 import { htmlFromMarkdown } from "@/helpers/prosekit/markdown";
 import useContentChange from "@/hooks/prosekit/useContentChange";
 import useFocus from "@/hooks/prosekit/useFocus";
 import { usePaste } from "@/hooks/prosekit/usePaste";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import "prosekit/basic/style.css";
 import {
   type GroupFragment,
@@ -43,7 +43,7 @@ const Editor = ({
   fullHeight
 }: EditorProps) => {
   const { currentAccount } = useAccountStore();
-  const { postContent } = usePostStore();
+  const postContent = useComposerStore((state) => state.postContent);
   const defaultMarkdownRef = useRef(postContent);
 
   const defaultContent = useMemo(() => {

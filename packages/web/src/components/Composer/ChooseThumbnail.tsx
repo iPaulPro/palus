@@ -2,13 +2,12 @@ import { CheckCircleIcon, PhotoIcon } from "@heroicons/react/24/outline";
 import type { ChangeEvent } from "react";
 import { memo, useEffect, useId, useState } from "react";
 import { toast } from "sonner";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import ThumbnailsShimmer from "@/components/Shared/Shimmer/ThumbnailsShimmer";
 import { Spinner } from "@/components/Shared/UI";
 import generateVideoThumbnails from "@/helpers/generateVideoThumbnails";
 import getFileFromDataURL from "@/helpers/getFileFromDataURL";
 import { uploadFile } from "@/helpers/uploadFiles";
-import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
-import { usePostVideoStore } from "@/store/non-persisted/post/usePostVideoStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const DEFAULT_THUMBNAIL_INDEX = 0;
@@ -27,9 +26,14 @@ const ChooseThumbnail = () => {
   const [hidden, setHidden] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
 
-  const { attachments } = usePostAttachmentStore();
-  const { setVideoThumbnail, updateVideoThumbnail, videoThumbnail } =
-    usePostVideoStore();
+  const attachments = useComposerStore((state) => state.attachments);
+  const setVideoThumbnail = useComposerStore(
+    (state) => state.setVideoThumbnail
+  );
+  const updateVideoThumbnail = useComposerStore(
+    (state) => state.updateVideoThumbnail
+  );
+  const videoThumbnail = useComposerStore((state) => state.videoThumbnail);
   const { file } = attachments[0];
 
   const { currentAccount } = useAccountStore();

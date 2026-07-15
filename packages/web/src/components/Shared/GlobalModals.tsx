@@ -1,5 +1,6 @@
 import { useMediaQuery } from "@uidotdev/usehooks";
 import CollectForm from "@/components/Composer/Actions/CollectSettings/CollectForm";
+import { ComposerStoreProvider } from "@/components/Composer/ComposerStore";
 import NewPublication from "@/components/Composer/NewPublication";
 import SuperFollow from "@/components/Shared/Account/SuperFollow";
 import SwitchAccounts from "@/components/Shared/Account/SwitchAccounts";
@@ -26,39 +27,17 @@ import { useReportPostModalStore } from "@/store/non-persisted/modal/useReportPo
 import { useSuperFollowModalStore } from "@/store/non-persisted/modal/useSuperFollowModalStore";
 import { useSuperJoinModalStore } from "@/store/non-persisted/modal/useSuperJoinModalStore";
 import { useSwitchAccountModalStore } from "@/store/non-persisted/modal/useSwitchAccountModalStore";
-import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
-import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
-import {
-  DEFAULT_AUDIO_POST,
-  usePostAudioStore
-} from "@/store/non-persisted/post/usePostAudioStore";
-import { usePostPollStore } from "@/store/non-persisted/post/usePostPollStore";
-import { usePostRulesStore } from "@/store/non-persisted/post/usePostRulesStore";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
-import {
-  DEFAULT_VIDEO_THUMBNAIL,
-  usePostVideoStore
-} from "@/store/non-persisted/post/usePostVideoStore";
 import Auth from "./Auth";
 
 const GlobalModals = () => {
   const { setShow: setShowSwitchAccountModal, show: showSwitchAccountModal } =
     useSwitchAccountModalStore();
-  const { show: showNewPostModal, setShow: setShowNewPostModal } =
-    useNewPostModalStore();
   const {
-    editingPost,
-    parentPost,
-    quotedPost,
-    setEditingPost,
-    setQuotedPost,
-    setIgnoreQuotedPostId,
-    setPostContent,
-    setParentPost,
-    setNotificationShare,
-    setSharingLink
-  } = usePostStore();
-  const { setAttachments } = usePostAttachmentStore();
+    close: closeNewPostModal,
+    initialState: newPostInitialState,
+    sessionId: newPostSessionId,
+    show: showNewPostModal
+  } = useNewPostModalStore();
   const { authModalType, showAuthModal, setShowAuthModal } =
     useAuthModalStore();
   const {
@@ -90,17 +69,8 @@ const GlobalModals = () => {
     setShowCollectFormModal,
     onSubmit: onSubmitCollectForm
   } = useCollectFormModalStore();
-  const { reset: resetCollectForm } = useCollectActionStore((state) => state);
-  const {
-    setFollowersOnly,
-    setFollowingOnly,
-    setGroupGate,
-    setCollectorsOnly
-  } = usePostRulesStore();
-  const { setContentWarning } = usePostStore();
-  const { resetPollConfig, setShowPollEditor } = usePostPollStore();
-  const { setAudioPost } = usePostAudioStore();
-  const { setVideoThumbnail, setVideoDurationInSeconds } = usePostVideoStore();
+
+  const { editingPost, parentPost, quotedPost } = newPostInitialState;
 
   const authModalTitle =
     authModalType === "signup"
@@ -110,29 +80,6 @@ const GlobalModals = () => {
       : null;
 
   const isSmallDevice = useMediaQuery(IS_MOBILE);
-
-  const resetPostState = () => {
-    setShowNewPostModal(false);
-    setPostContent("");
-    setAttachments([]);
-    setQuotedPost(undefined);
-    setIgnoreQuotedPostId(undefined);
-    setEditingPost(undefined);
-    setParentPost(undefined);
-    setFollowersOnly(undefined);
-    setFollowingOnly(undefined);
-    setGroupGate(undefined);
-    setCollectorsOnly(undefined);
-    setContentWarning(undefined);
-    setShowPollEditor(false);
-    setNotificationShare(undefined);
-    setSharingLink(undefined);
-    resetPollConfig();
-    setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
-    setVideoDurationInSeconds("0");
-    setAudioPost(DEFAULT_AUDIO_POST);
-    resetCollectForm();
-  };
 
   return (
     <>
@@ -166,7 +113,7 @@ const GlobalModals = () => {
         <Auth />
       </Modal>
       <Modal
-        onClose={resetPostState}
+        onClose={closeNewPostModal}
         preventClose={true}
         show={showNewPostModal}
         size={isSmallDevice ? "full" : "md"}
@@ -182,7 +129,9 @@ const GlobalModals = () => {
       >
         <NewPublication
           className="!rounded-b-xl !rounded-t-none border-none"
+          initialState={newPostInitialState}
           isModal
+          key={newPostSessionId}
           post={parentPost}
         />
       </Modal>
@@ -234,15 +183,16 @@ const GlobalModals = () => {
       <Modal
         onClose={() => {
           setShowCollectFormModal(false);
-          resetCollectForm();
         }}
         show={showCollectFormModal}
         title="Collect Settings"
       >
-        <CollectForm
-          onSubmit={onSubmitCollectForm}
-          setShowModal={setShowCollectFormModal}
-        />
+        <ComposerStoreProvider key={String(showCollectFormModal)}>
+          <CollectForm
+            onSubmit={onSubmitCollectForm}
+            setShowModal={setShowCollectFormModal}
+          />
+        </ComposerStoreProvider>
       </Modal>
     </>
   );

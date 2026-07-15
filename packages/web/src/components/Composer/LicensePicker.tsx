@@ -1,7 +1,7 @@
 import { MetadataLicenseType } from "@palus/indexer";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import { Select, Tooltip } from "@/components/Shared/UI";
 import getAssetLicense from "@/helpers/getAssetLicense";
-import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 
 type Option = {
   label: string;
@@ -10,9 +10,10 @@ type Option = {
 };
 
 const LicensePicker = () => {
-  const { updateCollectAction, collectAction } = useCollectActionStore(
-    (state) => state
+  const updateCollectAction = useComposerStore(
+    (state) => state.updateCollectAction
   );
+  const collectAction = useComposerStore((state) => state.collectAction);
 
   const otherOptions: Option[] = Object.values(MetadataLicenseType).reduce<
     Option[]

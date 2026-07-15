@@ -14,7 +14,6 @@ import Timestamp from "@/components/Notification/Type/Shared/Timestamp";
 import { TipIcon } from "@/components/Shared/Icons/TipIcon";
 import { Button } from "@/components/Shared/UI";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import type { NotificationProps } from "@/types/palus";
 
 function isTippingActionExecuted(
@@ -50,18 +49,18 @@ const AccountActionExecutedNotification = ({
       ? firstAction.tipAmount
       : undefined;
 
-  const { setShow: setShowNewPostModal } = useNewPostModalStore();
-  const { setNotificationShare } = usePostStore();
+  const { open: openNewPostModal } = useNewPostModalStore();
 
   const handleShare = (action: (typeof actions)[number]) => {
     if (!isTippingActionExecuted(action)) return;
-    setNotificationShare({
-      amount: action.tipAmount,
-      executedBy: action.executedBy,
-      timestamp: new Date(action.executedAt),
-      type: "account-tip"
+    openNewPostModal({
+      notificationShare: {
+        amount: action.tipAmount,
+        executedBy: action.executedBy,
+        timestamp: new Date(action.executedAt),
+        type: "account-tip"
+      }
     });
-    setShowNewPostModal(true);
   };
 
   if (!type) {

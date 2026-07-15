@@ -2,17 +2,15 @@ import { InformationCircleIcon } from "@heroicons/react/24/outline";
 import { useGroupQuery } from "@palus/indexer";
 import { m } from "motion/react";
 import { type Dispatch, type SetStateAction, useEffect } from "react";
+import {
+  type RuleState,
+  useComposerStore
+} from "@/components/Composer/ComposerStore";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Button, Tooltip } from "@/components/Shared/UI";
 import Checkbox from "@/components/Shared/UI/Checkbox";
 import { CONTRACTS } from "@/data/contracts";
 import { EXPANSION_EASE } from "@/helpers/variants";
-import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
-import {
-  type RuleState,
-  usePostRulesStore
-} from "@/store/non-persisted/post/usePostRulesStore";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 
 const ALL_RESTRICTED: RuleState = {
   quotesRestricted: true,
@@ -103,19 +101,20 @@ interface RulesProps {
 }
 
 const Rules = ({ setShowModal, groupAddress }: RulesProps) => {
-  const {
-    followersOnly,
-    followingOnly,
-    groupGate,
-    collectorsOnly,
-    setFollowersOnly,
-    setFollowingOnly,
-    setGroupGate,
-    setCollectorsOnly
-  } = usePostRulesStore();
-  const { setContentWarning } = usePostStore();
-
-  const { collectAction } = useCollectActionStore();
+  const followersOnly = useComposerStore((state) => state.followersOnly);
+  const followingOnly = useComposerStore((state) => state.followingOnly);
+  const groupGate = useComposerStore((state) => state.groupGate);
+  const collectorsOnly = useComposerStore((state) => state.collectorsOnly);
+  const setFollowersOnly = useComposerStore((state) => state.setFollowersOnly);
+  const setFollowingOnly = useComposerStore((state) => state.setFollowingOnly);
+  const setGroupGate = useComposerStore((state) => state.setGroupGate);
+  const setCollectorsOnly = useComposerStore(
+    (state) => state.setCollectorsOnly
+  );
+  const setContentWarning = useComposerStore(
+    (state) => state.setContentWarning
+  );
+  const collectAction = useComposerStore((state) => state.collectAction);
 
   const { data, loading: groupLoading } = useGroupQuery({
     skip: !groupAddress,

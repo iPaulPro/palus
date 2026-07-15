@@ -6,7 +6,6 @@ import { Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
 import nFormatter from "@/helpers/nFormatter";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface CommentProps {
@@ -16,8 +15,7 @@ interface CommentProps {
 
 const Comment = ({ post, showCount }: CommentProps) => {
   const count = post.stats.comments;
-  const { setShow: setShowNewPostModal } = useNewPostModalStore();
-  const { setParentPost } = usePostStore();
+  const { open: openNewPostModal } = useNewPostModalStore();
   const navigate = useNavigate();
   const { currentAccount } = useAccountStore();
   const hasCommented =
@@ -36,8 +34,7 @@ const Comment = ({ post, showCount }: CommentProps) => {
         )}
         onClick={() => {
           if (currentAccount) {
-            setParentPost(post);
-            setShowNewPostModal(true);
+            openNewPostModal({ parentPost: post });
           } else {
             navigate(`/posts/${post.slug}`);
           }

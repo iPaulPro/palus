@@ -1,11 +1,14 @@
 import { ChartBarIcon } from "@heroicons/react/24/outline";
 import { ChartBarIcon as ChartBarIconSolid } from "@heroicons/react/24/solid";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import { Tooltip } from "@/components/Shared/UI";
-import { usePostPollStore } from "@/store/non-persisted/post/usePostPollStore";
 
 const PollSettings = () => {
-  const { resetPollConfig, setShowPollEditor, showPollEditor } =
-    usePostPollStore();
+  const resetPollConfig = useComposerStore((state) => state.resetPollConfig);
+  const setShowPollEditor = useComposerStore(
+    (state) => state.setShowPollEditor
+  );
+  const showPollEditor = useComposerStore((state) => state.showPollEditor);
 
   return (
     <Tooltip content="Poll" placement="top">

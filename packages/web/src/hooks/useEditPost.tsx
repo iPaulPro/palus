@@ -2,7 +2,7 @@ import { useApolloClient } from "@apollo/client";
 import { useEditPostMutation, usePostLazyQuery } from "@palus/indexer";
 import { useCallback } from "react";
 import { toast } from "sonner";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import type { ApolloClientError } from "@/types/errors";
 import useTransactionLifecycle from "./useTransactionLifecycle";
 import useWaitForTransactionToBeIndexed from "./useWaitForTransactionToBeIndexed";
@@ -14,7 +14,8 @@ interface EditPostProps {
 
 const useEditPost = ({ onCompleted, onError }: EditPostProps) => {
   const handleTransactionLifecycle = useTransactionLifecycle();
-  const { editingPost, setEditingPost } = usePostStore();
+  const editingPost = useComposerStore((state) => state.editingPost);
+  const setEditingPost = useComposerStore((state) => state.setEditingPost);
   const waitForTransactionToComplete = useWaitForTransactionToBeIndexed();
   const [getPost] = usePostLazyQuery();
   const { cache } = useApolloClient();

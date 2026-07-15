@@ -7,13 +7,13 @@ import {
 import { m } from "motion/react";
 import { useState } from "react";
 import { isAddress } from "viem";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import SearchAccounts from "@/components/Shared/Account/SearchAccounts";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Button, Input } from "@/components/Shared/UI";
 import { ADDRESS_PLACEHOLDER } from "@/data/constants";
 import splitNumber from "@/helpers/splitNumber";
 import { EXPANSION_EASE } from "@/helpers/variants";
-import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { CollectActionType } from "@/types/palus";
 
@@ -27,7 +27,7 @@ const SplitConfig = ({
   setCollectType
 }: SplitConfigProps) => {
   const { currentAccount } = useAccountStore();
-  const { collectAction } = useCollectActionStore((state) => state);
+  const collectAction = useComposerStore((state) => state.collectAction);
 
   const currentAddress = currentAccount?.address || "";
   const recipients = collectAction.payToCollect?.recipients || [];

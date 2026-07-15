@@ -5,10 +5,10 @@ import {
 import { m } from "motion/react";
 import { type ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Input } from "@/components/Shared/UI";
 import { EXPANSION_EASE } from "@/helpers/variants";
-import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import type { CollectActionType } from "@/types/palus";
 
 interface CollectReferralConfigProps {
@@ -20,7 +20,7 @@ const FIELD_NAME = "referralShare";
 const ReferralShareConfig = ({
   setCollectType
 }: CollectReferralConfigProps) => {
-  const { collectAction } = useCollectActionStore((state) => state);
+  const collectAction = useComposerStore((state) => state.collectAction);
   const [enabled, setEnabled] = useState(
     Boolean(collectAction.payToCollect?.referralShare)
   );

@@ -1,8 +1,8 @@
 import { GifIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import { Modal, Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
-import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import type { IGif } from "@/types/giphy";
 import GifSelector from "./GifSelector";
 
@@ -12,7 +12,7 @@ interface GifProps {
 }
 
 const Gif = ({ setGifAttachment, disabled }: GifProps) => {
-  const { attachments } = usePostAttachmentStore();
+  const attachments = useComposerStore((state) => state.attachments);
   const [showModal, setShowModal] = useState(false);
   const disable =
     disabled ||

@@ -5,13 +5,13 @@ import {
 import { m } from "motion/react";
 import { type ChangeEvent, useCallback, useEffect, useState } from "react";
 import { Controller, useFormContext } from "react-hook-form";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Input, Select } from "@/components/Shared/UI";
 import { STATIC_IMAGES_URL } from "@/data/constants";
 import { CONTRACTS } from "@/data/contracts";
 import { TOKENS } from "@/data/tokens";
 import { EXPANSION_EASE } from "@/helpers/variants";
-import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { CollectActionType } from "@/types/palus";
 
@@ -31,7 +31,7 @@ const FIELD_NAME_TOKEN = "token";
 
 const AmountConfig = ({ setCollectType }: AmountConfigProps) => {
   const { currentAccount } = useAccountStore();
-  const { collectAction } = useCollectActionStore((state) => state);
+  const collectAction = useComposerStore((state) => state.collectAction);
   const [enabled, setEnabled] = useState(
     Boolean(
       collectAction.payToCollect?.native ??

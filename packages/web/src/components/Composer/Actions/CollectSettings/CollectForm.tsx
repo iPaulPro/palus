@@ -4,14 +4,13 @@ import { useCallback, useMemo } from "react";
 import { isAddress, parseUnits } from "viem";
 import { z } from "zod";
 import ReferralShareConfig from "@/components/Composer/Actions/CollectSettings/ReferralShareConfig";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import LicensePicker from "@/components/Composer/LicensePicker";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Button, Form, useZodForm } from "@/components/Shared/UI";
 import { CONTRACTS } from "@/data/contracts";
 import { findToken, NATIVE_TOKEN } from "@/data/tokens";
 import { EXPANSION_EASE } from "@/helpers/variants";
-import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
-import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import type { CollectActionType } from "@/types/palus";
 import AmountConfig from "./AmountConfig";
 import CollectLimitConfig from "./CollectLimitConfig";
@@ -25,8 +24,12 @@ interface CollectFormProps {
 }
 
 const CollectForm = ({ setShowModal, onSubmit }: CollectFormProps) => {
-  const { collectAction, updateCollectAction, reset } = useCollectActionStore();
-  const { attachments } = usePostAttachmentStore();
+  const collectAction = useComposerStore((state) => state.collectAction);
+  const updateCollectAction = useComposerStore(
+    (state) => state.updateCollectAction
+  );
+  const reset = useComposerStore((state) => state.resetCollectAction);
+  const attachments = useComposerStore((state) => state.attachments);
 
   const recipients = collectAction.payToCollect?.recipients || [];
   const splitTotal = recipients.reduce((acc, { percent }) => acc + percent, 0);

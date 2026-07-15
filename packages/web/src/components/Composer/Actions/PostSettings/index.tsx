@@ -1,10 +1,9 @@
 import { AdjustmentsHorizontalIcon } from "@heroicons/react/24/outline";
 import type { GroupFragment } from "@palus/indexer";
 import { useState } from "react";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import { Modal, Tooltip } from "@/components/Shared/UI";
 import cn from "@/helpers/cn";
-import { usePostRulesStore } from "@/store/non-persisted/post/usePostRulesStore";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import ContentWarning from "./ContentWarning";
 import Rules from "./Rules";
 
@@ -14,9 +13,11 @@ interface RulesSettingsProps {
 
 const PostSettings = ({ group }: RulesSettingsProps) => {
   const [showModal, setShowModal] = useState(false);
-  const { collectorsOnly, followersOnly, followingOnly, groupGate } =
-    usePostRulesStore();
-  const { contentWarning } = usePostStore();
+  const collectorsOnly = useComposerStore((state) => state.collectorsOnly);
+  const followersOnly = useComposerStore((state) => state.followersOnly);
+  const followingOnly = useComposerStore((state) => state.followingOnly);
+  const groupGate = useComposerStore((state) => state.groupGate);
+  const contentWarning = useComposerStore((state) => state.contentWarning);
 
   const hasRules =
     followersOnly || followingOnly || groupGate || collectorsOnly;

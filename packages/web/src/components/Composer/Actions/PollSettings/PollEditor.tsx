@@ -3,22 +3,22 @@ import { ClockIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { Bars3BottomLeftIcon } from "@heroicons/react/24/solid";
 import plur from "plur";
 import { useState } from "react";
-import { Card, Input, Select, Tooltip } from "@/components/Shared/UI";
 import {
   DEFAULT_DURATION_DAYS,
-  usePostPollStore
-} from "@/store/non-persisted/post/usePostPollStore";
+  useComposerStore
+} from "@/components/Composer/ComposerStore";
+import { Card, Input, Select, Tooltip } from "@/components/Shared/UI";
 
 const PollEditor = () => {
-  const {
-    pollConfig,
-    resetPollConfig,
-    updatePollConfig,
-    addPollOption,
-    removePollOption,
-    updatePollOption,
-    setShowPollEditor
-  } = usePostPollStore();
+  const pollConfig = useComposerStore((state) => state.pollConfig);
+  const resetPollConfig = useComposerStore((state) => state.resetPollConfig);
+  const updatePollConfig = useComposerStore((state) => state.updatePollConfig);
+  const addPollOption = useComposerStore((state) => state.addPollOption);
+  const removePollOption = useComposerStore((state) => state.removePollOption);
+  const updatePollOption = useComposerStore((state) => state.updatePollOption);
+  const setShowPollEditor = useComposerStore(
+    (state) => state.setShowPollEditor
+  );
 
   const options = [
     {

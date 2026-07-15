@@ -4,6 +4,7 @@ import {
 } from "@lens-protocol/metadata";
 import { useCallback, useState } from "react";
 import { z } from "zod";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import Audio from "@/components/Shared/Audio";
 import {
   Button,
@@ -15,7 +16,6 @@ import {
 } from "@/components/Shared/UI";
 import generateUUID from "@/helpers/generateUUID";
 import sanitizeDStorageUrl from "@/helpers/sanitizeDStorageUrl";
-import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import type { NewAttachment } from "@/types/misc";
 
 const ImageMimeTypes = Object.values(MediaImageMimeType) as string[];
@@ -62,7 +62,7 @@ const UrlAttachmentModal = ({
   const [preview, setPreview] = useState<Preview | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const { addAttachments } = usePostAttachmentStore();
+  const addAttachments = useComposerStore((state) => state.addAttachments);
 
   const form = useZodForm({
     schema: ValidationSchema

@@ -1,15 +1,13 @@
 import { MenuItem } from "@headlessui/react";
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import type { PostFragment } from "@palus/indexer";
+import type { AudioPost } from "@/components/Composer/ComposerStore";
 import cn from "@/helpers/cn";
 import generateUUID from "@/helpers/generateUUID";
 import { getMimeType } from "@/helpers/getMimeType";
 import getPostData from "@/helpers/getPostData";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
-import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
-import { usePostAudioStore } from "@/store/non-persisted/post/usePostAudioStore";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import type { NewAttachment } from "@/types/misc";
 
 interface EditProps {
@@ -28,17 +26,13 @@ const getDefaultType = (kind: "Audio" | "Image" | "Video") => {
 };
 
 const Edit = ({ post }: EditProps) => {
-  const { setShow: setShowNewPostModal } = useNewPostModalStore();
-  const { setPostContent, setEditingPost } = usePostStore();
-  const { setAttachments } = usePostAttachmentStore();
-  const { setAudioPost } = usePostAudioStore();
+  const { open: openNewPostModal } = useNewPostModalStore();
 
   const handleEdit = () => {
     const data = getPostData(post.metadata);
-    setPostContent(data?.content || "");
-    setEditingPost(post);
 
     const attachments: NewAttachment[] = [];
+    let audioPost: AudioPost | undefined;
     if (data?.asset) {
       const primaryAttachment = {
         id: generateUUID(),
@@ -52,13 +46,13 @@ const Edit = ({ post }: EditProps) => {
       attachments.push(primaryAttachment);
 
       if (post.metadata.__typename === "AudioMetadata") {
-        setAudioPost({
+        audioPost = {
           artist: data.asset.artist ?? "",
           cover: data.asset.coverUri ?? "",
           duration: data.asset.duration ?? 0,
           mimeType: primaryAttachment.mimeType,
           title: data.asset.title ?? ""
-        });
+        };
       }
     }
 
@@ -73,8 +67,12 @@ const Edit = ({ post }: EditProps) => {
         });
       }
     }
-    setAttachments(attachments);
-    setShowNewPostModal(true);
+    openNewPostModal({
+      ...(audioPost && { audioPost }),
+      attachments,
+      editingPost: post,
+      postContent: data?.content || ""
+    });
   };
 
   return (

@@ -1,9 +1,12 @@
 import { ContentWarning as ContentWarningType } from "@palus/indexer";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import { Select } from "@/components/Shared/UI";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 
 const ContentWarning = () => {
-  const { contentWarning, setContentWarning } = usePostStore();
+  const contentWarning = useComposerStore((state) => state.contentWarning);
+  const setContentWarning = useComposerStore(
+    (state) => state.setContentWarning
+  );
 
   const options = [
     {

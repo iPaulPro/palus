@@ -2,8 +2,9 @@ import type { UnknownActionConfigInput } from "@palus/indexer";
 import dayjs from "dayjs";
 import { CONTRACTS } from "@/data/contracts";
 import { toKeyValueInput } from "@/helpers/keyValueInput";
-import { DEFAULT_DURATION_DAYS } from "@/store/non-persisted/post/usePostPollStore";
 import type { PollConfig } from "@/types/palus";
+
+const DEFAULT_DURATION_DAYS = 7;
 
 const pollActionParams = (pollConfig: PollConfig) => {
   return {

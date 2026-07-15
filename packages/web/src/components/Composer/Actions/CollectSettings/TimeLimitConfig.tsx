@@ -18,6 +18,7 @@ import {
   useState
 } from "react";
 import { Controller, useFormContext } from "react-hook-form";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import {
   Button,
@@ -33,7 +34,6 @@ import Input from "@/components/Shared/UI/Input";
 import cn from "@/helpers/cn";
 import { IS_MOBILE } from "@/helpers/mediaQueries";
 import { EXPANSION_EASE } from "@/helpers/variants";
-import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 
 enum Option {
   RANGE = "range",
@@ -45,8 +45,9 @@ const FIELD_NAME_TIME = "endAtTime";
 
 const TimeLimitConfig = () => {
   const isSmallDevice = useMediaQuery(IS_MOBILE);
-  const { collectAction, updateCollectAction } = useCollectActionStore(
-    (state) => state
+  const collectAction = useComposerStore((state) => state.collectAction);
+  const updateCollectAction = useComposerStore(
+    (state) => state.updateCollectAction
   );
 
   const [enabled, setEnabled] = useState(Boolean(collectAction.endsAt));

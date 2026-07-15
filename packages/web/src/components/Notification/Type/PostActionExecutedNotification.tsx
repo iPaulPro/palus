@@ -31,7 +31,6 @@ import getPostData from "@/helpers/getPostData";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import truncateUrl from "@/helpers/truncateUrl";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import type { NotificationProps } from "@/types/palus";
 
 function isTippingActionExecuted(
@@ -69,20 +68,20 @@ const ShareMenu = ({
   action: PostAction;
   post?: PostFragment;
 }) => {
-  const { setNotificationShare, setParentPost } = usePostStore();
-  const { setShow: setShowNewPostModal } = useNewPostModalStore();
+  const { open: openNewPostModal } = useNewPostModalStore();
 
   const handleShare = (post?: PostFragment) => {
     const actionAmount = getActionAmount(action);
     if (!actionAmount) return;
-    setNotificationShare({
-      amount: actionAmount,
-      executedBy: action.executedBy,
-      timestamp: new Date(action.executedAt),
-      type: isTippingActionExecuted(action) ? "post-tip" : "collect"
+    openNewPostModal({
+      notificationShare: {
+        amount: actionAmount,
+        executedBy: action.executedBy,
+        timestamp: new Date(action.executedAt),
+        type: isTippingActionExecuted(action) ? "post-tip" : "collect"
+      },
+      parentPost: post
     });
-    if (post) setParentPost(post);
-    setShowNewPostModal(true);
   };
 
   return (

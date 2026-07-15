@@ -195,7 +195,7 @@ const Navbar = () => {
   const { pathname } = useLocation();
   const { currentAccount } = useAccountStore();
   const { setShowAuthModal } = useAuthModalStore();
-  const { setShow: setShowNewPostModal } = useNewPostModalStore();
+  const { open: openNewPostModal } = useNewPostModalStore();
 
   const handleLogoClick = useCallback(
     (e: MouseEvent<HTMLAnchorElement>) => {
@@ -212,7 +212,7 @@ const Navbar = () => {
   }, [setShowAuthModal]);
 
   const handleNewPostClick = () => {
-    setShowNewPostModal(true);
+    openNewPostModal();
   };
 
   return (

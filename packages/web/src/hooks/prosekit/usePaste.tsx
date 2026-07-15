@@ -2,10 +2,10 @@ import { defineDOMEventHandler, type Editor, union } from "prosekit/core";
 import { useExtension } from "prosekit/react";
 import { useCallback, useEffect, useMemo, useRef } from "react";
 import { toast } from "sonner";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import { MAX_IMAGE_UPLOAD } from "@/data/constants";
 import type { EditorExtension } from "@/helpers/prosekit/extension";
 import useUploadAttachments from "@/hooks/useUploadAttachments";
-import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 
 const handleFiles = (
   event: Event,
@@ -39,7 +39,7 @@ const definePasteDropExtension = (onPaste: (files: FileList) => void) => {
 };
 
 export const usePaste = (editor: Editor<EditorExtension>) => {
-  const { attachments } = usePostAttachmentStore();
+  const attachments = useComposerStore((state) => state.attachments);
   const { handleUploadAttachments } = useUploadAttachments();
 
   const handlePaste = useCallback(

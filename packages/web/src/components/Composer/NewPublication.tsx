@@ -48,32 +48,25 @@ import usePostMetadata from "@/hooks/usePostMetadata";
 import useUmami from "@/hooks/useUmami";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
-import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
-import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
-import {
-  DEFAULT_AUDIO_POST,
-  usePostAudioStore
-} from "@/store/non-persisted/post/usePostAudioStore";
-import { usePostPollStore } from "@/store/non-persisted/post/usePostPollStore";
-import { usePostRulesStore } from "@/store/non-persisted/post/usePostRulesStore";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
-import {
-  DEFAULT_VIDEO_THUMBNAIL,
-  usePostVideoStore
-} from "@/store/non-persisted/post/usePostVideoStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { IGif } from "@/types/giphy";
 import type { NewAttachment } from "@/types/misc";
+import {
+  type ComposerInitialState,
+  ComposerStoreProvider,
+  useComposerStore
+} from "./ComposerStore";
 import { Editor, useEditorContext, withEditorContext } from "./Editor";
 
 interface NewPublicationProps {
   className?: string;
   post?: PostFragment;
   group?: GroupFragment;
+  initialState?: ComposerInitialState;
   isModal?: boolean;
 }
 
-const NewPublication = ({
+const NewPublicationInner = ({
   className,
   post,
   group,
@@ -82,50 +75,39 @@ const NewPublication = ({
   const { currentAccount } = useAccountStore();
   const { bannedAccounts } = useBannedAccountsStore();
 
-  const { setShow: setShowNewPostModal } = useNewPostModalStore();
+  const { close: closeNewPostModal } = useNewPostModalStore();
 
-  const {
-    postContent,
-    editingPost,
-    quotedPost,
-    parentPost,
-    ignoreQuotedPostId,
-    notificationShare,
-    sharingLink,
-    setPostContent,
-    setEditingPost,
-    setParentPost,
-    setQuotedPost,
-    setIgnoreQuotedPostId,
-    setNotificationShare,
-    setSharingLink,
-    setContentWarning
-  } = usePostStore();
-
-  const { audioPost, setAudioPost } = usePostAudioStore();
-  const {
-    setVideoThumbnail,
-    setVideoDurationInSeconds,
-    videoDurationInSeconds,
-    videoThumbnail
-  } = usePostVideoStore();
-  const { addAttachments, attachments, isUploading, setAttachments } =
-    usePostAttachmentStore();
-  const { pollConfig, resetPollConfig, setShowPollEditor, showPollEditor } =
-    usePostPollStore();
-  const { collectAction, reset: resetCollectSettings } = useCollectActionStore(
-    (state) => state
+  const postContent = useComposerStore((state) => state.postContent);
+  const editingPost = useComposerStore((state) => state.editingPost);
+  const quotedPost = useComposerStore((state) => state.quotedPost);
+  const parentPost = useComposerStore((state) => state.parentPost);
+  const ignoreQuotedPostId = useComposerStore(
+    (state) => state.ignoreQuotedPostId
   );
-  const {
-    followersOnly,
-    followingOnly,
-    groupGate,
-    collectorsOnly,
-    setFollowersOnly,
-    setFollowingOnly,
-    setGroupGate,
-    setCollectorsOnly
-  } = usePostRulesStore();
+  const notificationShare = useComposerStore(
+    (state) => state.notificationShare
+  );
+  const sharingLink = useComposerStore((state) => state.sharingLink);
+  const setContentWarning = useComposerStore(
+    (state) => state.setContentWarning
+  );
+  const setQuotedPost = useComposerStore((state) => state.setQuotedPost);
+  const videoDurationInSeconds = useComposerStore(
+    (state) => state.videoDurationInSeconds
+  );
+  const videoThumbnail = useComposerStore((state) => state.videoThumbnail);
+  const audioPost = useComposerStore((state) => state.audioPost);
+  const attachments = useComposerStore((state) => state.attachments);
+  const addAttachments = useComposerStore((state) => state.addAttachments);
+  const isUploading = useComposerStore((state) => state.isUploading);
+  const pollConfig = useComposerStore((state) => state.pollConfig);
+  const showPollEditor = useComposerStore((state) => state.showPollEditor);
+  const collectAction = useComposerStore((state) => state.collectAction);
+  const followersOnly = useComposerStore((state) => state.followersOnly);
+  const followingOnly = useComposerStore((state) => state.followingOnly);
+  const groupGate = useComposerStore((state) => state.groupGate);
+  const collectorsOnly = useComposerStore((state) => state.collectorsOnly);
+  const resetComposer = useComposerStore((state) => state.reset);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [postContentError, setPostContentError] = useState("");
@@ -167,27 +149,9 @@ const NewPublication = ({
   const reset = () => {
     editor?.setMarkdown("");
     setIsSubmitting(false);
-    setPostContent("");
-    setAttachments([]);
-    setQuotedPost(undefined);
-    setIgnoreQuotedPostId(undefined);
-    setEditingPost(undefined);
-    setParentPost(undefined);
-    setFollowersOnly(undefined);
-    setFollowingOnly(undefined);
-    setGroupGate(undefined);
-    setCollectorsOnly(undefined);
-    setContentWarning(undefined);
-    setShowPollEditor(false);
-    setNotificationShare(undefined);
-    setSharingLink(undefined);
-    resetPollConfig();
-    setVideoThumbnail(DEFAULT_VIDEO_THUMBNAIL);
-    setVideoDurationInSeconds("0");
-    setAudioPost(DEFAULT_AUDIO_POST);
-    resetCollectSettings();
+    resetComposer();
     setSelectedGroup(group);
-    setShowNewPostModal(false);
+    closeNewPostModal();
   };
 
   const onCompleted = () => {
@@ -581,6 +545,23 @@ const NewPublication = ({
         </div>
       </div>
     </Card>
+  );
+};
+
+const NewPublication = ({
+  initialState,
+  post,
+  ...props
+}: NewPublicationProps) => {
+  return (
+    <ComposerStoreProvider
+      initialState={{
+        ...initialState,
+        parentPost: post ?? initialState?.parentPost
+      }}
+    >
+      <NewPublicationInner {...props} post={post} />
+    </ComposerStoreProvider>
   );
 };
 

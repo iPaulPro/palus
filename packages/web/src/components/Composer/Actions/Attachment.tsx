@@ -16,14 +16,12 @@ import type { ChangeEvent, RefObject } from "react";
 import { memo, useState } from "react";
 import { toast } from "sonner";
 import GifSelector from "@/components/Composer/Actions/Gif/GifSelector";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import MenuTransition from "@/components/Shared/MenuTransition";
 import { Modal, Spinner, Tooltip } from "@/components/Shared/UI";
 import { MAX_IMAGE_UPLOAD } from "@/data/constants";
 import cn from "@/helpers/cn";
 import useUploadAttachments from "@/hooks/useUploadAttachments";
-import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
-import { usePostPollStore } from "@/store/non-persisted/post/usePostPollStore";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import type { IGif } from "@/types/giphy";
 
 const ImageMimeType = Object.values(MediaImageMimeType);
@@ -88,10 +86,14 @@ const Attachment = ({
   disabled,
   setGifAttachment
 }: AttachmentProps) => {
-  const { attachments, isUploading } = usePostAttachmentStore();
-  const { resetPollConfig, setShowPollEditor, showPollEditor } =
-    usePostPollStore();
-  const { editingPost } = usePostStore();
+  const attachments = useComposerStore((state) => state.attachments);
+  const isUploading = useComposerStore((state) => state.isUploading);
+  const resetPollConfig = useComposerStore((state) => state.resetPollConfig);
+  const setShowPollEditor = useComposerStore(
+    (state) => state.setShowPollEditor
+  );
+  const showPollEditor = useComposerStore((state) => state.showPollEditor);
+  const editingPost = useComposerStore((state) => state.editingPost);
 
   const { handleUploadAttachments } = useUploadAttachments();
   const [showMenu, setShowMenu] = useState(false);

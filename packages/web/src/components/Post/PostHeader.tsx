@@ -5,9 +5,9 @@ import type {
   TimelineItemFragment
 } from "@palus/indexer";
 import { memo } from "react";
+import { useOptionalComposerStore } from "@/components/Composer/ComposerStore";
 import PostMenu from "@/components/Post/Actions/Menu";
 import { isRepost } from "@/helpers/postHelpers";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import PostAccount from "./PostAccount";
 
 interface PostHeaderProps {
@@ -25,7 +25,12 @@ const PostHeader = ({
   quoted = false,
   embedded = false
 }: PostHeaderProps) => {
-  const { setQuotedPost, setIgnoreQuotedPostId } = usePostStore();
+  const setQuotedPost = useOptionalComposerStore(
+    (state) => state.setQuotedPost
+  );
+  const setIgnoreQuotedPostId = useOptionalComposerStore(
+    (state) => state.setIgnoreQuotedPostId
+  );
 
   const targetPost = isRepost(post) ? post?.repostOf : post;
   const rootPost = timelineItem ? timelineItem?.primary : targetPost;

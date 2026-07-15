@@ -3,10 +3,10 @@ import { m } from "motion/react";
 import plur from "plur";
 import { type ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
 import { Input } from "@/components/Shared/UI";
 import { EXPANSION_EASE } from "@/helpers/variants";
-import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import type { CollectActionType } from "@/types/palus";
 
 interface CollectLimitConfigProps {
@@ -16,7 +16,7 @@ interface CollectLimitConfigProps {
 const FIELD_NAME = "collectLimit";
 
 const CollectLimitConfig = ({ setCollectType }: CollectLimitConfigProps) => {
-  const { collectAction } = useCollectActionStore((state) => state);
+  const collectAction = useComposerStore((state) => state.collectAction);
   const [enabled, setEnabled] = useState(Boolean(collectAction.collectLimit));
 
   const { register, watch, resetField, getFieldState } = useFormContext();

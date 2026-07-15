@@ -11,13 +11,13 @@ import {
   useRef,
   useState
 } from "react";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import { Image, Tooltip } from "@/components/Shared/UI";
 import { WAVE_BACKGROUNDS } from "@/data/waves";
 import { componentToPng } from "@/helpers/componentToPng";
 import { formatWithZeroSubscript } from "@/helpers/formatValues";
 import getAccount from "@/helpers/getAccount";
 import getAvatar from "@/helpers/getAvatar";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 const CARD_WIDTH = 480;
@@ -40,7 +40,9 @@ const NotificationShare = ({
   const [amountFontSize, setAmountFontSize] = useState(64);
   const containerRef = useRef<HTMLDivElement>(null);
   const amountRef = useRef<HTMLDivElement>(null);
-  const { notificationShare } = usePostStore();
+  const notificationShare = useComposerStore(
+    (state) => state.notificationShare
+  );
   const { currentAccount } = useAccountStore();
 
   const value = notificationShare?.amount.value;

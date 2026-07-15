@@ -3,7 +3,6 @@ import type { PostFragment } from "@palus/indexer";
 import { Button } from "@/components/Shared/UI";
 import useMakePostCollectible from "@/hooks/useMakePostCollectible";
 import { useCollectFormModalStore } from "@/store/non-persisted/modal/useCollectFormModalStore";
-import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 
 interface Props {
   post: PostFragment;
@@ -13,8 +12,6 @@ const MakeCollectible = ({ post }: Props) => {
   const { setShowCollectFormModal, submittingPost } =
     useCollectFormModalStore();
   const { submit, isSubmitting } = useMakePostCollectible({ post });
-
-  const { reset } = useCollectActionStore((state) => state);
 
   if (
     post.actions.find((action) => action.__typename === "SimpleCollectAction")
@@ -29,7 +26,6 @@ const MakeCollectible = ({ post }: Props) => {
       icon={<ShoppingBagIcon className="-mt-0.5 size-5" />}
       loading={isSubmitting}
       onClick={() => {
-        reset();
         setShowCollectFormModal(true, submit);
       }}
       variant="outline"

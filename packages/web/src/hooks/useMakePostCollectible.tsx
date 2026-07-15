@@ -13,7 +13,6 @@ import useTransactionLifecycle from "@/hooks/useTransactionLifecycle";
 import useWaitForTransactionToBeIndexed from "@/hooks/useWaitForTransactionToBeIndexed";
 import { useCollectFormModalStore } from "@/store/non-persisted/modal/useCollectFormModalStore";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import type { ApolloClientError } from "@/types/errors";
 import type { CollectActionType } from "@/types/palus";
 
@@ -31,12 +30,10 @@ const useMakePostCollectible = ({ post }: Props) => {
   const { cache } = useApolloClient();
   const isComment = Boolean(post.commentOn);
 
-  const { setShow: setShowNewPostModal } = useNewPostModalStore();
-  const { setQuotedPost } = usePostStore();
+  const { open: openNewPostModal } = useNewPostModalStore();
 
   const handleShare = () => {
-    setQuotedPost(post);
-    setShowNewPostModal(true);
+    openNewPostModal({ quotedPost: post });
   };
 
   const updateCache = useCallback(

@@ -10,13 +10,13 @@ interface FloatingNewPostButtonProps {
 const FloatingNewPostButton = ({
   scrollOffset
 }: FloatingNewPostButtonProps) => {
-  const { setShow: setShowNewPostModal } = useNewPostModalStore();
+  const { open: openNewPostModal } = useNewPostModalStore();
   const { isUnloaded } = useAudioPlayerContext();
 
   const isVisible = scrollOffset >= 200;
 
   const onClick = () => {
-    setShowNewPostModal(true);
+    openNewPostModal();
   };
 
   return (

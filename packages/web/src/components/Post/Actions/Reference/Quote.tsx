@@ -5,7 +5,6 @@ import { toast } from "sonner";
 import { ERRORS } from "@/data/errors";
 import cn from "@/helpers/cn";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 
 interface QuoteProps {
@@ -14,8 +13,7 @@ interface QuoteProps {
 
 const Quote = ({ post }: QuoteProps) => {
   const { currentAccount } = useAccountStore();
-  const { setShow: setShowNewPostModal } = useNewPostModalStore();
-  const { setQuotedPost } = usePostStore();
+  const { open: openNewPostModal } = useNewPostModalStore();
 
   return (
     <MenuItem
@@ -30,8 +28,7 @@ const Quote = ({ post }: QuoteProps) => {
         if (!currentAccount) {
           return toast.error(ERRORS.LoginRequired);
         }
-        setQuotedPost(post);
-        setShowNewPostModal(true);
+        openNewPostModal({ quotedPost: post });
       }}
     >
       <div className="flex items-center gap-x-2">

@@ -1,5 +1,6 @@
 import type { GroupFragment } from "@palus/indexer";
 import { memo, useMemo } from "react";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import {
   SelectContent,
   SelectGroup,
@@ -11,7 +12,6 @@ import {
   SelectValue
 } from "@/components/Shared/UI";
 import getAvatar from "@/helpers/getAvatar";
-import { usePostRulesStore } from "@/store/non-persisted/post/usePostRulesStore";
 
 interface GroupSelectorProps {
   groups: GroupFragment[] | undefined;
@@ -27,7 +27,7 @@ type Option = {
 };
 
 const GroupSelector = ({ groups, selected, onChange }: GroupSelectorProps) => {
-  const { setGroupGate } = usePostRulesStore();
+  const setGroupGate = useComposerStore((state) => state.setGroupGate);
 
   const options = useMemo(() => {
     if (!groups) return [];

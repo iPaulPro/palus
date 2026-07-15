@@ -3,11 +3,11 @@ import { MediaAudioType } from "@palus/indexer";
 import { type ChangeEvent, useEffect, useRef, useState } from "react";
 import { z } from "zod";
 import { useAudioPlayerContext } from "@/components/Common/Providers/AudioPlayerProvider";
+import { useOptionalComposerStore } from "@/components/Composer/ComposerStore";
 import Loader from "@/components/Shared/Loader";
 import { MarqueeText } from "@/components/Shared/UI";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import { useAudioMetadataStore } from "@/store/non-persisted/audio/useAudioMetadataStore";
-import { usePostAudioStore } from "@/store/non-persisted/post/usePostAudioStore";
 import useAudioDuration from "../../../hooks/useAudioDuration";
 import AudioSeekBar from "./AudioSeekBar";
 import CoverImage from "./CoverImage";
@@ -69,7 +69,10 @@ const Audio = ({
   const [newPreviewUri, setNewPreviewUri] = useState<null | string>(null);
   const imageRef = useRef<HTMLImageElement>(null);
 
-  const { audioPost, updateAudioPost } = usePostAudioStore();
+  const audioPost = useOptionalComposerStore((state) => state.audioPost);
+  const updateAudioPost = useOptionalComposerStore(
+    (state) => state.updateAudioPost
+  );
   const { setMetadata } = useAudioMetadataStore();
 
   const {

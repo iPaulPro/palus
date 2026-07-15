@@ -6,7 +6,6 @@ import cn from "@/helpers/cn";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import useMakePostCollectible from "@/hooks/useMakePostCollectible";
 import { useCollectFormModalStore } from "@/store/non-persisted/modal/useCollectFormModalStore";
-import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 
 interface Props {
   post: PostFragment;
@@ -16,7 +15,6 @@ const MakeCollectible = ({ post }: Props) => {
   const { setShowCollectFormModal, submittingPost } =
     useCollectFormModalStore();
   const { submit, isSubmitting } = useMakePostCollectible({ post });
-  const { reset } = useCollectActionStore((state) => state);
 
   if (
     post.actions.find((action) => action.__typename === "SimpleCollectAction")
@@ -45,7 +43,6 @@ const MakeCollectible = ({ post }: Props) => {
       disabled={Boolean(submittingPost)}
       onClick={(event) => {
         stopEventPropagation(event);
-        reset();
         setShowCollectFormModal(true, submit);
       }}
     >

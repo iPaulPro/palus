@@ -1,12 +1,13 @@
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
 import { ShoppingBagIcon as ShoppingBagIconSolid } from "@heroicons/react/24/solid";
 import { useState } from "react";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import { Modal, Tooltip } from "@/components/Shared/UI";
-import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import CollectForm from "./CollectForm";
 
 const CollectSettings = () => {
-  const { reset, collectAction } = useCollectActionStore((state) => state);
+  const reset = useComposerStore((state) => state.resetCollectAction);
+  const collectAction = useComposerStore((state) => state.collectAction);
   const [showModal, setShowModal] = useState(false);
   const [hasCollect, setHasCollect] = useState(false);
 

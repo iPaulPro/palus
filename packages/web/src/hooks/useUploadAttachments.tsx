@@ -1,22 +1,24 @@
 import { useCallback } from "react";
 import { toast } from "sonner";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import {
   createPreviewAttachments,
   validateFileSize
 } from "@/helpers/attachmentUtils";
 import uploadFiles from "@/helpers/uploadFiles";
-import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
 import { useAccountStore } from "@/store/persisted/useAccountStore";
 import type { NewAttachment } from "@/types/misc";
 
 const useUploadAttachments = () => {
   const { currentAccount } = useAccountStore();
-  const {
-    addAttachments,
-    removeAttachments,
-    setIsUploading,
-    updateAttachments
-  } = usePostAttachmentStore();
+  const addAttachments = useComposerStore((state) => state.addAttachments);
+  const removeAttachments = useComposerStore(
+    (state) => state.removeAttachments
+  );
+  const setIsUploading = useComposerStore((state) => state.setIsUploading);
+  const updateAttachments = useComposerStore(
+    (state) => state.updateAttachments
+  );
 
   const handleUploadAttachments = useCallback(
     async (attachments: FileList): Promise<NewAttachment[]> => {

@@ -15,7 +15,6 @@ import { isRepost } from "@/helpers/postHelpers";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
 import useCanShare from "@/hooks/useCanShare";
 import { useNewPostModalStore } from "@/store/non-persisted/modal/useNewPostModalStore";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
 import Quote from "./Quote";
 import Repost from "./Repost";
 import UndoRepost from "./UndoRepost";
@@ -50,14 +49,12 @@ const ShareMenu = ({ post, showCount }: ShareMenuProps) => {
   const { canRepost, canQuote } = useCanShare({ post: targetPost });
   const canShare = canRepost || canQuote;
 
-  const { setSharingLink } = usePostStore();
-  const { setShow: setShowNewPostModal } = useNewPostModalStore();
+  const { open: openNewPostModal } = useNewPostModalStore();
 
   const handleShareLink = useCallback(() => {
     const shareLink = `https://palus.app/posts/${targetPost.slug}`;
-    setSharingLink(shareLink);
-    setShowNewPostModal(true);
-  }, [setSharingLink, setShowNewPostModal]);
+    openNewPostModal({ sharingLink: shareLink });
+  }, [openNewPostModal, targetPost.slug]);
 
   return (
     <div className="flex items-center gap-x-1">

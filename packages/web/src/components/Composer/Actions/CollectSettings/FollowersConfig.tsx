@@ -1,6 +1,6 @@
 import { UserGroupIcon } from "@heroicons/react/24/outline";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import ToggleWithHelper from "@/components/Shared/ToggleWithHelper";
-import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
 import type { CollectActionType } from "@/types/palus";
 
 interface FollowersConfigProps {
@@ -8,7 +8,7 @@ interface FollowersConfigProps {
 }
 
 const FollowersConfig = ({ setCollectType }: FollowersConfigProps) => {
-  const { collectAction } = useCollectActionStore((state) => state);
+  const collectAction = useComposerStore((state) => state.collectAction);
 
   return (
     <div className="mt-5">

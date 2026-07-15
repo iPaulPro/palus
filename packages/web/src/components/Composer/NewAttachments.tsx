@@ -1,13 +1,12 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { memo, useEffect, useRef } from "react";
 import ChooseThumbnail from "@/components/Composer/ChooseThumbnail";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import Audio from "@/components/Shared/Audio";
 import { Image } from "@/components/Shared/UI";
 import { MAX_IMAGE_UPLOAD } from "@/data/constants";
 import cn from "@/helpers/cn";
 import stopEventPropagation from "@/helpers/stopEventPropagation";
-import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
-import { usePostVideoStore } from "@/store/non-persisted/post/usePostVideoStore";
 import type { NewAttachment } from "@/types/misc";
 
 const getClass = (attachments: number) => {
@@ -33,8 +32,10 @@ const NewAttachments = ({
   hideDelete = false,
   isEditing = false
 }: NewAttachmentsProps) => {
-  const { setAttachments } = usePostAttachmentStore();
-  const { setVideoDurationInSeconds } = usePostVideoStore();
+  const setAttachments = useComposerStore((state) => state.setAttachments);
+  const setVideoDurationInSeconds = useComposerStore(
+    (state) => state.setVideoDurationInSeconds
+  );
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const onDataLoaded = () => {

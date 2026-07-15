@@ -1,7 +1,7 @@
 import { PostRuleExecuteOn, type PostRulesConfigInput } from "@palus/indexer";
+import type { RuleState } from "@/components/Composer/ComposerStore";
 import { CONTRACTS } from "@/data/contracts";
 import { toKeyValueInput } from "@/helpers/keyValueInput";
-import type { RuleState } from "@/store/non-persisted/post/usePostRulesStore";
 
 const postRuleParams = ({
   collectorsOnly,

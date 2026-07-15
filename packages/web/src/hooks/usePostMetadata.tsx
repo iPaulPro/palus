@@ -7,11 +7,7 @@ import {
   video
 } from "@lens-protocol/metadata";
 import { useCallback } from "react";
-import { useCollectActionStore } from "@/store/non-persisted/post/useCollectActionStore";
-import { usePostAttachmentStore } from "@/store/non-persisted/post/usePostAttachmentStore";
-import { usePostAudioStore } from "@/store/non-persisted/post/usePostAudioStore";
-import { usePostStore } from "@/store/non-persisted/post/usePostStore";
-import { usePostVideoStore } from "@/store/non-persisted/post/usePostVideoStore";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import type { NewAttachment } from "@/types/misc";
 
 interface UsePostMetadataProps {
@@ -23,11 +19,14 @@ interface UsePostMetadataProps {
 }
 
 const usePostMetadata = () => {
-  const { videoDurationInSeconds, videoThumbnail } = usePostVideoStore();
-  const { audioPost } = usePostAudioStore();
-  const { attachments } = usePostAttachmentStore();
-  const { contentWarning } = usePostStore();
-  const { collectAction } = useCollectActionStore((state) => state);
+  const videoDurationInSeconds = useComposerStore(
+    (state) => state.videoDurationInSeconds
+  );
+  const videoThumbnail = useComposerStore((state) => state.videoThumbnail);
+  const audioPost = useComposerStore((state) => state.audioPost);
+  const attachments = useComposerStore((state) => state.attachments);
+  const contentWarning = useComposerStore((state) => state.contentWarning);
+  const collectAction = useComposerStore((state) => state.collectAction);
 
   const formatAttachments = () =>
     attachments.slice(1).map(({ mimeType, uri }) => ({
