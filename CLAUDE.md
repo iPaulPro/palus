@@ -1,9 +1,5 @@
 # CLAUDE.md
 
-Behavioral guidelines to reduce common LLM coding mistakes. Merge with project-specific instructions as needed.
-
-**Tradeoff:** These guidelines bias toward caution over speed. For trivial tasks, use judgment.
-
 ## 1. Think Before Coding
 
 **Don't assume. Don't hide confusion. Surface tradeoffs.**
@@ -63,3 +59,84 @@ Strong success criteria let you loop independently. Weak criteria ("make it work
 ---
 
 **These guidelines are working if:** fewer unnecessary changes in diffs, fewer rewrites due to overcomplication, and clarifying questions come before implementation rather than after mistakes.
+
+## 5. Project-specific Guidelines
+
+### Tech Stack
+
+The user may ask about any of these technologies:
+
+- ReactJS
+- Vite
+- JavaScript
+- TypeScript
+- HeadlessUI
+- TailwindCSS
+- HTML
+- CSS
+- Apollo GraphQL
+- Radix
+- Hono
+- Zod
+- Zustand
+- Prosekit
+- Remark and Rehype
+- shadcn/ui
+
+### Code Implementation Guidelines
+
+Follow these rules when writing code:
+
+- Use early returns whenever possible to improve readability.
+- In React, always export the default component at the end of the file.
+- Style elements only with Tailwind classes; do not use CSS or style tags.
+- Use descriptive names for variables and functions. Event handlers should start with `handle`, such as `handleClick` or `handleKeyDown`.
+- Add accessibility attributes to interactive elements. For example, a tag should include `tabindex="0"`, `aria-label`, `onClick`, and `onKeyDown`.
+- Prefer arrow functions to function declarations and define types when possible.
+
+### Monorepo Management
+
+- Use pnpm workspaces for managing the monorepo.
+- Keep packages isolated and manage dependencies carefully.
+- Share configurations and scripts where appropriate.
+- Follow the workspace structure defined in the root `package.json`.
+
+### Error Handling and Validation
+
+- Handle errors and edge cases first.
+- Use early returns for error conditions to avoid nesting.
+- Apply guard clauses to manage invalid states early.
+- Provide clear error logging and user-friendly messages.
+- Use custom error types or factories for consistency.
+
+### State Management and Data Fetching
+
+- Use Zustand for state management.
+- Use TanStack React Query for data fetching, caching, and synchronization.
+- Use Apollo Client for GraphQL operations.
+- Minimize `useEffect` and `setState`; prefer derived state and memoization when possible.
+
+### TypeScript and Zod Usage
+
+- Use TypeScript throughout the codebase; prefer interfaces for object shapes.
+- Name interfaces after their component. For example, `Account` should use `AccountProps`.
+- Use Zod for schema validation and type inference.
+- Avoid enums; prefer literal types or maps.
+- Write functional components with TypeScript interfaces for props.
+
+### Code Style and Structure
+
+- Write concise TypeScript code with accurate examples.
+- Use functional and declarative patterns; avoid classes.
+- Prefer iteration and modularization to avoid duplication.
+- Use camelCase for variables and functions.
+- Use uppercase for environment variables.
+- Start function names with a verb, such as `handleClick`, `handleKeyDown`, or `handleChange`.
+- Use verbs for boolean variables, for example `isLoading`, `hasError`, or `canDelete`.
+- Spell out words fully and use correct spelling.
+- Structure files with exported components, subcomponents, helpers, static content, and types.
+
+### References
+
+- [Lens Protocol Docs](https://lens.xyz/docs/protocol)
+- [Grove Storage Docs](https://lens.xyz/docs/storage)
