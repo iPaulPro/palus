@@ -3,11 +3,9 @@ import { ClockIcon, PlusIcon } from "@heroicons/react/24/outline";
 import { Bars3BottomLeftIcon } from "@heroicons/react/24/solid";
 import plur from "plur";
 import { useState } from "react";
-import {
-  DEFAULT_DURATION_DAYS,
-  useComposerStore
-} from "@/components/Composer/ComposerStore";
+import { useComposerStore } from "@/components/Composer/ComposerStore";
 import { Card, Input, Select, Tooltip } from "@/components/Shared/UI";
+import { DEFAULT_DURATION_DAYS } from "@/helpers/pollActionParams";
 
 const PollEditor = () => {
   const pollConfig = useComposerStore((state) => state.pollConfig);

@@ -4,7 +4,7 @@ import { CONTRACTS } from "@/data/contracts";
 import { toKeyValueInput } from "@/helpers/keyValueInput";
 import type { PollConfig } from "@/types/palus";
 
-const DEFAULT_DURATION_DAYS = 7;
+export const DEFAULT_DURATION_DAYS = 7;
 
 const pollActionParams = (pollConfig: PollConfig) => {
   return {

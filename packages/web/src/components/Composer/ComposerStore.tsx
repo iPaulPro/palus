@@ -1,6 +1,7 @@
 import type { ContentWarning, PostFragment } from "@palus/indexer";
 import { createContext, type ReactNode, useContext, useState } from "react";
 import { createStore, type StoreApi, useStore } from "zustand";
+import { DEFAULT_DURATION_DAYS } from "@/helpers/pollActionParams";
 import type { NewAttachment } from "@/types/misc";
 import type { CollectActionType, PollConfig, ShareAction } from "@/types/palus";
 
@@ -31,8 +32,6 @@ export const DEFAULT_AUDIO_POST: AudioPost = {
   mimeType: "",
   title: ""
 };
-
-export const DEFAULT_DURATION_DAYS = 7;
 
 export const DEFAULT_VIDEO_THUMBNAIL: VideoThumbnail = {
   mimeType: "",
