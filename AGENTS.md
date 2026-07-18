@@ -15,7 +15,7 @@
 - Web app: `pnpm -F @palus/web dev` (preview: `pnpm -F @palus/web start`, build: `pnpm -F @palus/web build`).
 - Lint/format: `pnpm biome:check` (auto-fix: `pnpm biome:fix`).
 - Types: `pnpm typecheck` — TypeScript across the monorepo.
-- Node & PM: Node 20 (`.nvmrc`), PNPM 10 (see `package.json#packageManager`).
+- Node & PM: Node 22 (`.nvmrc`), PNPM 11 (see `package.json#packageManager`).
 
 ## Coding Style & Naming
 
