@@ -126,7 +126,7 @@ const OEmbed = ({ url }: OEmbedProps) => {
   return (
     <Link
       className={cn(
-        "not-prose mt-4 flex min-h-16 w-full flex-col rounded-xl border border-border md:w-2/3",
+        "not-prose mt-4 flex min-h-16 w-full flex-col overflow-hidden rounded-xl border border-border md:w-2/3",
         {
           "min-h-64": Boolean(oembed.thumbnail_url)
         }
