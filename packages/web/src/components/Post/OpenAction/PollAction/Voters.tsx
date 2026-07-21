@@ -271,7 +271,7 @@ const Voters = ({ poll, post }: VotersProps) => {
           </div>
         ) : (
           <Virtualizer>
-            <div className="flex w-full items-center gap-x-2 border-border border-b bg-white px-4 py-1 text-sm">
+            <div className="flex w-full items-center gap-x-2 border-border border-b px-4 py-1 text-sm">
               {!isPollLive &&
               options[activeTab].voteCount === highestVoteCount ? (
                 <span className="text-secondary">Winner</span>
