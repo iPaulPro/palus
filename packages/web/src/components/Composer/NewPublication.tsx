@@ -75,7 +75,8 @@ const NewPublicationInner = ({
   const { currentAccount } = useAccountStore();
   const { bannedAccounts } = useBannedAccountsStore();
 
-  const { close: closeNewPostModal } = useNewPostModalStore();
+  const { close: closeNewPostModal, show: newPostModalShown } =
+    useNewPostModalStore();
 
   const postContent = useComposerStore((state) => state.postContent);
   const editingPost = useComposerStore((state) => state.editingPost);
@@ -412,6 +413,8 @@ const NewPublicationInner = ({
   };
 
   useHotkeys("mod+enter", () => handleCreatePost(), {
+    enabled: () =>
+      !newPostModalShown || (newPostModalShown && Boolean(isModal)),
     enableOnContentEditable: true
   });
 
