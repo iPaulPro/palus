@@ -9,7 +9,7 @@ import {
 import { memo, useCallback, useMemo } from "react";
 import SinglePost from "@/components/Post/SinglePost";
 import PostFeed from "@/components/Shared/Post/PostFeed";
-import { CONTRACTS } from "@/data/contracts";
+import { APPS } from "@/data/contracts";
 import getPostData from "@/helpers/getPostData";
 import { isRepost } from "@/helpers/postHelpers";
 import { useBannedAccountsStore } from "@/store/non-persisted/admin/useBannedAccountsStore";
@@ -28,11 +28,12 @@ const AllPosts = ({ onScroll }: AllPostsProps) => {
   const request: PostsRequest = useMemo(
     () => ({
       filter: {
+        apps: hideHeyPosts ? APPS.slice(1) : APPS,
         postTypes: [PostType.Root, PostType.Quote]
       },
       pageSize: PageSize.Fifty
     }),
-    []
+    [hideHeyPosts]
   );
 
   const { data, error, fetchMore, loading, refetch } = usePostsQuery({
@@ -67,17 +68,10 @@ const AllPosts = ({ onScroll }: AllPostsProps) => {
             postData?.tags?.some(
               (tag) => tag === "palus-tip" || tag === "ORB-TIP"
             )
-          ) &&
-          !(hideHeyPosts && targetPost.app?.address === CONTRACTS.heyApp)
+          )
         );
       }),
-    [
-      posts,
-      bannedAccounts,
-      hideShareImagePosts,
-      hideHeyPosts,
-      currentAccount?.address
-    ]
+    [posts, bannedAccounts, hideShareImagePosts, currentAccount?.address]
   );
 
   return (
