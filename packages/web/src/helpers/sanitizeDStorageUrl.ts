@@ -11,7 +11,6 @@ const sanitizeDStorageUrl = (url?: string): string => {
 
   return url
     .replace("https://ipfs.io/ipfs/", IPFS_GATEWAY)
-    .replace("https://gw.ipfs-lens.dev/ipfs/", IPFS_GATEWAY)
     .replace("ipfs://ipfs/", IPFS_GATEWAY)
     .replace("ipfs://", IPFS_GATEWAY)
     .replace("lens://", STORAGE_NODE_URL)
